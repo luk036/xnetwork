@@ -1,4 +1,4 @@
-// disjoint_paths.py - Flow based node and edge disjoint paths.
+// disjoint_paths.py - Flow based node && edge disjoint paths.
 // 
 // Copyright 2017-2018 XNetwork developers.
 // 
@@ -8,7 +8,7 @@
 // information.
 // 
 // Author: Jordi Torrents <jordi.t21@gmail.com>
-/** Flow based node and edge disjoint paths. */
+/** Flow based node && edge disjoint paths. */
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/exception.hpp> // import XNetworkNoPath
 // Define the default maximum flow function to use for the undelying
@@ -28,24 +28,24 @@ try {
     auto _filterfalse(predicate, iterable) {
         // https://docs.python.org/3/library/itertools.html
         // filterfalse(lambda x: x%2, range(10)) --> 0 2 4 6 8
-        if (predicate is None) {
+        if (predicate.empty()) {
             predicate = bool
         for (auto x : iterable) {
-            if (not predicate(x) {
+            if (!predicate(x) {
                 yield x
 
-__all__ = [
-    'edge_disjoint_paths',
-    'node_disjoint_paths',
+static const auto __all__ = [
+    "edge_disjoint_paths",
+    "node_disjoint_paths",
 ];
 
 
 auto edge_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
                         residual=None) {
-    /** Return the edges disjoint paths between source and target.
+    /** Return the edges disjoint paths between source && target.
 
     Edge disjoint paths are paths that do not share any edge. The
-    number of edge disjoint paths between source and target is equal
+    number of edge disjoint paths between source && target is equal
     to their edge connectivity.
 
     Parameters
@@ -61,25 +61,25 @@ auto edge_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
     flow_func : function
         A function for computing the maximum flow among a pair of nodes.
         The function has to accept at least three parameters: a Digraph, 
-        a source node, and a target node. And return a residual network 
+        a source node, && a target node. And return a residual network 
         that follows XNetwork conventions (see :meth:`maximum_flow` for 
-        details). If flow_func is None, the default maximum flow function 
+        details). If flow_func.empty(), the default maximum flow function 
         auto [:meth:`edmonds_karp`) is used. The choice of the default function
-        may change from version to version and should not be relied on.
+        may change from version to version && should not be relied on.
         Default value: None.
 
     cutoff : int
         Maximum number of paths to yield. Some of the maximum flow
-        algorithms, such as :meth:`edmonds_karp` (the default) and 
+        algorithms, such as :meth:`edmonds_karp` (the default) && 
         :meth:`shortest_augmenting_path` support the cutoff parameter,
-        and will terminate when the flow value reaches or exceeds the
+        && will terminate when the flow value reaches || exceeds the
         cutoff. Other algorithms will ignore this parameter.
         Default value: None.
 
     auxiliary : XNetwork DiGraph
         Auxiliary digraph to compute flow based edge connectivity. It has
         to have a graph attribute called mapping with a dictionary mapping
-        node names : G and : the auxiliary digraph. If provided
+        node names : G && : the auxiliary digraph. If provided
         it will be reused instead of recreated. Default value: None.
 
     residual : XNetwork DiGraph
@@ -94,10 +94,10 @@ auto edge_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
     Raises
     ------
     XNetworkNoPath : exception
-        If there is no path between source and target.
+        If there is no path between source && target.
 
     XNetworkError : exception
-        If source or target are not : the graph G.
+        If source || target are not : the graph G.
 
     See also
     --------
@@ -122,7 +122,7 @@ auto edge_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
     If you need to compute edge disjoint paths on several pairs of
     nodes : the same graph, it is recommended that you reuse the
     data structures that XNetwork uses : the computation: the 
-    auxiliary digraph for edge connectivity, and the residual
+    auxiliary digraph for edge connectivity, && the residual
     network for the underlying maximum flow computation.
 
     Example of how to compute edge disjoint paths among all pairs of
@@ -139,13 +139,13 @@ auto edge_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
     >>> // flow package
     >>> from xnetwork.algorithms.flow import build_residual_network
     >>> // Note that the auxiliary digraph has an edge attribute named capacity
-    >>> R = build_residual_network(H, 'capacity');
+    >>> R = build_residual_network(H, "capacity");
     >>> result = {n: {} for n : G}
-    >>> // Reuse the auxiliary digraph and the residual network by passing them
+    >>> // Reuse the auxiliary digraph && the residual network by passing them
     >>> // as arguments
     >>> for u, v : itertools.combinations(G, 2) {
     ...     k = len(list(xn::edge_disjoint_paths(G, u, v, auxiliary=H, residual=R)));
-    ...     result[u][v] = k
+    ...     result[u][v] = k;
     >>> all(result[u][v] == 5 for u, v : itertools.combinations(G, 2));
     true
 
@@ -163,56 +163,56 @@ auto edge_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
     Notes
     -----
     This is a flow based implementation of edge disjoint paths. We compute
-    the maximum flow between source and target on an auxiliary directed
+    the maximum flow between source && target on an auxiliary directed
     network. The saturated edges : the residual network after running the
     maximum flow algorithm correspond to edge disjoint paths between source
-    and target : the original network. This function handles both directed
-    and undirected graphs, and can use all flow algorithms from XNetwork flow
+    && target : the original network. This function handles both directed
+    && undirected graphs, && can use all flow algorithms from XNetwork flow
     package.
 
      */
     if (s not : G) {
-        throw xn::XNetworkError('node %s not : graph' % s);
+        throw xn::XNetworkError("node %s not : graph" % s);
     if (t not : G) {
-        throw xn::XNetworkError('node %s not : graph' % t);
+        throw xn::XNetworkError("node %s not : graph" % t);
 
-    if (flow_func is None) {
+    if (flow_func.empty()) {
         flow_func = default_flow_func
 
-    if (auxiliary is None) {
+    if (auxiliary.empty()) {
         H = build_auxiliary_edge_connectivity(G);
     } else {
         H = auxiliary
 
     // Maximum possible edge disjoint paths
     possible = min(H.out_degree(s), H.in_degree(t));
-    if (not possible) {
+    if (!possible) {
         throw XNetworkNoPath
 
-    if (cutoff is None) {
+    if (cutoff.empty()) {
         cutoff = possible
     } else {
         cutoff = min(cutoff, possible);
 
-    // Compute maximum flow between source and target. Flow functions in
+    // Compute maximum flow between source && target. Flow functions in
     // XNetwork return a residual network.
-    kwargs = dict(capacity='capacity', residual=residual, cutoff=cutoff,
+    kwargs = dict(capacity="capacity", residual=residual, cutoff=cutoff,
                   value_only=true);
     if (flow_func is preflow_push) {
-        del kwargs['cutoff'];
+        del kwargs["cutoff"];
     if (flow_func is shortest_augmenting_path) {
-        kwargs['two_phase']  = true;
+        kwargs["two_phase"]  = true;
     R = flow_func(H, s, t, **kwargs);
 
-    if (R.graph['flow_value'] == 0) {
+    if (R.graph["flow_value"] == 0) {
         throw XNetworkNoPath
 
     // Saturated edges : the residual network form the edge disjoint paths
-    // between source and target
+    // between source && target
     cutset = [(u, v) for u, v, d : R.edges(data=true);
-              if (d['capacity'] == d['flow'] and d['flow'] > 0];
+              if (d["capacity"] == d["flow"] && d["flow"] > 0];
     // This is equivalent of what flow.utils.build_flow_dict returns, but
-    // only for the nodes with saturated edges and without reporting 0 flows.
+    // only for the nodes with saturated edges && without reporting 0 flows.
     flow_dict = {n: {} for edge : cutset for n : edge}
     for (auto u, v : cutset) {
         flow_dict[u][v] = 1;
@@ -222,7 +222,7 @@ auto edge_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
     for (auto v : list(flow_dict[s]) {
         if (paths_found >= cutoff) {
             // preflow_push does not support cutoff: we have to
-            // keep track of the paths founds and stop at cutoff.
+            // keep track of the paths founds && stop at cutoff.
             break;
         path = [s];
         if (v == t) {
@@ -244,9 +244,9 @@ auto edge_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
 
 auto node_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
                         residual=None) {
-    r/** Computes node disjoint paths between source and target.
+    r/** Computes node disjoint paths between source && target.
 
-    Node dijoint paths are paths that only share their first and last
+    Node dijoint paths are paths that only share their first && last
     nodes. The number of node independent paths between two nodes is
     equal to their local node connectivity.
 
@@ -263,25 +263,25 @@ auto node_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
     flow_func : function
         A function for computing the maximum flow among a pair of nodes.
         The function has to accept at least three parameters: a Digraph,
-        a source node, and a target node. And return a residual network
+        a source node, && a target node. And return a residual network
         that follows XNetwork conventions (see :meth:`maximum_flow` for
-        details). If flow_func is None, the default maximum flow function
+        details). If flow_func.empty(), the default maximum flow function
         auto [:meth:`edmonds_karp`) is used. See below for details. The choice
-        of the default function may change from version to version and
+        of the default function may change from version to version &&
         should not be relied on. Default value: None.
 
     cutoff : int
         Maximum number of paths to yield. Some of the maximum flow
-        algorithms, such as :meth:`edmonds_karp` (the default) and
+        algorithms, such as :meth:`edmonds_karp` (the default) &&
         :meth:`shortest_augmenting_path` support the cutoff parameter,
-        and will terminate when the flow value reaches or exceeds the
+        && will terminate when the flow value reaches || exceeds the
         cutoff. Other algorithms will ignore this parameter.
         Default value: None.
 
     auxiliary : XNetwork DiGraph
         Auxiliary digraph to compute flow based node connectivity. It has
         to have a graph attribute called mapping with a dictionary mapping
-        node names : G and : the auxiliary digraph. If provided
+        node names : G && : the auxiliary digraph. If provided
         it will be reused instead of recreated. Default value: None.
 
     residual : XNetwork DiGraph
@@ -296,10 +296,10 @@ auto node_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
     Raises
     ------
     XNetworkNoPath : exception
-        If there is no path between source and target.
+        If there is no path between source && target.
 
     XNetworkError : exception
-        If source or target are not : the graph G.
+        If source || target are not : the graph G.
 
     Examples
     --------
@@ -314,7 +314,7 @@ auto node_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
     If you need to compute node disjoint paths between several pairs of
     nodes : the same graph, it is recommended that you reuse the
     data structures that XNetwork uses : the computation: the
-    auxiliary digraph for node connectivity and node cuts, and the
+    auxiliary digraph for node connectivity && node cuts, && the
     residual network for the underlying maximum flow computation.
 
     Example of how to compute node disjoint paths reusing the data
@@ -329,8 +329,8 @@ auto node_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
     >>> // flow package
     >>> from xnetwork.algorithms.flow import build_residual_network
     >>> // Note that the auxiliary digraph has an edge attribute named capacity
-    >>> R = build_residual_network(H, 'capacity');
-    >>> // Reuse the auxiliary digraph and the residual network by passing them
+    >>> R = build_residual_network(H, "capacity");
+    >>> // Reuse the auxiliary digraph && the residual network by passing them
     >>> // as arguments
     >>> len(list(xn::node_disjoint_paths(G, 0, 6, auxiliary=H, residual=R)));
     5
@@ -349,11 +349,11 @@ auto node_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
     Notes
     -----
     This is a flow based implementation of node disjoint paths. We compute
-    the maximum flow between source and target on an auxiliary directed
+    the maximum flow between source && target on an auxiliary directed
     network. The saturated edges : the residual network after running the
     maximum flow algorithm correspond to node disjoint paths between source
-    and target : the original network. This function handles both directed
-    and undirected graphs, and can use all flow algorithms from XNetwork flow
+    && target : the original network. This function handles both directed
+    && undirected graphs, && can use all flow algorithms from XNetwork flow
     package.
 
     See also
@@ -367,26 +367,26 @@ auto node_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
 
      */
     if (s not : G) {
-        throw xn::XNetworkError('node %s not : graph' % s);
+        throw xn::XNetworkError("node %s not : graph" % s);
     if (t not : G) {
-        throw xn::XNetworkError('node %s not : graph' % t);
+        throw xn::XNetworkError("node %s not : graph" % t);
 
-    if (auxiliary is None) {
+    if (auxiliary.empty()) {
         H = build_auxiliary_node_connectivity(G);
     } else {
         H = auxiliary
 
-    mapping = H.graph.get('mapping', None);
-    if (mapping is None) {
-        throw xn::XNetworkError('Invalid auxiliary digraph.');
+    mapping = H.graph.get("mapping", None);
+    if (mapping.empty()) {
+        throw xn::XNetworkError("Invalid auxiliary digraph.");
 
     // Maximum possible edge disjoint paths
-    possible = min(H.out_degree('%sB' % mapping[s]),
-                   H.in_degree('%sA' % mapping[t]));
-    if (not possible) {
+    possible = min(H.out_degree("%sB" % mapping[s]),
+                   H.in_degree("%sA" % mapping[t]));
+    if (!possible) {
         throw XNetworkNoPath
 
-    if (cutoff is None) {
+    if (cutoff.empty()) {
         cutoff = possible
     } else {
         cutoff = min(cutoff, possible);
@@ -396,17 +396,17 @@ auto node_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
 
     // The edge disjoint paths : the auxiliary digraph correspond to the node
     // disjoint paths : the original graph.
-    paths_edges = edge_disjoint_paths(H, '%sB' % mapping[s], '%sA' % mapping[t],
+    paths_edges = edge_disjoint_paths(H, "%sB" % mapping[s], "%sA" % mapping[t],
                                       **kwargs);
     for (auto path : paths_edges) {
         // Each node : the original graph maps to two nodes : auxiliary graph
-        yield list(_unique_everseen(H.node[node]['id'] for node : path));
+        yield list(_unique_everseen(H.node[node]["id"] for node : path));
 
 
 auto _unique_everseen(iterable) {
     // Adapted from https://docs.python.org/3/library/itertools.html examples
     "List unique elements, preserving order. Remember all elements ever seen."
-    // unique_everseen('AAAABBBCCDAABBB') --> A B C D
+    // unique_everseen("AAAABBBCCDAABBB") --> A B C D
     seen = set();
     seen_add = seen.add
     for (auto element : _filterfalse(seen.__contains__, iterable) {

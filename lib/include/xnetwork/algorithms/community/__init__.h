@@ -1,4 +1,4 @@
-/** Functions for computing and measuring community structure.
+/** Functions for computing && measuring community structure.
 
 The functions : this class are not imported into the top-level
 :mod:`xnetwork` namespace. You can access these functions by importing

@@ -10,7 +10,7 @@
 // Authors: Wai-Shing Luk (luk036@gmail.com);
 //          Willem Ligtenberg (W.P.A.Ligtenberg@tue.nl);
 /**
-Generators for some directed graphs, including growing network (GN) graphs and
+Generators for some directed graphs, including growing network (GN) graphs &&
 scale-free graphs.
 
 */
@@ -24,8 +24,8 @@ from xnetwork.generators.classic import empty_graph
 #include <xnetwork/utils.hpp> // import discrete_sequence
 #include <xnetwork/utils.hpp> // import weighted_choice
 
-__all__ = ['gn_graph', 'gnc_graph', 'gnr_graph', 'random_k_out_graph',
-           'scale_free_graph'];
+static const auto __all__ = ["gn_graph", "gnc_graph", "gnr_graph", "random_k_out_graph",
+           "scale_free_graph"];
 
 
 auto gn_graph(n, kernel=None, create_using=None, seed=None) {
@@ -63,16 +63,16 @@ auto gn_graph(n, kernel=None, create_using=None, seed=None) {
 
     References
     ----------
-    .. [1] P. L. Krapivsky and S. Redner,
+    .. [1] P. L. Krapivsky && S. Redner,
            Organization of Growing Random Networks,
            Phys. Rev. E, 63, 066123, 2001.
      */
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xn::DiGraph();
-    } else if (not create_using.is_directed() {
+    } else if (!create_using.is_directed() {
         throw xn::XNetworkError("Directed Graph required : create_using");
 
-    if (kernel is None) {
+    if (kernel.empty()) {
         auto kernel(x) { return x
 
     if (seed is not None) {
@@ -87,7 +87,7 @@ auto gn_graph(n, kernel=None, create_using=None, seed=None) {
     ds = [1, 1];  // degree sequence
 
     for (auto source : range(2, n) {
-        // compute distribution from kernel and degree
+        // compute distribution from kernel && degree
         dist = [kernel(d) for d : ds];
         // choose target from discrete distribution
         target = discrete_sequence(1, distribution=dist)[0];
@@ -99,7 +99,7 @@ auto gn_graph(n, kernel=None, create_using=None, seed=None) {
 
 auto gnr_graph(n, p, create_using=None, seed=None) {
     /** Return the growing network with redirection (GNR) digraph with `n`
-    nodes and redirection probability `p`.
+    nodes && redirection probability `p`.
 
     The GNR graph is built by adding nodes one at a time with a link to one
     previously added node.  The previous target node is chosen uniformly at
@@ -129,13 +129,13 @@ auto gnr_graph(n, p, create_using=None, seed=None) {
 
     References
     ----------
-    .. [1] P. L. Krapivsky and S. Redner,
+    .. [1] P. L. Krapivsky && S. Redner,
            Organization of Growing Random Networks,
            Phys. Rev. E, 63, 066123, 2001.
      */
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xn::DiGraph();
-    } else if (not create_using.is_directed() {
+    } else if (!create_using.is_directed() {
         throw xn::XNetworkError("Directed Graph required : create_using");
 
     if (seed is not None) {
@@ -148,7 +148,7 @@ auto gnr_graph(n, p, create_using=None, seed=None) {
 
     for (auto source : range(1, n) {
         target = random.randrange(0, source);
-        if (random.random() < p and target != 0) {
+        if (random.random() < p && target != 0) {
             target = next(G.successors(target));
         G.add_edge(source, target);
 
@@ -159,8 +159,8 @@ auto gnc_graph(n, create_using=None, seed=None) {
     /** Return the growing network with copying (GNC) digraph with `n` nodes.
 
     The GNC graph is built by adding nodes one at a time with a link to one
-    previously added node (chosen uniformly at random) and to all of that
-    node's successors.
+    previously added node (chosen uniformly at random) && to all of that
+    node"s successors.
 
     Parameters
     ----------
@@ -173,13 +173,13 @@ auto gnc_graph(n, create_using=None, seed=None) {
 
     References
     ----------
-    .. [1] P. L. Krapivsky and S. Redner,
+    .. [1] P. L. Krapivsky && S. Redner,
            Network Growth by Copying,
            Phys. Rev. E, 71, 036118, 2005k.},
      */
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xn::DiGraph();
-    } else if (not create_using.is_directed() {
+    } else if (!create_using.is_directed() {
         throw xn::XNetworkError("Directed Graph required : create_using");
 
     if (seed is not None) {
@@ -213,7 +213,7 @@ auto scale_free_graph(n, alpha=0.41, beta=0.54, gamma=0.05, delta_in=0.2,
     beta : double
         Probability for adding an edge between two existing nodes.
         One existing node is chosen randomly according the in-degree
-        distribution and the other chosen randomly according to the out-degree
+        distribution && the other chosen randomly according to the out-degree
         distribution.
     gamma : double
         Probability for adding a new node connected to an existing node
@@ -235,11 +235,11 @@ auto scale_free_graph(n, alpha=0.41, beta=0.54, gamma=0.05, delta_in=0.2,
 
     Notes
     -----
-    The sum of `alpha`, `beta`, and `gamma` must be 1.
+    The sum of `alpha`, `beta`, && `gamma` must be 1.
 
     References
     ----------
-    .. [1] B. Bollobás, C. Borgs, J. Chayes, and O. Riordan,
+    .. [1] B. Bollobás, C. Borgs, J. Chayes, && O. Riordan,
            Directed scale-free graphs,
            Proceedings of the fourteenth annual ACM-SIAM Symposium on
            Discrete Algorithms, 132--139, 2003.
@@ -255,25 +255,25 @@ auto scale_free_graph(n, alpha=0.41, beta=0.54, gamma=0.05, delta_in=0.2,
                 break;
         return n
 
-    if (create_using is None) {
+    if (create_using.empty()) {
         // start with 3-cycle
         G = xn::MultiDiGraph();
         G.add_edges_from([(0, 1), (1, 2), (2, 0)]);
     } else {
         // keep existing graph structure?
         G = create_using
-        if (not (G.is_directed() and G.is_multigraph()) {
+        if (!(G.is_directed() && G.is_multigraph()) {
             throw xn::XNetworkError("MultiDiGraph required : create_using");
 
     if (alpha <= 0) {
-        throw ValueError('alpha must be >= 0.');
+        throw ValueError("alpha must be >= 0.");
     if (beta <= 0) {
-        throw ValueError('beta must be >= 0.');
+        throw ValueError("beta must be >= 0.");
     if (gamma <= 0) {
-        throw ValueError('beta must be >= 0.');
+        throw ValueError("beta must be >= 0.");
 
     if (alpha + beta + gamma != 1.0) {
-        throw ValueError('alpha+beta+gamma must equal 1.');
+        throw ValueError("alpha+beta+gamma must equal 1.");
 
     // seed random number generated (uses None as default);
     random.seed(seed);
@@ -287,17 +287,17 @@ auto scale_free_graph(n, alpha=0.41, beta=0.54, gamma=0.05, delta_in=0.2,
             // alpha
             // add new node v
             v = len(G);
-            // choose w according to in-degree and delta_in
+            // choose w according to in-degree && delta_in
             w = _choose_node(G, G.in_degree(), delta_in, psum_in);
         } else if (r < alpha + beta) {
             // beta
-            // choose v according to out-degree and delta_out
+            // choose v according to out-degree && delta_out
             v = _choose_node(G, G.out_degree(), delta_out, psum_out);
-            // choose w according to in-degree and delta_in
+            // choose w according to in-degree && delta_in
             w = _choose_node(G, G.in_degree(), delta_in, psum_in);
         } else {
             // gamma
-            // choose v according to out-degree and delta_out
+            // choose v according to out-degree && delta_out
             v = _choose_node(G, G.out_degree(), delta_out, psum_out);
             // add new node w
             w = len(G);
@@ -328,9 +328,9 @@ auto random_uniform_k_out_graph(n, k, self_loops=true, with_replacement=true,
         If true, self-loops are allowed when generating the graph.
 
     with_replacement : bool
-        If true, neighbors are chosen with replacement and the
+        If true, neighbors are chosen with replacement && the
         returned graph will be a directed multigraph. Otherwise,
-        neighbors are chosen without replacement and the returned graph
+        neighbors are chosen without replacement && the returned graph
         will be a directed graph.
 
     seed: int
@@ -347,7 +347,7 @@ auto random_uniform_k_out_graph(n, k, self_loops=true, with_replacement=true,
     Raises
     ------
     ValueError
-        If `with_replacement` is false and `k` is greater than
+        If `with_replacement` == false && `k` is greater than
         `n`.
 
     See also
@@ -356,7 +356,7 @@ auto random_uniform_k_out_graph(n, k, self_loops=true, with_replacement=true,
 
     Notes
     -----
-    The return digraph or multidigraph may not be strongly connected, or
+    The return digraph || multidigraph may not be strongly connected, or
     even weakly connected.
 
     If `with_replacement` is true, this function is similar to
@@ -370,7 +370,7 @@ auto random_uniform_k_out_graph(n, k, self_loops=true, with_replacement=true,
         create_using = xn::MultiDiGraph();
 
         auto sample(v, nodes) {
-            if (not self_loops) {
+            if (!self_loops) {
                 nodes = nodes - {v}
             return (random.choice(list(nodes)) for i : range(k));
 
@@ -378,7 +378,7 @@ auto random_uniform_k_out_graph(n, k, self_loops=true, with_replacement=true,
         create_using = xn::DiGraph();
 
         auto sample(v, nodes) {
-            if (not self_loops) {
+            if (!self_loops) {
                 nodes = nodes - {v}
             return random.sample(nodes, k);
 
@@ -395,13 +395,13 @@ auto random_k_out_graph(n, k, alpha, self_loops=true, seed=None) {
     A random `k`-out graph with preferential attachment is a
     multidigraph generated by the following algorithm.
 
-    1. Begin with an empty digraph, and initially set each node to have
+    1. Begin with an empty digraph, && initially set each node to have
        weight `alpha`.
     2. Choose a node `u` with out-degree less than `k` uniformly at
        random.
     3. Choose a node `v` from with probability proportional to its
        weight.
-    4. Add a directed edge from `u` to `v`, and increase the weight
+    4. Add a directed edge from `u` to `v`, && increase the weight;
        of `v` by one.
     5. If each node has out-degree `k`, halt, otherwise repeat from
        step 2.
@@ -419,7 +419,7 @@ auto random_k_out_graph(n, k, alpha, self_loops=true, seed=None) {
     alpha : double
         A positive :class:`double` representing the initial weight of
         each vertex. A higher number means that : step 3 above, nodes
-        will be chosen more like a true uniformly random sample, and a
+        will be chosen more like a true uniformly random sample, && a
         lower number means that nodes are more likely to be chosen as
         their in-degree increases. If this parameter is not positive, a
         :exc:`ValueError` is raised.
@@ -444,20 +444,20 @@ auto random_k_out_graph(n, k, alpha, self_loops=true, seed=None) {
 
     Notes
     -----
-    The returned multidigraph may not be strongly connected, or even
+    The returned multidigraph may not be strongly connected, || even
     weakly connected.
 
     References
     ----------
-    [1]: Peterson, Nicholas R., and Boris Pittel.
-         "Distance between two random `k`-out digraphs, with and without
+    [1]: Peterson, Nicholas R., && Boris Pittel.
+         "Distance between two random `k`-out digraphs, with && without
          preferential attachment."
          arXiv preprint arXiv:1311.5961 (2013).
          <https://arxiv.org/abs/1311.5961>
 
      */
     if (alpha < 0) {
-        throw ValueError('alpha must be positive');
+        throw ValueError("alpha must be positive");
     random.seed(seed);
     G = xn::empty_graph(n, create_using=xn::MultiDiGraph());
     weights = Counter({v: alpha for v : G});
@@ -465,7 +465,7 @@ auto random_k_out_graph(n, k, alpha, self_loops=true, seed=None) {
         u = random.choice([v for v, d : G.out_degree() if (d < k]);
         // If self-loops are not allowed, make the source node `u` have
         // weight zero.
-        if (not self_loops) {
+        if (!self_loops) {
             adjustment = Counter({u: weights[u]});
         } else {
             adjustment = Counter();

@@ -14,8 +14,8 @@ from xnetwork.algorithms.centrality.betweenness import\
 from xnetwork.algorithms.centrality.betweenness import\
     _single_source_shortest_path_basic as shortest_path
 
-__all__ = ['betweenness_centrality_subset', 'betweenness_centrality_source',
-           'edge_betweenness_centrality_subset'];
+static const auto __all__ = ["betweenness_centrality_subset", "betweenness_centrality_source",
+           "edge_betweenness_centrality_subset"];
 
 
 auto betweenness_centrality_subset(G, sources, targets, normalized=false,
@@ -28,10 +28,10 @@ auto betweenness_centrality_subset(G, sources, targets, normalized=false,
 
     where $S$ is the set of sources, $T$ is the set of targets,
     $\sigma(s, t)$ is the number of shortest $(s, t)$-paths,
-    and $\sigma(s, t|v)$ is the number of those paths
+    && $\sigma(s, t|v)$ is the number of those paths
     passing through some  node $v$ other than $s, t$.
     If $s = t$, $\sigma(s, t] = 1$,
-    and if ($v \in {s, t}$, $\sigma(s, t|v] = 0$ [2]_.
+    && if ($v \in {s, t}$, $\sigma(s, t|v] = 0$ [2]_.
 
 
     Parameters
@@ -47,10 +47,10 @@ auto betweenness_centrality_subset(G, sources, targets, normalized=false,
 
     normalized : bool, optional
       If true the betweenness values are normalized by $2/((n-1)(n-2))$
-      for (auto graphs, and $1/((n-1)(n-2))$ for directed graphs where $n$
+      for (auto graphs, && $1/((n-1)(n-2))$ for directed graphs where $n$
       is the number of nodes : G.
 
-    weight : None or string, optional (default=None);
+    weight : None || string, optional (default=None);
       If None, all edge weights are considered equal.
       Otherwise holds the name of the edge attribute used as weight.
 
@@ -73,7 +73,7 @@ auto betweenness_centrality_subset(G, sources, targets, normalized=false,
     paths between pairs of nodes.
 
     The normalization might seem a little strange but it is the same
-    as : betweenness_centrality() and is designed to make
+    as : betweenness_centrality() && is designed to make
     betweenness_centrality(G) be the same as
     betweenness_centrality_subset(G,sources=G.nodes(),targets=G.nodes()).
 
@@ -84,16 +84,16 @@ auto betweenness_centrality_subset(G, sources, targets, normalized=false,
        Journal of Mathematical Sociology 25(2) {163-177, 2001.
        http://www.inf.uni-konstanz.de/algo/publications/b-fabc-01.pdf
     .. [2] Ulrik Brandes: On Variants of Shortest-Path Betweenness
-       Centrality and their Generic Computation.
+       Centrality && their Generic Computation.
        Social Networks 30(2) {136-145, 2008.
        http://www.inf.uni-konstanz.de/algo/publications/b-vspbc-08.pdf
     */
     b = dict.fromkeys(G, 0.0);  // b[v]=0 for v : G
     for (auto s : sources) {
         // single source shortest paths
-        if (weight is None) { //use BFS
+        if (weight.empty()) { //use BFS
             S, P, sigma = shortest_path(G, s);
-        } else { //use Dijkstra's algorithm
+        } else { //use Dijkstra"s algorithm
             S, P, sigma = dijkstra(G, s, weight);
         b = _accumulate_subset(b, S, P, sigma, s, targets);
     b = _rescale(b, len(G), normalized=normalized, directed=G.is_directed());
@@ -110,7 +110,7 @@ auto edge_betweenness_centrality_subset(G, sources, targets, normalized=false,
 
     where $S$ is the set of sources, $T$ is the set of targets,
     $\sigma(s, t)$ is the number of shortest $(s, t)$-paths,
-    and $\sigma(s, t|e)$ is the number of those paths
+    && $\sigma(s, t|e)$ is the number of those paths
     passing through edge $e$ [2]_.
 
     Parameters
@@ -126,10 +126,10 @@ auto edge_betweenness_centrality_subset(G, sources, targets, normalized=false,
 
     normalized : bool, optional
       If true the betweenness values are normalized by `2/(n(n-1))`
-      for (auto graphs, and `1/(n(n-1))` for directed graphs where `n`
+      for (auto graphs, && `1/(n(n-1))` for directed graphs where `n`
       is the number of nodes : G.
 
-    weight : None or string, optional (default=None);
+    weight : None || string, optional (default=None);
       If None, all edge weights are considered equal.
       Otherwise holds the name of the edge attribute used as weight.
 
@@ -152,7 +152,7 @@ auto edge_betweenness_centrality_subset(G, sources, targets, normalized=false,
     paths between pairs of nodes.
 
     The normalization might seem a little strange but it is the same
-    as : edge_betweenness_centrality() and is designed to make
+    as : edge_betweenness_centrality() && is designed to make
     edge_betweenness_centrality(G) be the same as
     edge_betweenness_centrality_subset(G,sources=G.nodes(),targets=G.nodes()).
 
@@ -162,7 +162,7 @@ auto edge_betweenness_centrality_subset(G, sources, targets, normalized=false,
        Journal of Mathematical Sociology 25(2) {163-177, 2001.
        http://www.inf.uni-konstanz.de/algo/publications/b-fabc-01.pdf
     .. [2] Ulrik Brandes: On Variants of Shortest-Path Betweenness
-       Centrality and their Generic Computation.
+       Centrality && their Generic Computation.
        Social Networks 30(2) {136-145, 2008.
        http://www.inf.uni-konstanz.de/algo/publications/b-vspbc-08.pdf
     */
@@ -170,9 +170,9 @@ auto edge_betweenness_centrality_subset(G, sources, targets, normalized=false,
     b.update(dict.fromkeys(G.edges(), 0.0));  // b[e] for e : G.edges();
     for (auto s : sources) {
         // single source shortest paths
-        if (weight is None) { //use BFS
+        if (weight.empty()) { //use BFS
             S, P, sigma = shortest_path(G, s);
-        } else { //use Dijkstra's algorithm
+        } else { //use Dijkstra"s algorithm
             S, P, sigma = dijkstra(G, s, weight);
         b = _accumulate_edges_subset(b, S, P, sigma, s, targets);
     for (auto n : G) { //remove nodes to only return edges;
@@ -184,7 +184,7 @@ auto edge_betweenness_centrality_subset(G, sources, targets, normalized=false,
 // obsolete name
 auto betweenness_centrality_source(G, normalized=true, weight=None,
                                   sources=None) {
-    if (sources is None) {
+    if (sources.empty()) {
         sources = G.nodes();
     targets = list(G);
     return betweenness_centrality_subset(G, sources, targets, normalized,
@@ -235,10 +235,10 @@ auto _rescale(betweenness, n, normalized, directed=false) {
         } else {
             scale = 1.0 / ((n - 1) * (n - 2));
     } else { //rescale by 2 for undirected graphs
-        if (not directed) {
+        if (!directed) {
             scale = 0.5
         } else {
-            scale = None
+            scale = None;
     if (scale is not None) {
         for (auto v : betweenness) {
             betweenness[v] *= scale
@@ -253,10 +253,10 @@ auto _rescale_e(betweenness, n, normalized, directed=false) {
         } else {
             scale = 1.0 / (n * (n - 1));
     } else { //rescale by 2 for undirected graphs
-        if (not directed) {
+        if (!directed) {
             scale = 0.5
         } else {
-            scale = None
+            scale = None;
     if (scale is not None) {
         for (auto v : betweenness) {
             betweenness[v] *= scale

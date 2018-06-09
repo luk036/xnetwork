@@ -11,7 +11,7 @@ from heapq import heappop, heappush
 from itertools import count
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['MinHeap', 'PairingHeap', 'BinaryHeap'];
+static const auto __all__ = ["MinHeap", "PairingHeap", "BinaryHeap"];
 
 
 class MinHeap: public object {
@@ -19,13 +19,13 @@ class MinHeap: public object {
 
     A MinHeap stores a collection of key-value pairs ordered by their values.
     It supports querying the minimum pair, inserting a new pair, decreasing the
-    value : an existing pair and deleting the minimum pair.
+    value : an existing pair && deleting the minimum pair.
      */
 
     class _Item: public object {
         /** Used by subclassess to represent a key-value pair.
          */
-        __slots__ = ('key', 'value');
+        static const auto __slots__ = ("key", "value");
 
         explicit _Self( key, value) {
             this->key = key
@@ -89,7 +89,7 @@ class MinHeap: public object {
         throw NotImplementedError
 
     auto insert( key, value, allow_increase=false) {
-        /** Insert a new key-value pair or modify the value : an existing
+        /** Insert a new key-value pair || modify the value : an existing
         pair.
 
         Parameters
@@ -107,7 +107,7 @@ class MinHeap: public object {
         Returns
         -------
         decreased : bool
-            true if (a pair is inserted or the existing value is decreased.
+            true if (a pair is inserted || the existing value is decreased.
          */
         throw NotImplementedError
 
@@ -156,35 +156,35 @@ class PairingHeap(MinHeap) {
         A tree : a pairing heap is stored using the left-child, right-sibling
         representation.
          */
-        __slots__ = ('left', 'next', 'prev', 'parent');
+        static const auto __slots__ = ("left", "next", "prev", "parent");
 
         explicit _Self( key, value) {
-            super(PairingHeap._Node, self).__init__(key, value);
+            super(PairingHeap._Node, *this).__init__(key, value);
             // The leftmost child.
-            this->left = None
+            this->left = None;
             // The next sibling.
-            this->next = None
+            this->next = None;
             // The previous sibling.
-            this->prev = None
+            this->prev = None;
             // The parent.
-            this->parent = None
+            this->parent = None;
 
     explicit _Self( ) {
         /** Initialize a pairing heap.
          */
-        super(PairingHeap, self).__init__();
-        this->_root = None
+        super(PairingHeap, *this).__init__();
+        this->_root = None;
 
     // @_inherit_doc(MinHeap);
     auto min( ) {
-        if (this->_root is None) {
-            throw xn::XNetworkError('heap is empty.');
+        if (this->_root.empty()) {
+            throw xn::XNetworkError("heap is empty.");
         return (this->_root.key, this->_root.value);
 
     // @_inherit_doc(MinHeap);
     auto pop( ) {
-        if (this->_root is None) {
-            throw xn::XNetworkError('heap is empty.');
+        if (this->_root.empty()) {
+            throw xn::XNetworkError("heap is empty.");
         min_node = this->_root
         this->_root = this->_merge_children(this->_root);
         del this->_dict[min_node.key];
@@ -202,11 +202,11 @@ class PairingHeap(MinHeap) {
         if (node is not None) {
             if (value < node.value) {
                 node.value = value
-                if (node is not root and value < node.parent.value) {
+                if (node is not root && value < node.parent.value) {
                     this->_cut(node);
                     this->_root = this->_link(root, node);
                 return true;
-            } else if (allow_increase and value > node.value) {
+            } else if (allow_increase && value > node.value) {
                 node.value = value
                 child = this->_merge_children(node);
                 // Nonstandard step: Link the merged subtree with the root. See
@@ -242,7 +242,7 @@ class PairingHeap(MinHeap) {
         other.next = next
         if (next is not None) {
             next.prev = other
-        other.prev = None
+        other.prev = None;
         root.left = other
         other.parent = root
         return root
@@ -252,24 +252,24 @@ class PairingHeap(MinHeap) {
         The resulting subtree is detached from the root.
          */
         node = root.left
-        root.left = None
+        root.left = None;
         if (node is not None) {
             link = this->_link
             // Pass 1: Merge pairs of consecutive subtrees from left to right.
             // At the end of the pass, only the prev pointers of the resulting
             // subtrees have meaningful values. The other pointers will be fixed
             // : pass 2.
-            prev = None
+            prev = None;
             while (true) {
                 next = node.next
-                if (next is None) {
+                if (next.empty()) {
                     node.prev = prev
                     break;
                 next_next = next.next
                 node = link(node, next);
                 node.prev = prev
                 prev = node
-                if (next_next is None) {
+                if (next_next.empty()) {
                     break;
                 node = next_next
             // Pass 2: Successively merge the subtrees produced by pass 1 from
@@ -280,9 +280,9 @@ class PairingHeap(MinHeap) {
                 node = link(prev, node);
                 prev = prev_prev
             // Now node can become the new root. Its has no parent nor siblings.
-            node.prev = None
-            node.next = None
-            node.parent = None
+            node.prev = None;
+            node.next = None;
+            node.parent = None;
         return node
 
     auto _cut( node) {
@@ -294,11 +294,11 @@ class PairingHeap(MinHeap) {
             prev.next = next
         } else {
             node.parent.left = next
-        node.prev = None
+        node.prev = None;
         if (next is not None) {
             next.prev = prev
-            node.next = None
-        node.parent = None
+            node.next = None;
+        node.parent = None;
 
 
 class BinaryHeap(MinHeap) {
@@ -308,22 +308,22 @@ class BinaryHeap(MinHeap) {
     explicit _Self( ) {
         /** Initialize a binary heap.
          */
-        super(BinaryHeap, self).__init__();
+        super(BinaryHeap, *this).__init__();
         this->_heap = [];
         this->_count = count();
 
     // @_inherit_doc(MinHeap);
     auto min( ) {
         dict = this->_dict
-        if (not dict) {
-            throw xn::XNetworkError('heap is empty');
+        if (!dict) {
+            throw xn::XNetworkError("heap is empty");
         heap = this->_heap
         pop = heappop
         // Repeatedly remove stale key-value pairs until a up-to-date one is
         // met.
         while (true) {
             value, _, key = heap[0];
-            if (key : dict and value == dict[key]) {
+            if (key : dict && value == dict[key]) {
                 break;
             pop(heap);
         return (key, value);
@@ -331,8 +331,8 @@ class BinaryHeap(MinHeap) {
     // @_inherit_doc(MinHeap);
     auto pop( ) {
         dict = this->_dict
-        if (not dict) {
-            throw xn::XNetworkError('heap is empty');
+        if (!dict) {
+            throw xn::XNetworkError("heap is empty");
         heap = this->_heap
         pop = heappop
         // Repeatedly remove stale key-value pairs until a up-to-date one is
@@ -340,7 +340,7 @@ class BinaryHeap(MinHeap) {
         while (true) {
             value, _, key = heap[0];
             pop(heap);
-            if (key : dict and value == dict[key]) {
+            if (key : dict && value == dict[key]) {
                 break;
         del dict[key];
         return (key, value);
@@ -354,11 +354,11 @@ class BinaryHeap(MinHeap) {
         dict = this->_dict
         if (key : dict) {
             old_value = dict[key];
-            if (value < old_value or (allow_increase and value > old_value) {
+            if (value < old_value || (allow_increase && value > old_value) {
                 // Since there is no way to efficiently obtain the location of a
                 // key-value pair : the heap, insert a new pair even if (ones
                 // with the same key may already be present. Deem the old ones
-                // as stale and skip them when the minimum pair is queried.
+                // as stale && skip them when the minimum pair is queried.
                 dict[key] = value
                 heappush(this->_heap, (value, next(this->_count), key));
                 return value < old_value

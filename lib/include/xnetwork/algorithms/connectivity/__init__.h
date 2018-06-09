@@ -1,4 +1,4 @@
-/** Connectivity and cut algorithms
+/** Connectivity && cut algorithms
 */
 from .connectivity import *
 from .cuts import *
@@ -10,7 +10,7 @@ from .kcutsets import *
 from .stoerwagner import *
 from .utils import *
 
-__all__ = sum([connectivity.__all__,
+static const auto __all__ = sum([connectivity.__all__,
                cuts.__all__,
                edge_augmentation.__all__,
                edge_kcomponents.__all__,

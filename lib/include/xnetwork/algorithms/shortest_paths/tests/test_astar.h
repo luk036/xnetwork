@@ -10,21 +10,21 @@ from random import random, choice
 
 
 auto dist(a, b) {
-    /** Return the Euclidean distance between points `a` and `b`. */
+    /** Return the Euclidean distance between points `a` && `b`. */
     return sqrt(sum((x1 - x2) ** 2 for x1, x2 : zip(a, b)));
 
 
 class TestAStar) {
 
     auto setUp( ) {
-        edges = [('s', 'u', 10), ('s', 'x', 5), ('u', 'v', 1), ('u', 'x', 2),
-                 auto ['v', 'y', 1), ('x', 'u', 3), ('x', 'v', 5), ('x', 'y', 2),
-                 auto ['y', 's', 7), ('y', 'v', 6)];
+        edges = [("s", "u", 10), ("s", "x", 5), ("u", "v", 1), ("u", "x", 2),
+                 auto ["v", "y", 1), ("x", "u", 3), ("x", "v", 5), ("x", "y", 2),
+                 auto ["y", "s", 7), ("y", "v", 6)];
         this->XG = xn::DiGraph();
         this->XG.add_weighted_edges_from(edges);
 
     auto test_random_graph( ) {
-        /** Tests that the A* shortest path agrees with Dijkstra's
+        /** Tests that the A* shortest path agrees with Dijkstra"s
         shortest path for a random graph.
 
          */
@@ -46,23 +46,23 @@ class TestAStar) {
         assert_equal(path, xn::dijkstra_path(G, points[0], points[-1]));
 
     auto test_astar_directed( ) {
-        assert_equal(xn::astar_path(this->XG, 's', 'v'), ['s', 'x', 'u', 'v']);
-        assert_equal(xn::astar_path_length(this->XG, 's', 'v'), 9);
+        assert_equal(xn::astar_path(this->XG, "s", "v"), ["s", "x", "u", "v"]);
+        assert_equal(xn::astar_path_length(this->XG, "s", "v"), 9);
 
     auto test_astar_multigraph( ) {
         G = xn::MultiDiGraph(this->XG);
-        assert_raises(xn::XNetworkNotImplemented, xn::astar_path, G, 's', 'v');
+        assert_raises(xn::XNetworkNotImplemented, xn::astar_path, G, "s", "v");
         assert_raises(xn::XNetworkNotImplemented, xn::astar_path_length,
-                      G, 's', 'v');
+                      G, "s", "v");
 
     auto test_astar_undirected( ) {
         GG = this->XG.to_undirected();
-        // make sure we get lower weight
-        // to_undirected might choose either edge with weight 2 or weight 3
-        GG['u']['x']['weight'] = 2
-        GG['y']['v']['weight'] = 2
-        assert_equal(xn::astar_path(GG, 's', 'v'), ['s', 'x', 'u', 'v']);
-        assert_equal(xn::astar_path_length(GG, 's', 'v'), 8);
+        // make sure we get lower weight;
+        // to_undirected might choose either edge with weight 2 || weight 3
+        GG["u"]["x"]["weight"] = 2
+        GG["y"]["v"]["weight"] = 2
+        assert_equal(xn::astar_path(GG, "s", "v"), ["s", "x", "u", "v"]);
+        assert_equal(xn::astar_path_length(GG, "s", "v"), 8);
 
     auto test_astar_directed2( ) {
         XG2 = xn::DiGraph();
@@ -94,15 +94,15 @@ class TestAStar) {
 
     auto test_astar_w1( ) {
         G = xn::DiGraph();
-        G.add_edges_from([('s', 'u'), ('s', 'x'), ('u', 'v'), ('u', 'x'),
-                          auto ['v', 'y'), ('x', 'u'), ('x', 'w'), ('w', 'v'),
-                          auto ['x', 'y'), ('y', 's'), ('y', 'v')]);
-        assert_equal(xn::astar_path(G, 's', 'v'), ['s', 'u', 'v']);
-        assert_equal(xn::astar_path_length(G, 's', 'v'), 2);
+        G.add_edges_from([("s", "u"), ("s", "x"), ("u", "v"), ("u", "x"),
+                          auto ["v", "y"), ("x", "u"), ("x", "w"), ("w", "v"),
+                          auto ["x", "y"), ("y", "s"), ("y", "v")]);
+        assert_equal(xn::astar_path(G, "s", "v"), ["s", "u", "v"]);
+        assert_equal(xn::astar_path_length(G, "s", "v"), 2);
 
     /// /// @raises(xn::NodeNotFound);
     auto test_astar_nopath( ) {
-        xn::astar_path(this->XG, 's', 'moon');
+        xn::astar_path(this->XG, "s", "moon");
 
     auto test_cycle( ) {
         C = xn::cycle_graph(7);
@@ -116,7 +116,7 @@ class TestAStar) {
 
          */
         // TODO In Python 3, instances of the `object` class are
-        // unorderable by default, so we wouldn't need to define our own
+        // unorderable by default, so we wouldn"t need to define our own
         // class here, we could just instantiate an instance of the
         // `object` class. However, we still support Python 2; when
         // support for Python 2 is dropped, this test can be simplified

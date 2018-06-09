@@ -36,7 +36,7 @@ for (auto d : degree_sequence) {
         hist[d] = 1;
 print("degree #nodes");
 for (auto d : hist) {
-    print('%d %d' % (d, hist[d]));
+    print("%d %d" % (d, hist[d]));
 
 xn::draw(G);
 plt.show();

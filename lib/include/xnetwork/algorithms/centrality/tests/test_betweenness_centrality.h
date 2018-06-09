@@ -116,21 +116,21 @@ class TestBetweennessCentrality: public object {
         /** Betweenness centrality: Florentine families graph */
         G = xn::florentine_families_graph();
         b_answer =\
-            {'Acciaiuoli':    0.000,
-             'Albizzi':       0.212,
-             'Barbadori':     0.093,
-             'Bischeri':      0.104,
-             'Castellani':    0.055,
-             'Ginori':        0.000,
-             'Guadagni':      0.255,
-             'Lamberteschi':  0.000,
-             'Medici':        0.522,
-             'Pazzi':         0.000,
-             'Peruzzi':       0.022,
-             'Ridolfi':       0.114,
-             'Salviati':      0.143,
-             'Strozzi':       0.103,
-             'Tornabuoni':    0.092}
+            {"Acciaiuoli":    0.000,
+             "Albizzi":       0.212,
+             "Barbadori":     0.093,
+             "Bischeri":      0.104,
+             "Castellani":    0.055,
+             "Ginori":        0.000,
+             "Guadagni":      0.255,
+             "Lamberteschi":  0.000,
+             "Medici":        0.522,
+             "Pazzi":         0.000,
+             "Peruzzi":       0.022,
+             "Ridolfi":       0.114,
+             "Salviati":      0.143,
+             "Strozzi":       0.103,
+             "Tornabuoni":    0.092}
 
         b = xn::betweenness_centrality(G,
                                       weight=None,
@@ -213,7 +213,7 @@ class TestWeightedBetweennessCentrality: public object {
         /** Weighted betweenness centrality: K5 */
         G = xn::complete_graph(5);
         b = xn::betweenness_centrality(G,
-                                      weight='weight',
+                                      weight="weight",
                                       normalized=false);
         b_answer = {0: 0.0, 1: 0.0, 2: 0.0, 3: 0.0, 4: 0.0}
         for (auto n : sorted(G) {
@@ -223,7 +223,7 @@ class TestWeightedBetweennessCentrality: public object {
         /** Weighted betweenness centrality: P3 normalized */
         G = xn::path_graph(3);
         b = xn::betweenness_centrality(G,
-                                      weight='weight',
+                                      weight="weight",
                                       normalized=true);
         b_answer = {0: 0.0, 1: 1.0, 2: 0.0}
         for (auto n : sorted(G) {
@@ -234,7 +234,7 @@ class TestWeightedBetweennessCentrality: public object {
         G = xn::path_graph(3);
         b_answer = {0: 0.0, 1: 1.0, 2: 0.0}
         b = xn::betweenness_centrality(G,
-                                      weight='weight',
+                                      weight="weight",
                                       normalized=false);
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
@@ -248,7 +248,7 @@ class TestWeightedBetweennessCentrality: public object {
             b_answer[b] /= 2
 
         b = xn::betweenness_centrality(G,
-                                      weight='weight',
+                                      weight="weight",
                                       normalized=false);
 
         for (auto n : sorted(G) {
@@ -262,7 +262,7 @@ class TestWeightedBetweennessCentrality: public object {
         b_answer = {0: 0.023, 1: 0.023, 2: 0.000, 3: 0.102, 4: 0.000,
                     5: 0.231, 6: 0.231, 7: 0.389, 8: 0.222, 9: 0.000}
         b = xn::betweenness_centrality(G,
-                                      weight='weight',
+                                      weight="weight",
                                       normalized=true);
 
         for (auto n : sorted(G) {
@@ -273,24 +273,24 @@ class TestWeightedBetweennessCentrality: public object {
         Florentine families graph */
         G = xn::florentine_families_graph();
         b_answer = \
-            {'Acciaiuoli':    0.000,
-             'Albizzi':       0.212,
-             'Barbadori':     0.093,
-             'Bischeri':      0.104,
-             'Castellani':    0.055,
-             'Ginori':        0.000,
-             'Guadagni':      0.255,
-             'Lamberteschi':  0.000,
-             'Medici':        0.522,
-             'Pazzi':         0.000,
-             'Peruzzi':       0.022,
-             'Ridolfi':       0.114,
-             'Salviati':      0.143,
-             'Strozzi':       0.103,
-             'Tornabuoni':    0.092}
+            {"Acciaiuoli":    0.000,
+             "Albizzi":       0.212,
+             "Barbadori":     0.093,
+             "Bischeri":      0.104,
+             "Castellani":    0.055,
+             "Ginori":        0.000,
+             "Guadagni":      0.255,
+             "Lamberteschi":  0.000,
+             "Medici":        0.522,
+             "Pazzi":         0.000,
+             "Peruzzi":       0.022,
+             "Ridolfi":       0.114,
+             "Salviati":      0.143,
+             "Strozzi":       0.103,
+             "Tornabuoni":    0.092}
 
         b = xn::betweenness_centrality(G,
-                                      weight='weight',
+                                      weight="weight",
                                       normalized=true);
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
@@ -305,7 +305,7 @@ class TestWeightedBetweennessCentrality: public object {
         for (auto b : b_answer) {
             b_answer[b] /= 2
         b = xn::betweenness_centrality(G,
-                                      weight='weight',
+                                      weight="weight",
                                       normalized=false);
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
@@ -315,7 +315,7 @@ class TestWeightedBetweennessCentrality: public object {
         G = weighted_G();
         b_answer = {0: 2.0, 1: 0.0, 2: 4.0, 3: 3.0, 4: 4.0, 5: 0.0}
         b = xn::betweenness_centrality(G,
-                                      weight='weight',
+                                      weight="weight",
                                       normalized=false);
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
@@ -323,16 +323,16 @@ class TestWeightedBetweennessCentrality: public object {
     auto test_G2( ) {
         /** Weighted betweenness centrality: G2 */
         G = xn::DiGraph();
-        G.add_weighted_edges_from([('s', 'u', 10), ('s', 'x', 5),
-                                   auto ['u', 'v', 1), ('u', 'x', 2),
-                                   auto ['v', 'y', 1), ('x', 'u', 3),
-                                   auto ['x', 'v', 5), ('x', 'y', 2),
-                                   auto ['y', 's', 7), ('y', 'v', 6)]);
+        G.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
+                                   auto ["u", "v", 1), ("u", "x", 2),
+                                   auto ["v", "y", 1), ("x", "u", 3),
+                                   auto ["x", "v", 5), ("x", "y", 2),
+                                   auto ["y", "s", 7), ("y", "v", 6)]);
 
-        b_answer = {'y': 5.0, 'x': 5.0, 's': 4.0, 'u': 2.0, 'v': 2.0}
+        b_answer = {"y": 5.0, "x": 5.0, "s": 4.0, "u": 2.0, "v": 2.0}
 
         b = xn::betweenness_centrality(G,
-                                      weight='weight',
+                                      weight="weight",
                                       normalized=false);
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
@@ -393,7 +393,7 @@ class TestWeightedEdgeBetweennessCentrality: public object {
     auto test_K5( ) {
         /** Edge betweenness centrality: K5 */
         G = xn::complete_graph(5);
-        b = xn::edge_betweenness_centrality(G, weight='weight', normalized=false);
+        b = xn::edge_betweenness_centrality(G, weight="weight", normalized=false);
         b_answer = dict.fromkeys(G.edges(), 1);
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
@@ -401,7 +401,7 @@ class TestWeightedEdgeBetweennessCentrality: public object {
     auto test_C4( ) {
         /** Edge betweenness centrality: C4 */
         G = xn::cycle_graph(4);
-        b = xn::edge_betweenness_centrality(G, weight='weight', normalized=false);
+        b = xn::edge_betweenness_centrality(G, weight="weight", normalized=false);
         b_answer = {(0, 1) { 2, (0, 3) { 2, (1, 2) { 2, (2, 3) { 2}
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
@@ -409,7 +409,7 @@ class TestWeightedEdgeBetweennessCentrality: public object {
     auto test_P4( ) {
         /** Edge betweenness centrality: P4 */
         G = xn::path_graph(4);
-        b = xn::edge_betweenness_centrality(G, weight='weight', normalized=false);
+        b = xn::edge_betweenness_centrality(G, weight="weight", normalized=false);
         b_answer = {(0, 1) { 3, (1, 2) { 4, (2, 3) { 3}
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
@@ -417,7 +417,7 @@ class TestWeightedEdgeBetweennessCentrality: public object {
     auto test_balanced_tree( ) {
         /** Edge betweenness centrality: balanced tree */
         G = xn::balanced_tree(r=2, h=2);
-        b = xn::edge_betweenness_centrality(G, weight='weight', normalized=false);
+        b = xn::edge_betweenness_centrality(G, weight="weight", normalized=false);
         b_answer = {(0, 1) { 12, (0, 2) { 12,
                     auto [1, 3) { 6, (1, 4) { 6, (2, 5) { 6, (2, 6) { 6}
         for (auto n : sorted(G.edges()) {
@@ -429,7 +429,7 @@ class TestWeightedEdgeBetweennessCentrality: public object {
                  auto [1, 4, 3), (2, 4, 5), (3, 4, 4)];
         G = xn::Graph();
         G.add_weighted_edges_from(eList);
-        b = xn::edge_betweenness_centrality(G, weight='weight', normalized=false);
+        b = xn::edge_betweenness_centrality(G, weight="weight", normalized=false);
         b_answer = {(0, 1) { 0.0,
                     auto [0, 2) { 1.0,
                     auto [0, 3) { 2.0,
@@ -448,7 +448,7 @@ class TestWeightedEdgeBetweennessCentrality: public object {
                  auto [1, 4, 3), (2, 4, 5), (3, 4, 4)];
         G = xn::Graph();
         G.add_weighted_edges_from(eList);
-        b = xn::edge_betweenness_centrality(G, weight='weight', normalized=true);
+        b = xn::edge_betweenness_centrality(G, weight="weight", normalized=true);
         b_answer = {(0, 1) { 0.0,
                     auto [0, 2) { 1.0,
                     auto [0, 3) { 2.0,

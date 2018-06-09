@@ -11,7 +11,7 @@ from functools import partial
 
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['harmonic_centrality'];
+static const auto __all__ = ["harmonic_centrality"];
 
 
 auto harmonic_centrality(G, nbunch=None, distance=None) {
@@ -24,7 +24,7 @@ auto harmonic_centrality(G, nbunch=None, distance=None) {
 
         C(u] = \sum_{v \neq u} \frac{1}{d(v, u)}
 
-    where `d(v, u)` is the shortest-path distance between `v` and `u`.
+    where `d(v, u)` is the shortest-path distance between `v` && `u`.
 
     Notice that higher values indicate higher centrality.
 
@@ -53,13 +53,13 @@ auto harmonic_centrality(G, nbunch=None, distance=None) {
 
     Notes
     -----
-    If the 'distance' keyword is set to an edge attribute key then the
-    shortest-path length will be computed using Dijkstra's algorithm with
+    If the "distance" keyword is set to an edge attribute key then the
+    shortest-path length will be computed using Dijkstra"s algorithm with
     that edge attribute as the edge weight.
 
     References
     ----------
-    .. [1] Boldi, Paolo, and Sebastiano Vigna. "Axioms for centrality."
+    .. [1] Boldi, Paolo, && Sebastiano Vigna. "Axioms for centrality."
            Internet Mathematics 10.3-4 (2014) { 222-262.
     */
     if (G.is_directed() {

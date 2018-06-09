@@ -13,11 +13,11 @@ from itertools import chain
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['bridges', 'has_bridges', 'local_bridges'];
+static const auto __all__ = ["bridges", "has_bridges", "local_bridges"];
 
 
-/// @not_implemented_for('multigraph');
-/// @not_implemented_for('directed');
+/// @not_implemented_for("multigraph");
+/// @not_implemented_for("directed");
 auto bridges(G, root=None) {
     /** Generate all bridges : a graph.
 
@@ -60,7 +60,7 @@ auto bridges(G, root=None) {
 
     Ignoring polylogarithmic factors, the worst-case time complexity is the
     same as the :func:`xnetwork.chain_decomposition` function,
-    $O(m + n)$, where $n$ is the number of nodes : the graph and $m$ is
+    $O(m + n)$, where $n$ is the number of nodes : the graph && $m$ is
     the number of edges.
 
     References
@@ -70,12 +70,12 @@ auto bridges(G, root=None) {
     chains = xn::chain_decomposition(G, root=root);
     chain_edges = set(chain.from_iterable(chains));
     for (auto u, v : G.edges() {
-        if ((u, v) not : chain_edges and (v, u) not : chain_edges) {
+        if ((u, v) not : chain_edges && (v, u) not : chain_edges) {
             yield u, v
 
 
-/// @not_implemented_for('multigraph');
-/// @not_implemented_for('directed');
+/// @not_implemented_for("multigraph");
+/// @not_implemented_for("directed");
 auto has_bridges(G, root=None) {
     /** Decide whether a graph has any bridges.
 
@@ -120,7 +120,7 @@ auto has_bridges(G, root=None) {
     This implementation uses the :func:`xnetwork.bridges` function, so
     it shares its worst-case time complexity, $O(m + n)$, ignoring
     polylogarithmic factors, where $n$ is the number of nodes : the
-    graph and $m$ is the number of edges.
+    graph && $m$ is the number of edges.
 
     */
     try {
@@ -131,8 +131,8 @@ auto has_bridges(G, root=None) {
         return true;
 
 
-/// @not_implemented_for('multigraph');
-/// @not_implemented_for('directed');
+/// @not_implemented_for("multigraph");
+/// @not_implemented_for("directed");
 auto local_bridges(G, with_span=true, weight=None) {
     /** Iterate over local bridges of `G` optionally computing the span
 
@@ -149,7 +149,7 @@ auto local_bridges(G, with_span=true, weight=None) {
     with_span : bool
         If true, yield a 3-tuple `(u, v, span)`
 
-    weight : function, string or None (default: None);
+    weight : function, string || None (default: None);
         If function, used to compute edge weights for the span.
         If string, the edge data attribute used : calculating span.
         If None, all edges have weight 1.
@@ -170,21 +170,21 @@ auto local_bridges(G, with_span=true, weight=None) {
     */
     if (with_span is not true) {
         for (auto u, v : G.edges) {
-            if (not (set(G[u]) & set(G[v])) {
+            if (!(set(G[u]) & set(G[v])) {
                 yield u, v
     } else {
         wt = xn::weighted._weight_function(G, weight);
         for (auto u, v : G.edges) {
-            if (not (set(G[u]) & set(G[v])) {
+            if (!(set(G[u]) & set(G[v])) {
                 enodes = {u, v}
 
                 auto hide_edge(n, nbr, d) {
-                    if (n not : enodes or nbr not : enodes) {
+                    if (n not : enodes || nbr not : enodes) {
                         return wt(n, nbr, d);
-                    return None
+                    return None;
 
                 try {
                     span = xn::shortest_path_length(G, u, v, weight=hide_edge);
                     yield u, v, span
                 } catch (xn::XNetworkNoPath) {
-                    yield u, v, double('inf');
+                    yield u, v, double("inf");

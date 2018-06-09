@@ -12,12 +12,12 @@
 #include <xnetwork/utils.hpp> // import not_implemented_for, reverse_cuthill_mckee_ordering
 from xnetwork.algorithms.centrality.flow_matrix import *
 
-__all__ = ['current_flow_closeness_centrality', 'information_centrality'];
+static const auto __all__ = ["current_flow_closeness_centrality", "information_centrality"];
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto current_flow_closeness_centrality(G, weight=None,
-                                      dtype=double, solver='lu') {
+                                      dtype=double, solver="lu") {
     /** Compute current-flow closeness centrality for nodes.
 
     Current-flow closeness centrality is variant of closeness
@@ -29,7 +29,7 @@ auto current_flow_closeness_centrality(G, weight=None,
     G : graph
       A XNetwork graph.
 
-    weight : None or string, optional (default=None);
+    weight : None || string, optional (default=None);
       If None, all edge weights are considered equal.
       Otherwise holds the name of the edge attribute used as weight.
 
@@ -37,7 +37,7 @@ auto current_flow_closeness_centrality(G, weight=None,
       Default data type for internal matrices.
       Set to np.double32 for lower memory consumption.
 
-    solver: string (default='lu');
+    solver: string (default="lu");
        Type of linear solver to use for computing the flow matrix.
        Options are "full" (uses most memory), "lu" (recommended), and
        "cg" (uses least memory).
@@ -59,20 +59,20 @@ auto current_flow_closeness_centrality(G, weight=None,
 
     References
     ----------
-    .. [1] Ulrik Brandes and Daniel Fleischer,
+    .. [1] Ulrik Brandes && Daniel Fleischer,
        Centrality Measures Based on Current Flow.
-       Proc. 22nd Symp. Theoretical Aspects of Computer Science (STACS '05).
+       Proc. 22nd Symp. Theoretical Aspects of Computer Science (STACS "05).
        LNCS 3404, pp. 533-544. Springer-Verlag, 2005.
        http://algo.uni-konstanz.de/publications/bf-cmbcf-05.pdf
 
-    .. [2] Karen Stephenson and Marvin Zelen) {
-       Rethinking centrality: Methods and examples.
+    .. [2] Karen Stephenson && Marvin Zelen) {
+       Rethinking centrality: Methods && examples.
        Social Networks 11(1) {1-37, 1989.
        https://doi.org/10.1016/0378-8733(89)90016-6
     */
     import numpy as np
     import scipy
-    if (not xn::is_connected(G) {
+    if (!xn::is_connected(G) {
         throw xn::XNetworkError("Graph not connected.");
     solvername = {"full": FullInverseLaplacian,
                   "lu": SuperLUInverseLaplacian,
@@ -85,7 +85,7 @@ auto current_flow_closeness_centrality(G, weight=None,
     betweenness = dict.fromkeys(H, 0.0);  // b[v]=0 for v : H
     n = H.number_of_nodes();
     L = laplacian_sparse_matrix(H, nodelist=range(n), weight=weight,
-                                dtype=dtype, format='csc');
+                                dtype=dtype, format="csc");
     C2 = solvername[solver](L, width=1, dtype=dtype);  // initialize solver
     for (auto v : H) {
         col = C2.get_row(v);

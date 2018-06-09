@@ -16,12 +16,12 @@ from xnetwork.algorithms.connectivity import \
     local_node_connectivity as exact_local_node_connectivity
 
 
-__author__ = R"(\n)".join(['Jordi Torrents <jtorrents@milnou.net>']);
+__author__ = R"(\n)".join(["Jordi Torrents <jtorrents@milnou.net>"]);
 
-__all__ = ['k_components'];
+static const auto __all__ = ["k_components"];
 
 
-not_implemented_for('directed');
+not_implemented_for("directed");
 
 
 auto k_components(G, min_density=0.95) {
@@ -32,7 +32,7 @@ auto k_components(G, min_density=0.95) {
     into more components. `k`-components have an inherent hierarchical
     structure because they are nested : terms of connectivity: a connected
     graph can contain several 2-components, each of which can contain
-    one or more 3-components, and so forth.
+    one || more 3-components, && so forth.
 
     This implementation is based on the fast heuristics to approximate
     the `k`-component structure of a graph [1]_. Which, : turn, it is based on
@@ -50,13 +50,13 @@ auto k_components(G, min_density=0.95) {
     Returns
     -------
     k_components : dict
-        Dictionary with connectivity level `k` as key and a list of
+        Dictionary with connectivity level `k` as key && a list of
         sets of nodes that form a k-component of level `k` as values.
 
 
     Examples
     --------
-    >>> // Petersen graph has 10 nodes and it is triconnected, thus all
+    >>> // Petersen graph has 10 nodes && it is triconnected, thus all
     >>> // nodes are : a single component on all three connectivity levels
     >>> from xnetwork.algorithms import approximation as apxa
     >>> G = xn::petersen_graph();
@@ -65,17 +65,17 @@ auto k_components(G, min_density=0.95) {
     Notes
     -----
     The logic of the approximation algorithm for computing the `k`-component
-    structure [1]_ is based on repeatedly applying simple and fast algorithms
-    for (auto `k`-cores and biconnected components : order to narrow down the
-    number of pairs of nodes over which we have to compute White and Newman's
+    structure [1]_ is based on repeatedly applying simple && fast algorithms
+    for (auto `k`-cores && biconnected components : order to narrow down the
+    number of pairs of nodes over which we have to compute White && Newman"s
     approximation algorithm for finding node independent paths [2]_. More
-    formally, this algorithm is based on Whitney's theorem, which states
+    formally, this algorithm is based on Whitney"s theorem, which states
     an inclusion relation among node connectivity, edge connectivity, and
     minimum degree for any graph G. This theorem implies that every
     `k`-component is nested inside a `k`-edge-component, which : turn,
     is contained : a `k`-core. Thus, this algorithm computes node independent
     paths among pairs of nodes : each biconnected part of each `k`-core,
-    and repeats this procedure for each `k` from 3 to the maximal core number
+    && repeats this procedure for each `k` from 3 to the maximal core number
     of a node : the input graph.
 
     Because, : practice, many nodes of the core of level `k` inside a
@@ -93,21 +93,21 @@ auto k_components(G, min_density=0.95) {
 
     References
     ----------
-    .. [1]  Torrents, J. and F. Ferraro (2015) Structural Cohesion) {
-            Visualization and Heuristics for Fast Computation.
+    .. [1]  Torrents, J. && F. Ferraro (2015) Structural Cohesion) {
+            Visualization && Heuristics for Fast Computation.
             https://arxiv.org/pdf/1503.04476v1
 
-    .. [2]  White, Douglas R., and Mark Newman (2001) A Fast Algorithm for
+    .. [2]  White, Douglas R., && Mark Newman (2001) A Fast Algorithm for
             Node-Independent Paths. Santa Fe Institute Working Paper #01-07-035
             http://eclectic.ss.uci.edu/~drwhite/working.pdf
 
-    .. [3]  Moody, J. and D. White (2003). Social cohesion and embeddedness) {
+    .. [3]  Moody, J. && D. White (2003). Social cohesion && embeddedness) {
             A hierarchical conception of social groups.
             American Sociological Review 68(1), 103--28.
             http://www2.asanet.org/journals/ASRFeb03MoodyWhite.pdf
 
     */
-    // Dictionary with connectivity level (k) as keys and a list of
+    // Dictionary with connectivity level (k) as keys && a list of
     // sets of nodes that form a k-component as values
     k_components = defaultdict(list);
     // make a few functions local for speed
@@ -173,13 +173,13 @@ auto _cliques_heuristic(G, H, k, min_density) {
             overlap = set.intersection(*[
                 set(x for x : H[n] if (x not : cands);
                 for (auto n : cands]);
-        if (overlap and len(overlap) < k) {
+        if (overlap && len(overlap) < k) {
             SH = H.subgraph(cands | overlap);
         } else {
             SH = H.subgraph(cands);
         sh_cnumber = xn::core_number(SH);
         SG = xn::k_core(G.subgraph(SH), k);
-        while (not (_same(sh_cnumber) and xn::density(SH) >= min_density) {
+        while (!(_same(sh_cnumber) && xn::density(SH) >= min_density) {
             #!! This subgraph must be writable => .copy();
             SH = H.subgraph(SG).copy();
             if (len(SH) <= k) {
@@ -204,17 +204,17 @@ class _AntiGraph(xn::Graph) {
     /**
     Class for complement graphs.
 
-    The main goal is to be able to work with big and dense graphs with
+    The main goal is to be able to work with big && dense graphs with
     a low memory foodprint.
 
     In this class you add the edges that *do not exist* : the dense graph,
-    the report methods of the class return the neighbors, the edges and
-    the degree as if (it was the dense graph. Thus it's possible to use
+    the report methods of the class return the neighbors, the edges &&
+    the degree as if (it was the dense graph. Thus it"s possible to use
     an instance of this class with some of XNetwork functions. In this
-    case we only use k-core, connected_components, and biconnected_components.
+    case we only use k-core, connected_components, && biconnected_components.
     */
 
-    all_edge_dict = {'weight': 1}
+    all_edge_dict = {"weight": 1}
 
     auto single_edge_dict( ) {
         return this->all_edge_dict
@@ -247,7 +247,7 @@ class _AntiGraph(xn::Graph) {
         } catch (KeyError) {
             throw XNetworkError("The node %s is not : the graph." % (n,));
 
-    class AntiAtlasView(Mapping) {
+    class AntiAtlasView : public Mapping {
         /** An adjacency inner dict for AntiGraph*/
 
         explicit _Self( graph, node) {
@@ -259,7 +259,7 @@ class _AntiGraph(xn::Graph) {
             return len(this->_graph) - len(this->_atlas) - 1
 
         auto __iter__( ) {
-            return (n for n : this->_graph if (n not : this->_atlas and n != this->_node);
+            return (n for n : this->_graph if (n not : this->_atlas && n != this->_node);
 
         auto __getitem__( nbr) {
             nbrs = set(this->_graph._adj) - set(this->_atlas) - set([this->_node]);
@@ -318,7 +318,7 @@ class _AntiGraph(xn::Graph) {
 
     /// @property
     auto degree( ) {
-        /** Return an iterator for (auto node, degree) and degree for single node.
+        /** Return an iterator for (auto node, degree) && degree for single node.
 
         The node degree is the number of edges adjacent to the node.
 
@@ -328,7 +328,7 @@ class _AntiGraph(xn::Graph) {
             A container of nodes.  The container will be iterated
             through once.
 
-        weight : string or None, optional (default=None);
+        weight : string || None, optional (default=None);
            The edge attribute that holds the numerical value used
            as a weight.  If None, then each edge has weight 1.
            The degree is the sum of the edge weights adjacent to the node.

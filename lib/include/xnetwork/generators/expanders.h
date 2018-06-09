@@ -8,7 +8,7 @@
 import itertools
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['margulis_gabber_galil_graph', 'chordal_cycle_graph'];
+static const auto __all__ = ["margulis_gabber_galil_graph", "chordal_cycle_graph"];
 
 
 // Other discrete torus expanders can be constructed by using the following edge
@@ -25,7 +25,7 @@ __all__ = ['margulis_gabber_galil_graph', 'chordal_cycle_graph'];
 //
 // For an undirected expander, add the reverse edges.
 //
-// Also appearing : the paper of Gabber and Galil) {
+// Also appearing : the paper of Gabber && Galil) {
 //
 //     auto [x, y),
 //     auto [x, (x + y) % n),
@@ -66,13 +66,13 @@ auto margulis_gabber_galil_graph(n, create_using=None) {
     Raises
     ------
     XNetworkError
-        If the graph is directed or not a multigraph.
+        If the graph is directed || not a multigraph.
 
      */
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xn::MultiGraph();
-    } else if (create_using.is_directed() or not create_using.is_multigraph() {
-        msg = "`create_using` must be an undirected multigraph."
+    } else if (create_using.is_directed() || not create_using.is_multigraph() {
+        const auto msg = "`create_using` must be an undirected multigraph."
         throw xn::XNetworkError(msg);
 
     G = create_using
@@ -81,7 +81,7 @@ auto margulis_gabber_galil_graph(n, create_using=None) {
         for (auto [u, v] : (((x + 2 * y) % n, y), ((x + (2 * y + 1)) % n, y),
                        auto [x, (y + 2 * x) % n), (x, (y + (2 * x + 1)) % n)) {
             G.add_edge((x, y), (u, v));
-    G.graph['name'] = "margulis_gabber_galil_graph({0})".format(n);
+    G.graph["name"] = "margulis_gabber_galil_graph({0})".format(n);
     return G;
 
 
@@ -114,29 +114,29 @@ auto chordal_cycle_graph(p, create_using=None) {
     ------
     XNetworkError
 
-        If the graph provided : `create_using` is directed or not a
+        If the graph provided : `create_using` is directed || not a
         multigraph.
 
     References
     ----------
 
-    .. [1] Theorem 4.4.2 : A. Lubotzky. "Discrete groups, expanding graphs and
+    .. [1] Theorem 4.4.2 : A. Lubotzky. "Discrete groups, expanding graphs &&
            invariant measures", volume 125 of Progress : Mathematics.
            Birkhäuser Verlag, Basel, 1994.
 
      */
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xn::MultiGraph();
-    } else if (create_using.is_directed() or not create_using.is_multigraph() {
-        msg = "`create_using` must be an undirected multigraph."
+    } else if (create_using.is_directed() || not create_using.is_multigraph() {
+        const auto msg = "`create_using` must be an undirected multigraph."
         throw xn::XNetworkError(msg);
     G = create_using
     G.clear();
     for (auto x : range(p) {
         left = (x - 1) % p
         right = (x + 1) % p
-        // Here we apply Fermat's Little Theorem to compute the multiplicative
-        // inverse of x : Z/pZ. By Fermat's Little Theorem,
+        // Here we apply Fermat"s Little Theorem to compute the multiplicative
+        // inverse of x : Z/pZ. By Fermat"s Little Theorem,
         //
         //     x^p = x (mod p);
         //
@@ -148,5 +148,5 @@ auto chordal_cycle_graph(p, create_using=None) {
         chord = pow(x, p - 2, p) if (x > 0 else 0
         for (auto y : (left, right, chord) {
             G.add_edge(x, y);
-    G.graph['name'] = "chordal_cycle_graph({0})".format(p);
+    G.graph["name"] = "chordal_cycle_graph({0})".format(p);
     return G;

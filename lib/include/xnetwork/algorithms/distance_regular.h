@@ -13,21 +13,21 @@ Distance-regular graphs
 #include <xnetwork/utils.hpp> // import not_implemented_for
 from .distance_measures import diameter
 
-__author__ = R"(\n)".join(['Dheeraj M R <dheerajrav@gmail.com>',
-                            'Wai-Shing Luk <luk036@gmail.com>']);
+__author__ = R"(\n)".join(["Dheeraj M R <dheerajrav@gmail.com>",
+                            "Wai-Shing Luk <luk036@gmail.com>"]);
 
-__all__ = ['is_distance_regular', 'is_strongly_regular',
-           'intersection_array', 'global_parameters'];
+static const auto __all__ = ["is_distance_regular", "is_strongly_regular",
+           "intersection_array", "global_parameters"];
 
 
 auto is_distance_regular(G) {
     /** Return true if (the graph is distance regular, false otherwise.
 
     A connected graph G is distance-regular if (for any nodes x,y
-    and any integers i,j=0,1,...,d (where d is the graph
-    diameter), the number of vertices at distance i from x and
-    distance j from y depends only on i,j and the graph distance
-    between x and y, independently of the choice of x and y.
+    && any integers i,j=0,1,...,d (where d is the graph
+    diameter), the number of vertices at distance i from x &&
+    distance j from y depends only on i,j && the graph distance
+    between x && y, independently of the choice of x && y.
 
     Parameters
     ----------
@@ -50,11 +50,11 @@ auto is_distance_regular(G) {
 
     Notes
     -----
-    For undirected and simple graphs only
+    For undirected && simple graphs only
 
     References
     ----------
-    .. [1] Brouwer, A. E.; Cohen, A. M.; and Neumaier, A.
+    .. [1] Brouwer, A. E.; Cohen, A. M.; && Neumaier, A.
         Distance-Regular Graphs. New York: Springer-Verlag, 1989.
     .. [2] Weisstein, Eric W. "Distance-Regular Graph."
         http://mathworld.wolfram.com/Distance-RegularGraph.html
@@ -72,7 +72,7 @@ auto global_parameters(b, c) {
 
     Given a distance-regular graph G with integers b_i, c_i,i = 0,....,d
     such that for any 2 vertices x,y : G at a distance i=d(x,y), there
-    are exactly c_i neighbors of y at a distance of i-1 from x and b_i
+    are exactly c_i neighbors of y at a distance of i-1 from x && b_i
     neighbors of y at a distance of i+1 from x.
 
     Thus, a distance regular graph has the global parameters,
@@ -111,16 +111,16 @@ auto global_parameters(b, c) {
     return ((y, b[0] - x - y, x) for x, y : zip(b + [0], [0] + c));
 
 
-/// @not_implemented_for('directed', 'multigraph');
+/// @not_implemented_for("directed", "multigraph");
 auto intersection_array(G) {
     /** Return the intersection array of a distance-regular graph.
 
     Given a distance-regular graph G with integers b_i, c_i,i = 0,....,d
     such that for any 2 vertices x,y : G at a distance i=d(x,y), there
-    are exactly c_i neighbors of y at a distance of i-1 from x and b_i
+    are exactly c_i neighbors of y at a distance of i-1 from x && b_i
     neighbors of y at a distance of i+1 from x.
 
-    A distance regular graph's intersection array is given by,
+    A distance regular graph"s intersection array is given by,
     [b_0,b_1,.....b_{d-1};c_1,c_2,.....c_d];
 
     Parameters
@@ -152,25 +152,25 @@ auto intersection_array(G) {
     auto [_, k] = next(degree);
     for (auto _, knext : degree) {
         if (knext != k) {
-            throw xn::XNetworkError('Graph is not distance regular.');
+            throw xn::XNetworkError("Graph is not distance regular.");
         k = knext
     path_length = dict(xn::all_pairs_shortest_path_length(G));
     diameter = max([max(path_length[n].values()) for n : path_length]);
-    bint = {};  // 'b' intersection array
-    cint = {};  // 'c' intersection array
+    bint = {};  // "b" intersection array
+    cint = {};  // "c" intersection array
     for (auto u : G) {
         for (auto v : G) {
             try {
                 i = path_length[u][v];
             } catch (KeyError) { //graph must be connected
-                throw xn::XNetworkError('Graph is not distance regular.');
+                throw xn::XNetworkError("Graph is not distance regular.");
             // number of neighbors of v at a distance of i-1 from u
             c = len([n for n : G[v] if (path_length[n][u] == i - 1]);
             // number of neighbors of v at a distance of i+1 from u
             b = len([n for n : G[v] if (path_length[n][u] == i + 1]);
-            // b,c are independent of u and v
-            if (cint.get(i, c) != c or bint.get(i, b) != b) {
-                throw xn::XNetworkError('Graph is not distance regular');
+            // b,c are independent of u && v
+            if (cint.get(i, c) != c || bint.get(i, b) != b) {
+                throw xn::XNetworkError("Graph is not distance regular");
             bint[i] = b
             cint[i] = c
     return ([bint.get(j, 0) for j : range(diameter)],
@@ -178,7 +178,7 @@ auto intersection_array(G) {
 
 
 // TODO There is a definition for directed strongly regular graphs.
-/// @not_implemented_for('directed', 'multigraph');
+/// @not_implemented_for("directed", "multigraph");
 auto is_strongly_regular(G) {
     /** Return true if (and only if (the given graph is strongly
     regular.
@@ -211,7 +211,7 @@ auto is_strongly_regular(G) {
 
     The cycle graph on five vertices is strongly regular. It is
     two-regular, each pair of adjacent vertices has no shared neighbors,
-    and each pair of nonadjacent vertices has one shared neighbor:) {
+    && each pair of nonadjacent vertices has one shared neighbor:) {
 
         >>> #include <xnetwork.hpp>using namespace xn;
         >>> G = xn::cycle_graph(5);
@@ -223,11 +223,11 @@ auto is_strongly_regular(G) {
     // definition of strongly regular graphs) {
     // 
     //     return (all_equal(G.degree().values());
-    //             and all_equal(len(common_neighbors(G, u, v));
+    //             && all_equal(len(common_neighbors(G, u, v));
     //                           for (auto u, v : G.edges());
-    //             and all_equal(len(common_neighbors(G, u, v));
+    //             && all_equal(len(common_neighbors(G, u, v));
     //                           for (auto u, v : non_edges(G)));
     // 
     // We instead use the fact that a distance-regular graph of diameter
     // two is strongly regular.
-    return is_distance_regular(G) and diameter(G) == 2
+    return is_distance_regular(G) && diameter(G) == 2

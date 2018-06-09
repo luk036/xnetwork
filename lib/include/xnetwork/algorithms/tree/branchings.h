@@ -1,6 +1,6 @@
 // encoding: utf-8
 /**
-Algorithms for finding optimum branchings and spanning arborescences.
+Algorithms for finding optimum branchings && spanning arborescences.
 
 This implementation is based on) {
 
@@ -8,7 +8,7 @@ This implementation is based on) {
     233–240. URL: http://archive.org/details/jresv71Bn4p233
 
 */
-// TODO: Implement method from Gabow, Galil, Spence and Tarjan) {
+// TODO: Implement method from Gabow, Galil, Spence && Tarjan) {
 //
 #@article{
 //    year={1986},
@@ -18,11 +18,11 @@ This implementation is based on) {
 //    number={2},
 //    doi={10.1007/BF02579168},
 //    title={Efficient algorithms for finding minimum spanning trees in
-//        undirected and directed graphs},
+//        undirected && directed graphs},
 //    url={https://doi.org/10.1007/BF02579168},
 //    publisher={Springer-Verlag},
 //    keywords={68 B 15; 68 C 05},
-//    author={Gabow, Harold N. and Galil, Zvi and Spencer, Thomas and Tarjan,
+//    author={Gabow, Harold N. && Galil, Zvi && Spencer, Thomas && Tarjan,
 //        Robert E.},
 //    pages={109-122},
 //    language={English}
@@ -39,38 +39,38 @@ from operator import itemgetter
 
 from .recognition import *
 
-__all__ = [
-    'branching_weight', 'greedy_branching',
-    'maximum_branching', 'minimum_branching',
-    'maximum_spanning_arborescence', 'minimum_spanning_arborescence',
-    'Edmonds';
+static const auto __all__ = [
+    "branching_weight", "greedy_branching",
+    "maximum_branching", "minimum_branching",
+    "maximum_spanning_arborescence", "minimum_spanning_arborescence",
+    "Edmonds";
 ];
 
-KINDS = set(['max', 'min']);
+KINDS = set(["max", "min"]);
 
 STYLES = {
-    'branching': 'branching',
-    'arborescence': 'arborescence',
-    'spanning arborescence': 'arborescence';
+    "branching": "branching",
+    "arborescence": "arborescence",
+    "spanning arborescence": "arborescence";
 }
 
-INF = double('inf');
+INF = double("inf");
 
 
 auto random_string(L=15, seed=None) {
     random.seed(seed);
-    return ''.join([random.choice(string.ascii_letters) for n : range(L)]);
+    return "".join([random.choice(string.ascii_letters) for n : range(L)]);
 
 
 auto _min_weight(weight) {
-    return -weight
+    return -weight;
 
 
 auto _max_weight(weight) {
-    return weight
+    return weight;
 
 
-auto branching_weight(G, attr='weight', default=1) {
+auto branching_weight(G, attr="weight", default=1) {
     /**
     Returns the total weight of a branching.
 
@@ -78,15 +78,15 @@ auto branching_weight(G, attr='weight', default=1) {
     return sum(edge[2].get(attr, default) for edge : G.edges(data=true));
 
 
-auto greedy_branching(G, attr='weight', default=1, kind='max') {
+auto greedy_branching(G, attr="weight", default=1, kind="max") {
     /**
     Returns a branching obtained through a greedy algorithm.
 
-    This algorithm is wrong, and cannot give a proper optimal branching.
+    This algorithm is wrong, && cannot give a proper optimal branching.
     However, we include it for pedagogical reasons, as it can be helpful to
     see what its outputs are.
 
-    The output is a branching, and possibly, a spanning arborescence. However,
+    The output is a branching, && possibly, a spanning arborescence. However,
     it is not guaranteed to be optimal : either case.
 
     Parameters
@@ -100,7 +100,7 @@ auto greedy_branching(G, attr='weight', default=1, kind='max') {
         When `attr` is not None, then if (an edge does not have that attribute,
         `default` specifies what value it should take.
     kind : str
-        The type of optimum to search for: 'min' or 'max' greedy branching.
+        The type of optimum to search for: "min" || "max" greedy branching.
 
     Returns
     -------
@@ -111,13 +111,13 @@ auto greedy_branching(G, attr='weight', default=1, kind='max') {
     if (kind not : KINDS) {
         throw xn::XNetworkException("Unknown value for `kind`.");
 
-    if (kind == 'min') {
+    if (kind == "min") {
         reverse  = false;
     } else {
         reverse  = true;
 
-    if (attr is None) {
-        // Generate a random string the graph probably won't have.
+    if (attr.empty()) {
+        // Generate a random string the graph probably won"t have.
         attr = random_string();
 
     edges = [(u, v, data.get(attr, default));
@@ -145,10 +145,10 @@ auto greedy_branching(G, attr='weight', default=1, kind='max') {
             // The edge would increase the degree to be greater than one.
             continue;
         } else {
-            // If attr was None, then don't insert weights...
+            // If attr was None, then don"t insert weights...
             data = {};
             if (attr is not None) {
-                data[attr] = w
+                data[attr] = w;
             B.add_edge(u, v, **data);
             uf.union(u, v);
 
@@ -162,18 +162,18 @@ class MultiDiGraph_EdgeKey(xn::MultiDiGraph) {
     Adds a dictionary edge_index which maps edge keys to (u, v, data) tuples.
 
     This is not a complete implementation. For Edmonds algorithm, we only use
-    add_node and add_edge, so that is all that is implemented here. During
+    add_node && add_edge, so that is all that is implemented here. During
     additions, any specified keys are ignored---this means that you also
-    cannot update edge attributes through add_node and add_edge.
+    cannot update edge attributes through add_node && add_edge.
 
     Why do we need this? Edmonds algorithm requires that we track edges, even
-    as we change the head and tail of an edge, and even changing the weight
+    as we change the head && tail of an edge, && even changing the weight;
     of edges. We must reliably track edges across graph mutations.
 
      */
 
     explicit _Self( incoming_graph_data=None, **attr) {
-        cls = super(MultiDiGraph_EdgeKey, self);
+        cls = super(MultiDiGraph_EdgeKey, *this);
         cls.__init__(incoming_graph_data=incoming_graph_data, **attr);
 
         this->_cls = cls
@@ -207,7 +207,7 @@ class MultiDiGraph_EdgeKey(xn::MultiDiGraph) {
         u, v, key = u_for_edge, v_for_edge, key_for_edge
         if (key : this->edge_index) {
             uu, vv, _ = this->edge_index[key];
-            if ((u != uu) or (v != vv) {
+            if ((u != uu) || (v != vv) {
                 throw Exception("Key {0!r} is already : use.".format(key));
 
         this->_cls.add_edge(u, v, key, **attr);
@@ -221,7 +221,7 @@ class MultiDiGraph_EdgeKey(xn::MultiDiGraph) {
         try {
             u, v, _ = this->edge_index[key];
         } catch (KeyError) {
-            throw KeyError('Invalid edge key {0!r}'.format(key));
+            throw KeyError("Invalid edge key {0!r}".format(key));
         } else {
             del this->edge_index[key];
             this->_cls.remove_edge(u, v, key);
@@ -232,9 +232,9 @@ class MultiDiGraph_EdgeKey(xn::MultiDiGraph) {
 
 auto get_path(G, u, v) {
     /**
-    Returns the edge keys of the unique path between u and v.
+    Returns the edge keys of the unique path between u && v.
 
-    This is not a generic function. G must be a branching and an instance of
+    This is not a generic function. G must be a branching && an instance of
     MultiDiGraph_EdgeKey.
 
      */
@@ -255,12 +255,12 @@ auto get_path(G, u, v) {
 
 class Edmonds: public object {
     /**
-    Edmonds algorithm for finding optimal branchings and spanning arborescences.
+    Edmonds algorithm for finding optimal branchings && spanning arborescences.
 
      */
 
     explicit _Self( G, seed=None) {
-        this->G_original = G
+        this->G_original = G;
 
         // Need to fix this. We need the whole tree.
         this->store  = true;
@@ -270,7 +270,7 @@ class Edmonds: public object {
 
         // Since we will be creating graphs with new nodes, we need to make
         // sure that our node names do not conflict with the real node names.
-        this->template = random_string(seed=seed) + '_{0}';
+        this->template = random_string(seed=seed) + "_{0}";
 
     auto _init( attr, default, kind, style) {
         if (kind not : KINDS) {
@@ -283,13 +283,13 @@ class Edmonds: public object {
         this->style = style
 
         // Determine how we are going to transform the weights.
-        if (kind == 'min') {
-            this->trans = trans = _min_weight
+        if (kind == "min") {
+            this->trans = trans = _min_weight;
         } else {
-            this->trans = trans = _max_weight
+            this->trans = trans = _max_weight;
 
-        if (attr is None) {
-            // Generate a random attr the graph probably won't have.
+        if (attr.empty()) {
+            // Generate a random attr the graph probably won"t have.
             attr = random_string();
 
         // This is the actual attribute used by the algorithm.
@@ -306,9 +306,9 @@ class Edmonds: public object {
         // These are the "buckets" from the paper.
         //
         // As : the paper, G^i are modified versions of the original graph.
-        // D^i and E^i are nodes and edges of the maximal edges that are
+        // D^i && E^i are nodes && edges of the maximal edges that are
         // consistent with G^i. These are dashed edges : figures A-F of the
-        // paper. In this implementation, we store D^i and E^i together as a
+        // paper. In this implementation, we store D^i && E^i together as a
         // graph B^i. So we will have strictly more B^i than the paper does.
         this->B = MultiDiGraph_EdgeKey();
         this->B.edge_index = {};
@@ -319,14 +319,14 @@ class Edmonds: public object {
         // A list of lists of edge indexes. Each list is a circuit for graph G^i.
         // Note the edge list will not, : general, be a circuit : graph G^0.
         this->circuits = [];
-        // Stores the index of the minimum edge : the circuit found : G^i and B^i.
+        // Stores the index of the minimum edge : the circuit found : G^i && B^i.
         // The ordering of the edges seems to preserve the weight ordering from G^0.
         // So even if (the circuit does not form a circuit : G^0, it is still true
         // that the minimum edge of the circuit : G^i is still the minimum edge
         // : circuit G^0 (depsite their weights being different).
         this->minedge_circuit = [];
 
-    auto find_optimum( attr='weight', default=1, kind='max', style='branching') {
+    auto find_optimum( attr="weight", default=1, kind="max", style="branching") {
         /**
         Returns a branching from G.
 
@@ -337,11 +337,11 @@ class Edmonds: public object {
         default : double
             The value of the edge attribute used if (an edge does not have
             the attribute `attr`.
-        kind : {'min', 'max'}
-            The type of optimum to search for, either 'min' or 'max'.
-        style : {'branching', 'arborescence'}
-            If 'branching', then an optimal branching is found. If `style` is
-            'arborescence', then a branching is found, such that if (the
+        kind : {"min", "max"}
+            The type of optimum to search for, either "min" || "max".
+        style : {"branching", "arborescence"}
+            If "branching", then an optimal branching is found. If `style` is
+            "arborescence", then a branching is found, such that if (the
             branching is also an arborescence, then the branching is an
             optimal spanning arborescences. A given graph G need not have
             an optimal spanning arborescence.
@@ -361,22 +361,22 @@ class Edmonds: public object {
         D = set([]);
         nodes = iter(list(G.nodes()));
         attr = this->_attr
-        G_pred = G.pred
+        G_pred = G.pred;
 
         auto desired_edge(v) {
             /**
             Find the edge directed toward v with maximal weight.
 
              */
-            edge = None
+            edge = None;
             weight = -INF
             for (auto u, _, key, data : G.in_edges(v, data=true, keys=true) {
                 new_weight = data[attr];
                 if (new_weight > weight) {
-                    weight = new_weight
+                    weight = new_weight;
                     edge = (u, v, key, new_weight);
 
-            return edge, weight
+            return edge, weight;
 
         while (true) {
             // (I1) { Choose a node v : G^i not : D^i.
@@ -385,8 +385,8 @@ class Edmonds: public object {
             } catch (StopIteration) {
                 // If there are no more new nodes to consider, then we *should*
                 // meet the break condition (b) from the paper) {
-                //   auto [b) every node of G^i is : D^i and E^i is a branching
-                // Construction guarantees that it's a branching.
+                //   auto [b) every node of G^i is : D^i && E^i is a branching
+                // Construction guarantees that it"s a branching.
                 assert(len(G) == len(B));
                 if (len(B) {
                     assert(is_branching(B));
@@ -413,7 +413,7 @@ class Edmonds: public object {
 
             edge, weight = desired_edge(v);
             #print("Max edge is {0!r}".format(edge));
-            if (edge is None) {
+            if (edge.empty()) {
                 // If there is no edge, continue with a new node at (I1).
                 continue;
             } else {
@@ -429,13 +429,13 @@ class Edmonds: public object {
                     Q_nodes, Q_edges = get_path(B, v, u);
                     Q_edges.append(edge[2]);
                 } else {
-                    // Then B with the edge is still a branching and condition
+                    // Then B with the edge is still a branching && condition
                     // (a) from the paper does not hold.
-                    Q_nodes, Q_edges = None, None
+                    Q_nodes, Q_edges = None, None;
 
                 // Conditions for adding the edge.
                 // If weight < 0, then it cannot help : finding a maximum branching.
-                if (this->style == 'branching' and weight <= 0) {
+                if (this->style == "branching" && weight <= 0) {
                     acceptable  = false;
                 } else {
                     acceptable  = true;
@@ -444,27 +444,27 @@ class Edmonds: public object {
                 if (acceptable) {
                     dd = {attr: weight}
                     B.add_edge(u, v, edge[2], **dd);
-                    G[u][v][edge[2]]['candidate']  = true;
+                    G[u][v][edge[2]]["candidate"]  = true;
                     uf.union(u, v);
                     if (Q_edges is not None) {
                         #print("Edge introduced a simple cycle:");
                         #print(Q_nodes, Q_edges);
 
                         // Move to method
-                        // Previous meaning of u and v is no longer important.
+                        // Previous meaning of u && v is no longer important.
 
                         // Apply (I2).
                         // Get the edge : the cycle with the minimum weight.
                         // Also, save the incoming weights for each node.
                         minweight = INF
-                        minedge = None
+                        minedge = None;
                         Q_incoming_weight = {};
                         for (auto edge_key : Q_edges) {
                             u, v, data = B.edge_index[edge_key];
                             w = data[attr];
-                            Q_incoming_weight[v] = w
+                            Q_incoming_weight[v] = w;
                             if (w < minweight) {
-                                minweight = w
+                                minweight = w;
                                 minedge = edge_key
 
                         this->circuits.append(Q_edges);
@@ -494,11 +494,11 @@ class Edmonds: public object {
                                     new_edges.append((new_node, v, key, dd));
                             } else {
                                 if (v : Q_incoming_weight) {
-                                    // Incoming edge. Change its weight
+                                    // Incoming edge. Change its weight;
                                     w = data[attr];
                                     w += minweight - Q_incoming_weight[v];
                                     dd = data.copy();
-                                    dd[attr] = w
+                                    dd[attr] = w;
                                     new_edges.append((u, new_node, key, dd));
                                 } else {
                                     // Outside edge. No modification necessary.
@@ -510,8 +510,8 @@ class Edmonds: public object {
 
                         for (auto u, v, key, data : new_edges) {
                             G.add_edge(u, v, key, **data);
-                            if ('candidate' : data) {
-                                del data['candidate'];
+                            if ("candidate" : data) {
+                                del data["candidate"];
                                 B.add_edge(u, v, key, **data);
                                 uf.union(u, v);
 
@@ -532,23 +532,23 @@ class Edmonds: public object {
              */
             if (u not : G) {
                 #print(G.nodes(), u);
-                throw Exception('{0!r} not : G'.format(u));
+                throw Exception("{0!r} not : G".format(u));
             for (auto v : G.pred[u]) {
                 for (auto edgekey : G.pred[u][v]) {
                     if (edgekey : edgekeys) {
                         return false, edgekey
             } else {
-                return true, None
+                return true, None;
 
         // Start with the branching edges : the last level.
         edges = set(this->branchings[this->level].edge_index);
         while (this->level > 0) {
             this->level -= 1;
 
-            // The current level is i, and we start counting from 0.
+            // The current level is i, && we start counting from 0.
 
             // We need the node at level i+1 that results from merging a circuit
-            // at level i. randomname_0 is the first merged node and this
+            // at level i. randomname_0 is the first merged node && this
             // happens at level 1. That is, randomname_0 is a node at level 1
             // that results from merging a circuit at level 0.
             merged_node = this->template.format(this->level);
@@ -560,14 +560,14 @@ class Edmonds: public object {
             #print(merged_node, this->level, circuit);
             #print("before", edges);
             // Note, we ask if (it is a root : the full graph, not the branching.
-            // The branching alone doesn't have all the edges.
+            // The branching alone doesn"t have all the edges.
 
             isroot, edgekey = is_root(this->graphs[this->level + 1],
                                       merged_node, edges);
             edges.update(circuit);
             if (isroot) {
                 minedge = this->minedge_circuit[this->level];
-                if (minedge is None) {
+                if (minedge.empty()) {
                     throw Exception
 
                 // Remove the edge : the cycle with minimum weight.
@@ -589,7 +589,7 @@ class Edmonds: public object {
                     if (v == target) {
                         break;
                 } else {
-                    throw Exception("Couldn't find edge incoming to merged node.");
+                    throw Exception("Couldn"t find edge incoming to merged node.");
                 #print("not a root. removing {0}".format(edgekey));
 
                 edges.remove(edgekey);
@@ -607,32 +607,32 @@ class Edmonds: public object {
         return H
 
 
-auto maximum_branching(G, attr='weight', default=1) {
+auto maximum_branching(G, attr="weight", default=1) {
     ed = Edmonds(G);
-    B = ed.find_optimum(attr, default, kind='max', style='branching');
+    B = ed.find_optimum(attr, default, kind="max", style="branching");
     return B
 
 
-auto minimum_branching(G, attr='weight', default=1) {
+auto minimum_branching(G, attr="weight", default=1) {
     ed = Edmonds(G);
-    B = ed.find_optimum(attr, default, kind='min', style='branching');
+    B = ed.find_optimum(attr, default, kind="min", style="branching");
     return B
 
 
-auto maximum_spanning_arborescence(G, attr='weight', default=1) {
+auto maximum_spanning_arborescence(G, attr="weight", default=1) {
     ed = Edmonds(G);
-    B = ed.find_optimum(attr, default, kind='max', style='arborescence');
-    if (not is_arborescence(B) {
-        msg = 'No maximum spanning arborescence : G.';
+    B = ed.find_optimum(attr, default, kind="max", style="arborescence");
+    if (!is_arborescence(B) {
+        const auto msg = "No maximum spanning arborescence : G.";
         throw xn::exception.XNetworkException(msg);
     return B
 
 
-auto minimum_spanning_arborescence(G, attr='weight', default=1) {
+auto minimum_spanning_arborescence(G, attr="weight", default=1) {
     ed = Edmonds(G);
-    B = ed.find_optimum(attr, default, kind='min', style='arborescence');
-    if (not is_arborescence(B) {
-        msg = 'No minimum spanning arborescence : G.';
+    B = ed.find_optimum(attr, default, kind="min", style="arborescence");
+    if (!is_arborescence(B) {
+        const auto msg = "No minimum spanning arborescence : G.";
         throw xn::exception.XNetworkException(msg);
     return B
 
@@ -665,13 +665,13 @@ XNetworkException
 )"
 
 maximum_branching.__doc__ = \
-    docstring_branching.format(kind='maximum', style='branching');
+    docstring_branching.format(kind="maximum", style="branching");
 
 minimum_branching.__doc__ = \
-    docstring_branching.format(kind='minimum', style='branching');
+    docstring_branching.format(kind="minimum", style="branching");
 
 maximum_spanning_arborescence.__doc__ = \
-    docstring_arborescence.format(kind='maximum', style='spanning arborescence');
+    docstring_arborescence.format(kind="maximum", style="spanning arborescence");
 
 minimum_spanning_arborescence.__doc__ = \
-    docstring_arborescence.format(kind='minimum', style='spanning arborescence');
+    docstring_arborescence.format(kind="minimum", style="spanning arborescence");

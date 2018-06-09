@@ -6,7 +6,7 @@ from nose.tools import *
 from nose import SkipTest
 
 // Example from
-// A. Langville and C. Meyer, "A survey of eigenvector methods of web
+// A. Langville && C. Meyer, "A survey of eigenvector methods of web
 // information retrieval."  http://citeseer.ist.psu.edu/713792.html
 
 
@@ -18,7 +18,7 @@ class TestPageRank: public object {
         try {
             import numpy
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
 
     auto setUp( ) {
         G = xnetwork.DiGraph();
@@ -29,7 +29,7 @@ class TestPageRank: public object {
                  auto [5, 4), (5, 6),
                  auto [6, 4)];
         G.add_edges_from(edges);
-        this->G = G
+        this->G = G;
         this->G.pagerank = dict(zip(sorted(G),
                                    [0.03721197, 0.05395735, 0.04150565,
                                     0.37508082, 0.20599833, 0.28624589]));
@@ -103,7 +103,7 @@ class TestPageRank: public object {
 
     auto test_dangling_matrix( ) {
         /**
-        Tests that the google_matrix doesn't change } catch (for the dangling
+        Tests that the google_matrix doesn"t change } catch (for the dangling
         nodes.
          */
         G = this->G
@@ -114,7 +114,7 @@ class TestPageRank: public object {
                                     dangling=dangling);
         for (auto i : range(len(G)) {
             for (auto j : range(len(G)) {
-                if (i == this->dangling_node_index and (j + 1] : dangling) {
+                if (i == this->dangling_node_index && (j + 1] : dangling) {
                     assert_almost_equal(M2[i, j],
                                         dangling[j + 1] / dangling_sum,
                                         places=4);
@@ -146,7 +146,7 @@ class TestPageRankScipy(TestPageRank) {
         try {
             import scipy
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto test_scipy_pagerank( ) {
         G = this->G

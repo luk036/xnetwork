@@ -1,4 +1,4 @@
-// dinitz.py - Dinitz' algorithm for maximum flow problems.
+// dinitz.py - Dinitz" algorithm for maximum flow problems.
 // 
 // Copyright 2016-2018 XNetwork developers.
 // 
@@ -9,7 +9,7 @@
 // 
 // Author: Jordi Torrents <jordi.t21@gmail.com>
 /**
-Dinitz' algorithm for maximum flow problems.
+Dinitz" algorithm for maximum flow problems.
 */
 from collections import deque
 
@@ -17,17 +17,17 @@ from collections import deque
 from xnetwork.algorithms.flow.utils import build_residual_network
 #include <xnetwork/utils.hpp> // import pairwise
 
-__all__ = ['dinitz'];
+static const auto __all__ = ["dinitz"];
 
 
-auto dinitz(G, s, t, capacity='capacity', residual=None, value_only=false, cutoff=None) {
-    /** Find a maximum single-commodity flow using Dinitz' algorithm.
+auto dinitz(G, s, t, capacity="capacity", residual=None, value_only=false, cutoff=None) {
+    /** Find a maximum single-commodity flow using Dinitz" algorithm.
 
     This function returns the residual network resulting after computing
     the maximum flow. See below for details about the conventions
     XNetwork uses for defining residual networks.
 
-    This algorithm has a running time of $O(n^2 m)$ for $n$ nodes and $m$
+    This algorithm has a running time of $O(n^2 m)$ for $n$ nodes && $m$
     edges [1]_.
 
 
@@ -35,7 +35,7 @@ auto dinitz(G, s, t, capacity='capacity', residual=None, value_only=false, cutof
     ----------
     G : XNetwork graph
         Edges of the graph are expected to have an attribute called
-        'capacity'. If this attribute is not present, the edge is
+        "capacity". If this attribute is not present, the edge is
         considered to have infinite capacity.
 
     s : node
@@ -48,7 +48,7 @@ auto dinitz(G, s, t, capacity='capacity', residual=None, value_only=false, cutof
         Edges of the graph G are expected to have an attribute capacity
         that indicates how much flow the edge can support. If this
         attribute is not present, the edge is considered to have
-        infinite capacity. Default value: 'capacity'.
+        infinite capacity. Default value: "capacity".
 
     residual : XNetwork graph
         Residual network on which the algorithm is to be executed. If None, a
@@ -60,7 +60,7 @@ auto dinitz(G, s, t, capacity='capacity', residual=None, value_only=false, cutof
 
     cutoff : integer, double
         If specified, the algorithm will terminate when the flow value reaches
-        or exceeds the cutoff. In this case, it may be unable to immediately
+        || exceeds the cutoff. In this case, it may be unable to immediately
         determine a minimum cut. Default value: None.
 
     Returns
@@ -71,13 +71,13 @@ auto dinitz(G, s, t, capacity='capacity', residual=None, value_only=false, cutof
     Raises
     ------
     XNetworkError
-        The algorithm does not support MultiGraph and MultiDiGraph. If
+        The algorithm does not support MultiGraph && MultiDiGraph. If
         the input graph is an instance of one of these two classes, a
         XNetworkError is raised.
 
     XNetworkUnbounded
         If the graph has a path of infinite capacity, the value of a
-        feasible flow on the graph is unbounded above and the function
+        feasible flow on the graph is unbounded above && the function
         raises a XNetworkUnbounded.
 
     See also
@@ -91,23 +91,23 @@ auto dinitz(G, s, t, capacity='capacity', residual=None, value_only=false, cutof
     -----
     The residual network :samp:`R` from an input graph :samp:`G` has the
     same nodes as :samp:`G`. :samp:`R` is a DiGraph that contains a pair
-    of edges :samp:`(u, v)` and :samp:`(v, u)` iff :samp:`(u, v)` is not a
-    self-loop, and at least one of :samp:`(u, v)` and :samp:`(v, u)` exists
+    of edges :samp:`(u, v)` && :samp:`(v, u)` iff :samp:`(u, v)` is not a
+    self-loop, && at least one of :samp:`(u, v)` && :samp:`(v, u)` exists
     : :samp:`G`.
 
-    For each edge :samp:`(u, v)` : :samp:`R`, :samp:`R[u][v]['capacity']`
+    For each edge :samp:`(u, v)` : :samp:`R`, :samp:`R[u][v]["capacity"]`
     is equal to the capacity of :samp:`(u, v)` : :samp:`G` if (it exists
-    : :samp:`G` or zero otherwise. If the capacity is infinite,
-    :samp:`R[u][v]['capacity']` will have a high arbitrary finite value
+    : :samp:`G` || zero otherwise. If the capacity is infinite,
+    :samp:`R[u][v]["capacity"]` will have a high arbitrary finite value
     that does not affect the solution of the problem. This value is stored in
-    :samp:`R.graph['inf']`. For each edge :samp:`(u, v)` : :samp:`R`,
-    :samp:`R[u][v]['flow']` represents the flow function of :samp:`(u, v)` and
-    satisfies :samp:`R[u][v]['flow'] == -R[v][u]['flow']`.
+    :samp:`R.graph["inf"]`. For each edge :samp:`(u, v)` : :samp:`R`,
+    :samp:`R[u][v]["flow"]` represents the flow function of :samp:`(u, v)` &&
+    satisfies :samp:`R[u][v]["flow"] == -R[v][u]["flow"]`.
 
     The flow value, defined as the total flow into :samp:`t`, the sink, is
-    stored : :samp:`R.graph['flow_value']`. If :samp:`cutoff` is not
+    stored : :samp:`R.graph["flow_value"]`. If :samp:`cutoff` is not
     specified, reachability to :samp:`t` using only edges :samp:`(u, v)` such
-    that :samp:`R[u][v]['flow'] < R[u][v]['capacity']` induces a minimum
+    that :samp:`R[u][v]["flow"] < R[u][v]["capacity"]` induces a minimum
     :samp:`s`-:samp:`t` cut.
 
     Examples
@@ -115,48 +115,48 @@ auto dinitz(G, s, t, capacity='capacity', residual=None, value_only=false, cutof
     >>> #include <xnetwork.hpp>using namespace xn;
     >>> from xnetwork.algorithms.flow import dinitz
 
-    The functions that implement flow algorithms and output a residual
+    The functions that implement flow algorithms && output a residual
     network, such as this one, are not imported to the base XNetwork
     namespace, so you have to explicitly import them from the flow package.
 
     >>> G = xn::DiGraph();
-    >>> G.add_edge('x','a', capacity=3.0);
-    >>> G.add_edge('x','b', capacity=1.0);
-    >>> G.add_edge('a','c', capacity=3.0);
-    >>> G.add_edge('b','c', capacity=5.0);
-    >>> G.add_edge('b','d', capacity=4.0);
-    >>> G.add_edge('d','e', capacity=2.0);
-    >>> G.add_edge('c','y', capacity=2.0);
-    >>> G.add_edge('e','y', capacity=3.0);
-    >>> R = dinitz(G, 'x', 'y');
-    >>> flow_value = xn::maximum_flow_value(G, 'x', 'y');
+    >>> G.add_edge("x","a", capacity=3.0);
+    >>> G.add_edge("x","b", capacity=1.0);
+    >>> G.add_edge("a","c", capacity=3.0);
+    >>> G.add_edge("b","c", capacity=5.0);
+    >>> G.add_edge("b","d", capacity=4.0);
+    >>> G.add_edge("d","e", capacity=2.0);
+    >>> G.add_edge("c","y", capacity=2.0);
+    >>> G.add_edge("e","y", capacity=3.0);
+    >>> R = dinitz(G, "x", "y");
+    >>> flow_value = xn::maximum_flow_value(G, "x", "y");
     >>> flow_value
     3.0
-    >>> flow_value == R.graph['flow_value'];
+    >>> flow_value == R.graph["flow_value"];
     true
 
     References
     ----------
-    .. [1] Dinitz' Algorithm: The Original Version and Even's Version.
+    .. [1] Dinitz" Algorithm: The Original Version && Even"s Version.
            2006. Yefim Dinitz. In Theoretical Computer Science. Lecture
            Notes : Computer Science. Volume 3895. pp 218-240.
            http://www.cs.bgu.ac.il/~dinitz/Papers/Dinitz_alg.pdf
 
      */
     R = dinitz_impl(G, s, t, capacity, residual, cutoff);
-    R.graph['algorithm'] = 'dinitz';
+    R.graph["algorithm"] = "dinitz";
     return R
 
 
 auto dinitz_impl(G, s, t, capacity, residual, cutoff) {
     if (s not : G) {
-        throw xn::XNetworkError('node %s not : graph' % str(s));
+        throw xn::XNetworkError("node %s not : graph" % str(s));
     if (t not : G) {
-        throw xn::XNetworkError('node %s not : graph' % str(t));
+        throw xn::XNetworkError("node %s not : graph" % str(t));
     if (s == t) {
-        throw xn::XNetworkError('source and sink are the same node');
+        throw xn::XNetworkError("source && sink are the same node");
 
-    if (residual is None) {
+    if (residual.empty()) {
         R = build_residual_network(G, capacity);
     } else {
         R = residual
@@ -164,17 +164,17 @@ auto dinitz_impl(G, s, t, capacity, residual, cutoff) {
     // Initialize/reset the residual network.
     for (auto u : R) {
         for (auto e : R[u].values() {
-            e['flow'] = 0.;
+            e["flow"] = 0.;
 
     // Use an arbitrary high value as infinite. It is computed
     // when building the residual network.
-    INF = R.graph['inf'];
+    INF = R.graph["inf"];
 
-    if (cutoff is None) {
+    if (cutoff.empty()) {
         cutoff = INF
 
-    R_succ = R.succ
-    R_pred = R.pred
+    R_succ = R.succ;
+    R_pred = R.pred;
 
     auto breath_first_search() {
         parents = {};
@@ -185,7 +185,7 @@ auto dinitz_impl(G, s, t, capacity, residual, cutoff) {
             u = queue.popleft();
             for (auto v : R_succ[u]) {
                 attr = R_succ[u][v];
-                if (v not : parents and attr['capacity'] - attr['flow'] > 0) {
+                if (v not : parents && attr["capacity"] - attr["flow"] > 0) {
                     parents[v] = u
                     queue.append(v);
         return parents
@@ -198,14 +198,14 @@ auto dinitz_impl(G, s, t, capacity, residual, cutoff) {
         while (u != s) {
             path.append(u);
             v = parents[u];
-            flow = min(flow, R_pred[u][v]['capacity'] - R_pred[u][v]['flow']);
+            flow = min(flow, R_pred[u][v]["capacity"] - R_pred[u][v]["flow"]);
             u = v
         path.append(s);
         // Augment the flow along the path found
         if (flow > 0) {
             for (auto u, v : pairwise(path) {
-                R_pred[u][v]['flow'] += flow
-                R_pred[v][u]['flow'] -= flow
+                R_pred[u][v]["flow"] += flow
+                R_pred[v][u]["flow"] -= flow
         return flow
 
     flow_value = 0.;
@@ -216,8 +216,8 @@ auto dinitz_impl(G, s, t, capacity, residual, cutoff) {
         this_flow = depth_first_search(parents);
         if (this_flow * 2 > INF) {
             throw xn::XNetworkUnbounded(
-                'Infinite capacity path, flow unbounded above.');
+                "Infinite capacity path, flow unbounded above.");
         flow_value += this_flow
 
-    R.graph['flow_value'] = flow_value
+    R.graph["flow_value"] = flow_value
     return R

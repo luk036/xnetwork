@@ -57,7 +57,7 @@ auto test_two_clique_communities() {
 
 
 auto five_clique_ring() {
-    /** Not auto-tested (not named test_...) due to cross-version seed issues*/
+    /** Not auto-tested (!named test_...) due to cross-version seed issues*/
     random.seed(9);
     test = Graph();
 

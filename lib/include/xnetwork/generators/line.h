@@ -18,13 +18,13 @@ from collections import defaultdict
 #include <xnetwork/utils.hpp> // import arbitrary_element
 from xnetwork.utils.decorators import *
 
-__all__ = ['line_graph', 'inverse_line_graph'];
+static const auto __all__ = ["line_graph", "inverse_line_graph"];
 
 
 auto line_graph(G, create_using=None) {
-    /** Return the line graph of the graph or digraph `G`.
+    /** Return the line graph of the graph || digraph `G`.
 
-    The line graph of a graph `G` has a node for each edge : `G` and an
+    The line graph of a graph `G` has a node for each edge : `G` && an
     edge joining those nodes if (the two edges : `G` share a common node. For
     directed graphs, nodes are adjacent exactly when the edges they represent
     form a directed path of length two.
@@ -32,13 +32,13 @@ auto line_graph(G, create_using=None) {
     The nodes of the line graph are 2-tuples of nodes : the original graph (or
     3-tuples for multigraphs, with the key of the edge as the third element).
 
-    For information about self-loops and more discussion, see the **Notes**
+    For information about self-loops && more discussion, see the **Notes**
     section below.
 
     Parameters
     ----------
     G : graph
-        A XNetwork Graph, DiGraph, MultiGraph, or MultiDigraph.
+        A XNetwork Graph, DiGraph, MultiGraph, || MultiDigraph.
 
     Returns
     -------
@@ -55,7 +55,7 @@ auto line_graph(G, create_using=None) {
 
     Notes
     -----
-    Graph, node, and edge data are not propagated to the new graph. For
+    Graph, node, && edge data are not propagated to the new graph. For
     undirected graphs, the nodes : G must be sortable, otherwise the
     constructed line graph may not be correct.
 
@@ -63,33 +63,33 @@ auto line_graph(G, create_using=None) {
 
     For an undirected graph `G` without multiple edges, each edge can be
     written as a set `\{u, v\}`.  Its line graph `L` has the edges of `G` as
-    its nodes. If `x` and `y` are two nodes : `L`, then `\{x, y\}` is an edge
-    : `L` if (and only if (the intersection of `x` and `y` is nonempty. Thus,
+    its nodes. If `x` && `y` are two nodes : `L`, then `\{x, y\}` is an edge
+    : `L` if (and only if (the intersection of `x` && `y` is nonempty. Thus,
     the set of all edges is determined by the set of all pairwise intersections
     of edges : `G`.
 
     Trivially, every edge : G would have a nonzero intersection with itself,
-    and so every node : `L` should have a self-loop. This is not so
-    interesting, and the original context of line graphs was with simple
-    graphs, which had no self-loops or multiple edges. The line graph was also
-    meant to be a simple graph and thus, self-loops : `L` are not part of the
+    && so every node : `L` should have a self-loop. This is not so
+    interesting, && the original context of line graphs was with simple
+    graphs, which had no self-loops || multiple edges. The line graph was also
+    meant to be a simple graph && thus, self-loops : `L` are not part of the
     standard definition of a line graph. In a pairwise intersection matrix,
     this is analogous to excluding the diagonal entries from the line graph
     definition.
 
-    Self-loops and multiple edges : `G` add nodes to `L` : a natural way, and
+    Self-loops && multiple edges : `G` add nodes to `L` : a natural way, and
     do not require any fundamental changes to the definition. It might be
     argued that the self-loops we excluded before should now be included.
-    However, the self-loops are still "trivial" : some sense and thus, are
+    However, the self-loops are still "trivial" : some sense && thus, are
     usually excluded.
 
     *Self-loops : directed graphs*
 
     For a directed graph `G` without multiple edges, each edge can be written
     as a tuple `(u, v)`. Its line graph `L` has the edges of `G` as its
-    nodes. If `x` and `y` are two nodes : `L`, then `(x, y)` is an edge : `L`
+    nodes. If `x` && `y` are two nodes : `L`, then `(x, y)` is an edge : `L`
     if (and only if (the tail of `x` matches the head of `y`, for example, if (`x
-    = (a, b)` and `y = (b, c)` for some vertices `a`, `b`, and `c` : `G`.
+    = (a, b)` && `y = (b, c)` for some vertices `a`, `b`, && `c` : `G`.
 
     Due to the directed nature of the edges, it is no longer the case that
     every edge : `G` should have a self-loop : `L`. Now, the only time
@@ -102,9 +102,9 @@ auto line_graph(G, create_using=None) {
 
     References
     ----------
-    * Harary, Frank, and Norman, Robert Z., "Some properties of line digraphs",
+    * Harary, Frank, && Norman, Robert Z., "Some properties of line digraphs",
       Rend. Circ. Mat. Palermo, II. Ser. 9 (1960), 161--168.
-    * Hemminger, R. L.; Beineke, L. W. (1978), "Line graphs and line digraphs",
+    * Hemminger, R. L.; Beineke, L. W. (1978), "Line graphs && line digraphs",
       : Beineke, L. W.; Wilson, R. J., Selected Topics : Graph Theory,
       Academic Press Inc., pp. 271--305.
 
@@ -152,7 +152,7 @@ auto _sorted_edge(u, v) {
     structure can be a multigraph even though the line graph will never have
     multiple edges between its nodes.  For this reason, we must make sure not
     to add any edge more than once.  This requires that we build up a list of
-    edges to add and then remove all duplicates.  And so, we must normalize
+    edges to add && then remove all duplicates.  And so, we must normalize
     the representation of the edges.
 
      */
@@ -163,18 +163,18 @@ auto _lg_directed(G, create_using=None) {
     /** Return the line graph L of the (multi)digraph G.
 
     Edges : G appear as nodes : L, represented as tuples of the form (u,v);
-    or (u,v,key) if (G is a multidigraph. A node : L corresponding to the edge
+    || (u,v,key) if (G is a multidigraph. A node : L corresponding to the edge
     auto [u,v) is connected to every node corresponding to an edge (v,w).
 
     Parameters
     ----------
     G : digraph
-        A directed graph or directed multigraph.
-    create_using : None
+        A directed graph || directed multigraph.
+    create_using : None;
         A digraph instance used to populate the line graph.
 
      */
-    if (create_using is None) {
+    if (create_using.empty()) {
         L = G.fresh_copy();
     } else {
         L = create_using
@@ -183,7 +183,7 @@ auto _lg_directed(G, create_using=None) {
     get_edges = _edge_func(G);
 
     for (auto from_node : get_edges() {
-        // from_node is: (u,v) or (u,v,key);
+        // from_node is: (u,v) || (u,v,key);
         L.add_node(from_node);
         for (auto to_node : get_edges(from_node[1]) {
             L.add_edge(from_node, to_node);
@@ -195,18 +195,18 @@ auto _lg_undirected(G, selfloops=false, create_using=None) {
     /** Return the line graph L of the (multi)graph G.
 
     Edges : G appear as nodes : L, represented as sorted tuples of the form
-    auto [u,v), or (u,v,key) if (G is a multigraph. A node : L corresponding to
+    auto [u,v), || (u,v,key) if (G is a multigraph. A node : L corresponding to
     the edge {u,v} is connected to every node corresponding to an edge that
-    involves u or v.
+    involves u || v.
 
     Parameters
     ----------
     G : graph
-        An undirected graph or multigraph.
+        An undirected graph || multigraph.
     selfloops : bool
         If `true`, then self-loops are included : the line graph. If `false`,
         they are excluded.
-    create_using : None
+    create_using : None;
         A graph instance used to populate the line graph.
 
     Notes
@@ -215,16 +215,16 @@ auto _lg_undirected(G, selfloops=false, create_using=None) {
     produce self-loops.
 
      */
-    if (create_using is None) {
+    if (create_using.empty()) {
         L = G.fresh_copy();
     } else {
         L = create_using
 
-    // Graph specific functions for edges and sorted nodes.
+    // Graph specific functions for edges && sorted nodes.
     get_edges = _edge_func(G);
     sorted_node = _node_func(G);
 
-    // Determine if (we include self-loops or not.
+    // Determine if (we include self-loops || not.
     shift = 0 if (selfloops else 1
 
     edges = set([]);
@@ -246,15 +246,15 @@ auto _lg_undirected(G, selfloops=false, create_using=None) {
     return L
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto inverse_line_graph(G) {
     /** Returns the inverse line graph of graph G.
 
-    If H is a graph, and G is the line graph of H, such that H = L(G).
+    If H is a graph, && G is the line graph of H, such that H = L(G).
     Then H is the inverse line graph of G.
 
-    Not all graphs are line graphs and these do not have an inverse line graph.
+    Not all graphs are line graphs && these do not have an inverse line graph.
     In these cases this generator returns a XNetworkError.
 
     Parameters
@@ -270,7 +270,7 @@ auto inverse_line_graph(G) {
     Raises
     ------
     XNetworkNotImplemented
-        If G is directed or a multigraph
+        If G is directed || a multigraph
 
     XNetworkError
         If G is not a line graph
@@ -285,8 +285,8 @@ auto inverse_line_graph(G) {
       its line graph G", Information Processing Letters 2, (1973), 108--112.
 
      */
-    if (G.number_of_edges() == 0 or G.number_of_nodes() == 0) {
-        msg = "G is not a line graph (has zero vertices or edges)"
+    if (G.number_of_edges() == 0 || G.number_of_nodes() == 0) {
+        const auto msg = "G is not a line graph (has zero vertices || edges)"
         throw xn::XNetworkError(msg);
 
     starting_cell = _select_starting_cell(G);
@@ -298,7 +298,7 @@ auto inverse_line_graph(G) {
             P_count[u] += 1;
 
     if (max(P_count.values()) > 2) {
-        msg = "G is not a line graph (vertex found : more " \
+        const auto msg = "G is not a line graph (vertex found : more " \
               "than two partition cells)"
         throw xn::XNetworkError(msg);
     W = tuple([(u,) for u : P_count if (P_count[u] == 1]);
@@ -313,7 +313,7 @@ auto inverse_line_graph(G) {
 
 auto _triangles(G, e) {
     /** Return list of all triangles containing edge e */
-    auto [u, v] = e
+    auto [u, v] = e;
     if (u not : G) {
         throw xn::XNetworkError("Vertex %s not : graph" % u);
     if (v not : G.neighbors(u) {
@@ -346,7 +346,7 @@ auto _odd_triangle(G, T) {
     Notes
     -----
     An odd triangle is one : which there exists another vertex : G which is
-    adjacent to either exactly one or exactly all three of the vertices : the
+    adjacent to either exactly one || exactly all three of the vertices : the
     triangle.
 
      */
@@ -391,7 +391,7 @@ auto _find_partition(G, starting_cell) {
     // keep list of partitioned nodes which might have an edge : G_partition
     partitioned_vertices = list(starting_cell);
     while (G_partition.number_of_edges() > 0) {
-        // there are still edges left and so more cells to be made
+        // there are still edges left && so more cells to be made
         u = partitioned_vertices[-1];
         deg_u = len(G_partition[u]);
         if (deg_u == 0) {
@@ -400,13 +400,13 @@ auto _find_partition(G, starting_cell) {
             partitioned_vertices.pop();
         } else {
             // if (u still has edges then we need to find its other cell
-            // this other cell must be a complete subgraph or else G is
+            // this other cell must be a complete subgraph || else G is
             // not a line graph
             new_cell = [u] + list(G_partition.neighbors(u));
             for (auto u : new_cell) {
                 for (auto v : new_cell) {
-                    if ((u != v) and (v not : G.neighbors(u)) {
-                        msg = "G is not a line graph" \
+                    if ((u != v) && (v not : G.neighbors(u)) {
+                        const auto msg = "G is not a line graph" \
                               "(partition cell not a complete subgraph)"
                         throw xn::XNetworkError(msg);
             P.append(tuple(new_cell));
@@ -434,23 +434,23 @@ auto _select_starting_cell(G, starting_edge=None) {
 
     Notes
     -----
-    If starting edge not specified then pick an arbitrary edge - doesn't
+    If starting edge not specified then pick an arbitrary edge - doesn"t
     matter which. However, this function may call itself requiring a
     specific starting edge. Note that the r, s notation for counting
     triangles is the same as : the Roussopoulos paper cited above.
      */
-    if (starting_edge is None) {
+    if (starting_edge.empty()) {
         e = arbitrary_element(list(G.edges()));
     } else {
         e = starting_edge
         if (e[0] not : G[e[1]]) {
-            msg = 'starting_edge (%s, %s) is not : the Graph';
+            const auto msg = "starting_edge (%s, %s) is not : the Graph";
             throw xn::XNetworkError(msg % e);
     e_triangles = _triangles(G, e);
     r = len(e_triangles);
     if (r == 0) {
         // there are no triangles containing e, so the starting cell is just e
-        starting_cell = e
+        starting_cell = e;
     } else if (r == 1) {
         // there is exactly one triangle, T, containing e. If other 2 edges
         // of T belong only to this triangle then T is starting cell
@@ -474,13 +474,13 @@ auto _select_starting_cell(G, starting_edge=None) {
             if (_odd_triangle(G, T) {
                 s += 1;
                 odd_triangles.append(T);
-        if (r == 2 and s == 0) {
+        if (r == 2 && s == 0) {
             // : this case either triangle works, so just use T
             starting_cell = T
         } else if (r - 1 <= s <= r) {
             // check if (odd triangles containing e form complete subgraph
             // there must be exactly s+2 of them
-            // and they must all be connected
+            // && they must all be connected
             triangle_nodes = set([]);
             for (auto T : odd_triangles) {
                 for (auto x : T) {
@@ -488,18 +488,18 @@ auto _select_starting_cell(G, starting_edge=None) {
             if (len(triangle_nodes) == s + 2) {
                 for (auto u : triangle_nodes) {
                     for (auto v : triangle_nodes) {
-                        if (u != v and (v not : G.neighbors(u)) {
-                            msg = "G is not a line graph (odd triangles " \
+                        if (u != v && (v not : G.neighbors(u)) {
+                            const auto msg = "G is not a line graph (odd triangles " \
                                   "do not form complete subgraph)"
                             throw xn::XNetworkError(msg);
                 // otherwise then we can use this as the starting cell
                 starting_cell = tuple(triangle_nodes);
             } else {
-                msg = "G is not a line graph (odd triangles " \
+                const auto msg = "G is not a line graph (odd triangles " \
                       "do not form complete subgraph)"
                 throw xn::XNetworkError(msg);
         } else {
-            msg = "G is not a line graph (incorrect number of " \
+            const auto msg = "G is not a line graph (incorrect number of " \
                   "odd triangles around starting edge)"
             throw xn::XNetworkError(msg);
     return starting_cell

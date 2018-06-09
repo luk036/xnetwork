@@ -51,8 +51,8 @@ class TestCutSize: public object {
 
     auto test_multigraph( ) {
         /** Tests that parallel edges are each counted for a cut. */
-        G = xn::MultiGraph(['ab', 'ab']);
-        assert_equal(xn::cut_size(G, {'a'}, {'b'}), 2);
+        G = xn::MultiGraph(["ab", "ab"]);
+        assert_equal(xn::cut_size(G, {"a"}, {"b"}), 2);
 
 
 class TestVolume: public object {
@@ -108,7 +108,7 @@ class TestConductance: public object {
     auto test_graph( ) {
         G = xn::barbell_graph(5, 0);
         // Consider the singleton sets containing the "bridge" nodes.
-        // There is only one cut edge, and each set has volume five.
+        // There is only one cut edge, && each set has volume five.
         S = {4}
         T = {5}
         conductance = xn::conductance(G, S, T);
@@ -137,7 +137,7 @@ class TestNodeExpansion: public object {
         G = xn::path_graph(8);
         S = {3, 4, 5}
         expansion = xn::node_expansion(G, S);
-        // The neighborhood of S has cardinality five, and S has
+        // The neighborhood of S has cardinality five, && S has
         // cardinality three.
         expected = 5 / 3
         assert_equal(expected, expansion);
@@ -152,7 +152,7 @@ class TestBoundaryExpansion: public object {
         G = xn::complete_graph(10);
         S = set(range(4));
         expansion = xn::boundary_expansion(G, S);
-        // The node boundary of S has cardinality six, and S has
+        // The node boundary of S has cardinality six, && S has
         // cardinality three.
         expected = 6 / 4
         assert_equal(expected, expansion);
@@ -168,7 +168,7 @@ class TestMixingExpansion: public object {
         S = set(range(5));
         T = set(G) - S
         expansion = xn::mixing_expansion(G, S, T);
-        // There is one cut edge, and the total number of edges : the
+        // There is one cut edge, && the total number of edges : the
         // graph is twice the total number of edges : a clique of size
         // five, plus one more for the bridge.
         expected = 1 / (2 * (5 * 4 + 1));

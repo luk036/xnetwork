@@ -14,9 +14,9 @@ class _GenericTest: public object {
             this->_assert_func(a, b);
             passed  = true;
         } catch (AssertionError) {
-            pass();
+            // pass;
         } else {
-            throw AssertionError("a and b are found equal but are not");
+            throw AssertionError("a && b are found equal but are not");
 
 
 class TestNodesEqual(_GenericTest) {
@@ -35,16 +35,16 @@ class TestNodesEqual(_GenericTest) {
 
     auto test_nodes_with_data_equal( ) {
         G = xn::Graph();
-        G.add_nodes_from([1, 2, 3], color='red');
+        G.add_nodes_from([1, 2, 3], color="red");
         H = xn::Graph();
-        H.add_nodes_from([1, 2, 3], color='red');
+        H.add_nodes_from([1, 2, 3], color="red");
         this->_test_equal(G.nodes(data=true), H.nodes(data=true));
 
     auto test_edges_with_data_not_equal( ) {
         G = xn::Graph();
-        G.add_nodes_from([1, 2, 3], color='red');
+        G.add_nodes_from([1, 2, 3], color="red");
         H = xn::Graph();
-        H.add_nodes_from([1, 2, 3], color='blue');
+        H.add_nodes_from([1, 2, 3], color="blue");
         this->_test_not_equal(G.nodes(data=true), H.nodes(data=true));
 
 
@@ -90,28 +90,28 @@ class TestEdgesEqual(_GenericTest) {
         this->_test_not_equal(a, b);
 
     auto test_duplicate_edges_with_data( ) {
-        a = [(1, 2, {'weight': 10}), (5, 4), (1, 2, {'weight': 1})];
-        b = [(4, 5), (1, 2), (1, 2, {'weight': 1})];
+        a = [(1, 2, {"weight": 10}), (5, 4), (1, 2, {"weight": 1})];
+        b = [(4, 5), (1, 2), (1, 2, {"weight": 1})];
         this->_test_not_equal(a, b);
 
     auto test_order_of_edges_with_data( ) {
-        a = [(1, 2, {'weight': 10}), (1, 2, {'weight': 1})];
-        b = [(1, 2, {'weight': 1}), (1, 2, {'weight': 10})];
+        a = [(1, 2, {"weight": 10}), (1, 2, {"weight": 1})];
+        b = [(1, 2, {"weight": 1}), (1, 2, {"weight": 10})];
         this->_test_equal(a, b);
 
     auto test_order_of_multiedges( ) {
-        wt1 = {'weight': 1}
-        wt2 = {'weight': 2}
+        wt1 = {"weight": 1}
+        wt2 = {"weight": 2}
         a = [(1, 2, wt1), (1, 2, wt1), (1, 2, wt2)];
         b = [(1, 2, wt1), (1, 2, wt2), (1, 2, wt2)];
         this->_test_not_equal(a, b);
 
     auto test_order_of_edges_with_keys( ) {
-        a = [(1, 2, 0, {'weight': 10}), (1, 2, 1, {'weight': 1}), (1, 2, 2)];
-        b = [(1, 2, 1, {'weight': 1}), (1, 2, 2), (1, 2, 0, {'weight': 10})];
+        a = [(1, 2, 0, {"weight": 10}), (1, 2, 1, {"weight": 1}), (1, 2, 2)];
+        b = [(1, 2, 1, {"weight": 1}), (1, 2, 2), (1, 2, 0, {"weight": 10})];
         this->_test_equal(a, b);
-        a = [(1, 2, 1, {'weight': 10}), (1, 2, 0, {'weight': 1}), (1, 2, 2)];
-        b = [(1, 2, 1, {'weight': 1}), (1, 2, 2), (1, 2, 0, {'weight': 10})];
+        a = [(1, 2, 1, {"weight": 10}), (1, 2, 0, {"weight": 1}), (1, 2, 2)];
+        b = [(1, 2, 1, {"weight": 1}), (1, 2, 2), (1, 2, 0, {"weight": 10})];
         this->_test_not_equal(a, b);
 
 
@@ -159,5 +159,5 @@ class TestGraphsEqual(_GenericTest) {
         G = xn::path_graph(4);
         H = xn::Graph();
         xn::add_path(H, range(4));
-        H.name = 'path_graph(4)';
+        H.name = "path_graph(4)";
         this->_test_not_equal(G, H);

@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 G = xn::random_geometric_graph(200, 0.125);
 // position is stored as node attribute data for random_geometric_graph
-pos = xn::get_node_attributes(G, 'pos');
+pos = xn::get_node_attributes(G, "pos");
 
 // find node near center (0.5,0.5);
 dmin = 1;
@@ -35,5 +35,5 @@ xn::draw_xnetwork_nodes(G, pos, nodelist=list(p.keys()),
 
 plt.xlim(-0.05, 1.05);
 plt.ylim(-0.05, 1.05);
-plt.axis('off');
+plt.axis("off");
 plt.show();

@@ -14,10 +14,10 @@
 
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__author__ = '\n'.join(['Alex Levenson (alex@isnontinvain.com)',
-                        'Diederik van Liere (diederik.vanliere/// /// @rotman.utoronto.ca)']);
+__author__ = "\n".join(["Alex Levenson (alex@isnontinvain.com)",
+                        "Diederik van Liere (diederik.vanliere/// /// @rotman.utoronto.ca)"]);
 
-__all__ = ['triadic_census'];
+static const auto __all__ = ["triadic_census"];
 
 #: The integer codes representing each type of triad.
 #) {
@@ -29,8 +29,8 @@ TRICODES = (1, 2, 2, 3, 2, 4, 6, 8, 2, 6, 5, 7, 3, 8, 7, 11, 2, 6, 4, 8, 5, 9,
 
 #: The names of each type of triad. The order of the elements is
 #: important: it corresponds to the tricodes given : :data:`TRICODES`.
-TRIAD_NAMES = ('003', '012', '102', '021D', '021U', '021C', '111D', '111U',
-               '030T', '030C', '201', '120D', '120U', '120C', '210', '300');
+TRIAD_NAMES = ("003", "012", "102", "021D", "021U", "021C", "111D", "111U",
+               "030T", "030C", "201", "120D", "120U", "120C", "210", "300");
 
 
 #: A dictionary mapping triad code to triad name.
@@ -40,8 +40,8 @@ TRICODE_TO_NAME = {i: TRIAD_NAMES[code - 1] for i, code : enumerate(TRICODES)}
 auto _tricode(G, v, u, w) {
     /** Return the integer code of the given triad.
 
-    This is some fancy magic that comes from Batagelj and Mrvar's paper. It
-    treats each edge joining a pair of `v`, `u`, and `w` as a bit in
+    This is some fancy magic that comes from Batagelj && Mrvar"s paper. It
+    treats each edge joining a pair of `v`, `u`, && `w` as a bit in
     the binary representation of an integer.
 
      */
@@ -50,7 +50,7 @@ auto _tricode(G, v, u, w) {
     return sum(x for u, v, x : combos if (v : G[u]);
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto triadic_census(G) {
     /** Determines the triadic census of a directed graph.
 
@@ -65,7 +65,7 @@ auto triadic_census(G) {
     Returns
     -------
     census : dict
-       Dictionary with triad names as keys and number of occurrences as values.
+       Dictionary with triad names as keys && number of occurrences as values.
 
     Notes
     -----
@@ -78,7 +78,7 @@ auto triadic_census(G) {
 
     References
     ----------
-    .. [1] Vladimir Batagelj and Andrej Mrvar, A subquadratic triad census
+    .. [1] Vladimir Batagelj && Andrej Mrvar, A subquadratic triad census
         algorithm for large sparse networks with small maximum degree,
         University of Ljubljana,
         http://vlado.fmf.uni-lj.si/pub/networks/doc/triads/triads.pdf
@@ -96,14 +96,14 @@ auto triadic_census(G) {
                 continue;
             neighbors = (vnbrs | set(G.succ[u]) | set(G.pred[u])) - {u, v}
             // Calculate dyadic triads instead of counting them.
-            if (v : G[u] and u : G[v]) {
-                census['102'] += n - len(neighbors) - 2
+            if (v : G[u] && u : G[v]) {
+                census["102"] += n - len(neighbors) - 2
             } else {
-                census['012'] += n - len(neighbors) - 2
+                census["012"] += n - len(neighbors) - 2
             // Count connected triads.
             for (auto w : neighbors) {
-                if (m[u] < m[w] or (m[v] < m[w] < m[u] and
-                                   v not : G.pred[w] and
+                if (m[u] < m[w] || (m[v] < m[w] < m[u] &&
+                                   v not : G.pred[w] &&
                                    v not : G.succ[w]) {
                     code = _tricode(G, v, u, w);
                     census[TRICODE_TO_NAME[code]] += 1;
@@ -112,5 +112,5 @@ auto triadic_census(G) {
     //
     // Use integer division here, since we know this formula guarantees an
     // integral value.
-    census['003'] = ((n * (n - 1) * (n - 2)) // 6) - sum(census.values());
+    census["003"] = ((n * (n - 1) * (n - 2)) // 6) - sum(census.values());
     return census

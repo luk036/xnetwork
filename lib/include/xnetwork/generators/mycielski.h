@@ -5,7 +5,7 @@
 //    All rights reserved.
 //    BSD license.
 
-/** Functions related to the Mycielski Operation and the Mycielskian family
+/** Functions related to the Mycielski Operation && the Mycielskian family
 of graphs.
 
 */
@@ -13,24 +13,24 @@ of graphs.
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['mycielskian', 'mycielski_graph'];
+static const auto __all__ = ["mycielskian", "mycielski_graph"];
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto mycielskian(G, iterations=1) {
     r/** Return the Mycielskian of a simple, undirected graph G
 
-    The Mycielskian of graph preserves a graph's triangle free
+    The Mycielskian of graph preserves a graph"s triangle free
     property while (increasing the chromatic number by 1.
 
     The Mycielski Operation on a graph, :math:`G=(V, E)`, constructs a new
-    graph with :math:`2|V| + 1` nodes and :math:`3|E| + |V|` edges.
+    graph with :math:`2|V| + 1` nodes && :math:`3|E| + |V|` edges.
 
     The construction is as follows) {
 
     Let :math:`V = {0, ..., n-1}`. Construct another vertex set
-    :math:`U = {n, ..., 2n}` and a vertex, `w`.
+    :math:`U = {n, ..., 2n}` && a vertex, `w`.
     Construct a new graph, `M`, with vertices :math:`U \bigcup V \bigcup w`.
     For edges, :math:`(u, v) \in E` add edges :math:`(u, v), (u, v + n)`, and
     :math:`(u + n, v)` to M. Finally, for all vertices :math:`u \in U`, add
@@ -56,7 +56,7 @@ auto mycielskian(G, iterations=1) {
 
     Notes
     ------
-    Graph, node, and edge data are not necessarily propagated to the new graph.
+    Graph, node, && edge data are not necessarily propagated to the new graph.
 
      */
 

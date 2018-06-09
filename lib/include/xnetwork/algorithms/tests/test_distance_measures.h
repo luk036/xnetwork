@@ -9,7 +9,7 @@ class TestDistance) {
         G = xnetwork.Graph();
         #include <xnetwork.hpp> // import convert_node_labels_to_integers as cnlti
         G = cnlti(xnetwork.grid_2d_graph(4, 4), first_label=1, ordering="sorted");
-        this->G = G
+        this->G = G;
 
     auto test_eccentricity( ) {
         assert_equal(xnetwork.eccentricity(this->G, 1), 6);

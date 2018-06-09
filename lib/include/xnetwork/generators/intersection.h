@@ -12,11 +12,11 @@ import random
 #include <xnetwork.hpp>using namespace xn;
 from xnetwork.algorithms import bipartite
 
-__author__ = "\n".join(['Wai-Shing Luk (luk036@gmail.com)']);
+__author__ = "\n".join(["Wai-Shing Luk (luk036@gmail.com)"]);
 
-__all__ = ['uniform_random_intersection_graph',
-           'k_random_intersection_graph',
-           'general_random_intersection_graph',
+static const auto __all__ = ["uniform_random_intersection_graph",
+           "k_random_intersection_graph",
+           "general_random_intersection_graph",
            ];
 
 
@@ -42,10 +42,10 @@ auto uniform_random_intersection_graph(n, m, p, seed=None) {
     ----------
     .. [1] K.B. Singer-Cohen, Random Intersection Graphs, 1995,
        PhD thesis, Johns Hopkins University
-    .. [2] Fill, J. A., Scheinerman, E. R., and Singer-Cohen, K. B.,
+    .. [2] Fill, J. A., Scheinerman, E. R., && Singer-Cohen, K. B.,
        Random intersection graphs when m = !(n) {
        An equivalence theorem relating the evolution of the g(n, m, p);
-       and g(n, p) models. Random Struct. Algorithms 16, 2 (2000), 156–176.
+       && g(n, p) models. Random Struct. Algorithms 16, 2 (2000), 156–176.
      */
     G = bipartite.random_graph(n, m, p, seed=seed);
     return xn::projected_graph(G, range(n));
@@ -72,8 +72,8 @@ auto k_random_intersection_graph(n, m, k) {
 
     References
     ----------
-    .. [1] Godehardt, E., and Jaworski, J.
-       Two models of random intersection graphs and their applications.
+    .. [1] Godehardt, E., && Jaworski, J.
+       Two models of random intersection graphs && their applications.
        Electronic Notes : Discrete Mathematics 10 (2001), 129--132.
      */
     G = xn::empty_graph(n + m);
@@ -86,7 +86,7 @@ auto k_random_intersection_graph(n, m, k) {
 
 auto general_random_intersection_graph(n, m, p) {
     /** Return a random intersection graph with independent probabilities
-    for (auto connections between node and attribute sets.
+    for (auto connections between node && attribute sets.
 
     Parameters
     ----------
@@ -105,10 +105,10 @@ auto general_random_intersection_graph(n, m, p) {
 
     References
     ----------
-    .. [1] Nikoletseas, S. E., Raptopoulos, C., and Spirakis, P. G.
-       The existence and efficient construction of large independent sets
+    .. [1] Nikoletseas, S. E., Raptopoulos, C., && Spirakis, P. G.
+       The existence && efficient construction of large independent sets
        : general random intersection graphs. In ICALP (2004), J. D´ıaz,
-       J. Karhum¨aki, A. Lepist¨o, and D. Sannella, Eds., vol. 3142
+       J. Karhum¨aki, A. Lepist¨o, && D. Sannella, Eds., vol. 3142
        of Lecture Notes : Computer Science, Springer, pp. 1029–1040.
      */
     if (len(p) != m) {

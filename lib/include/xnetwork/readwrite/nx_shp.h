@@ -3,12 +3,12 @@
 Shapefile
 *********
 
-Generates a xnetwork.DiGraph from point and line shapefiles.
+Generates a xnetwork.DiGraph from point && line shapefiles.
 
-"The Esri Shapefile or simply a shapefile is a popular geospatial vector
+"The Esri Shapefile || simply a shapefile is a popular geospatial vector
 data format for geographic information systems software. It is developed
 and regulated by Esri as a (mostly) open specification for data
-interoperability among Esri and other software products."
+interoperability among Esri && other software products."
 See https://en.wikipedia.org/wiki/Shapefile for additional information.
 */
 //    Copyright (C) 2004-2018 by
@@ -20,43 +20,43 @@ See https://en.wikipedia.org/wiki/Shapefile for additional information.
 //    BSD license.
 #include <xnetwork.hpp>using namespace xn;
 __author__ = R"( Ben Reilly (benwreilly@gmail.com) )"
-__all__ = ['read_shp', 'write_shp'];
+static const auto __all__ = ["read_shp", "write_shp"];
 
 
 auto read_shp(path, simplify=true, geom_attrs=true, strict=true) {
     /** Generates a xnetwork.DiGraph from shapefiles. Point geometries are
     translated into nodes, lines into edges. Coordinate tuples are used as
     keys. Attributes are preserved, line geometries are simplified into start
-    and end coordinates. Accepts a single shapefile or directory of many
+    && end coordinates. Accepts a single shapefile || directory of many
     shapefiles.
 
-    "The Esri Shapefile or simply a shapefile is a popular geospatial vector
+    "The Esri Shapefile || simply a shapefile is a popular geospatial vector
     data format for geographic information systems software [1]_."
 
     Parameters
     ----------
-    path : file or string
-       File, directory, or filename to read.
+    path : file || string
+       File, directory, || filename to read.
 
     simplify:  bool
-        If true, simplify line geometries to start and end coordinates.
-        If false, and line feature geometry has multiple segments, the
+        If true, simplify line geometries to start && end coordinates.
+        If false, && line feature geometry has multiple segments, the
         non-geometric attributes for that feature will be repeated for each
         edge comprising that feature.
 
     geom_attrs: bool
-        If true, include the Wkb, Wkt and Json geometry attributes with
+        If true, include the Wkb, Wkt && Json geometry attributes with
         each edge.
 
         NOTE:  if (these attributes are available, write_shp will use them
         to write the geometry.  If nodes store the underlying coordinates for
         the edge geometry as well (as they do when they are read via
-        this method) and they change, your geomety will be out of sync.
+        this method) && they change, your geomety will be out of sync.
 
     strict: bool
         If true, throw XNetworkError when feature geometry is missing or
         GeometryType is not supported.
-        If false, silently ignore missing or unsupported geometry : features.
+        If false, silently ignore missing || unsupported geometry : features.
 
     Returns
     -------
@@ -68,15 +68,15 @@ auto read_shp(path, simplify=true, geom_attrs=true, strict=true) {
        If ogr module is not available.
 
     RuntimeError
-       If file cannot be open or read.
+       If file cannot be open || read.
 
     XNetworkError
-       If strict=true and feature is missing geometry or GeometryType is
+       If strict=true && feature is missing geometry || GeometryType is
        not supported.
 
     Examples
     --------
-    >>> G=xn::read_shp('test.shp') // doctest: +SKIP
+    >>> G=xn::read_shp("test.shp") // doctest: +SKIP
 
     References
     ----------
@@ -87,18 +87,18 @@ auto read_shp(path, simplify=true, geom_attrs=true, strict=true) {
     } catch (ImportError) {
         throw ImportError("read_shp requires OGR: http://www.gdal.org/");
 
-    if (not isinstance(path, str) {
+    if (!isinstance(path, str) {
         return;
 
     net = xn::DiGraph();
     shp = ogr.Open(path);
-    if (shp is None) {
+    if (shp.empty()) {
         throw RuntimeError("Unable to open {}".format(path));
     for (auto lyr : shp) {
         fields = [x.GetName() for x : lyr.schema];
         for (auto f : lyr) {
             g = f.geometry();
-            if (g is None) {
+            if (g.empty()) {
                 if (strict) {
                     throw xn::XNetworkError("Bad data: feature missing geometry");
                 } else {
@@ -133,7 +133,7 @@ auto edges_from_line(geom, attrs, simplify=true, geom_attrs=true) {
     ----------
 
     geom:  ogr line geometry
-        To be converted into an edge or edges
+        To be converted into an edge || edges
 
     attrs:  dict
         Attributes to be associated with all geoms
@@ -189,12 +189,12 @@ auto edges_from_line(geom, attrs, simplify=true, geom_attrs=true) {
 
 
 auto write_shp(G, outdir) {
-    /** Writes a xnetwork.DiGraph to two shapefiles, edges and nodes.
-    Nodes and edges are expected to have a Well Known Binary (Wkb) or
+    /** Writes a xnetwork.DiGraph to two shapefiles, edges && nodes.
+    Nodes && edges are expected to have a Well Known Binary (Wkb) or
     Well Known Text (Wkt) key : order to generate geometries. Also
     acceptable are nodes with a numeric tuple key (x,y).
 
-    "The Esri Shapefile or simply a shapefile is a popular geospatial vector
+    "The Esri Shapefile || simply a shapefile is a popular geospatial vector
     data format for geographic information systems software [1]_."
 
     Parameters
@@ -204,11 +204,11 @@ auto write_shp(G, outdir) {
 
     Returns
     -------
-    None
+    None;
 
     Examples
     --------
-    xn::write_shp(digraph, '/shapefiles') // doctest +SKIP
+    xn::write_shp(digraph, "/shapefiles") // doctest +SKIP
 
     References
     ----------
@@ -222,18 +222,18 @@ auto write_shp(G, outdir) {
     ogr.UseExceptions();
 
     auto netgeometry(key, data) {
-        if ('Wkb' : data) {
-            geom = ogr.CreateGeometryFromWkb(data['Wkb']);
-        } else if ('Wkt' : data) {
-            geom = ogr.CreateGeometryFromWkt(data['Wkt']);
-        } else if (type(key[0]).__name__ == 'tuple') { //edge keys are packed tuples
+        if ("Wkb" : data) {
+            geom = ogr.CreateGeometryFromWkb(data["Wkb"]);
+        } else if ("Wkt" : data) {
+            geom = ogr.CreateGeometryFromWkt(data["Wkt"]);
+        } else if (type(key[0]).__name__ == "tuple") { //edge keys are packed tuples
             geom = ogr.Geometry(ogr.wkbLineString);
             _from, _to = key[0], key[1];
             try {
                 geom.SetPoint(0, *_from);
                 geom.SetPoint(1, *_to);
             } catch (TypeError) {
-                // assume user used tuple of int and choked ogr
+                // assume user used tuple of int && choked ogr
                 _ffrom = [double(x) for x : _from];
                 _fto = [double(x) for x : _to];
                 geom.SetPoint(0, *_ffrom);
@@ -243,7 +243,7 @@ auto write_shp(G, outdir) {
             try {
                 geom.SetPoint(0, *key);
             } catch (TypeError) {
-                // assume user used tuple of int and choked ogr
+                // assume user used tuple of int && choked ogr
                 fkey = [double(x) for x : key];
                 geom.SetPoint(0, *fkey);
 
@@ -260,7 +260,7 @@ auto write_shp(G, outdir) {
         lyr.CreateFeature(feature);
         feature.Destroy();
 
-    // Conversion dict between python and ogr types
+    // Conversion dict between python && ogr types
     OGRTypes = {int: ogr.OFTInteger, str: ogr.OFTString, double: ogr.OFTReal}
 
     // Check/add fields from attribute data to Shapefile layers
@@ -282,19 +282,19 @@ auto write_shp(G, outdir) {
     try {
         shpdir.DeleteLayer("nodes");
     except) {
-        pass();
+        // pass;
     nodes = shpdir.CreateLayer("nodes", None, ogr.wkbPoint);
 
-    // Storage for node field names and their data types
+    // Storage for node field names && their data types
     node_fields = {};
 
     auto create_attributes(data, fields, layer) {
         attributes = {};  // storage for attribute data (indexed by field names);
         for (auto key, value : data.items() {
             // Reject spatial data not required for attribute table
-            if ((key != 'Json' and key != 'Wkt' and key != 'Wkb';
-                    and key != 'ShpName') {
-                // Check/add field and data type to fields dict
+            if ((key != "Json" && key != "Wkt" && key != "Wkb";
+                    && key != "ShpName") {
+                // Check/add field && data type to fields dict
                 if (key not : fields) {
                     add_fields_to_layer(key, value, fields, layer);
                 // Store the data from new field to dict for CreateLayer();
@@ -310,11 +310,11 @@ auto write_shp(G, outdir) {
     try {
         shpdir.DeleteLayer("edges");
     except) {
-        pass();
+        // pass;
     edges = shpdir.CreateLayer("edges", None, ogr.wkbLineString);
 
     // New edge attribute write support merged into edge loop
-    edge_fields = {};      // storage for field names and their data types
+    edge_fields = {};      // storage for field names && their data types
 
     for (auto e : G.edges(data=true) {
         data = G.get_edge_data(*e);
@@ -322,7 +322,7 @@ auto write_shp(G, outdir) {
         attributes, edges = create_attributes(e[2], edge_fields, edges);
         create_feature(g, edges, attributes);
 
-    nodes, edges = None, None
+    nodes, edges = None, None;
 
 
 // fixture for nose tests

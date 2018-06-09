@@ -36,10 +36,10 @@ class TestMaxWeightMatching: public object {
     auto test_trivial4( ) {
         /** Small graph */
         G = xn::Graph();
-        G.add_edge('one', 'two', weight=10);
-        G.add_edge('two', 'three', weight=11);
+        G.add_edge("one", "two", weight=10);
+        G.add_edge("two", "three", weight=11);
         assert_edges_equal(xn::max_weight_matching(G),
-                           matching_dict_to_set({'three': 'two', 'two': 'three'}));
+                           matching_dict_to_set({"three": "two", "two": "three"}));
 
     auto test_trivial5( ) {
         /** Path */
@@ -55,10 +55,10 @@ class TestMaxWeightMatching: public object {
     auto test_trivial6( ) {
         /** Small graph with arbitrary weight attribute */
         G = xn::Graph();
-        G.add_edge('one', 'two', weight=10, abcd=11);
-        G.add_edge('two', 'three', weight=11, abcd=10);
-        assert_edges_equal(xn::max_weight_matching(G, weight='abcd'),
-                           matching_dict_to_set({'one': 'two', 'two': 'one'}));
+        G.add_edge("one", "two", weight=10, abcd=11);
+        G.add_edge("two", "three", weight=11, abcd=10);
+        assert_edges_equal(xn::max_weight_matching(G, weight="abcd"),
+                           matching_dict_to_set({"one": "two", "two": "one"}));
 
     auto test_doubleing_point_weights( ) {
         /** Floating point weights */
@@ -84,7 +84,7 @@ class TestMaxWeightMatching: public object {
                            matching_dict_to_set({1: 3, 2: 4, 3: 1, 4: 2}));
 
     auto test_s_blossom( ) {
-        /** Create S-blossom and use it for augmentation: */
+        /** Create S-blossom && use it for augmentation: */
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 8), (1, 3, 9),
                                    auto [2, 3, 10), (3, 4, 7)]);

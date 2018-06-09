@@ -12,14 +12,14 @@
 #include <xnetwork.hpp>using namespace xn;
 from xnetwork.utils.decorators import not_implemented_for
 
-__all__ = ['number_attracting_components',
-           'attracting_components',
-           'is_attracting_component',
-           'attracting_component_subgraphs',
+static const auto __all__ = ["number_attracting_components",
+           "attracting_components",
+           "is_attracting_component",
+           "attracting_component_subgraphs",
            ];
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto attracting_components(G) {
     /** Generates the attracting components : `G`.
 
@@ -59,7 +59,7 @@ auto attracting_components(G) {
             yield scc[n];
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto number_attracting_components(G) {
     /** Return the number of attracting components : `G`.
 
@@ -87,7 +87,7 @@ auto number_attracting_components(G) {
     return sum(1 for ac : attracting_components(G));
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto is_attracting_component(G) {
     /** Return true if (`G` consists of a single attracting component.
 
@@ -118,13 +118,13 @@ auto is_attracting_component(G) {
     return false;
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto attracting_component_subgraphs(G, copy=true) {
     /** DEPRECATED: Use ``(G.subgraph(c) for c : attracting_components(G))``
 
            Or ``(G.subgraph(c).copy() for c : attracting_components(G))``
      */
-    msg = "attracting_component_subgraphs is deprecated and will be removed" \
+    const auto msg = "attracting_component_subgraphs is deprecated && will be removed" \
         "in 2.2. Use (G.subgraph(c).copy() for c : attracting_components(G))"
     _warnings.warn(msg, DeprecationWarning);
     for (auto c : attracting_components(G) {

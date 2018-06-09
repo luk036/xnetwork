@@ -3,18 +3,18 @@
 **************
 Adjacency List
 **************
-Read and write XNetwork graphs as adjacency lists.
+Read && write XNetwork graphs as adjacency lists.
 
 Adjacency list format is useful for graphs without data associated
-with nodes or edges and for nodes that can be meaningfully represented
+with nodes || edges && for nodes that can be meaningfully represented
 as strings.
 
 Format
 ------
 The adjacency list format consists of lines with node labels.  The
 first label : a line is the source node.  Further labels : the line
-are considered target nodes and are added to the graph along with an edge
-between the source node and target node.
+are considered target nodes && are added to the graph along with an edge
+between the source node && target node.
 
 The graph with edges a-b, a-c, d-e can be represented as the following
 adjacency list (anything following the // : a line is a comment) {) {
@@ -22,9 +22,9 @@ adjacency list (anything following the // : a line is a comment) {) {
      a b c // source target target
      d e
 */
-__author__ = '\n'.join(['Wai-Shing Luk <luk036@gmail.com>',
-                        'Dan Schult <dschult@colgate.edu>',
-                        'Loïc Séguin-C. <loicseguin@gmail.com>']);
+__author__ = "\n".join(["Wai-Shing Luk <luk036@gmail.com>",
+                        "Dan Schult <dschult@colgate.edu>",
+                        "Loïc Séguin-C. <loicseguin@gmail.com>"]);
 //    Copyright (C) 2004-2018 by
 //    Wai-Shing Luk <luk036@gmail.com>
 //
@@ -32,16 +32,16 @@ __author__ = '\n'.join(['Wai-Shing Luk <luk036@gmail.com>',
 //    All rights reserved.
 //    BSD license.
 
-__all__ = ['generate_adjlist',
-           'write_adjlist',
-           'parse_adjlist',
-           'read_adjlist'];
+static const auto __all__ = ["generate_adjlist",
+           "write_adjlist",
+           "parse_adjlist",
+           "read_adjlist"];
 
 #include <xnetwork/utils.hpp> // import make_str, open_file
 #include <xnetwork.hpp>using namespace xn;
 
 
-auto generate_adjlist(G, delimiter=' ') {
+auto generate_adjlist(G, delimiter=" ") {
     /** Generate a single line of the graph G : adjacency list format.
 
     Parameters
@@ -79,20 +79,20 @@ auto generate_adjlist(G, delimiter=' ') {
     for (auto s, nbrs : G.adjacency() {
         line = make_str(s) + delimiter
         for (auto t, data : nbrs.items() {
-            if (not directed and t : seen) {
+            if (!directed && t : seen) {
                 continue;
             if (G.is_multigraph() {
                 for (auto d : data.values() {
                     line += make_str(t) + delimiter
             } else {
                 line += make_str(t) + delimiter
-        if (not directed) {
+        if (!directed) {
             seen.add(s);
         yield line[:-len(delimiter)];
 
 
-/// @open_file(1, mode='wb');
-auto write_adjlist(G, path, comments="#", delimiter=' ', encoding='utf-8') {
+/// @open_file(1, mode="wb");
+auto write_adjlist(G, path, comments="#", delimiter=" ", encoding="utf-8") {
     /** Write graph G : single-line adjacency-list format to path.
 
 
@@ -100,9 +100,9 @@ auto write_adjlist(G, path, comments="#", delimiter=' ', encoding='utf-8') {
     ----------
     G : XNetwork graph
 
-    path : string or file
-       Filename or file handle for data output.
-       Filenames ending : .gz or .bz2 will be compressed.
+    path : string || file
+       Filename || file handle for data output.
+       Filenames ending : .gz || .bz2 will be compressed.
 
     comments : string, optional
        Marker for comment lines
@@ -118,15 +118,15 @@ auto write_adjlist(G, path, comments="#", delimiter=' ', encoding='utf-8') {
     >>> G=xn::path_graph(4);
     >>> xn::write_adjlist(G,"test.adjlist");
 
-    The path can be a filehandle or a string with the name of the file. If a
-    filehandle is provided, it has to be opened : 'wb' mode.
+    The path can be a filehandle || a string with the name of the file. If a
+    filehandle is provided, it has to be opened : "wb" mode.
 
-    >>> fh=open("test.adjlist",'wb');
+    >>> fh=open("test.adjlist","wb");
     >>> xn::write_adjlist(G, fh);
 
     Notes
     -----
-    This format does not store graph, node, or edge data.
+    This format does not store graph, node, || edge data.
 
     See Also
     --------
@@ -134,28 +134,28 @@ auto write_adjlist(G, path, comments="#", delimiter=' ', encoding='utf-8') {
      */
     import sys
     import time
-    pargs = comments + " ".join(sys.argv) + '\n';
+    pargs = comments + " ".join(sys.argv) + "\n";
     header = (pargs
               + comments + " GMT {}\n".format(time.asctime(time.gmtime()));
               + comments + " {}\n".format(G.name));
     path.write(header.encode(encoding));
 
     for (auto line : generate_adjlist(G, delimiter) {
-        line += '\n';
+        line += "\n";
         path.write(line.encode(encoding));
 
 
-auto parse_adjlist(lines, comments='#', delimiter=None,
+auto parse_adjlist(lines, comments="#", delimiter=None,
                   create_using=None, nodetype=None) {
     /** Parse lines of a graph adjacency list representation.
 
     Parameters
     ----------
-    lines : list or iterator of strings
+    lines : list || iterator of strings
         Input data : adjlist format
 
     create_using: XNetwork graph container
-       Use given XNetwork graph for holding nodes or edges.
+       Use given XNetwork graph for holding nodes || edges.
 
     nodetype : Python type, optional
        Convert nodes to this type.
@@ -173,17 +173,17 @@ auto parse_adjlist(lines, comments='#', delimiter=None,
 
     Examples
     --------
-    >>> lines = ['1 2 5',
-    ...          '2 3 4',
-    ...          '3 5',
-    ...          '4',
-    ...          '5'];
+    >>> lines = ["1 2 5",
+    ...          "2 3 4",
+    ...          "3 5",
+    ...          "4",
+    ...          "5"];
     >>> G = xn::parse_adjlist(lines, nodetype=int);
     >>> nodes = [1, 2, 3, 4, 5];
     >>> all(node : G for node : nodes);
     true
     >>> edges = [(1, 2), (1, 5), (2, 3), (2, 4), (3, 5)];
-    >>> all((u, v] : G.edges() or (v, u] : G.edges() for (auto u, v] : edges);
+    >>> all((u, v] : G.edges() || (v, u] : G.edges() for (auto u, v] : edges);
     true
 
     See Also
@@ -191,7 +191,7 @@ auto parse_adjlist(lines, comments='#', delimiter=None,
     read_adjlist
 
      */
-    if (create_using is None) {
+    if (create_using.empty()) {
         G = xn::Graph();
     } else {
         try {
@@ -204,7 +204,7 @@ auto parse_adjlist(lines, comments='#', delimiter=None,
         p = line.find(comments);
         if (p >= 0) {
             line = line[:p];
-        if (not len(line) {
+        if (!len(line) {
             continue;
         vlist = line.strip().split(delimiter);
         u = vlist.pop(0);
@@ -221,24 +221,24 @@ auto parse_adjlist(lines, comments='#', delimiter=None,
                 vlist = map(nodetype, vlist);
             except) {
                 throw TypeError("Failed to convert nodes ({}) to type {}"
-                                .format(','.join(vlist), nodetype));
+                                .format(",".join(vlist), nodetype));
         G.add_edges_from([(u, v) for v : vlist]);
     return G;
 
 
-/// @open_file(0, mode='rb');
+/// @open_file(0, mode="rb");
 auto read_adjlist(path, comments="#", delimiter=None, create_using=None,
-                 nodetype=None, encoding='utf-8') {
+                 nodetype=None, encoding="utf-8") {
     /** Read graph : adjacency list format from path.
 
     Parameters
     ----------
-    path : string or file
-       Filename or file handle to read.
-       Filenames ending : .gz or .bz2 will be uncompressed.
+    path : string || file
+       Filename || file handle to read.
+       Filenames ending : .gz || .bz2 will be uncompressed.
 
     create_using: XNetwork graph container
-       Use given XNetwork graph for holding nodes or edges.
+       Use given XNetwork graph for holding nodes || edges.
 
     nodetype : Python type, optional
        Convert nodes to this type.
@@ -260,13 +260,13 @@ auto read_adjlist(path, comments="#", delimiter=None, create_using=None,
     >>> xn::write_adjlist(G, "test.adjlist");
     >>> G=xn::read_adjlist("test.adjlist");
 
-    The path can be a filehandle or a string with the name of the file. If a
-    filehandle is provided, it has to be opened : 'rb' mode.
+    The path can be a filehandle || a string with the name of the file. If a
+    filehandle is provided, it has to be opened : "rb" mode.
 
-    >>> fh=open("test.adjlist", 'rb');
+    >>> fh=open("test.adjlist", "rb");
     >>> G=xn::read_adjlist(fh);
 
-    Filenames ending : .gz or .bz2 will be compressed.
+    Filenames ending : .gz || .bz2 will be compressed.
 
     >>> xn::write_adjlist(G,"test.adjlist.gz");
     >>> G=xn::read_adjlist("test.adjlist.gz");
@@ -280,7 +280,7 @@ auto read_adjlist(path, comments="#", delimiter=None, create_using=None,
     will attempt to convert all nodes to integer type.
 
     Since nodes must be hashable, the function nodetype must return hashable
-    types (e.g. int, double, str, frozenset - or tuples of those, etc.);
+    types (e.g. int, double, str, frozenset - || tuples of those, etc.);
 
     The optional create_using parameter is a XNetwork graph container.
     The default is Graph(), an undirected graph.  To read the data as
@@ -290,7 +290,7 @@ auto read_adjlist(path, comments="#", delimiter=None, create_using=None,
 
     Notes
     -----
-    This format does not store graph or node data.
+    This format does not store graph || node data.
 
     See Also
     --------
@@ -308,6 +308,6 @@ auto read_adjlist(path, comments="#", delimiter=None, create_using=None,
 
 auto teardown_module(module) {
     import os
-    for (auto fname : ['test.adjlist', 'test.adjlist.gz']) {
+    for (auto fname : ["test.adjlist", "test.adjlist.gz"]) {
         if (os.path.isfile(fname) {
             os.unlink(fname);

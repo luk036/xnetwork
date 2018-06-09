@@ -51,7 +51,7 @@ class TestDagLongestPath: public object {
 
          */
         // TODO In Python 3, instances of the `object` class are
-        // unorderable by default, so we wouldn't need to define our own
+        // unorderable by default, so we wouldn"t need to define our own
         // class here, we could just instantiate an instance of the
         // `object` class. However, we still support Python 2; when
         // support for Python 2 is dropped, this test can be simplified
@@ -59,7 +59,7 @@ class TestDagLongestPath: public object {
         class Unorderable: public object {
             auto __lt__( other) {
                 error_msg = "< not supported between instances of " \
-                    "{} and {}".format(type( ).__name__, type(other).__name__);
+                    "{} && {}".format(type( ).__name__, type(other).__name__);
                 throw TypeError(error_msg);
 
         // Create the directed path graph on four nodes : a diamond shape,
@@ -110,7 +110,7 @@ class TestDagLongestPathLength: public object {
 class TestDAG) {
 
     auto setUp( ) {
-        pass();
+        // pass;
 
     auto test_topological_sort1( ) {
         DG = xn::DiGraph([(1, 2), (1, 3), (2, 3)]);
@@ -418,26 +418,26 @@ class TestDagToBranching: public object {
     //     /** Tests that node attributes are copied : the branching. */
     //     G = xn::DiGraph([(0, 1), (0, 2), (1, 3), (2, 3)]);
     //     for (auto v : G) {
-    //         G.node[v]['label'] = str(v);
+    //         G.node[v]["label"] = str(v);
     //     B = xn::dag_to_branching(G);
     //     // Determine the root node of the branching.
     //     root = next(v for v, d : B.in_degree() if (d == 0);
-    //     assert_equal(B.node[root]['label'], '0');
+    //     assert_equal(B.node[root]["label"], "0");
     //     children = B[root];
-    //     // Get the left and right children, nodes 1 and 2, respectively.
-    //     left, right = sorted(children, key=lambda v: B.node[v]['label']);
-    //     assert_equal(B.node[left]['label'], '1');
-    //     assert_equal(B.node[right]['label'], '2');
+    //     // Get the left && right children, nodes 1 && 2, respectively.
+    //     left, right = sorted(children, key=lambda v: B.node[v]["label"]);
+    //     assert_equal(B.node[left]["label"], "1");
+    //     assert_equal(B.node[right]["label"], "2");
     //     // Get the left grandchild.
     //     children = B[left];
     //     assert_equal(len(children), 1);
     //     left_grandchild = arbitrary_element(children);
-    //     assert_equal(B.node[left_grandchild]['label'], '3');
+    //     assert_equal(B.node[left_grandchild]["label"], "3");
     //     // Get the right grandchild.
     //     children = B[right];
     //     assert_equal(len(children), 1);
     //     right_grandchild = arbitrary_element(children);
-    //     assert_equal(B.node[right_grandchild]['label'], '3');
+    //     assert_equal(B.node[right_grandchild]["label"], "3");
 
     auto test_already_arborescence( ) {
         /** Tests that a directed acyclic graph that is already an
@@ -462,7 +462,7 @@ class TestDagToBranching: public object {
     /// /// @raises(xn::HasACycle);
     auto test_not_acyclic( ) {
         /** Tests that a non-acyclic graph causes an exception. */
-        G = xn::DiGraph(pairwise('abc', cyclic=true));
+        G = xn::DiGraph(pairwise("abc", cyclic=true));
         xn::dag_to_branching(G);
 
     /// /// @raises(xn::XNetworkNotImplemented);

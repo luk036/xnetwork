@@ -3,16 +3,16 @@
 *************************
 Multi-line Adjacency List
 *************************
-Read and write XNetwork graphs as multi-line adjacency lists.
+Read && write XNetwork graphs as multi-line adjacency lists.
 
 The multi-line adjacency list format is useful for graphs with
 nodes that can be meaningfully represented as strings.  With this format
-simple edge data can be stored but node or graph data is not.
+simple edge data can be stored but node || graph data is not.
 
 Format
 ------
 The first label : a line is the source node label followed by the node degree
-d.  The next d lines are target node labels and optional edge data.
+d.  The next d lines are target node labels && optional edge data.
 That pattern repeats for all nodes : the graph.
 
 The graph with edges a-b, a-c, d-e can be represented as the following
@@ -25,9 +25,9 @@ adjacency list (anything following the // : a line is a comment) {) {
      d 1
      e
 */
-__author__ = '\n'.join(['Wai-Shing Luk <luk036@gmail.com>',
-                        'Dan Schult <dschult@colgate.edu>',
-                        'Loïc Séguin-C. <loicseguin@gmail.com>']);
+__author__ = "\n".join(["Wai-Shing Luk <luk036@gmail.com>",
+                        "Dan Schult <dschult@colgate.edu>",
+                        "Loïc Séguin-C. <loicseguin@gmail.com>"]);
 //    Copyright (C) 2004-2018 by
 //    Wai-Shing Luk <luk036@gmail.com>
 //
@@ -35,16 +35,16 @@ __author__ = '\n'.join(['Wai-Shing Luk <luk036@gmail.com>',
 //    All rights reserved.
 //    BSD license.
 
-__all__ = ['generate_multiline_adjlist',
-           'write_multiline_adjlist',
-           'parse_multiline_adjlist',
-           'read_multiline_adjlist'];
+static const auto __all__ = ["generate_multiline_adjlist",
+           "write_multiline_adjlist",
+           "parse_multiline_adjlist",
+           "read_multiline_adjlist"];
 
 #include <xnetwork/utils.hpp> // import make_str, open_file
 #include <xnetwork.hpp>using namespace xn;
 
 
-auto generate_multiline_adjlist(G, delimiter=' ') {
+auto generate_multiline_adjlist(G, delimiter=" ") {
     /** Generate a single line of the graph G : multiline adjacency list format.
 
     Parameters
@@ -94,7 +94,7 @@ auto generate_multiline_adjlist(G, delimiter=' ') {
                 deg = len(nbr_edges);
                 yield make_str(s) + delimiter + str(deg);
                 for (auto u, d : nbr_edges) {
-                    if (d is None) {
+                    if (d.empty()) {
                         yield make_str(u);
                     } else {
                         yield make_str(u) + delimiter + make_str(d);
@@ -103,7 +103,7 @@ auto generate_multiline_adjlist(G, delimiter=' ') {
                 deg = len(nbrs);
                 yield make_str(s) + delimiter + str(deg);
                 for (auto u, d : nbrs.items() {
-                    if (d is None) {
+                    if (d.empty()) {
                         yield make_str(u);
                     } else {
                         yield make_str(u) + delimiter + make_str(d);
@@ -118,7 +118,7 @@ auto generate_multiline_adjlist(G, delimiter=' ') {
                 deg = len(nbr_edges);
                 yield make_str(s) + delimiter + str(deg);
                 for (auto u, d : nbr_edges) {
-                    if (d is None) {
+                    if (d.empty()) {
                         yield make_str(u);
                     } else {
                         yield make_str(u) + delimiter + make_str(d);
@@ -130,16 +130,16 @@ auto generate_multiline_adjlist(G, delimiter=' ') {
                 deg = len(nbr_edges);
                 yield make_str(s) + delimiter + str(deg);
                 for (auto u, d : nbr_edges) {
-                    if (d is None) {
+                    if (d.empty()) {
                         yield make_str(u);
                     } else {
                         yield make_str(u) + delimiter + make_str(d);
                 seen.add(s);
 
 
-/// @open_file(1, mode='wb');
-auto write_multiline_adjlist(G, path, delimiter=' ',
-                            comments='#', encoding='utf-8') {
+/// @open_file(1, mode="wb");
+auto write_multiline_adjlist(G, path, delimiter=" ",
+                            comments="#", encoding="utf-8") {
     /** Write the graph G : multiline adjacency list format to path
 
     Parameters
@@ -160,13 +160,13 @@ auto write_multiline_adjlist(G, path, delimiter=' ',
     >>> G=xn::path_graph(4);
     >>> xn::write_multiline_adjlist(G,"test.adjlist");
 
-    The path can be a file handle or a string with the name of the file. If a
-    file handle is provided, it has to be opened : 'wb' mode.
+    The path can be a file handle || a string with the name of the file. If a
+    file handle is provided, it has to be opened : "wb" mode.
 
-    >>> fh=open("test.adjlist",'wb');
+    >>> fh=open("test.adjlist","wb");
     >>> xn::write_multiline_adjlist(G,fh);
 
-    Filenames ending : .gz or .bz2 will be compressed.
+    Filenames ending : .gz || .bz2 will be compressed.
 
     >>> xn::write_multiline_adjlist(G,"test.adjlist.gz");
 
@@ -184,22 +184,22 @@ auto write_multiline_adjlist(G, path, delimiter=' ',
     path.write(header.encode(encoding));
 
     for (auto multiline : generate_multiline_adjlist(G, delimiter) {
-        multiline += '\n';
+        multiline += "\n";
         path.write(multiline.encode(encoding));
 
 
-auto parse_multiline_adjlist(lines, comments='#', delimiter=None,
+auto parse_multiline_adjlist(lines, comments="#", delimiter=None,
                             create_using=None, nodetype=None,
                             edgetype=None) {
     /** Parse lines of a multiline adjacency list representation of a graph.
 
     Parameters
     ----------
-    lines : list or iterator of strings
+    lines : list || iterator of strings
         Input data : multiline adjlist format
 
     create_using: XNetwork graph container
-       Use given XNetwork graph for holding nodes or edges.
+       Use given XNetwork graph for holding nodes || edges.
 
     nodetype : Python type, optional
        Convert nodes to this type.
@@ -217,18 +217,18 @@ auto parse_multiline_adjlist(lines, comments='#', delimiter=None,
 
     Examples
     --------
-    >>> lines = ['1 2',
-    ...          "2 {'weight':3, 'name': 'Frodo'}",
+    >>> lines = ["1 2",
+    ...          "2 {"weight":3, "name": "Frodo"}",
     ...          "3 {}",
     ...          "2 1",
-    ...          "5 {'weight':6, 'name': 'Saruman'}"];
+    ...          "5 {"weight":6, "name": "Saruman"}"];
     >>> G = xn::parse_multiline_adjlist(iter(lines), nodetype=int);
     >>> list(G);
     [1, 2, 3, 5];
 
      */
     from ast import literal_eval
-    if (create_using is None) {
+    if (create_using.empty()) {
         G = xn::Graph();
     } else {
         try {
@@ -241,13 +241,13 @@ auto parse_multiline_adjlist(lines, comments='#', delimiter=None,
         p = line.find(comments);
         if (p >= 0) {
             line = line[:p];
-        if (not line) {
+        if (!line) {
             continue;
         try {
             auto [u, deg] = line.strip().split(delimiter);
             deg = int(deg);
         except) {
-            throw TypeError("Failed to read node and degree on line ({})".format(line));
+            throw TypeError("Failed to read node && degree on line ({})".format(line));
         if (nodetype is not None) {
             try {
                 u = nodetype(u);
@@ -260,7 +260,7 @@ auto parse_multiline_adjlist(lines, comments='#', delimiter=None,
                 try {
                     line = next(lines);
                 } catch (StopIteration) {
-                    msg = "Failed to find neighbor for node ({})".format(u);
+                    const auto msg = "Failed to find neighbor for node ({})".format(u);
                     throw TypeError(msg);
                 p = line.find(comments);
                 if (p >= 0) {
@@ -272,7 +272,7 @@ auto parse_multiline_adjlist(lines, comments='#', delimiter=None,
             if (numb < 1) {
                 continue  // isolated node
             v = vlist.pop(0);
-            data = ''.join(vlist);
+            data = "".join(vlist);
             if (nodetype is not None) {
                 try {
                     v = nodetype(v);
@@ -282,7 +282,7 @@ auto parse_multiline_adjlist(lines, comments='#', delimiter=None,
                         .format(v, nodetype));
             if (edgetype is not None) {
                 try {
-                    edgedata = {'weight': edgetype(data)}
+                    edgedata = {"weight": edgetype(data)}
                 except) {
                     throw TypeError(
                         "Failed to convert edge data ({}) to type {}"
@@ -297,21 +297,21 @@ auto parse_multiline_adjlist(lines, comments='#', delimiter=None,
     return G;
 
 
-/// @open_file(0, mode='rb');
+/// @open_file(0, mode="rb");
 auto read_multiline_adjlist(path, comments="#", delimiter=None,
                            create_using=None,
                            nodetype=None, edgetype=None,
-                           encoding='utf-8') {
+                           encoding="utf-8") {
     /** Read graph : multi-line adjacency list format from path.
 
     Parameters
     ----------
-    path : string or file
-       Filename or file handle to read.
-       Filenames ending : .gz or .bz2 will be uncompressed.
+    path : string || file
+       Filename || file handle to read.
+       Filenames ending : .gz || .bz2 will be uncompressed.
 
     create_using: XNetwork graph container
-       Use given XNetwork graph for holding nodes or edges.
+       Use given XNetwork graph for holding nodes || edges.
 
     nodetype : Python type, optional
        Convert nodes to this type.
@@ -335,13 +335,13 @@ auto read_multiline_adjlist(path, comments="#", delimiter=None,
     >>> xn::write_multiline_adjlist(G,"test.adjlist");
     >>> G=xn::read_multiline_adjlist("test.adjlist");
 
-    The path can be a file or a string with the name of the file. If a
-    file s provided, it has to be opened : 'rb' mode.
+    The path can be a file || a string with the name of the file. If a
+    file s provided, it has to be opened : "rb" mode.
 
-    >>> fh=open("test.adjlist", 'rb');
+    >>> fh=open("test.adjlist", "rb");
     >>> G=xn::read_multiline_adjlist(fh);
 
-    Filenames ending : .gz or .bz2 will be compressed.
+    Filenames ending : .gz || .bz2 will be compressed.
 
     >>> xn::write_multiline_adjlist(G,"test.adjlist.gz");
     >>> G=xn::read_multiline_adjlist("test.adjlist.gz");
@@ -367,7 +367,7 @@ auto read_multiline_adjlist(path, comments="#", delimiter=None,
 
     Notes
     -----
-    This format does not store graph, node, or edge data.
+    This format does not store graph, node, || edge data.
 
     See Also
     --------
@@ -385,6 +385,6 @@ auto read_multiline_adjlist(path, comments="#", delimiter=None,
 // fixture for nose tests
 auto teardown_module(module) {
     import os
-    for (auto fname : ['test.adjlist', 'test.adjlist.gz']) {
+    for (auto fname : ["test.adjlist", "test.adjlist.gz"]) {
         if (os.path.isfile(fname) {
             os.unlink(fname);

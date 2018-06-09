@@ -17,8 +17,8 @@ auto test_global_node_connectivity() {
 
 
 auto test_white_harary1() {
-    // Figure 1b white and harary (2001);
-    // A graph with high adhesion (edge connectivity) and low cohesion
+    // Figure 1b white && harary (2001);
+    // A graph with high adhesion (edge connectivity) && low cohesion
     // (node connectivity);
     G = xn::disjoint_union(xn::complete_graph(4), xn::complete_graph(4));
     G.remove_node(7);

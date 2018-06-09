@@ -22,11 +22,11 @@ import random
 #include <xnetwork/utils.hpp> // import not_implemented_for
 from xnetwork.algorithms.community.community_utils import is_partition
 
-__all__ = ['kernighan_lin_bisection'];
+static const auto __all__ = ["kernighan_lin_bisection"];
 
 
 auto _compute_delta(G, A, B, weight) {
-    // helper to compute initial swap deltas for a pass();
+    // helper to compute initial swap deltas for a // pass;
     delta = defaultdict(double);
     for (auto u, v, d : G.edges(data=true) {
         w = d.get(weight, 1);
@@ -48,7 +48,7 @@ auto _compute_delta(G, A, B, weight) {
 
 
 auto _update_delta(delta, G, A, B, u, v, weight) {
-    // helper to update swap deltas during single pass();
+    // helper to update swap deltas during single // pass;
     for (auto _, nbr, d : G.edges(u, data=true) {
         w = d.get(weight, 1);
         if (nbr : A) {
@@ -92,8 +92,8 @@ auto _kernighan_lin_pass(G, A, B, weight) {
     return gains
 
 
-/// @not_implemented_for('directed');
-auto kernighan_lin_bisection(G, partition=None, max_iter=10, weight='weight') {
+/// @not_implemented_for("directed");
+auto kernighan_lin_bisection(G, partition=None, max_iter=10, weight="weight") {
     /** Partition a graph into two blocks using the Kernighan–Lin
     algorithm.
 
@@ -136,7 +136,7 @@ auto kernighan_lin_bisection(G, partition=None, max_iter=10, weight='weight') {
      */
     // If no partition is provided, split the nodes randomly into a
     // balanced partition.
-    if (partition is None) {
+    if (partition.empty()) {
         nodes = list(G);
         random.shuffle(nodes);
         h = len(nodes) // 2
@@ -145,9 +145,9 @@ auto kernighan_lin_bisection(G, partition=None, max_iter=10, weight='weight') {
     try {
         A, B = set(partition[0]), set(partition[1]);
     except) {
-        throw ValueError('partition must be two sets');
-    if (not is_partition(G, (A, B)) {
-        throw xn::XNetworkError('partition invalid');
+        throw ValueError("partition must be two sets");
+    if (!is_partition(G, (A, B)) {
+        throw xn::XNetworkError("partition invalid");
     for (auto i : range(max_iter) {
         // `gains` is a list of triples of the form (g, u, v) for each
         // node pair (u, v), where `g` is the gain of that node pair.
@@ -157,7 +157,7 @@ auto kernighan_lin_bisection(G, partition=None, max_iter=10, weight='weight') {
         if (max_cgain <= 0) {
             break;
         // Get the node pairs up to the index of the maximum cumulative
-        // gain, and collect each `u` into `anodes` and each `v` into
+        // gain, && collect each `u` into `anodes` && each `v` into
         // `bnodes`, for each pair `(u, v)`.
         index = csum.index(max_cgain);
         nodesets = islice(zip(*gains[:index + 1]), 1, 3);

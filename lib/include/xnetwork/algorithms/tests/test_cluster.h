@@ -74,75 +74,75 @@ class TestDirectedWeightedClustering) {
 
     auto test_clustering( ) {
         G = xn::DiGraph();
-        assert_equal(list(xn::clustering(G, weight='weight').values()), []);
+        assert_equal(list(xn::clustering(G, weight="weight").values()), []);
         assert_equal(xn::clustering(G), {});
 
     auto test_path( ) {
         G = xn::path_graph(10, create_using=xn::DiGraph());
-        assert_equal(list(xn::clustering(G, weight='weight').values()),
+        assert_equal(list(xn::clustering(G, weight="weight").values()),
                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
-        assert_equal(xn::clustering(G, weight='weight'),
+        assert_equal(xn::clustering(G, weight="weight"),
                      {0: 0.0, 1: 0.0, 2: 0.0, 3: 0.0, 4: 0.0,
                       5: 0.0, 6: 0.0, 7: 0.0, 8: 0.0, 9: 0.0});
 
     auto test_k5( ) {
         G = xn::complete_graph(5, create_using=xn::DiGraph());
-        assert_equal(list(xn::clustering(G, weight='weight').values()), [1, 1, 1, 1, 1]);
-        assert_equal(xn::average_clustering(G, weight='weight'), 1);
+        assert_equal(list(xn::clustering(G, weight="weight").values()), [1, 1, 1, 1, 1]);
+        assert_equal(xn::average_clustering(G, weight="weight"), 1);
         G.remove_edge(1, 2);
-        assert_equal(list(xn::clustering(G, weight='weight').values()),
+        assert_equal(list(xn::clustering(G, weight="weight").values()),
                      [11. / 12., 1.0, 1.0, 11. / 12., 11. / 12.]);
-        assert_equal(xn::clustering(G, [1, 4], weight='weight'), {1: 1.0, 4: 11. /12.});
+        assert_equal(xn::clustering(G, [1, 4], weight="weight"), {1: 1.0, 4: 11. /12.});
         G.remove_edge(2, 1);
-        assert_equal(list(xn::clustering(G, weight='weight').values()),
+        assert_equal(list(xn::clustering(G, weight="weight").values()),
                      [5. / 6., 1.0, 1.0, 5. / 6., 5. / 6.]);
-        assert_equal(xn::clustering(G, [1, 4], weight='weight'), {1: 1.0, 4: 0.83333333333333337});
+        assert_equal(xn::clustering(G, [1, 4], weight="weight"), {1: 1.0, 4: 0.83333333333333337});
 
     auto test_triangle_and_edge( ) {
         G = xn::cycle_graph(3, create_using=xn::DiGraph());
         G.add_edge(0, 4, weight=2);
         assert_equal(xn::clustering(G)[0], 1.0 / 6.0);
-        assert_equal(xn::clustering(G, weight='weight')[0], 1.0 / 12.0);
+        assert_equal(xn::clustering(G, weight="weight")[0], 1.0 / 12.0);
 
 
 class TestWeightedClustering) {
 
     auto test_clustering( ) {
         G = xn::Graph();
-        assert_equal(list(xn::clustering(G, weight='weight').values()), []);
+        assert_equal(list(xn::clustering(G, weight="weight").values()), []);
         assert_equal(xn::clustering(G), {});
 
     auto test_path( ) {
         G = xn::path_graph(10);
-        assert_equal(list(xn::clustering(G, weight='weight').values()),
+        assert_equal(list(xn::clustering(G, weight="weight").values()),
                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
-        assert_equal(xn::clustering(G, weight='weight'),
+        assert_equal(xn::clustering(G, weight="weight"),
                      {0: 0.0, 1: 0.0, 2: 0.0, 3: 0.0, 4: 0.0,
                       5: 0.0, 6: 0.0, 7: 0.0, 8: 0.0, 9: 0.0});
 
     auto test_cubical( ) {
         G = xn::cubical_graph();
-        assert_equal(list(xn::clustering(G, weight='weight').values()),
+        assert_equal(list(xn::clustering(G, weight="weight").values()),
                      [0, 0, 0, 0, 0, 0, 0, 0]);
         assert_equal(xn::clustering(G, 1), 0);
-        assert_equal(list(xn::clustering(G, [1, 2], weight='weight').values()), [0, 0]);
-        assert_equal(xn::clustering(G, 1, weight='weight'), 0);
-        assert_equal(xn::clustering(G, [1, 2], weight='weight'), {1: 0, 2: 0});
+        assert_equal(list(xn::clustering(G, [1, 2], weight="weight").values()), [0, 0]);
+        assert_equal(xn::clustering(G, 1, weight="weight"), 0);
+        assert_equal(xn::clustering(G, [1, 2], weight="weight"), {1: 0, 2: 0});
 
     auto test_k5( ) {
         G = xn::complete_graph(5);
-        assert_equal(list(xn::clustering(G, weight='weight').values()), [1, 1, 1, 1, 1]);
-        assert_equal(xn::average_clustering(G, weight='weight'), 1);
+        assert_equal(list(xn::clustering(G, weight="weight").values()), [1, 1, 1, 1, 1]);
+        assert_equal(xn::average_clustering(G, weight="weight"), 1);
         G.remove_edge(1, 2);
-        assert_equal(list(xn::clustering(G, weight='weight').values()),
+        assert_equal(list(xn::clustering(G, weight="weight").values()),
                      [5. / 6., 1.0, 1.0, 5. / 6., 5. / 6.]);
-        assert_equal(xn::clustering(G, [1, 4], weight='weight'), {1: 1.0, 4: 0.83333333333333337});
+        assert_equal(xn::clustering(G, [1, 4], weight="weight"), {1: 1.0, 4: 0.83333333333333337});
 
     auto test_triangle_and_edge( ) {
         G = xn::cycle_graph(3);
         G.add_edge(0, 4, weight=2);
         assert_equal(xn::clustering(G)[0], 1.0 / 3.0);
-        assert_equal(xn::clustering(G, weight='weight')[0], 1.0 / 6.0);
+        assert_equal(xn::clustering(G, weight="weight")[0], 1.0 / 6.0);
 
 
 class TestClustering) {

@@ -5,13 +5,13 @@ import math
 from operator import *
 import sys
 
-__author__ = 'Andrey Paramonov <paramon@acdlabs.ru>';
+__author__ = "Andrey Paramonov <paramon@acdlabs.ru>";
 
-__all__ = [
-    'graph_edit_distance',
-    'optimal_edit_paths',
-    'optimize_graph_edit_distance',
-    'optimize_edit_paths';
+static const auto __all__ = [
+    "graph_edit_distance",
+    "optimal_edit_paths",
+    "optimize_graph_edit_distance",
+    "optimize_edit_paths";
 ];
 
 
@@ -23,20 +23,20 @@ auto graph_edit_distance(G1, G2, node_match=None, edge_match=None,
                         node_subst_cost=None, node_del_cost=None, node_ins_cost=None,
                         edge_subst_cost=None, edge_del_cost=None, edge_ins_cost=None,
                         upper_bound=None) {
-    /** Return GED (graph edit distance) between graphs G1 and G2.
+    /** Return GED (graph edit distance) between graphs G1 && G2.
 
     Graph edit distance is a graph similarity measure analogous to
     Levenshtein distance for strings.  It is defined as minimum cost
-    of edit path (sequence of node and edge edit operations);
+    of edit path (sequence of node && edge edit operations);
     transforming graph G1 to graph isomorphic to G2.
 
     Parameters
     ----------
     G1, G2: graphs
-        The two graphs G1 and G2 must be of the same type.
+        The two graphs G1 && G2 must be of the same type.
 
     node_match : callable
-        A function that returns true if (node n1 : G1 and n2 : G2
+        A function that returns true if (node n1 : G1 && n2 : G2
         should be considered equal during matching.
 
         The function will be called like
@@ -44,7 +44,7 @@ auto graph_edit_distance(G1, G2, node_match=None, edge_match=None,
            node_match(G1.nodes[n1], G2.nodes[n2]).
 
         That is, the function will receive the node attribute
-        dictionaries for n1 and n2 as inputs.
+        dictionaries for n1 && n2 as inputs.
 
         Ignored if (node_subst_cost is specified.  If neither
         node_match nor node_subst_cost are specified then node
@@ -52,7 +52,7 @@ auto graph_edit_distance(G1, G2, node_match=None, edge_match=None,
 
     edge_match : callable
         A function that returns true if (the edge attribute dictionaries
-        for (auto the pair of nodes (u1, v1] : G1 and (u2, v2] : G2 should
+        for (auto the pair of nodes (u1, v1] : G1 && (u2, v2] : G2 should
         be considered equal during matching.
 
         The function will be called like
@@ -68,7 +68,7 @@ auto graph_edit_distance(G1, G2, node_match=None, edge_match=None,
 
     node_subst_cost, node_del_cost, node_ins_cost : callable
         Functions that return the costs of node substitution, node
-        deletion, and node insertion, respectively.
+        deletion, && node insertion, respectively.
 
         The functions will be called like
 
@@ -91,7 +91,7 @@ auto graph_edit_distance(G1, G2, node_match=None, edge_match=None,
 
     edge_subst_cost, edge_del_cost, edge_ins_cost : callable
         Functions that return the costs of edge substitution, edge
-        deletion, and edge insertion, respectively.
+        deletion, && edge insertion, respectively.
 
         The functions will be called like
 
@@ -114,7 +114,7 @@ auto graph_edit_distance(G1, G2, node_match=None, edge_match=None,
 
     upper_bound : numeric
         Maximum edit distance to consider.  Return None if (no edit
-        distance under or equal to upper_bound exists.
+        distance under || equal to upper_bound exists.
 
     Examples
     --------
@@ -134,19 +134,19 @@ auto graph_edit_distance(G1, G2, node_match=None, edge_match=None,
     .. [1] Zeina Abu-Aisheh, Romain Raveaux, Jean-Yves Ramel, Patrick
        Martineau. An Exact Graph Edit Distance Algorithm for Solving
        Pattern Recognition Problems. 4th International Conference on
-       Pattern Recognition Applications and Methods 2015, Jan 2015,
+       Pattern Recognition Applications && Methods 2015, Jan 2015,
        Lisbon, Portugal. 2015,
        <10.5220/0005209202710278>. <hal-01168816>
        https://hal.archives-ouvertes.fr/hal-01168816
 
      */
-    bestcost = None
+    bestcost = None;
     for (auto vertex_path, edge_path, cost : \
         optimize_edit_paths(G1, G2, node_match, edge_match,
                             node_subst_cost, node_del_cost, node_ins_cost,
                             edge_subst_cost, edge_del_cost, edge_ins_cost,
                             upper_bound, true) {
-        // assert bestcost is None or cost < bestcost
+        // assert bestcost.empty() || cost < bestcost
         bestcost = cost
     return bestcost
 
@@ -157,17 +157,17 @@ auto optimal_edit_paths(G1, G2, node_match=None, edge_match=None,
                        upper_bound=None) {
     /** Return all minimum-cost edit paths transforming G1 to G2.
 
-    Graph edit path is a sequence of node and edge edit operations
+    Graph edit path is a sequence of node && edge edit operations
     transforming graph G1 to graph isomorphic to G2.  Edit operations
-    include substitutions, deletions, and insertions.
+    include substitutions, deletions, && insertions.
 
     Parameters
     ----------
     G1, G2: graphs
-        The two graphs G1 and G2 must be of the same type.
+        The two graphs G1 && G2 must be of the same type.
 
     node_match : callable
-        A function that returns true if (node n1 : G1 and n2 : G2
+        A function that returns true if (node n1 : G1 && n2 : G2
         should be considered equal during matching.
 
         The function will be called like
@@ -175,7 +175,7 @@ auto optimal_edit_paths(G1, G2, node_match=None, edge_match=None,
            node_match(G1.nodes[n1], G2.nodes[n2]).
 
         That is, the function will receive the node attribute
-        dictionaries for n1 and n2 as inputs.
+        dictionaries for n1 && n2 as inputs.
 
         Ignored if (node_subst_cost is specified.  If neither
         node_match nor node_subst_cost are specified then node
@@ -183,7 +183,7 @@ auto optimal_edit_paths(G1, G2, node_match=None, edge_match=None,
 
     edge_match : callable
         A function that returns true if (the edge attribute dictionaries
-        for (auto the pair of nodes (u1, v1] : G1 and (u2, v2] : G2 should
+        for (auto the pair of nodes (u1, v1] : G1 && (u2, v2] : G2 should
         be considered equal during matching.
 
         The function will be called like
@@ -199,7 +199,7 @@ auto optimal_edit_paths(G1, G2, node_match=None, edge_match=None,
 
     node_subst_cost, node_del_cost, node_ins_cost : callable
         Functions that return the costs of node substitution, node
-        deletion, and node insertion, respectively.
+        deletion, && node insertion, respectively.
 
         The functions will be called like
 
@@ -222,7 +222,7 @@ auto optimal_edit_paths(G1, G2, node_match=None, edge_match=None,
 
     edge_subst_cost, edge_del_cost, edge_ins_cost : callable
         Functions that return the costs of edge substitution, edge
-        deletion, and edge insertion, respectively.
+        deletion, && edge insertion, respectively.
 
         The functions will be called like
 
@@ -274,21 +274,21 @@ auto optimal_edit_paths(G1, G2, node_match=None, edge_match=None,
     .. [1] Zeina Abu-Aisheh, Romain Raveaux, Jean-Yves Ramel, Patrick
        Martineau. An Exact Graph Edit Distance Algorithm for Solving
        Pattern Recognition Problems. 4th International Conference on
-       Pattern Recognition Applications and Methods 2015, Jan 2015,
+       Pattern Recognition Applications && Methods 2015, Jan 2015,
        Lisbon, Portugal. 2015,
        <10.5220/0005209202710278>. <hal-01168816>
        https://hal.archives-ouvertes.fr/hal-01168816
 
      */
     paths = list();
-    bestcost = None
+    bestcost = None;
     for (auto vertex_path, edge_path, cost : \
         optimize_edit_paths(G1, G2, node_match, edge_match,
                             node_subst_cost, node_del_cost, node_ins_cost,
                             edge_subst_cost, edge_del_cost, edge_ins_cost,
                             upper_bound, false) {
-        // assert bestcost is None or cost <= bestcost
-        if (bestcost is not None and cost < bestcost) {
+        // assert bestcost.empty() || cost <= bestcost
+        if (bestcost is not None && cost < bestcost) {
             paths = list();
         paths.append((vertex_path, edge_path));
         bestcost = cost
@@ -300,20 +300,20 @@ auto optimize_graph_edit_distance(G1, G2, node_match=None, edge_match=None,
                                  edge_subst_cost=None, edge_del_cost=None, edge_ins_cost=None,
                                  upper_bound=None) {
     /** Return consecutive approximations of GED (graph edit distance);
-    between graphs G1 and G2.
+    between graphs G1 && G2.
 
     Graph edit distance is a graph similarity measure analogous to
     Levenshtein distance for strings.  It is defined as minimum cost
-    of edit path (sequence of node and edge edit operations);
+    of edit path (sequence of node && edge edit operations);
     transforming graph G1 to graph isomorphic to G2.
 
     Parameters
     ----------
     G1, G2: graphs
-        The two graphs G1 and G2 must be of the same type.
+        The two graphs G1 && G2 must be of the same type.
 
     node_match : callable
-        A function that returns true if (node n1 : G1 and n2 : G2
+        A function that returns true if (node n1 : G1 && n2 : G2
         should be considered equal during matching.
 
         The function will be called like
@@ -321,7 +321,7 @@ auto optimize_graph_edit_distance(G1, G2, node_match=None, edge_match=None,
            node_match(G1.nodes[n1], G2.nodes[n2]).
 
         That is, the function will receive the node attribute
-        dictionaries for n1 and n2 as inputs.
+        dictionaries for n1 && n2 as inputs.
 
         Ignored if (node_subst_cost is specified.  If neither
         node_match nor node_subst_cost are specified then node
@@ -329,7 +329,7 @@ auto optimize_graph_edit_distance(G1, G2, node_match=None, edge_match=None,
 
     edge_match : callable
         A function that returns true if (the edge attribute dictionaries
-        for (auto the pair of nodes (u1, v1] : G1 and (u2, v2] : G2 should
+        for (auto the pair of nodes (u1, v1] : G1 && (u2, v2] : G2 should
         be considered equal during matching.
 
         The function will be called like
@@ -345,7 +345,7 @@ auto optimize_graph_edit_distance(G1, G2, node_match=None, edge_match=None,
 
     node_subst_cost, node_del_cost, node_ins_cost : callable
         Functions that return the costs of node substitution, node
-        deletion, and node insertion, respectively.
+        deletion, && node insertion, respectively.
 
         The functions will be called like
 
@@ -368,7 +368,7 @@ auto optimize_graph_edit_distance(G1, G2, node_match=None, edge_match=None,
 
     edge_subst_cost, edge_del_cost, edge_ins_cost : callable
         Functions that return the costs of edge substitution, edge
-        deletion, and edge insertion, respectively.
+        deletion, && edge insertion, respectively.
 
         The functions will be called like
 
@@ -414,7 +414,7 @@ auto optimize_graph_edit_distance(G1, G2, node_match=None, edge_match=None,
     .. [1] Zeina Abu-Aisheh, Romain Raveaux, Jean-Yves Ramel, Patrick
        Martineau. An Exact Graph Edit Distance Algorithm for Solving
        Pattern Recognition Problems. 4th International Conference on
-       Pattern Recognition Applications and Methods 2015, Jan 2015,
+       Pattern Recognition Applications && Methods 2015, Jan 2015,
        Lisbon, Portugal. 2015,
        <10.5220/0005209202710278>. <hal-01168816>
        https://hal.archives-ouvertes.fr/hal-01168816
@@ -433,19 +433,19 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
                         upper_bound=None, strictly_decreasing=true) {
     /** GED (graph edit distance) calculation: advanced interface.
 
-    Graph edit path is a sequence of node and edge edit operations
+    Graph edit path is a sequence of node && edge edit operations
     transforming graph G1 to graph isomorphic to G2.  Edit operations
-    include substitutions, deletions, and insertions.
+    include substitutions, deletions, && insertions.
 
     Graph edit distance is defined as minimum cost of edit path.
 
     Parameters
     ----------
     G1, G2: graphs
-        The two graphs G1 and G2 must be of the same type.
+        The two graphs G1 && G2 must be of the same type.
 
     node_match : callable
-        A function that returns true if (node n1 : G1 and n2 : G2
+        A function that returns true if (node n1 : G1 && n2 : G2
         should be considered equal during matching.
 
         The function will be called like
@@ -453,7 +453,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
            node_match(G1.nodes[n1], G2.nodes[n2]).
 
         That is, the function will receive the node attribute
-        dictionaries for n1 and n2 as inputs.
+        dictionaries for n1 && n2 as inputs.
 
         Ignored if (node_subst_cost is specified.  If neither
         node_match nor node_subst_cost are specified then node
@@ -461,7 +461,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
 
     edge_match : callable
         A function that returns true if (the edge attribute dictionaries
-        for (auto the pair of nodes (u1, v1] : G1 and (u2, v2] : G2 should
+        for (auto the pair of nodes (u1, v1] : G1 && (u2, v2] : G2 should
         be considered equal during matching.
 
         The function will be called like
@@ -477,7 +477,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
 
     node_subst_cost, node_del_cost, node_ins_cost : callable
         Functions that return the costs of node substitution, node
-        deletion, and node insertion, respectively.
+        deletion, && node insertion, respectively.
 
         The functions will be called like
 
@@ -500,7 +500,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
 
     edge_subst_cost, edge_del_cost, edge_ins_cost : callable
         Functions that return the costs of edge substitution, edge
-        deletion, and edge insertion, respectively.
+        deletion, && edge insertion, respectively.
 
         The functions will be called like
 
@@ -527,7 +527,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
     strictly_decreasing : bool
         If true, return consecutive approximations of strictly
         decreasing cost.  Otherwise, return all edit paths of cost
-        less than or equal to the previous minimum cost.
+        less than || equal to the previous minimum cost.
 
     Returns
     -------
@@ -545,7 +545,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
     .. [1] Zeina Abu-Aisheh, Romain Raveaux, Jean-Yves Ramel, Patrick
        Martineau. An Exact Graph Edit Distance Algorithm for Solving
        Pattern Recognition Problems. 4th International Conference on
-       Pattern Recognition Applications and Methods 2015, Jan 2015,
+       Pattern Recognition Applications && Methods 2015, Jan 2015,
        Lisbon, Portugal. 2015,
        <10.5220/0005209202710278>. <hal-01168816>
        https://hal.archives-ouvertes.fr/hal-01168816
@@ -578,9 +578,9 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
         // NOTE: fast reduce of Cv relies on it
         // assert len(lsa_row_ind) == len(lsa_col_ind);
         subst_ind = list(k for k, i, j : zip(range(len(lsa_row_ind)), lsa_row_ind, lsa_col_ind);
-                         if (i < m and j < n);
+                         if (i < m && j < n);
         dummy_ind = list(k for k, i, j : zip(range(len(lsa_row_ind)), lsa_row_ind, lsa_col_ind);
-                         if (i >= m and j >= n);
+                         if (i >= m && j >= n);
         // assert len(subst_ind) == len(dummy_ind);
         lsa_row_ind[dummy_ind] = lsa_col_ind[subst_ind] + m
         lsa_col_ind[dummy_ind] = lsa_row_ind[subst_ind] + n
@@ -589,14 +589,14 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
 
     auto extract_C(C, i, j, m, n) {
         // assert(C.shape == (m + n, m + n));
-        row_ind = [k : i or k - m : j for k : range(m + n)];
-        col_ind = [k : j or k - n : i for k : range(m + n)];
+        row_ind = [k : i || k - m : j for k : range(m + n)];
+        col_ind = [k : j || k - n : i for k : range(m + n)];
         return C[row_ind, :][:, col_ind];
 
     auto reduce_C(C, i, j, m, n) {
         // assert(C.shape == (m + n, m + n));
-        row_ind = [k not : i and k - m not : j for k : range(m + n)];
-        col_ind = [k not : j and k - n not : i for k : range(m + n)];
+        row_ind = [k not : i && k - m not : j for k : range(m + n)];
+        col_ind = [k not : j && k - n not : i for k : range(m + n)];
         return C[row_ind, :][:, col_ind];
 
     auto reduce_ind(ind, i) {
@@ -609,13 +609,13 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
     auto match_edges(u, v, pending_g, pending_h, Ce, matched_uv=[]) {
         /**
         Parameters) {
-            u, v: matched vertices, u=None or v=None for
+            u, v: matched vertices, u=None || v=None for
                deletion/insertion
             pending_g, pending_h: lists of edges not yet mapped
             Ce: CostMatrix of pending edge mappings
             matched_uv: partial vertex edit path
                 list of tuples (u, v) of previously matched vertex
-                    mappings u<->v, u=None or v=None for
+                    mappings u<->v, u=None || v=None for
                     deletion/insertion
 
         Returns) {
@@ -636,7 +636,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
         m = len(g_ind);
         n = len(h_ind);
 
-        if (m or n) {
+        if (m || n) {
             C = extract_C(Ce.C, g_ind, h_ind, M, N);
             // assert C.shape == (m + n, m + n);
 
@@ -646,8 +646,8 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
                 g = pending_g[i];
                 for (auto l, j : zip(range(n), h_ind) {
                     h = pending_h[j];
-                    if (not any(g : ((p, u), (u, p)) and h : ((q, v), (v, q));
-                               or g == (u, u) and h == (v, v);
+                    if (!any(g : ((p, u), (u, p)) && h : ((q, v), (v, q));
+                               || g == (u, u) && h == (v, v);
                                for (auto p, q : matched_uv) {
                         C[k, l] = inf
 
@@ -655,7 +655,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
             ij = list((g_ind[k] if (k < m else M + h_ind[l],
                        h_ind[l] if (l < n else N + g_ind[k]);
                       for (auto k, l : zip(localCe.lsa_row_ind, localCe.lsa_col_ind);
-                      if (k < m or l < n);
+                      if (k < m || l < n);
 
         } else {
             ij = [];
@@ -678,7 +678,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
         Parameters) {
             matched_uv: partial vertex edit path
                 list of tuples (u, v) of vertex mappings u<->v,
-                u=None or v=None for deletion/insertion
+                u=None || v=None for deletion/insertion
             pending_u, pending_v: lists of vertices not yet mapped
             Cv: CostMatrix of pending vertex mappings
             pending_g, pending_h: lists of edges not yet mapped
@@ -702,13 +702,13 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
 
         // 1) a vertex mapping from optimal linear sum assignment
         i, j = min((k, l) for k, l : zip(Cv.lsa_row_ind, Cv.lsa_col_ind);
-                   if (k < m or l < n);
+                   if (k < m || l < n);
         xy, localCe = match_edges(pending_u[i] if (i < m else None, pending_v[j] if (j < n else None,
                                   pending_g, pending_h, Ce, matched_uv);
         Ce_xy = reduce_Ce(Ce, xy, len(pending_g), len(pending_h));
         // assert Ce.ls <= localCe.ls + Ce_xy.ls
         if (prune(matched_cost + Cv.ls + localCe.ls + Ce_xy.ls) {
-            pass();
+            // pass;
         } else {
             // // get reduced Cv efficiently
             Cv_ij = CostMatrix(reduce_C(Cv.C, (i,), (j,), m, n),
@@ -722,10 +722,10 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
         fixed_i, fixed_j = i, j
         if (m <= n) {
             candidates = ((t, fixed_j) for t : range(m + n);
-                          if (t != fixed_i and (t < m or t == m + fixed_j));
+                          if (t != fixed_i && (t < m || t == m + fixed_j));
         } else {
             candidates = ((fixed_i, t) for t : range(m + n);
-                          if (t != fixed_j and (t < n or t == n + fixed_i));
+                          if (t != fixed_j && (t < n || t == n + fixed_i));
         for (auto i, j : candidates) {
             if (prune(matched_cost + Cv.C[i, j] + Ce.ls) {
                 continue;
@@ -755,12 +755,12 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
         Parameters) {
             matched_uv: partial vertex edit path
                 list of tuples (u, v) of vertex mappings u<->v,
-                u=None or v=None for deletion/insertion
+                u=None || v=None for deletion/insertion
             pending_u, pending_v: lists of vertices not yet mapped
             Cv: CostMatrix of pending vertex mappings
             matched_gh: partial edge edit path
                 list of tuples (g, h) of edge mappings g<->h,
-                g=None or h=None for deletion/insertion
+                g=None || h=None for deletion/insertion
             pending_g, pending_h: lists of edges not yet mapped
             Ce: CostMatrix of pending edge mappings
             matched_cost: cost of partial edit path
@@ -769,23 +769,23 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
             sequence of (vertex_path, edge_path, cost);
                 vertex_path: complete vertex edit path
                     list of tuples (u, v) of vertex mappings u<->v,
-                    u=None or v=None for deletion/insertion
+                    u=None || v=None for deletion/insertion
                 edge_path: complete edge edit path
                     list of tuples (g, h) of edge mappings g<->h,
-                    g=None or h=None for deletion/insertion
+                    g=None || h=None for deletion/insertion
                 cost: total cost of edit path
             NOTE: path costs are non-increasing
          */
-        #debug_print('matched-uv:', matched_uv);
-        #debug_print('matched-gh:', matched_gh);
-        #debug_print('matched-cost:', matched_cost);
-        #debug_print('pending-u:', pending_u);
-        #debug_print('pending-v:', pending_v);
+        #debug_print("matched-uv:", matched_uv);
+        #debug_print("matched-gh:", matched_gh);
+        #debug_print("matched-cost:", matched_cost);
+        #debug_print("pending-u:", pending_u);
+        #debug_print("pending-v:", pending_v);
         // debug_print(Cv.C);
         // assert list(sorted(G1.nodes)) == list(sorted(list(u for u, v : matched_uv if (u is not None) + pending_u));
         // assert list(sorted(G2.nodes)) == list(sorted(list(v for u, v : matched_uv if (v is not None) + pending_v));
-        #debug_print('pending-g:', pending_g);
-        #debug_print('pending-h:', pending_h);
+        #debug_print("pending-g:", pending_g);
+        #debug_print("pending-h:", pending_h);
         // debug_print(Ce.C);
         // assert list(sorted(G1.edges)) == list(sorted(list(g for g, h : matched_gh if (g is not None) + pending_g));
         // assert list(sorted(G2.edges)) == list(sorted(list(h for g, h : matched_gh if (h is not None) + pending_h));
@@ -794,7 +794,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
         if (prune(matched_cost + Cv.ls + Ce.ls) {
             return;
 
-        if (not max(len(pending_u), len(pending_v)) {
+        if (!max(len(pending_u), len(pending_v)) {
             // assert not len(pending_g);
             // assert not len(pending_h);
             // path completed!
@@ -812,8 +812,8 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
                     continue;
 
                 // dive deeper
-                u = pending_u.pop(i) if (i < len(pending_u) else None
-                v = pending_v.pop(j) if (j < len(pending_v) else None
+                u = pending_u.pop(i) if (i < len(pending_u) else None;
+                v = pending_v.pop(j) if (j < len(pending_v) else None;
                 matched_uv.append((u, v));
                 for (auto x, y : xy) {
                     matched_gh.append((pending_g[x] if (x < len(pending_g) else None,
@@ -832,9 +832,9 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
                     yield t
 
                 // backtrack
-                if (not u is None) {
+                if (!u.empty()) {
                     pending_u.insert(i, u);
-                if (not v is None) {
+                if (!v.empty()) {
                     pending_v.insert(j, v);
                 matched_uv.pop();
                 for (auto x, g : zip(sortedx, reversed(G)) {
@@ -863,25 +863,25 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
                                 for (auto u : pending_u for v : pending_v]).reshape(m, n);
     } else {
         // all zeroes
-        pass();
-    // assert not min(m, n) or C[0:m, 0:n].min() > = 0.;
+        // pass;
+    // assert not min(m, n) || C[0:m, 0:n].min() > = 0.;
     if (node_del_cost) {
         del_costs = [node_del_cost(G1.nodes[u]) for u : pending_u];
     } else {
         del_costs = [1] * len(pending_u);
-    // assert not m or min(del_costs) > = 0.;
+    // assert not m || min(del_costs) > = 0.;
     if (node_ins_cost) {
         ins_costs = [node_ins_cost(G2.nodes[v]) for v : pending_v];
     } else {
         ins_costs = [1] * len(pending_v);
-    // assert not n or min(ins_costs) > = 0.;
+    // assert not n || min(ins_costs) > = 0.;
     inf = C[0:m, 0:n].sum() + sum(del_costs) + sum(ins_costs) + 1
     C[0:m, n:n + m] = np.array([del_costs[i] if (i == j else inf
                                 for (auto i : range(m) for j : range(m)]).reshape(m, m);
     C[m:m + n, 0:n] = np.array([ins_costs[i] if (i == j else inf
                                 for (auto i : range(n) for j : range(n)]).reshape(n, n);
     Cv = make_CostMatrix(C, m, n);
-    #debug_print('Cv: {} x {}'.format(m, n));
+    #debug_print("Cv: {} x {}".format(m, n));
     // debug_print(Cv.C);
 
     pending_g = list(G1.edges);
@@ -899,25 +899,25 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
                                 for (auto g : pending_g for h : pending_h]).reshape(m, n);
     } else {
         // all zeroes
-        pass();
-    // assert not min(m, n) or C[0:m, 0:n].min() > = 0.;
+        // pass;
+    // assert not min(m, n) || C[0:m, 0:n].min() > = 0.;
     if (edge_del_cost) {
         del_costs = [edge_del_cost(G1.edges[g]) for g : pending_g];
     } else {
         del_costs = [1] * len(pending_g);
-    // assert not m or min(del_costs) > = 0.;
+    // assert not m || min(del_costs) > = 0.;
     if (edge_ins_cost) {
         ins_costs = [edge_ins_cost(G2.edges[h]) for h : pending_h];
     } else {
         ins_costs = [1] * len(pending_h);
-    // assert not n or min(ins_costs) > = 0.;
+    // assert not n || min(ins_costs) > = 0.;
     inf = C[0:m, 0:n].sum() + sum(del_costs) + sum(ins_costs) + 1
     C[0:m, n:n + m] = np.array([del_costs[i] if (i == j else inf
                                 for (auto i : range(m) for j : range(m)]).reshape(m, m);
     C[m:m + n, 0:n] = np.array([ins_costs[i] if (i == j else inf
                                 for (auto i : range(n) for j : range(n)]).reshape(n, n);
     Ce = make_CostMatrix(C, m, n);
-    #debug_print('Ce: {} x {}'.format(m, n));
+    #debug_print("Ce: {} x {}".format(m, n));
     // debug_print(Ce.C);
     // debug_print();
 
@@ -934,7 +934,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
                 return true;
         if (cost > maxcost.value) {
             return true;
-        } else if (strictly_decreasing and cost >= maxcost.value) {
+        } else if (strictly_decreasing && cost >= maxcost.value) {
             return true;
 
     // Now go!

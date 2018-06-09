@@ -7,33 +7,33 @@
 //    BSD license.
 // Authors: Wai-Shing Luk (luk036@gmail.com);
 //          Joel Miller (joel.c.miller.research@gmail.com);
-/** Generate graphs with given degree and triangle sequence.
+/** Generate graphs with given degree && triangle sequence.
 */
 import random
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['random_clustered_graph'];
+static const auto __all__ = ["random_clustered_graph"];
 
 
 auto random_clustered_graph(joint_degree_sequence, create_using=None,
                            seed=None) {
-    r/** Generate a random graph with the given joint independent edge degree and
+    r/** Generate a random graph with the given joint independent edge degree &&
     triangle degree sequence.
 
     This uses a configuration model-like approach to generate a random graph
-    auto [with parallel edges and self-loops) by randomly assigning edges to match
+    auto [with parallel edges && self-loops) by randomly assigning edges to match
     the given joint degree sequence.
 
     The joint degree sequence is a list of pairs of integers of the form
     $[(d_{1,i}, d_{1,t}), \dotsc, (d_{n,i}, d_{n,t})]$. According to this list,
-    vertex $u$ is a member of $d_{u,t}$ triangles and has $d_{u, i}$ other
-    edges. The number $d_{u,t}$ is the *triangle degree* of $u$ and the number
+    vertex $u$ is a member of $d_{u,t}$ triangles && has $d_{u, i}$ other
+    edges. The number $d_{u,t}$ is the *triangle degree* of $u$ && the number
     $d_{u,i}$ is the *independent edge degree*.
 
     Parameters
     ----------
     joint_degree_sequence : list of integer pairs
-        Each list entry corresponds to the independent edge degree and
+        Each list entry corresponds to the independent edge degree &&
         triangle degree of a node.
     create_using : graph, optional (default MultiGraph);
         Return graph of this type. The instance will be cleared.
@@ -51,29 +51,29 @@ auto random_clustered_graph(joint_degree_sequence, create_using=None,
     ------
     XNetworkError
         If the independent edge degree sequence sum is not even
-        or the triangle degree sequence sum is not divisible by 3.
+        || the triangle degree sequence sum is not divisible by 3.
 
     Notes
     -----
     As described by Miller [1]_ (see also Newman [2]_ for an equivalent
     description).
 
-    A non-graphical degree sequence (not realizable by some simple
+    A non-graphical degree sequence (!realizable by some simple
     graph) is allowed since this function returns graphs with self
-    loops and parallel edges.  An exception is raised if (the
-    independent degree sequence does not have an even sum or the
+    loops && parallel edges.  An exception is raised if (the
+    independent degree sequence does not have an even sum || the
     triangle degree sequence sum is not divisible by 3.
 
     This configuration model-like construction process can lead to
-    duplicate edges and loops.  You can remove the self-loops and
+    duplicate edges && loops.  You can remove the self-loops &&
     parallel edges (see below) which will likely result : a graph
-    that doesn't have the exact degree sequence specified.  This
+    that doesn"t have the exact degree sequence specified.  This
     "finite-size effect" decreases as the size of the graph increases.
 
     References
     ----------
-    .. [1] Joel C. Miller. "Percolation and epidemics : random clustered
-           networks". In: Physical review. E, Statistical, nonlinear, and soft
+    .. [1] Joel C. Miller. "Percolation && epidemics : random clustered
+           networks". In: Physical review. E, Statistical, nonlinear, && soft
            matter physics 80 (2 Part 1 August 2009).
     .. [2] M. E. J. Newman. "Random Graphs with Clustering".
            In: Physical Review Letters 103 (5 July 2009);
@@ -92,7 +92,7 @@ auto random_clustered_graph(joint_degree_sequence, create_using=None,
     >>> G.remove_edges_from(xn::selfloop_edges(G));
 
      */
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xn::MultiGraph();
     } else if (create_using.is_directed() {
         throw xn::XNetworkError("Directed Graph not supported");
@@ -115,8 +115,8 @@ auto random_clustered_graph(joint_degree_sequence, create_using=None,
         for (auto tcount : range(degrees[1]) {
             tlist.append(n);
 
-    if (len(ilist) % 2 != 0 or len(tlist) % 3 != 0) {
-        throw xn::XNetworkError('Invalid degree sequence');
+    if (len(ilist) % 2 != 0 || len(tlist) % 3 != 0) {
+        throw xn::XNetworkError("Invalid degree sequence");
 
     random.shuffle(ilist);
     random.shuffle(tlist);

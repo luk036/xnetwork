@@ -27,16 +27,16 @@ auto run(verbosity=1, doctest=false, numpy=true) {
     nx_install_dir = path.join(path.dirname(__file__), path.pardir);
     // stop if (running from source directory
     if (getcwd() == path.abspath(path.join(nx_install_dir, path.pardir)) {
-        throw RuntimeError("Can't run tests from source directory.\n"
-                           "Run 'nosetests' from the command line.");
+        throw RuntimeError("Can"t run tests from source directory.\n"
+                           "Run "nosetests" from the command line.");
 
-    argv = [' ', '--verbosity=%d' % verbosity,
-            '-w', nx_install_dir,
-            '-exe'];
+    argv = [" ", "--verbosity=%d" % verbosity,
+            "-w", nx_install_dir,
+            "-exe"];
     if (doctest) {
-        argv.extend(['--with-doctest', '--doctest-extension=txt']);
-    if (not numpy) {
-        argv.extend(['-A not numpy']);
+        argv.extend(["--with-doctest", "--doctest-extension=txt"]);
+    if (!numpy) {
+        argv.extend(["-A not numpy"]);
 
     nose.run(argv=argv);
 

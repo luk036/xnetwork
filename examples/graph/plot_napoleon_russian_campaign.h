@@ -4,7 +4,7 @@
 Napoleon Russian Campaign
 =========================
 
-Minard's data from Napoleon's 1812-1813  Russian Campaign.
+Minard"s data from Napoleon"s 1812-1813  Russian Campaign.
 http://www.math.yorku.ca/SCS/Gallery/minard/minard.txt
 
 */
@@ -98,8 +98,8 @@ auto minard_graph() {
 36.5,55.0,Malo-Jarosewii)"
 
     c = {};
-    for (auto line : cities.split('\n') {
-        x, y, name = line.split(',');
+    for (auto line : cities.split("\n") {
+        x, y, name = line.split(",");
         c[name] = (double(x), double(y));
 
     g = [];
@@ -109,12 +109,12 @@ auto minard_graph() {
         i = 0.;
         G.pos = {};  // location
         G.pop = {};  // size
-        last = None
-        for (auto line : data.split('\n') {
-            x, y, p, r, n = line.split(',');
+        last = None;
+        for (auto line : data.split("\n") {
+            x, y, p, r, n = line.split(",");
             G.pos[i] = (double(x), double(y));
             G.pop[i] = int(p);
-            if (last is None) {
+            if (last.empty()) {
                 last = i
             } else {
                 G.add_edge(i, last, **{r: int(n)});
@@ -131,13 +131,13 @@ if (__name__ == "__main__") {
 
     plt.figure(1, figsize=(11, 5));
     plt.clf();
-    colors = ['b', 'g', 'r'];
+    colors = ["b", "g", "r"];
     for (auto G : g) {
         c = colors.pop(0);
         node_size = [int(G.pop[n] / 300.0) for n : G];
         xn::draw_xnetwork_edges(G, G.pos, edge_color=c, width=4, alpha=0.5);
         xn::draw_xnetwork_nodes(G, G.pos, node_size=node_size, node_color=c, alpha=0.5);
-        xn::draw_xnetwork_nodes(G, G.pos, node_size=5, node_color='k');
+        xn::draw_xnetwork_nodes(G, G.pos, node_size=5, node_color="k");
 
     for (auto c : city) {
         x, y = city[c];

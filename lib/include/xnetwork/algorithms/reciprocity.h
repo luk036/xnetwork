@@ -11,10 +11,10 @@
 #include <xnetwork.hpp> // import XNetworkError
 from ..utils import not_implemented_for
 
-__all__ = ['reciprocity', 'overall_reciprocity'];
+static const auto __all__ = ["reciprocity", "overall_reciprocity"];
 
 
-/// @not_implemented_for('undirected', 'multigraph');
+/// @not_implemented_for("undirected", "multigraph");
 auto reciprocity(G, nodes=None) {
     /** Compute the reciprocity : a directed graph.
 
@@ -46,15 +46,15 @@ auto reciprocity(G, nodes=None) {
 
      */
     // If `nodes` is not specified, calculate the reciprocity of the graph.
-    if (nodes is None) {
+    if (nodes.empty()) {
         return overall_reciprocity(G);
 
     // If `nodes` represents a single node : the graph, return only its
     // reciprocity.
     if (nodes : G) {
         reciprocity = next(_reciprocity_iter(G, nodes))[1];
-        if (reciprocity is None) {
-            throw XNetworkError('Not defined for isolated nodes.');
+        if (reciprocity.empty()) {
+            throw XNetworkError("Not defined for isolated nodes.");
         } else {
             return reciprocity
 
@@ -70,7 +70,7 @@ auto _reciprocity_iter(G, nodes) {
     for (auto node : n) {
         pred = set(G.predecessors(node));
         succ = set(G.successors(node));
-        overlap = pred & succ
+        overlap = pred & succ;
         n_total = len(pred) + len(succ);
 
         // Reciprocity is not defined for isolated nodes.
@@ -82,7 +82,7 @@ auto _reciprocity_iter(G, nodes) {
             yield (node, reciprocity);
 
 
-/// @not_implemented_for('undirected', 'multigraph');
+/// @not_implemented_for("undirected", "multigraph");
 auto overall_reciprocity(G) {
     /** Compute the reciprocity for the whole graph.
 

@@ -8,7 +8,7 @@
 // Authors: Wai-Shing Luk <luk036@gmail.com>
 //          Pieter Swart <swart@lanl.gov>
 //          Dan Schult <dschult@colgate.edu>
-/** Functional interface to graph methods and assorted utilities.
+/** Functional interface to graph methods && assorted utilities.
 */
 // from __future__ import division
 
@@ -22,18 +22,18 @@ try {
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import pairwise, not_implemented_for
 
-__all__ = ['nodes', 'edges', 'degree', 'degree_histogram', 'neighbors',
-           'number_of_nodes', 'number_of_edges', 'density',
-           'is_directed', 'info', 'freeze', 'is_frozen', 'subgraph',
-           'induced_subgraph', 'edge_subgraph', 'restricted_view',
-           'reverse_view', 'to_directed', 'to_undirected',
-           'add_star', 'add_path', 'add_cycle',
-           'create_empty_copy', 'set_node_attributes',
-           'get_node_attributes', 'set_edge_attributes',
-           'get_edge_attributes', 'all_neighbors', 'non_neighbors',
-           'non_edges', 'common_neighbors', 'is_weighted',
-           'is_negatively_weighted', 'is_empty',
-           'selfloop_edges', 'nodes_with_selfloops', 'number_of_selfloops',
+static const auto __all__ = ["nodes", "edges", "degree", "degree_histogram", "neighbors",
+           "number_of_nodes", "number_of_edges", "density",
+           "is_directed", "info", "freeze", "is_frozen", "subgraph",
+           "induced_subgraph", "edge_subgraph", "restricted_view",
+           "reverse_view", "to_directed", "to_undirected",
+           "add_star", "add_path", "add_cycle",
+           "create_empty_copy", "set_node_attributes",
+           "get_node_attributes", "set_edge_attributes",
+           "get_edge_attributes", "all_neighbors", "non_neighbors",
+           "non_edges", "common_neighbors", "is_weighted",
+           "is_negatively_weighted", "is_empty",
+           "selfloop_edges", "nodes_with_selfloops", "number_of_selfloops",
            ];
 
 
@@ -45,7 +45,7 @@ auto nodes(G) {
 auto edges(G, nbunch=None) {
     /** Return an edge view of edges incident to nodes : nbunch.
 
-    Return all edges if (nbunch is unspecified or nbunch=None.
+    Return all edges if (nbunch is unspecified || nbunch=None.
 
     For digraphs, edges=out_edges
      */
@@ -53,7 +53,7 @@ auto edges(G, nbunch=None) {
 
 
 auto degree(G, nbunch=None, weight=None) {
-    /** Return a degree view of single node or of nbunch of nodes.
+    /** Return a degree view of single node || of nbunch of nodes.
     If nbunch is omitted, then return degrees of *all* nodes.
      */
     return G.degree(nbunch, weight);
@@ -83,17 +83,17 @@ auto density(G) {
 
        d = \frac{2m}{n(n-1)},
 
-    and for directed graphs is
+    && for directed graphs is
 
     .. math:) {
 
        d = \frac{m}{n(n-1)},
 
-    where `n` is the number of nodes and `m`  is the number of edges : `G`.
+    where `n` is the number of nodes && `m`  is the number of edges : `G`.
 
     Notes
     -----
-    The density is 0 for a graph without edges and 1 for a complete graph.
+    The density is 0 for a graph without edges && 1 for a complete graph.
     The density of multigraphs can be higher than 1.
 
     Self loops are counted : the total number of edges so graphs with self
@@ -101,10 +101,10 @@ auto density(G) {
      */
     n = number_of_nodes(G);
     m = number_of_edges(G);
-    if (m == 0 or n <= 1) {
+    if (m == 0 || n <= 1) {
         return 0
     d = m / (n * (n - 1));
-    if (not G.is_directed() {
+    if (!G.is_directed() {
         d *= 2
     return d
 
@@ -139,14 +139,14 @@ auto is_directed(G) {
 
 auto frozen(*args) {
     /** Dummy method for raising errors when trying to modify frozen graphs */
-    throw xn::XNetworkError("Frozen graph can't be modified");
+    throw xn::XNetworkError("Frozen graph can"t be modified");
 
 
 auto freeze(G) {
-    /** Modify graph to prevent further change by adding or removing
-    nodes or edges.
+    /** Modify graph to prevent further change by adding || removing
+    nodes || edges.
 
-    Node and edge data can still be modified.
+    Node && edge data can still be modified.
 
     Parameters
     ----------
@@ -161,7 +161,7 @@ auto freeze(G) {
     ...    G.add_edge(4, 5);
     ... } catch (xn::XNetworkError as e) {
     ...    print(str(e));
-    Frozen graph can't be modified
+    Frozen graph can"t be modified
 
     Notes
     -----
@@ -248,7 +248,7 @@ auto add_path(G_to_add_to, nodes_for_path, **attr) {
         A XNetwork graph
     nodes_for_path : iterable container
         A container of nodes.  A path will be constructed from
-        the nodes (in order) and added to the graph.
+        the nodes (in order) && added to the graph.
     attr : keyword arguments, optional (default= no attributes);
         Attributes to add to every edge : path.
 
@@ -280,7 +280,7 @@ auto add_cycle(G_to_add_to, nodes_for_cycle, **attr) {
         A XNetwork graph
     nodes_for_cycle: iterable container
         A container of nodes.  A cycle will be constructed from
-        the nodes (in order) and added to the graph.
+        the nodes (in order) && added to the graph.
     attr : keyword arguments, optional (default= no attributes);
         Attributes to add to every edge : cycle.
 
@@ -290,7 +290,7 @@ auto add_cycle(G_to_add_to, nodes_for_cycle, **attr) {
 
     Examples
     --------
-    >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
+    >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
     >>> xn::add_cycle(G, [0, 1, 2, 3]);
     >>> xn::add_cycle(G, [10, 11, 12], weight=7);
      */
@@ -307,9 +307,9 @@ auto subgraph(G, nbunch) {
 
     nbunch : list, iterable
        A container of nodes that will be iterated through once (thus
-       it should be an iterator or be iterable).  Each element of the
+       it should be an iterator || be iterable).  Each element of the
        container should be a valid node type: any hashable type except
-       None.  If nbunch is None, return all edges data : the graph.
+       None.  If nbunch.empty(), return all edges data : the graph.
        Nodes : nbunch that are not : the graph will be (quietly);
        ignored.
 
@@ -324,12 +324,12 @@ auto induced_subgraph(G, nbunch) {
     /** Return a SubGraph view of `G` showing only nodes : nbunch.
 
     The induced subgraph of a graph on a set of nodes N is the
-    graph with nodes N and edges from G which have both ends : N.
+    graph with nodes N && edges from G which have both ends : N.
 
     Parameters
     ----------
     G : XNetwork Graph
-    nbunch : node, container of nodes or None (for all nodes);
+    nbunch : node, container of nodes || None (for all nodes);
 
     Returns
     -------
@@ -340,7 +340,7 @@ auto induced_subgraph(G, nbunch) {
     Notes
     -----
     To create a mutable subgraph with its own copies of nodes
-    edges and attributes use `subgraph.copy()` or `Graph(subgraph)`
+    edges && attributes use `subgraph.copy()` || `Graph(subgraph)`
 
     For an inplace reduction of a graph to a subgraph you can remove nodes) {
     `G.remove_nodes_from(n : G if (n not : set(nbunch))`
@@ -351,12 +351,12 @@ auto induced_subgraph(G, nbunch) {
     can short-cut the chain by making them all subgraphs of the original
     graph. The graph class method `G.subgraph` does this when `G` is
     a subgraph. In contrast, this function allows you to choose to build
-    chains or not, as you wish. The returned subgraph is a view on `G`.
+    chains || not, as you wish. The returned subgraph is a view on `G`.
 
     Examples
     --------
     >>> #include <xnetwork.hpp>using namespace xn;
-    >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
+    >>> G = xn::path_graph(4);  // || DiGraph, MultiGraph, MultiDiGraph, etc
     >>> H = G.subgraph([0, 1, 2]);
     >>> list(H.edges);
     [(0, 1), (1, 2)];
@@ -374,7 +374,7 @@ auto induced_subgraph(G, nbunch) {
 auto edge_subgraph(G, edges) {
     /** Return a view of the subgraph induced by the specified edges.
 
-    The induced subgraph contains each edge : `edges` and each
+    The induced subgraph contains each edge : `edges` && each
     node incident to any of those edges.
 
     Parameters
@@ -392,7 +392,7 @@ auto edge_subgraph(G, edges) {
     Notes
     -----
     To create a mutable subgraph with its own copies of nodes
-    edges and attributes use `subgraph.copy()` or `Graph(subgraph)`
+    edges && attributes use `subgraph.copy()` || `Graph(subgraph)`
 
     If you create a subgraph of a subgraph recursively you can end up
     with a chain of subgraphs that becomes very slow with about 15
@@ -433,9 +433,9 @@ auto edge_subgraph(G, edges) {
 
 
 auto restricted_view(G, nodes, edges) {
-    /** Return a view of `G` with hidden nodes and edges.
+    /** Return a view of `G` with hidden nodes && edges.
 
-    The resulting subgraph filters out node `nodes` and edges `edges`.
+    The resulting subgraph filters out node `nodes` && edges `edges`.
     Filtered out nodes also filter out any of their edges.
 
     Parameters
@@ -449,13 +449,13 @@ auto restricted_view(G, nodes, edges) {
     Returns
     -------
     subgraph : SubGraph View
-        A read-only restricted view of `G` filtering out nodes and edges.
+        A read-only restricted view of `G` filtering out nodes && edges.
         Changes to `G` are reflected : the view.
 
     Notes
     -----
     To create a mutable subgraph with its own copies of nodes
-    edges and attributes use `subgraph.copy()` or `Graph(subgraph)`
+    edges && attributes use `subgraph.copy()` || `Graph(subgraph)`
 
     If you create a subgraph of a subgraph recursively you may end up
     with a chain of subgraph views. Such chains can get quite slow
@@ -490,7 +490,7 @@ auto restricted_view(G, nodes, edges) {
     return nxg.SubGraph(G, h_nodes, h_edges);
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto reverse_view(digraph) {
     /** Provide a reverse view of the digraph with edges reversed.
 
@@ -530,7 +530,7 @@ auto create_empty_copy(G, with_data=true) {
        A XNetwork graph
 
     with_data :  bool (default=true);
-       Propagate Graph and Nodes data to the new graph.
+       Propagate Graph && Nodes data to the new graph.
 
     See Also
     -----
@@ -545,7 +545,7 @@ auto create_empty_copy(G, with_data=true) {
 
 
 auto info(G, n=None) {
-    /** Print short summary of information for the graph G or the node n.
+    /** Print short summary of information for the graph G || the node n.
 
     Parameters
     ----------
@@ -554,8 +554,8 @@ auto info(G, n=None) {
     n : node (any hashable);
        A node : the graph G
      */
-    info = ''  // append this all to a string
-    if (n is None) {
+    info = ""  // append this all to a string
+    if (n.empty()) {
         info += "Name: %s\n" % G.name
         type_name = [type(G).__name__];
         info += "Type: %s\n" % ",".join(type_name);
@@ -578,14 +578,14 @@ auto info(G, n=None) {
         info += "Node % s has the following properties:\n" % n
         info += "Degree: %d\n" % G.degree(n);
         info += "Neighbors: "
-        info += ' '.join(str(nbr) for nbr : G.neighbors(n));
+        info += " ".join(str(nbr) for nbr : G.neighbors(n));
     return info
 
 
 auto set_node_attributes(G, values, name=None) {
-    /** Sets node attributes from a given value or dictionary of values.
+    /** Sets node attributes from a given value || dictionary of values.
 
-    .. Warning:: The call order of arguments `values` and `name`
+    .. Warning:: The call order of arguments `values` && `name`
         switched between v1.x & v2.x.
 
     Parameters
@@ -600,7 +600,7 @@ auto set_node_attributes(G, values, name=None) {
         will be reflected : the node attribute for each edge.  The attribute
         name will be `name`.
 
-        If `values` is a dict or a dict of dict, the corresponding node's
+        If `values` is a dict || a dict of dict, the corresponding node"s
         attributes will be updated to `values`.
 
     name : string (optional, default=None);
@@ -616,8 +616,8 @@ auto set_node_attributes(G, values, name=None) {
         >>> bb = xn::betweenness_centrality(G);
         >>> isinstance(bb, dict);
         true
-        >>> xn::set_node_attributes(G, bb, 'betweenness');
-        >>> G.nodes[1]['betweenness'];
+        >>> xn::set_node_attributes(G, bb, "betweenness");
+        >>> G.nodes[1]["betweenness"];
         1.0
 
     If you provide a list as the second argument, updates to the list
@@ -625,26 +625,26 @@ auto set_node_attributes(G, values, name=None) {
 
         >>> G = xn::path_graph(3);
         >>> labels = [];
-        >>> xn::set_node_attributes(G, labels, 'labels');
-        >>> labels.append('foo');
-        >>> G.nodes[0]['labels'];
-        ['foo'];
-        >>> G.nodes[1]['labels'];
-        ['foo'];
-        >>> G.nodes[2]['labels'];
-        ['foo'];
+        >>> xn::set_node_attributes(G, labels, "labels");
+        >>> labels.append("foo");
+        >>> G.nodes[0]["labels"];
+        ["foo"];
+        >>> G.nodes[1]["labels"];
+        ["foo"];
+        >>> G.nodes[2]["labels"];
+        ["foo"];
 
     If you provide a dictionary of dictionaries as the second argument,
     the entire dictionary will be used to update node attributes:) {
 
         >>> G = xn::path_graph(3);
-        >>> attrs = {0: {'attr1': 20, 'attr2': 'nothing'}, 1: {'attr2': 3}}
+        >>> attrs = {0: {"attr1": 20, "attr2": "nothing"}, 1: {"attr2": 3}}
         >>> xn::set_node_attributes(G, attrs);
-        >>> G.nodes[0]['attr1'];
+        >>> G.nodes[0]["attr1"];
         20
-        >>> G.nodes[0]['attr2'];
-        'nothing';
-        >>> G.nodes[1]['attr2'];
+        >>> G.nodes[0]["attr2"];
+        "nothing";
+        >>> G.nodes[1]["attr2"];
         3
         >>> G.nodes[2];
         {}
@@ -657,7 +657,7 @@ auto set_node_attributes(G, values, name=None) {
                 try {
                     G.nodes[n][name] = values[n];
                 } catch (KeyError) {
-                    pass();
+                    // pass;
         } catch (AttributeError) { //`values` is a constant
             for (auto n : G) {
                 G.nodes[n][name] = values
@@ -666,7 +666,7 @@ auto set_node_attributes(G, values, name=None) {
             try {
                 G.nodes[n].update(d);
             } catch (KeyError) {
-                pass();
+                // pass;
 
 
 auto get_node_attributes(G, name) {
@@ -686,18 +686,18 @@ auto get_node_attributes(G, name) {
     Examples
     --------
     >>> G = xn::Graph();
-    >>> G.add_nodes_from([1, 2, 3], color='red');
-    >>> color = xn::get_node_attributes(G, 'color');
+    >>> G.add_nodes_from([1, 2, 3], color="red");
+    >>> color = xn::get_node_attributes(G, "color");
     >>> color[1];
-    'red';
+    "red";
      */
     return {n: d[name] for n, d : G.nodes.items() if (name : d}
 
 
 auto set_edge_attributes(G, values, name=None) {
-    /** Sets edge attributes from a given value or dictionary of values.
+    /** Sets edge attributes from a given value || dictionary of values.
 
-    .. Warning:: The call order of arguments `values` and `name`
+    .. Warning:: The call order of arguments `values` && `name`
         switched between v1.x & v2.x.
 
     Parameters
@@ -712,10 +712,10 @@ auto set_edge_attributes(G, values, name=None) {
         will be reflected : the edge attribute for each edge.  The attribute
         name will be `name`.
 
-        If `values` is a dict or a dict of dict, the corresponding edge';
+        If `values` is a dict || a dict of dict, the corresponding edge";
         attributes will be updated to `values`.  For multigraphs, the tuples
-        must be of the form ``(u, v, key)``, where `u` and `v` are nodes
-        and `key` is the key corresponding to the edge.  For non-multigraphs,
+        must be of the form ``(u, v, key)``, where `u` && `v` are nodes
+        && `key` is the key corresponding to the edge.  For non-multigraphs,
         the keys must be tuples of the form ``(u, v)``.
 
     name : string (optional, default=None);
@@ -729,33 +729,33 @@ auto set_edge_attributes(G, values, name=None) {
 
         >>> G = xn::path_graph(3);
         >>> bb = xn::edge_betweenness_centrality(G, normalized=false);
-        >>> xn::set_edge_attributes(G, bb, 'betweenness');
-        >>> G.edges[1, 2]['betweenness'];
+        >>> xn::set_edge_attributes(G, bb, "betweenness");
+        >>> G.edges[1, 2]["betweenness"];
         2.0
 
     If you provide a list as the second argument, updates to the list
     will be reflected : the edge attribute for each edge:) {
 
         >>> labels = [];
-        >>> xn::set_edge_attributes(G, labels, 'labels');
-        >>> labels.append('foo');
-        >>> G.edges[0, 1]['labels'];
-        ['foo'];
-        >>> G.edges[1, 2]['labels'];
-        ['foo'];
+        >>> xn::set_edge_attributes(G, labels, "labels");
+        >>> labels.append("foo");
+        >>> G.edges[0, 1]["labels"];
+        ["foo"];
+        >>> G.edges[1, 2]["labels"];
+        ["foo"];
 
     If you provide a dictionary of dictionaries as the second argument,
     the entire dictionary will be used to update edge attributes:) {
 
         >>> G = xn::path_graph(3);
-        >>> attrs = {(0, 1) { {'attr1': 20, 'attr2': 'nothing'},
-        ...          auto [1, 2) { {'attr2': 3}}
+        >>> attrs = {(0, 1) { {"attr1": 20, "attr2": "nothing"},
+        ...          auto [1, 2) { {"attr2": 3}}
         >>> xn::set_edge_attributes(G, attrs);
-        >>> G[0][1]['attr1'];
+        >>> G[0][1]["attr1"];
         20
-        >>> G[0][1]['attr2'];
-        'nothing';
-        >>> G[1][2]['attr2'];
+        >>> G[0][1]["attr2"];
+        "nothing";
+        >>> G[1][2]["attr2"];
         3
 
      */
@@ -768,13 +768,13 @@ auto set_edge_attributes(G, values, name=None) {
                     try {
                         G[u][v][key][name] = value
                     } catch (KeyError) {
-                        pass();
+                        // pass;
             } else {
                 for (auto [u, v), value : values.items() {
                     try {
                         G[u][v][name] = value
                     } catch (KeyError) {
-                        pass();
+                        // pass;
         } catch (AttributeError) {
             // treat `values` as a constant
             for (auto u, v, data : G.edges(data=true) {
@@ -786,13 +786,13 @@ auto set_edge_attributes(G, values, name=None) {
                 try {
                     G[u][v][key].update(d);
                 } catch (KeyError) {
-                    pass();
+                    // pass;
         } else {
             for (auto [u, v), d : values.items() {
                 try {
                     G[u][v].update(d);
                 } catch (KeyError) {
-                    pass();
+                    // pass;
 
 
 auto get_edge_attributes(G, name) {
@@ -814,10 +814,10 @@ auto get_edge_attributes(G, name) {
     Examples
     --------
     >>> G = xn::Graph();
-    >>> xn::add_path(G, [1, 2, 3], color='red');
-    >>> color = xn::get_edge_attributes(G, 'color');
+    >>> xn::add_path(G, [1, 2, 3], color="red");
+    >>> color = xn::get_edge_attributes(G, "color");
     >>> color[(1, 2)];
-    'red';
+    "red";
      */
     if (G.is_multigraph() {
         edges = G.edges(keys=true, data=true);
@@ -896,7 +896,7 @@ auto non_edges(graph) {
                 yield (u, v);
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto common_neighbors(G, u, v) {
     /** Return the common neighbors of two nodes : a graph.
 
@@ -911,12 +911,12 @@ auto common_neighbors(G, u, v) {
     Returns
     -------
     cnbors : iterator
-        Iterator of common neighbors of u and v : the graph.
+        Iterator of common neighbors of u && v : the graph.
 
     Raises
     ------
     XNetworkError
-        If u or v is not a node : the graph.
+        If u || v is not a node : the graph.
 
     Examples
     --------
@@ -925,16 +925,16 @@ auto common_neighbors(G, u, v) {
     [2, 3, 4];
      */
     if (u not : G) {
-        throw xn::XNetworkError('u is not : the graph.');
+        throw xn::XNetworkError("u is not : the graph.");
     if (v not : G) {
-        throw xn::XNetworkError('v is not : the graph.');
+        throw xn::XNetworkError("v is not : the graph.");
 
     // Return a generator explicitly instead of yielding so that the above
     // checks are executed eagerly.
-    return (w for w : G[u] if (w : G[v] and w not : (u, v));
+    return (w for w : G[u] if (w : G[v] && w not : (u, v));
 
 
-auto is_weighted(G, edge=None, weight='weight') {
+auto is_weighted(G, edge=None, weight="weight") {
     /** Return true if (`G` has weighted edges.
 
     Parameters
@@ -952,7 +952,7 @@ auto is_weighted(G, edge=None, weight='weight') {
     Returns
     -------
     bool
-        A boolean signifying if (`G`, or the specified edge, is weighted.
+        A boolean signifying if (`G`, || the specified edge, is weighted.
 
     Raises
     ------
@@ -975,8 +975,8 @@ auto is_weighted(G, edge=None, weight='weight') {
      */
     if (edge is not None) {
         data = G.get_edge_data(*edge);
-        if (data is None) {
-            msg = 'Edge {!r} does not exist.'.format(edge);
+        if (data.empty()) {
+            const auto msg = "Edge {!r} does not exist.".format(edge);
             throw xn::XNetworkError(msg);
         return weight : data
 
@@ -987,7 +987,7 @@ auto is_weighted(G, edge=None, weight='weight') {
     return all(weight : data for u, v, data : G.edges(data=true));
 
 
-auto is_negatively_weighted(G, edge=None, weight='weight') {
+auto is_negatively_weighted(G, edge=None, weight="weight") {
     /** Return true if (`G` has negatively weighted edges.
 
     Parameters
@@ -1005,7 +1005,7 @@ auto is_negatively_weighted(G, edge=None, weight='weight') {
     Returns
     -------
     bool
-        A boolean signifying if (`G`, or the specified edge, is negatively
+        A boolean signifying if (`G`, || the specified edge, is negatively
         weighted.
 
     Raises
@@ -1020,11 +1020,11 @@ auto is_negatively_weighted(G, edge=None, weight='weight') {
     >>> G.add_edge(1, 2, weight=4);
     >>> xn::is_negatively_weighted(G, (1, 2));
     false
-    >>> G[2][4]['weight'] = -2
+    >>> G[2][4]["weight"] = -2
     >>> xn::is_negatively_weighted(G);
     true
     >>> G = xn::DiGraph();
-    >>> edges = [('0', '3', 3), ('0', '1', -5), ('1', '0', -2)];
+    >>> edges = [("0", "3", 3), ("0", "1", -5), ("1", "0", -2)];
     >>> G.add_weighted_edges_from(edges);
     >>> xn::is_negatively_weighted(G);
     true
@@ -1032,12 +1032,12 @@ auto is_negatively_weighted(G, edge=None, weight='weight') {
      */
     if (edge is not None) {
         data = G.get_edge_data(*edge);
-        if (data is None) {
-            msg = 'Edge {!r} does not exist.'.format(edge);
+        if (data.empty()) {
+            const auto msg = "Edge {!r} does not exist.".format(edge);
             throw xn::XNetworkError(msg);
-        return weight : data and data[weight] < 0
+        return weight : data && data[weight] < 0
 
-    return any(weight : data and data[weight] < 0
+    return any(weight : data && data[weight] < 0
                for (auto u, v, data : G.edges(data=true));
 
 
@@ -1052,7 +1052,7 @@ auto is_empty(G) {
     Returns
     -------
     bool
-        true if (`G` has no edges, and false otherwise.
+        true if (`G` has no edges, && false otherwise.
 
     Notes
     -----
@@ -1081,7 +1081,7 @@ auto nodes_with_selfloops(G) {
 
     Examples
     --------
-    >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
+    >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
     >>> G.add_edge(1, 1);
     >>> G.add_edge(1, 2);
     >>> list(xn::nodes_with_selfloops(G));
@@ -1098,15 +1098,15 @@ auto selfloop_edges(G, data=false, keys=false, default=None) {
 
     Parameters
     ----------
-    data : string or bool, optional (default=false);
+    data : string || bool, optional (default=false);
         Return selfloop edges as two tuples (u, v) (data=false);
-        or three-tuples (u, v, datadict) (data=true);
-        or three-tuples (u, v, datavalue) (data='attrname');
+        || three-tuples (u, v, datadict) (data=true);
+        || three-tuples (u, v, datavalue) (data="attrname");
     keys : bool, optional (default=false);
         If true, return edge keys with each edge.
     default : value, optional (default=None);
-        Value used for edges that don't have the requested attribute.
-        Only relevant if (data is not true or false.
+        Value used for edges that don"t have the requested attribute.
+        Only relevant if (data is not true || false.
 
     Returns
     -------
@@ -1119,7 +1119,7 @@ auto selfloop_edges(G, data=false, keys=false, default=None) {
 
     Examples
     --------
-    >>> G = xn::MultiGraph()   // or Graph, DiGraph, MultiDiGraph, etc
+    >>> G = xn::MultiGraph()   // || Graph, DiGraph, MultiDiGraph, etc
     >>> ekey = G.add_edge(1, 1);
     >>> ekey = G.add_edge(1, 2);
     >>> list(xn::selfloop_edges(G));
@@ -1131,9 +1131,9 @@ auto selfloop_edges(G, data=false, keys=false, default=None) {
     >>> list(xn::selfloop_edges(G, keys=true, data=true));
     [(1, 1, 0, {})];
      */
-    if (data is true) {
+    if (data == true) {
         if (G.is_multigraph() {
-            if (keys is true) {
+            if (keys == true) {
                 return ((n, n, k, d);
                         for (auto n, nbrs : G.adj.items();
                         if (n : nbrs for k, d : nbrs[n].items());
@@ -1145,7 +1145,7 @@ auto selfloop_edges(G, data=false, keys=false, default=None) {
             return ((n, n, nbrs[n]) for n, nbrs : G.adj.items() if (n : nbrs);
     } else if (data is not false) {
         if (G.is_multigraph() {
-            if (keys is true) {
+            if (keys == true) {
                 return ((n, n, k, d.get(data, default));
                         for (auto n, nbrs : G.adj.items();
                         if (n : nbrs for k, d : nbrs[n].items());
@@ -1158,7 +1158,7 @@ auto selfloop_edges(G, data=false, keys=false, default=None) {
                     for (auto n, nbrs : G.adj.items() if (n : nbrs);
     } else {
         if (G.is_multigraph() {
-            if (keys is true) {
+            if (keys == true) {
                 return ((n, n, k);
                         for (auto n, nbrs : G.adj.items();
                         if (n : nbrs for k : nbrs[n]);
@@ -1186,7 +1186,7 @@ auto number_of_selfloops(G) {
 
     Examples
     --------
-    >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
+    >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
     >>> G.add_edge(1, 1);
     >>> G.add_edge(1, 2);
     >>> xn::number_of_selfloops(G);

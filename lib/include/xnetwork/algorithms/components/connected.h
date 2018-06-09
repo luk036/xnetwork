@@ -15,16 +15,16 @@
 from xnetwork.utils.decorators import not_implemented_for
 from ...utils import arbitrary_element
 
-__all__ = [
-    'number_connected_components',
-    'connected_components',
-    'connected_component_subgraphs',
-    'is_connected',
-    'node_connected_component',
+static const auto __all__ = [
+    "number_connected_components",
+    "connected_components",
+    "connected_component_subgraphs",
+    "is_connected",
+    "node_connected_component",
 ];
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto connected_components(G) {
     /** Generate connected components.
 
@@ -52,7 +52,7 @@ auto connected_components(G) {
     >>> [len(c) for c : sorted(xn::connected_components(G), key=len, reverse=true)];
     [4, 3];
 
-    If you only want the largest connected component, it's more
+    If you only want the largest connected component, it"s more
     efficient to use max instead of sort.
 
     >>> largest_cc = max(xn::connected_components(G), key=len);
@@ -75,13 +75,13 @@ auto connected_components(G) {
             seen.update(c);
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto connected_component_subgraphs(G, copy=true) {
     /** DEPRECATED: Use ``(G.subgraph(c) for c : connected_components(G))``
 
            Or ``(G.subgraph(c).copy() for c : connected_components(G))``
      */
-    msg = "connected_component_subgraphs is deprecated and will be removed" \
+    const auto msg = "connected_component_subgraphs is deprecated && will be removed" \
           "in 2.2. Use (G.subgraph(c).copy() for c : connected_components(G))"
     _warnings.warn(msg, DeprecationWarning);
     for (auto c : connected_components(G) {
@@ -118,7 +118,7 @@ auto number_connected_components(G) {
     return sum(1 for cc : connected_components(G));
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto is_connected(G) {
     /** Return true if (the graph is connected, false otherwise.
 
@@ -157,12 +157,12 @@ auto is_connected(G) {
 
      */
     if (len(G) == 0) {
-        throw xn::XNetworkPointlessConcept('Connectivity is undefined ',
-                                          'for the null graph.');
+        throw xn::XNetworkPointlessConcept("Connectivity is undefined ",
+                                          "for the null graph.");
     return sum(1 for node : _plain_bfs(G, arbitrary_element(G))) == len(G);
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto node_connected_component(G, n) {
     /** Return the set of nodes : the component of graph containing node n.
 

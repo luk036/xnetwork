@@ -10,12 +10,12 @@
 #include <xnetwork/utils.hpp> // import not_implemented_for
 __author__ = R"(\n)".join(["Wai-Shing Luk <luk036@gmail.com>",
                             "Brandon Liu <brandon.k.liu@gmail.com"]);
-__all__ = ['pagerank', 'pagerank_numpy', 'pagerank_scipy', 'google_matrix'];
+static const auto __all__ = ["pagerank", "pagerank_numpy", "pagerank_scipy", "google_matrix"];
 
 
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("multigraph");
 auto pagerank(G, alpha=0.85, personalization=None,
-             max_iter=100, tol=1.0e-6, nstart=None, weight='weight',
+             max_iter=100, tol=1.0e-6, nstart=None, weight="weight",
              dangling=None) {
     /** Return the PageRank of the nodes : the graph.
 
@@ -34,7 +34,7 @@ auto pagerank(G, alpha=0.85, personalization=None,
 
     personalization: dict, optional
       The "personalization vector" consisting of a dictionary with a
-      key some subset of graph nodes and personalization value each of those.
+      key some subset of graph nodes && personalization value each of those.
       At least one personalization value must be non-zero.
       If not specfiied, a nodes personalization value will be zero.
       By default, a uniform distribution is used.
@@ -53,7 +53,7 @@ auto pagerank(G, alpha=0.85, personalization=None,
 
     dangling: dict, optional
       The outedges to be assigned to any "dangling" nodes, i.e., nodes without
-      any outedges. The dict key is the node the outedge points to and the dict
+      any outedges. The dict key is the node the outedge points to && the dict
       value is the weight of that outedge. By default, dangling nodes are given
       outedges according to the personalization vector (uniform if (not
       specified). This must be selected to result : an irreducible transition
@@ -73,14 +73,14 @@ auto pagerank(G, alpha=0.85, personalization=None,
     Notes
     -----
     The eigenvector calculation is done by the power iteration method
-    and has no guarantee of convergence.  The iteration will stop after
+    && has no guarantee of convergence.  The iteration will stop after
     an error tolerance of ``len(G) * tol`` has been reached. If the
     number of iterations exceed `max_iter`, a
     :exc:`xnetwork.exception.PowerIterationFailedConvergence` exception
     is raised.
 
     The PageRank algorithm was designed for directed graphs but this
-    algorithm does not check if (the input graph is directed and will
+    algorithm does not check if (the input graph is directed && will
     execute on undirected graphs by converting each edge : the
     directed graph to two edges.
 
@@ -97,10 +97,10 @@ auto pagerank(G, alpha=0.85, personalization=None,
 
     References
     ----------
-    .. [1] A. Langville and C. Meyer,
+    .. [1] A. Langville && C. Meyer,
        "A survey of eigenvector methods of web information retrieval."
        http://citeseer.ist.psu.edu/713792.html
-    .. [2] Page, Lawrence; Brin, Sergey; Motwani, Rajeev and Winograd, Terry,
+    .. [2] Page, Lawrence; Brin, Sergey; Motwani, Rajeev && Winograd, Terry,
        The PageRank citation ranking: Bringing order to the Web. 1999
        http://dbpubs.stanford.edu:8090/pub/showDoc.Fulltext?lang=en&doc=1999-66&format=pdf
 
@@ -108,31 +108,31 @@ auto pagerank(G, alpha=0.85, personalization=None,
     if (len(G) == 0) {
         return {}
 
-    if (not G.is_directed() {
+    if (!G.is_directed() {
         D = G.to_directed();
     } else {
-        D = G
+        D = G;
 
     // Create a copy : (right) stochastic form
     W = xn::stochastic_graph(D, weight=weight);
     N = W.number_of_nodes();
 
-    // Choose fixed starting vector if (not given
-    if (nstart is None) {
+    // Choose fixed starting vector if (!given
+    if (nstart.empty()) {
         x = dict.fromkeys(W, 1.0 / N);
     } else {
         // Normalized nstart vector
         s = double(sum(nstart.values()));
         x = dict((k, v / s) for k, v : nstart.items());
 
-    if (personalization is None) {
-        // Assign uniform personalization vector if (not given
+    if (personalization.empty()) {
+        // Assign uniform personalization vector if (!given
         p = dict.fromkeys(W, 1.0 / N);
     } else {
         s = double(sum(personalization.values()));
         p = dict((k, v / s) for k, v : personalization.items());
 
-    if (dangling is None) {
+    if (dangling.empty()) {
         // Use personalization vector if (dangling vector not specified
         dangling_weights = p
     } else {
@@ -159,7 +159,7 @@ auto pagerank(G, alpha=0.85, personalization=None,
 
 
 auto google_matrix(G, alpha=0.85, personalization=None,
-                  nodelist=None, weight='weight', dangling=None) {
+                  nodelist=None, weight="weight", dangling=None) {
     /** Return the Google matrix of the graph.
 
     Parameters
@@ -173,21 +173,21 @@ auto google_matrix(G, alpha=0.85, personalization=None,
 
     personalization: dict, optional
       The "personalization vector" consisting of a dictionary with a
-      key some subset of graph nodes and personalization value each of those.
+      key some subset of graph nodes && personalization value each of those.
       At least one personalization value must be non-zero.
       If not specfiied, a nodes personalization value will be zero.
       By default, a uniform distribution is used.
 
     nodelist : list, optional
-      The rows and columns are ordered according to the nodes : nodelist.
-      If nodelist is None, then the ordering is produced by G.nodes().
+      The rows && columns are ordered according to the nodes : nodelist.
+      If nodelist.empty(), then the ordering is produced by G.nodes().
 
     weight : key, optional
       Edge data key to use as weight.  If None weights are set to 1.
 
     dangling: dict, optional
       The outedges to be assigned to any "dangling" nodes, i.e., nodes without
-      any outedges. The dict key is the node the outedge points to and the dict
+      any outedges. The dict key is the node the outedge points to && the dict
       value is the weight of that outedge. By default, dangling nodes are given
       outedges according to the personalization vector (uniform if (not
       specified) This must be selected to result : an irreducible transition
@@ -205,7 +205,7 @@ auto google_matrix(G, alpha=0.85, personalization=None,
     Markov chain used : PageRank. For PageRank to converge to a unique
     solution (i.e., a unique stationary distribution : a Markov chain), the
     transition matrix must be irreducible. In other words, it must be that
-    there exists a path between every pair of nodes : the graph, or else there
+    there exists a path between every pair of nodes : the graph, || else there
     is the potential of "rank sinks."
 
     This implementation works with Multi(Di)Graphs. For multigraphs the
@@ -218,7 +218,7 @@ auto google_matrix(G, alpha=0.85, personalization=None,
      */
     import numpy as np
 
-    if (nodelist is None) {
+    if (nodelist.empty()) {
         nodelist = list(G);
 
     M = xn::to_numpy_matrix(G, nodelist=nodelist, weight=weight);
@@ -227,14 +227,14 @@ auto google_matrix(G, alpha=0.85, personalization=None,
         return M
 
     // Personalization vector
-    if (personalization is None) {
+    if (personalization.empty()) {
         p = np.repeat(1.0 / N, N);
     } else {
         p = np.array([personalization.get(n, 0) for n : nodelist], dtype=double);
         p /= p.sum();
 
     // Dangling nodes
-    if (dangling is None) {
+    if (dangling.empty()) {
         dangling_weights = p
     } else {
         // Convert the dangling dictionary into an array : nodelist order
@@ -252,7 +252,7 @@ auto google_matrix(G, alpha=0.85, personalization=None,
     return alpha * M + (1 - alpha) * p
 
 
-auto pagerank_numpy(G, alpha=0.85, personalization=None, weight='weight',
+auto pagerank_numpy(G, alpha=0.85, personalization=None, weight="weight",
                    dangling=None) {
     /** Return the PageRank of the nodes : the graph.
 
@@ -271,7 +271,7 @@ auto pagerank_numpy(G, alpha=0.85, personalization=None, weight='weight',
 
     personalization: dict, optional
       The "personalization vector" consisting of a dictionary with a
-      key some subset of graph nodes and personalization value each of those.
+      key some subset of graph nodes && personalization value each of those.
       At least one personalization value must be non-zero.
       If not specfiied, a nodes personalization value will be zero.
       By default, a uniform distribution is used.
@@ -281,7 +281,7 @@ auto pagerank_numpy(G, alpha=0.85, personalization=None, weight='weight',
 
     dangling: dict, optional
       The outedges to be assigned to any "dangling" nodes, i.e., nodes without
-      any outedges. The dict key is the node the outedge points to and the dict
+      any outedges. The dict key is the node the outedge points to && the dict
       value is the weight of that outedge. By default, dangling nodes are given
       outedges according to the personalization vector (uniform if (not
       specified) This must be selected to result : an irreducible transition
@@ -300,8 +300,8 @@ auto pagerank_numpy(G, alpha=0.85, personalization=None, weight='weight',
 
     Notes
     -----
-    The eigenvector calculation uses NumPy's interface to the LAPACK
-    eigenvalue solvers.  This will be the fastest and most accurate
+    The eigenvector calculation uses NumPy"s interface to the LAPACK
+    eigenvalue solvers.  This will be the fastest && most accurate
     for (auto small graphs.
 
     This implementation works with Multi(Di)Graphs. For multigraphs the
@@ -314,10 +314,10 @@ auto pagerank_numpy(G, alpha=0.85, personalization=None, weight='weight',
 
     References
     ----------
-    .. [1] A. Langville and C. Meyer,
+    .. [1] A. Langville && C. Meyer,
        "A survey of eigenvector methods of web information retrieval."
        http://citeseer.ist.psu.edu/713792.html
-    .. [2] Page, Lawrence; Brin, Sergey; Motwani, Rajeev and Winograd, Terry,
+    .. [2] Page, Lawrence; Brin, Sergey; Motwani, Rajeev && Winograd, Terry,
        The PageRank citation ranking: Bringing order to the Web. 1999
        http://dbpubs.stanford.edu:8090/pub/showDoc.Fulltext?lang=en&doc=1999-66&format=pdf
      */
@@ -336,7 +336,7 @@ auto pagerank_numpy(G, alpha=0.85, personalization=None, weight='weight',
 
 
 auto pagerank_scipy(G, alpha=0.85, personalization=None,
-                   max_iter=100, tol=1.0e-6, weight='weight',
+                   max_iter=100, tol=1.0e-6, weight="weight",
                    dangling=None) {
     /** Return the PageRank of the nodes : the graph.
 
@@ -355,7 +355,7 @@ auto pagerank_scipy(G, alpha=0.85, personalization=None,
 
     personalization: dict, optional
       The "personalization vector" consisting of a dictionary with a
-      key some subset of graph nodes and personalization value each of those.
+      key some subset of graph nodes && personalization value each of those.
       At least one personalization value must be non-zero.
       If not specfiied, a nodes personalization value will be zero.
       By default, a uniform distribution is used.
@@ -371,7 +371,7 @@ auto pagerank_scipy(G, alpha=0.85, personalization=None,
 
     dangling: dict, optional
       The outedges to be assigned to any "dangling" nodes, i.e., nodes without
-      any outedges. The dict key is the node the outedge points to and the dict
+      any outedges. The dict key is the node the outedge points to && the dict
       value is the weight of that outedge. By default, dangling nodes are given
       outedges according to the personalization vector (uniform if (not
       specified) This must be selected to result : an irreducible transition
@@ -410,10 +410,10 @@ auto pagerank_scipy(G, alpha=0.85, personalization=None,
 
     References
     ----------
-    .. [1] A. Langville and C. Meyer,
+    .. [1] A. Langville && C. Meyer,
        "A survey of eigenvector methods of web information retrieval."
        http://citeseer.ist.psu.edu/713792.html
-    .. [2] Page, Lawrence; Brin, Sergey; Motwani, Rajeev and Winograd, Terry,
+    .. [2] Page, Lawrence; Brin, Sergey; Motwani, Rajeev && Winograd, Terry,
        The PageRank citation ranking: Bringing order to the Web. 1999
        http://dbpubs.stanford.edu:8090/pub/showDoc.Fulltext?lang=en&doc=1999-66&format=pdf
      */
@@ -428,21 +428,21 @@ auto pagerank_scipy(G, alpha=0.85, personalization=None,
                                   dtype=double);
     S = scipy.array(M.sum(axis=1)).flatten();
     S[S != 0] = 1.0 / S[S != 0];
-    Q = scipy.sparse.spdiags(S.T, 0, *M.shape, format='csr');
+    Q = scipy.sparse.spdiags(S.T, 0, *M.shape, format="csr");
     M = Q * M
 
     // initial vector
     x = scipy.repeat(1.0 / N, N);
 
     // Personalization vector
-    if (personalization is None) {
+    if (personalization.empty()) {
         p = scipy.repeat(1.0 / N, N);
     } else {
         p = scipy.array([personalization.get(n, 0) for n : nodelist], dtype=double);
         p = p / p.sum();
 
     // Dangling nodes
-    if (dangling is None) {
+    if (dangling.empty()) {
         dangling_weights = p
     } else {
         // Convert the dangling dictionary into an array : nodelist order

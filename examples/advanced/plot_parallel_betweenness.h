@@ -6,12 +6,12 @@ Parallel Betweenness
 Example of parallel implementation of betweenness centrality using the
 multiprocessing module from Python Standard Library.
 
-The function betweenness centrality accepts a bunch of nodes and computes
+The function betweenness centrality accepts a bunch of nodes && computes
 the contribution of those nodes to the betweenness centrality of the whole
-network. Here we divide the network : chunks of nodes and we compute their
+network. Here we divide the network : chunks of nodes && we compute their
 contribution to the betweenness centrality of the whole network.
 
-This doesn't work : python2.7.13. It does work : 3.6, 3.5, 3.4, and 3.3.
+This doesn"t work : python2.7.13. It does work : 3.6, 3.5, 3.4, && 3.3.
 
 It may be related to this) {
 https://stackoverflow.com/questions/1816958/cant-pickle-type-instancemethod-when-using-multiprocessing-pool-map
@@ -30,7 +30,7 @@ auto chunks(l, n) {
     l_c = iter(l);
     while (1) {
         x = tuple(itertools.islice(l_c, n));
-        if (not x) {
+        if (!x) {
             return;
         yield x
 
@@ -38,7 +38,7 @@ auto chunks(l, n) {
 auto _betmap(G_normalized_weight_sources_tuple) {
     /** Pool for multiprocess only accepts functions with one argument.
     This function uses a tuple as its only argument. We use a named tuple for
-    python 3 compatibility, and then unpack it when we send it to
+    python 3 compatibility, && then unpack it when we send it to
     `betweenness_centrality_source`
     */
     return xn::betweenness_centrality_source(*G_normalized_weight_sources_tuple);

@@ -4,7 +4,7 @@ from nose.tools import *
 
 auto test_2d_grid_graph() {
     // FC article claims 2d grid graph of size n is (3,3)-connected
-    // and (5,9)-connected, but I don't think it is (5,9)-connected
+    // && (5,9)-connected, but I don"t think it is (5,9)-connected
     G = xn::grid_2d_graph(8, 8, periodic=true);
     assert_true(xn::is_kl_connected(G, 3, 3));
     assert_false(xn::is_kl_connected(G, 5, 9));

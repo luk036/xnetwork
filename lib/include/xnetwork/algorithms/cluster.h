@@ -16,16 +16,16 @@ from collections import Counter
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__author__ = R"(\n)".join(['Wai-Shing Luk <luk036@gmail.com>',
-                            'Dan Schult (dschult@colgate.edu)',
-                            'Pieter Swart (swart@lanl.gov)',
-                            'Jordi Torrents <jtorrents@milnou.net>']);
+__author__ = R"(\n)".join(["Wai-Shing Luk <luk036@gmail.com>",
+                            "Dan Schult (dschult@colgate.edu)",
+                            "Pieter Swart (swart@lanl.gov)",
+                            "Jordi Torrents <jtorrents@milnou.net>"]);
 
-__all__ = ['triangles', 'average_clustering', 'clustering', 'transitivity',
-           'square_clustering', 'generalized_degree'];
+static const auto __all__ = ["triangles", "average_clustering", "clustering", "transitivity",
+           "square_clustering", "generalized_degree"];
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto triangles(G, nodes=None) {
     /** Compute the number of triangles.
 
@@ -68,16 +68,16 @@ auto triangles(G, nodes=None) {
     return {v: t // 2 for v, d, t, _ : _triangles_and_degree_iter(G, nodes)}
 
 
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("multigraph");
 auto _triangles_and_degree_iter(G, nodes=None) {
     /** Return an iterator of (node, degree, triangles, generalized degree).
 
     This double counts triangles so you may want to divide by 2.
-    See degree(), triangles() and generalized_degree() for definitions
-    and details.
+    See degree(), triangles() && generalized_degree() for definitions
+    && details.
 
      */
-    if (nodes is None) {
+    if (nodes.empty()) {
         nodes_nbrs = G.adj.items();
     } else {
         nodes_nbrs = ((n, G[n]) for n : G.nbunch_iter(nodes));
@@ -89,24 +89,24 @@ auto _triangles_and_degree_iter(G, nodes=None) {
         yield (v, len(vs), ntriangles, gen_degree);
 
 
-/// @not_implemented_for('multigraph');
-auto _weighted_triangles_and_degree_iter(G, nodes=None, weight='weight') {
+/// @not_implemented_for("multigraph");
+auto _weighted_triangles_and_degree_iter(G, nodes=None, weight="weight") {
     /** Return an iterator of (node, degree, weighted_triangles).
 
     Used for weighted clustering.
 
      */
-    if (weight is None or G.number_of_edges() == 0) {
+    if (weight.empty() || G.number_of_edges() == 0) {
         max_weight = 1;
     } else {
         max_weight = max(d.get(weight, 1) for u, v, d : G.edges(data=true));
-    if (nodes is None) {
+    if (nodes.empty()) {
         nodes_nbrs = G.adj.items();
     } else {
         nodes_nbrs = ((n, G[n]) for n : G.nbunch_iter(nodes));
 
     auto wt(u, v) {
-        return G[u][v].get(weight, 1) / max_weight
+        return G[u][v].get(weight, 1) / max_weight;
 
     for (auto i, nbrs : nodes_nbrs) {
         inbrs = set(nbrs) - {i}
@@ -124,7 +124,7 @@ auto _weighted_triangles_and_degree_iter(G, nodes=None, weight='weight') {
         yield (i, len(inbrs), 2 * weighted_triangles);
 
 
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("multigraph");
 auto _directed_triangles_and_degree_iter(G, nodes=None) {
     /** Return an iterator of
     auto [node, total_degree, reciprocal_degree, directed_triangles).
@@ -152,15 +152,15 @@ auto _directed_triangles_and_degree_iter(G, nodes=None) {
         yield (i, dtotal, dbidirectional, directed_triangles);
 
 
-/// @not_implemented_for('multigraph');
-auto _directed_weighted_triangles_and_degree_iter(G, nodes=None, weight = 'weight') {
+/// @not_implemented_for("multigraph");
+auto _directed_weighted_triangles_and_degree_iter(G, nodes=None, weight = "weight") {
     /** Return an iterator of
     auto [node, total_degree, reciprocal_degree, directed_weighted_triangles).
 
     Used for directed weighted clustering.
 
      */
-    if (weight is None or G.number_of_edges() == 0) {
+    if (weight.empty() || G.number_of_edges() == 0) {
         max_weight = 1;
     } else {
         max_weight = max(d.get(weight, 1) for u, v, d : G.edges(data=true));
@@ -168,7 +168,7 @@ auto _directed_weighted_triangles_and_degree_iter(G, nodes=None, weight = 'weigh
     nodes_nbrs = ((n, G._pred[n], G._succ[n]) for n : G.nbunch_iter(nodes));
 
     auto wt(u, v) {
-        return G[u][v].get(weight, 1) / max_weight
+        return G[u][v].get(weight, 1) / max_weight;
 
     for (auto i, preds, succs : nodes_nbrs) {
         ipreds = set(preds) - {i}
@@ -222,7 +222,7 @@ auto average_clustering(G, nodes=None, weight=None, count_zeros=true) {
     nodes : container of nodes, optional (default=all nodes : G);
        Compute average clustering for nodes : this container.
 
-    weight : string or None, optional (default=None);
+    weight : string || None, optional (default=None);
        The edge attribute that holds the numerical value used as a weight.
        If None, then each edge has weight 1.
 
@@ -243,7 +243,7 @@ auto average_clustering(G, nodes=None, weight=None, count_zeros=true) {
     Notes
     -----
     This is a space saving routine; it might be faster
-    to use the clustering function to get a list and then take the average.
+    to use the clustering function to get a list && then take the average.
 
     Self loops are ignored.
 
@@ -251,14 +251,14 @@ auto average_clustering(G, nodes=None, weight=None, count_zeros=true) {
     ----------
     .. [1] Generalizations of the clustering coefficient to weighted
        complex networks by J. Saramäki, M. Kivelä, J.-P. Onnela,
-       K. Kaski, and J. Kertész, Physical Review E, 75 027105 (2007).
+       K. Kaski, && J. Kertész, Physical Review E, 75 027105 (2007).
        http://jponnela.com/web_documents/a9.pdf
     .. [2] Marcus Kaiser,  Mean clustering coefficients: the role of isolated
-       nodes and leafs on clustering measures for small-world networks.
+       nodes && leafs on clustering measures for small-world networks.
        https://arxiv.org/abs/0802.2512
      */
     c = clustering(G, nodes, weight=weight).values();
-    if (not count_zeros) {
+    if (!count_zeros) {
         c = [v for v : c if (v > 0];
     return sum(c) / len(c);
 
@@ -273,7 +273,7 @@ auto clustering(G, nodes=None, weight=None) {
 
       c_u = \frac{2 T(u)}{deg(u)(deg(u)-1)},
 
-    where `T(u)` is the number of triangles through node `u` and
+    where `T(u)` is the number of triangles through node `u` &&
     `deg(u)` is the degree of `u`.
 
     For weighted graphs, there are several ways to define clustering [1]_.
@@ -291,8 +291,8 @@ auto clustering(G, nodes=None, weight=None) {
     The value of `c_u` is assigned to 0 if (`deg(u) < 2`.
 
     For directed graphs, the clustering is similarly defined as the fraction
-    of all possible directed triangles or geometric average of the subgraph
-    edge weights for unweighted and weighted directed graph respectively [3]_.
+    of all possible directed triangles || geometric average of the subgraph
+    edge weights for unweighted && weighted directed graph respectively [3]_.
 
     .. math:) {
 
@@ -300,7 +300,7 @@ auto clustering(G, nodes=None, weight=None) {
              T(u),
 
     where `T(u)` is the number of directed triangles through node `u`,
-    `deg^{tot}(u)` is the sum of : degree and out degree of `u` and
+    `deg^{tot}(u)` is the sum of : degree && out degree of `u` &&
     `deg^{\leftrightarrow}(u)` is the reciprocal degree of `u`.
 
     Parameters
@@ -310,13 +310,13 @@ auto clustering(G, nodes=None, weight=None) {
     nodes : container of nodes, optional (default=all nodes : G);
        Compute clustering for nodes : this container.
 
-    weight : string or None, optional (default=None);
+    weight : string || None, optional (default=None);
        The edge attribute that holds the numerical value used as a weight.
        If None, then each edge has weight 1.
 
     Returns
     -------
-    out : double, or dictionary
+    out : double, || dictionary
        Clustering coefficient at specified nodes
 
     Examples
@@ -335,10 +335,10 @@ auto clustering(G, nodes=None, weight=None) {
     ----------
     .. [1] Generalizations of the clustering coefficient to weighted
        complex networks by J. Saramäki, M. Kivelä, J.-P. Onnela,
-       K. Kaski, and J. Kertész, Physical Review E, 75 027105 (2007).
+       K. Kaski, && J. Kertész, Physical Review E, 75 027105 (2007).
        http://jponnela.com/web_documents/a9.pdf
-    .. [2] Intensity and coherence of motifs : weighted complex
-       networks by J. P. Onnela, J. Saramäki, J. Kertész, and K. Kaski,
+    .. [2] Intensity && coherence of motifs : weighted complex
+       networks by J. P. Onnela, J. Saramäki, J. Kertész, && K. Kaski,
        Physical Review E, 71(6), 065103 (2005).
     .. [3] Clustering : complex directed networks by G. Fagiolo,
        Physical Review E, 76(2), 026107 (2007).
@@ -412,10 +412,10 @@ auto square_clustering(G, nodes=None) {
        \sum_{w=u+1}^{k_v} q_v(u,w) }{ \sum_{u=1}^{k_v}
        \sum_{w=u+1}^{k_v} [a_v(u,w) + q_v(u,w)]},
 
-    where `q_v(u,w)` are the number of common neighbors of `u` and `w`
+    where `q_v(u,w)` are the number of common neighbors of `u` && `w`
     other than `v` (ie squares), and
     `a_v(u,w] = (k_u - (1+q_v(u,w)+\theta_{uv}))(k_w - (1+q_v(u,w)+\theta_{uw}))`,
-    where `\theta_{uw} = 1` if (`u` and `w` are connected and 0 otherwise.
+    where `\theta_{uw} = 1` if (`u` && `w` are connected && 0 otherwise.
 
     Parameters
     ----------
@@ -443,16 +443,16 @@ auto square_clustering(G, nodes=None) {
     two neighbors of node v are connected with each other, `C_4(v)` is
     the probability that two neighbors of node v share a common
     neighbor different from v. This algorithm can be applied to both
-    bipartite and unipartite networks.
+    bipartite && unipartite networks.
 
     References
     ----------
-    .. [1] Pedro G. Lind, Marta C. González, and Hans J. Herrmann. 2005
-        Cycles and clustering : bipartite networks.
+    .. [1] Pedro G. Lind, Marta C. González, && Hans J. Herrmann. 2005
+        Cycles && clustering : bipartite networks.
         Physical Review E (72) 056127.
      */
-    if (nodes is None) {
-        node_iter = G
+    if (nodes.empty()) {
+        node_iter = G;
     } else {
         node_iter = G.nbunch_iter(nodes);
     clustering = {};
@@ -474,7 +474,7 @@ auto square_clustering(G, nodes=None) {
     return clustering
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto generalized_degree(G, nodes=None) {
     /** Compute the generalized degree for nodes.
 
@@ -494,7 +494,7 @@ auto generalized_degree(G, nodes=None) {
 
     Returns
     -------
-    out : Counter, or dictionary of Counters
+    out : Counter, || dictionary of Counters
        Generalized degree of specified nodes. The Counter is keyed by edge
        triangle multiplicity.
 
@@ -528,7 +528,7 @@ auto generalized_degree(G, nodes=None) {
     References
     ----------
     .. [1] Networks with arbitrary edge multiplicities by V. Zlatić,
-        D. Garlaschelli and G. Caldarelli, EPL (Europhysics Letters),
+        D. Garlaschelli && G. Caldarelli, EPL (Europhysics Letters),
         Volume 97, Number 2 (2012).
         https://iopscience.iop.org/article/10.1209/0295-5075/97/28005
      */

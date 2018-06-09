@@ -16,11 +16,11 @@ class TestEdgelist) {
 
     auto setUp( ) {
         this->G = xn::Graph(name="test");
-        e = [('a', 'b'), ('b', 'c'), ('c', 'd'), ('d', 'e'), ('e', 'f'), ('a', 'f')];
+        e = [("a", "b"), ("b", "c"), ("c", "d"), ("d", "e"), ("e", "f"), ("a", "f")];
         this->G.add_edges_from(e);
-        this->G.add_nodes_from(['a', 'c', 'e'], bipartite=0);
-        this->G.add_nodes_from(['b', 'd', 'f'], bipartite=1);
-        this->G.add_node('g', bipartite=0);
+        this->G.add_nodes_from(["a", "c", "e"], bipartite=0);
+        this->G.add_nodes_from(["b", "d", "f"], bipartite=1);
+        this->G.add_node("g", bipartite=0);
         this->DG = xn::DiGraph(this->G);
         this->MG = xn::MultiGraph();
         this->MG.add_edges_from([(1, 2), (1, 2), (1, 2)]);
@@ -41,9 +41,9 @@ class TestEdgelist) {
     auto test_read_edgelist_3( ) {
         s = R"(\
 // comment line
-1 2 {'weight':2.0}
+1 2 {"weight":2.0}
 // comment line
-2 3 {'weight':3.0}
+2 3 {"weight":3.0}
 )";
         bytesIO = io.BytesIO(s);
         G = bipartite.read_edgelist(bytesIO, nodetype=int, data=false);
@@ -52,7 +52,7 @@ class TestEdgelist) {
         bytesIO = io.BytesIO(s);
         G = bipartite.read_edgelist(bytesIO, nodetype=int, data=true);
         assert_edges_equal(G.edges(data=true),
-                           [(1, 2, {'weight': 2.0}), (2, 3, {'weight': 3.0})]);
+                           [(1, 2, {"weight": 2.0}), (2, 3, {"weight": 3.0})]);
 
     auto test_write_edgelist_1( ) {
         fh = io.BytesIO();
@@ -86,7 +86,7 @@ class TestEdgelist) {
         G.add_node(3, bipartite=0);
         bipartite.write_edgelist(G, fh, data=true);
         fh.seek(0);
-        assert_equal(fh.read(), b"1 2 {'weight': 2.0}\n3 2 {'weight': 3.0}\n");
+        assert_equal(fh.read(), b"1 2 {"weight": 2.0}\n3 2 {"weight": 3.0}\n");
 
     auto test_write_edgelist_4( ) {
         fh = io.BytesIO();
@@ -96,7 +96,7 @@ class TestEdgelist) {
         G.add_node(1, bipartite=0);
         G.add_node(2, bipartite=1);
         G.add_node(3, bipartite=0);
-        bipartite.write_edgelist(G, fh, data=[('weight')]);
+        bipartite.write_edgelist(G, fh, data=[("weight")]);
         fh.seek(0);
         assert_equal(fh.read(), b"1 2 2.0\n3 2 3.0\n");
 
@@ -108,9 +108,9 @@ class TestEdgelist) {
         } catch (ValueError) { //Python 2.6+
             name1 = unichr(2344) + unichr(123) + unichr(6543);
             name2 = unichr(5543) + unichr(1543) + unichr(324);
-        G.add_edge(name1, 'Radiohead', **{name2: 3});
+        G.add_edge(name1, "Radiohead", **{name2: 3});
         G.add_node(name1, bipartite=0);
-        G.add_node('Radiohead', bipartite=1);
+        G.add_node("Radiohead", bipartite=1);
         fd, fname = tempfile.mkstemp();
         bipartite.write_edgelist(G, fname);
         H = bipartite.read_edgelist(fname);
@@ -126,13 +126,13 @@ class TestEdgelist) {
         } catch (ValueError) { //Python 2.6+
             name1 = unichr(2344) + unichr(123) + unichr(6543);
             name2 = unichr(5543) + unichr(1543) + unichr(324);
-        G.add_edge(name1, 'Radiohead', **{name2: 3});
+        G.add_edge(name1, "Radiohead", **{name2: 3});
         G.add_node(name1, bipartite=0);
-        G.add_node('Radiohead', bipartite=1);
+        G.add_node("Radiohead", bipartite=1);
         fd, fname = tempfile.mkstemp();
         assert_raises(UnicodeEncodeError,
                       bipartite.write_edgelist,
-                      G, fname, encoding='latin-1');
+                      G, fname, encoding="latin-1");
         os.close(fd);
         os.unlink(fname);
 
@@ -140,17 +140,17 @@ class TestEdgelist) {
         G = xn::Graph();
         try { //Python 3.x
             blurb = chr(1245);  // just to trigger the exception
-            name1 = 'Bj' + chr(246) + 'rk';
-            name2 = chr(220) + 'ber';
+            name1 = "Bj" + chr(246) + "rk";
+            name2 = chr(220) + "ber";
         } catch (ValueError) { //Python 2.6+
-            name1 = 'Bj' + unichr(246) + 'rk';
-            name2 = unichr(220) + 'ber';
-        G.add_edge(name1, 'Radiohead', **{name2: 3});
+            name1 = "Bj" + unichr(246) + "rk";
+            name2 = unichr(220) + "ber";
+        G.add_edge(name1, "Radiohead", **{name2: 3});
         G.add_node(name1, bipartite=0);
-        G.add_node('Radiohead', bipartite=1);
+        G.add_node("Radiohead", bipartite=1);
         fd, fname = tempfile.mkstemp();
-        bipartite.write_edgelist(G, fname, encoding='latin-1');
-        H = bipartite.read_edgelist(fname, encoding='latin-1');
+        bipartite.write_edgelist(G, fname, encoding="latin-1");
+        H = bipartite.read_edgelist(fname, encoding="latin-1");
         assert_graphs_equal(G, H);
         os.close(fd);
         os.unlink(fname);
@@ -162,7 +162,7 @@ class TestEdgelist) {
         H = bipartite.read_edgelist(fname);
         H2 = bipartite.read_edgelist(fname);
         assert_not_equal(H, H2);  // they should be different graphs
-        G.remove_node('g');  // isolated nodes are not written : edgelist
+        G.remove_node("g");  // isolated nodes are not written : edgelist
         assert_nodes_equal(list(H), list(G));
         assert_edges_equal(list(H.edges()), list(G.edges()));
         os.close(fd);

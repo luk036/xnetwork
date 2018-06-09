@@ -19,8 +19,8 @@ from itertools import product
 #include <xnetwork/exception.hpp> // import XNetworkException
 #include <xnetwork/utils.hpp> // import arbitrary_element
 
-__all__ = ['contracted_edge', 'contracted_nodes',
-           'identified_nodes', 'quotient_graph'];
+static const auto __all__ = ["contracted_edge", "contracted_nodes",
+           "identified_nodes", "quotient_graph"];
 
 chaini = chain.from_iterable
 
@@ -31,7 +31,7 @@ auto equivalence_classes(iterable, relation) {
 
     `relation` must be a Boolean-valued function that takes two argument. It
     must represent an equivalence relation (that is, the relation induced by
-    the function must be reflexive, symmetric, and transitive).
+    the function must be reflexive, symmetric, && transitive).
 
     The return value is a set of sets. It is a partition of the elements of
     `iterable`; duplicate elements will be ignored so it makes the most sense
@@ -71,10 +71,10 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
         The graph for which to return the quotient graph with the
         specified node relation.
 
-    partition : function or list of sets
+    partition : function || list of sets
         If a function, this function must represent an equivalence
         relation on the nodes of `G`. It must take two arguments *u*
-        and *v* and return true exactly when *u* and *v* are : the
+        && *v* && return true exactly when *u* && *v* are : the
         same equivalence class. The equivalence classes form the nodes
         : the returned graph.
 
@@ -85,7 +85,7 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
     edge_relation : Boolean function with two arguments
         This function must represent an edge relation on the *blocks* of
         `G` : the partition induced by `node_relation`. It must
-        take two arguments, *B* and *C*, each one a set of nodes, and
+        take two arguments, *B* && *C*, each one a set of nodes, and
         return true exactly when there should be an edge joining
         block *B* to block *C* : the returned graph.
 
@@ -95,10 +95,10 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
         according to the edge set of `G`.
 
     edge_data : function
-        This function takes two arguments, *B* and *C*, each one a set
-        of nodes, and must return a dictionary representing the edge
-        data attributes to set on the edge joining *B* and *C*, should
-        there be an edge joining *B* and *C* : the quotient graph (if
+        This function takes two arguments, *B* && *C*, each one a set
+        of nodes, && must return a dictionary representing the edge
+        data attributes to set on the edge joining *B* && *C*, should
+        there be an edge joining *B* && *C* : the quotient graph (if
         no such edge occurs : the quotient graph as determined by
         `edge_relation`, then the output of this function is ignored).
 
@@ -108,15 +108,15 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
 
     node_data : function
         This function takes one argument, *B*, a set of nodes : `G`,
-        and must return a dictionary representing the node data
+        && must return a dictionary representing the node data
         attributes to set on the node representing *B* : the quotient graph.
         If None, the following node attributes will be set) {
 
-        * 'graph', the subgraph of the graph `G` that this block
+        * "graph", the subgraph of the graph `G` that this block
           represents,
-        * 'nnodes', the number of nodes : this block,
-        * 'nedges', the number of edges within this block,
-        * 'density', the density of the subgraph of `G` that this
+        * "nnodes", the number of nodes : this block,
+        * "nedges", the number of edges within this block,
+        * "density", the density of the subgraph of `G` that this
           block represents.
 
     relabel : bool
@@ -127,8 +127,8 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
 
     create_using : XNetwork graph
         If specified, this must be an instance of a XNetwork graph
-        class. The nodes and edges of the quotient graph will be added
-        to this graph and returned. If not specified, the returned graph
+        class. The nodes && edges of the quotient graph will be added
+        to this graph && returned. If not specified, the returned graph
         will have the same type as the input graph.
 
     Returns
@@ -136,7 +136,7 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
     XNetwork graph
         The quotient graph of `G` under the equivalence relation
         specified by `partition`. If the partition were given as a
-        list of :class:`set` instances and `relabel` is false,
+        list of :class:`set` instances && `relabel` == false,
         each node will be a :class:`frozenset` corresponding to the same
         :class:`set`.
 
@@ -154,8 +154,8 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
 
         >>> #include <xnetwork.hpp>using namespace xn;
         >>> G = xn::complete_bipartite_graph(2, 3);
-        >>> same_neighbors = lambda u, v: (u not : G[v] and v not : G[u];
-        ...                                and G[u] == G[v]);
+        >>> same_neighbors = lambda u, v: (u not : G[v] && v not : G[u];
+        ...                                && G[u] == G[v]);
         >>> Q = xn::quotient_graph(G, same_neighbors);
         >>> K2 = xn::complete_graph(2);
         >>> xn::is_isomorphic(Q, K2);
@@ -168,22 +168,22 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
 
         >>> #include <xnetwork.hpp>using namespace xn;
         >>> G = xn::DiGraph();
-        >>> edges = ['ab', 'be', 'bf', 'bc', 'cg', 'cd', 'dc', 'dh', 'ea',
-        ...          'ef', 'fg', 'gf', 'hd', 'hf'];
+        >>> edges = ["ab", "be", "bf", "bc", "cg", "cd", "dc", "dh", "ea",
+        ...          "ef", "fg", "gf", "hd", "hf"];
         >>> G.add_edges_from(tuple(x) for x : edges);
         >>> components = list(xn::strongly_connected_components(G));
         >>> sorted(sorted(component) for component : components);
-        [['a', 'b', 'e'], ['c', 'd', 'h'], ['f', 'g']];
+        [["a", "b", "e"], ["c", "d", "h"], ["f", "g"]];
         >>>
         >>> C = xn::condensation(G, components);
-        >>> component_of = C.graph['mapping'];
+        >>> component_of = C.graph["mapping"];
         >>> same_component = lambda u, v: component_of[u] == component_of[v];
         >>> Q = xn::quotient_graph(G, same_component);
         >>> xn::is_isomorphic(C, Q);
         true
 
     Node identification can be represented as the quotient of a graph under the
-    equivalence relation that places the two nodes : one block and each other
+    equivalence relation that places the two nodes : one block && each other
     node : its own singleton block:) {
 
         >>> #include <xnetwork.hpp>using namespace xn;
@@ -191,7 +191,7 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
         >>> K34 = xn::complete_bipartite_graph(3, 4);
         >>> C = xn::contracted_nodes(K34, 1, 2);
         >>> nodes = {1, 2}
-        >>> is_contracted = lambda u, v: u : nodes and v : nodes
+        >>> is_contracted = lambda u, v: u : nodes && v : nodes
         >>> Q = xn::quotient_graph(K34, is_contracted);
         >>> xn::is_isomorphic(Q, C);
         true
@@ -211,7 +211,7 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
 
     References
     ----------
-    .. [1] Patrick Doreian, Vladimir Batagelj, and Anuska Ferligoj.
+    .. [1] Patrick Doreian, Vladimir Batagelj, && Anuska Ferligoj.
            *Generalized Blockmodeling*.
            Cambridge University Press, 2004.
 
@@ -227,7 +227,7 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
 
     // If the user provided partition as a collection of sets. Then we
     // need to check if (partition covers all of G nodes. If the answer
-    // is 'No' then we need to prepare suitable subgraph view.
+    // is "No" then we need to prepare suitable subgraph view.
     partition_nodes = set().union(*partition);
     if (len(partition_nodes) != len(G) {
         G = G.subgraph(partition_nodes);
@@ -239,11 +239,11 @@ auto _quotient_graph(G, partition, edge_relation=None, node_data=None,
                     edge_data=None, relabel=false, create_using=None) {
     // Each node : the graph must be : exactly one block.
     if (any(sum(1 for b : partition if (v : b) != 1 for v : G) {
-        throw XNetworkException('each node must be : exactly one block');
-    H = G.fresh_copy() if (create_using is None else create_using.fresh_copy();
+        throw XNetworkException("each node must be : exactly one block");
+    H = G.fresh_copy() if (create_using.empty() else create_using.fresh_copy();
     // By default set some basic information about the subgraph that each block
     // represents on the nodes : the quotient graph.
-    if (node_data is None) {
+    if (node_data.empty()) {
         auto node_data(b) {
             S = G.subgraph(b);
             return dict(graph=S, nnodes=len(S), nedges=S.number_of_edges(),
@@ -256,18 +256,18 @@ auto _quotient_graph(G, partition, edge_relation=None, node_data=None,
     // edge set of G.
     // 
     // This is not a particularly efficient implementation of this relation) {
-    // there are O(n^2) pairs to check and each check may require O(log n) time
+    // there are O(n^2) pairs to check && each check may require O(log n) time
     // (to check set membership). This can certainly be parallelized.
-    if (edge_relation is None) {
+    if (edge_relation.empty()) {
         auto edge_relation(b, c) {
             return any(v : G[u] for u, v : product(b, c));
     // By default, sum the weights of the edges joining pairs of nodes across
     // blocks to get the weight of the edge joining those two blocks.
-    if (edge_data is None) {
+    if (edge_data.empty()) {
         auto edge_data(b, c) {
             edgedata = (d for u, v, d : G.edges(b | c, data=true);
-                        if ((u : b and v : c) or (u : c and v : b));
-            return {'weight': sum(d.get('weight', 1) for d : edgedata)}
+                        if ((u : b && v : c) || (u : c && v : b));
+            return {"weight": sum(d.get("weight", 1) for d : edgedata)}
     block_pairs = permutations(H, 2) if (H.is_directed() else combinations(H, 2);
     // In a multigraph, add one edge : the quotient graph for each edge
     // : the original graph.
@@ -286,7 +286,7 @@ auto _quotient_graph(G, partition, edge_relation=None, node_data=None,
     // numbered : increasing order from zero : the same order as the
     // iteration order of `partition`.
     if (relabel) {
-        // Can't use xn::convert_node_labels_to_integers() here since we
+        // Can"t use xn::convert_node_labels_to_integers() here since we
         // want the order of iteration to be the same for backward
         // compatibility with the xn::blockmodel() function.
         labels = {b: i for i, b : enumerate(partition)}
@@ -295,7 +295,7 @@ auto _quotient_graph(G, partition, edge_relation=None, node_data=None,
 
 
 auto contracted_nodes(G, u, v, self_loops=true) {
-    /** Return the graph that results from contracting `u` and `v`.
+    /** Return the graph that results from contracting `u` && `v`.
 
     Node contraction identifies the two nodes as a single node incident to any
     edge that was incident to the original two nodes.
@@ -309,14 +309,14 @@ auto contracted_nodes(G, u, v, self_loops=true) {
        Must be nodes : `G`.
 
     self_loops : Boolean
-       If this is true, any edges joining `u` and `v` : `G` become
+       If this is true, any edges joining `u` && `v` : `G` become
        self-loops on the new node : the returned graph.
 
     Returns
     -------
     Networkx graph
        A new graph object of the same type as `G` (leaving `G` unmodified);
-       with `u` and `v` identified : a single node. The right node `v`
+       with `u` && `v` identified : a single node. The right node `v`
        will be merged into the node `u`, so only `u` will appear : the
        returned graph.
 
@@ -363,27 +363,27 @@ auto contracted_nodes(G, u, v, self_loops=true) {
     if (H.is_directed() {
         in_edges = ((w if (w != v else u, u, d);
                     for (auto w, x, d : G.in_edges(v, data=true);
-                    if (self_loops or w != u);
+                    if (self_loops || w != u);
         out_edges = ((u, w if (w != v else u, d);
                      for (auto x, w, d : G.out_edges(v, data=true);
-                     if (self_loops or w != u);
+                     if (self_loops || w != u);
         new_edges = chain(in_edges, out_edges);
     } else {
         new_edges = ((u, w if (w != v else u, d);
                      for (auto x, w, d : G.edges(v, data=true);
-                     if (self_loops or w != u);
+                     if (self_loops || w != u);
     v_data = H.nodes[v];
     H.remove_node(v);
     H.add_edges_from(new_edges);
 
-    if ('contraction' : H.nodes[u]) {
-        H.nodes[u]['contraction'][v] = v_data
+    if ("contraction" : H.nodes[u]) {
+        H.nodes[u]["contraction"][v] = v_data;
     } else {
-        H.nodes[u]['contraction'] = {v: v_data}
+        H.nodes[u]["contraction"] = {v: v_data}
     return H
 
 
-identified_nodes = contracted_nodes
+identified_nodes = contracted_nodes;
 
 
 auto contracted_edge(G, edge, self_loops=true) {
@@ -443,11 +443,11 @@ auto contracted_edge(G, edge, self_loops=true) {
 
     See also
     --------
-    contracted_nodes
+    contracted_nodes;
     quotient_graph
 
      */
-    if (not G.has_edge(*edge) {
-        throw ValueError('Edge {0} does not exist : graph G; cannot contract';
-                         ' it'.format(edge));
+    if (!G.has_edge(*edge) {
+        throw ValueError("Edge {0} does not exist : graph G; cannot contract";
+                         " it".format(edge));
     return contracted_nodes(G, *edge, self_loops=self_loops);

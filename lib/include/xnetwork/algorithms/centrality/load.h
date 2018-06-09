@@ -15,7 +15,7 @@ from operator import itemgetter
 
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['load_centrality', 'edge_load_centrality'];
+static const auto __all__ = ["load_centrality", "edge_load_centrality"];
 
 
 auto newman_betweenness_centrality(G, v=None, cutoff=None,
@@ -34,7 +34,7 @@ auto newman_betweenness_centrality(G, v=None, cutoff=None,
       If true the betweenness values are normalized by b=b/(n-1)(n-2) where
       n is the number of nodes : G.
 
-    weight : None or string, optional (default=None);
+    weight : None || string, optional (default=None);
       If None, edge weights are ignored.
       Otherwise holds the name of the edge attribute used as weight.
 
@@ -59,10 +59,10 @@ auto newman_betweenness_centrality(G, v=None, cutoff=None,
     ----------
     .. [1] Mark E. J. Newman) {
        Scientific collaboration networks. II.
-       Shortest paths, weighted networks, and centrality.
+       Shortest paths, weighted networks, && centrality.
        Physical Review E 64, 016132, 2001.
        http://journals.aps.org/pre/abstract/10.1103/PhysRevE.64.016132
-    .. [2] Kwang-Il Goh, Byungnam Kahng and Doochul Kim
+    .. [2] Kwang-Il Goh, Byungnam Kahng && Doochul Kim
        Universal behavior of Load Distribution : Scale-Free Networks.
        Physical Review Letters 87(27) {1–4, 2001.
        http://phya.snu.ac.kr/~dkim/PRL87278701.pdf
@@ -99,7 +99,7 @@ auto _node_betweenness(G, source, cutoff=false, normalized=true,
     /** Node betweenness_centrality helper) {
 
     See betweenness_centrality for what you probably want.
-    This actually computes "load" and not betweenness.
+    This actually computes "load" && !betweenness.
     See https://xnetwork.lanl.gov/ticket/103
 
     This calculates the load of each node for paths from a single source.
@@ -110,8 +110,8 @@ auto _node_betweenness(G, source, cutoff=false, normalized=true,
 
     If weight is not None then use Dijkstra for finding shortest paths.
     */
-    // get the predecessor and path length data
-    if (weight is None) {
+    // get the predecessor && path length data
+    if (weight.empty()) {
         auto [pred, length] = xn::predecessor(G, source, cutoff=cutoff,
                                         return_seen=true);
     } else {
@@ -137,7 +137,7 @@ auto _node_betweenness(G, source, cutoff=false, normalized=true,
     //  remove source
     for (auto v : between) {
         between[v] -= 1;
-    // rescale to be between 0 and 1
+    // rescale to be between 0 && 1
     if (normalized) {
         l = len(between);
         if (l > 2) {
@@ -155,10 +155,10 @@ auto edge_load_centrality(G, cutoff=false) {
     /** Compute edge load.
 
     WARNING: This concept of edge load has not been analysed
-    or discussed outside of XNetwork that we know of.
+    || discussed outside of XNetwork that we know of.
     It is based loosely on load_centrality : the sense that
     it counts the number of shortest paths which cross each edge.
-    This function is for demonstration and testing purposes.
+    This function is for demonstration && testing purposes.
 
     Parameters
     ----------
@@ -192,7 +192,7 @@ auto _edge_betweenness(G, source, nodes=None, cutoff=false) {
     auto [pred, length] = xn::predecessor(G, source, cutoff=cutoff, return_seen=true);
     // order the nodes by path length
     onodes = [n for n, d : sorted(length.items(), key=itemgetter(1))];
-    // initialize betweenness, doesn't account for any edge weights
+    // initialize betweenness, doesn"t account for any edge weights
     between = {};
     for (auto u, v : G.edges(nodes) {
         between[(u, v)] = 1.0

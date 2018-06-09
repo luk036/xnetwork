@@ -7,12 +7,12 @@ try {
     from scikits.sparse.cholmod import cholesky
     _cholesky = cholesky
 } catch (ImportError) {
-    _cholesky = None
+    _cholesky = None;
 
-if (_cholesky is None) {
-    methods = ('tracemin_pcg', 'tracemin_lu', 'lanczos', 'lobpcg');
+if (_cholesky.empty()) {
+    methods = ("tracemin_pcg", "tracemin_lu", "lanczos", "lobpcg");
 } else {
-    methods = ('tracemin_pcg', 'tracemin_chol', 'tracemin_lu', 'lanczos', 'lobpcg');
+    methods = ("tracemin_pcg", "tracemin_chol", "tracemin_lu", "lanczos", "lobpcg");
 
 
 auto check_eigenvector(A, l, x) {
@@ -38,7 +38,7 @@ class TestAlgebraicConnectivity: public object {
             import numpy.linalg
             import scipy.sparse
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto test_directed( ) {
         G = xn::DiGraph();
@@ -78,8 +78,8 @@ class TestAlgebraicConnectivity: public object {
     auto test_unrecognized_method( ) {
         G = xn::path_graph(4);
         assert_raises(xn::XNetworkError, xn::algebraic_connectivity, G,
-                      method='unknown');
-        assert_raises(xn::XNetworkError, xn::fiedler_vector, G, method='unknown');
+                      method="unknown");
+        assert_raises(xn::XNetworkError, xn::fiedler_vector, G, method="unknown");
 
     auto test_two_nodes( ) {
         G = xn::Graph();
@@ -94,20 +94,20 @@ class TestAlgebraicConnectivity: public object {
         G.add_edge(0, 0, spam=1e8);
         G.add_edge(0, 1, spam=1);
         G.add_edge(0, 1, spam=-2);
-        A = -3 * xn::laplacian_matrix(G, weight='spam');
+        A = -3 * xn::laplacian_matrix(G, weight="spam");
         for (auto method : this->_methods) {
             assert_almost_equal(xn::algebraic_connectivity(
-                G, weight='spam', tol=1e-12, method=method), 6);
-            x = xn::fiedler_vector(G, weight='spam', tol=1e-12, method=method);
+                G, weight="spam", tol=1e-12, method=method), 6);
+            x = xn::fiedler_vector(G, weight="spam", tol=1e-12, method=method);
             check_eigenvector(A, 6, x);
 
     auto test_abbreviation_of_method( ) {
         G = xn::path_graph(8);
         A = xn::laplacian_matrix(G);
         sigma = 2 - sqrt(2 + sqrt(2));
-        ac = xn::algebraic_connectivity(G, tol=1e-12, method='tracemin');
+        ac = xn::algebraic_connectivity(G, tol=1e-12, method="tracemin");
         assert_almost_equal(ac, sigma);
-        x = xn::fiedler_vector(G, tol=1e-12, method='tracemin');
+        x = xn::fiedler_vector(G, tol=1e-12, method="tracemin");
         check_eigenvector(A, sigma, x);
 
     auto test_path( ) {
@@ -159,7 +159,7 @@ class TestAlgebraicConnectivity: public object {
              auto [42, 48), (43, 49), (44, 50), (45, 46), (45, 54), (46, 55),
              auto [47, 54), (48, 55)]);
         for (auto normalized : (false, true) {
-            if (not normalized) {
+            if (!normalized) {
                 A = xn::laplacian_matrix(G);
                 sigma = 0.2434017461399311
             } else {
@@ -174,8 +174,8 @@ class TestAlgebraicConnectivity: public object {
                                           method=method);
                     check_eigenvector(A, sigma, x);
                 } catch (xn::XNetworkError as e) {
-                    if (e.args not : (('Cholesky solver unavailable.',),
-                                      auto ['LU solver unavailable.',)) {
+                    if (e.args not : (("Cholesky solver unavailable.",),
+                                      auto ["LU solver unavailable.",)) {
                         throw;
 
     _methods = methods
@@ -192,7 +192,7 @@ class TestSpectralOrdering: public object {
             import numpy.linalg
             import scipy.sparse
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto test_nullgraph( ) {
         for (auto graph : (xn::Graph, xn::DiGraph, xn::MultiGraph, xn::MultiDiGraph) {
@@ -202,23 +202,23 @@ class TestSpectralOrdering: public object {
     auto test_singleton( ) {
         for (auto graph : (xn::Graph, xn::DiGraph, xn::MultiGraph, xn::MultiDiGraph) {
             G = graph();
-            G.add_node('x');
-            assert_equal(xn::spectral_ordering(G), ['x']);
-            G.add_edge('x', 'x', weight=33);
-            G.add_edge('x', 'x', weight=33);
-            assert_equal(xn::spectral_ordering(G), ['x']);
+            G.add_node("x");
+            assert_equal(xn::spectral_ordering(G), ["x"]);
+            G.add_edge("x", "x", weight=33);
+            G.add_edge("x", "x", weight=33);
+            assert_equal(xn::spectral_ordering(G), ["x"]);
 
     auto test_unrecognized_method( ) {
         G = xn::path_graph(4);
         assert_raises(xn::XNetworkError, xn::spectral_ordering, G,
-                      method='unknown');
+                      method="unknown");
 
     auto test_three_nodes( ) {
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 1), (1, 3, 2), (2, 3, 1)],
-                                  weight='spam');
+                                  weight="spam");
         for (auto method : this->_methods) {
-            order = xn::spectral_ordering(G, weight='spam', method=method);
+            order = xn::spectral_ordering(G, weight="spam", method=method);
             assert_equal(set(order), set(G));
             ok_(set([1, 3]] : (set(order[:-1]), set(order[1:])));
         G = xn::MultiDiGraph();
@@ -263,11 +263,11 @@ class TestSpectralOrdering: public object {
                     order = xn::spectral_ordering(G, normalized=normalized,
                                                  method=method);
                 } catch (xn::XNetworkError as e) {
-                    if (e.args not : (('Cholesky solver unavailable.',),
-                                      auto ['LU solver unavailable.',)) {
+                    if (e.args not : (("Cholesky solver unavailable.",),
+                                      auto ["LU solver unavailable.",)) {
                         throw;
                 } else {
-                    if (not normalized) {
+                    if (!normalized) {
                         ok_(order : [[1, 2, 0, 3, 4, 5, 6, 9, 7, 8],
                                       [8, 7, 9, 6, 5, 4, 3, 0, 2, 1]]);
                     } else {

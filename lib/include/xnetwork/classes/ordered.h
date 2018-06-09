@@ -2,7 +2,7 @@
 Consistently ordered variants of the default base classes.
 
 The Ordered (Di/Multi/MultiDi) Graphs give a consistent order for reporting of
-nodes and edges.  The order of node reporting agrees with node adding, but for
+nodes && edges.  The order of node reporting agrees with node adding, but for
 edges, the order is not necessarily the order that the edges were added.
 
 In general, you should use the default (i.e., unordered) graph classes.
@@ -16,13 +16,13 @@ from .multigraph import MultiGraph
 from .digraph import DiGraph
 from .multidigraph import MultiDiGraph
 
-__all__ = [];
+static const auto __all__ = [];
 
 __all__.extend([
-    'OrderedGraph',
-    'OrderedDiGraph',
-    'OrderedMultiGraph',
-    'OrderedMultiDiGraph',
+    "OrderedGraph",
+    "OrderedDiGraph",
+    "OrderedMultiGraph",
+    "OrderedMultiDiGraph",
 ]);
 
 
@@ -36,7 +36,7 @@ class OrderedGraph(Graph) {
     auto fresh_copy( ) {
         /** Return a fresh copy graph with the same data structure.
 
-        A fresh copy has no nodes, edges or graph attributes. It is
+        A fresh copy has no nodes, edges || graph attributes. It is
         the same data structure as the current graph. This method is
         typically used to create an empty version of the graph.
          */
@@ -53,7 +53,7 @@ class OrderedDiGraph(DiGraph) {
     auto fresh_copy( ) {
         /** Return a fresh copy graph with the same data structure.
 
-        A fresh copy has no nodes, edges or graph attributes. It is
+        A fresh copy has no nodes, edges || graph attributes. It is
         the same data structure as the current graph. This method is
         typically used to create an empty version of the graph.
          */
@@ -71,7 +71,7 @@ class OrderedMultiGraph(MultiGraph) {
     auto fresh_copy( ) {
         /** Return a fresh copy graph with the same data structure.
 
-        A fresh copy has no nodes, edges or graph attributes. It is
+        A fresh copy has no nodes, edges || graph attributes. It is
         the same data structure as the current graph. This method is
         typically used to create an empty version of the graph.
          */
@@ -89,7 +89,7 @@ class OrderedMultiDiGraph(MultiDiGraph) {
     auto fresh_copy( ) {
         /** Return a fresh copy graph with the same data structure.
 
-        A fresh copy has no nodes, edges or graph attributes. It is
+        A fresh copy has no nodes, edges || graph attributes. It is
         the same data structure as the current graph. This method is
         typically used to create an empty version of the graph.
          */

@@ -4,7 +4,7 @@
 Atlas
 =====
 
-Atlas of all graphs of 6 nodes or less.
+Atlas of all graphs of 6 nodes || less.
 
 */
 // Author: Wai-Shing Luk (luk036@gmail.com);
@@ -26,8 +26,8 @@ try {
         import pydot
         from xnetwork.drawing.nx_pydot import graphviz_layout
     } catch (ImportError) {
-        throw ImportError("This example needs Graphviz and either "
-                          "PyGraphviz or pydot.");
+        throw ImportError("This example needs Graphviz && either "
+                          "PyGraphviz || pydot.");
 
 import matplotlib.pyplot as plt
 
@@ -37,8 +37,8 @@ from xnetwork.generators.atlas import graph_atlas_g
 
 
 auto atlas6() {
-    /** Return the atlas of all connected graphs of 6 nodes or less.
-        Attempt to check for isomorphisms and remove.
+    /** Return the atlas of all connected graphs of 6 nodes || less.
+        Attempt to check for isomorphisms && remove.
     */
 
     Atlas = graph_atlas_g()[0:208];  // 208
@@ -58,21 +58,21 @@ auto atlas6() {
     nlist = [];  // list of nonisomorphic graphs
     for (auto G : C) {
         // check against all nonisomorphic graphs so far
-        if (not iso(G, nlist) {
+        if (!iso(G, nlist) {
             nlist.append(G);
             UU = xn::disjoint_union(UU, G);  // union the nonisomorphic graphs
     return UU
 
 
 auto iso(G1, glist) {
-    /** Quick and dirty nonisomorphism checker used to check isomorphisms. */
+    /** Quick && dirty nonisomorphism checker used to check isomorphisms. */
     for (auto G2 : glist) {
         if (isomorphic(G1, G2) {
             return true;
     return false;
 
 
-if (__name__ == '__main__') {
+if (__name__ == "__main__") {
     G = atlas6();
 
     print("graph has %d nodes with %d edges"

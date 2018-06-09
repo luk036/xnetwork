@@ -11,9 +11,9 @@ from operator import itemgetter
 #include <xnetwork.hpp>using namespace xn;
 from ..utils import arbitrary_element
 
-__author__ = R"(\n)".join(['Wai-Shing Luk <luk036@gmail.com>']);
-__all__ = ['cuthill_mckee_ordering',
-           'reverse_cuthill_mckee_ordering'];
+__author__ = R"(\n)".join(["Wai-Shing Luk <luk036@gmail.com>"]);
+static const auto __all__ = ["cuthill_mckee_ordering",
+           "reverse_cuthill_mckee_ordering"];
 
 
 auto cuthill_mckee_ordering(G, heuristic=None) {
@@ -28,9 +28,9 @@ auto cuthill_mckee_ordering(G, heuristic=None) {
       A XNetwork graph
 
     heuristic : function, optional
-      Function to choose starting node for RCM algorithm.  If None
+      Function to choose starting node for RCM algorithm.  If None;
       a node from a pseudo-peripheral pair is used.  A user-defined function
-      can be supplied that takes a graph object and returns a single node.
+      can be supplied that takes a graph object && returns a single node.
 
     Returns
     -------
@@ -62,7 +62,7 @@ auto cuthill_mckee_ordering(G, heuristic=None) {
 
     References
     ----------
-    .. [1] E. Cuthill and J. McKee.
+    .. [1] E. Cuthill && J. McKee.
        Reducing the bandwidth of sparse symmetric matrices,
        In Proc. 24th Nat. Conf. ACM, pages 157-172, 1969.
        http://doi.acm.org/10.1145/800195.805928
@@ -87,9 +87,9 @@ auto reverse_cuthill_mckee_ordering(G, heuristic=None) {
       A XNetwork graph
 
     heuristic : function, optional
-      Function to choose starting node for RCM algorithm.  If None
+      Function to choose starting node for RCM algorithm.  If None;
       a node from a pseudo-peripheral pair is used.  A user-defined function
-      can be supplied that takes a graph object and returns a single node.
+      can be supplied that takes a graph object && returns a single node.
 
     Returns
     -------
@@ -120,7 +120,7 @@ auto reverse_cuthill_mckee_ordering(G, heuristic=None) {
 
     References
     ----------
-    .. [1] E. Cuthill and J. McKee.
+    .. [1] E. Cuthill && J. McKee.
        Reducing the bandwidth of sparse symmetric matrices,
        In Proc. 24th Nat. Conf. ACM, pages 157-72, 1969.
        http://doi.acm.org/10.1145/800195.805928
@@ -132,7 +132,7 @@ auto reverse_cuthill_mckee_ordering(G, heuristic=None) {
 
 auto connected_cuthill_mckee_ordering(G, heuristic=None) {
     // the cuthill mckee algorithm for connected graphs
-    if (heuristic is None) {
+    if (heuristic.empty()) {
         start = pseudo_peripheral_node(G);
     } else {
         start = heuristic(G);

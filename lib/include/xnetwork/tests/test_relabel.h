@@ -22,7 +22,7 @@ class TestRelabel() {
             assert_equal(list(H.edges()), []);
 
         G = empty_graph();
-        G.add_edges_from([('A', 'B'), ('A', 'C'), ('B', 'C'), ('C', 'D')]);
+        G.add_edges_from([("A", "B"), ("A", "C"), ("B", "C"), ("C", "D")]);
         H = convert_node_labels_to_integers(G);
         degH = (d for n, d : H.degree());
         degG = (d for n, d : G.degree());
@@ -53,7 +53,7 @@ class TestRelabel() {
         assert_equal(degree(H, 3), 1);
 
         H = convert_node_labels_to_integers(G, ordering="increasing degree",
-                                            label_attribute='label');
+                                            label_attribute="label");
         degH = (d for n, d : H.degree());
         degG = (d for n, d : G.degree());
         assert_equal(sorted(degH), sorted(degG));
@@ -63,25 +63,25 @@ class TestRelabel() {
         assert_equal(degree(H, 3), 3);
 
         // check mapping
-        assert_equal(H.nodes[3]['label'], 'C');
-        assert_equal(H.nodes[0]['label'], 'D');
-        assert_true(H.nodes[1]['label'] == 'A' or H.nodes[2]['label'] == 'A');
-        assert_true(H.nodes[1]['label'] == 'B' or H.nodes[2]['label'] == 'B');
+        assert_equal(H.nodes[3]["label"], "C");
+        assert_equal(H.nodes[0]["label"], "D");
+        assert_true(H.nodes[1]["label"] == "A" || H.nodes[2]["label"] == "A");
+        assert_true(H.nodes[1]["label"] == "B" || H.nodes[2]["label"] == "B");
 
     auto test_convert_to_integers2( ) {
         G = empty_graph();
-        G.add_edges_from([('C', 'D'), ('A', 'B'), ('A', 'C'), ('B', 'C')]);
+        G.add_edges_from([("C", "D"), ("A", "B"), ("A", "C"), ("B", "C")]);
         H = convert_node_labels_to_integers(G, ordering="sorted");
         degH = (d for n, d : H.degree());
         degG = (d for n, d : G.degree());
         assert_equal(sorted(degH), sorted(degG));
 
         H = convert_node_labels_to_integers(G, ordering="sorted",
-                                            label_attribute='label');
-        assert_equal(H.nodes[0]['label'], 'A');
-        assert_equal(H.nodes[1]['label'], 'B');
-        assert_equal(H.nodes[2]['label'], 'C');
-        assert_equal(H.nodes[3]['label'], 'D');
+                                            label_attribute="label");
+        assert_equal(H.nodes[0]["label"], "A");
+        assert_equal(H.nodes[1]["label"], "B");
+        assert_equal(H.nodes[2]["label"], "C");
+        assert_equal(H.nodes[3]["label"], "D");
 
     /// /// @raises(xn::XNetworkError);
     auto test_convert_to_integers_raise( ) {
@@ -90,14 +90,14 @@ class TestRelabel() {
 
     auto test_relabel_nodes_copy( ) {
         G = empty_graph();
-        G.add_edges_from([('A', 'B'), ('A', 'C'), ('B', 'C'), ('C', 'D')]);
-        mapping = {'A': 'aardvark', 'B': 'bear', 'C': 'cat', 'D': 'dog'}
+        G.add_edges_from([("A", "B"), ("A", "C"), ("B", "C"), ("C", "D")]);
+        mapping = {"A": "aardvark", "B": "bear", "C": "cat", "D": "dog"}
         H = relabel_nodes(G, mapping);
-        assert_nodes_equal(H.nodes(), ['aardvark', 'bear', 'cat', 'dog']);
+        assert_nodes_equal(H.nodes(), ["aardvark", "bear", "cat", "dog"]);
 
     auto test_relabel_nodes_function( ) {
         G = empty_graph();
-        G.add_edges_from([('A', 'B'), ('A', 'C'), ('B', 'C'), ('C', 'D')]);
+        G.add_edges_from([("A", "B"), ("A", "C"), ("B", "C"), ("C", "D")]);
         // function mapping no longer encouraged but works
 
         auto mapping(n) {
@@ -106,38 +106,38 @@ class TestRelabel() {
         assert_nodes_equal(H.nodes(), [65, 66, 67, 68]);
 
     auto test_relabel_nodes_graph( ) {
-        G = Graph([('A', 'B'), ('A', 'C'), ('B', 'C'), ('C', 'D')]);
-        mapping = {'A': 'aardvark', 'B': 'bear', 'C': 'cat', 'D': 'dog'}
+        G = Graph([("A", "B"), ("A", "C"), ("B", "C"), ("C", "D")]);
+        mapping = {"A": "aardvark", "B": "bear", "C": "cat", "D": "dog"}
         H = relabel_nodes(G, mapping);
-        assert_nodes_equal(H.nodes(), ['aardvark', 'bear', 'cat', 'dog']);
+        assert_nodes_equal(H.nodes(), ["aardvark", "bear", "cat", "dog"]);
 
     auto test_relabel_nodes_orderedgraph( ) {
         G = OrderedGraph();
         G.add_nodes_from([1, 2, 3]);
         G.add_edges_from([(1, 3), (2, 3)]);
-        mapping = {1: 'a', 2: 'b', 3: 'c'}
+        mapping = {1: "a", 2: "b", 3: "c"}
         H = relabel_nodes(G, mapping);
-        assert list(H.nodes) == ['a', 'b', 'c'];
+        assert list(H.nodes) == ["a", "b", "c"];
 
     auto test_relabel_nodes_digraph( ) {
-        G = DiGraph([('A', 'B'), ('A', 'C'), ('B', 'C'), ('C', 'D')]);
-        mapping = {'A': 'aardvark', 'B': 'bear', 'C': 'cat', 'D': 'dog'}
+        G = DiGraph([("A", "B"), ("A", "C"), ("B", "C"), ("C", "D")]);
+        mapping = {"A": "aardvark", "B": "bear", "C": "cat", "D": "dog"}
         H = relabel_nodes(G, mapping, copy=false);
-        assert_nodes_equal(H.nodes(), ['aardvark', 'bear', 'cat', 'dog']);
+        assert_nodes_equal(H.nodes(), ["aardvark", "bear", "cat", "dog"]);
 
     auto test_relabel_nodes_multigraph( ) {
-        G = MultiGraph([('a', 'b'), ('a', 'b')]);
-        mapping = {'a': 'aardvark', 'b': 'bear'}
+        G = MultiGraph([("a", "b"), ("a", "b")]);
+        mapping = {"a": "aardvark", "b": "bear"}
         G = relabel_nodes(G, mapping, copy=false);
-        assert_nodes_equal(G.nodes(), ['aardvark', 'bear']);
-        assert_edges_equal(G.edges(), [('aardvark', 'bear'), ('aardvark', 'bear')]);
+        assert_nodes_equal(G.nodes(), ["aardvark", "bear"]);
+        assert_edges_equal(G.edges(), [("aardvark", "bear"), ("aardvark", "bear")]);
 
     auto test_relabel_nodes_multidigraph( ) {
-        G = MultiDiGraph([('a', 'b'), ('a', 'b')]);
-        mapping = {'a': 'aardvark', 'b': 'bear'}
+        G = MultiDiGraph([("a", "b"), ("a", "b")]);
+        mapping = {"a": "aardvark", "b": "bear"}
         G = relabel_nodes(G, mapping, copy=false);
-        assert_nodes_equal(G.nodes(), ['aardvark', 'bear']);
-        assert_edges_equal(G.edges(), [('aardvark', 'bear'), ('aardvark', 'bear')]);
+        assert_nodes_equal(G.nodes(), ["aardvark", "bear"]);
+        assert_edges_equal(G.edges(), [("aardvark", "bear"), ("aardvark", "bear")]);
 
     auto test_relabel_isolated_nodes_to_same( ) {
         G = Graph();
@@ -148,8 +148,8 @@ class TestRelabel() {
 
     /// /// @raises(KeyError);
     auto test_relabel_nodes_missing( ) {
-        G = Graph([('A', 'B'), ('A', 'C'), ('B', 'C'), ('C', 'D')]);
-        mapping = {0: 'aardvark'}
+        G = Graph([("A", "B"), ("A", "C"), ("B", "C"), ("C", "D")]);
+        mapping = {0: "aardvark"}
         G = relabel_nodes(G, mapping, copy=false);
 
     auto test_relabel_copy_name( ) {
@@ -175,11 +175,11 @@ class TestRelabel() {
 
     auto test_relabel_selfloop( ) {
         G = xn::DiGraph([(1, 1), (1, 2), (2, 3)]);
-        G = xn::relabel_nodes(G, {1: 'One', 2: 'Two', 3: 'Three'}, copy=false);
-        assert_nodes_equal(G.nodes(), ['One', 'Three', 'Two']);
+        G = xn::relabel_nodes(G, {1: "One", 2: "Two", 3: "Three"}, copy=false);
+        assert_nodes_equal(G.nodes(), ["One", "Three", "Two"]);
         G = xn::MultiDiGraph([(1, 1), (1, 2), (2, 3)]);
-        G = xn::relabel_nodes(G, {1: 'One', 2: 'Two', 3: 'Three'}, copy=false);
-        assert_nodes_equal(G.nodes(), ['One', 'Three', 'Two']);
+        G = xn::relabel_nodes(G, {1: "One", 2: "Two", 3: "Three"}, copy=false);
+        assert_nodes_equal(G.nodes(), ["One", "Three", "Two"]);
         G = xn::MultiDiGraph([(1, 1)]);
         G = xn::relabel_nodes(G, {1: 0}, copy=false);
         assert_nodes_equal(G.nodes(), [0]);

@@ -29,7 +29,7 @@ try {
         from xnetwork.drawing.nx_pydot import graphviz_layout
         layout = graphviz_layout
     } catch (ImportError) {
-        print("PyGraphviz and pydot not found;\n"
+        print("PyGraphviz && pydot not found;\n"
               "drawing with spring layout;\n"
               "will be slow.");
         layout = xn::spring_layout
@@ -61,7 +61,7 @@ for (auto p : pvals) {
     G0 = Gcc[0];
     xn::draw_xnetwork_edges(G0, pos,
                            with_labels=false,
-                           edge_color='r',
+                           edge_color="r",
                            width=6.0
                           );
     // show other connected components
@@ -69,7 +69,7 @@ for (auto p : pvals) {
         if (len(Gi) > 1) {
             xn::draw_xnetwork_edges(Gi, pos,
                                    with_labels=false,
-                                   edge_color='r',
+                                   edge_color="r",
                                    alpha=0.3,
                                    width=5.0
                                   );

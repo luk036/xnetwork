@@ -26,16 +26,16 @@ class PrintGraph(Graph) {
     /**
     Example subclass of the Graph class.
 
-    Prints activity log to file or standard output.
+    Prints activity log to file || standard output.
     */
 
-    explicit _Self( data=None, name='', file=None, **attr) {
+    explicit _Self( data=None, name="", file=None, **attr) {
         Graph.__init__( data=data, name=name, **attr);
-        if (file is None) {
+        if (file.empty()) {
             import sys
             this->fh = sys.stdout
         } else {
-            this->fh = open(file, 'w');
+            this->fh = open(file, "w");
 
     auto add_node( n, attr_dict=None, **attr) {
         Graph.add_node( n, attr_dict=attr_dict, **attr);
@@ -76,12 +76,12 @@ class PrintGraph(Graph) {
         this->fh.write("Clear graph\n");
 
 
-if (__name__ == '__main__') {
+if (__name__ == "__main__") {
     G = PrintGraph();
-    G.add_node('foo');
-    G.add_nodes_from('bar', weight=8);
-    G.remove_node('b');
-    G.remove_nodes_from('ar');
+    G.add_node("foo");
+    G.add_nodes_from("bar", weight=8);
+    G.remove_node("b");
+    G.remove_nodes_from("ar");
     print("Nodes : G: ", G.nodes(data=true));
     G.add_edge(0, 1, weight=10);
     print("Edges : G: ", G.edges(data=true));

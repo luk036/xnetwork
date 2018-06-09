@@ -11,7 +11,7 @@
 //
 // Author: Leo Lopes <leo.lopes@monash.edu>
 /**
-Tests for maximal (not maximum) independent sets.
+Tests for maximal (!maximum) independent sets.
 
 */
 
@@ -23,26 +23,26 @@ import random
 class TestMaximalIndependantSet: public object {
     auto setup( ) {
         this->florentine = xn::Graph();
-        this->florentine.add_edge('Acciaiuoli', 'Medici');
-        this->florentine.add_edge('Castellani', 'Peruzzi');
-        this->florentine.add_edge('Castellani', 'Strozzi');
-        this->florentine.add_edge('Castellani', 'Barbadori');
-        this->florentine.add_edge('Medici', 'Barbadori');
-        this->florentine.add_edge('Medici', 'Ridolfi');
-        this->florentine.add_edge('Medici', 'Tornabuoni');
-        this->florentine.add_edge('Medici', 'Albizzi');
-        this->florentine.add_edge('Medici', 'Salviati');
-        this->florentine.add_edge('Salviati', 'Pazzi');
-        this->florentine.add_edge('Peruzzi', 'Strozzi');
-        this->florentine.add_edge('Peruzzi', 'Bischeri');
-        this->florentine.add_edge('Strozzi', 'Ridolfi');
-        this->florentine.add_edge('Strozzi', 'Bischeri');
-        this->florentine.add_edge('Ridolfi', 'Tornabuoni');
-        this->florentine.add_edge('Tornabuoni', 'Guadagni');
-        this->florentine.add_edge('Albizzi', 'Ginori');
-        this->florentine.add_edge('Albizzi', 'Guadagni');
-        this->florentine.add_edge('Bischeri', 'Guadagni');
-        this->florentine.add_edge('Guadagni', 'Lamberteschi');
+        this->florentine.add_edge("Acciaiuoli", "Medici");
+        this->florentine.add_edge("Castellani", "Peruzzi");
+        this->florentine.add_edge("Castellani", "Strozzi");
+        this->florentine.add_edge("Castellani", "Barbadori");
+        this->florentine.add_edge("Medici", "Barbadori");
+        this->florentine.add_edge("Medici", "Ridolfi");
+        this->florentine.add_edge("Medici", "Tornabuoni");
+        this->florentine.add_edge("Medici", "Albizzi");
+        this->florentine.add_edge("Medici", "Salviati");
+        this->florentine.add_edge("Salviati", "Pazzi");
+        this->florentine.add_edge("Peruzzi", "Strozzi");
+        this->florentine.add_edge("Peruzzi", "Bischeri");
+        this->florentine.add_edge("Strozzi", "Ridolfi");
+        this->florentine.add_edge("Strozzi", "Bischeri");
+        this->florentine.add_edge("Ridolfi", "Tornabuoni");
+        this->florentine.add_edge("Tornabuoni", "Guadagni");
+        this->florentine.add_edge("Albizzi", "Ginori");
+        this->florentine.add_edge("Albizzi", "Guadagni");
+        this->florentine.add_edge("Bischeri", "Guadagni");
+        this->florentine.add_edge("Guadagni", "Lamberteschi");
 
     auto test_K5( ) {
         /** Maximal independent set: K5 */
@@ -81,8 +81,8 @@ class TestMaximalIndependantSet: public object {
         assert_equal(sorted(indep), list(range(12)));
 
     auto test_random_graphs( ) {
-        /** Generate 50 random graphs of different types and sizes and
-        make sure that all sets are independent and maximal. */
+        /** Generate 50 random graphs of different types && sizes &&
+        make sure that all sets are independent && maximal. */
         for (auto i : range(0, 50, 10) {
             G = xn::random_graphs.erdos_renyi_graph(i * 10 + 1, random.random());
             IS = xn::maximal_independent_set(G);

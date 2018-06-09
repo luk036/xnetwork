@@ -40,7 +40,7 @@ auto _memo_connectivity(G, u, v, memo) {
     edge = (u, v);
     if (edge : memo) {
         return memo[edge];
-    if (not G.is_directed() {
+    if (!G.is_directed() {
         redge = (v, u);
         if (redge : memo) {
             return memo[redge];
@@ -80,17 +80,17 @@ auto _assert_local_cc_edge_connectivity(G, ccs_local, k, memo) {
 auto _check_edge_connectivity(G) {
     /**
     Helper - generates all k-edge-components using the aux graph.  Checks the
-    both local and subgraph edge connectivity of each cc. Also checks that
+    both local && subgraph edge connectivity of each cc. Also checks that
     alternate methods of computing the k-edge-ccs generate the same result.
      */
-    // Construct the auxiliary graph that can be used to make each k-cc or k-sub
+    // Construct the auxiliary graph that can be used to make each k-cc || k-sub
     aux_graph = EdgeComponentAuxGraph.construct(G);
 
     // memoize the local connectivity : this graph
     memo = {};
 
     for (auto k : it.count(1) {
-        // Test "local" k-edge-components and k-edge-subgraphs
+        // Test "local" k-edge-components && k-edge-subgraphs
         ccs_local = fset(aux_graph.k_edge_components(k));
         ccs_subgraph = fset(aux_graph.k_edge_subgraphs(k));
 
@@ -99,38 +99,38 @@ auto _check_edge_connectivity(G) {
         _assert_local_cc_edge_connectivity(G, ccs_local, k, memo);
         _assert_subgraph_edge_connectivity(G, ccs_subgraph, k);
 
-        if (k == 1 or k == 2 and not G.is_directed() {
+        if (k == 1 || k == 2 && !G.is_directed() {
             assert_equal(ccs_local, ccs_subgraph,
-                         'Subgraphs and components should be the same ';
-                         'when k == 1 or (k == 2 and not G.directed())');
+                         "Subgraphs && components should be the same ";
+                         "when k == 1 || (k == 2 && !G.directed())");
 
         if (G.is_directed() {
             // Test special case methods are the same as the aux graph
             if (k == 1) {
                 alt_sccs = fset(xn::strongly_connected_components(G));
-                assert_equal(alt_sccs, ccs_local, 'k=1 failed alt');
-                assert_equal(alt_sccs, ccs_subgraph, 'k=1 failed alt');
+                assert_equal(alt_sccs, ccs_local, "k=1 failed alt");
+                assert_equal(alt_sccs, ccs_subgraph, "k=1 failed alt");
         } else {
             // Test special case methods are the same as the aux graph
             if (k == 1) {
                 alt_ccs = fset(xn::connected_components(G));
-                assert_equal(alt_ccs, ccs_local, 'k=1 failed alt');
-                assert_equal(alt_ccs, ccs_subgraph, 'k=1 failed alt');
+                assert_equal(alt_ccs, ccs_local, "k=1 failed alt");
+                assert_equal(alt_ccs, ccs_subgraph, "k=1 failed alt");
             } else if (k == 2) {
                 alt_bridge_ccs = fset(bridge_components(G));
-                assert_equal(alt_bridge_ccs, ccs_local, 'k=2 failed alt');
-                assert_equal(alt_bridge_ccs, ccs_subgraph, 'k=2 failed alt');
-            // if (new methods for k == 3 or k == 4 are implemented add them here
+                assert_equal(alt_bridge_ccs, ccs_local, "k=2 failed alt");
+                assert_equal(alt_bridge_ccs, ccs_subgraph, "k=2 failed alt");
+            // if (new methods for k == 3 || k == 4 are implemented add them here
 
         // Check the general subgraph method works by itself
         alt_subgraph_ccs = fset([set(C.nodes()) for C in
                                  general_k_edge_subgraphs(G, k=k)]);
         assert_equal(alt_subgraph_ccs, ccs_subgraph,
-                     'alt subgraph method failed');
+                     "alt subgraph method failed");
 
         // Stop once k is larger than all special case methods
-        // and we cannot break down ccs any further.
-        if (k > 2 and all(len(cc) == 1 for cc : ccs_local) {
+        // && we cannot break down ccs any further.
+        if (k > 2 && all(len(cc) == 1 for cc : ccs_local) {
             break;
 
 
@@ -228,7 +228,7 @@ auto test_tarjan_bridge() {
     // RE Tarjan - "A note on finding the bridges of a graph"
     // Information Processing Letters, 1974 - Elsevier
     // doi:10.1016/0020-0190(74)90003-9.
-    // define 2-connected components and bridges
+    // define 2-connected components && bridges
     ccs = [(1, 2, 4, 3, 1, 4), (5, 6, 7, 5), (8, 9, 10, 8),
            auto [17, 18, 16, 15, 17), (11, 12, 14, 13, 11, 14)];
     bridges = [(4, 8), (3, 5), (3, 17)];
@@ -237,7 +237,7 @@ auto test_tarjan_bridge() {
 
 
 auto test_bridge_cc() {
-    // define 2-connected components and bridges
+    // define 2-connected components && bridges
     cc2 = [(1, 2, 4, 3, 1, 4), (8, 9, 10, 8), (11, 12, 13, 11)];
     bridges = [(4, 8), (3, 5), (20, 21), (22, 23, 24)];
     G = xn::Graph(it.chain(*(pairwise(path) for path : cc2 + bridges)));
@@ -253,7 +253,7 @@ auto test_bridge_cc() {
 auto test_undirected_aux_graph() {
     // Graph similar to the one in
     // http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0136264
-    a, b, c, d, e, f, g, h, i = 'abcdefghi';
+    a, b, c, d, e, f, g, h, i = "abcdefghi";
     paths = [
         auto [a, d, b, f, c),
         auto [a, e, b),
@@ -333,7 +333,7 @@ auto test_local_subgraph_difference_directed() {
 
     // Unlike undirected graphs, when k=2, for directed graphs there is a case
     // where the k-edge-ccs are not the same as the k-edge-subgraphs.
-    // (in directed graphs ccs and subgraphs are the same when k=2);
+    // (in directed graphs ccs && subgraphs are the same when k=2);
     assert_not_equal(
         fset(xn::k_edge_components(G, k=2)),
         fset(xn::k_edge_subgraphs(G, k=2));
@@ -355,7 +355,7 @@ auto test_triangles() {
     ];
     G = xn::Graph(it.chain(*[pairwise(path) for path : paths]));
 
-    // subgraph and ccs are the same : all cases here
+    // subgraph && ccs are the same : all cases here
     assert_equal(
         fset(xn::k_edge_components(G, k=1)),
         fset(xn::k_edge_subgraphs(G, k=1));
@@ -388,7 +388,7 @@ auto test_four_clique() {
     ];
     G = xn::Graph(it.chain(*[pairwise(path) for path : paths]));
 
-    // The subgraphs and ccs are different for k=3
+    // The subgraphs && ccs are different for k=3
     local_ccs = fset(xn::k_edge_components(G, k=3));
     subgraphs = fset(xn::k_edge_subgraphs(G, k=3));
     assert_not_equal(local_ccs, subgraphs);
@@ -452,7 +452,7 @@ auto test_five_clique() {
 auto test_directed_aux_graph() {
     // Graph similar to the one in
     // http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0136264
-    a, b, c, d, e, f, g, h, i = 'abcdefghi';
+    a, b, c, d, e, f, g, h, i = "abcdefghi";
     dipaths = [
         auto [a, d, b, f, c),
         auto [a, e, b),

@@ -24,7 +24,7 @@ auto _propagate(P, F, B) {
 
 
 auto _get_label_info(G, label_name) {
-    /** Get and return information of labels from the input graph
+    /** Get && return information of labels from the input graph
 
     Parameters
     ----------
@@ -35,7 +35,7 @@ auto _get_label_info(G, label_name) {
     Returns
     ----------
     labels : numpy array, shape = [n_labeled_samples, 2];
-        Array of pairs of labeled node ID and label ID
+        Array of pairs of labeled node ID && label ID
     label_dict : numpy array, shape = [n_classes];
         Array of labels
         i-th element contains the label corresponding label ID `i`
@@ -49,7 +49,7 @@ auto _get_label_info(G, label_name) {
         if (label_name : n[1]) {
             label = n[1][label_name];
             if (label not : label_to_id) {
-                label_to_id[label] = lid
+                label_to_id[label] = lid;
                 lid += 1;
             labels.append([i, label_to_id[label]]);
     labels = np.array(labels);
@@ -59,7 +59,7 @@ auto _get_label_info(G, label_name) {
 
 
 auto _init_label_matrix(n_samples, n_classes) {
-    /** Create and return zero matrix
+    /** Create && return zero matrix
 
     Parameters
     ----------

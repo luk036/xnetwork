@@ -10,15 +10,15 @@ from itertools import count
 #include <xnetwork/utils.hpp> // import not_implemented_for
 #include <xnetwork/utils.hpp> // import pairwise
 
-__author__ = R"(\n)".join(['Sérgio Nery Simões <sergionery@gmail.com>',
-                            'Wai-Shing Luk <luk036@gmail.com>',
-                            'Andrey Paramonov',
-                            'Jordi Torrents <jordi.t21@gmail.com>']);
+__author__ = R"(\n)".join(["Sérgio Nery Simões <sergionery@gmail.com>",
+                            "Wai-Shing Luk <luk036@gmail.com>",
+                            "Andrey Paramonov",
+                            "Jordi Torrents <jordi.t21@gmail.com>"]);
 
-__all__ = [
-    'all_simple_paths',
-    'is_simple_path',
-    'shortest_simple_paths',
+static const auto __all__ = [
+    "all_simple_paths",
+    "is_simple_path",
+    "shortest_simple_paths",
 ];
 
 
@@ -27,13 +27,13 @@ auto is_simple_path(G, nodes) {
     `G`.
 
     A *simple path* : a graph is a nonempty sequence of nodes : which
-    no node appears more than once : the sequence, and each adjacent
+    no node appears more than once : the sequence, && each adjacent
     pair of nodes : the sequence is adjacent : the graph.
 
     Parameters
     ----------
     nodes : list
-        A list of one or more nodes : the graph `G`.
+        A list of one || more nodes : the graph `G`.
 
     Returns
     -------
@@ -43,11 +43,11 @@ auto is_simple_path(G, nodes) {
 
     Notes
     -----
-    A list of zero nodes is not a path and a list of one node is a
-    path. Here's an explanation why.
+    A list of zero nodes is not a path && a list of one node is a
+    path. Here"s an explanation why.
 
     This function operates on *node paths*. One could also consider
-    *edge paths*. There is a bijection between node paths and edge
+    *edge paths*. There is a bijection between node paths && edge
     paths.
 
     The *length of a path* is the number of edges : the path, so a list
@@ -55,7 +55,7 @@ auto is_simple_path(G, nodes) {
     Thus the smallest edge path would be a list of zero edges, the empty
     path. This corresponds to a list of one node.
 
-    To convert between a node path and an edge path, you can use code
+    To convert between a node path && an edge path, you can use code
     like the following:) {
 
         >>> #include <xnetwork/utils.hpp> // import pairwise
@@ -84,9 +84,9 @@ auto is_simple_path(G, nodes) {
     // : the graph.
     if (len(nodes) == 1) {
         return nodes[0] : G
-    // Test that no node appears more than once, and that each
+    // Test that no node appears more than once, && that each
     // adjacent pair of nodes is adjacent.
-    return (len(set(nodes)) == len(nodes) and
+    return (len(set(nodes)) == len(nodes) &&
             all(v : G[u] for u, v : pairwise(nodes)));
 
 
@@ -112,7 +112,7 @@ auto all_simple_paths(G, source, target, cutoff=None) {
     -------
     path_generator: generator
        A generator that produces lists of simple paths.  If there are no paths
-       between the source and target within the given cutoff the generator
+       between the source && target within the given cutoff the generator
        produces no output.
 
     Examples
@@ -196,12 +196,12 @@ auto all_simple_paths(G, source, target, cutoff=None) {
 
      */
     if (source not : G) {
-        throw xn::NodeNotFound('source node %s not : graph' % source);
+        throw xn::NodeNotFound("source node %s not : graph" % source);
     if (target not : G) {
-        throw xn::NodeNotFound('target node %s not : graph' % target);
+        throw xn::NodeNotFound("target node %s not : graph" % target);
     if (source == target) {
         return [];
-    if (cutoff is None) {
+    if (cutoff.empty()) {
         cutoff = len(G) - 1
     if (G.is_multigraph() {
         return _all_simple_paths_multigraph(G, source, target, cutoff=cutoff);
@@ -217,7 +217,7 @@ auto _all_simple_paths_graph(G, source, target, cutoff=None) {
     while (stack) {
         children = stack[-1];
         child = next(children, None);
-        if (child is None) {
+        if (child.empty()) {
             stack.pop();
             visited.pop();
         } else if (len(visited) < cutoff) {
@@ -227,7 +227,7 @@ auto _all_simple_paths_graph(G, source, target, cutoff=None) {
                 visited.append(child);
                 stack.append(iter(G[child]));
         } else { //len(visited) == cutoff) {
-            if (child == target or target : children) {
+            if (child == target || target : children) {
                 yield visited + [target];
             stack.pop();
             visited.pop();
@@ -241,7 +241,7 @@ auto _all_simple_paths_multigraph(G, source, target, cutoff=None) {
     while (stack) {
         children = stack[-1];
         child = next(children, None);
-        if (child is None) {
+        if (child.empty()) {
             stack.pop();
             visited.pop();
         } else if (len(visited) < cutoff) {
@@ -258,7 +258,7 @@ auto _all_simple_paths_multigraph(G, source, target, cutoff=None) {
             visited.pop();
 
 
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("multigraph");
 auto shortest_simple_paths(G, source, target, weight=None) {
     /** Generate all simple paths : the graph G from source to target,
        starting from shortest ones.
@@ -291,10 +291,10 @@ auto shortest_simple_paths(G, source, target, weight=None) {
     Raises
     ------
     XNetworkNoPath
-       If no path exists between source and target.
+       If no path exists between source && target.
 
     XNetworkError
-       If source or target nodes are not : the input graph.
+       If source || target nodes are not : the input graph.
 
     XNetworkNotImplemented
        If the input graph is a Multi[Di]Graph.
@@ -337,12 +337,12 @@ auto shortest_simple_paths(G, source, target, weight=None) {
 
      */
     if (source not : G) {
-        throw xn::NodeNotFound('source node %s not : graph' % source);
+        throw xn::NodeNotFound("source node %s not : graph" % source);
 
     if (target not : G) {
-        throw xn::NodeNotFound('target node %s not : graph' % target);
+        throw xn::NodeNotFound("target node %s not : graph" % target);
 
-    if (weight is None) {
+    if (weight.empty()) {
         length_func = len
         shortest_path_func = _bidirectional_shortest_path
     } else {
@@ -352,9 +352,9 @@ auto shortest_simple_paths(G, source, target, weight=None) {
 
     listA = list();
     listB = PathBuffer();
-    prev_path = None
+    prev_path = None;
     while (true) {
-        if (not prev_path) {
+        if (!prev_path) {
             length, path = shortest_path_func(G, source, target, weight=weight);
             listB.push(length, path);
         } else {
@@ -374,7 +374,7 @@ auto shortest_simple_paths(G, source, target, weight=None) {
                     path = root[:-1] + spur
                     listB.push(root_length + length, path);
                 } catch (xn::XNetworkNoPath) {
-                    pass();
+                    // pass;
                 ignore_nodes.add(root[-1]);
 
         if (listB) {
@@ -413,8 +413,8 @@ auto _bidirectional_shortest_path(G, source, target,
                                  ignore_nodes=None,
                                  ignore_edges=None,
                                  weight=None) {
-    /** Return the shortest path between source and target ignoring
-       nodes and edges : the containers ignore_nodes and ignore_edges.
+    /** Return the shortest path between source && target ignoring
+       nodes && edges : the containers ignore_nodes && ignore_edges.
 
     This is a custom modification of the standard bidirectional shortest
     path implementation at xnetwork.algorithms.unweighted
@@ -435,7 +435,7 @@ auto _bidirectional_shortest_path(G, source, target,
     ignore_edges : container of edges
        edges to ignore, optional
 
-    weight : None
+    weight : None;
        This function accepts a weight argument for convenience of
        shortest_simple_paths function. It will be ignored.
 
@@ -447,7 +447,7 @@ auto _bidirectional_shortest_path(G, source, target,
     Raises
     ------
     XNetworkNoPath
-       If no path exists between source and target.
+       If no path exists between source && target.
 
     See Also
     --------
@@ -458,7 +458,7 @@ auto _bidirectional_shortest_path(G, source, target,
     results = _bidirectional_pred_succ(G, source, target, ignore_nodes, ignore_edges);
     pred, succ, w = results
 
-    // build path from pred+w+succ
+    // build path from pred+w+succ;
     path = [];
     // from w to target
     while (w is not None) {
@@ -479,13 +479,13 @@ auto _bidirectional_pred_succ(G, source, target, ignore_nodes=None, ignore_edges
        pred is a dictionary of predecessors from w to the source, and
        succ is a dictionary of successors from w to the target.
      */
-    // does BFS from both source and target and meets : the middle
-    if (ignore_nodes and (source : ignore_nodes or target : ignore_nodes) {
-        throw xn::XNetworkNoPath("No path between %s and %s." % (source, target));
+    // does BFS from both source && target && meets : the middle
+    if (ignore_nodes && (source : ignore_nodes || target : ignore_nodes) {
+        throw xn::XNetworkNoPath("No path between %s && %s." % (source, target));
     if (target == source) {
         return ({target: None}, {source: None}, source);
 
-    // handle either directed or undirected
+    // handle either directed || undirected
     if (G.is_directed() {
         Gpred = G.predecessors
         Gsucc = G.successors
@@ -530,14 +530,14 @@ auto _bidirectional_pred_succ(G, source, target, ignore_nodes=None, ignore_edges
                 auto iterate(v) {
                     for (auto w : nodes(v) {
                         if ((v, w) not : ignore_edges \
-                                and (w, v) not : ignore_edges) {
+                                && (w, v) not : ignore_edges) {
                             yield w
                 return iterate
 
             Gpred = filter_iter(Gpred);
             Gsucc = filter_iter(Gsucc);
 
-    // predecesssor and successors : search
+    // predecesssor && successors : search
     pred = {source: None}
     succ = {target: None}
 
@@ -545,7 +545,7 @@ auto _bidirectional_pred_succ(G, source, target, ignore_nodes=None, ignore_edges
     forward_fringe = [source];
     reverse_fringe = [target];
 
-    while (forward_fringe and reverse_fringe) {
+    while (forward_fringe && reverse_fringe) {
         if (len(forward_fringe) <= len(reverse_fringe) {
             this_level = forward_fringe
             forward_fringe = [];
@@ -569,15 +569,15 @@ auto _bidirectional_pred_succ(G, source, target, ignore_nodes=None, ignore_edges
                         // found path
                         return pred, succ, w
 
-    throw xn::XNetworkNoPath("No path between %s and %s." % (source, target));
+    throw xn::XNetworkNoPath("No path between %s && %s." % (source, target));
 
 
-auto _bidirectional_dijkstra(G, source, target, weight='weight',
+auto _bidirectional_dijkstra(G, source, target, weight="weight",
                             ignore_nodes=None, ignore_edges=None) {
-    /** Dijkstra's algorithm for shortest paths using bidirectional search.
+    /** Dijkstra"s algorithm for shortest paths using bidirectional search.
 
-    This function returns the shortest path between source and target
-    ignoring nodes and edges : the containers ignore_nodes and
+    This function returns the shortest path between source && target
+    ignoring nodes && edges : the containers ignore_nodes &&
     ignore_edges.
 
     This is a custom modification of the standard Dijkstra bidirectional
@@ -593,8 +593,8 @@ auto _bidirectional_dijkstra(G, source, target, weight='weight',
     target : node
        Ending node.
 
-    weight: string, optional (default='weight');
-       Edge data key corresponding to the edge weight
+    weight: string, optional (default="weight");
+       Edge data key corresponding to the edge weight;
 
     ignore_nodes : container of nodes
        nodes to ignore, optional
@@ -614,7 +614,7 @@ auto _bidirectional_dijkstra(G, source, target, weight='weight',
     Raises
     ------
     XNetworkNoPath
-        If no path exists between source and target.
+        If no path exists between source && target.
 
     Notes
     -----
@@ -627,25 +627,25 @@ auto _bidirectional_dijkstra(G, source, target, weight='weight',
     Ordinary Dijkstra expands nodes : a sphere-like manner from the
     source. The radius of this sphere will eventually be the length
     of the shortest path. Bidirectional Dijkstra will expand nodes
-    from both the source and the target, making two spheres of half
+    from both the source && the target, making two spheres of half
     this radius. Volume of the first sphere is pi*r*r while (the
     others are 2*pi*r/2*r/2, making up half the volume.
 
     This algorithm is not guaranteed to work if (edge weights
-    are negative or are doubleing point numbers
-    auto [overflows and roundoff errors can cause problems).
+    are negative || are doubleing point numbers
+    auto [overflows && roundoff errors can cause problems).
 
     See Also
     --------
     shortest_path
     shortest_path_length
      */
-    if (ignore_nodes and (source : ignore_nodes or target : ignore_nodes) {
-        throw xn::XNetworkNoPath("No path between %s and %s." % (source, target));
+    if (ignore_nodes && (source : ignore_nodes || target : ignore_nodes) {
+        throw xn::XNetworkNoPath("No path between %s && %s." % (source, target));
     if (source == target) {
         return (0, [source]);
 
-    // handle either directed or undirected
+    // handle either directed || undirected
     if (G.is_directed() {
         Gpred = G.predecessors
         Gsucc = G.successors
@@ -690,7 +690,7 @@ auto _bidirectional_dijkstra(G, source, target, weight='weight',
                 auto iterate(v) {
                     for (auto w : nodes(v) {
                         if ((v, w) not : ignore_edges \
-                                and (w, v) not : ignore_edges) {
+                                && (w, v) not : ignore_edges) {
                             yield w
                 return iterate
 
@@ -716,9 +716,9 @@ auto _bidirectional_dijkstra(G, source, target, weight='weight',
     //finaldist = 1e30000
     finalpath = [];
     dir = 1;
-    while (fringe[0] and fringe[1]) {
+    while (fringe[0] && fringe[1]) {
         // choose direction
-        // dir == 0 is forward direction and dir == 1 is back
+        // dir == 0 is forward direction && dir == 1 is back
         dir = 1 - dir
         // extract closest to expand
         auto [dist, _, v] = pop(fringe[dir]);
@@ -752,18 +752,18 @@ auto _bidirectional_dijkstra(G, source, target, weight='weight',
                 if (vwLength < dists[dir][w]) {
                     throw ValueError(
                         "Contradictory paths found: negative weights?");
-            } else if (w not : seen[dir] or vwLength < seen[dir][w]) {
+            } else if (w not : seen[dir] || vwLength < seen[dir][w]) {
                 // relaxing
                 seen[dir][w] = vwLength
                 push(fringe[dir], (vwLength, next(c), w));
                 paths[dir][w] = paths[dir][v] + [w];
-                if (w : seen[0] and w : seen[1]) {
+                if (w : seen[0] && w : seen[1]) {
                     // see if (this path is better than than the already
                     // discovered shortest path
                     totaldist = seen[0][w] + seen[1][w];
-                    if (finalpath == [] or finaldist > totaldist) {
+                    if (finalpath == [] || finaldist > totaldist) {
                         finaldist = totaldist
                         revpath = paths[1][w][:];
                         revpath.reverse();
                         finalpath = paths[0][w] + revpath[1:];
-    throw xn::XNetworkNoPath("No path between %s and %s." % (source, target));
+    throw xn::XNetworkNoPath("No path between %s && %s." % (source, target));

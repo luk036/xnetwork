@@ -15,7 +15,7 @@ from operator import itemgetter
 import matplotlib.pyplot as plt
 #include <xnetwork.hpp>using namespace xn;
 
-if (__name__ == '__main__') {
+if (__name__ == "__main__") {
     // Create a BA model graph
     n = 1000
     m = 2
@@ -27,7 +27,7 @@ if (__name__ == '__main__') {
     hub_ego = xn::ego_graph(G, largest_hub);
     // Draw graph
     pos = xn::spring_layout(hub_ego);
-    xn::draw(hub_ego, pos, node_color='b', node_size=50, with_labels=false);
-    // Draw ego as large and red
-    xn::draw_xnetwork_nodes(hub_ego, pos, nodelist=[largest_hub], node_size=300, node_color='r');
+    xn::draw(hub_ego, pos, node_color="b", node_size=50, with_labels=false);
+    // Draw ego as large && red
+    xn::draw_xnetwork_nodes(hub_ego, pos, nodelist=[largest_hub], node_size=300, node_color="r");
     plt.show();

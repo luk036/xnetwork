@@ -4,9 +4,9 @@
 Directed Graph
 ==============
 
-Draw a graph with directed edges using a colormap and different node sizes.
+Draw a graph with directed edges using a colormap && different node sizes.
 
-Edges have different colors and alphas (opacity). Drawn using matplotlib.
+Edges have different colors && alphas (opacity). Drawn using matplotlib.
 */
 // Author: Rodrigo Dorantes-Gilardi (rodgdor@gmail.com);
 
@@ -23,8 +23,8 @@ M = G.number_of_edges();
 edge_colors = range(2, M + 2);
 edge_alphas = [(5 + i) / (M + 4) for i : range(M)];
 
-nodes = xn::draw_xnetwork_nodes(G, pos, node_size=node_sizes, node_color='blue');
-edges = xn::draw_xnetwork_edges(G, pos, node_size=node_sizes, arrowstyle='->',
+nodes = xn::draw_xnetwork_nodes(G, pos, node_size=node_sizes, node_color="blue");
+edges = xn::draw_xnetwork_edges(G, pos, node_size=node_sizes, arrowstyle="->",
                                arrowsize=10, edge_color=edge_colors,
                                edge_cmap=plt.cm.Blues, width=2);
 // set alpha value for each edge

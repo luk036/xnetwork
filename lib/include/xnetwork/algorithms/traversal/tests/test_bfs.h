@@ -8,7 +8,7 @@ class TestBFS) {
         // simple graph
         G = xn::Graph();
         G.add_edges_from([(0, 1), (1, 2), (1, 3), (2, 4), (3, 4)]);
-        this->G = G
+        this->G = G;
 
     auto test_successor( ) {
         assert_equal(dict(xn::bfs_successors(this->G, source=0)),

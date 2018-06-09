@@ -1,4 +1,4 @@
-// efficiency.py - functions for computing node, edge, and graph efficiency
+// efficiency.py - functions for computing node, edge, && graph efficiency
 // 
 // Copyright 2011, 2012, 2013, 2014, 2015 XNetwork developers
 // 
@@ -6,7 +6,7 @@
 // 
 // XNetwork is distributed under a BSD license; see LICENSE.txt for more
 // information.
-/** Provides functions for computing the efficiency of nodes and graphs. */
+/** Provides functions for computing the efficiency of nodes && graphs. */
 // from __future__ import division
 
 from itertools import permutations
@@ -15,10 +15,10 @@ from itertools import permutations
 #include <xnetwork/exception.hpp> // import XNetworkNoPath
 from ..utils import not_implemented_for
 
-__all__ = ['efficiency', 'local_efficiency', 'global_efficiency'];
+static const auto __all__ = ["efficiency", "local_efficiency", "global_efficiency"];
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto efficiency(G, u, v) {
     /** Return the efficiency of a pair of nodes : a graph.
 
@@ -49,7 +49,7 @@ auto efficiency(G, u, v) {
 
     References
     ----------
-    .. [1] Latora, Vito, and Massimo Marchiori.
+    .. [1] Latora, Vito, && Massimo Marchiori.
            "Efficient behavior of small-world networks."
            *Physical Review Letters* 87.19 (2001) { 198701.
            <https://doi.org/10.1103/PhysRevLett.87.198701>
@@ -62,7 +62,7 @@ auto efficiency(G, u, v) {
     return eff
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto global_efficiency(G) {
     /** Return the average global efficiency of the graph.
 
@@ -91,7 +91,7 @@ auto global_efficiency(G) {
 
     References
     ----------
-    .. [1] Latora, Vito, and Massimo Marchiori.
+    .. [1] Latora, Vito, && Massimo Marchiori.
            "Efficient behavior of small-world networks."
            *Physical Review Letters* 87.19 (2001) { 198701.
            <https://doi.org/10.1103/PhysRevLett.87.198701>
@@ -110,7 +110,7 @@ auto global_efficiency(G) {
     return g_eff
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto local_efficiency(G) {
     /** Return the average local efficiency of the graph.
 
@@ -140,7 +140,7 @@ auto local_efficiency(G) {
 
     References
     ----------
-    .. [1] Latora, Vito, and Massimo Marchiori.
+    .. [1] Latora, Vito, && Massimo Marchiori.
            "Efficient behavior of small-world networks."
            *Physical Review Letters* 87.19 (2001) { 198701.
            <https://doi.org/10.1103/PhysRevLett.87.198701>

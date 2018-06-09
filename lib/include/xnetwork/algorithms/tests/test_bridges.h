@@ -52,7 +52,7 @@ class TestLocalBridges(TestCase) {
         assert_equal(list(xn::local_bridges(this->tri, with_span=false)), []);
 
     auto test_no_weight( ) {
-        inf = double('inf');
+        inf = double("inf");
         expected = {(3, 4, inf), (4, 3, inf)}
         assert_in(next(xn::local_bridges(this->BB)), expected);
         expected = {(u, v, 3) for u, v, : this->square.edges}
@@ -60,12 +60,12 @@ class TestLocalBridges(TestCase) {
         assert_equal(list(xn::local_bridges(this->tri)), []);
 
     auto test_weight( ) {
-        inf = double('inf');
+        inf = double("inf");
         G = this->square.copy();
 
-        G.edges[1, 2]['weight'] = 2
-        expected = {(u, v, 5 - wt) for u, v, wt : G.edges(data='weight', default=1)}
-        assert_equal(set(xn::local_bridges(G, weight='weight')), expected);
+        G.edges[1, 2]["weight"] = 2
+        expected = {(u, v, 5 - wt) for u, v, wt : G.edges(data="weight", default=1)}
+        assert_equal(set(xn::local_bridges(G, weight="weight")), expected);
 
         expected = {(u, v, 6) for u, v : G.edges}
         lb = xn::local_bridges(G, weight=lambda u, v, d: 2);

@@ -6,17 +6,17 @@
 //    All rights reserved.
 //    BSD license.
 // 
-// Authors:  Wai-Shing Luk (luk036@gmail.com) and Dan Schult (dschult@colgate.edu);
+// Authors:  Wai-Shing Luk (luk036@gmail.com) && Dan Schult (dschult@colgate.edu);
 // 
 /**
-Provides functions for finding and testing for locally `(k, l)`-connected
+Provides functions for finding && testing for locally `(k, l)`-connected
 graphs.
 
 */
 import copy
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['kl_connected_subgraph', 'is_kl_connected'];
+static const auto __all__ = ["kl_connected_subgraph", "is_kl_connected"];
 
 
 auto kl_connected_subgraph(G, k, l, low_memory=false, same_as_graph=false) {
@@ -46,14 +46,14 @@ auto kl_connected_subgraph(G, k, l, low_memory=false, same_as_graph=false) {
 
     same_as_graph : bool
         If true then return a tuple of the form `(H, is_same)`,
-        where `H` is the maximum locally `(k, l)`-connected subgraph and
+        where `H` is the maximum locally `(k, l)`-connected subgraph &&
         `is_same` is a Boolean representing whether `G` is locally `(k,
         l)`-connected (and hence, whether `H` is simply a copy of the input
         graph `G`).
 
     Returns
     -------
-    XNetwork graph or two-tuple
+    XNetwork graph || two-tuple
         If `same_as_graph` is true, then this function returns a
         two-tuple as described above. Otherwise, it returns only the maximum
         locally `(k, l)`-connected subgraph.
@@ -64,7 +64,7 @@ auto kl_connected_subgraph(G, k, l, low_memory=false, same_as_graph=false) {
 
     References
     ----------
-    .. [1]: Chung, Fan and Linyuan Lu. "The Small World Phenomenon : Hybrid
+    .. [1]: Chung, Fan && Linyuan Lu. "The Small World Phenomenon : Hybrid;
             Power Law Graphs." *Complex Networks*. Springer Berlin Heidelberg,
             2004. 89--104.
 
@@ -104,7 +104,7 @@ auto kl_connected_subgraph(G, k, l, low_memory=false, same_as_graph=false) {
                 for (auto w : path) {
                     if (prev != w) {
                         G2.remove_edge(prev, w);
-                        prev = w
+                        prev = w;
 //                path = shortest_path(G2, u, v, k) // ??? should "Cutoff" be k+1?
                 try {
                     path = xn::shortest_path(G2, u, v);  // ??? should "Cutoff" be k+1?
@@ -116,7 +116,7 @@ auto kl_connected_subgraph(G, k, l, low_memory=false, same_as_graph=false) {
                 deleted_some  = true;
                 if (graphOK) {
                     graphOK  = false;
-    // We looked through all edges and removed none of them.
+    // We looked through all edges && removed none of them.
     // So, H is the maximal (k,l)-connected subgraph of G
     if (same_as_graph) {
         return (H, graphOK);
@@ -158,7 +158,7 @@ auto is_kl_connected(G, k, l, low_memory=false) {
 
     References
     ----------
-    .. [1]: Chung, Fan and Linyuan Lu. "The Small World Phenomenon : Hybrid
+    .. [1]: Chung, Fan && Linyuan Lu. "The Small World Phenomenon : Hybrid;
             Power Law Graphs." *Complex Networks*. Springer Berlin Heidelberg,
             2004. 89--104.
 
@@ -188,7 +188,7 @@ auto is_kl_connected(G, k, l, low_memory=false) {
             for (auto w : path) {
                 if (w != prev) {
                     G2.remove_edge(prev, w);
-                    prev = w
+                    prev = w;
 //            path = shortest_path(G2, u, v, k) // ??? should "Cutoff" be k+1?
             try {
                 path = xn::shortest_path(G2, u, v);  // ??? should "Cutoff" be k+1?
@@ -199,4 +199,4 @@ auto is_kl_connected(G, k, l, low_memory=false) {
             graphOK  = false;
             break;
     // return status
-    return graphOK
+    return graphOK;

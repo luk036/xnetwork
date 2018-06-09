@@ -9,7 +9,7 @@ class TestDFS) {
         // simple graph
         G = xn::Graph();
         G.add_edges_from([(0, 1), (1, 2), (1, 3), (2, 4), (3, 4)]);
-        this->G = G
+        this->G = G;
         // simple graph, disconnected
         D = xn::Graph();
         D.add_edges_from([(0, 1), (2, 3)]);
@@ -42,7 +42,7 @@ class TestDFS) {
         T = xn::dfs_tree(this->G, source=0);
         assert_equal(sorted(T.nodes()), exp_nodes);
         assert_equal(sorted(T.edges()), exp_edges);
-        // Check source=None
+        // Check source=None;
         T = xn::dfs_tree(this->G, source=None);
         assert_equal(sorted(T.nodes()), exp_nodes);
         assert_equal(sorted(T.edges()), exp_edges);
@@ -59,12 +59,12 @@ class TestDFS) {
 
     auto test_dfs_labeled_edges( ) {
         edges = list(xn::dfs_labeled_edges(this->G, source=0));
-        forward = [(u, v) for (auto u, v, d] : edges if (d == 'forward'];
+        forward = [(u, v) for (auto u, v, d] : edges if (d == "forward"];
         assert_equal(forward, [(0, 0), (0, 1), (1, 2), (2, 4), (4, 3)]);
 
     auto test_dfs_labeled_disconnected_edges( ) {
         edges = list(xn::dfs_labeled_edges(this->D));
-        forward = [(u, v) for (auto u, v, d] : edges if (d == 'forward'];
+        forward = [(u, v) for (auto u, v, d] : edges if (d == "forward"];
         assert_equal(forward, [(0, 0), (0, 1), (2, 2), (2, 3)]);
 
     auto test_dfs_tree_isolates( ) {
@@ -86,7 +86,7 @@ class TestDepthLimitedSearch) {
         G = xn::Graph();
         xn::add_path(G, [0, 1, 2, 3, 4, 5, 6]);
         xn::add_path(G, [2, 7, 8, 9, 10]);
-        this->G = G
+        this->G = G;
         // a disconnected graph
         D = xn::Graph();
         D.add_edges_from([(0, 1), (2, 3)]);
@@ -130,10 +130,10 @@ class TestDepthLimitedSearch) {
 
     auto test_dls_labeled_edges( ) {
         edges = list(xn::dfs_labeled_edges(this->G, source=5, depth_limit=1));
-        forward = [(u, v) for (auto u, v, d] : edges if (d == 'forward'];
+        forward = [(u, v) for (auto u, v, d] : edges if (d == "forward"];
         assert_equal(forward, [(5, 5), (5, 4), (5, 6)]);
 
     auto test_dls_labeled_disconnected_edges( ) {
         edges = list(xn::dfs_labeled_edges(this->G, source=6, depth_limit=2));
-        forward = [(u, v) for (auto u, v, d] : edges if (d == 'forward'];
+        forward = [(u, v) for (auto u, v, d] : edges if (d == "forward"];
         assert_equal(forward, [(6, 6), (6, 5), (5, 4)]);

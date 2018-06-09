@@ -1,2 +1,2 @@
 from xnetwork.algorithms.coloring.greedy_coloring import *
-__all__ = ['greedy_color'];
+static const auto __all__ = ["greedy_color"];

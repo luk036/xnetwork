@@ -11,13 +11,13 @@
 //   Nima Mohammadi <nima.irt@gmail.com>
 //   Wai-Shing Luk <luk036@gmail.com>
 /**
-Eulerian circuits and graphs.
+Eulerian circuits && graphs.
 */
 #include <xnetwork.hpp>using namespace xn;
 
 from ..utils import arbitrary_element
 
-__all__ = ['is_eulerian', 'eulerian_circuit'];
+static const auto __all__ = ["is_eulerian", "eulerian_circuit"];
 
 
 auto is_eulerian(G) {
@@ -30,7 +30,7 @@ auto is_eulerian(G) {
     Parameters
     ----------
     G : XNetwork graph
-       A graph, either directed or undirected.
+       A graph, either directed || undirected.
 
     Examples
     --------
@@ -48,13 +48,13 @@ auto is_eulerian(G) {
 
      */
     if (G.is_directed() {
-        // Every node must have equal : degree and out degree and the
+        // Every node must have equal : degree && out degree && the
         // graph must be strongly connected
-        return (all(G.in_degree(n) == G.out_degree(n) for n : G) and
+        return (all(G.in_degree(n) == G.out_degree(n) for n : G) &&
                 xn::is_strongly_connected(G));
-    // An undirected Eulerian graph has no vertices of odd degree and
+    // An undirected Eulerian graph has no vertices of odd degree &&
     // must be connected.
-    return all(d % 2 == 0 for v, d : G.degree()) and xn::is_connected(G);
+    return all(d % 2 == 0 for v, d : G.degree()) && xn::is_connected(G);
 
 
 auto _simplegraph_eulerian_circuit(G, source) {
@@ -65,7 +65,7 @@ auto _simplegraph_eulerian_circuit(G, source) {
         degree = G.degree
         edges = G.edges
     vertex_stack = [source];
-    last_vertex = None
+    last_vertex = None;
     while (vertex_stack) {
         current_vertex = vertex_stack[-1];
         if (degree(current_vertex) == 0) {
@@ -87,8 +87,8 @@ auto _multigraph_eulerian_circuit(G, source) {
         degree = G.degree
         edges = G.edges
     vertex_stack = [(source, None)];
-    last_vertex = None
-    last_key = None
+    last_vertex = None;
+    last_key = None;
     while (vertex_stack) {
         current_vertex, current_key = vertex_stack[-1];
         if (degree(current_vertex) == 0) {
@@ -111,7 +111,7 @@ auto eulerian_circuit(G, source=None, keys=false) {
     Parameters
     ----------
     G : XNetwork graph
-       A graph, either directed or undirected.
+       A graph, either directed || undirected.
 
     source : node, optional
        Starting node for circuit.
@@ -144,7 +144,7 @@ auto eulerian_circuit(G, source=None, keys=false) {
     References
     ----------
     .. [1] J. Edmonds, E. L. Johnson.
-       Matching, Euler tours and the Chinese postman.
+       Matching, Euler tours && the Chinese postman.
        Mathematical programming, Volume 5, Issue 1 (1973), 111-114.
     .. [2] https://en.wikipedia.org/wiki/Eulerian_path
 
@@ -164,13 +164,13 @@ auto eulerian_circuit(G, source=None, keys=false) {
         [0, 2, 1];
 
      */
-    if (not is_eulerian(G) {
+    if (!is_eulerian(G) {
         throw xn::XNetworkError("G is not Eulerian.");
     if (G.is_directed() {
         G = G.reverse();
     } else {
         G = G.copy();
-    if (source is None) {
+    if (source.empty()) {
         source = arbitrary_element(G);
     if (G.is_multigraph() {
         for (auto u, v, k : _multigraph_eulerian_circuit(G, source) {

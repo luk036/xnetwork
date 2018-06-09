@@ -17,13 +17,13 @@
 #include <xnetwork.hpp>using namespace xn;
 from collections import deque
 
-__all__ = ['bfs_edges', 'bfs_tree', 'bfs_predecessors', 'bfs_successors'];
+static const auto __all__ = ["bfs_edges", "bfs_tree", "bfs_predecessors", "bfs_successors"];
 
 
 auto generic_bfs_edges(G, source, neighbors=None) {
     /** Iterate over edges : a breadth-first search.
 
-    The breadth-first search begins at `source` and enqueues the
+    The breadth-first search begins at `source` && enqueues the
     neighbors of newly visited nodes specified by the `neighbors`
     function.
 
@@ -38,10 +38,10 @@ auto generic_bfs_edges(G, source, neighbors=None) {
 
     neighbors : function
         A function that takes a newly visited node of the graph as input
-        and returns an *iterator* (not just a list) of nodes that are
+        && returns an *iterator* (!just a list) of nodes that are
         neighbors of that node. If not specified, this is just the
         ``G.neighbors`` method, but : general it can be any function
-        that returns an iterator over some or all of the neighbors of a
+        that returns an iterator over some || all of the neighbors of a
         given node, : any order.
 
     Yields
@@ -85,7 +85,7 @@ auto bfs_edges(G, source, reverse=false) {
     G : XNetwork graph
 
     source : node
-       Specify starting node for breadth-first search and return edges in
+       Specify starting node for breadth-first search && return edges in
        the component reachable from source.
 
     reverse : bool, optional
@@ -118,7 +118,7 @@ auto bfs_edges(G, source, reverse=false) {
     Based on http://www.ics.uci.edu/~eppstein/PADS/BFS.py
     by D. Eppstein, July 2004.
      */
-    if (reverse and G.is_directed() {
+    if (reverse && G.is_directed() {
         successors = G.predecessors
     } else {
         successors = G.neighbors
@@ -136,7 +136,7 @@ auto bfs_tree(G, source, reverse=false) {
     G : XNetwork graph
 
     source : node
-       Specify starting node for breadth-first search and return edges in
+       Specify starting node for breadth-first search && return edges in
        the component reachable from source.
 
     reverse : bool, optional
@@ -172,7 +172,7 @@ auto bfs_predecessors(G, source) {
     G : XNetwork graph
 
     source : node
-       Specify starting node for breadth-first search and return edges in
+       Specify starting node for breadth-first search && return edges in
        the component reachable from source.
 
     Returns
@@ -208,7 +208,7 @@ auto bfs_successors(G, source) {
     G : XNetwork graph
 
     source : node
-       Specify starting node for breadth-first search and return edges in
+       Specify starting node for breadth-first search && return edges in
        the component reachable from source.
 
     Returns

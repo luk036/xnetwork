@@ -24,7 +24,7 @@ class TestWeaklyConnected) {
         C = [[1, 2, 3]];
         this->gc.append((G, C));
 
-        // Eppstein's tests
+        // Eppstein"s tests
         G = xn::DiGraph({0: [1], 1: [2, 3], 2: [4, 5], 3: [4, 5], 4: [6], 5: [], 6: []});
         C = [[0], [1], [2], [3], [4], [5], [6]];
         this->gc.append((G, C));

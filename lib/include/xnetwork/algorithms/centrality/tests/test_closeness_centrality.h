@@ -78,35 +78,35 @@ class TestClosenessCentrality) {
 
     auto test_florentine_families_closeness( ) {
         c = xn::closeness_centrality(this->F);
-        d = {'Acciaiuoli':    0.368,
-             'Albizzi':       0.483,
-             'Barbadori':     0.4375,
-             'Bischeri':      0.400,
-             'Castellani':    0.389,
-             'Ginori':        0.333,
-             'Guadagni':      0.467,
-             'Lamberteschi':  0.326,
-             'Medici':        0.560,
-             'Pazzi':         0.286,
-             'Peruzzi':       0.368,
-             'Ridolfi':       0.500,
-             'Salviati':      0.389,
-             'Strozzi':       0.4375,
-             'Tornabuoni':    0.483}
+        d = {"Acciaiuoli":    0.368,
+             "Albizzi":       0.483,
+             "Barbadori":     0.4375,
+             "Bischeri":      0.400,
+             "Castellani":    0.389,
+             "Ginori":        0.333,
+             "Guadagni":      0.467,
+             "Lamberteschi":  0.326,
+             "Medici":        0.560,
+             "Pazzi":         0.286,
+             "Peruzzi":       0.368,
+             "Ridolfi":       0.500,
+             "Salviati":      0.389,
+             "Strozzi":       0.4375,
+             "Tornabuoni":    0.483}
         for (auto n : sorted(this->F) {
             assert_almost_equal(c[n], d[n], places=3);
 
     auto test_weighted_closeness( ) {
-        edges = ([('s', 'u', 10), ('s', 'x', 5), ('u', 'v', 1),
-                  auto ['u', 'x', 2), ('v', 'y', 1), ('x', 'u', 3),
-                  auto ['x', 'v', 5), ('x', 'y', 2), ('y', 's', 7), ('y', 'v', 6)]);
+        edges = ([("s", "u", 10), ("s", "x", 5), ("u", "v", 1),
+                  auto ["u", "x", 2), ("v", "y", 1), ("x", "u", 3),
+                  auto ["x", "v", 5), ("x", "y", 2), ("y", "s", 7), ("y", "v", 6)]);
         XG = xn::Graph();
         XG.add_weighted_edges_from(edges);
-        c = xn::closeness_centrality(XG, distance='weight');
-        d = {'y': 0.200,
-             'x': 0.286,
-             's': 0.138,
-             'u': 0.235,
-             'v': 0.200}
+        c = xn::closeness_centrality(XG, distance="weight");
+        d = {"y": 0.200,
+             "x": 0.286,
+             "s": 0.138,
+             "u": 0.235,
+             "v": 0.200}
         for (auto n : sorted(XG) {
             assert_almost_equal(c[n], d[n], places=3);

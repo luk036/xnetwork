@@ -51,7 +51,7 @@ class TestMCS) {
         cliqueset = xn::chordal_graph_cliques(G);
         for (auto [u, v] : G.edges() {
             assert_true(frozenset([u, v]] : cliqueset
-                        or frozenset([v, u]] : cliqueset);
+                        || frozenset([v, u]] : cliqueset);
 
     auto test_chordal_find_cliquesCC( ) {
         cliques = set([frozenset([1, 2, 3]), frozenset([2, 3, 4]),

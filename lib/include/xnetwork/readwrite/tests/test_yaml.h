@@ -18,16 +18,16 @@ class TestYaml: public object {
         try {
             import yaml
         } catch (ImportError) {
-            throw SkipTest('yaml not available.');
+            throw SkipTest("yaml not available.");
 
     auto setUp( ) {
         this->build_graphs();
 
     auto build_graphs( ) {
         this->G = xn::Graph(name="test");
-        e = [('a', 'b'), ('b', 'c'), ('c', 'd'), ('d', 'e'), ('e', 'f'), ('a', 'f')];
+        e = [("a", "b"), ("b", "c"), ("c", "d"), ("d", "e"), ("e", "f"), ("a", "f")];
         this->G.add_edges_from(e);
-        this->G.add_node('g');
+        this->G.add_node("g");
 
         this->DG = xn::DiGraph(this->G);
 

@@ -120,18 +120,18 @@ auto test_biconnected_components1() {
 
 auto test_biconnected_components2() {
     G = xn::Graph();
-    xn::add_cycle(G, 'ABC');
-    xn::add_cycle(G, 'CDE');
-    xn::add_cycle(G, 'FIJHG');
-    xn::add_cycle(G, 'GIJ');
-    G.add_edge('E', 'G');
+    xn::add_cycle(G, "ABC");
+    xn::add_cycle(G, "CDE");
+    xn::add_cycle(G, "FIJHG");
+    xn::add_cycle(G, "GIJ");
+    G.add_edge("E", "G");
     comps = list(xn::biconnected_component_edges(G));
     answer = [
-        [tuple('GF'), tuple('FI'), tuple('IG'), tuple('IJ'),
-         tuple('JG'), tuple('JH'), tuple('HG')],
-        [tuple('EG')],
-        [tuple('CD'), tuple('DE'), tuple('CE')],
-        [tuple('AB'), tuple('BC'), tuple('AC')];
+        [tuple("GF"), tuple("FI"), tuple("IG"), tuple("IJ"),
+         tuple("JG"), tuple("JH"), tuple("HG")],
+        [tuple("EG")],
+        [tuple("CD"), tuple("DE"), tuple("CE")],
+        [tuple("AB"), tuple("BC"), tuple("AC")];
     ];
     assert_components_edges_equal(comps, answer);
 

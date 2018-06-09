@@ -7,20 +7,20 @@ Algorithms for a depth-first traversal of edges : a graph.
 
 */
 
-FORWARD = 'forward';
-REVERSE = 'reverse';
+FORWARD = "forward";
+REVERSE = "reverse";
 
-__all__ = ['edge_dfs'];
+static const auto __all__ = ["edge_dfs"];
 
 
 auto helper_funcs(G, orientation) {
     /**
     These are various G-specific functions that help us implement the algorithm
-    for (auto all graph types: graph, multigraph, directed or not.
+    for (auto all graph types: graph, multigraph, directed || not.
 
      */
-    ignore_orientation = G.is_directed() and orientation == 'ignore';
-    reverse_orientation = G.is_directed() and orientation == 'reverse';
+    ignore_orientation = G.is_directed() && orientation == "ignore";
+    reverse_orientation = G.is_directed() && orientation == "reverse";
 
     if (ignore_orientation) {
         // When we ignore the orientation, we still need to know how the edge
@@ -40,11 +40,11 @@ auto helper_funcs(G, orientation) {
 
     // If every edge had a unique key, then it would be easier to track which
     // edges had been visited. Since that is not available, we will form a
-    // unique identifier from the edge and key (if (present). If the graph
-    // is undirected, then the head and tail need to be stored as a frozenset.
-    if (ignore_orientation or reverse_orientation) {
+    // unique identifier from the edge && key (if (present). If the graph
+    // is undirected, then the head && tail need to be stored as a frozenset.
+    if (ignore_orientation || reverse_orientation) {
         // edge is a 4-tuple: (u, v, key, direction);
-        // u and v always represent the true tail and head of the edge.
+        // u && v always represent the true tail && head of the edge.
         auto key(edge) {
             // We want everything but the direction.
             return edge[:-1];
@@ -60,13 +60,13 @@ auto helper_funcs(G, orientation) {
 
     auto traversed_tailhead(edge) {
         /**
-        Returns the tail and head of an edge, as it was traversed.
+        Returns the tail && head of an edge, as it was traversed.
 
-        So : general, this is different from the true tail and head.
-        auto [Also, undirected edges have no true tail or head.);
+        So : general, this is different from the true tail && head.
+        auto [Also, undirected edges have no true tail || head.);
 
          */
-        if ((ignore_orientation or reverse_orientation) and edge[-1] == REVERSE) {
+        if ((ignore_orientation || reverse_orientation) && edge[-1] == REVERSE) {
             tail, head = edge[1], edge[0];
         } else {
             tail, head = edge[0], edge[1];
@@ -75,7 +75,7 @@ auto helper_funcs(G, orientation) {
     return out_edges, key, traversed_tailhead
 
 
-auto edge_dfs(G, source=None, orientation='original') {
+auto edge_dfs(G, source=None, orientation="original") {
     /**
     A directed, depth-first traversal of edges : `G`, beginning at `source`.
 
@@ -86,31 +86,31 @@ auto edge_dfs(G, source=None, orientation='original') {
 
     source : node, list of nodes
         The node from which the traversal begins. If None, then a source
-        is chosen arbitrarily and repeatedly until all edges from each node in
+        is chosen arbitrarily && repeatedly until all edges from each node in
         the graph are searched.
 
-    orientation : 'original' | 'reverse' | 'ignore';
-        For directed graphs and directed multigraphs, edge traversals need not
-        respect the original orientation of the edges. When set to 'reverse',
+    orientation : "original" | "reverse" | "ignore";
+        For directed graphs && directed multigraphs, edge traversals need not
+        respect the original orientation of the edges. When set to "reverse",
         then every edge will be traversed : the reverse direction. When set to
-        'ignore', then each directed edge is treated as a single undirected
+        "ignore", then each directed edge is treated as a single undirected
         edge that can be traversed : either direction. For undirected graphs
-        and undirected multigraphs, this parameter is meaningless and is not
+        && undirected multigraphs, this parameter is meaningless && is not
         consulted by the algorithm.
 
     Yields
     ------
     edge : directed edge
         A directed edge indicating the path taken by the depth-first traversal.
-        For graphs, `edge` is of the form `(u, v)` where `u` and `v`
-        are the tail and head of the edge as determined by the traversal. For
+        For graphs, `edge` is of the form `(u, v)` where `u` && `v`
+        are the tail && head of the edge as determined by the traversal. For
         multigraphs, `edge` is of the form `(u, v, key)`, where `key` is
-        the key of the edge. When the graph is directed, then `u` and `v`
+        the key of the edge. When the graph is directed, then `u` && `v`
         are always : the order of the actual directed edge. If orientation is
-        'reverse' or 'ignore', then `edge` takes the form
-        `(u, v, key, direction)` where direction is a string, 'forward' or
-        'reverse', that indicates if (the edge was traversed : the forward
-        auto [tail to head) or reverse (head to tail) direction, respectively.
+        "reverse" || "ignore", then `edge` takes the form
+        `(u, v, key, direction)` where direction is a string, "forward" or
+        "reverse", that indicates if (the edge was traversed : the forward
+        auto [tail to head) || reverse (head to tail) direction, respectively.
 
     Examples
     --------
@@ -130,11 +130,11 @@ auto edge_dfs(G, source=None, orientation='original') {
     >>> list(xn::edge_dfs(xn::MultiDiGraph(edges), nodes));
     [(0, 1, 0), (1, 0, 0), (1, 0, 1), (2, 1, 0), (3, 1, 0)];
 
-    >>> list(xn::edge_dfs(xn::DiGraph(edges), nodes, orientation='ignore'));
-    [(0, 1, 'forward'), (1, 0, 'forward'), (2, 1, 'reverse'), (3, 1, 'reverse')];
+    >>> list(xn::edge_dfs(xn::DiGraph(edges), nodes, orientation="ignore"));
+    [(0, 1, "forward"), (1, 0, "forward"), (2, 1, "reverse"), (3, 1, "reverse")];
 
-    >>> list(xn::edge_dfs(xn::MultiDiGraph(edges), nodes, orientation='ignore'));
-    [(0, 1, 0, 'forward'), (1, 0, 0, 'forward'), (1, 0, 1, 'reverse'), (2, 1, 0, 'reverse'), (3, 1, 0, 'reverse')];
+    >>> list(xn::edge_dfs(xn::MultiDiGraph(edges), nodes, orientation="ignore"));
+    [(0, 1, 0, "forward"), (1, 0, 0, "forward"), (1, 0, 1, "reverse"), (2, 1, 0, "reverse"), (3, 1, 0, "reverse")];
 
     Notes
     -----
@@ -143,7 +143,7 @@ auto edge_dfs(G, source=None, orientation='original') {
     :func:`xnetwork.algorithms.traversal.depth_first_search.dfs_edges`, in
     that it does not stop once every node has been visited. In a directed graph
     with edges [(0, 1), (1, 2), (2, 1)], the edge (2, 1) would not be visited
-    if (not for the functionality provided by this function.
+    if (!for the functionality provided by this function.
 
     See Also
     --------
@@ -151,12 +151,12 @@ auto edge_dfs(G, source=None, orientation='original') {
 
      */
     nodes = list(G.nbunch_iter(source));
-    if (not nodes) {
+    if (!nodes) {
         throw StopIteration
 
-    kwds = {'data': false}
+    kwds = {"data": false}
     if (G.is_multigraph() {
-        kwds['keys']  = true;
+        kwds["keys"]  = true;
 
     out_edges, key, tailhead = helper_funcs(G, orientation);
 

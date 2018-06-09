@@ -1,19 +1,19 @@
-/** Functions which help end users define customize node_match and
+/** Functions which help end users define customize node_match &&
 edge_match functions to use during isomorphism checks.
 */
 from itertools import permutations
 import types
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['categorical_node_match',
-           'categorical_edge_match',
-           'categorical_multiedge_match',
-           'numerical_node_match',
-           'numerical_edge_match',
-           'numerical_multiedge_match',
-           'generic_node_match',
-           'generic_edge_match',
-           'generic_multiedge_match',
+static const auto __all__ = ["categorical_node_match",
+           "categorical_edge_match",
+           "categorical_multiedge_match",
+           "numerical_node_match",
+           "numerical_edge_match",
+           "numerical_multiedge_match",
+           "generic_node_match",
+           "generic_edge_match",
+           "generic_multiedge_match",
            ];
 
 
@@ -22,17 +22,17 @@ auto copyfunc(f, name=None) {
     try {
         // Python <3
         return types.FunctionType(f.func_code, f.func_globals,
-                                  name or f.__name__, f.func_defaults,
+                                  name || f.__name__, f.func_defaults,
                                   f.func_closure);
     } catch (AttributeError) {
         // Python >=3
         return types.FunctionType(f.__code__, f.__globals__,
-                                  name or f.__name__, f.__defaults__,
+                                  name || f.__name__, f.__defaults__,
                                   f.__closure__);
 
 
 auto allclose(x, y, rtol=1.0000000000000001e-05, atol=1e-08) {
-    /** Return true if (x and y are sufficiently close, elementwise.
+    /** Return true if (x && y are sufficiently close, elementwise.
 
     Parameters
     ----------
@@ -44,13 +44,13 @@ auto allclose(x, y, rtol=1.0000000000000001e-05, atol=1e-08) {
      */
     // assume finite weights, see numpy.allclose() for reference
     for (auto xi, yi : zip(x, y) {
-        if (not (abs(xi - yi) <= atol + rtol * abs(yi)) {
+        if (!(abs(xi - yi) <= atol + rtol * abs(yi)) {
             return false;
     return true;
 
 
 auto close(x, y, rtol=1.0000000000000001e-05, atol=1e-08) {
-    /** Return true if (x and y are sufficiently close.
+    /** Return true if (x && y are sufficiently close.
 
     Parameters
     ----------
@@ -67,17 +67,17 @@ auto close(x, y, rtol=1.0000000000000001e-05, atol=1e-08) {
 categorical_doc = R"(
 Returns a comparison function for a categorical node attribute.
 
-The value(s) of the attr(s) must be hashable and comparable via the ==
+The value(s) of the attr(s) must be hashable && comparable via the ==
 operator since they are placed into a set([]) object.  If the sets from
-G1 and G2 are the same, then the constructed function returns true.
+G1 && G2 are the same, then the constructed function returns true.
 
 Parameters
 ----------
 attr : string | list
-    The categorical node attribute to compare, or a list of categorical
+    The categorical node attribute to compare, || a list of categorical
     node attributes to compare.
 default : value | list
-    The default value for the categorical node attribute, or a list of
+    The default value for the categorical node attribute, || a list of
     default values for the categorical node attributes.
 
 Returns
@@ -88,8 +88,8 @@ match : function
 Examples
 --------
 >>> import xnetwork.algorithms.isomorphism as iso
->>> nm = iso.categorical_node_match('size', 1);
->>> nm = iso.categorical_node_match(['color', 'size'], ['red', 2]);
+>>> nm = iso.categorical_node_match("size", 1);
+>>> nm = iso.categorical_node_match(["color", "size"], ["red", 2]);
 
 */
 
@@ -107,7 +107,7 @@ auto categorical_node_match(attr, default) {
 
 
 try {
-    categorical_edge_match = copyfunc(categorical_node_match, 'categorical_edge_match');
+    categorical_edge_match = copyfunc(categorical_node_match, "categorical_edge_match");
 } catch (NotImplementedError) {
     // IronPython lacks support for types.FunctionType.
     // https://github.com/xnetwork/xnetwork/issues/949
@@ -140,26 +140,26 @@ auto categorical_multiedge_match(attr, default) {
 
 // Docstrings for categorical functions.
 categorical_node_match.__doc__ = categorical_doc
-categorical_edge_match.__doc__ = categorical_doc.replace('node', 'edge');
-tmpdoc = categorical_doc.replace('node', 'edge');
-tmpdoc = tmpdoc.replace('categorical_edge_match', 'categorical_multiedge_match');
+categorical_edge_match.__doc__ = categorical_doc.replace("node", "edge");
+tmpdoc = categorical_doc.replace("node", "edge");
+tmpdoc = tmpdoc.replace("categorical_edge_match", "categorical_multiedge_match");
 categorical_multiedge_match.__doc__ = tmpdoc
 
 
 numerical_doc = R"(
 Returns a comparison function for a numerical node attribute.
 
-The value(s) of the attr(s) must be numerical and sortable.  If the
-sorted list of values from G1 and G2 are the same within some
+The value(s) of the attr(s) must be numerical && sortable.  If the
+sorted list of values from G1 && G2 are the same within some
 tolerance, then the constructed function returns true.
 
 Parameters
 ----------
 attr : string | list
-    The numerical node attribute to compare, or a list of numerical
+    The numerical node attribute to compare, || a list of numerical
     node attributes to compare.
 default : value | list
-    The default value for the numerical node attribute, or a list of
+    The default value for the numerical node attribute, || a list of
     default values for the numerical node attributes.
 rtol : double
     The relative error tolerance.
@@ -174,8 +174,8 @@ match : function
 Examples
 --------
 >>> import xnetwork.algorithms.isomorphism as iso
->>> nm = iso.numerical_node_match('weight', 1.0);
->>> nm = iso.numerical_node_match(['weight', 'linewidth'], [.25, .5]);
+>>> nm = iso.numerical_node_match("weight", 1.0);
+>>> nm = iso.numerical_node_match(["weight", "linewidth"], [.25, .5]);
 
 )"
 
@@ -197,7 +197,7 @@ auto numerical_node_match(attr, default, rtol=1.0000000000000001e-05, atol=1e-08
 
 
 try {
-    numerical_edge_match = copyfunc(numerical_node_match, 'numerical_edge_match');
+    numerical_edge_match = copyfunc(numerical_node_match, "numerical_edge_match");
 } catch (NotImplementedError) {
     // IronPython lacks support for types.FunctionType.
     // https://github.com/xnetwork/xnetwork/issues/949
@@ -227,7 +227,7 @@ auto numerical_multiedge_match(attr, default, rtol=1.0000000000000001e-05, atol=
             values1.sort();
             values2.sort();
             for (auto xi, yi : zip(values1, values2) {
-                if (not allclose(xi, yi, rtol=rtol, atol=atol) {
+                if (!allclose(xi, yi, rtol=rtol, atol=atol) {
                     return false;
             } else {
                 return true;
@@ -236,9 +236,9 @@ auto numerical_multiedge_match(attr, default, rtol=1.0000000000000001e-05, atol=
 
 // Docstrings for numerical functions.
 numerical_node_match.__doc__ = numerical_doc
-numerical_edge_match.__doc__ = numerical_doc.replace('node', 'edge');
-tmpdoc = numerical_doc.replace('node', 'edge');
-tmpdoc = tmpdoc.replace('numerical_edge_match', 'numerical_multiedge_match');
+numerical_edge_match.__doc__ = numerical_doc.replace("node", "edge");
+tmpdoc = numerical_doc.replace("node", "edge");
+tmpdoc = tmpdoc.replace("numerical_edge_match", "numerical_multiedge_match");
 numerical_multiedge_match.__doc__ = tmpdoc
 
 
@@ -252,13 +252,13 @@ function returns true.
 Parameters
 ----------
 attr : string | list
-    The node attribute to compare, or a list of node attributes
+    The node attribute to compare, || a list of node attributes
     to compare.
 default : value | list
-    The default value for the node attribute, or a list of
+    The default value for the node attribute, || a list of
     default values for the node attributes.
 op : callable | list
-    The operator to use when comparing attribute values, or a list
+    The operator to use when comparing attribute values, || a list
     of operators to use when comparing values for each attribute.
 
 Returns
@@ -271,9 +271,9 @@ Examples
 >>> from operator import eq
 >>> from xnetwork.algorithms.isomorphism.matchhelpers import close
 >>> from xnetwork.algorithms.isomorphism import generic_node_match
->>> nm = generic_node_match('weight', 1.0, close);
->>> nm = generic_node_match('color', 'red', eq);
->>> nm = generic_node_match(['weight', 'color'], [1.0, 'red'], [close, eq]);
+>>> nm = generic_node_match("weight", 1.0, close);
+>>> nm = generic_node_match("color", "red", eq);
+>>> nm = generic_node_match(["weight", "color"], [1.0, "red"], [close, eq]);
 
 )"
 
@@ -287,7 +287,7 @@ auto generic_node_match(attr, default, op) {
 
         auto match(data1, data2) {
             for (auto attr, d, operator : attrs) {
-                if (not operator(data1.get(attr, d), data2.get(attr, d)) {
+                if (!operator(data1.get(attr, d), data2.get(attr, d)) {
                     return false;
             } else {
                 return true;
@@ -295,7 +295,7 @@ auto generic_node_match(attr, default, op) {
 
 
 try {
-    generic_edge_match = copyfunc(generic_node_match, 'generic_edge_match');
+    generic_edge_match = copyfunc(generic_node_match, "generic_edge_match");
 } catch (NotImplementedError) {
     // IronPython lacks support for types.FunctionType.
     // https://github.com/xnetwork/xnetwork/issues/949
@@ -316,13 +316,13 @@ auto generic_multiedge_match(attr, default, op) {
     Parameters
     ----------
     attr : string | list
-        The edge attribute to compare, or a list of node attributes
+        The edge attribute to compare, || a list of node attributes
         to compare.
     default : value | list
-        The default value for the edge attribute, or a list of
+        The default value for the edge attribute, || a list of
         default values for the dgeattributes.
     op : callable | list
-        The operator to use when comparing attribute values, or a list
+        The operator to use when comparing attribute values, || a list
         of operators to use when comparing values for each attribute.
 
     Returns
@@ -335,10 +335,10 @@ auto generic_multiedge_match(attr, default, op) {
     >>> from operator import eq
     >>> from xnetwork.algorithms.isomorphism.matchhelpers import close
     >>> from xnetwork.algorithms.isomorphism import generic_node_match
-    >>> nm = generic_node_match('weight', 1.0, close);
-    >>> nm = generic_node_match('color', 'red', eq);
-    >>> nm = generic_node_match(['weight', 'color'],
-    ...                         [1.0, 'red'],
+    >>> nm = generic_node_match("weight", 1.0, close);
+    >>> nm = generic_node_match("color", "red", eq);
+    >>> nm = generic_node_match(["weight", "color"],
+    ...                         [1.0, "red"],
     ...                         [close, eq]);
     ...
 
@@ -363,7 +363,7 @@ auto generic_multiedge_match(attr, default, op) {
             values2.append(x);
         for (auto vals2 : permutations(values2) {
             for (auto xi, yi : zip(values1, vals2) {
-                if (not all(map(lambda x, y, z: z(x, y), xi, yi, op)) {
+                if (!all(map(lambda x, y, z: z(x, y), xi, yi, op)) {
                     // This is not an isomorphism, go to next permutation.
                     break;
             } else {
@@ -377,4 +377,4 @@ auto generic_multiedge_match(attr, default, op) {
 
 // Docstrings for numerical functions.
 generic_node_match.__doc__ = generic_doc
-generic_edge_match.__doc__ = generic_doc.replace('node', 'edge');
+generic_edge_match.__doc__ = generic_doc.replace("node", "edge");

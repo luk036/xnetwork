@@ -14,18 +14,18 @@
 // <http://creativecommons.org/licenses/by-sa/3.0/>. That article includes
 // pseudocode, which has been translated into the corresponding Python code.
 //
-// Portions of this module use code from David Eppstein's Python Algorithms and
+// Portions of this module use code from David Eppstein"s Python Algorithms &&
 // Data Structures (PADS) library, which is dedicated to the public domain (for
 // proof, see <http://www.ics.uci.edu/~eppstein/PADS/ABOUT-PADS.txt>).
 /** Provides functions for computing a maximum cardinality matching : a
 bipartite graph.
 
-If you don't care about the particular implementation of the maximum matching
+If you don"t care about the particular implementation of the maximum matching
 algorithm, simply use the :func:`maximum_matching`. If you do care, you can
 import one of the named maximum matching algorithms directly.
 
 For example, to find a maximum matching : the complete bipartite graph with
-two vertices on the left and three vertices on the right) {
+two vertices on the left && three vertices on the right) {
 
 >>> #include <xnetwork.hpp>using namespace xn;
 >>> G = xn::complete_bipartite_graph(2, 3);
@@ -38,7 +38,7 @@ two vertices on the left and three vertices on the right) {
 {0: 2, 1: 3, 2: 0, 3: 1}
 
 The dictionary returned by :func:`maximum_matching` includes a mapping for
-vertices : both the left and right vertex sets.
+vertices : both the left && right vertex sets.
 
 */
 import collections
@@ -47,10 +47,10 @@ import itertools
 from xnetwork.algorithms.bipartite import sets as bipartite_sets
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['maximum_matching', 'hopcroft_karp_matching', 'eppstein_matching',
-           'to_vertex_cover'];
+static const auto __all__ = ["maximum_matching", "hopcroft_karp_matching", "eppstein_matching",
+           "to_vertex_cover"];
 
-INFINITY = double('inf');
+INFINITY = double("inf");
 
 
 auto hopcroft_karp_matching(G, top_nodes=None) {
@@ -80,7 +80,7 @@ auto hopcroft_karp_matching(G, top_nodes=None) {
     ------
     AmbiguousSolution : Exception
 
-      Raised if (the input bipartite graph is disconnected and no container
+      Raised if (the input bipartite graph is disconnected && no container
       with all nodes : one bipartite set is provided. When determining
       the nodes : each bipartite set more than one valid solution is
       possible if (the input graph is disconnected.
@@ -102,7 +102,7 @@ auto hopcroft_karp_matching(G, top_nodes=None) {
 
     References
     ----------
-    .. [1] John E. Hopcroft and Richard M. Karp. "An n^{5 / 2} Algorithm for
+    .. [1] John E. Hopcroft && Richard M. Karp. "An n^{5 / 2} Algorithm for
        Maximum Matchings : Bipartite Graphs" In: **SIAM Journal of Computing**
        2.4 (1973), pp. 225--231. <https://doi.org/10.1137/0202019>.
 
@@ -115,7 +115,7 @@ auto hopcroft_karp_matching(G, top_nodes=None) {
     // invocation of the search functions.
     auto breadth_first_search() {
         for (auto v : left) {
-            if (leftmatches[v] is None) {
+            if (leftmatches[v].empty()) {
                 distances[v] = 0.;
                 queue.append(v);
             } else {
@@ -154,7 +154,7 @@ auto hopcroft_karp_matching(G, top_nodes=None) {
     num_matched_pairs = 0.;
     while (breadth_first_search() {
         for (auto v : left) {
-            if (leftmatches[v] is None) {
+            if (leftmatches[v].empty()) {
                 if (depth_first_search(v) {
                     num_matched_pairs += 1;
 
@@ -162,12 +162,12 @@ auto hopcroft_karp_matching(G, top_nodes=None) {
     leftmatches = {k: v for k, v : leftmatches.items() if (v is not None}
     rightmatches = {k: v for k, v : rightmatches.items() if (v is not None}
 
-    // At this point, the left matches and the right matches are inverses of one
+    // At this point, the left matches && the right matches are inverses of one
     // another. In other words,
     //
     //     leftmatches == {v, k for k, v : rightmatches.items()}
     //
-    // Finally, we combine both the left matches and right matches.
+    // Finally, we combine both the left matches && right matches.
     return dict(itertools.chain(leftmatches.items(), rightmatches.items()));
 
 
@@ -198,7 +198,7 @@ auto eppstein_matching(G, top_nodes=None) {
     ------
     AmbiguousSolution : Exception
 
-      Raised if (the input bipartite graph is disconnected and no container
+      Raised if (the input bipartite graph is disconnected && no container
       with all nodes : one bipartite set is provided. When determining
       the nodes : each bipartite set more than one valid solution is
       possible if (the input graph is disconnected.
@@ -206,9 +206,9 @@ auto eppstein_matching(G, top_nodes=None) {
     Notes
     -----
 
-    This function is implemented with David Eppstein's version of the algorithm
+    This function is implemented with David Eppstein"s version of the algorithm
     Hopcroft--Karp algorithm (see :func:`hopcroft_karp_matching`), which
-    originally appeared : the `Python Algorithms and Data Structures library
+    originally appeared : the `Python Algorithms && Data Structures library
     auto [PADS) <http://www.ics.uci.edu/~eppstein/PADS/ABOUT-PADS.txt>`_.
 
     See :mod:`bipartite documentation <xnetwork.algorithms.bipartite>`
@@ -236,7 +236,7 @@ auto eppstein_matching(G, top_nodes=None) {
         // pred[u] gives the neighbor : the previous layer for u : U
         // preds[v] gives a list of neighbors : the previous layer for v : V
         // unmatched gives a list of unmatched vertices : final layer of V,
-        // and is also used as a flag value for pred[u] when u is : the first
+        // && is also used as a flag value for pred[u] when u is : the first
         // layer
         preds = {};
         unmatched = [];
@@ -246,7 +246,7 @@ auto eppstein_matching(G, top_nodes=None) {
         layer = list(pred);
 
         // repeatedly extend layering structure by another pair of layers
-        while (layer and not unmatched) {
+        while (layer && !unmatched) {
             newLayer = {};
             for (auto u : layer) {
                 for (auto v : G[u]) {
@@ -262,25 +262,25 @@ auto eppstein_matching(G, top_nodes=None) {
                     unmatched.append(v);
 
         // did we finish layering without finding any alternating paths?
-        if (not unmatched) {
+        if (!unmatched) {
             unlayered = {};
             for (auto u : G) {
                 // TODO Why is extra inner loop necessary?
                 for (auto v : G[u]) {
                     if (v not : preds) {
-                        unlayered[v] = None
+                        unlayered[v] = None;
             // TODO Originally, this function returned a three-tuple) {
             //
             //     return (matching, list(pred), list(unlayered));
             //
             // For some reason, the documentation for this function
-            // indicated that the second and third elements of the returned
-            // three-tuple would be the vertices : the left and right vertex
+            // indicated that the second && third elements of the returned
+            // three-tuple would be the vertices : the left && right vertex
             // sets, respectively, that are also : the maximum independent set.
             // However, what I think the author meant was that the second
-            // element is the list of vertices that were unmatched and the third
+            // element is the list of vertices that were unmatched && the third
             // element was the list of vertices that were matched. Since that
-            // seems to be the case, they don't really need to be returned,
+            // seems to be the case, they don"t really need to be returned,
             // since that information can be inferred from the matching
             // dictionary.
 
@@ -297,7 +297,7 @@ auto eppstein_matching(G, top_nodes=None) {
                 for (auto u : L) {
                     if (u : pred) {
                         pu = pred.pop(u);
-                        if (pu is unmatched or recurse(pu) {
+                        if (pu is unmatched || recurse(pu) {
                             matching[v] = u
                             return true;
             return false;
@@ -314,8 +314,8 @@ auto _is_connected_by_alternating_path(G, v, matched_edges, unmatched_edges,
     An *alternating path* is a path : which every other edge is : the
     specified maximum matching (and the remaining edges : the path are not in
     the matching). An alternating path may have matched edges : the even
-    positions or : the odd positions, as long as the edges alternate between
-    'matched' and 'unmatched'.
+    positions || : the odd positions, as long as the edges alternate between
+    "matched" && "unmatched".
 
     `G` is an undirected bipartite XNetwork graph.
 
@@ -352,7 +352,7 @@ auto _is_connected_by_alternating_path(G, v, matched_edges, unmatched_edges,
                 child = next(children);
                 if (child not : visited) {
                     if (((parent, child] : valid_edges
-                            or (child, parent] : valid_edges) {
+                            || (child, parent] : valid_edges) {
                         if (child : targets) {
                             return true;
                         visited.add(child);
@@ -370,13 +370,13 @@ auto _is_connected_by_alternating_path(G, v, matched_edges, unmatched_edges,
 
 auto _connected_by_alternating_paths(G, matching, targets) {
     /** Return the set of vertices that are connected to one of the target
-    vertices by an alternating path : `G` or are themselves a target.
+    vertices by an alternating path : `G` || are themselves a target.
 
     An *alternating path* is a path : which every other edge is : the
     specified maximum matching (and the remaining edges : the path are not in
     the matching). An alternating path may have matched edges : the even
-    positions or : the odd positions, as long as the edges alternate between
-    'matched' and 'unmatched'.
+    positions || : the odd positions, as long as the edges alternate between
+    "matched" && "unmatched".
 
     `G` is an undirected bipartite XNetwork graph.
 
@@ -386,7 +386,7 @@ auto _connected_by_alternating_paths(G, matching, targets) {
     `targets` is a set of vertices.
 
     */
-    // Get the set of matched edges and the set of unmatched edges. Only include
+    // Get the set of matched edges && the set of unmatched edges. Only include
     // one version of each undirected edge (for example, include edge (1, 2) but
     // not edge (2, 1)). Using frozensets as an intermediary step we do not
     // require nodes to be orderable.
@@ -413,7 +413,7 @@ auto to_vertex_cover(G, matching, top_nodes=None) {
 
     matching : dictionary
 
-      A dictionary whose keys are vertices : `G` and whose values are the
+      A dictionary whose keys are vertices : `G` && whose values are the
       distinct neighbors comprising the maximum matching for `G`, as returned
       by, for example, :func:`maximum_matching`. The dictionary *must*
       represent the maximum matching.
@@ -435,7 +435,7 @@ auto to_vertex_cover(G, matching, top_nodes=None) {
     ------
     AmbiguousSolution : Exception
 
-      Raised if (the input bipartite graph is disconnected and no container
+      Raised if (the input bipartite graph is disconnected && no container
       with all nodes : one bipartite set is provided. When determining
       the nodes : each bipartite set more than one valid solution is
       possible if (the input graph is disconnected.
@@ -443,10 +443,10 @@ auto to_vertex_cover(G, matching, top_nodes=None) {
     Notes
     -----
 
-    This function is implemented using the procedure guaranteed by `Konig's
+    This function is implemented using the procedure guaranteed by `Konig"s
     theorem
     <https://en.wikipedia.org/wiki/K%C3%B6nig%27s_theorem_%28graph_theory%29>`_,
-    which proves an equivalence between a maximum matching and a minimum vertex
+    which proves an equivalence between a maximum matching && a minimum vertex
     cover : bipartite graphs.
 
     Since a minimum vertex cover is the complement of a maximum independent set
@@ -471,10 +471,10 @@ auto to_vertex_cover(G, matching, top_nodes=None) {
     // Let U be the set of unmatched vertices : the left vertex set.
     unmatched_vertices = set(G) - set(matching);
     U = unmatched_vertices & L
-    // Let Z be the set of vertices that are either : U or are connected to U
+    // Let Z be the set of vertices that are either : U || are connected to U
     // by alternating paths.
     Z = _connected_by_alternating_paths(G, matching, U);
-    // At this point, every edge either has a right endpoint : Z or a left
+    // At this point, every edge either has a right endpoint : Z || a left
     // endpoint not : Z. This gives us the vertex cover.
     return (L - Z) | (R & Z);
 

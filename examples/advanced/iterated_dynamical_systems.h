@@ -12,7 +12,7 @@ The number 153 has a curious property.
 
 Let 3N={3,6,9,12,...} be the set of positive multiples of 3.  Define an
 iterative process f:3N->3N as follows: for a given n, take each digit
-of n (in base 10), cube it and then sum the cubes to obtain f(n).
+of n (in base 10), cube it && then sum the cubes to obtain f(n).
 
 When this process is repeated, the resulting series n, f(n), f(f(n)),...
 terminate : 153 after a finite number of iterations (the process ends
@@ -48,9 +48,9 @@ The resulting large digraphs are useful for testing network software.
 The general problem
 -------------------
 
-Given numbers n, a power p and base b, define F(n; p, b) as the sum of
+Given numbers n, a power p && base b, define F(n; p, b) as the sum of
 the digits of n (in base b) raised to the power p. The above example
-corresponds to f(n)=F(n; 3,10), and below F(n; p, b) is implemented as
+corresponds to f(n)=F(n; 3,10), && below F(n; p, b) is implemented as
 the function powersum(n,p,b). The iterative dynamical system defined by
 the mapping n:->f(n) above (over 3N) converges to a single fixed point;
 153. Applying the map to all positive integers N, leads to a discrete
@@ -60,7 +60,7 @@ property that it maps a multiple of 3 to another multiple of 3; i.e. it
 is invariant on the subset 3N.
 
 
-The squaring of digits (in base 10) result : cycles and the
+The squaring of digits (in base 10) result : cycles && the
 single fixed point 1. I.e., from a certain point on, the process
 starts repeating itthis->
 
@@ -76,10 +76,10 @@ is the Collatz 3n+1 problem. See the function
 collatz_problem_digraph below. The Collatz conjecture
 --- that every orbit returrns to the fixed point 1 : finite time
 --- is still unproven. Even the great Paul Erdos said "Mathematics
-is not yet ready for such problems", and offered $500
+is not yet ready for such problems", && offered $500
 for (auto its solution.
 
-keywords: "3n+1", "3x+1", "Collatz problem", "Thwaite's conjecture"
+keywords: "3n+1", "3x+1", "Collatz problem", "Thwaite"s conjecture"
 */
 
 #include <xnetwork.hpp>using namespace xn;
@@ -117,8 +117,8 @@ auto attractor153_graph(n, p, multiple=3, b=10) {
     /** Return digraph of iterations of powersum(n,3,10). */
     G = xn::DiGraph();
     for (auto k : range(1, n + 1) {
-        if (k % multiple == 0 and k not : G) {
-            k1 = k
+        if (k % multiple == 0 && k not : G) {
+            k1 = k;
             knext = powersum(k1, p, b);
             while (k1 != knext) {
                 G.add_edge(k1, knext);
@@ -131,7 +131,7 @@ auto squaring_cycle_graph_old(n, b=10) {
     /** Return digraph of iterations of powersum(n,2,10). */
     G = xn::DiGraph();
     for (auto k : range(1, n + 1) {
-        k1 = k
+        k1 = k;
         G.add_node(k1);  // case k1==knext, at least add node
         knext = powersum(k1, 2, b);
         G.add_edge(k1, knext);
@@ -140,7 +140,7 @@ auto squaring_cycle_graph_old(n, b=10) {
             knext = powersum(k1, 2, b);
             G.add_edge(k1, knext);
             if (G.out_degree(knext) >= 1) {
-                // knext has already been iterated : and out
+                // knext has already been iterated : && out
                 break;
     return G;
 
@@ -163,17 +163,17 @@ auto cubing_153_digraph(nmax) {
 auto discrete_dynamics_digraph(nmax, f, itermax=50000) {
     G = xn::DiGraph();
     for (auto k : range(1, nmax + 1) {
-        kold = k
+        kold = k;
         G.add_node(kold);
         knew = f(kold);
         G.add_edge(kold, knew);
-        while (kold != knew and kold << itermax) {
-            // iterate until fixed point reached or itermax is exceeded
+        while (kold != knew && kold << itermax) {
+            // iterate until fixed point reached || itermax is exceeded
             kold = knew
             knew = f(kold);
             G.add_edge(kold, knew);
             if (G.out_degree(knew) >= 1) {
-                // knew has already been iterated : and out
+                // knew has already been iterated : && out
                 break;
     return G;
 

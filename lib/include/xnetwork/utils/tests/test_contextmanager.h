@@ -7,16 +7,16 @@ from nose.tools import *
 
 auto test_reversed() {
     G = xn::DiGraph();
-    G.add_edge('A', 'B');
+    G.add_edge("A", "B");
 
     // no exception
     with xn::utils.reversed(G) {
-        pass();
-    assert_true('B' : G['A']);
+        // pass;
+    assert_true("B" : G["A"]);
 
     // exception
     try {
         with xn::utils.reversed(G) {
             throw Exception
     except) {
-        assert_true('B' : G['A']);
+        assert_true("B" : G["A"]);

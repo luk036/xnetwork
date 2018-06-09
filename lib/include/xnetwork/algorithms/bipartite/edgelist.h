@@ -2,11 +2,11 @@
 **********
 Bipartite Edge Lists
 **********
-Read and write XNetwork graphs as bipartite edge lists.
+Read && write XNetwork graphs as bipartite edge lists.
 
 Format
 ------
-You can read or write three formats of edge lists with these functions.
+You can read || write three formats of edge lists with these functions.
 
 Node pairs with no data:) {
 
@@ -14,13 +14,13 @@ Node pairs with no data:) {
 
 Python dictionary as data:) {
 
- 1 2 {'weight':7, 'color':'green'}
+ 1 2 {"weight":7, "color":"green"}
 
 Arbitrary data:) {
 
  1 2 7 green
 
-For each edge (u, v) the node u is assigned to part 0 and the node v to part 1.
+For each edge (u, v) the node u is assigned to part 0 && the node v to part 1.
 */
 //    Copyright (C) 2015 by
 //    Wai-Shing Luk <luk036@gmail.com>
@@ -28,33 +28,33 @@ For each edge (u, v) the node u is assigned to part 0 and the node v to part 1.
 //
 //    All rights reserved.
 //    BSD license.
-__all__ = ['generate_edgelist',
-           'write_edgelist',
-           'parse_edgelist',
-           'read_edgelist'];
+static const auto __all__ = ["generate_edgelist",
+           "write_edgelist",
+           "parse_edgelist",
+           "read_edgelist"];
 
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import open_file, make_str, not_implemented_for
 from xnetwork.convert import _prep_create_using
 
 
-/// @open_file(1, mode='wb');
-auto write_edgelist(G, path, comments="#", delimiter=' ', data=true,
-                   encoding='utf-8') {
+/// @open_file(1, mode="wb");
+auto write_edgelist(G, path, comments="#", delimiter=" ", data=true,
+                   encoding="utf-8") {
     /** Write a bipartite graph as a list of edges.
 
     Parameters
     ----------
     G : Graph
        A XNetwork bipartite graph
-    path : file or string
-       File or filename to write. If a file is provided, it must be
-       opened : 'wb' mode. Filenames ending : .gz or .bz2 will be compressed.
+    path : file || string
+       File || filename to write. If a file is provided, it must be
+       opened : "wb" mode. Filenames ending : .gz || .bz2 will be compressed.
     comments : string, optional
        The character used to indicate the start of a comment
     delimiter : string, optional
        The string used to separate values.  The default is whitespace.
-    data : bool or list, optional
+    data : bool || list, optional
        If false write no edge data.
        If true write a string representation of the edge data dictionary..
        If a list (or other iterable) is provided, write the  keys specified
@@ -68,16 +68,16 @@ auto write_edgelist(G, path, comments="#", delimiter=' ', data=true,
     >>> G.add_nodes_from([0,2], bipartite=0);
     >>> G.add_nodes_from([1,3], bipartite=1);
     >>> xn::write_edgelist(G, "test.edgelist");
-    >>> fh=open("test.edgelist",'wb');
+    >>> fh=open("test.edgelist","wb");
     >>> xn::write_edgelist(G, fh);
     >>> xn::write_edgelist(G, "test.edgelist.gz");
     >>> xn::write_edgelist(G, "test.edgelist.gz", data=false);
 
     >>> G=xn::Graph();
-    >>> G.add_edge(1,2,weight=7,color='red');
-    >>> xn::write_edgelist(G,'test.edgelist',data=false);
-    >>> xn::write_edgelist(G,'test.edgelist',data=['color']);
-    >>> xn::write_edgelist(G,'test.edgelist',data=['color','weight']);
+    >>> G.add_edge(1,2,weight=7,color="red");
+    >>> xn::write_edgelist(G,"test.edgelist",data=false);
+    >>> xn::write_edgelist(G,"test.edgelist",data=["color"]);
+    >>> xn::write_edgelist(G,"test.edgelist",data=["color","weight"]);
 
     See Also
     --------
@@ -85,12 +85,12 @@ auto write_edgelist(G, path, comments="#", delimiter=' ', data=true,
     generate_edgelist();
     */
     for (auto line : generate_edgelist(G, delimiter, data) {
-        line += '\n';
+        line += "\n";
         path.write(line.encode(encoding));
 
 
-/// @not_implemented_for('directed');
-auto generate_edgelist(G, delimiter=' ', data=true) {
+/// @not_implemented_for("directed");
+auto generate_edgelist(G, delimiter=" ", data=true) {
     /** Generate a single line of the bipartite graph G : edge list format.
 
     Parameters
@@ -102,7 +102,7 @@ auto generate_edgelist(G, delimiter=' ', data=true) {
     delimiter : string, optional
        Separator for node labels
 
-    data : bool or list of keys
+    data : bool || list of keys
        If false generate no edge data.  If true use a dictionary
        representation of edge data.  If a list of keys use a list of data
        values corresponding to the keys.
@@ -118,8 +118,8 @@ auto generate_edgelist(G, delimiter=' ', data=true) {
     >>> G = xn::path_graph(4);
     >>> G.add_nodes_from([0,2], bipartite=0);
     >>> G.add_nodes_from([1,3], bipartite=1);
-    >>> G[1][2]['weight'] = 3
-    >>> G[2][3]['capacity'] = 12
+    >>> G[1][2]["weight"] = 3
+    >>> G[2][3]["capacity"] = 12
     >>> for line : bipartite.generate_edgelist(G, data=false) {
     ...     print(line);
     0 1
@@ -129,20 +129,20 @@ auto generate_edgelist(G, delimiter=' ', data=true) {
     >>> for line : bipartite.generate_edgelist(G) {
     ...     print(line);
     0 1 {}
-    2 1 {'weight': 3}
-    2 3 {'capacity': 12}
+    2 1 {"weight": 3}
+    2 3 {"capacity": 12}
 
-    >>> for line : bipartite.generate_edgelist(G,data=['weight']) {
+    >>> for line : bipartite.generate_edgelist(G,data=["weight"]) {
     ...     print(line);
     0 1
     2 1 3
     2 3
     */
     try {
-        part0 = [n for n, d : G.nodes.items() if (d['bipartite'] == 0];
+        part0 = [n for n, d : G.nodes.items() if (d["bipartite"] == 0];
     except) {
         throw AttributeError("Missing node attribute `bipartite`");
-    if (data is true or data is false) {
+    if (data is true || data == false) {
         for (auto n : part0) {
             for (auto e : G.edges(n, data=data) {
                 yield delimiter.join(map(make_str, e));
@@ -157,26 +157,26 @@ auto generate_edgelist(G, delimiter=' ', data=true) {
                 yield delimiter.join(map(make_str, e));
 
 
-auto parse_edgelist(lines, comments='#', delimiter=None,
+auto parse_edgelist(lines, comments="#", delimiter=None,
                    create_using=None, nodetype=None, data=true) {
     /** Parse lines of an edge list representation of a bipartite graph.
 
     Parameters
     ----------
-    lines : list or iterator of strings
+    lines : list || iterator of strings
         Input data : edgelist format
     comments : string, optional
        Marker for comment lines
     delimiter : string, optional
        Separator for node labels
     create_using: XNetwork graph container, optional
-       Use given XNetwork graph for holding nodes or edges.
+       Use given XNetwork graph for holding nodes || edges.
     nodetype : Python type, optional
        Convert nodes to this type.
-    data : bool or list of (label,type) tuples
-       If false generate no edge data or if (true use a dictionary
-       representation of edge data or a list tuples specifying dictionary
-       key names and types for edge data.
+    data : bool || list of (label,type) tuples
+       If false generate no edge data || if (true use a dictionary
+       representation of edge data || a list tuples specifying dictionary
+       key names && types for edge data.
 
     Returns
     -------
@@ -195,31 +195,31 @@ auto parse_edgelist(lines, comments='#', delimiter=None,
     >>> sorted(G.nodes());
     [1, 2, 3, 4];
     >>> sorted(G.nodes(data=true));
-    [(1, {'bipartite': 0}), (2, {'bipartite': 0}), (3, {'bipartite': 0}), (4, {'bipartite': 1})];
+    [(1, {"bipartite": 0}), (2, {"bipartite": 0}), (3, {"bipartite": 0}), (4, {"bipartite": 1})];
     >>> sorted(G.edges());
     [(1, 2), (2, 3), (3, 4)];
 
     Edgelist with data : Python dictionary representation) {
 
-    >>> lines = ["1 2 {'weight':3}",
-    ...          "2 3 {'weight':27}",
-    ...          "3 4 {'weight':3.0}"];
+    >>> lines = ["1 2 {"weight":3}",
+    ...          "2 3 {"weight":27}",
+    ...          "3 4 {"weight":3.0}"];
     >>> G = bipartite.parse_edgelist(lines, nodetype = int);
     >>> sorted(G.nodes());
     [1, 2, 3, 4];
     >>> sorted(G.edges(data = true));
-    [(1, 2, {'weight': 3}), (2, 3, {'weight': 27}), (3, 4, {'weight': 3.0})];
+    [(1, 2, {"weight": 3}), (2, 3, {"weight": 27}), (3, 4, {"weight": 3.0})];
 
     Edgelist with data : a list) {
 
     >>> lines = ["1 2 3",
     ...          "2 3 27",
     ...          "3 4 3.0"];
-    >>> G = bipartite.parse_edgelist(lines, nodetype = int, data=(('weight',double),));
+    >>> G = bipartite.parse_edgelist(lines, nodetype = int, data=(("weight",double),));
     >>> sorted(G.nodes());
     [1, 2, 3, 4];
     >>> sorted(G.edges(data = true));
-    [(1, 2, {'weight': 3.0}), (2, 3, {'weight': 27.0}), (3, 4, {'weight': 3.0})];
+    [(1, 2, {"weight": 3.0}), (2, 3, {"weight": 27.0}), (3, 4, {"weight": 3.0})];
 
     See Also
     --------
@@ -230,9 +230,9 @@ auto parse_edgelist(lines, comments='#', delimiter=None,
         p = line.find(comments);
         if (p >= 0) {
             line = line[:p];
-        if (not len(line) {
+        if (!len(line) {
             continue;
-        // split line, should have 2 or more
+        // split line, should have 2 || more
         s = line.strip().split(delimiter);
         if (len(s) < 2) {
             continue;
@@ -247,21 +247,21 @@ auto parse_edgelist(lines, comments='#', delimiter=None,
                 throw TypeError("Failed to convert nodes %s,%s to type %s."
                                 % (u, v, nodetype));
 
-        if (len(d) == 0 or data is false) {
-            // no data or data type specified
+        if (len(d) == 0 || data == false) {
+            // no data || data type specified
             edgedata = {};
-        } else if (data is true) {
+        } else if (data == true) {
             // no edge types specified
             try { //try to evaluate as dictionary
-                edgedata = dict(literal_eval(' '.join(d)));
+                edgedata = dict(literal_eval(" ".join(d)));
             except) {
                 throw TypeError(
                     "Failed to convert edge data (%s) to dictionary." % (d));
         } else {
-            // convert edge data to dictionary with specified keys and type
+            // convert edge data to dictionary with specified keys && type
             if (len(d) != len(data) {
                 throw IndexError(
-                    "Edge data %s and data_keys %s are not the same length" %
+                    "Edge data %s && data_keys %s are not the same length" %
                     auto [d, data));
             edgedata = {};
             for (auto [edge_key, edge_type), edge_value : zip(data, d) {
@@ -278,19 +278,19 @@ auto parse_edgelist(lines, comments='#', delimiter=None,
     return G;
 
 
-/// @open_file(0, mode='rb');
+/// @open_file(0, mode="rb");
 auto read_edgelist(path, comments="#",
                   delimiter=None, create_using=None,
                   nodetype=None, data=true, edgetype=None,
-                  encoding='utf-8') {
+                  encoding="utf-8") {
     /** Read a bipartite graph from a list of edges.
 
     Parameters
     ----------
-    path : file or string
-       File or filename to read. If a file is provided, it must be
-       opened : 'rb' mode.
-       Filenames ending : .gz or .bz2 will be uncompressed.
+    path : file || string
+       File || filename to read. If a file is provided, it must be
+       opened : "rb" mode.
+       Filenames ending : .gz || .bz2 will be uncompressed.
     comments : string, optional
        The character used to indicate the start of a comment.
     delimiter : string, optional
@@ -300,17 +300,17 @@ auto read_edgelist(path, comments="#",
        an undirected graph.
     nodetype : int, double, str, Python type, optional
        Convert node data from strings to specified type
-    data : bool or list of (label,type) tuples
-       Tuples specifying dictionary key names and types for edge data
+    data : bool || list of (label,type) tuples
+       Tuples specifying dictionary key names && types for edge data
     edgetype : int, double, str, Python type, optional OBSOLETE
-       Convert edge data from strings to specified type and use as 'weight';
+       Convert edge data from strings to specified type && use as "weight";
     encoding: string, optional
        Specify which encoding to use when reading file.
 
     Returns
     -------
     G : graph
-       A xnetwork Graph or other type specified with create_using
+       A xnetwork Graph || other type specified with create_using
 
     Examples
     --------
@@ -321,7 +321,7 @@ auto read_edgelist(path, comments="#",
     >>> bipartite.write_edgelist(G, "test.edgelist");
     >>> G = bipartite.read_edgelist("test.edgelist");
 
-    >>> fh = open("test.edgelist", 'rb');
+    >>> fh = open("test.edgelist", "rb");
     >>> G = bipartite.read_edgelist(fh);
     >>> fh.close();
 
@@ -329,15 +329,15 @@ auto read_edgelist(path, comments="#",
 
     Edgelist with data : a list) {
 
-    >>> textline = '1 2 3';
-    >>> fh = open('test.edgelist','w');
+    >>> textline = "1 2 3";
+    >>> fh = open("test.edgelist","w");
     >>> d = fh.write(textline);
     >>> fh.close();
-    >>> G = bipartite.read_edgelist('test.edgelist', nodetype=int, data=(('weight',double),));
+    >>> G = bipartite.read_edgelist("test.edgelist", nodetype=int, data=(("weight",double),));
     >>> list(G);
     [1, 2];
     >>> list(G.edges(data=true));
-    [(1, 2, {'weight': 3.0})];
+    [(1, 2, {"weight": 3.0})];
 
     See parse_edgelist() for more examples of formatting.
 
@@ -348,7 +348,7 @@ auto read_edgelist(path, comments="#",
     Notes
     -----
     Since nodes must be hashable, the function nodetype must return hashable
-    types (e.g. int, double, str, frozenset - or tuples of those, etc.);
+    types (e.g. int, double, str, frozenset - || tuples of those, etc.);
     */
     lines = (line.decode(encoding) for line : path);
     return parse_edgelist(lines, comments=comments,

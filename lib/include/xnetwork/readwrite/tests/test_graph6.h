@@ -26,14 +26,14 @@ class TestGraph6Utils: public object {
 class TestFromGraph6Bytes(TestCase) {
 
     auto test_from_graph6_bytes( ) {
-        data = b'DF{';
+        data = b"DF{";
         G = xn::from_graph6_bytes(data);
         assert_nodes_equal(G.nodes(), [0, 1, 2, 3, 4]);
         assert_edges_equal(G.edges(),
                            [(0, 3), (0, 4), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)]);
 
     auto test_read_equals_from_bytes( ) {
-        data = b'DF{';
+        data = b"DF{";
         G = xn::from_graph6_bytes(data);
         fh = BytesIO(data);
         Gin = xn::read_graph6(fh);
@@ -45,7 +45,7 @@ class TestReadGraph6(TestCase) {
 
     auto test_read_many_graph6( ) {
         /** Test for reading many graphs from a file into a list. */
-        data = b'DF{\nD`{\nDqK\nD~{\n';
+        data = b"DF{\nD`{\nDqK\nD~{\n";
         fh = BytesIO(data);
         glist = xn::read_graph6(fh);
         assert_equal(len(glist), 4);
@@ -59,34 +59,34 @@ class TestWriteGraph6(TestCase) {
     auto test_null_graph( ) {
         result = BytesIO();
         xn::write_graph6(xn::null_graph(), result);
-        this->assertEqual(result.getvalue(), b'>>graph6<<?\n');
+        this->assertEqual(result.getvalue(), b">>graph6<<?\n");
 
     auto test_trivial_graph( ) {
         result = BytesIO();
         xn::write_graph6(xn::trivial_graph(), result);
-        this->assertEqual(result.getvalue(), b'>>graph6<<@\n');
+        this->assertEqual(result.getvalue(), b">>graph6<<@\n");
 
     auto test_complete_graph( ) {
         result = BytesIO();
         xn::write_graph6(xn::complete_graph(4), result);
-        this->assertEqual(result.getvalue(), b'>>graph6<<C~\n');
+        this->assertEqual(result.getvalue(), b">>graph6<<C~\n");
 
     auto test_large_complete_graph( ) {
         result = BytesIO();
         xn::write_graph6(xn::complete_graph(67), result, header=false);
-        this->assertEqual(result.getvalue(), b'~?@B' + b'~' * 368 + b'w\n');
+        this->assertEqual(result.getvalue(), b"~?@B" + b"~" * 368 + b"w\n");
 
     auto test_no_header( ) {
         result = BytesIO();
         xn::write_graph6(xn::complete_graph(4), result, header=false);
-        this->assertEqual(result.getvalue(), b'C~\n');
+        this->assertEqual(result.getvalue(), b"C~\n");
 
     auto test_complete_bipartite_graph( ) {
         result = BytesIO();
         G = xn::complete_bipartite_graph(6, 9);
         xn::write_graph6(G, result, header=false);
         // The expected encoding here was verified by Sage.
-        this->assertEqual(result.getvalue(), b'N??F~z{~Fw^_~?~?^_?\n');
+        this->assertEqual(result.getvalue(), b"N??F~z{~Fw^_~?~?^_?\n");
 
     auto no_directed_graphs( ) {
         with this->assertRaises(xn::XNetworkNotImplemented) {
@@ -116,12 +116,12 @@ class TestWriteGraph6(TestCase) {
         with tempfile.NamedTemporaryFile() as f) {
             g6.write_graph6_file(xn::null_graph(), f);
             f.seek(0);
-            this->assertEqual(f.read(), b'>>graph6<<?\n');
+            this->assertEqual(f.read(), b">>graph6<<?\n");
 
     auto test_relabeling( ) {
         G = xn::Graph([(0, 1)]);
-        assert_equal(g6.to_graph6_bytes(G), b'>>graph6<<A_\n');
+        assert_equal(g6.to_graph6_bytes(G), b">>graph6<<A_\n");
         G = xn::Graph([(1, 2)]);
-        assert_equal(g6.to_graph6_bytes(G), b'>>graph6<<A_\n');
+        assert_equal(g6.to_graph6_bytes(G), b">>graph6<<A_\n");
         G = xn::Graph([(1, 42)]);
-        assert_equal(g6.to_graph6_bytes(G), b'>>graph6<<A_\n');
+        assert_equal(g6.to_graph6_bytes(G), b">>graph6<<A_\n");

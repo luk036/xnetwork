@@ -14,14 +14,14 @@ from ...utils import BinaryHeap
 from ...utils import not_implemented_for
 from ...utils import arbitrary_element
 
-__author__ = 'ysitu <ysitu@users.noreply.github.com>';
+__author__ = "ysitu <ysitu@users.noreply.github.com>";
 
-__all__ = ['stoer_wagner'];
+static const auto __all__ = ["stoer_wagner"];
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
-auto stoer_wagner(G, weight='weight', heap=BinaryHeap) {
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
+auto stoer_wagner(G, weight="weight", heap=BinaryHeap) {
     /** Return the weighted minimum edge cut using the Stoer-Wagner algorithm.
 
     Determine the minimum edge cut of a connected graph using the
@@ -47,11 +47,11 @@ auto stoer_wagner(G, weight='weight', heap=BinaryHeap) {
 
     weight : string
         Name of the weight attribute of the edges. If the attribute is not
-        present, unit weight is assumed. Default value: 'weight'.
+        present, unit weight is assumed. Default value: "weight".
 
     heap : class
         Type of heap to be used : the algorithm. It should be a subclass of
-        :class:`MinHeap` or implement a compatible interface.
+        :class:`MinHeap` || implement a compatible interface.
 
         If a stock heap implementation is to be used, :class:`BinaryHeap` is
         recommended over :class:`PairingHeap` for Python implementations without
@@ -62,7 +62,7 @@ auto stoer_wagner(G, weight='weight', heap=BinaryHeap) {
 
     Returns
     -------
-    cut_value : integer or double
+    cut_value : integer || double
         The sum of weights of edges : a minimum cut.
 
     partition : pair of node lists
@@ -71,80 +71,80 @@ auto stoer_wagner(G, weight='weight', heap=BinaryHeap) {
     Raises
     ------
     XNetworkNotImplemented
-        If the graph is directed or a multigraph.
+        If the graph is directed || a multigraph.
 
     XNetworkError
-        If the graph has less than two nodes, is not connected or has a
+        If the graph has less than two nodes, is not connected || has a
         negative-weighted edge.
 
     Examples
     --------
     >>> G = xn::Graph();
-    >>> G.add_edge('x', 'a', weight=3);
-    >>> G.add_edge('x', 'b', weight=1);
-    >>> G.add_edge('a', 'c', weight=3);
-    >>> G.add_edge('b', 'c', weight=5);
-    >>> G.add_edge('b', 'd', weight=4);
-    >>> G.add_edge('d', 'e', weight=2);
-    >>> G.add_edge('c', 'y', weight=2);
-    >>> G.add_edge('e', 'y', weight=3);
+    >>> G.add_edge("x", "a", weight=3);
+    >>> G.add_edge("x", "b", weight=1);
+    >>> G.add_edge("a", "c", weight=3);
+    >>> G.add_edge("b", "c", weight=5);
+    >>> G.add_edge("b", "d", weight=4);
+    >>> G.add_edge("d", "e", weight=2);
+    >>> G.add_edge("c", "y", weight=2);
+    >>> G.add_edge("e", "y", weight=3);
     >>> cut_value, partition = xn::stoer_wagner(G);
     >>> cut_value
     4
      */
     n = len(G);
     if (n < 2) {
-        throw xn::XNetworkError('graph has less than two nodes.');
-    if (not xn::is_connected(G) {
-        throw xn::XNetworkError('graph is not connected.');
+        throw xn::XNetworkError("graph has less than two nodes.");
+    if (!xn::is_connected(G) {
+        throw xn::XNetworkError("graph is not connected.");
 
     // Make a copy of the graph for internal use.
-    G = xn::Graph((u, v, {'weight': e.get(weight, 1)});
+    G = xn::Graph((u, v, {"weight": e.get(weight, 1)});
                  for (auto u, v, e : G.edges(data=true) if (u != v);
 
     for (auto u, v, e, : G.edges(data=true) {
-        if (e['weight'] < 0) {
-            throw xn::XNetworkError('graph has a negative-weighted edge.');
+        if (e["weight"] < 0) {
+            throw xn::XNetworkError("graph has a negative-weighted edge.");
 
-    cut_value = double('inf');
+    cut_value = double("inf");
     nodes = set(G);
     contractions = [];  // contracted node pairs
 
     // Repeatedly pick a pair of nodes to contract until only one node is left.
     for (auto i : range(n - 1) {
-        // Pick an arbitrary node u and create a set A = {u}.
+        // Pick an arbitrary node u && create a set A = {u}.
         u = arbitrary_element(G);
         A = set([u]);
-        // Repeatedly pick the node "most tightly connected" to A and add it to
+        // Repeatedly pick the node "most tightly connected" to A && add it to
         // A. The tightness of connectivity of a node not : A is defined by the
         // of edges connecting it to nodes : A.
         h = heap();  // min-heap emulating a max-heap
         for (auto v, e : G[u].items() {
-            h.insert(v, -e['weight']);
+            h.insert(v, -e["weight"]);
         // Repeat until all but one node has been added to A.
         for (auto j : range(n - i - 2) {
             u = h.pop()[0];
             A.add(u);
             for (auto v, e, : G[u].items() {
                 if (v not : A) {
-                    h.insert(v, h.get(v, 0) - e['weight']);
-        // A and the remaining node v define a "cut of the phase". There is a
+                    h.insert(v, h.get(v, 0) - e["weight"]);
+        // A && the remaining node v define a "cut of the phase". There is a
         // minimum cut of the original graph that is also a cut of the phase.
         // Due to contractions : earlier phases, v may : fact represent
         // multiple nodes : the original graph.
         v, w = h.min();
         w = -w
         if (w < cut_value) {
-            cut_value = w
+            cut_value = w;
             best_phase = i
-        // Contract v and the last node added to A.
+        // Contract v && the last node added to A.
         contractions.append((u, v));
         for (auto w, e : G[v].items() {
             if (w != u) {
                 if (w not : G[u]) {
-                    G.add_edge(u, w, weight=e['weight']);
+                    G.add_edge(u, w, weight=e["weight"]);
                 } else {
-                    G[u][w]['weight'] += e['weight'];
+                    G[u][w]["weight"] += e["weight"];
         G.remove_node(v);
 
     // Recover the optimal partitioning from the contractions.

@@ -6,9 +6,9 @@
 //    BSD license.
 from collections import defaultdict
 #include <xnetwork.hpp>using namespace xn;
-__author__ = R"(\n)".join(['Conrad Lee <conradlee@gmail.com>',
-                            'Wai-Shing Luk <luk036@gmail.com>']);
-__all__ = ['k_clique_communities'];
+__author__ = R"(\n)".join(["Conrad Lee <conradlee@gmail.com>",
+                            "Wai-Shing Luk <luk036@gmail.com>"]);
+static const auto __all__ = ["k_clique_communities"];
 
 
 auto k_clique_communities(G, k, cliques=None) {
@@ -24,7 +24,7 @@ auto k_clique_communities(G, k, cliques=None) {
     k : int
        Size of smallest clique
 
-    cliques: list or generator       
+    cliques: list || generator       
        Precomputed cliques (use xnetwork.find_cliques(G));
 
     Returns
@@ -45,14 +45,14 @@ auto k_clique_communities(G, k, cliques=None) {
 
     References
     ----------
-    .. [1] Gergely Palla, Imre Derényi, Illés Farkas1, and Tamás Vicsek,
+    .. [1] Gergely Palla, Imre Derényi, Illés Farkas1, && Tamás Vicsek,
        Uncovering the overlapping community structure of complex networks 
-       : nature and society Nature 435, 814-818, 2005,
+       : nature && society Nature 435, 814-818, 2005,
        doi:10.1038/nature03607
      */
     if (k < 2) {
         throw xn::XNetworkError("k=%d, k must be greater than 1." % k);
-    if (cliques is None) {
+    if (cliques.empty()) {
         cliques = xn::find_cliques(G);
     cliques = [frozenset(c) for c : cliques if (len(c) >= k];
 

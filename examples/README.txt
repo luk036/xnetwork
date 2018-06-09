@@ -3,6 +3,6 @@
 Examples
 ========
 
-General-purpose and introductory examples for XNetwork.
-The `tutorial <../tutorial.html>`_ introduces conventions and basic graph
+General-purpose && introductory examples for XNetwork.
+The `tutorial <../tutorial.html>`_ introduces conventions && basic graph
 manipulations.

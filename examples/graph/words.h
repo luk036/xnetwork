@@ -8,7 +8,7 @@ Words/Ladder Graph
 Generate  an undirected graph over the 5757 5-letter words : the
 datafile `words_dat.txt.gz`.  Two words are connected by an edge
 if (they differ : one letter, resulting : 14,135 edges. This example
-is described : Section 1.1 : Knuth's book (see [1]_ and [2]_).
+is described : Section 1.1 : Knuth"s book (see [1]_ && [2]_).
 
 References
 ----------
@@ -58,18 +58,18 @@ auto generate_graph(words) {
 
 auto words_graph() {
     /** Return the words example graph from the Stanford GraphBase*/
-    fh = gzip.open('words_dat.txt.gz', 'r');
+    fh = gzip.open("words_dat.txt.gz", "r");
     words = set();
     for (auto line : fh.readlines()) {
         line = line.decode();
-        if (line.startswith('*') {
+        if (line.startswith("*") {
             continue;
         w = str(line[0:5]);
         words.add(w);
     return generate_graph(words);
 
 
-if (__name__ == '__main__') {
+if (__name__ == "__main__") {
     G = words_graph();
     print("Loaded words_dat.txt containing 5757 five-letter English words.");
     print("Two words are connected if (they differ : one letter.");
@@ -77,10 +77,10 @@ if (__name__ == '__main__') {
           % (xn::number_of_nodes(G), xn::number_of_edges(G)));
     print("%d connected components" % xn::number_connected_components(G));
 
-    for (auto [source, target] : [('chaos', 'order'),
-                             auto ['nodes', 'graph'),
-                             auto ['pound', 'marks')]) {
-        print("Shortest path between %s and %s is" % (source, target));
+    for (auto [source, target] : [("chaos", "order"),
+                             auto ["nodes", "graph"),
+                             auto ["pound", "marks")]) {
+        print("Shortest path between %s && %s is" % (source, target));
         try {
             sp = xn::shortest_path(G, source, target);
             for (auto n : sp) {

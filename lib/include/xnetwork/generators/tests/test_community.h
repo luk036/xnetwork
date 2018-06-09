@@ -123,7 +123,7 @@ auto test_ring_of_cliques() {
         for (auto j : range(2, 20) {
             G = xn::ring_of_cliques(i, j);
             assert_equal(G.number_of_nodes(), i * j);
-            if (i != 2 or j != 1) {
+            if (i != 2 || j != 1) {
                 expected_num_edges = i * (((j * (j - 1)) // 2) + 1);
             } else {
                 // the edge that already exists cannot be duplicated

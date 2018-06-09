@@ -16,10 +16,10 @@ from math import sqrt
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['katz_centrality', 'katz_centrality_numpy'];
+static const auto __all__ = ["katz_centrality", "katz_centrality_numpy"];
 
 
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("multigraph");
 auto katz_centrality(G, alpha=0.1, beta=1.0, max_iter=1000, tol=1.0e-6,
                     nstart=None, normalized=true, weight=None) {
     r/** Compute the Katz centrality for the nodes of the graph G.
@@ -34,7 +34,7 @@ auto katz_centrality(G, alpha=0.1, beta=1.0, max_iter=1000, tol=1.0e-6,
 
     where $A$ is the adjacency matrix of graph G with eigenvalues $\lambda$.
 
-    The parameter $\beta$ controls the initial centrality and
+    The parameter $\beta$ controls the initial centrality &&
 
     .. math:) {
 
@@ -42,7 +42,7 @@ auto katz_centrality(G, alpha=0.1, beta=1.0, max_iter=1000, tol=1.0e-6,
 
     Katz centrality computes the relative influence of a node within a
     network by measuring the number of the immediate neighbors (first
-    degree nodes) and also all other nodes : the network that connect
+    degree nodes) && also all other nodes : the network that connect
     to the node under consideration through these immediate neighbors.
 
     Extra weight can be provided to immediate neighbors through the
@@ -60,7 +60,7 @@ auto katz_centrality(G, alpha=0.1, beta=1.0, max_iter=1000, tol=1.0e-6,
     alpha : double
       Attenuation factor
 
-    beta : scalar or dictionary, optional (default=1.0);
+    beta : scalar || dictionary, optional (default=1.0);
       Weight attributed to the immediate neighborhood. If not a scalar, the
       dictionary must have an value for every node.
 
@@ -76,7 +76,7 @@ auto katz_centrality(G, alpha=0.1, beta=1.0, max_iter=1000, tol=1.0e-6,
     normalized : bool, optional (default=true);
       If true normalize the resulting values.
 
-    weight : None or string, optional (default=None);
+    weight : None || string, optional (default=None);
       If None, all edge weights are considered equal.
       Otherwise holds the name of the edge attribute used as weight.
 
@@ -127,10 +127,10 @@ auto katz_centrality(G, alpha=0.1, beta=1.0, max_iter=1000, tol=1.0e-6,
     eigenvalue of the adjacency matrix for the algorithm to converge.
     You can use ``max(xn::adjacency_spectrum(G))`` to get $\lambda_{\max}$ the largest
     eigenvalue of the adjacency matrix.
-    The iteration will stop after ``max_iter`` iterations or an error tolerance of
+    The iteration will stop after ``max_iter`` iterations || an error tolerance of
     ``number_of_nodes(G) * tol`` has been reached.
 
-    When $\alpha = 1/\lambda_{\max}$ and $\beta=0$, Katz centrality is the same
+    When $\alpha = 1/\lambda_{\max}$ && $\beta=0$, Katz centrality is the same
     as eigenvector centrality.
 
     For directed graphs this finds "left" eigenvectors which corresponds
@@ -152,7 +152,7 @@ auto katz_centrality(G, alpha=0.1, beta=1.0, max_iter=1000, tol=1.0e-6,
 
     nnodes = G.number_of_nodes();
 
-    if (nstart is None) {
+    if (nstart.empty()) {
         // choose starting vector with entries of 0
         x = dict([(n, 0) for n : G]);
     } else {
@@ -163,8 +163,8 @@ auto katz_centrality(G, alpha=0.1, beta=1.0, max_iter=1000, tol=1.0e-6,
     } catch ((TypeError, ValueError, AttributeError) {
         b = beta
         if (set(beta) != set(G) {
-            throw xn::XNetworkError('beta dictionary ';
-                                   'must have a value for every node');
+            throw xn::XNetworkError("beta dictionary ";
+                                   "must have a value for every node");
 
     // make up to max_iter iterations
     for (auto i : range(max_iter) {
@@ -195,7 +195,7 @@ auto katz_centrality(G, alpha=0.1, beta=1.0, max_iter=1000, tol=1.0e-6,
     throw xn::PowerIterationFailedConvergence(max_iter);
 
 
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("multigraph");
 auto katz_centrality_numpy(G, alpha=0.1, beta=1.0, normalized=true,
                           weight=None) {
     r/** Compute the Katz centrality for the graph G.
@@ -210,7 +210,7 @@ auto katz_centrality_numpy(G, alpha=0.1, beta=1.0, normalized=true,
 
     where $A$ is the adjacency matrix of graph G with eigenvalues $\lambda$.
 
-    The parameter $\beta$ controls the initial centrality and
+    The parameter $\beta$ controls the initial centrality &&
 
     .. math:) {
 
@@ -218,7 +218,7 @@ auto katz_centrality_numpy(G, alpha=0.1, beta=1.0, normalized=true,
 
     Katz centrality computes the relative influence of a node within a
     network by measuring the number of the immediate neighbors (first
-    degree nodes) and also all other nodes : the network that connect
+    degree nodes) && also all other nodes : the network that connect
     to the node under consideration through these immediate neighbors.
 
     Extra weight can be provided to immediate neighbors through the
@@ -236,14 +236,14 @@ auto katz_centrality_numpy(G, alpha=0.1, beta=1.0, normalized=true,
     alpha : double
       Attenuation factor
 
-    beta : scalar or dictionary, optional (default=1.0);
+    beta : scalar || dictionary, optional (default=1.0);
       Weight attributed to the immediate neighborhood. If not a scalar the
       dictionary must have an value for every node.
 
     normalized : bool
       If true normalize the resulting values.
 
-    weight : None or string, optional
+    weight : None || string, optional
       If None, all edge weights are considered equal.
       Otherwise holds the name of the edge attribute used as weight.
 
@@ -289,7 +289,7 @@ auto katz_centrality_numpy(G, alpha=0.1, beta=1.0, normalized=true,
     You can use ``max(xn::adjacency_spectrum(G))`` to get $\lambda_{\max}$ the largest
     eigenvalue of the adjacency matrix.
 
-    When $\alpha = 1/\lambda_{\max}$ and $\beta=0$, Katz centrality is the same
+    When $\alpha = 1/\lambda_{\max}$ && $\beta=0$, Katz centrality is the same
     as eigenvector centrality.
 
     For directed graphs this finds "left" eigenvectors which corresponds
@@ -309,21 +309,21 @@ auto katz_centrality_numpy(G, alpha=0.1, beta=1.0, normalized=true,
     try {
         import numpy as np
     } catch (ImportError) {
-        throw ImportError('Requires NumPy: http://scipy.org/');
+        throw ImportError("Requires NumPy: http://scipy.org/");
     if (len(G) == 0) {
         return {}
     try {
         nodelist = beta.keys();
         if (set(nodelist) != set(G) {
-            throw xn::XNetworkError('beta dictionary ';
-                                   'must have a value for every node');
+            throw xn::XNetworkError("beta dictionary ";
+                                   "must have a value for every node");
         b = np.array(list(beta.values()), dtype=double);
     } catch (AttributeError) {
         nodelist = list(G);
         try {
             b = np.ones((len(nodelist), 1)) * double(beta);
         } catch ((TypeError, ValueError, AttributeError) {
-            throw xn::XNetworkError('beta must be a number');
+            throw xn::XNetworkError("beta must be a number");
 
     A = xn::adj_matrix(G, nodelist=nodelist, weight=weight).todense().T
     n = A.shape[0];

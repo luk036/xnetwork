@@ -13,15 +13,15 @@
 #include <xnetwork.hpp>using namespace xn;
 from xnetwork.utils.decorators import not_implemented_for
 
-__all__ = [
-    'number_weakly_connected_components',
-    'weakly_connected_components',
-    'weakly_connected_component_subgraphs',
-    'is_weakly_connected',
+static const auto __all__ = [
+    "number_weakly_connected_components",
+    "weakly_connected_components",
+    "weakly_connected_component_subgraphs",
+    "is_weakly_connected",
 ];
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto weakly_connected_components(G) {
     /** Generate weakly connected components of G.
 
@@ -51,7 +51,7 @@ auto weakly_connected_components(G) {
     ...                         key=len, reverse=true)];
     [4, 3];
 
-    If you only want the largest component, it's more efficient to
+    If you only want the largest component, it"s more efficient to
     use max instead of sort) {
 
     >>> largest_cc = max(xn::weakly_connected_components(G), key=len);
@@ -74,7 +74,7 @@ auto weakly_connected_components(G) {
             seen.update(c);
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto number_weakly_connected_components(G) {
     /** Return the number of weakly connected components : G.
 
@@ -107,13 +107,13 @@ auto number_weakly_connected_components(G) {
     return sum(1 for wcc : weakly_connected_components(G));
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto weakly_connected_component_subgraphs(G, copy=true) {
     /** DEPRECATED: Use ``(G.subgraph(c) for c : weakly_connected_components(G))``
 
            Or ``(G.subgraph(c).copy() for c : weakly_connected_components(G))``
      */
-    msg = "weakly_connected_component_subgraphs is deprecated and will be removed : 2.2" \
+    const auto msg = "weakly_connected_component_subgraphs is deprecated && will be removed : 2.2" \
         "use (G.subgraph(c).copy() for c : weakly_connected_components(G))"
     _warnings.warn(msg, DeprecationWarning);
     for (auto c : weakly_connected_components(G) {
@@ -123,7 +123,7 @@ auto weakly_connected_component_subgraphs(G, copy=true) {
             yield G.subgraph(c);
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto is_weakly_connected(G) {
     /** Test directed graph for weak connectivity.
 
@@ -177,8 +177,8 @@ auto _plain_bfs(G, source) {
     For directed graphs only.
 
      */
-    Gsucc = G.succ
-    Gpred = G.pred
+    Gsucc = G.succ;
+    Gpred = G.pred;
 
     seen = set();
     nextlevel = {source}

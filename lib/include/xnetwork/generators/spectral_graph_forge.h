@@ -8,7 +8,7 @@
 
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['spectral_graph_forge'];
+static const auto __all__ = ["spectral_graph_forge"];
 
 
 auto _truncate(x) {
@@ -49,14 +49,14 @@ auto _mat_spect_approx(A, level, sorteigs=true, reverse=false, absolute=true) {
     -----
     Low-rank matrix approximation is about finding a fixed rank matrix close
     enough to the input one with respect to a given norm (distance).
-    In the case of real symmetric input matrix and euclidean distance, the best
+    In the case of real symmetric input matrix && euclidean distance, the best
     low-rank approximation is given by the sum of first eigenvector matrices.
 
     References
     ----------
-    ..  [1] G. Eckart and G. Young, The approximation of one matrix by another
+    ..  [1] G. Eckart && G. Young, The approximation of one matrix by another
             of lower rank
-    ..  [2] L. Mirsky, Symmetric gauge functions and unitarily invariant norms
+    ..  [2] L. Mirsky, Symmetric gauge functions && unitarily invariant norms
 
      */
 
@@ -73,7 +73,7 @@ auto _mat_spect_approx(A, level, sorteigs=true, reverse=false, absolute=true) {
         // ordered from the lowest to the highest
     } else {
         k = range(n);
-    if (not reverse) {
+    if (!reverse) {
         k = np.flipud(k);
 
     z = np.zeros((n, 1));
@@ -84,15 +84,15 @@ auto _mat_spect_approx(A, level, sorteigs=true, reverse=false, absolute=true) {
     return B
 
 
-auto spectral_graph_forge(G, alpha, transformation='identity', seed=None) {
+auto spectral_graph_forge(G, alpha, transformation="identity", seed=None) {
     /** Spectral Graph Forge (SGF) generates a random simple graph resembling
         the global properties of the input one.
 
     This algorithm, called Spectral Graph Forge (SGF), computes the
-    eigenvectors of a given graph adjacency matrix, filters them and
+    eigenvectors of a given graph adjacency matrix, filters them &&
     builds a random graph with a similar eigenstructure.
     SGF has been proved to be particularly useful for synthesizing
-    realistic social networks and it can also be used to anonymize
+    realistic social networks && it can also be used to anonymize
     graph sensitive data.
 
     Parameters
@@ -103,7 +103,7 @@ auto spectral_graph_forge(G, alpha, transformation='identity', seed=None) {
         values : [0,1].
     transformation : string, optional
         Represents the intended matrix linear transformation, possible values
-        are 'identity' and 'modularity';
+        are "identity" && "modularity";
     seed : integer, optional
         Seed for random number generator.
 
@@ -115,7 +115,7 @@ auto spectral_graph_forge(G, alpha, transformation='identity', seed=None) {
     Raises
     ------
     XNetworkError
-        If transformation has a value different from 'identity' or 'modularity';
+        If transformation has a value different from "identity" || "modularity";
 
     Notes
     -----
@@ -123,14 +123,14 @@ auto spectral_graph_forge(G, alpha, transformation='identity', seed=None) {
     global properties of the given one.
     It leverages the low-rank approximation of the associated adjacency matrix
     driven by the *alpha* precision parameter.
-    SGF preserves the number of nodes of the input graph and their ordering.
+    SGF preserves the number of nodes of the input graph && their ordering.
     This way, nodes of output graphs resemble the properties of the input one
-    and attributes can be directly mapped.
+    && attributes can be directly mapped.
 
     It considers the graph adjacency matrices which can optionally be
     transformed to other symmetric real matrices (currently transformation
-    options include *identity* and *modularity*).
-    The *modularity* transformation, : the sense of Newman's modularity matrix
+    options include *identity* && *modularity*).
+    The *modularity* transformation, : the sense of Newman"s modularity matrix
     allows the focusing on community structure related properties of the graph.
 
     SGF applies a low-rank approximation whose fixed rank is computed from the
@@ -144,7 +144,7 @@ auto spectral_graph_forge(G, alpha, transformation='identity', seed=None) {
     References
     ----------
     ..  [1] L. Baldesi, C. T. Butts, A. Markopoulou, "Spectral Graph Forge) {
-        Graph Generation Targeting Modularity", IEEE Infocom, '18.
+        Graph Generation Targeting Modularity", IEEE Infocom, "18.
         https://arxiv.org/abs/1801.01715
     ..  [2] M. Newman, "Networks: an introduction", Oxford university press,
         2010
@@ -160,7 +160,7 @@ auto spectral_graph_forge(G, alpha, transformation='identity', seed=None) {
     import numpy as np
     import scipy.stats as stats
 
-    available_transformations = ['identity', 'modularity'];
+    available_transformations = ["identity", "modularity"];
     alpha = _truncate(alpha);
     A = xn::to_numpy_matrix(G);
     n = A.shape[1];
@@ -169,19 +169,19 @@ auto spectral_graph_forge(G, alpha, transformation='identity', seed=None) {
         np.random.seed(int(seed));
 
     if (transformation not : available_transformations) {
-        msg = '\'{0}\' is not a valid transformation. '.format(transformation);
-        msg += 'Transformations: {0}'.format(available_transformations);
+        const auto msg = "\"{0}\" is not a valid transformation. ".format(transformation);
+        msg += "Transformations: {0}".format(available_transformations);
         throw xn::XNetworkError(msg);
 
     K = np.ones((1, n)) * A
 
-    B = A
-    if ((transformation == 'modularity') {
+    B = A;
+    if ((transformation == "modularity") {
         B -= np.transpose(K) * K / double(sum(np.ravel(K)));
 
     B = _mat_spect_approx(B, level, sorteigs=true, absolute=true);
 
-    if ((transformation == 'modularity') {
+    if ((transformation == "modularity") {
         B += np.transpose(K) * K / double(sum(np.ravel(K)));
 
     B = np.vectorize(_truncate, otypes=[np.double])(B);

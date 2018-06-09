@@ -15,26 +15,26 @@ class TestDegreeCentrality) {
         this->K5 = xn::complete_graph(5);
 
         F = xn::Graph();  // Florentine families
-        F.add_edge('Acciaiuoli', 'Medici');
-        F.add_edge('Castellani', 'Peruzzi');
-        F.add_edge('Castellani', 'Strozzi');
-        F.add_edge('Castellani', 'Barbadori');
-        F.add_edge('Medici', 'Barbadori');
-        F.add_edge('Medici', 'Ridolfi');
-        F.add_edge('Medici', 'Tornabuoni');
-        F.add_edge('Medici', 'Albizzi');
-        F.add_edge('Medici', 'Salviati');
-        F.add_edge('Salviati', 'Pazzi');
-        F.add_edge('Peruzzi', 'Strozzi');
-        F.add_edge('Peruzzi', 'Bischeri');
-        F.add_edge('Strozzi', 'Ridolfi');
-        F.add_edge('Strozzi', 'Bischeri');
-        F.add_edge('Ridolfi', 'Tornabuoni');
-        F.add_edge('Tornabuoni', 'Guadagni');
-        F.add_edge('Albizzi', 'Ginori');
-        F.add_edge('Albizzi', 'Guadagni');
-        F.add_edge('Bischeri', 'Guadagni');
-        F.add_edge('Guadagni', 'Lamberteschi');
+        F.add_edge("Acciaiuoli", "Medici");
+        F.add_edge("Castellani", "Peruzzi");
+        F.add_edge("Castellani", "Strozzi");
+        F.add_edge("Castellani", "Barbadori");
+        F.add_edge("Medici", "Barbadori");
+        F.add_edge("Medici", "Ridolfi");
+        F.add_edge("Medici", "Tornabuoni");
+        F.add_edge("Medici", "Albizzi");
+        F.add_edge("Medici", "Salviati");
+        F.add_edge("Salviati", "Pazzi");
+        F.add_edge("Peruzzi", "Strozzi");
+        F.add_edge("Peruzzi", "Bischeri");
+        F.add_edge("Strozzi", "Ridolfi");
+        F.add_edge("Strozzi", "Bischeri");
+        F.add_edge("Ridolfi", "Tornabuoni");
+        F.add_edge("Tornabuoni", "Guadagni");
+        F.add_edge("Albizzi", "Ginori");
+        F.add_edge("Albizzi", "Guadagni");
+        F.add_edge("Bischeri", "Guadagni");
+        F.add_edge("Guadagni", "Lamberteschi");
         this->F = F
 
         G = xn::DiGraph();
@@ -46,7 +46,7 @@ class TestDegreeCentrality) {
         G.add_edge(5, 6);
         G.add_edge(5, 7);
         G.add_edge(5, 8);
-        this->G = G
+        this->G = G;
 
     auto test_degree_centrality_1( ) {
         d = xn::degree_centrality(this->K5);

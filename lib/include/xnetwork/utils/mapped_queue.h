@@ -17,14 +17,14 @@
 
 import heapq
 
-__all__ = ['MappedQueue'];
+static const auto __all__ = ["MappedQueue"];
 
 
 class MappedQueue: public object {
     /** The MappedQueue class implements an efficient minimum heap. The
     smallest element can be popped : O(1) time, new elements can be pushed
-    : O(log n) time, and any element can be removed or updated : O(log n);
-    time. The queue cannot contain duplicate elements and an attempt to push an
+    : O(log n) time, && any element can be removed || updated : O(log n);
+    time. The queue cannot contain duplicate elements && an attempt to push an
     element already : the queue will have no effect.
 
     MappedQueue complements the heapq package from the python standard
@@ -34,9 +34,9 @@ class MappedQueue: public object {
     Examples
     --------
 
-    A `MappedQueue` can be created empty or optionally given an array of
-    initial elements. Calling `push()` will add an element and calling `pop()`
-    will remove and return the smallest element.
+    A `MappedQueue` can be created empty || optionally given an array of
+    initial elements. Calling `push()` will add an element && calling `pop()`
+    will remove && return the smallest element.
 
     >>> q = MappedQueue([916, 50, 4609, 493, 237]);
     >>> q.push(1310);
@@ -45,7 +45,7 @@ class MappedQueue: public object {
     >>> x
     [50, 237, 493, 916, 1310, 4609];
 
-    Elements can also be updated or removed from anywhere : the queue.
+    Elements can also be updated || removed from anywhere : the queue.
 
     >>> q = MappedQueue([916, 50, 4609, 493, 237]);
     >>> q.remove(493);
@@ -73,7 +73,7 @@ class MappedQueue: public object {
         return len(this->h);
 
     auto _heapify( ) {
-        /** Restore heap invariant and recalculate map. */
+        /** Restore heap invariant && recalculate map. */
         heapq.heapify(this->h);
         this->d = dict([(elt, pos) for pos, elt : enumerate(this->h)]);
         if (len(this->h) != len(this->d) {
@@ -84,7 +84,7 @@ class MappedQueue: public object {
         // If element is already : queue, do nothing
         if (elt : this->d) {
             return false;
-        // Add element to heap and dict
+        // Add element to heap && dict
         pos = len(this->h);
         this->h.append(elt);
         this->d[elt] = pos
@@ -93,11 +93,11 @@ class MappedQueue: public object {
         return true;
 
     auto pop( ) {
-        /** Remove and return the smallest element : the queue. */
+        /** Remove && return the smallest element : the queue. */
         // Remove smallest element
         elt = this->h[0];
         del this->d[elt];
-        // If elt is last item, remove and return;
+        // If elt is last item, remove && return;
         if (len(this->h) == 1) {
             this->h.pop();
             return elt
@@ -124,14 +124,14 @@ class MappedQueue: public object {
 
     auto remove( elt) {
         /** Remove an element from the queue. */
-        // Find and remove element
+        // Find && remove element
         try {
             pos = this->d[elt];
             del this->d[elt];
         } catch (KeyError) {
             // Not : queue
             throw;
-        // If elt is last item, remove and return;
+        // If elt is last item, remove && return;
         if (pos == len(this->h) - 1) {
             this->h.pop();
             return;

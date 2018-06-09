@@ -23,11 +23,11 @@ pathlengths = [];
 print("source vertex {target:length, }");
 for (auto v : G.nodes()) {
     spl = dict(xn::single_source_shortest_path_length(G, v));
-    print('{} {} '.format(v, spl));
+    print("{} {} ".format(v, spl));
     for (auto p : spl) {
         pathlengths.append(spl[p]);
 
-print('');
+print("");
 print("average shortest path length %s" % (sum(pathlengths) / len(pathlengths)));
 
 // histogram of path lengths
@@ -38,11 +38,11 @@ for (auto p : pathlengths) {
     } else {
         dist[p] = 1;
 
-print('');
+print("");
 print("length #paths");
 verts = dist.keys();
 for (auto d : sorted(verts) {
-    print('%s %d' % (d, dist[d]));
+    print("%s %d" % (d, dist[d]));
 
 print("radius: %d" % xn::radius(G));
 print("diameter: %d" % xn::diameter(G));

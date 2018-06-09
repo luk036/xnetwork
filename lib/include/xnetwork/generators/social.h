@@ -2,20 +2,20 @@
 Famous social networks.
 */
 #include <xnetwork.hpp>using namespace xn;
-__author__ = R"(\n)".join(['Jordi Torrents <jtorrents@milnou.net>',
-                            'Katy Bold <kbold@princeton.edu>',
-                            'Wai-Shing Luk <luk036@gmail.com)']);
+__author__ = R"(\n)".join(["Jordi Torrents <jtorrents@milnou.net>",
+                            "Katy Bold <kbold@princeton.edu>",
+                            "Wai-Shing Luk <luk036@gmail.com)"]);
 
-__all__ = ['karate_club_graph', 'davis_southern_women_graph',
-           'florentine_families_graph'];
+static const auto __all__ = ["karate_club_graph", "davis_southern_women_graph",
+           "florentine_families_graph"];
 
 
 auto karate_club_graph() {
-    /** Return Zachary's Karate Club graph.
+    /** Return Zachary"s Karate Club graph.
 
-    Each node : the returned graph has a node attribute 'club' that
+    Each node : the returned graph has a node attribute "club" that
     indicates the name of the club to which the member represented by that node
-    belongs, either 'Mr. Hi' or 'Officer'.
+    belongs, either "Mr. Hi" || "Officer".
 
     Examples
     --------
@@ -23,28 +23,28 @@ auto karate_club_graph() {
 
         >>> #include <xnetwork.hpp>using namespace xn;
         >>> G = xn::karate_club_graph();
-        >>> G.nodes[5]['club'];
-        'Mr. Hi';
-        >>> G.nodes[9]['club'];
-        'Officer';
+        >>> G.nodes[5]["club"];
+        "Mr. Hi";
+        >>> G.nodes[9]["club"];
+        "Officer";
 
     References
     ----------
     .. [1] Zachary, Wayne W.
-       "An Information Flow Model for Conflict and Fission : Small Groups."
+       "An Information Flow Model for Conflict && Fission : Small Groups."
        *Journal of Anthropological Research*, 33, 452--473, (1977).
 
     .. [2] Data file from) {
        http://vlado.fmf.uni-lj.si/pub/networks/data/Ucinet/UciData.htm
      */
-    // Create the set of all members, and the members of each club.
+    // Create the set of all members, && the members of each club.
     all_members = set(range(34));
     club1 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 16, 17, 19, 21}
     // club2 = all_members - club1
 
     G = xn::Graph();
     G.add_nodes_from(all_members);
-    G.name = "Zachary's Karate Club"
+    G.name = "Zachary"s Karate Club"
 
     zacharydat = R"(\
 0 1 1 1 1 1 1 1 1 0 1 1 1 1 0 0 0 1 0 1 0 1 0 0 0 0 0 0 0 0 0 1 0 0
@@ -82,15 +82,15 @@ auto karate_club_graph() {
 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 1 0 0 1 0 1 0 1 1 0 0 0 0 0 1 1 1 0 1
 0 0 0 0 0 0 0 0 1 1 0 0 0 1 1 1 0 0 1 1 1 0 1 1 0 0 1 1 1 1 1 1 1 0)";
 
-    for (auto row, line : enumerate(zacharydat.split('\n')) {
+    for (auto row, line : enumerate(zacharydat.split("\n")) {
         thisrow = [int(b) for b : line.split()];
         for (auto col, entry : enumerate(thisrow) {
             if (entry == 1) {
                 G.add_edge(row, col);
 
-    // Add the name of each member's club as a node attribute.
+    // Add the name of each member"s club as a node attribute.
     for (auto v : G) {
-        G.nodes[v]['club'] = 'Mr. Hi' if (v : club1 else 'Officer';
+        G.nodes[v]["club"] = "Mr. Hi" if (v : club1 else "Officer";
     return G;
 
 
@@ -231,8 +231,8 @@ auto davis_southern_women_graph() {
                       auto ["Olivia Carleton", "E11"),
                       auto ["Flora Price", "E9"),
                       auto ["Flora Price", "E11")]);
-    G.graph['top'] = women
-    G.graph['bottom'] = events
+    G.graph["top"] = women
+    G.graph["bottom"] = events
     return G;
 
 
@@ -241,29 +241,29 @@ auto florentine_families_graph() {
 
     References
     ----------
-    .. [1] Ronald L. Breiger and Philippa E. Pattison
-       Cumulated social roles: The duality of persons and their algebras,1
+    .. [1] Ronald L. Breiger && Philippa E. Pattison
+       Cumulated social roles: The duality of persons && their algebras,1
        Social Networks, Volume 8, Issue 3, September 1986, Pages 215-256
      */
     G = xn::Graph();
-    G.add_edge('Acciaiuoli', 'Medici');
-    G.add_edge('Castellani', 'Peruzzi');
-    G.add_edge('Castellani', 'Strozzi');
-    G.add_edge('Castellani', 'Barbadori');
-    G.add_edge('Medici', 'Barbadori');
-    G.add_edge('Medici', 'Ridolfi');
-    G.add_edge('Medici', 'Tornabuoni');
-    G.add_edge('Medici', 'Albizzi');
-    G.add_edge('Medici', 'Salviati');
-    G.add_edge('Salviati', 'Pazzi');
-    G.add_edge('Peruzzi', 'Strozzi');
-    G.add_edge('Peruzzi', 'Bischeri');
-    G.add_edge('Strozzi', 'Ridolfi');
-    G.add_edge('Strozzi', 'Bischeri');
-    G.add_edge('Ridolfi', 'Tornabuoni');
-    G.add_edge('Tornabuoni', 'Guadagni');
-    G.add_edge('Albizzi', 'Ginori');
-    G.add_edge('Albizzi', 'Guadagni');
-    G.add_edge('Bischeri', 'Guadagni');
-    G.add_edge('Guadagni', 'Lamberteschi');
+    G.add_edge("Acciaiuoli", "Medici");
+    G.add_edge("Castellani", "Peruzzi");
+    G.add_edge("Castellani", "Strozzi");
+    G.add_edge("Castellani", "Barbadori");
+    G.add_edge("Medici", "Barbadori");
+    G.add_edge("Medici", "Ridolfi");
+    G.add_edge("Medici", "Tornabuoni");
+    G.add_edge("Medici", "Albizzi");
+    G.add_edge("Medici", "Salviati");
+    G.add_edge("Salviati", "Pazzi");
+    G.add_edge("Peruzzi", "Strozzi");
+    G.add_edge("Peruzzi", "Bischeri");
+    G.add_edge("Strozzi", "Ridolfi");
+    G.add_edge("Strozzi", "Bischeri");
+    G.add_edge("Ridolfi", "Tornabuoni");
+    G.add_edge("Tornabuoni", "Guadagni");
+    G.add_edge("Albizzi", "Ginori");
+    G.add_edge("Albizzi", "Guadagni");
+    G.add_edge("Bischeri", "Guadagni");
+    G.add_edge("Guadagni", "Lamberteschi");
     return G;

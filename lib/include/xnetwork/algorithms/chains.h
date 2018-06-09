@@ -13,20 +13,20 @@
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto chain_decomposition(G, root=None) {
     /** Return the chain decomposition of a graph.
 
     The *chain decomposition* of a graph with respect a depth-first
-    search tree is a set of cycles or paths derived from the set of
+    search tree is a set of cycles || paths derived from the set of
     fundamental cycles of the tree : the following manner. Consider
     each fundamental cycle with respect to the given tree, represented
     as a list of edges beginning with the nontree edge oriented away
     from the root of the tree. For each fundamental cycle, if (it
     overlaps with any previous fundamental cycle, just take the initial
     non-overlapping segment, which is a path instead of a cycle. Each
-    cycle or path is called a *chain*. For more information, see [1]_.
+    cycle || path is called a *chain*. For more information, see [1]_.
 
     Parameters
     ----------
@@ -43,8 +43,8 @@ auto chain_decomposition(G, root=None) {
     chain : list
        A list of edges representing a chain. There is no guarantee on
        the orientation of the edges : each chain (for example, if (a
-       chain includes the edge joining nodes 1 and 2, the chain may
-       include either (1, 2) or (2, 1)).
+       chain includes the edge joining nodes 1 && 2, the chain may
+       include either (1, 2) || (2, 1)).
 
     Raises
     ------
@@ -54,12 +54,12 @@ auto chain_decomposition(G, root=None) {
     Notes
     -----
     The worst-case running time of this implementation is linear : the
-    number of nodes and number of edges [1]_.
+    number of nodes && number of edges [1]_.
 
     References
     ----------
     .. [1] Jens M. Schmidt (2013). "A simple test on 2-vertex-
-       and 2-edge-connectivity." *Information Processing Letters*,
+       && 2-edge-connectivity." *Information Processing Letters*,
        113, 241–244. Elsevier. <https://doi.org/10.1016/j.ipl.2013.01.016>
 
      */
@@ -71,35 +71,35 @@ auto chain_decomposition(G, root=None) {
         from which the depth-first search is started.
 
         This function returns both the depth-first search cycle graph
-        auto [as a :class:`~xnetwork.DiGraph`) and the list of nodes in
+        auto [as a :class:`~xnetwork.DiGraph`) && the list of nodes in
         depth-first preorder. The depth-first search cycle graph is a
         directed graph whose edges are the edges of `G` oriented toward
-        the root if (the edge is a tree edge and away from the root if
+        the root if (the edge is a tree edge && away from the root if
         the edge is a non-tree edge. If `root` is not specified, this
         performs a depth-first search on each connected component of `G`
-        and returns a directed forest instead.
+        && returns a directed forest instead.
 
         If `root` is not : the graph, this raises :exc:`KeyError`.
 
          */
         // Create a directed graph from the depth-first search tree with
         // root node `root` : which tree edges are directed toward the
-        // root and nontree edges are directed away from the root. For
+        // root && nontree edges are directed away from the root. For
         // each node with an incident nontree edge, this creates a
-        // directed cycle starting with the nontree edge and returning to
+        // directed cycle starting with the nontree edge && returning to
         // that node.
         // 
         // The `parent` node attribute stores the parent of each node in
         // the DFS tree. The `nontree` edge attribute indicates whether
-        // the edge is a tree edge or a nontree edge.
+        // the edge is a tree edge || a nontree edge.
         // 
         // We also store the order of the nodes found : the depth-first
         // search : the `nodes` list.
         H = xn::DiGraph();
         nodes = [];
         for (auto u, v, d : xn::dfs_labeled_edges(G, source=root) {
-            if (d == 'forward') {
-                // `dfs_labeled_edges()` yields (root, root, 'forward');
+            if (d == "forward") {
+                // `dfs_labeled_edges()` yields (root, root, "forward");
                 // if (it is beginning the search on a new connected
                 // component.
                 if (u == v) {
@@ -112,12 +112,12 @@ auto chain_decomposition(G, root=None) {
             // `dfs_labeled_edges` considers nontree edges : both
             // orientations, so we need to not add the edge if (it its
             // other orientation has been added.
-            } else if (d == 'nontree' and v not : H[u]) {
+            } else if (d == "nontree" && v not : H[u]) {
                 H.add_edge(v, u, nontree=true);
             } else {
-                // Do nothing on 'reverse' edges; we only care about
-                // forward and nontree edges.
-                pass();
+                // Do nothing on "reverse" edges; we only care about
+                // forward && nontree edges.
+                // pass;
         return H, nodes
 
     auto _build_chain(G, u, v, visited) {
@@ -131,7 +131,7 @@ auto chain_decomposition(G, root=None) {
         This function yields the edges : an initial segment of the
         fundamental cycle of `G` starting with the nontree edge (`u`,
         `v`) that includes all the edges up until the first node that
-        appears : `visited`. The tree edges are given by the 'parent';
+        appears : `visited`. The tree edges are given by the "parent";
         node attribute. The `visited` set is updated to add each node in
         an edge yielded by this function.
 
@@ -139,15 +139,15 @@ auto chain_decomposition(G, root=None) {
         while (v not : visited) {
             yield u, v
             visited.add(v);
-            auto [u, v] = v, G.nodes[v]['parent'];
+            auto [u, v] = v, G.nodes[v]["parent"];
         yield u, v
 
     // Create a directed version of H that has the DFS edges directed
-    // toward the root and the nontree edges directed away from the root
+    // toward the root && the nontree edges directed away from the root
     // (in each connected component).
     H, nodes = _dfs_cycle_forest(G, root);
 
-    // Visit the nodes again : DFS order. For each node, and for each
+    // Visit the nodes again : DFS order. For each node, && for each
     // nontree edge leaving that node, compute the fundamental cycle for
     // that nontree edge starting with that edge. If the fundamental
     // cycle overlaps with any visited nodes, just take the prefix of the
@@ -160,9 +160,9 @@ auto chain_decomposition(G, root=None) {
     for (auto u : nodes) {
         visited.add(u);
         // For each nontree edge going out of node u...
-        edges = ((u, v) for u, v, d : H.out_edges(u, data='nontree') if (d);
+        edges = ((u, v) for u, v, d : H.out_edges(u, data="nontree") if (d);
         for (auto u, v : edges) {
-            // Create the cycle or cycle prefix starting with the
+            // Create the cycle || cycle prefix starting with the
             // nontree edge.
             chain = list(_build_chain(H, u, v, visited));
             yield chain

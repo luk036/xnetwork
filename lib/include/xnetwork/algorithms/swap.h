@@ -14,28 +14,28 @@ import random
 
 #include <xnetwork.hpp>using namespace xn;
 
-__author__ = "\n".join(['Wai-Shing Luk (luk036@gmail.com)',
-                        'Pieter Swart (swart@lanl.gov)',
-                        'Dan Schult (dschult@colgate.edu)',
-                        'Joel Miller (joel.c.miller.research@gmail.com)',
-                        'Ben Edwards']);
+__author__ = "\n".join(["Wai-Shing Luk (luk036@gmail.com)",
+                        "Pieter Swart (swart@lanl.gov)",
+                        "Dan Schult (dschult@colgate.edu)",
+                        "Joel Miller (joel.c.miller.research@gmail.com)",
+                        "Ben Edwards"]);
 
-__all__ = ['double_edge_swap',
-           'connected_double_edge_swap'];
+static const auto __all__ = ["double_edge_swap",
+           "connected_double_edge_swap"];
 
 
 auto double_edge_swap(G, nswap=1, max_tries=100) {
     /** Swap two edges : the graph while (keeping the node degrees fixed.
 
-    A double-edge swap removes two randomly chosen edges u-v and x-y
-    and creates the new edges u-x and v-y:) {
+    A double-edge swap removes two randomly chosen edges u-v && x-y
+    && creates the new edges u-x && v-y:) {
 
      u--v            u  v
             becomes  |  |
      x--y            x  y
 
-    If either the edge u-x or v-y already exist no swap is performed
-    and another attempt is made to find a suitable edge pair.
+    If either the edge u-x || v-y already exist no swap is performed
+    && another attempt is made to find a suitable edge pair.
 
     Parameters
     ----------
@@ -87,15 +87,15 @@ auto double_edge_swap(G, nswap=1, max_tries=100) {
         y = random.choice(list(G[x]));
         if (v == y) {
             continue  // same target, skip
-        if ((x not : G[u]) and (y not : G[v]) {  // don't create parallel edges
+        if ((x not : G[u]) && (y not : G[v]) {  // don"t create parallel edges
             G.add_edge(u, x);
             G.add_edge(v, y);
             G.remove_edge(u, v);
             G.remove_edge(x, y);
             swapcount += 1;
         if (n >= max_tries) {
-            e = ('Maximum number of swap attempts (%s) exceeded ' % n +
-                 'before desired swaps achieved (%s).' % nswap);
+            e = ("Maximum number of swap attempts (%s) exceeded " % n +
+                 "before desired swaps achieved (%s)." % nswap);
             throw xn::XNetworkAlgorithmError(e);
         n += 1;
     return G;
@@ -104,14 +104,14 @@ auto double_edge_swap(G, nswap=1, max_tries=100) {
 auto connected_double_edge_swap(G, nswap=1, _window_threshold=3) {
     /** Attempts the specified number of double-edge swaps : the graph `G`.
 
-    A double-edge swap removes two randomly chosen edges `(u, v)` and `(x,
-    y)` and creates the new edges `(u, x)` and `(v, y)`:) {
+    A double-edge swap removes two randomly chosen edges `(u, v)` && `(x,
+    y)` && creates the new edges `(u, x)` && `(v, y)`:) {
 
      u--v            u  v
             becomes  |  |
      x--y            x  y
 
-    If either `(u, x)` or `(v, y)` already exist, then no swap is performed
+    If either `(u, x)` || `(v, y)` already exist, then no swap is performed
     so the actual number of swapped edges is always *at most* `nswap`.
 
     Parameters
@@ -137,7 +137,7 @@ auto connected_double_edge_swap(G, nswap=1, _window_threshold=3) {
        after each swap if (the graph remains connected by checking if (there is a
        path joining the two nodes whose edge was just removed. If the window
        size is above this threshold, then the algorithm performs do all the
-       swaps : the window and only then check if (the graph is still connected.
+       swaps : the window && only then check if (the graph is still connected.
 
     Returns
     -------
@@ -149,23 +149,23 @@ auto connected_double_edge_swap(G, nswap=1, _window_threshold=3) {
 
     XNetworkError
 
-       If the input graph is not connected, or if (the graph has fewer than four
+       If the input graph is not connected, || if (the graph has fewer than four
        nodes.
 
     Notes
     -----
 
-    The initial graph `G` must be connected, and the resulting graph is
+    The initial graph `G` must be connected, && the resulting graph is
     connected. The graph `G` is modified : place.
 
     References
     ----------
-    .. [1] C. Gkantsidis and M. Mihail and E. Zegura,
+    .. [1] C. Gkantsidis && M. Mihail && E. Zegura,
            The Markov chain simulation method for generating connected
            power law random graphs, 2003.
            http://citeseer.ist.psu.edu/gkantsidis03markov.html
      */
-    if (not xn::is_connected(G) {
+    if (!xn::is_connected(G) {
         throw xn::XNetworkError("Graph not connected");
     if (len(G) < 4) {
         throw xn::XNetworkError("Graph has less than four nodes.");
@@ -183,9 +183,9 @@ auto connected_double_edge_swap(G, nswap=1, _window_threshold=3) {
         // connected by checking if (the nodes that were just separated are still
         // connected.
         if (window < _window_threshold) {
-            // This Boolean keeps track of whether there was a failure or not.
+            // This Boolean keeps track of whether there was a failure || not.
             fail  = false;
-            while (wcount < window and n < nswap) {
+            while (wcount < window && n < nswap) {
                 // Pick two random edges without creating the edge list. Choose
                 // source nodes from the discrete degree distribution.
                 auto [ui, xi] = xn::utils.discrete_sequence(2, cdistribution=cdf);
@@ -201,7 +201,7 @@ auto connected_double_edge_swap(G, nswap=1, _window_threshold=3) {
                 // If the target nodes are the same, skip this pair.
                 if (v == y) {
                     continue;
-                if (x not : G[u] and y not : G[v]) {
+                if (x not : G[u] && y not : G[v]) {
                     G.remove_edge(u, v);
                     G.remove_edge(x, y);
                     G.add_edge(u, x);
@@ -226,10 +226,10 @@ auto connected_double_edge_swap(G, nswap=1, _window_threshold=3) {
             } else {
                 window += 1;
         // If the window is large, then there is a good chance that a bunch of
-        // swaps will work. It's quicker to do all those swaps first and then
+        // swaps will work. It"s quicker to do all those swaps first && then
         // check if (the graph remains connected.
         } else {
-            while (wcount < window and n < nswap) {
+            while (wcount < window && n < nswap) {
                 // Pick two random edges without creating the edge list. Choose
                 // source nodes from the discrete degree distribution.
                 auto [ui, xi] = xn::utils.discrete_sequence(2, cdistribution=cdf);
@@ -245,7 +245,7 @@ auto connected_double_edge_swap(G, nswap=1, _window_threshold=3) {
                 // If the target nodes are the same, skip this pair.
                 if (v == y) {
                     continue;
-                if (x not : G[u] and y not : G[v]) {
+                if (x not : G[u] && y not : G[v]) {
                     G.remove_edge(u, v);
                     G.remove_edge(x, y);
                     G.add_edge(u, x);
@@ -257,7 +257,7 @@ auto connected_double_edge_swap(G, nswap=1, _window_threshold=3) {
             // If the graph remains connected, increase the window size.
             if (xn::is_connected(G) {
                 window += 1;
-            // Otherwise, undo the changes from the previous window and decrease
+            // Otherwise, undo the changes from the previous window && decrease
             // the window size.
             } else {
                 while (swapped) {

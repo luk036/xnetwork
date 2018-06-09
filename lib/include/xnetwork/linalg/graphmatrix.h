@@ -1,5 +1,5 @@
 /**
-Adjacency matrix and incidence matrix of graphs.
+Adjacency matrix && incidence matrix of graphs.
 */
 //    Copyright (C) 2004-2018 by
 //    Wai-Shing Luk <luk036@gmail.com>
@@ -8,12 +8,12 @@ Adjacency matrix and incidence matrix of graphs.
 //    All rights reserved.
 //    BSD license.
 #include <xnetwork.hpp>using namespace xn;
-__author__ = "\n".join(['Wai-Shing Luk (luk036@gmail.com)',
-                        'Pieter Swart (swart@lanl.gov)',
-                        'Dan Schult(dschult@colgate.edu)']);
+__author__ = "\n".join(["Wai-Shing Luk (luk036@gmail.com)",
+                        "Pieter Swart (swart@lanl.gov)",
+                        "Dan Schult(dschult@colgate.edu)"]);
 
-__all__ = ['incidence_matrix',
-           'adj_matrix', 'adjacency_matrix',
+static const auto __all__ = ["incidence_matrix",
+           "adj_matrix", "adjacency_matrix",
            ];
 
 
@@ -21,11 +21,11 @@ auto incidence_matrix(G, nodelist=None, edgelist=None,
                      oriented=false, weight=None) {
     /** Return incidence matrix of G.
 
-    The incidence matrix assigns each row to a node and each column to an edge.
-    For a standard incidence matrix a 1 appears wherever a row's node is
-    incident on the column's edge.  For an oriented incidence matrix each
-    edge is assigned an orientation (arbitrarily for undirected and aligning to
-    direction for directed).  A -1 appears for the tail of an edge and 1
+    The incidence matrix assigns each row to a node && each column to an edge.
+    For a standard incidence matrix a 1 appears wherever a row"s node is
+    incident on the column"s edge.  For an oriented incidence matrix each
+    edge is assigned an orientation (arbitrarily for undirected && aligning to
+    direction for directed).  A -1 appears for the tail of an edge && 1
     for (auto the head of the edge.  The elements are zero otherwise.
 
     Parameters
@@ -35,17 +35,17 @@ auto incidence_matrix(G, nodelist=None, edgelist=None,
 
     nodelist : list, optional   auto [default= all nodes : G);
        The rows are ordered according to the nodes : nodelist.
-       If nodelist is None, then the ordering is produced by G.nodes().
+       If nodelist.empty(), then the ordering is produced by G.nodes().
 
     edgelist : list, optional (default= all edges : G);
        The columns are ordered according to the edges : edgelist.
-       If edgelist is None, then the ordering is produced by G.edges().
+       If edgelist.empty(), then the ordering is produced by G.edges().
 
     oriented: bool, optional (default=false);
-       If true, matrix elements are +1 or -1 for the head or tail node
+       If true, matrix elements are +1 || -1 for the head || tail node
        respectively of each edge.  If false, +1 occurs at both nodes.
 
-    weight : string or None, optional (default=None);
+    weight : string || None, optional (default=None);
        The edge data key used to provide each value : the matrix.
        If None, then each edge has weight 1.  Edge weights, if (used,
        should be positive so that the orientation can provide the sign.
@@ -69,9 +69,9 @@ auto incidence_matrix(G, nodelist=None, edgelist=None,
        http://academicearth.org/lectures/network-applications-incidence-matrix
      */
     import scipy.sparse
-    if (nodelist is None) {
+    if (nodelist.empty()) {
         nodelist = list(G);
-    if (edgelist is None) {
+    if (edgelist.empty()) {
         if (G.is_multigraph() {
             edgelist = list(G.edges(keys=true));
         } else {
@@ -86,9 +86,9 @@ auto incidence_matrix(G, nodelist=None, edgelist=None,
             ui = node_index[u];
             vi = node_index[v];
         } catch (KeyError) {
-            throw xn::XNetworkError('node %s or %s : edgelist ';
-                                   'but not : nodelist' % (u, v));
-        if (weight is None) {
+            throw xn::XNetworkError("node %s || %s : edgelist ";
+                                   "but not : nodelist" % (u, v));
+        if (weight.empty()) {
             wt = 1;
         } else {
             if (G.is_multigraph() {
@@ -102,10 +102,10 @@ auto incidence_matrix(G, nodelist=None, edgelist=None,
         } else {
             A[ui, ei] = wt
             A[vi, ei] = wt
-    return A.asformat('csc');
+    return A.asformat("csc");
 
 
-auto adjacency_matrix(G, nodelist=None, weight='weight') {
+auto adjacency_matrix(G, nodelist=None, weight="weight") {
     /** Return adjacency matrix of G.
 
     Parameters
@@ -114,10 +114,10 @@ auto adjacency_matrix(G, nodelist=None, weight='weight') {
        A XNetwork graph
 
     nodelist : list, optional
-       The rows and columns are ordered according to the nodes : nodelist.
-       If nodelist is None, then the ordering is produced by G.nodes().
+       The rows && columns are ordered according to the nodes : nodelist.
+       If nodelist.empty(), then the ordering is produced by G.nodes().
 
-    weight : string or None, optional (default='weight');
+    weight : string || None, optional (default="weight");
        The edge data key used to provide each value : the matrix.
        If None, then each edge has weight 1.
 

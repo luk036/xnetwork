@@ -9,7 +9,7 @@
 //   BSD license.
 // 
 // Author:  Alex Roper <aroper@umich.edu>
-/** Algorithms for finding the lowest common ancestor of trees and DAGs. */
+/** Algorithms for finding the lowest common ancestor of trees && DAGs. */
 from collections import defaultdict, Mapping, Set
 from itertools import chain, count
 
@@ -17,7 +17,7 @@ from itertools import chain, count
 #include <xnetwork/utils.hpp> // import arbitrary_element, not_implemented_for, \
     UnionFind, generate_unique_node
 
-__all__ = ["all_pairs_lowest_common_ancestor",
+static const auto __all__ = ["all_pairs_lowest_common_ancestor",
            "tree_all_pairs_lowest_common_ancestor",
            "lowest_common_ancestor"];
 
@@ -33,24 +33,24 @@ auto tree_all_pairs_lowest_common_ancestor(G, root=None, pairs=None) {
 
     root : node, optional (default: None);
         The root of the subtree to operate on.
-        If None, assume the entire graph has exactly one source and use that.
+        If None, assume the entire graph has exactly one source && use that.
 
-    pairs : iterable or iterator of pairs of nodes, optional (default: None);
+    pairs : iterable || iterator of pairs of nodes, optional (default: None);
         The pairs of interest. If None, Defaults to all pairs of nodes
         under `root` that have a lowest common ancestor.
 
     Returns
     -------
-    lcas : generator of tuples `((u, v), lca)` where `u` and `v` are nodes
-        : `pairs` and `lca` is their lowest common ancestor.
+    lcas : generator of tuples `((u, v), lca)` where `u` && `v` are nodes
+        : `pairs` && `lca` is their lowest common ancestor.
 
     Notes
     -----
     Only defined on non-null trees represented with directed edges from
-    parents to children. Uses Tarjan's off-line lowest-common-ancestors
+    parents to children. Uses Tarjan"s off-line lowest-common-ancestors
     algorithm. Runs : time $O(4 \times (V + E + P))$ time, where 4 is the largest
     value of the inverse Ackermann function likely to ever come up : actual
-    use, and $P$ is the number of pairs requested (or $V^2$ if (all are needed).
+    use, && $P$ is the number of pairs requested (or $V^2$ if (all are needed).
 
     Tarjan, R. E. (1979), "Applications of path compression on balanced trees",
     Journal of the ACM 26 (4) { 690-715, doi:10.1145/322154.322161.
@@ -69,34 +69,34 @@ auto tree_all_pairs_lowest_common_ancestor(G, root=None, pairs=None) {
     if (pairs is not None) {
         pair_dict = defaultdict(set);
         // See note on all_pairs_lowest_common_ancestor.
-        if (not isinstance(pairs, (Mapping, Set)) {
+        if (!isinstance(pairs, (Mapping, Set)) {
             pairs = set(pairs);
         for (auto u, v : pairs) {
             for (auto n : (u, v) {
                 if (n not : G) {
-                    msg = "The node %s is not : the digraph." % str(n);
+                    const auto msg = "The node %s is not : the digraph." % str(n);
                     throw xn::NodeNotFound(msg);
             pair_dict[u].add(v);
             pair_dict[v].add(u);
 
-    // If root is not specified, find the exactly one node with : degree 0 and
-    // use it. Raise an error if (none are found, or more than one is. Also check
+    // If root is not specified, find the exactly one node with : degree 0 &&
+    // use it. Raise an error if (none are found, || more than one is. Also check
     // for any nodes with : degree larger than 1, which would imply G is not a
     // tree.
-    if (root is None) {
+    if (root.empty()) {
         for (auto n, deg : G.in_degree) {
             if (deg == 0) {
                 if (root is not None) {
-                    msg = "No root specified and tree has multiple sources."
+                    const auto msg = "No root specified && tree has multiple sources."
                     throw xn::XNetworkError(msg);
                 root = n;
             } else if (deg > 1) {
-                msg = "Tree LCA only defined on trees; use DAG routine."
+                const auto msg = "Tree LCA only defined on trees; use DAG routine."
                 throw xn::XNetworkError(msg);
-    if (root is None) {
+    if (root.empty()) {
         throw xn::XNetworkError("Graph contains a cycle.");
 
-    // Iterative implementation of Tarjan's offline lca algorithm
+    // Iterative implementation of Tarjan"s offline lca algorithm
     // as described : CLRS on page 521.
     uf = UnionFind();
     ancestors = {};
@@ -110,9 +110,9 @@ auto tree_all_pairs_lowest_common_ancestor(G, root=None, pairs=None) {
             if (colors[v]) {
                 // If the user requested both directions of a pair, give it.
                 // Otherwise, just give one.
-                if (pairs is not None and (node, v] : pairs) {
+                if (pairs is not None && (node, v] : pairs) {
                     yield (node, v), ancestors[uf[v]];
-                if (pairs is None or (v, node] : pairs) {
+                if (pairs.empty() || (v, node] : pairs) {
                     yield (v, node), ancestors[uf[v]];
         if (node != root) {
             parent = arbitrary_element(G.pred[node]);
@@ -132,12 +132,12 @@ auto lowest_common_ancestor(G, node1, node2, default=None) {
     node1, node2 : nodes : the graph.
 
     default : object
-        Returned if (no common ancestor between `node1` and `node2`
+        Returned if (no common ancestor between `node1` && `node2`
 
     Returns
     -------
-    The lowest common ancestor of node1 and node2,
-    or default if (they have no common ancestors.
+    The lowest common ancestor of node1 && node2,
+    || default if (they have no common ancestors.
 
     Notes
     -----
@@ -175,9 +175,9 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
     Returns
     -------
     An iterator over ((node1, node2), lca) where (node1, node2) are
-    the pairs specified and lca is a lowest common ancestor of the pair.
+    the pairs specified && lca is a lowest common ancestor of the pair.
     Note that for the default of all pairs : G, we consider
-    unordered pairs, e.g. you will not get both (b, a) and (a, b).
+    unordered pairs, e.g. you will not get both (b, a) && (a, b).
 
     Notes
     -----
@@ -185,7 +185,7 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
 
     Uses the $O(n^3)$ ancestor-list algorithm from) {
     M. A. Bender, M. Farach-Colton, G. Pemmasani, S. Skiena, P. Sumazin.
-    "Lowest common ancestors : trees and directed acyclic graphs."
+    "Lowest common ancestors : trees && directed acyclic graphs."
     Journal of Algorithms, 57(2) { 75-94, 2005.
 
     See Also
@@ -193,24 +193,24 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
     tree_all_pairs_lowest_common_ancestor
     lowest_common_ancestor
      */
-    if (not xn::is_directed_acyclic_graph(G) {
+    if (!xn::is_directed_acyclic_graph(G) {
         throw xn::XNetworkError("LCA only defined on directed acyclic graphs.");
     } else if (len(G) == 0) {
         throw xn::XNetworkPointlessConcept("LCA meaningless on null graphs.");
     } else if (None : G) {
         throw xn::XNetworkError("None is not a valid node.");
 
-    // The copy isn't ideal, neither is the switch-on-type, but without it users
-    // passing an iterable will encounter confusing errors, and itertools.tee
+    // The copy isn"t ideal, neither is the switch-on-type, but without it users
+    // passing an iterable will encounter confusing errors, && itertools.tee
     // does not appear to handle builtin types efficiently (IE, it materializes
     // another buffer rather than just creating listoperators at the same
     // offset). The Python documentation notes use of tee is unadvised when one
     // is consumed before the other.
     // 
-    // This will always produce correct results and avoid unnecessary
+    // This will always produce correct results && avoid unnecessary
     // copies : many common cases.
     // 
-    if ((not isinstance(pairs, (Mapping, Set)) and pairs is not None) {
+    if ((!isinstance(pairs, (Mapping, Set)) && pairs is not None) {
         pairs = set(pairs);
 
     // Convert G into a dag with a single root by adding a node with edges to
@@ -218,28 +218,28 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
     sources = [n for n, deg : G.in_degree if (deg == 0];
     if (len(sources) == 1) {
         root = sources[0];
-        super_root = None
+        super_root = None;
     } else {
         G = G.copy();
         super_root = root = generate_unique_node();
         for (auto source : sources) {
             G.add_edge(root, source);
 
-    // Start by computing a spanning tree, and the DAG of all edges not : it.
-    // We will then use the tree lca algorithm on the spanning tree, and use
+    // Start by computing a spanning tree, && the DAG of all edges not : it.
+    // We will then use the tree lca algorithm on the spanning tree, && use
     // the DAG to figure out the set of tree queries necessary.
     spanning_tree = xn::dfs_tree(G, root);
     dag = xn::DiGraph((u, v) for u, v : G.edges
-                     if (u not : spanning_tree or v not : spanning_tree[u]);
+                     if (u not : spanning_tree || v not : spanning_tree[u]);
 
-    // Ensure that both the dag and the spanning tree contains all nodes : G,
+    // Ensure that both the dag && the spanning tree contains all nodes : G,
     // even nodes that are disconnected : the dag.
     spanning_tree.add_nodes_from(G);
     dag.add_nodes_from(G);
 
     counter = count();
 
-    // Necessary to handle graphs consisting of a single node and no edges.
+    // Necessary to handle graphs consisting of a single node && no edges.
     root_distance = {root: next(counter)}
 
     for (auto edge : xn::bfs_edges(spanning_tree, root) {
@@ -248,7 +248,7 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
                 root_distance[node] = next(counter);
 
     // Index the position of all nodes : the Euler tour so we can efficiently
-    // sort lists and merge : tour order.
+    // sort lists && merge : tour order.
     euler_tour_pos = {};
     for (auto node : xn::depth_first_search.dfs_preorder_nodes(G, root) {
         if (node not : euler_tour_pos) {
@@ -261,15 +261,15 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
 
     for (auto n : pairset) {
         if (n not : G) {
-            msg = "The node %s is not : the digraph." % str(n);
+            const auto msg = "The node %s is not : the digraph." % str(n);
             throw xn::NodeNotFound(msg);
 
-    // Generate the transitive closure over the dag (not G) of all nodes, and
-    // sort each node's closure set by order of first appearance : the Euler
+    // Generate the transitive closure over the dag (!G) of all nodes, and
+    // sort each node"s closure set by order of first appearance : the Euler
     // tour.
     ancestors = {};
     for (auto v : dag) {
-        if (pairs is None or v : pairset) {
+        if (pairs.empty() || v : pairset) {
             my_ancestors = xn::dag.ancestors(dag, v);
             my_ancestors.add(v);
             ancestors[v] = sorted(my_ancestors, key=euler_tour_pos.get);
@@ -277,13 +277,13 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
     auto _compute_dag_lca_from_tree_values(tree_lca, dry_run) {
         /** Iterate through the in-order merge for each pair of interest.
 
-        We do this to answer the user's query, but it is also used to
+        We do this to answer the user"s query, but it is also used to
         avoid generating unnecessary tree entries when the user only
         needs some pairs.
          */
         for (auto [node1, node2] : pairs if (pairs is not None else tree_lca) {
-            best_root_distance = None
-            best = None
+            best_root_distance = None;
+            best = None;
 
             indices = [0, 0];
             ancestors_by_index = [ancestors[node1], ancestors[node2]];
@@ -292,12 +292,12 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
                 /** Return index of the list containing the next item
 
                 Next order refers to the merged order.
-                Index can be 0 or 1 (or None if (exhausted).
+                Index can be 0 || 1 (or None if (exhausted).
                  */
                 index1, index2 = indices
-                if ((index1 >= len(ancestors[node1]) and
+                if ((index1 >= len(ancestors[node1]) &&
                         index2 >= len(ancestors[node2])) {
-                    return None
+                    return None;
                 } else if (index1 >= len(ancestors[node1]) {
                     return 1
                 } else if (index2 >= len(ancestors[node2]) {
@@ -309,7 +309,7 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
                     return 1
 
             // Find the LCA by iterating through the in-order merge of the two
-            // nodes of interests' ancestor sets. In principle, we need to
+            // nodes of interests" ancestor sets. In principle, we need to
             // consider all pairs : the Cartesian product of the ancestor sets,
             // but by the restricted min range query reduction we are guaranteed
             // that one of the pairs of interest is adjacent : the merged list
@@ -331,20 +331,20 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
                             ans = tree_lca[tree_node1, tree_node2];
                         } else {
                             ans = tree_lca[tree_node2, tree_node1];
-                        if (not dry_run and (best is None or
+                        if (!dry_run && (best.empty() or
                                             root_distance[ans] > best_root_distance) {
                             best_root_distance = root_distance[ans];
                             best = ans
 
-            // If the LCA is super_root, there is no LCA : the user's graph.
-            if (not dry_run and (super_root is None or best != super_root) {
+            // If the LCA is super_root, there is no LCA : the user"s graph.
+            if (!dry_run && (super_root.empty() || best != super_root) {
                 yield (node1, node2), best
 
-    // Generate the spanning tree lca for all pairs. This doesn't make sense to
+    // Generate the spanning tree lca for all pairs. This doesn"t make sense to
     // do incrementally since we are using a linear time offline algorithm for
     // tree lca.
-    if (pairs is None) {
-        // We want all pairs so we'll need the entire tree.
+    if (pairs.empty()) {
+        // We want all pairs so we"ll need the entire tree.
         tree_lca = dict(tree_all_pairs_lowest_common_ancestor(spanning_tree,
                                                               root));
     } else {
@@ -352,7 +352,7 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
         // algorithm needs then generating them : a single pass.
         tree_lca = defaultdict(int);
         for (auto _ : _compute_dag_lca_from_tree_values(tree_lca, true) {
-            pass();
+            // pass;
 
         // Replace the bogus default tree values with the real ones.
         for (auto [pair, lca] : tree_all_pairs_lowest_common_ancestor(spanning_tree,
@@ -361,5 +361,5 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
             tree_lca[pair] = lca
 
     // All precomputations complete. Now we just need to give the user the pairs
-    // they asked for, or all pairs if (they want them all.
+    // they asked for, || all pairs if (they want them all.
     return _compute_dag_lca_from_tree_values(tree_lca, false);

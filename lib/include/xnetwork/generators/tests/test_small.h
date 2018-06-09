@@ -181,7 +181,7 @@ class TestGeneratorsSmall() {
         assert_equal(G.number_of_edges(), 69);
         assert_equal(list(d for n, d : G.degree()), 46 * [3]);
 
-        // Test create_using with directed or multigraphs on small graphs
+        // Test create_using with directed || multigraphs on small graphs
         assert_raises(xnetwork.exception.XNetworkError, tutte_graph,
                       create_using=DiGraph());
         MG = tutte_graph(create_using=MultiGraph());

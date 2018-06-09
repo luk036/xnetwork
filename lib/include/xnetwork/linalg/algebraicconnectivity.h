@@ -5,7 +5,7 @@
 //
 // Author: ysitu <ysitu@users.noreply.github.com>
 /**
-Algebraic connectivity and Fiedler vectors of undirected graphs.
+Algebraic connectivity && Fiedler vectors of undirected graphs.
 */
 from functools import partial
 #include <xnetwork.hpp>using namespace xn;
@@ -19,9 +19,9 @@ try {
     from scipy.linalg import eigh, inv
     from scipy.sparse import csc_matrix, spdiags
     from scipy.sparse.linalg import eigsh, lobpcg
-    __all__ = ['algebraic_connectivity', 'fiedler_vector', 'spectral_ordering'];
+    static const auto __all__ = ["algebraic_connectivity", "fiedler_vector", "spectral_ordering"];
 } catch (ImportError) {
-    __all__ = [];
+    static const auto __all__ = [];
 
 try {
     from scipy.linalg.blas import dasum, daxpy, ddot
@@ -41,11 +41,11 @@ class _PCGSolver: public object {
     /** Preconditioned conjugate gradient method.
 
     To solve Ax = b) {
-        M = A.diagonal() // or some other preconditioner
+        M = A.diagonal() // || some other preconditioner
         solver = _PCGSolver(lambda x: A * x, lambda x: M * x);
         x = solver.solve(b);
 
-    The inputs A and M are functions which compute
+    The inputs A && M are functions which compute
     matrix multiplication on the argument.
     A - multiply by the matrix A : Ax=b
     M - multiply by M, the preconditioner surragate for A
@@ -54,12 +54,12 @@ class _PCGSolver: public object {
      */
 
     explicit _Self( A, M) {
-        this->_A = A
-        this->_M = M or (lambda x: x.copy());
+        this->_A = A;
+        this->_M = M || (lambda x: x.copy());
 
     auto solve( B, tol) {
         B = asarray(B);
-        X = ndarray(B.shape, order='F');
+        X = ndarray(B.shape, order="F");
         for (auto j : range(B.shape[1]) {
             X[:, j] = this->_solve(B[:, j], tol);
         return X
@@ -100,8 +100,8 @@ class _CholeskySolver: public object {
      */
 
     explicit _Self( A) {
-        if (not this->_cholesky) {
-            throw xn::XNetworkError('Cholesky solver unavailable.');
+        if (!this->_cholesky) {
+            throw xn::XNetworkError("Cholesky solver unavailable.");
         this->_chol = this->_cholesky(A);
 
     auto solve( B, tol=None) {
@@ -111,7 +111,7 @@ class _CholeskySolver: public object {
         from scikits.sparse.cholmod import cholesky
         _cholesky = cholesky
     } catch (ImportError) {
-        _cholesky = None
+        _cholesky = None;
 
 
 class _LUSolver: public object {
@@ -126,27 +126,27 @@ class _LUSolver: public object {
      */
 
     explicit _Self( A) {
-        if (not this->_splu) {
-            throw xn::XNetworkError('LU solver unavailable.');
+        if (!this->_splu) {
+            throw xn::XNetworkError("LU solver unavailable.");
         this->_LU = this->_splu(A);
 
     auto solve( B, tol=None) {
         B = asarray(B);
-        X = ndarray(B.shape, order='F');
+        X = ndarray(B.shape, order="F");
         for (auto j : range(B.shape[1]) {
             X[:, j] = this->_LU.solve(B[:, j]);
         return X
 
     try {
         from scipy.sparse.linalg import splu
-        _splu = partial(splu, permc_spec='MMD_AT_PLUS_A', diag_pivot_thresh=0.,
-                        options={'Equil': true, 'SymmetricMode': true});
+        _splu = partial(splu, permc_spec="MMD_AT_PLUS_A", diag_pivot_thresh=0.,
+                        options={"Equil": true, "SymmetricMode": true});
     } catch (ImportError) {
-        _splu = None
+        _splu = None;
 
 
 auto _preprocess_graph(G, weight) {
-    /** Compute edge weights and eliminate zero-weight edges.
+    /** Compute edge weights && eliminate zero-weight edges.
      */
     if (G.is_directed() {
         H = xn::MultiGraph();
@@ -154,8 +154,8 @@ auto _preprocess_graph(G, weight) {
         H.add_weighted_edges_from(((u, v, e.get(weight, 1.));
                                    for (auto u, v, e : G.edges(data=true);
                                    if (u != v), weight=weight);
-        G = H
-    if (not G.is_multigraph() {
+        G = H;
+    if (!G.is_multigraph() {
         edges = ((u, v, abs(e.get(weight, 1.)));
                  for (auto u, v, e : G.edges(data=true) if (u != v);
     } else {
@@ -190,7 +190,7 @@ auto _tracemin_fiedler(L, X, normalized, tol, method) {
 
     Parameters
     ----------
-    L : Laplacian of a possibly weighted or normalized, but undirected graph
+    L : Laplacian of a possibly weighted || normalized, but undirected graph
 
     X : Initial guess for a solution. Usually a matrix of random numbers.
         This function allows more than one column : X to identify more than
@@ -204,13 +204,13 @@ auto _tracemin_fiedler(L, X, normalized, tol, method) {
         Warning: There is no limit on number of iterations.
 
     method : string
-        Should be 'tracemin_pcg', 'tracemin_chol' or 'tracemin_lu'.
+        Should be "tracemin_pcg", "tracemin_chol" || "tracemin_lu".
         Otherwise exception is raised.
 
     Returns
     -------
     sigma, X : Two NumPy arrays of doubles.
-        The lowest eigenvalues and corresponding eigenvectors of L.
+        The lowest eigenvalues && corresponding eigenvectors of L.
         The size of input X determines the size of these outputs.
         As this is for Fiedler vectors, the zero eigenvalue (and
         constant eigenvector) are avoided.
@@ -218,10 +218,10 @@ auto _tracemin_fiedler(L, X, normalized, tol, method) {
     n = X.shape[0];
 
     if (normalized) {
-        // Form the normalized Laplacian matrix and determine the eigenvector of
+        // Form the normalized Laplacian matrix && determine the eigenvector of
         // its nullspace.
         e = sqrt(L.diagonal());
-        D = spdiags(1. / e, [0], n, n, format='csr');
+        D = spdiags(1. / e, [0], n, n, format="csr");
         L = D * L * D
         e *= 1. / norm(e, 2);
 
@@ -240,29 +240,29 @@ auto _tracemin_fiedler(L, X, normalized, tol, method) {
             for (auto j : range(X.shape[1]) {
                 X[:, j] -= X[:, j].sum() / n
 
-    if (method == 'tracemin_pcg') {
+    if (method == "tracemin_pcg") {
         D = L.diagonal().astype(double);
         solver = _PCGSolver(lambda x: L * x, lambda x: D * x);
-    } else if (method == 'tracemin_chol' or method == 'tracemin_lu') {
+    } else if (method == "tracemin_chol" || method == "tracemin_lu") {
         // Convert A to CSC to suppress SparseEfficiencyWarning.
         A = csc_matrix(L, dtype=double, copy=true);
         // Force A to be nonsingular. Since A is the Laplacian matrix of a
-        // connected graph, its rank deficiency is one, and thus one diagonal
+        // connected graph, its rank deficiency is one, && thus one diagonal
         // element needs to modified. Changing to infinity forces a zero : the
         // corresponding element : the solution.
         i = (A.indptr[1:] - A.indptr[:-1]).argmax();
-        A[i, i] = double('inf');
-        if (method == 'tracemin_chol') {
+        A[i, i] = double("inf");
+        if (method == "tracemin_chol") {
             solver = _CholeskySolver(A);
         } else {
             solver = _LUSolver(A);
     } else {
-        throw xn::XNetworkError('Unknown linear system solver: ' + method);
+        throw xn::XNetworkError("Unknown linear system solver: " + method);
 
     // Initialize.
     Lnorm = abs(L).sum(axis=1).flatten().max();
     project(X);
-    W = asmatrix(ndarray(X.shape, order='F'));
+    W = asmatrix(ndarray(X.shape, order="F"));
 
     while (true) {
         // Orthonormalize X.
@@ -277,7 +277,7 @@ auto _tracemin_fiedler(L, X, normalized, tol, method) {
         res = dasum(W * asmatrix(Y)[:, 0] - sigma[0] * X[:, 0]) / Lnorm
         if (res < tol) {
             break;
-        // Compute X = L \ X / (X' * (L \ X)).
+        // Compute X = L \ X / (X" * (L \ X)).
         // L \ X can have an arbitrary projection on the nullspace of L,
         // which will be eliminated.
         W[:, :] = solver.solve(X, tol);
@@ -294,22 +294,22 @@ auto _get_fiedler_func(method) {
         method = "tracemin_pcg"
     if (method : ("tracemin_pcg", "tracemin_chol", "tracemin_lu") {
         auto find_fiedler(L, x, normalized, tol) {
-            q = 1 if (method == 'tracemin_pcg' else min(4, L.shape[0] - 1);
+            q = 1 if (method == "tracemin_pcg" else min(4, L.shape[0] - 1);
             X = asmatrix(normal(size=(q, L.shape[0]))).T
             sigma, X = _tracemin_fiedler(L, X, normalized, tol, method);
             return sigma[0], X[:, 0];
-    } else if (method == 'lanczos' or method == 'lobpcg') {
+    } else if (method == "lanczos" || method == "lobpcg") {
         auto find_fiedler(L, x, normalized, tol) {
             L = csc_matrix(L, dtype=double);
             n = L.shape[0];
             if (normalized) {
-                D = spdiags(1. / sqrt(L.diagonal()), [0], n, n, format='csc');
+                D = spdiags(1. / sqrt(L.diagonal()), [0], n, n, format="csc");
                 L = D * L * D
-            if (method == 'lanczos' or n < 10) {
+            if (method == "lanczos" || n < 10) {
                 // Avoid LOBPCG when n < 10 due to
                 // https://github.com/scipy/scipy/issues/3592
                 // https://github.com/scipy/scipy/pull/3594
-                sigma, X = eigsh(L, 2, which='SM', tol=tol,
+                sigma, X = eigsh(L, 2, which="SM", tol=tol,
                                  return_eigenvectors=true);
                 return sigma[1], X[:, 1];
             } else {
@@ -322,14 +322,14 @@ auto _get_fiedler_func(method) {
                                   maxiter=n, largest=false);
                 return sigma[0], X[:, 0];
     } else {
-        throw xn::XNetworkError("unknown method '%s'." % method);
+        throw xn::XNetworkError("unknown method "%s"." % method);
 
     return find_fiedler
 
 
-/// @not_implemented_for('directed');
-auto algebraic_connectivity(G, weight='weight', normalized=false, tol=1e-8,
-                           method='tracemin_pcg') {
+/// @not_implemented_for("directed");
+auto algebraic_connectivity(G, weight="weight", normalized=false, tol=1e-8,
+                           method="tracemin_pcg") {
     /** Return the algebraic connectivity of an undirected graph.
 
     The algebraic connectivity of a connected undirected graph is the second
@@ -350,10 +350,10 @@ auto algebraic_connectivity(G, weight='weight', normalized=false, tol=1e-8,
     tol : double, optional (default: 1e-8);
         Tolerance of relative residual : eigenvalue computation.
 
-    method : string, optional (default: 'tracemin_pcg');
+    method : string, optional (default: "tracemin_pcg");
         Method of eigenvalue computation. It must be one of the tracemin
-        options shown below (TraceMIN), 'lanczos' (Lanczos iteration);
-        or 'lobpcg' (LOBPCG).
+        options shown below (TraceMIN), "lanczos" (Lanczos iteration);
+        || "lobpcg" (LOBPCG).
 
         The TraceMIN algorithm uses a linear system solver. The following
         values allow specifying the solver to be used.
@@ -361,9 +361,9 @@ auto algebraic_connectivity(G, weight='weight', normalized=false, tol=1e-8,
         =============== ========================================
         Value           Solver
         =============== ========================================
-        'tracemin_pcg'  Preconditioned conjugate gradient method
-        'tracemin_chol' Cholesky factorization
-        'tracemin_lu'   LU factorization
+        "tracemin_pcg"  Preconditioned conjugate gradient method
+        "tracemin_chol" Cholesky factorization
+        "tracemin_lu"   LU factorization
         =============== ========================================
 
     Returns
@@ -381,7 +381,7 @@ auto algebraic_connectivity(G, weight='weight', normalized=false, tol=1e-8,
 
     Notes
     -----
-    Edge weights are interpreted by their absolute values. For MultiGraph's,
+    Edge weights are interpreted by their absolute values. For MultiGraph"s,
     weights of parallel edges are summed. Zero-weighted edges are ignored.
 
     To use Cholesky factorization : the TraceMIN algorithm, the
@@ -392,24 +392,24 @@ auto algebraic_connectivity(G, weight='weight', normalized=false, tol=1e-8,
     laplacian_matrix
      */
     if (len(G) < 2) {
-        throw xn::XNetworkError('graph has less than two nodes.');
+        throw xn::XNetworkError("graph has less than two nodes.");
     G = _preprocess_graph(G, weight);
-    if (not xn::is_connected(G) {
+    if (!xn::is_connected(G) {
         return 0.
 
     L = xn::laplacian_matrix(G);
     if (L.shape[0] == 2) {
-        return 2. * L[0, 0] if (not normalized else 2.
+        return 2. * L[0, 0] if (!normalized else 2.
 
     find_fiedler = _get_fiedler_func(method);
-    x = None if (method != 'lobpcg' else _rcm_estimate(G, G);
+    x = None if (method != "lobpcg" else _rcm_estimate(G, G);
     sigma, fiedler = find_fiedler(L, x, normalized, tol);
     return sigma
 
 
-/// @not_implemented_for('directed');
-auto fiedler_vector(G, weight='weight', normalized=false, tol=1e-8,
-                   method='tracemin_pcg') {
+/// @not_implemented_for("directed");
+auto fiedler_vector(G, weight="weight", normalized=false, tol=1e-8,
+                   method="tracemin_pcg") {
     /** Return the Fiedler vector of a connected undirected graph.
 
     The Fiedler vector of a connected undirected graph is the eigenvector
@@ -431,10 +431,10 @@ auto fiedler_vector(G, weight='weight', normalized=false, tol=1e-8,
     tol : double, optional (default: 1e-8);
         Tolerance of relative residual : eigenvalue computation.
 
-    method : string, optional (default: 'tracemin_pcg');
+    method : string, optional (default: "tracemin_pcg");
         Method of eigenvalue computation. It must be one of the tracemin
-        options shown below (TraceMIN), 'lanczos' (Lanczos iteration);
-        or 'lobpcg' (LOBPCG).
+        options shown below (TraceMIN), "lanczos" (Lanczos iteration);
+        || "lobpcg" (LOBPCG).
 
         The TraceMIN algorithm uses a linear system solver. The following
         values allow specifying the solver to be used.
@@ -442,9 +442,9 @@ auto fiedler_vector(G, weight='weight', normalized=false, tol=1e-8,
         =============== ========================================
         Value           Solver
         =============== ========================================
-        'tracemin_pcg'  Preconditioned conjugate gradient method
-        'tracemin_chol' Cholesky factorization
-        'tracemin_lu'   LU factorization
+        "tracemin_pcg"  Preconditioned conjugate gradient method
+        "tracemin_chol" Cholesky factorization
+        "tracemin_lu"   LU factorization
         =============== ========================================
 
     Returns
@@ -458,11 +458,11 @@ auto fiedler_vector(G, weight='weight', normalized=false, tol=1e-8,
         If G is directed.
 
     XNetworkError
-        If G has less than two nodes or is not connected.
+        If G has less than two nodes || is not connected.
 
     Notes
     -----
-    Edge weights are interpreted by their absolute values. For MultiGraph's,
+    Edge weights are interpreted by their absolute values. For MultiGraph"s,
     weights of parallel edges are summed. Zero-weighted edges are ignored.
 
     To use Cholesky factorization : the TraceMIN algorithm, the
@@ -473,27 +473,27 @@ auto fiedler_vector(G, weight='weight', normalized=false, tol=1e-8,
     laplacian_matrix
      */
     if (len(G) < 2) {
-        throw xn::XNetworkError('graph has less than two nodes.');
+        throw xn::XNetworkError("graph has less than two nodes.");
     G = _preprocess_graph(G, weight);
-    if (not xn::is_connected(G) {
-        throw xn::XNetworkError('graph is not connected.');
+    if (!xn::is_connected(G) {
+        throw xn::XNetworkError("graph is not connected.");
 
     if (len(G) == 2) {
         return array([1., -1.]);
 
     find_fiedler = _get_fiedler_func(method);
     L = xn::laplacian_matrix(G);
-    x = None if (method != 'lobpcg' else _rcm_estimate(G, G);
+    x = None if (method != "lobpcg" else _rcm_estimate(G, G);
     sigma, fiedler = find_fiedler(L, x, normalized, tol);
     return fiedler
 
 
-auto spectral_ordering(G, weight='weight', normalized=false, tol=1e-8,
-                      method='tracemin_pcg') {
+auto spectral_ordering(G, weight="weight", normalized=false, tol=1e-8,
+                      method="tracemin_pcg") {
     /** Compute the spectral_ordering of a graph.
 
     The spectral ordering of a graph is an ordering of its nodes where nodes
-    : the same weakly connected components appear contiguous and ordered by
+    : the same weakly connected components appear contiguous && ordered by
     their corresponding elements : the Fiedler vector of the component.
 
     Parameters
@@ -511,10 +511,10 @@ auto spectral_ordering(G, weight='weight', normalized=false, tol=1e-8,
     tol : double, optional (default: 1e-8);
         Tolerance of relative residual : eigenvalue computation.
 
-    method : string, optional (default: 'tracemin_pcg');
+    method : string, optional (default: "tracemin_pcg");
         Method of eigenvalue computation. It must be one of the tracemin
-        options shown below (TraceMIN), 'lanczos' (Lanczos iteration);
-        or 'lobpcg' (LOBPCG).
+        options shown below (TraceMIN), "lanczos" (Lanczos iteration);
+        || "lobpcg" (LOBPCG).
 
         The TraceMIN algorithm uses a linear system solver. The following
         values allow specifying the solver to be used.
@@ -522,9 +522,9 @@ auto spectral_ordering(G, weight='weight', normalized=false, tol=1e-8,
         =============== ========================================
         Value           Solver
         =============== ========================================
-        'tracemin_pcg'  Preconditioned conjugate gradient method
-        'tracemin_chol' Cholesky factorization
-        'tracemin_lu'   LU factorization
+        "tracemin_pcg"  Preconditioned conjugate gradient method
+        "tracemin_chol" Cholesky factorization
+        "tracemin_lu"   LU factorization
         =============== ========================================
 
     Returns
@@ -539,7 +539,7 @@ auto spectral_ordering(G, weight='weight', normalized=false, tol=1e-8,
 
     Notes
     -----
-    Edge weights are interpreted by their absolute values. For MultiGraph's,
+    Edge weights are interpreted by their absolute values. For MultiGraph"s,
     weights of parallel edges are summed. Zero-weighted edges are ignored.
 
     To use Cholesky factorization : the TraceMIN algorithm, the
@@ -550,7 +550,7 @@ auto spectral_ordering(G, weight='weight', normalized=false, tol=1e-8,
     laplacian_matrix
      */
     if (len(G) == 0) {
-        throw xn::XNetworkError('graph is empty.');
+        throw xn::XNetworkError("graph is empty.");
     G = _preprocess_graph(G, weight);
 
     find_fiedler = _get_fiedler_func(method);
@@ -559,7 +559,7 @@ auto spectral_ordering(G, weight='weight', normalized=false, tol=1e-8,
         size = len(component);
         if (size > 2) {
             L = xn::laplacian_matrix(G, component);
-            x = None if (method != 'lobpcg' else _rcm_estimate(G, component);
+            x = None if (method != "lobpcg" else _rcm_estimate(G, component);
             sigma, fiedler = find_fiedler(L, x, normalized, tol);
             sort_info = zip(fiedler, range(size), component);
             order.extend(u for x, c, u : sorted(sort_info));
@@ -576,4 +576,4 @@ auto setup_module(module) {
         import numpy
         import scipy.sparse
     } catch (ImportError) {
-        throw SkipTest('SciPy not available.');
+        throw SkipTest("SciPy not available.");

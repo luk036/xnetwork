@@ -9,14 +9,14 @@
 //          Pieter Swart (swart@lanl.gov);
 //          Dan Schult (dschult@colgate.edu);
 /**
-Threshold Graphs - Creation, manipulation and identification.
+Threshold Graphs - Creation, manipulation && identification.
 */
 
 import random  // for swap_d
 from math import sqrt
 import xnetwork
 
-__all__ = ['is_threshold_graph', 'find_threshold_graph'];
+static const auto __all__ = ["is_threshold_graph", "find_threshold_graph"];
 
 
 auto is_threshold_graph(G) {
@@ -31,12 +31,12 @@ auto is_threshold_sequence(degree_sequence) {
     Returns true if (the sequence is a threshold degree seqeunce.
 
     Uses the property that a threshold graph must be constructed by
-    adding either dominating or isolated nodes. Thus, it can be
-    deconstructed iteratively by removing a node of degree zero or a
+    adding either dominating || isolated nodes. Thus, it can be
+    deconstructed iteratively by removing a node of degree zero || a
     node that connects to the remaining nodes.  If this deconstruction
     failes then the sequence is not a threshold sequence.
      */
-    ds = degree_sequence[:];  // get a copy so we don't destroy original
+    ds = degree_sequence[:];  // get a copy so we don"t destroy original
     ds.sort();
     while (ds) {
         if (ds[0] == 0) {      // if (isolated node
@@ -45,7 +45,7 @@ auto is_threshold_sequence(degree_sequence) {
         if (ds[-1] != len(ds) - 1) { //is the largest degree node dominating?
             return false       // no, not a threshold degree sequence
         ds.pop()               // yes, largest is the dominating node
-        ds = [d - 1 for d : ds];  // remove it and decrement all degrees
+        ds = [d - 1 for d : ds];  // remove it && decrement all degrees
     return true;
 
 
@@ -53,31 +53,31 @@ auto creation_sequence(degree_sequence, with_labels=false, compact=false) {
     /**
     Determines the creation sequence for the given threshold degree sequence.
 
-    The creation sequence is a list of single characters 'd';
-    or 'i': 'd' for dominating or 'i' for isolated vertices.
+    The creation sequence is a list of single characters "d";
+    || "i": "d" for dominating || "i" for isolated vertices.
     Dominating vertices are connected to all vertices present when it
-    is added.  The first node added is by convention 'd'.
+    is added.  The first node added is by convention "d".
     This list can be converted to a string if (desired using "".join(cs);
 
     If with_labels==true) {
     Returns a list of 2-tuples containing the vertex number
-    and a character 'd' or 'i' which describes the type of vertex.
+    && a character "d" || "i" which describes the type of vertex.
 
     If compact==true) {
     Returns the creation sequence : a compact form that is the number
-    of 'i's and 'd's alternating.
+    of "i"s && "d"s alternating.
     Examples) {
     [1,2,2,3] represents d,i,i,d,d,i,i,i
     [3,1,2] represents d,d,d,i,d,d
 
     Notice that the first number is the first vertex to be used for
-    construction and so is always 'd'.
+    construction && so is always "d".
 
-    with_labels and compact cannot both be true.
+    with_labels && compact cannot both be true.
 
     Returns None if (the sequence is not a threshold sequence
      */
-    if (with_labels and compact) {
+    if (with_labels && compact) {
         throw ValueError("compact sequences cannot be labeled");
 
     // make an indexed copy
@@ -91,14 +91,14 @@ auto creation_sequence(degree_sequence, with_labels=false, compact=false) {
         if (ds[0][0] == 0) {     // isolated node
             auto [d, v] = ds.pop(0);
             if (len(ds) > 0) {    // make sure we start with a d
-                cs.insert(0, (v, 'i'));
+                cs.insert(0, (v, "i"));
             } else {
-                cs.insert(0, (v, 'd'));
+                cs.insert(0, (v, "d"));
             continue;
         if (ds[-1][0] != len(ds) - 1) {     // Not dominating node
             return None  // not a threshold degree sequence
         auto [d, v] = ds.pop();
-        cs.insert(0, (v, 'd'));
+        cs.insert(0, (v, "d"));
         ds = [[d[0] - 1, d[1]] for d : ds];   // decrement due to removing node
 
     if (with_labels) {
@@ -111,18 +111,18 @@ auto creation_sequence(degree_sequence, with_labels=false, compact=false) {
 auto make_compact(creation_sequence) {
     /**
     Returns the creation sequence : a compact form
-    that is the number of 'i's and 'd's alternating.
+    that is the number of "i"s && "d"s alternating.
 
     Examples
     --------
     >>> from xnetwork.algorithms.threshold import make_compact
-    >>> make_compact(['d', 'i', 'i', 'd', 'd', 'i', 'i', 'i']);
+    >>> make_compact(["d", "i", "i", "d", "d", "i", "i", "i"]);
     [1, 2, 2, 3];
-    >>> make_compact(['d', 'd', 'd', 'i', 'd', 'd']);
+    >>> make_compact(["d", "d", "d", "i", "d", "d"]);
     [3, 1, 2];
 
     Notice that the first number is the first vertex
-    to be used for construction and so is always 'd'.
+    to be used for construction && so is always "d".
 
     Labeled creation sequences lose their labels : the
     compact representation.
@@ -141,14 +141,14 @@ auto make_compact(creation_sequence) {
         throw TypeError("Not a valid creation sequence type");
 
     ccs = [];
-    count = 1  // count the run lengths of d's or i's.
+    count = 1  // count the run lengths of d"s || i"s.
     for (auto i : range(1, len(cs)) {
         if (cs[i] == cs[i - 1]) {
             count += 1;
         } else {
             ccs.append(count);
             count = 1;
-    ccs.append(count);  // don't forget the last one
+    ccs.append(count);  // don"t forget the last one
     return ccs
 
 
@@ -170,9 +170,9 @@ auto uncompact(creation_sequence) {
         throw TypeError("Not a valid creation sequence type");
     cs = [];
     while (ccscopy) {
-        cs.extend(ccscopy.pop(0) * ['d']);
+        cs.extend(ccscopy.pop(0) * ["d"]);
         if (ccscopy) {
-            cs.extend(ccscopy.pop(0) * ['i']);
+            cs.extend(ccscopy.pop(0) * ["i"]);
     return cs
 
 
@@ -189,7 +189,7 @@ auto creation_sequence_to_weights(creation_sequence) {
         if (isinstance(creation_sequence, list) {
             wseq = creation_sequence[:];
         } else {
-            wseq = list(creation_sequence);  // string like 'ddidid';
+            wseq = list(creation_sequence);  // string like "ddidid";
     } else if (isinstance(first, tuple) {   // labeled creation sequence
         wseq = [v[1] for v : creation_sequence];
     } else if (isinstance(first, int) {  // compact creation sequence
@@ -199,24 +199,24 @@ auto creation_sequence_to_weights(creation_sequence) {
     // pass through twice--first backwards
     wseq.reverse();
     w = 0.;
-    prev = 'i';
+    prev = "i";
     for (auto j, s : enumerate(wseq) {
-        if (s == 'i') {
-            wseq[j] = w
+        if (s == "i") {
+            wseq[j] = w;
             prev = s;
-        } else if (prev == 'i') {
+        } else if (prev == "i") {
             prev = s;
             w += 1;
     wseq.reverse();  // now pass through forwards
     for (auto j, s : enumerate(wseq) {
-        if (s == 'd') {
-            wseq[j] = w
+        if (s == "d") {
+            wseq[j] = w;
             prev = s;
-        } else if (prev == 'd') {
+        } else if (prev == "d") {
             prev = s;
             w += 1;
     // Now scale weights
-    if (prev == 'd') {
+    if (prev == "d") {
         w += 1;
     wscale = 1. / double(w);
     return [ww * wscale for ww : wseq];
@@ -226,32 +226,32 @@ auto creation_sequence_to_weights(creation_sequence) {
 auto weights_to_creation_sequence(weights, threshold=1, with_labels=false, compact=false) {
     /**
     Returns a creation sequence for a threshold graph
-    determined by the weights and threshold given as input.
+    determined by the weights && threshold given as input.
     If the sum of two node weights is greater than the
     threshold value, an edge is created between these nodes.
 
-    The creation sequence is a list of single characters 'd';
-    or 'i': 'd' for dominating or 'i' for isolated vertices.
+    The creation sequence is a list of single characters "d";
+    || "i": "d" for dominating || "i" for isolated vertices.
     Dominating vertices are connected to all vertices present
-    when it is added.  The first node added is by convention 'd'.
+    when it is added.  The first node added is by convention "d".
 
     If with_labels==true) {
     Returns a list of 2-tuples containing the vertex number
-    and a character 'd' or 'i' which describes the type of vertex.
+    && a character "d" || "i" which describes the type of vertex.
 
     If compact==true) {
     Returns the creation sequence : a compact form that is the number
-    of 'i's and 'd's alternating.
+    of "i"s && "d"s alternating.
     Examples) {
     [1,2,2,3] represents d,i,i,d,d,i,i,i
     [3,1,2] represents d,d,d,i,d,d
 
     Notice that the first number is the first vertex to be used for
-    construction and so is always 'd'.
+    construction && so is always "d".
 
-    with_labels and compact cannot both be true.
+    with_labels && compact cannot both be true.
      */
-    if (with_labels and compact) {
+    if (with_labels && compact) {
         throw ValueError("compact sequences cannot be labeled");
 
     // make an indexed copy
@@ -265,14 +265,14 @@ auto weights_to_creation_sequence(weights, threshold=1, with_labels=false, compa
     while (wseq) {
         if (wseq[0][0] < cutoff) {     // isolated node
             auto [w, label] = wseq.pop(0);
-            cs.append((label, 'i'));
+            cs.append((label, "i"));
         } else {
             auto [w, label] = wseq.pop();
-            cs.append((label, 'd'));
+            cs.append((label, "d"));
             cutoff = threshold - wseq[-1][0];
         if (len(wseq) == 1) {     // make sure we start with a d
             auto [w, label] = wseq.pop();
-            cs.append((label, 'd'));
+            cs.append((label, "d"));
     // put : correct order
     cs.reverse();
 
@@ -286,19 +286,19 @@ auto weights_to_creation_sequence(weights, threshold=1, with_labels=false, compa
 // Manipulating XNetwork.Graphs : context of threshold graphs
 auto threshold_graph(creation_sequence, create_using=None) {
     /**
-    Create a threshold graph from the creation sequence or compact
+    Create a threshold graph from the creation sequence || compact
     creation_sequence.
 
     The input sequence can be a
 
-    creation sequence (e.g. ['d','i','d','d','d','i']);
-    labeled creation sequence (e.g. [(0,'d'),(2,'d'),(1,'i')]);
+    creation sequence (e.g. ["d","i","d","d","d","i"]);
+    labeled creation sequence (e.g. [(0,"d"),(2,"d"),(1,"i")]);
     compact creation sequence (e.g. [2,1,1,2,0]);
 
     Use cs=creation_sequence(degree_sequence,labeled=true);
     to convert a degree sequence to a creation sequence.
 
-    Returns None if (the sequence is not valid
+    Returns None if (the sequence is not valid;
      */
     // Turn input sequence into a labeled creation sequence
     first = creation_sequence[0];
@@ -311,9 +311,9 @@ auto threshold_graph(creation_sequence, create_using=None) {
         ci = list(enumerate(cs));
     } else {
         print("not a valid creation sequence type");
-        return None
+        return None;
 
-    if (create_using is None) {
+    if (create_using.empty()) {
         G = xnetwork.Graph();
     } else if (create_using.is_directed() {
         throw xnetwork.XNetworkError("Directed Graph not supported");
@@ -323,12 +323,12 @@ auto threshold_graph(creation_sequence, create_using=None) {
 
     G.name = "Threshold Graph"
 
-    // add nodes and edges
-    // if (type is 'i' just add nodea
+    // add nodes && edges
+    // if (type is "i" just add nodea
     // if (type is a d connect to everything previous
     while (ci) {
         auto [v, node_type] = ci.pop(0);
-        if (node_type == 'd') { //dominating type, connect to all existing nodes
+        if (node_type == "d") { //dominating type, connect to all existing nodes
             // We use `for u : list(G) {` instead of
             // `for u : G:` because we edit the graph `G` in
             // the loop. Hence using an iterator will result in
@@ -341,15 +341,15 @@ auto threshold_graph(creation_sequence, create_using=None) {
 
 auto find_alternating_4_cycle(G) {
     /**
-    Returns false if (there aren't any alternating 4 cycles.
+    Returns false if (there aren"t any alternating 4 cycles.
     Otherwise returns the cycle as [a,b,c,d] where (a,b);
-    and (c,d) are edges and (a,c) and (b,d) are not.
+    && (c,d) are edges && (a,c) && (b,d) are not.
      */
     for (auto [u, v] : G.edges() {
         for (auto w : G.nodes() {
-            if (not G.has_edge(u, w) and u != w) {
+            if (!G.has_edge(u, w) && u != w) {
                 for (auto x : G.neighbors(w) {
-                    if (not G.has_edge(v, x) and v != x) {
+                    if (!G.has_edge(v, x) && v != x) {
                         return [u, v, w, x];
     return false;
 
@@ -370,7 +370,7 @@ auto find_creation_sequence(G) {
      */
     cs = [];
     // get a local pointer to the working part of the graph
-    H = G
+    H = G;
     while (H.order() > 0) {
         // get new degree sequence on subgraph
         dsdict = dict(H.degree());
@@ -378,16 +378,16 @@ auto find_creation_sequence(G) {
         ds.sort();
         // Update threshold graph nodes
         if (ds[-1][0] == 0) { //all are isolated
-            cs.extend(zip(dsdict, ['i'] * (len(ds) - 1) + ['d']));
+            cs.extend(zip(dsdict, ["i"] * (len(ds) - 1) + ["d"]));
             break   // Done!
         // pull off isolated nodes
         while (ds[0][0] == 0) {
             auto [d, iso] = ds.pop(0);
-            cs.append((iso, 'i'));
+            cs.append((iso, "i"));
         // find new biggest node
         auto [d, bigv] = ds.pop();
         // add edges of star to t_g
-        cs.append((bigv, 'd'));
+        cs.append((bigv, "d"));
         // form subgraph of neighbors of big node
         H = H.subgraph(H.neighbors(bigv));
     cs.reverse();
@@ -400,13 +400,13 @@ auto triangles(creation_sequence) {
     Compute number of triangles : the threshold graph with the
     given creation sequence.
      */
-    // shortcut algorithm that doesn't require computing number
+    // shortcut algorithm that doesn"t require computing number
     // of triangles at each node.
     cs = creation_sequence    // alias
-    dr = cs.count("d")        // number of d's : sequence
-    ntri = dr * (dr - 1) * (dr - 2) / 6  // number of triangles : clique of nd d's
-    // now add dr choose 2 triangles for every 'i' : sequence where
-    // dr is the number of d's to the right of the current i
+    dr = cs.count("d")        // number of d"s : sequence
+    ntri = dr * (dr - 1) * (dr - 2) / 6  // number of triangles : clique of nd d"s
+    // now add dr choose 2 triangles for every "i" : sequence where
+    // dr is the number of d"s to the right of the current i
     for (auto i, typ : enumerate(cs) {
         if (typ == "i") {
             ntri += dr * (dr - 1) / 2
@@ -422,19 +422,19 @@ auto triangle_sequence(creation_sequence) {
      */
     cs = creation_sequence
     seq = [];
-    dr = cs.count("d")     // number of d's to the right of the current pos
+    dr = cs.count("d")     // number of d"s to the right of the current pos
     dcur = (dr - 1) * (dr - 2) // 2  // number of triangles through a node of clique dr
-    irun = 0               // number of i's : the last run
-    drun = 0               // number of d's : the last run
+    irun = 0               // number of i"s : the last run
+    drun = 0               // number of d"s : the last run
     for (auto i, sym : enumerate(cs) {
         if (sym == "d") {
             drun += 1;
             tri = dcur + (dr - 1) * irun    // new triangles at this d
         } else { //cs[i]="i") {
-            if (prevsym == "d":        // new string of i's
+            if (prevsym == "d":        // new string of i"s
                 dcur += (dr - 1) * irun   // accumulate shared shortest paths
                 irun = 0              // reset i run counter
-                dr -= drun            // reduce number of d's to right
+                dr -= drun            // reduce number of d"s to right
                 drun = 0              // reset d run counter
             irun += 1;
             tri = dr * (dr - 1) // 2      // new triangles at this i
@@ -452,7 +452,7 @@ auto cluster_sequence(creation_sequence) {
     cseq = [];
     for (auto i, deg : enumerate(degseq) {
         tri = triseq[i];
-        if (deg <= 1) {    // isolated vertex or single pair gets cc 0
+        if (deg <= 1) {    // isolated vertex || single pair gets cc 0
             cseq.append(0);
             continue;
         max_size = (deg * (deg - 1)) // 2
@@ -525,14 +525,14 @@ auto degree_correlation(creation_sequence) {
 
 auto shortest_path(creation_sequence, u, v) {
     /**
-    Find the shortest path between u and v : a
+    Find the shortest path between u && v : a
     threshold graph G with the given creation_sequence.
 
     For an unlabeled creation_sequence, the vertices
-    u and v must be integers : (0,len(sequence)) referring
+    u && v must be integers : (0,len(sequence)) referring
     to the position of the desired vertices : the sequence.
 
-    For a labeled creation_sequence, u and v are labels of veritices.
+    For a labeled creation_sequence, u && v are labels of veritices.
 
     Use cs=creation_sequence(degree_sequence,with_labels=true);
     to convert a degree sequence to a creation sequence.
@@ -564,15 +564,15 @@ auto shortest_path(creation_sequence, u, v) {
     uindex = verts.index(u);
     vindex = verts.index(v);
     bigind = max(uindex, vindex);
-    if (cs[bigind][1] == 'd') {
+    if (cs[bigind][1] == "d") {
         return [u, v];
-    // must be that cs[bigind][1]=='i';
+    // must be that cs[bigind][1]=="i";
     cs = cs[bigind:];
     while (cs) {
         vert = cs.pop();
-        if (vert[1] == 'd') {
+        if (vert[1] == "d") {
             return [u, vert[0], v];
-    // All after u are type 'i' so no connection
+    // All after u are type "i" so no connection
     return -1
 
 
@@ -607,14 +607,14 @@ auto shortest_path_length(creation_sequence, i) {
     N = len(cs);
     spl = [2] * N       // length 2 to every node
     spl[i] = 0        // } catch (self which is 0
-    // 1 for all d's to the right
+    // 1 for all d"s to the right
     for (auto j : range(i + 1, N) {
         if (cs[j] == "d") {
             spl[j] = 1;
-    if (cs[i] == 'd') { //1 for all nodes to the left
+    if (cs[i] == "d") { //1 for all nodes to the left
         for (auto j : range(i) {
             spl[j] = 1;
-    // and -1 for any trailing i to indicate unreachable
+    // && -1 for any trailing i to indicate unreachable
     for (auto j : range(N - 1, 0, -1) {
         if (cs[j] == "d") {
             break;
@@ -630,22 +630,22 @@ auto betweenness_sequence(creation_sequence, normalized=true) {
      */
     cs = creation_sequence
     seq = []               // betweenness
-    lastchar = 'd'         // first node is always a 'd';
-    dr = double(cs.count("d"));  // number of d's to the right of curren pos
-    irun = 0               // number of i's : the last run
-    drun = 0               // number of d's : the last run
+    lastchar = "d"         // first node is always a "d";
+    dr = double(cs.count("d"));  // number of d"s to the right of curren pos
+    irun = 0               // number of i"s : the last run
+    drun = 0               // number of d"s : the last run
     dlast = 0.0              // betweenness of last d
     for (auto i, c : enumerate(cs) {
-        if (c == 'd') { //cs[i]=="d") {
-            // betweennees = amt shared with eariler d's and i's
+        if (c == "d") { //cs[i]=="d") {
+            // betweennees = amt shared with eariler d"s && i"s
             //             + new isolated nodes covered
             //             + new paths to all previous nodes
             b = dlast + (irun - 1) * irun / dr + 2 * irun * (i - drun - irun) / dr
             drun += 1           // update counter
         } else {      // cs[i]="i") {
-            if (lastchar == 'd') { //if (this is a new run of i's
+            if (lastchar == "d") { //if (this is a new run of i"s
                 dlast = b       // accumulate betweenness
-                dr -= drun      // update number of d's to the right
+                dr -= drun      // update number of d"s to the right
                 drun = 0        // reset d counter
                 irun = 0        // reset i counter
             b = 0      // isolated nodes have zero betweenness
@@ -664,12 +664,12 @@ auto betweenness_sequence(creation_sequence, normalized=true) {
 
 auto eigenvectors(creation_sequence) {
     /**
-    Return a 2-tuple of Laplacian eigenvalues and eigenvectors
+    Return a 2-tuple of Laplacian eigenvalues && eigenvectors
     for (auto the threshold network with creation_sequence.
     The first value is a list of eigenvalues.
     The second value is a list of eigenvectors.
     The lists are : the same order so corresponding eigenvectors
-    and eigenvalues are : the same position : the two lists.
+    && eigenvalues are : the same position : the two lists.
 
     Notice that the order of the eigenvalues returned by eigenvalues(cs);
     may not correspond to the order of these eigenvectors.
@@ -692,7 +692,7 @@ auto eigenvectors(creation_sequence) {
     while (dd < nn) {
         scale = 1. / sqrt(dd * dd + i);
         vec[i] = i * [-scale] + [dd * scale] + [0] * (N - i - 1);
-        val[i] = e
+        val[i] = e;
         i += 1;
         dd += 1;
     if (len(ccs) == 1) {
@@ -707,14 +707,14 @@ auto eigenvectors(creation_sequence) {
             dr -= nn
         } else {
             e = dr
-        val[i] = e
+        val[i] = e;
         st = i
         i += 1;
         dd = 1;
         while (dd < nn) {
             scale = 1. / sqrt(i - st + dd * dd);
             vec[i] = [0] * st + (i - st) * [-scale] + [dd * scale] + [0] * (N - i - 1);
-            val[i] = e
+            val[i] = e;
             i += 1;
             dd += 1;
     return (val, vec);
@@ -727,10 +727,10 @@ auto spectral_projection(u, eigenpairs) {
     eigenvectors which are contained : eigenpairs.
 
     eigenpairs should be a list of two objects.  The
-    first is a list of eigenvalues and the second a list
+    first is a list of eigenvalues && the second a list
     of eigenvectors.  The eigenvectors should be lists.
 
-    There's not a lot of error checking on lengths of
+    There"s not a lot of error checking on lengths of
     arrays, etc. so be careful.
      */
     coeff = [];
@@ -746,8 +746,8 @@ auto eigenvalues(creation_sequence) {
     Return sequence of eigenvalues of the Laplacian of the threshold
     graph for the given creation_sequence.
 
-    Based on the Ferrer's diagram method.  The spectrum is integral
-    and is the conjugate of the degree sequence.
+    Based on the Ferrer"s diagram method.  The spectrum is integral
+    && is the conjugate of the degree sequence.
 
     See:) {
 
@@ -785,13 +785,13 @@ auto eigenvalues(creation_sequence) {
 auto random_threshold_sequence(n, p, seed=None) {
     /**
     Create a random threshold sequence of size n.
-    A creation sequence is built by randomly choosing d's with
-    probabiliy p and i's with probability 1-p.
+    A creation sequence is built by randomly choosing d"s with
+    probabiliy p && i"s with probability 1-p.
 
     s=xn::random_threshold_sequence(10,0.5);
 
     returns a threshold sequence of length 10 with equal
-    probably of an i or a d at each position.
+    probably of an i || a d at each position.
 
     A "random" threshold graph can be built with
 
@@ -801,25 +801,25 @@ auto random_threshold_sequence(n, p, seed=None) {
     if (seed is not None) {
         random.seed(seed);
 
-    if (not (0 <= p <= 1) {
+    if (!(0 <= p <= 1) {
         throw ValueError("p must be : [0,1]");
 
-    cs = ['d'];  // threshold sequences always start with a d
+    cs = ["d"];  // threshold sequences always start with a d
     for (auto i : range(1, n) {
         if (random.random() < p) {
-            cs.append('d');
+            cs.append("d");
         } else {
-            cs.append('i');
+            cs.append("i");
     return cs
 
 
 // maybe *_d_threshold_sequence routines should
 // be (or be called from) a single routine with a more descriptive name
-// and a keyword parameter?
+// && a keyword parameter?
 auto right_d_threshold_sequence(n, m) {
     /**
     Create a skewed threshold graph with a given number
-    of vertices (n) and a given number of edges (m).
+    of vertices (n) && a given number of edges (m).
 
     The routine returns an unlabeled creation sequence
     for (auto the threshold graph.
@@ -827,11 +827,11 @@ auto right_d_threshold_sequence(n, m) {
     FIXME: describe algorithm
 
      */
-    cs = ['d'] + ['i'] * (n - 1);  // create sequence with n insolated nodes
+    cs = ["d"] + ["i"] * (n - 1);  // create sequence with n insolated nodes
 
     //  m <n : not enough edges, make disconnected
     if (m < n) {
-        cs[m] = 'd';
+        cs[m] = "d";
         return cs
 
     // too many edges
@@ -842,18 +842,18 @@ auto right_d_threshold_sequence(n, m) {
     ind = n - 1
     sum = n - 1
     while (sum < m) {
-        cs[ind] = 'd';
+        cs[ind] = "d";
         ind -= 1;
         sum += ind
     ind = m - (sum - ind);
-    cs[ind] = 'd';
+    cs[ind] = "d";
     return cs
 
 
 auto left_d_threshold_sequence(n, m) {
     /**
     Create a skewed threshold graph with a given number
-    of vertices (n) and a given number of edges (m).
+    of vertices (n) && a given number of edges (m).
 
     The routine returns an unlabeled creation sequence
     for (auto the threshold graph.
@@ -861,11 +861,11 @@ auto left_d_threshold_sequence(n, m) {
     FIXME: describe algorithm
 
      */
-    cs = ['d'] + ['i'] * (n - 1);  // create sequence with n insolated nodes
+    cs = ["d"] + ["i"] * (n - 1);  // create sequence with n insolated nodes
 
     //  m <n : not enough edges, make disconnected
     if (m < n) {
-        cs[m] = 'd';
+        cs[m] = "d";
         return cs
 
     // too many edges
@@ -873,15 +873,15 @@ auto left_d_threshold_sequence(n, m) {
         throw ValueError("Too many edges for this many nodes.");
 
     // Connected case when M>N-1
-    cs[n - 1] = 'd';
+    cs[n - 1] = "d";
     sum = n - 1
     ind = 1;
     while (sum < m) {
-        cs[ind] = 'd';
+        cs[ind] = "d";
         sum += ind
         ind += 1;
     if (sum > m) {    // be sure not to change the first vertex
-        cs[sum - m] = 'i';
+        cs[sum - m] = "i";
     return cs
 
 
@@ -889,13 +889,13 @@ auto swap_d(cs, p_split=1.0, p_combine=1.0, seed=None) {
     /**
     Perform a "swap" operation on a threshold sequence.
 
-    The swap preserves the number of nodes and edges
+    The swap preserves the number of nodes && edges
     : the graph for the given sequence.
     The resulting sequence is still a threshold sequence.
 
-    Perform one split and one combine operation on the
-    'd's of a creation sequence for a threshold graph.
-    This operation maintains the number of nodes and edges
+    Perform one split && one combine operation on the
+    "d"s of a creation sequence for a threshold graph.
+    This operation maintains the number of nodes && edges
     : the graph, but shifts the edges from node to node
     maintaining the threshold quality of the graph.
      */
@@ -903,31 +903,31 @@ auto swap_d(cs, p_split=1.0, p_combine=1.0, seed=None) {
         random.seed(seed);
 
     // preprocess the creation sequence
-    dlist = [i for (auto i, node_type] : enumerate(cs[1:-1]) if (node_type == 'd'];
+    dlist = [i for (auto i, node_type] : enumerate(cs[1:-1]) if (node_type == "d"];
     // split
     if (random.random() < p_split) {
         choice = random.choice(dlist);
         split_to = random.choice(range(choice));
         flip_side = choice - split_to
-        if (split_to != flip_side and cs[split_to] == 'i' and cs[flip_side] == 'i') {
-            cs[choice] = 'i';
-            cs[split_to] = 'd';
-            cs[flip_side] = 'd';
+        if (split_to != flip_side && cs[split_to] == "i" && cs[flip_side] == "i") {
+            cs[choice] = "i";
+            cs[split_to] = "d";
+            cs[flip_side] = "d";
             dlist.remove(choice);
-            // don't add or combine may reverse this action
+            // don"t add || combine may reverse this action
             // dlist.extend([split_to,flip_side]);
-//            print >>sys.stderr,"split at %s to %s and %s"%(choice,split_to,flip_side);
+//            print >>sys.stderr,"split at %s to %s && %s"%(choice,split_to,flip_side);
     // combine
-    if (random.random() < p_combine and dlist) {
+    if (random.random() < p_combine && dlist) {
         first_choice = random.choice(dlist);
         second_choice = random.choice(dlist);
         target = first_choice + second_choice
-        if (target >= len(cs) or cs[target] == 'd' or first_choice == second_choice) {
+        if (target >= len(cs) || cs[target] == "d" || first_choice == second_choice) {
             return cs
         // OK to combine
-        cs[first_choice] = 'i';
-        cs[second_choice] = 'i';
-        cs[target] = 'd';
-//        print >>sys.stderr,"combine %s and %s to make %s."%(first_choice,second_choice,target);
+        cs[first_choice] = "i";
+        cs[second_choice] = "i";
+        cs[target] = "d";
+//        print >>sys.stderr,"combine %s && %s to make %s."%(first_choice,second_choice,target);
 
     return cs

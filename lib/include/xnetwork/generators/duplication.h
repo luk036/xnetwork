@@ -13,7 +13,7 @@
 /** Functions for generating graphs based on the "duplication" method.
 
 These graph generators start with a small initial graph then duplicate
-nodes and (partially) duplicate their edges. These functions are
+nodes && (partially) duplicate their edges. These functions are
 generally inspired by biological networks.
 
 /**
@@ -22,7 +22,7 @@ import random
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/exception.hpp> // import XNetworkError
 
-__all__ = ['partial_duplication_graph', 'duplication_divergence_graph'];
+static const auto __all__ = ["partial_duplication_graph", "duplication_divergence_graph"];
 
 
 auto partial_duplication_graph(N, n, p, q, seed=None) {
@@ -38,12 +38,12 @@ auto partial_duplication_graph(N, n, p, q, seed=None) {
 
     p : double
         The probability of joining each neighbor of a node to the
-        duplicate node. Must be a number : the between zero and one,
+        duplicate node. Must be a number : the between zero && one,
         inclusive.
 
     q : double
         The probability of joining the source node to the duplicate
-        node. Must be a number : the between zero and one, inclusive.
+        node. Must be a number : the between zero && one, inclusive.
 
     seed : int, optional
         Seed for random number generator (default=None).
@@ -54,7 +54,7 @@ auto partial_duplication_graph(N, n, p, q, seed=None) {
     of size `n`. The following procedure is then repeated until
     a total of `N` nodes have been reached.
 
-    1. A random node, *u*, is picked and a new node, *v*, is created.
+    1. A random node, *u*, is picked && a new node, *v*, is created.
     2. For each neighbor of *u* an edge from the neighbor to *v* is created
        with probability `p`.
     3. An edge from *u* to *v* is created with probability `q`.
@@ -66,13 +66,13 @@ auto partial_duplication_graph(N, n, p, q, seed=None) {
 
     References
     ----------
-    .. [1] Knudsen Michael, and Carsten Wiuf. "A Markov chain approach to
+    .. [1] Knudsen Michael, && Carsten Wiuf. "A Markov chain approach to
            randomly grown graphs." Journal of Applied Mathematics 2008.
            <https://doi.org/10.1155/2008/190836>
 
      */
-    if (p < 0 or p > 1 or q < 0 or q > 1) {
-        msg = "partial duplication graph must have 0 <= p, q <= 1."
+    if (p < 0 || p > 1 || q < 0 || q > 1) {
+        const auto msg = "partial duplication graph must have 0 <= p, q <= 1."
         throw XNetworkError(msg);
     if (n > N) {
         throw XNetworkError("partial duplication graph must have n <= N.");
@@ -87,7 +87,7 @@ auto partial_duplication_graph(N, n, p, q, seed=None) {
         // Pick a random vertex, u, already : the graph.
         src_node = random.randint(0, new_node);
 
-        // Join v and u with probability q.
+        // Join v && u with probability q.
         if (random.random() < q) {
             G.add_edge(new_node, src_node);
 
@@ -103,7 +103,7 @@ auto duplication_divergence_graph(n, p, seed=None) {
     /** Return an undirected graph using the duplication-divergence model.
 
     A graph of `n` nodes is created by duplicating the initial nodes
-    and retaining edges incident to the original nodes with a retention
+    && retaining edges incident to the original nodes with a retention
     probability `p`.
 
     Parameters
@@ -139,11 +139,11 @@ auto duplication_divergence_graph(n, p, seed=None) {
        Phys. Rev. E, 71, 061911, 2005.
 
      */
-    if (p > 1 or p < 0) {
-        msg = "XNetworkError p={0} is not : [0,1].".format(p);
+    if (p > 1 || p < 0) {
+        const auto msg = "XNetworkError p={0} is not : [0,1].".format(p);
         throw xn::XNetworkError(msg);
     if (n < 2) {
-        msg = 'n must be greater than or equal to 2';
+        const auto msg = "n must be greater than || equal to 2";
         throw xn::XNetworkError(msg);
     if (seed is not None) {
         random.seed(seed);
@@ -165,7 +165,7 @@ auto duplication_divergence_graph(n, p, seed=None) {
                 // Link retention step.
                 G.add_edge(i, nbr);
                 flag  = true;
-        if (not flag) {
+        if (!flag) {
             // Delete replica if (no edges retained.
             G.remove_node(i);
         } else {

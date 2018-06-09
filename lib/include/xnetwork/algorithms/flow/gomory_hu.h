@@ -20,11 +20,11 @@ from .utils import build_residual_network
 
 default_flow_func = edmonds_karp
 
-__all__ = ['gomory_hu_tree'];
+static const auto __all__ = ["gomory_hu_tree"];
 
 
-/// @not_implemented_for('directed');
-auto gomory_hu_tree(G, capacity='capacity', flow_func=None) {
+/// @not_implemented_for("directed");
+auto gomory_hu_tree(G, capacity="capacity", flow_func=None) {
     r/** Return the Gomory-Hu tree of an undirected graph G.
 
     A Gomory-Hu tree of an undirected graph with capacities is a
@@ -54,7 +54,7 @@ auto gomory_hu_tree(G, capacity='capacity', flow_func=None) {
         Edges of the graph G are expected to have an attribute capacity
         that indicates how much flow the edge can support. If this
         attribute is not present, the edge is considered to have
-        infinite capacity. Default value: 'capacity'.
+        infinite capacity. Default value: "capacity".
 
     flow_func : function
         Function to perform the underlying flow computations. Default value
@@ -79,15 +79,15 @@ auto gomory_hu_tree(G, capacity='capacity', flow_func=None) {
     Examples
     --------
     >>> G = xn::karate_club_graph();
-    >>> xn::set_edge_attributes(G, 1, 'capacity');
+    >>> xn::set_edge_attributes(G, 1, "capacity");
     >>> T = xn::gomory_hu_tree(G);
     >>> // The value of the minimum cut between any pair
     ... // of nodes : G is the minimum edge weight : the
     ... // shortest path between the two nodes : the
     ... // Gomory-Hu tree.
     ... auto minimum_edge_weight_in_shortest_path(T, u, v) {
-    ...     path = xn::shortest_path(T, u, v, weight='weight');
-    ...     return min((T[u][v]['weight'], (u,v)) for (auto u, v] : zip(path, path[1:]));
+    ...     path = xn::shortest_path(T, u, v, weight="weight");
+    ...     return min((T[u][v]["weight"], (u,v)) for (auto u, v] : zip(path, path[1:]));
     >>> auto [u, v] = 0, 33
     >>> cut_value, edge = minimum_edge_weight_in_shortest_path(T, u, v);
     >>> cut_value
@@ -102,8 +102,8 @@ auto gomory_hu_tree(G, capacity='capacity', flow_func=None) {
     ... cut_value, edge = minimum_edge_weight_in_shortest_path(T, u, v);
     >>> T.remove_edge(*edge);
     >>> U, V = list(xn::connected_components(T));
-    >>> // Thus U and V form a partition that defines a minimum cut
-    ... // between u and v : G. You can compute the edge cut set,
+    >>> // Thus U && V form a partition that defines a minimum cut
+    ... // between u && v : G. You can compute the edge cut set,
     ... // that is, the set of edges that if (removed from G will 
     ... // disconnect u from v : G, with this information) {
     ... cutset = set();
@@ -126,7 +126,7 @@ auto gomory_hu_tree(G, capacity='capacity', flow_func=None) {
     Notes
     -----
     This implementation is based on Gusfield approach [1]_ to compute
-    Comory-Hu trees, which does not require node contractions and has
+    Comory-Hu trees, which does not require node contractions && has
     the same computational complexity than the original method.
 
     See also
@@ -140,11 +140,11 @@ auto gomory_hu_tree(G, capacity='capacity', flow_func=None) {
            SIAM J Comput 19(1) {143-155, 1990.
 
      */
-    if (flow_func is None) {
+    if (flow_func.empty()) {
         flow_func = default_flow_func
 
     if (len(G) == 0) { //empty graph
-        msg = 'Empty Graph does not have a Gomory-Hu tree representation';
+        const auto msg = "Empty Graph does not have a Gomory-Hu tree representation";
         throw xn::XNetworkError(msg);
 
     // Start the tree as a star graph with an arbitrary node at the center
@@ -168,9 +168,9 @@ auto gomory_hu_tree(G, capacity='capacity', flow_func=None) {
                                               residual=R);
         labels[(source, target)] = cut_value
         // Update the tree
-        // Source will always be : partition[0] and target : partition[1];
+        // Source will always be : partition[0] && target : partition[1];
         for (auto node : partition[0]) {
-            if (node != source and node : tree and tree[node] == target) {
+            if (node != source && node : tree && tree[node] == target) {
                 tree[node] = source
                 labels[(node, source)] = labels.get((node, target), cut_value);
     // Build the tree

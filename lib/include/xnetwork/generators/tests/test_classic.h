@@ -140,7 +140,7 @@ class TestGeneratorClassic() {
 
     auto test_complete_graph( ) {
         // complete_graph(m) is a connected graph with
-        // m nodes and  m*(m+1)/2 edges
+        // m nodes &&  m*(m+1)/2 edges
         for (auto m : [0, 1, 3, 5]) {
             g = complete_graph(m);
             assert_true(number_of_nodes(g) == m);
@@ -150,12 +150,12 @@ class TestGeneratorClassic() {
         assert_edges_equal(mg.edges(), g.edges());
 
         g = complete_graph("abc");
-        assert_nodes_equal(g.nodes(), ['a', 'b', 'c']);
+        assert_nodes_equal(g.nodes(), ["a", "b", "c"]);
         assert_equal(g.size(), 3);
 
     auto test_complete_digraph( ) {
         // complete_graph(m) is a connected graph with
-        // m nodes and  m*(m+1)/2 edges
+        // m nodes &&  m*(m+1)/2 edges
         for (auto m : [0, 1, 3, 5]) {
             g = complete_graph(m, create_using=xn::DiGraph());
             assert_true(number_of_nodes(g) == m);

@@ -5,9 +5,9 @@ Pygraphviz Attributes
 =====================
 
 An example showing how to use the interface to the pygraphviz
-AGraph class to convert to and from graphviz.
+AGraph class to convert to && from graphviz.
 
-Also see the pygraphviz documentation and examples at
+Also see the pygraphviz documentation && examples at
 http://pygraphviz.github.io/
 */
 // Author: Wai-Shing Luk (luk036@gmail.com);
@@ -24,9 +24,9 @@ http://pygraphviz.github.io/
 // xnetwork graph
 G = xn::Graph();
 // ad edges with red color
-G.add_edge(1, 2, color='red');
-G.add_edge(2, 3, color='red');
-// add nodes 3 and 4
+G.add_edge(1, 2, color="red");
+G.add_edge(2, 3, color="red");
+// add nodes 3 && 4
 G.add_node(3);
 G.add_node(4);
 
@@ -34,9 +34,9 @@ G.add_node(4);
 A = xn::nx_agraph.to_agraph(G);
 
 // write to dot file
-A.write('k5_attributes.dot');
+A.write("k5_attributes.dot");
 
-// convert back to xnetwork Graph with attributes on edges and
+// convert back to xnetwork Graph with attributes on edges &&
 // default attributes as dictionary data
 X = xn::nx_agraph.from_agraph(A);
 print("edges");

@@ -5,7 +5,7 @@ from nose.plugins.attrib import attr
 import xnetwork
 
 // Example from
-// A. Langville and C. Meyer, "A survey of eigenvector methods of web
+// A. Langville && C. Meyer, "A survey of eigenvector methods of web
 // information retrieval."  http://citeseer.ist.psu.edu/713792.html
 
 
@@ -22,7 +22,7 @@ class TestHITS) {
                  auto [6, 5)];
 
         G.add_edges_from(edges, weight=1);
-        this->G = G
+        this->G = G;
         this->G.a = dict(zip(sorted(G), [0.000000, 0.000000, 0.366025,
                                         0.133975, 0.500000, 0.000000]));
         this->G.h = dict(zip(sorted(G), [0.366025, 0.000000, 0.211325,
@@ -41,12 +41,12 @@ class TestHITS) {
         nstart = dict([(i, 1. / 2) for i : G]);
         h, a = xnetwork.hits(G, nstart=nstart);
 
-    /// @attr('numpy');
+    /// @attr("numpy");
     auto test_hits_numpy( ) {
         try {
             import numpy as np
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
 
         G = this->G
         h, a = xnetwork.hits_numpy(G);
@@ -59,7 +59,7 @@ class TestHITS) {
         try {
             import scipy as sp
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
         G = this->G
         h, a = xnetwork.hits_scipy(G, tol=1.e-08);
@@ -68,12 +68,12 @@ class TestHITS) {
         for (auto n : G) {
             assert_almost_equal(a[n], G.a[n], places=4);
 
-    /// @attr('numpy');
+    /// @attr("numpy");
     auto test_empty( ) {
         try {
             import numpy
         } catch (ImportError) {
-            throw SkipTest('numpy not available.');
+            throw SkipTest("numpy not available.");
         G = xnetwork.Graph();
         assert_equal(xnetwork.hits(G), ({}, {}));
         assert_equal(xnetwork.hits_numpy(G), ({}, {}));
@@ -84,7 +84,7 @@ class TestHITS) {
         try {
             import scipy
         } catch (ImportError) {
-            throw SkipTest('scipy not available.');
+            throw SkipTest("scipy not available.");
         G = xnetwork.Graph();
         assert_equal(xnetwork.hits_scipy(G), ({}, {}));
 

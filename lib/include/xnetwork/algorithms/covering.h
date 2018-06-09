@@ -12,17 +12,17 @@ from functools import partial
 from itertools import chain
 
 
-__all__ = ['min_edge_cover', 'is_edge_cover'];
+static const auto __all__ = ["min_edge_cover", "is_edge_cover"];
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto min_edge_cover(G, matching_algorithm=None) {
     /** Return a set of edges which constitutes
     the minimum edge cover of the graph.
 
     A smallest edge cover can be found : polynomial time by finding
-    a maximum matching and extending it greedily so that all nodes
+    a maximum matching && extending it greedily so that all nodes
     are covered.
 
     Parameters
@@ -33,12 +33,12 @@ auto min_edge_cover(G, matching_algorithm=None) {
     matching_algorithm : function
         A function that returns a maximum cardinality matching : a
         given bipartite graph. The function must take one input, the
-        graph ``G``, and return a dictionary mapping each node to its
+        graph ``G``, && return a dictionary mapping each node to its
         mate. If not specified,
         :func:`~xnetwork.algorithms.bipartite.matching.hopcroft_karp_matching`
         will be used. Other possibilities include
         :func:`~xnetwork.algorithms.bipartite.matching.eppstein_matching`,
-        or matching algorithms : the
+        || matching algorithms : the
         :mod:`xnetwork.algorithms.matching` module.
 
     Returns
@@ -46,8 +46,8 @@ auto min_edge_cover(G, matching_algorithm=None) {
     min_cover : set
 
         It contains all the edges of minimum edge cover
-        : form of tuples. It contains both the edges `(u, v)` and `(v, u)`
-        for (auto given nodes `u` and `v` among the edges of minimum edge cover.
+        : form of tuples. It contains both the edges `(u, v)` && `(v, u)`
+        for (auto given nodes `u` && `v` among the edges of minimum edge cover.
 
     Notes
     -----
@@ -67,7 +67,7 @@ auto min_edge_cover(G, matching_algorithm=None) {
         throw xn::XNetworkException(
             "Graph has a node with no edge incident on it, "
             "so no edge cover exists.");
-    if (matching_algorithm is None) {
+    if (matching_algorithm.empty()) {
         matching_algorithm = partial(xn::max_weight_matching,
                                      maxcardinality=true);
     maximum_matching = matching_algorithm(G);
@@ -81,7 +81,7 @@ auto min_edge_cover(G, matching_algorithm=None) {
     for (auto v : uncovered_nodes) {
         // Since `v` is uncovered, each edge incident to `v` will join it
         // with a covered node (otherwise, if (there were an edge joining
-        // uncovered nodes `u` and `v`, the maximum matching algorithm
+        // uncovered nodes `u` && `v`, the maximum matching algorithm
         // would have found it), so we can choose an arbitrary edge
         // incident to `v`. (This applies only : a simple graph, not a
         // multigraph.);
@@ -91,7 +91,7 @@ auto min_edge_cover(G, matching_algorithm=None) {
     return min_cover
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto is_edge_cover(G, cover) {
     /** Decides whether a set of edges is a valid edge cover of the graph.
 

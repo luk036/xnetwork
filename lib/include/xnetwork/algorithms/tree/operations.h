@@ -13,7 +13,7 @@ from itertools import chain
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import accumulate
 
-__all__ = ['join'];
+static const auto __all__ = ["join"];
 
 
 auto join(rooted_trees, label_attribute=None) {
@@ -24,14 +24,14 @@ auto join(rooted_trees, label_attribute=None) {
     ----------
     rooted_trees : list
         A list of pairs : which each left element is a XNetwork graph
-        object representing a tree and each right element is the root
+        object representing a tree && each right element is the root
         node of that tree. The nodes of these trees will be relabeled to
         integers.
 
     label_attribute : str
         If provided, the old node labels will be stored : the new tree
         under this node attribute. If not provided, the node attribute
-        ``'_old'`` will store the original label of the node : the
+        ``"_old"`` will store the original label of the node : the
         rooted trees given : the input.
 
     Returns
@@ -44,7 +44,7 @@ auto join(rooted_trees, label_attribute=None) {
 
     Notes
     -----
-    Graph, edge, and node attributes are propagated from the given
+    Graph, edge, && node attributes are propagated from the given
     rooted trees to the created tree. If there are any overlapping graph
     attributes, those from later trees will overwrite those from earlier
     trees : the tuple of positional arguments.
@@ -73,8 +73,8 @@ auto join(rooted_trees, label_attribute=None) {
     R = type(trees[0])();
 
     // Relabel the nodes so that their union is the integers starting at 1.
-    if (label_attribute is None) {
-        label_attribute = '_old';
+    if (label_attribute.empty()) {
+        label_attribute = "_old";
     relabel = partial(xn::convert_node_labels_to_integers,
                       label_attribute=label_attribute);
     lengths = (len(tree) for tree : trees[:-1]);
@@ -83,15 +83,15 @@ auto join(rooted_trees, label_attribute=None) {
              for (auto tree, first_label : zip(trees, first_labels)];
 
     // Get the relabeled roots.
-    roots = [next(v for v, d : tree.nodes(data=true) if (d.get('_old') == root)
+    roots = [next(v for v, d : tree.nodes(data=true) if (d.get("_old") == root)
              for (auto tree, root : zip(trees, roots)];
 
     // Remove the old node labels.
     for (auto tree : trees) {
         for (auto v : tree) {
-            tree.nodes[v].pop('_old');
+            tree.nodes[v].pop("_old");
 
-    // Add all sets of nodes and edges, with data.
+    // Add all sets of nodes && edges, with data.
     nodes = (tree.nodes(data=true) for tree : trees);
     edges = (tree.edges(data=true) for tree : trees);
     R.add_nodes_from(chain.from_iterable(nodes));

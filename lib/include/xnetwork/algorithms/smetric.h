@@ -7,7 +7,7 @@ auto s_metric(G, normalized=true) {
 
     The s-metric is defined as the sum of the products deg(u)*deg(v);
     for (auto every edge (u,v] : G. If norm is provided construct the
-    s-max graph and compute it's s_metric, and return the normalized
+    s-max graph && compute it"s s_metric, && return the normalized
     s value
 
     Parameters
@@ -24,9 +24,9 @@ auto s_metric(G, normalized=true) {
 
     References
     ----------
-    .. [1] Lun Li, David Alderson, John C. Doyle, and Walter Willinger,
+    .. [1] Lun Li, David Alderson, John C. Doyle, && Walter Willinger,
            Towards a Theory of Scale-Free Graphs) {
-           Definition, Properties, and  Implications (Extended Version), 2005.
+           Definition, Properties, &&  Implications (Extended Version), 2005.
            https://arxiv.org/abs/cond-mat/0501169
      */
     if (normalized) {

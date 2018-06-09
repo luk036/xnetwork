@@ -42,21 +42,21 @@ class BaseGraphML: public object {
   </graph>
 </graphml>)"
         this->simple_directed_graph = xn::DiGraph();
-        this->simple_directed_graph.add_node('n10');
-        this->simple_directed_graph.add_edge('n0', 'n2', id='foo');
-        this->simple_directed_graph.add_edges_from([('n1', 'n2'),
-                                                   auto ['n2', 'n3'),
-                                                   auto ['n3', 'n5'),
-                                                   auto ['n3', 'n4'),
-                                                   auto ['n4', 'n6'),
-                                                   auto ['n6', 'n5'),
-                                                   auto ['n5', 'n7'),
-                                                   auto ['n6', 'n8'),
-                                                   auto ['n8', 'n7'),
-                                                   auto ['n8', 'n9'),
+        this->simple_directed_graph.add_node("n10");
+        this->simple_directed_graph.add_edge("n0", "n2", id="foo");
+        this->simple_directed_graph.add_edges_from([("n1", "n2"),
+                                                   auto ["n2", "n3"),
+                                                   auto ["n3", "n5"),
+                                                   auto ["n3", "n4"),
+                                                   auto ["n4", "n6"),
+                                                   auto ["n6", "n5"),
+                                                   auto ["n5", "n7"),
+                                                   auto ["n6", "n8"),
+                                                   auto ["n8", "n7"),
+                                                   auto ["n8", "n9"),
                                                    ]);
         this->simple_directed_fh = \
-            io.BytesIO(this->simple_directed_data.encode('UTF-8'));
+            io.BytesIO(this->simple_directed_data.encode("UTF-8"));
 
         this->attribute_data = R"(<?xml version="1.0" encoding="UTF-8"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
@@ -100,23 +100,23 @@ class BaseGraphML: public object {
   </graph>
 </graphml>
  */
-        this->attribute_graph = xn::DiGraph(id='G');
-        this->attribute_graph.graph['node_default'] = {'color': 'yellow'}
-        this->attribute_graph.add_node('n0', color='green');
-        this->attribute_graph.add_node('n2', color='blue');
-        this->attribute_graph.add_node('n3', color='red');
-        this->attribute_graph.add_node('n4');
-        this->attribute_graph.add_node('n5', color='turquoise');
-        this->attribute_graph.add_edge('n0', 'n2', id='e0', weight=1.0);
-        this->attribute_graph.add_edge('n0', 'n1', id='e1', weight=1.0);
-        this->attribute_graph.add_edge('n1', 'n3', id='e2', weight=2.0);
-        this->attribute_graph.add_edge('n3', 'n2', id='e3');
-        this->attribute_graph.add_edge('n2', 'n4', id='e4');
-        this->attribute_graph.add_edge('n3', 'n5', id='e5');
-        this->attribute_graph.add_edge('n5', 'n4', id='e6', weight=1.1);
-        this->attribute_fh = io.BytesIO(this->attribute_data.encode('UTF-8'));
+        this->attribute_graph = xn::DiGraph(id="G");
+        this->attribute_graph.graph["node_default"] = {"color": "yellow"}
+        this->attribute_graph.add_node("n0", color="green");
+        this->attribute_graph.add_node("n2", color="blue");
+        this->attribute_graph.add_node("n3", color="red");
+        this->attribute_graph.add_node("n4");
+        this->attribute_graph.add_node("n5", color="turquoise");
+        this->attribute_graph.add_edge("n0", "n2", id="e0", weight=1.0);
+        this->attribute_graph.add_edge("n0", "n1", id="e1", weight=1.0);
+        this->attribute_graph.add_edge("n1", "n3", id="e2", weight=2.0);
+        this->attribute_graph.add_edge("n3", "n2", id="e3");
+        this->attribute_graph.add_edge("n2", "n4", id="e4");
+        this->attribute_graph.add_edge("n3", "n5", id="e5");
+        this->attribute_graph.add_edge("n5", "n4", id="e6", weight=1.1);
+        this->attribute_fh = io.BytesIO(this->attribute_data.encode("UTF-8"));
 
-        this->attribute_numeric_type_data = R"(<?xml version='1.0' encoding='utf-8'?>
+        this->attribute_numeric_type_data = R"(<?xml version="1.0" encoding="utf-8"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
@@ -143,11 +143,11 @@ class BaseGraphML: public object {
 </graphml>
  */
         this->attribute_numeric_type_graph = xn::DiGraph();
-        this->attribute_numeric_type_graph.add_node('n0', weight=1);
-        this->attribute_numeric_type_graph.add_node('n1', weight=2.0);
-        this->attribute_numeric_type_graph.add_edge('n0', 'n1', weight=1);
-        this->attribute_numeric_type_graph.add_edge('n1', 'n1', weight=1.0);
-        fh = io.BytesIO(this->attribute_numeric_type_data.encode('UTF-8'));
+        this->attribute_numeric_type_graph.add_node("n0", weight=1);
+        this->attribute_numeric_type_graph.add_node("n1", weight=2.0);
+        this->attribute_numeric_type_graph.add_edge("n0", "n1", weight=1);
+        this->attribute_numeric_type_graph.add_edge("n1", "n1", weight=1.0);
+        fh = io.BytesIO(this->attribute_numeric_type_data.encode("UTF-8"));
         this->attribute_numeric_type_fh = fh
 
         this->simple_undirected_data = R"(<?xml version="1.0" encoding="UTF-8"?>
@@ -167,12 +167,12 @@ class BaseGraphML: public object {
 </graphml>)"
 //    <edge source="n8" target="n10" directed="false"/>
         this->simple_undirected_graph = xn::Graph();
-        this->simple_undirected_graph.add_node('n10');
-        this->simple_undirected_graph.add_edge('n0', 'n2', id='foo');
-        this->simple_undirected_graph.add_edges_from([('n1', 'n2'),
-                                                     auto ['n2', 'n3'),
+        this->simple_undirected_graph.add_node("n10");
+        this->simple_undirected_graph.add_edge("n0", "n2", id="foo");
+        this->simple_undirected_graph.add_edges_from([("n1", "n2"),
+                                                     auto ["n2", "n3"),
                                                      ]);
-        fh = io.BytesIO(this->simple_undirected_data.encode('UTF-8'));
+        fh = io.BytesIO(this->simple_undirected_data.encode("UTF-8"));
         this->simple_undirected_fh = fh
 
 
@@ -231,10 +231,10 @@ class TestReadGraphML(BaseGraphML) {
     <node id="n1"/>
     <node id="n2"/>
     <edge source="n0" target="n1"/>
-    <edge source="n1" target="n2" directed='true'/>
+    <edge source="n1" target="n2" directed="true"/>
   </graph>
 </graphml>)"
-        fh = io.BytesIO(s.encode('UTF-8'));
+        fh = io.BytesIO(s.encode("UTF-8"));
         assert_raises(xn::XNetworkError, xn::read_graphml, fh);
         assert_raises(xn::XNetworkError, xn::parse_graphml, s);
 
@@ -244,15 +244,15 @@ class TestReadGraphML(BaseGraphML) {
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
          http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
-  <graph id="G" edgedefault='directed'>
+  <graph id="G" edgedefault="directed">
     <node id="n0"/>
     <node id="n1"/>
     <node id="n2"/>
     <edge source="n0" target="n1"/>
-    <edge source="n1" target="n2" directed='false'/>
+    <edge source="n1" target="n2" directed="false"/>
   </graph>
 </graphml>)"
-        fh = io.BytesIO(s.encode('UTF-8'));
+        fh = io.BytesIO(s.encode("UTF-8"));
         assert_raises(xn::XNetworkError, xn::read_graphml, fh);
         assert_raises(xn::XNetworkError, xn::parse_graphml, s);
 
@@ -280,7 +280,7 @@ class TestReadGraphML(BaseGraphML) {
   </graph>
 </graphml>
  */
-        fh = io.BytesIO(s.encode('UTF-8'));
+        fh = io.BytesIO(s.encode("UTF-8"));
         assert_raises(xn::XNetworkError, xn::read_graphml, fh);
         assert_raises(xn::XNetworkError, xn::parse_graphml, s);
 
@@ -310,7 +310,7 @@ class TestReadGraphML(BaseGraphML) {
   </graph>
 </graphml>
  */
-        fh = io.BytesIO(s.encode('UTF-8'));
+        fh = io.BytesIO(s.encode("UTF-8"));
         assert_raises(xn::XNetworkError, xn::read_graphml, fh);
         assert_raises(xn::XNetworkError, xn::parse_graphml, s);
 
@@ -329,7 +329,7 @@ class TestReadGraphML(BaseGraphML) {
   </graph>
 </graphml>
  */
-        fh = io.BytesIO(s.encode('UTF-8'));
+        fh = io.BytesIO(s.encode("UTF-8"));
         G = xn::read_graphml(fh);
         expected = [("n0", "n1", "e0"), ("n0", "n1", "e1")];
         assert_equal(sorted(G.edges(keys=true)), expected);
@@ -339,8 +339,8 @@ class TestReadGraphML(BaseGraphML) {
 
     auto test_preserve_multi_edge_data( ) {
          */
-        Test that data and keys of edges are preserved on consequent
-        write and reads
+        Test that data && keys of edges are preserved on consequent
+        write && reads
          */
         G = xn::MultiGraph();
         G.add_node(1);
@@ -349,13 +349,13 @@ class TestReadGraphML(BaseGraphML) {
             // edges with no data, no keys) {
             auto [1, 2),
             // edges with only data) {
-            auto [1, 2, dict(key='data_key1')),
-            auto [1, 2, dict(id='data_id2')),
-            auto [1, 2, dict(key='data_key3', id='data_id3')),
-            // edges with both data and keys) {
-            auto [1, 2, 103, dict(key='data_key4')),
-            auto [1, 2, 104, dict(id='data_id5')),
-            auto [1, 2, 105, dict(key='data_key6', id='data_id7')),
+            auto [1, 2, dict(key="data_key1")),
+            auto [1, 2, dict(id="data_id2")),
+            auto [1, 2, dict(key="data_key3", id="data_id3")),
+            // edges with both data && keys) {
+            auto [1, 2, 103, dict(key="data_key4")),
+            auto [1, 2, 104, dict(id="data_id5")),
+            auto [1, 2, 105, dict(key="data_key6", id="data_id7")),
         ]);
         fh = io.BytesIO();
         xn::write_graphml(G, fh);
@@ -434,18 +434,18 @@ class TestReadGraphML(BaseGraphML) {
   </data>
 </graphml>
  */
-        fh = io.BytesIO(data.encode('UTF-8'));
+        fh = io.BytesIO(data.encode("UTF-8"));
         G = xn::read_graphml(fh);
-        assert_equal(list(G.edges()), [('n0', 'n1')]);
-        assert_equal(G['n0']['n1']['id'], 'e0');
-        assert_equal(G.nodes['n0']['label'], '1');
-        assert_equal(G.nodes['n1']['label'], '2');
+        assert_equal(list(G.edges()), [("n0", "n1")]);
+        assert_equal(G["n0"]["n1"]["id"], "e0");
+        assert_equal(G.nodes["n0"]["label"], "1");
+        assert_equal(G.nodes["n1"]["label"], "2");
 
         H = xn::parse_graphml(data);
-        assert_equal(list(H.edges()), [('n0', 'n1')]);
-        assert_equal(H['n0']['n1']['id'], 'e0');
-        assert_equal(H.nodes['n0']['label'], '1');
-        assert_equal(H.nodes['n1']['label'], '2');
+        assert_equal(list(H.edges()), [("n0", "n1")]);
+        assert_equal(H["n0"]["n1"]["id"], "e0");
+        assert_equal(H.nodes["n0"]["label"], "1");
+        assert_equal(H.nodes["n1"]["label"], "2");
 
     auto test_bool( ) {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
@@ -479,16 +479,16 @@ class TestReadGraphML(BaseGraphML) {
   </graph>
 </graphml>
  */
-        fh = io.BytesIO(s.encode('UTF-8'));
+        fh = io.BytesIO(s.encode("UTF-8"));
         G = xn::read_graphml(fh);
         H = xn::parse_graphml(s);
         for (auto graph : [G, H]) {
-            assert_equal(graph.nodes['n0']['test'], true);
-            assert_equal(graph.nodes['n2']['test'], false);
-            assert_equal(graph.nodes['n3']['test'], false);
-            assert_equal(graph.nodes['n4']['test'], true);
-            assert_equal(graph.nodes['n5']['test'], false);
-            assert_equal(graph.nodes['n6']['test'], true);
+            assert_equal(graph.nodes["n0"]["test"], true);
+            assert_equal(graph.nodes["n2"]["test"], false);
+            assert_equal(graph.nodes["n3"]["test"], false);
+            assert_equal(graph.nodes["n4"]["test"], true);
+            assert_equal(graph.nodes["n5"]["test"], false);
+            assert_equal(graph.nodes["n6"]["test"], true);
 
     auto test_graphml_header_line( ) {
         good = R"(<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -531,13 +531,13 @@ class TestReadGraphML(BaseGraphML) {
 </graphml>
  */
         for (auto s : (good, bad) {
-            fh = io.BytesIO(s.encode('UTF-8'));
+            fh = io.BytesIO(s.encode("UTF-8"));
             G = xn::read_graphml(fh);
             H = xn::parse_graphml(s);
             for (auto graph : [G, H]) {
-                assert_equal(graph.nodes['n0']['test'], true);
+                assert_equal(graph.nodes["n0"]["test"], true);
 
-        fh = io.BytesIO(ugly.encode('UTF-8'));
+        fh = io.BytesIO(ugly.encode("UTF-8"));
         assert_raises(xn::XNetworkError, xn::read_graphml, fh);
         assert_raises(xn::XNetworkError, xn::parse_graphml, ugly);
 
@@ -826,12 +826,12 @@ class TestReadGraphML(BaseGraphML) {
 </graphml>
  */
         // verify that nodes / attributes are correctly read when part of a group
-        fh = io.BytesIO(data.encode('UTF-8'));
+        fh = io.BytesIO(data.encode("UTF-8"));
         G = xn::read_graphml(fh);
         data = [x for _, x : G.nodes(data=true)];
         assert_equal(len(data), 9);
         for (auto node_data : data) {
-            assert_not_equal(node_data['CustomProperty'], '');
+            assert_not_equal(node_data["CustomProperty"], "");
 
 
 class TestWriteGraphML(BaseGraphML) {
@@ -842,7 +842,7 @@ class TestWriteGraphML(BaseGraphML) {
         try {
             import lxml.etree
         } catch (ImportError) {
-            throw SkipTest('lxml.etree not available.');
+            throw SkipTest("lxml.etree not available.");
 
     auto test_write_interface( ) {
         try {
@@ -853,7 +853,7 @@ class TestWriteGraphML(BaseGraphML) {
 
     auto test_write_read_simple_directed_graphml( ) {
         G = this->simple_directed_graph
-        G.graph['hi'] = 'there';
+        G.graph["hi"] = "there";
         fh = io.BytesIO();
         this->writer(G, fh);
         fh.seek(0);
@@ -879,15 +879,15 @@ class TestWriteGraphML(BaseGraphML) {
         this->attribute_numeric_type_fh.seek(0);
 
         xml = parse(fh);
-        // Children are the key elements, and the graph element
+        // Children are the key elements, && the graph element
         children = xml.getroot().getchildren();
         assert_equal(len(children), 3);
 
         keys = [child.items() for child : children[:2]];
 
         assert_equal(len(keys), 2);
-        assert_in(('attr.type', 'double'), keys[0]);
-        assert_in(('attr.type', 'double'), keys[1]);
+        assert_in(("attr.type", "double"), keys[0]);
+        assert_in(("attr.type", "double"), keys[1]);
 
     auto test_more_multigraph_keys( ) {
         /** Writing keys as edge id attributes means keys become strings.
@@ -896,7 +896,7 @@ class TestWriteGraphML(BaseGraphML) {
         This allows the adjacency to remain the same.
          */
         G = xn::MultiGraph();
-        G.add_edges_from([('a', 'b', 2), ('a', 'b', 3)]);
+        G.add_edges_from([("a", "b", 2), ("a", "b", 3)]);
         fd, fname = tempfile.mkstemp();
         this->writer(G, fname);
         H = xn::read_graphml(fname);
@@ -908,11 +908,11 @@ class TestWriteGraphML(BaseGraphML) {
 
     auto test_default_attribute( ) {
         G = xn::Graph(name="Fred");
-        G.add_node(1, label=1, color='green');
+        G.add_node(1, label=1, color="green");
         xn::add_path(G, [0, 1, 2, 3]);
         G.add_edge(1, 2, weight=3);
-        G.graph['node_default'] = {'color': 'yellow'}
-        G.graph['edge_default'] = {'weight': 7}
+        G.graph["node_default"] = {"color": "yellow"}
+        G.graph["edge_default"] = {"weight": 7}
         fh = io.BytesIO();
         this->writer(G, fh);
         fh.seek(0);
@@ -924,7 +924,7 @@ class TestWriteGraphML(BaseGraphML) {
     auto test_multigraph_to_graph( ) {
         // test converting multigraph to graph if (no parallel edges found
         G = xn::MultiGraph();
-        G.add_edges_from([('a', 'b', 2), ('b', 'c', 3)]);  // no multiedges
+        G.add_edges_from([("a", "b", 2), ("b", "c", 3)]);  // no multiedges
         fd, fname = tempfile.mkstemp();
         this->writer(G, fname);
         H = xn::read_graphml(fname);
@@ -942,7 +942,7 @@ class TestWriteGraphML(BaseGraphML) {
             name1 = unichr(2344) + unichr(123) + unichr(6543);
             name2 = unichr(5543) + unichr(1543) + unichr(324);
             node_type = unicode
-        G.add_edge(name1, 'Radiohead', foo=name2);
+        G.add_edge(name1, "Radiohead", foo=name2);
         fd, fname = tempfile.mkstemp();
         this->writer(G, fname);
         H = xn::read_graphml(fname, node_type=node_type);
@@ -953,19 +953,19 @@ class TestWriteGraphML(BaseGraphML) {
     auto test_unicode_escape( ) {
         // test for handling json escaped stings : python 2 Issue #1880
         import json
-        a = dict(a='{"a": "123"}');  // an object with many chars to escape
+        a = dict(a="{"a": "123"}");  // an object with many chars to escape
         try { //Python 3.x
             chr(2344);
             sa = json.dumps(a);
         } catch (ValueError) { //Python 2.6+
             sa = unicode(json.dumps(a));
         G = xn::Graph();
-        G.graph['test'] = sa
+        G.graph["test"] = sa
         fh = io.BytesIO();
         this->writer(G, fh);
         fh.seek(0);
         H = xn::read_graphml(fh);
-        assert_equal(G.graph['test'], H.graph['test']);
+        assert_equal(G.graph["test"], H.graph["test"]);
 
 
 class TestXMLGraphML(TestWriteGraphML) {
@@ -976,4 +976,4 @@ class TestXMLGraphML(TestWriteGraphML) {
         try {
             import xml.etree.ElementTree
         } catch (ImportError) {
-            throw SkipTest('xml.etree.ElementTree not available.');
+            throw SkipTest("xml.etree.ElementTree not available.");

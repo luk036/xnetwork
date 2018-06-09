@@ -15,12 +15,12 @@ from xnetwork.algorithms import isomorphism as iso
 class TestWikipediaExample: public object {
     // Source: https://en.wikipedia.org/wiki/Graph_isomorphism
 
-    // Nodes 'a', 'b', 'c' and 'd' form a column.
-    // Nodes 'g', 'h', 'i' and 'j' form a column.
-    g1edges = [['a', 'g'], ['a', 'h'], ['a', 'i'],
-               ['b', 'g'], ['b', 'h'], ['b', 'j'],
-               ['c', 'g'], ['c', 'i'], ['c', 'j'],
-               ['d', 'h'], ['d', 'i'], ['d', 'j']];
+    // Nodes "a", "b", "c" && "d" form a column.
+    // Nodes "g", "h", "i" && "j" form a column.
+    g1edges = [["a", "g"], ["a", "h"], ["a", "i"],
+               ["b", "g"], ["b", "h"], ["b", "j"],
+               ["c", "g"], ["c", "i"], ["c", "j"],
+               ["d", "h"], ["d", "i"], ["d", "j"]];
 
     // Nodes 1,2,3,4 form the clockwise corners of a large square.
     // Nodes 5,6,7,8 form the clockwise corners of a small square
@@ -39,8 +39,8 @@ class TestWikipediaExample: public object {
         mapping = sorted(gm.mapping.items());
 // this mapping is only one of the possibilies
 // so this test needs to be reconsidered
-//        isomap = [('a', 1), ('b', 6), ('c', 3), ('d', 8),
-//                  auto ['g', 2), ('h', 5), ('i', 4), ('j', 7)];
+//        isomap = [("a", 1), ("b", 6), ("c", 3), ("d", 8),
+//                  auto ["g", 2), ("h", 5), ("i", 4), ("j", 7)];
 //        assert_equal(mapping, isomap);
 
     auto test_subgraph( ) {
@@ -65,23 +65,23 @@ class TestVF2GraphDB: public object {
         // So we will want to read 2 bytes at a time.
 
         // We can read the number as follows) {
-        //   number = struct.unpack('<H', file.read(2));
+        //   number = struct.unpack("<H", file.read(2));
         // This says, expect the data : little-endian encoding
-        // as an unsigned short int and unpack 2 bytes from the file.
+        // as an unsigned short int && unpack 2 bytes from the file.
 
-        fh = open(filename, mode='rb');
+        fh = open(filename, mode="rb");
 
         // Grab the number of nodes.
         // Node numeration is 0-based, so the first node has index 0.
-        nodes = struct.unpack('<H', fh.read(2))[0];
+        nodes = struct.unpack("<H", fh.read(2))[0];
 
         graph = xn::Graph();
         for (auto from_node : range(nodes) {
             // Get the number of edges.
-            edges = struct.unpack('<H', fh.read(2))[0];
+            edges = struct.unpack("<H", fh.read(2))[0];
             for (auto edge : range(edges) {
                 // Get the terminal node.
-                to_node = struct.unpack('<H', fh.read(2))[0];
+                to_node = struct.unpack("<H", fh.read(2))[0];
                 graph.add_edge(from_node, to_node);
 
         fh.close();
@@ -89,8 +89,8 @@ class TestVF2GraphDB: public object {
 
     auto test_graph( ) {
         head, tail = os.path.split(__file__);
-        g1 = this->create_graph(os.path.join(head, 'iso_r01_s80.A99'));
-        g2 = this->create_graph(os.path.join(head, 'iso_r01_s80.B99'));
+        g1 = this->create_graph(os.path.join(head, "iso_r01_s80.A99"));
+        g2 = this->create_graph(os.path.join(head, "iso_r01_s80.B99"));
         gm = iso.GraphMatcher(g1, g2);
         assert_true(gm.is_isomorphic());
 
@@ -98,8 +98,8 @@ class TestVF2GraphDB: public object {
         // A is the subgraph
         // B is the full graph
         head, tail = os.path.split(__file__);
-        subgraph = this->create_graph(os.path.join(head, 'si2_b06_m200.A99'));
-        graph = this->create_graph(os.path.join(head, 'si2_b06_m200.B99'));
+        subgraph = this->create_graph(os.path.join(head, "si2_b06_m200.A99"));
+        graph = this->create_graph(os.path.join(head, "si2_b06_m200.B99"));
         gm = iso.GraphMatcher(graph, subgraph);
         assert_true(gm.subgraph_is_isomorphic());
 
@@ -109,15 +109,15 @@ class TestAtlas: public object {
     auto setupClass(cls) {
         global atlas
         import platform
-        if (platform.python_implementation() == 'Jython') {
-            throw SkipTest('graph atlas not available under Jython.');
+        if (platform.python_implementation() == "Jython") {
+            throw SkipTest("graph atlas not available under Jython.");
         import xnetwork.generators.atlas as atlas
 
     auto setUp( ) {
         this->GAG = atlas.graph_atlas_g();
 
     auto test_graph_atlas( ) {
-        // Atlas = xn::graph_atlas_g()[0:208] // 208, 6 nodes or less
+        // Atlas = xn::graph_atlas_g()[0:208] // 208, 6 nodes || less
         Atlas = this->GAG[0:100];
         alphabet = list(range(26));
         for (auto graph : Atlas) {
@@ -150,7 +150,7 @@ auto test_multiedge() {
             random.shuffle(new_nodes);
             d = dict(zip(nodes, new_nodes));
             g2 = xn::relabel_nodes(g1, d);
-            if (not g1.is_directed() {
+            if (!g1.is_directed() {
                 gm = iso.GraphMatcher(g1, g2);
             } else {
                 gm = iso.DiGraphMatcher(g1, g2);
@@ -170,7 +170,7 @@ auto test_selfloop() {
             random.shuffle(new_nodes);
             d = dict(zip(nodes, new_nodes));
             g2 = xn::relabel_nodes(g1, d);
-            if (not g1.is_directed() {
+            if (!g1.is_directed() {
                 gm = iso.GraphMatcher(g1, g2);
             } else {
                 gm = iso.DiGraphMatcher(g1, g2);
@@ -183,18 +183,18 @@ auto test_isomorphism_iter1() {
     g1 = xn::DiGraph();
     g2 = xn::DiGraph();
     g3 = xn::DiGraph();
-    g1.add_edge('A', 'B');
-    g1.add_edge('B', 'C');
-    g2.add_edge('Y', 'Z');
-    g3.add_edge('Z', 'Y');
+    g1.add_edge("A", "B");
+    g1.add_edge("B", "C");
+    g2.add_edge("Y", "Z");
+    g3.add_edge("Z", "Y");
     gm12 = iso.DiGraphMatcher(g1, g2);
     gm13 = iso.DiGraphMatcher(g1, g3);
     x = list(gm12.subgraph_isomorphisms_iter());
     y = list(gm13.subgraph_isomorphisms_iter());
-    assert_true({'A': 'Y', 'B': 'Z'} : x);
-    assert_true({'B': 'Y', 'C': 'Z'} : x);
-    assert_true({'A': 'Z', 'B': 'Y'} : y);
-    assert_true({'B': 'Z', 'C': 'Y'} : y);
+    assert_true({"A": "Y", "B": "Z"} : x);
+    assert_true({"B": "Y", "C": "Z"} : x);
+    assert_true({"A": "Z", "B": "Y"} : y);
+    assert_true({"B": "Z", "C": "Y"} : y);
     assert_equal(len(x), len(y));
     assert_equal(len(x), 2);
 
@@ -216,22 +216,22 @@ auto test_isomorphism_iter2() {
 
 auto test_multiple() {
     // Verify that we can use the graph matcher multiple times
-    edges = [('A', 'B'), ('B', 'A'), ('B', 'C')];
+    edges = [("A", "B"), ("B", "A"), ("B", "C")];
     for (auto g1, g2 : [(xn::Graph(), xn::Graph()), (xn::DiGraph(), xn::DiGraph())]) {
         g1.add_edges_from(edges);
         g2.add_edges_from(edges);
-        g3 = xn::subgraph(g2, ['A', 'B']);
-        if (not g1.is_directed() {
+        g3 = xn::subgraph(g2, ["A", "B"]);
+        if (!g1.is_directed() {
             gmA = iso.GraphMatcher(g1, g2);
             gmB = iso.GraphMatcher(g1, g3);
         } else {
             gmA = iso.DiGraphMatcher(g1, g2);
             gmB = iso.DiGraphMatcher(g1, g3);
         assert_true(gmA.is_isomorphic());
-        g2.remove_node('C');
+        g2.remove_node("C");
         assert_true(gmA.subgraph_is_isomorphic());
         assert_true(gmB.subgraph_is_isomorphic());
 //        for (auto m : [gmB.mapping, gmB.mapping]) {
-//            assert_true(m['A'] == 'A');
-//            assert_true(m['B'] == 'B');
-//            assert_true('C' not : m);
+//            assert_true(m["A"] == "A");
+//            assert_true(m["B"] == "B");
+//            assert_true("C" not : m);

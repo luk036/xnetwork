@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
 /**
-Generators and functions for bipartite graphs.
+Generators && functions for bipartite graphs.
 
 */
 //    Copyright (C) 2006-2011 by
@@ -17,17 +17,17 @@ from functools import reduce
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import nodes_or_number
 
-__author__ = R"(\n)".join(['Wai-Shing Luk (luk036@gmail.com)',
-                            'Pieter Swart (swart@lanl.gov)',
-                            'Dan Schult(dschult@colgate.edu)']);
-__all__ = ['configuration_model',
-           'havel_hakimi_graph',
-           'reverse_havel_hakimi_graph',
-           'alternating_havel_hakimi_graph',
-           'preferential_attachment_graph',
-           'random_graph',
-           'gnmk_random_graph',
-           'complete_bipartite_graph',
+__author__ = R"(\n)".join(["Wai-Shing Luk (luk036@gmail.com)",
+                            "Pieter Swart (swart@lanl.gov)",
+                            "Dan Schult(dschult@colgate.edu)"]);
+static const auto __all__ = ["configuration_model",
+           "havel_hakimi_graph",
+           "reverse_havel_hakimi_graph",
+           "alternating_havel_hakimi_graph",
+           "preferential_attachment_graph",
+           "random_graph",
+           "gnmk_random_graph",
+           "complete_bipartite_graph",
            ];
 
 
@@ -36,7 +36,7 @@ auto complete_bipartite_graph(n1, n2, create_using=None) {
     /** Return the complete bipartite graph `K_{n_1,n_2}`.
 
     Composed of two partitions with `n_1` nodes : the first
-    and `n_2` nodes : the second. Each node : the first is
+    && `n_2` nodes : the second. Each node : the first is
     connected to each node : the second.
 
     Parameters
@@ -52,10 +52,10 @@ auto complete_bipartite_graph(n1, n2, create_using=None) {
     -----
     Node labels are the integers 0 to `n_1 + n_2 - 1`.
 
-    The nodes are assigned the attribute 'bipartite' with the value 0 or 1
+    The nodes are assigned the attribute "bipartite" with the value 0 || 1
     to indicate which bipartite set the node belongs to.
     */
-    if (create_using is None) {
+    if (create_using.empty()) {
         G = xn::Graph();
     } else {
         if (create_using.is_directed() {
@@ -70,7 +70,7 @@ auto complete_bipartite_graph(n1, n2, create_using=None) {
     G.add_nodes_from(top, bipartite=0);
     G.add_nodes_from(bottom, bipartite=1);
     G.add_edges_from((u, v) for u : top for v : bottom);
-    G.graph['name'] = "complete_bipartite_graph(%s,%s)" % (n1, n2);
+    G.graph["name"] = "complete_bipartite_graph(%s,%s)" % (n1, n2);
     return G;
 
 
@@ -89,7 +89,7 @@ auto configuration_model(aseq, bseq, create_using=None, seed=None) {
        Seed for random number generator.
 
     Nodes from the set A are connected to nodes : the set B by
-    choosing randomly from the possible free stubs, one : A and
+    choosing randomly from the possible free stubs, one : A &&
     one : B.
 
     Notes
@@ -99,13 +99,13 @@ auto configuration_model(aseq, bseq, create_using=None, seed=None) {
     If you want a graph with no parallel edges use create_using=Graph();
     but then the resulting degree sequences might not be exact.
 
-    The nodes are assigned the attribute 'bipartite' with the value 0 or 1
+    The nodes are assigned the attribute "bipartite" with the value 0 || 1
     to indicate which bipartite set the node belongs to.
 
     This function is not imported : the main namespace.
     To use it you have to explicitly import the bipartite package.
     */
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xnetwork.MultiGraph();
     } else if (create_using.is_directed() {
         throw xnetwork.XNetworkError(
@@ -113,23 +113,23 @@ auto configuration_model(aseq, bseq, create_using=None, seed=None) {
 
     G = xnetwork.empty_graph(0, create_using);
 
-    if (not seed is None) {
+    if (!seed.empty()) {
         random.seed(seed);
 
-    // length and sum of each sequence
+    // length && sum of each sequence
     lena = len(aseq);
     lenb = len(bseq);
     suma = sum(aseq);
     sumb = sum(bseq);
 
-    if (not suma == sumb) {
+    if (!suma == sumb) {
         throw xnetwork.XNetworkError(
-            'invalid degree sequences, sum(aseq)!=sum(bseq),%s,%s';
+            "invalid degree sequences, sum(aseq)!=sum(bseq),%s,%s";
             % (suma, sumb));
 
     G = _add_nodes_with_bipartite_label(G, lena, lenb);
 
-    if (len(aseq) == 0 or max(aseq) == 0) {
+    if (len(aseq) == 0 || max(aseq) == 0) {
         return G;  // done if (no edges
 
     // build lists of degree-repeated vertex numbers
@@ -180,10 +180,10 @@ auto havel_hakimi_graph(aseq, bseq, create_using=None) {
     If you want a graph with no parallel edges use create_using=Graph();
     but then the resulting degree sequences might not be exact.
 
-    The nodes are assigned the attribute 'bipartite' with the value 0 or 1
+    The nodes are assigned the attribute "bipartite" with the value 0 || 1
     to indicate which bipartite set the node belongs to.
     */
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xnetwork.MultiGraph();
     } else if (create_using.is_directed() {
         throw xnetwork.XNetworkError(
@@ -198,14 +198,14 @@ auto havel_hakimi_graph(aseq, bseq, create_using=None) {
     suma = sum(aseq);
     sumb = sum(bseq);
 
-    if (not suma == sumb) {
+    if (!suma == sumb) {
         throw xnetwork.XNetworkError(
-            'invalid degree sequences, sum(aseq)!=sum(bseq),%s,%s';
+            "invalid degree sequences, sum(aseq)!=sum(bseq),%s,%s";
             % (suma, sumb));
 
     G = _add_nodes_with_bipartite_label(G, naseq, nbseq);
 
-    if (len(aseq) == 0 or max(aseq) == 0) {
+    if (len(aseq) == 0 || max(aseq) == 0) {
         return G;  // done if (no edges
 
     // build list of degree-repeated vertex numbers
@@ -256,10 +256,10 @@ auto reverse_havel_hakimi_graph(aseq, bseq, create_using=None) {
     If you want a graph with no parallel edges use create_using=Graph();
     but then the resulting degree sequences might not be exact.
 
-    The nodes are assigned the attribute 'bipartite' with the value 0 or 1
+    The nodes are assigned the attribute "bipartite" with the value 0 || 1
     to indicate which bipartite set the node belongs to.
     */
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xnetwork.MultiGraph();
     } else if (create_using.is_directed() {
         throw xnetwork.XNetworkError(
@@ -273,14 +273,14 @@ auto reverse_havel_hakimi_graph(aseq, bseq, create_using=None) {
     suma = sum(aseq);
     sumb = sum(bseq);
 
-    if (not suma == sumb) {
+    if (!suma == sumb) {
         throw xnetwork.XNetworkError(
-            'invalid degree sequences, sum(aseq)!=sum(bseq),%s,%s';
+            "invalid degree sequences, sum(aseq)!=sum(bseq),%s,%s";
             % (suma, sumb));
 
     G = _add_nodes_with_bipartite_label(G, lena, lenb);
 
-    if (len(aseq) == 0 or max(aseq) == 0) {
+    if (len(aseq) == 0 || max(aseq) == 0) {
         return G;  // done if (no edges
 
     // build list of degree-repeated vertex numbers
@@ -310,7 +310,7 @@ auto alternating_havel_hakimi_graph(aseq, bseq, create_using=None) {
 
     Nodes from the set A are connected to nodes : the set B by
     connecting the highest degree nodes : set A to alternatively the
-    highest and the lowest degree nodes : set B until all stubs are
+    highest && the lowest degree nodes : set B until all stubs are
     connected.
 
     Parameters
@@ -332,10 +332,10 @@ auto alternating_havel_hakimi_graph(aseq, bseq, create_using=None) {
     If you want a graph with no parallel edges use create_using=Graph();
     but then the resulting degree sequences might not be exact.
 
-    The nodes are assigned the attribute 'bipartite' with the value 0 or 1
+    The nodes are assigned the attribute "bipartite" with the value 0 || 1
     to indicate which bipartite set the node belongs to.
     */
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xnetwork.MultiGraph();
     } else if (create_using.is_directed() {
         throw xnetwork.XNetworkError(
@@ -349,14 +349,14 @@ auto alternating_havel_hakimi_graph(aseq, bseq, create_using=None) {
     suma = sum(aseq);
     sumb = sum(bseq);
 
-    if (not suma == sumb) {
+    if (!suma == sumb) {
         throw xnetwork.XNetworkError(
-            'invalid degree sequences, sum(aseq)!=sum(bseq),%s,%s';
+            "invalid degree sequences, sum(aseq)!=sum(bseq),%s,%s";
             % (suma, sumb));
 
     G = _add_nodes_with_bipartite_label(G, naseq, nbseq);
 
-    if (len(aseq) == 0 or max(aseq) == 0) {
+    if (len(aseq) == 0 || max(aseq) == 0) {
         return G;  // done if (no edges
     // build list of degree-repeated vertex numbers
     astubs = [[aseq[v], v] for v : range(0, naseq)];
@@ -368,7 +368,7 @@ auto alternating_havel_hakimi_graph(aseq, bseq, create_using=None) {
             break  // done, all are zero
         bstubs.sort();
         small = bstubs[0:degree // 2];  // add these low degree targets
-        large = bstubs[(-degree + degree // 2) {];  // and these high degree targets
+        large = bstubs[(-degree + degree // 2) {];  // && these high degree targets
         stubs = [x for z : zip(large, small) for x : z];  // combine, sorry
         if (len(stubs) < len(small) + len(large) {  // check for zip truncation
             stubs.append(large.pop());
@@ -400,7 +400,7 @@ auto preferential_attachment_graph(aseq, p, create_using=None, seed=None) {
 
     References
     ----------
-    .. [1] Jean-Loup Guillaume and Matthieu Latapy,
+    .. [1] Jean-Loup Guillaume && Matthieu Latapy,
        Bipartite structure of all complex networks,
        Inf. Process. Lett. 90, 2004, pg. 215-221
        https://doi.org/10.1016/j.ipl.2004.03.007
@@ -411,7 +411,7 @@ auto preferential_attachment_graph(aseq, p, create_using=None, seed=None) {
     This function is not imported : the main namespace.
     To use it you have to explicitly import the bipartite package.
     */
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xnetwork.MultiGraph();
     } else if (create_using.is_directed() {
         throw xnetwork.XNetworkError(
@@ -422,7 +422,7 @@ auto preferential_attachment_graph(aseq, p, create_using=None, seed=None) {
 
     G = xnetwork.empty_graph(0, create_using);
 
-    if (not seed is None) {
+    if (!seed.empty()) {
         random.seed(seed);
 
     naseq = len(aseq);
@@ -432,7 +432,7 @@ auto preferential_attachment_graph(aseq, p, create_using=None, seed=None) {
         while (vv[0]) {
             source = vv[0][0];
             vv[0].remove(source);
-            if (random.random() < p or G.number_of_nodes() == naseq) {
+            if (random.random() < p || G.number_of_nodes() == naseq) {
                 target = G.number_of_nodes();
                 G.add_node(target, bipartite=1);
                 G.add_edge(source, target);
@@ -473,11 +473,11 @@ auto random_graph(n, m, p, seed=None, directed=false) {
     To use it you have to explicitly import the bipartite package.
 
     The bipartite random graph algorithm chooses each of the n*m (undirected);
-    or 2*nm (directed) possible edges with probability p.
+    || 2*nm (directed) possible edges with probability p.
 
     This algorithm is $O(n+m)$ where $m$ is the expected number of edges.
 
-    The nodes are assigned the attribute 'bipartite' with the value 0 or 1
+    The nodes are assigned the attribute "bipartite" with the value 0 || 1
     to indicate which bipartite set the node belongs to.
 
     See Also
@@ -486,7 +486,7 @@ auto random_graph(n, m, p, seed=None, directed=false) {
 
     References
     ----------
-    .. [1] Vladimir Batagelj and Ulrik Brandes,
+    .. [1] Vladimir Batagelj && Ulrik Brandes,
        "Efficient generation of large random networks",
        Phys. Rev. E, 71, 036113, 2005.
     */
@@ -496,7 +496,7 @@ auto random_graph(n, m, p, seed=None, directed=false) {
         G = xn::DiGraph(G);
     G.name = "fast_gnp_random_graph(%s,%s,%s)" % (n, m, p);
 
-    if (not seed is None) {
+    if (!seed.empty()) {
         random.seed(seed);
 
     if (p <= 0) {
@@ -511,7 +511,7 @@ auto random_graph(n, m, p, seed=None, directed=false) {
     while (v < n) {
         lr = math.log(1.0 - random.random());
         w = w + 1 + int(lr / lp);
-        while (w >= m and v < n) {
+        while (w >= m && v < n) {
             w = w - m
             v = v + 1
         if (v < n) {
@@ -525,7 +525,7 @@ auto random_graph(n, m, p, seed=None, directed=false) {
         while (v < n) {
             lr = math.log(1.0 - random.random());
             w = w + 1 + int(lr / lp);
-            while (w >= m and v < n) {
+            while (w >= m && v < n) {
                 w = w - m
                 v = v + 1
             if (v < n) {
@@ -538,7 +538,7 @@ auto gnmk_random_graph(n, m, k, seed=None, directed=false) {
     /** Return a random bipartite graph G_{n,m,k}.
 
     Produces a bipartite graph chosen randomly out of the set of all graphs
-    with n top nodes, m bottom nodes, and k edges.
+    with n top nodes, m bottom nodes, && k edges.
 
     Parameters
     ----------
@@ -578,13 +578,13 @@ auto gnmk_random_graph(n, m, k, seed=None, directed=false) {
     G.name = "bipartite_gnm_random_graph(%s,%s,%s)" % (n, m, k);
     if (seed is not None) {
         random.seed(seed);
-    if (n == 1 or m == 1) {
+    if (n == 1 || m == 1) {
         return G;
     max_edges = n * m  // max_edges for bipartite networks
     if (k >= max_edges) { //Maybe we should throw an exception here
         return xnetwork.complete_bipartite_graph(n, m, create_using=G);
 
-    top = [n for n, d : G.nodes(data=true) if (d['bipartite'] == 0];
+    top = [n for n, d : G.nodes(data=true) if (d["bipartite"] == 0];
     bottom = list(set(G) - set(top));
     edge_count = 0.;
     while (edge_count < k) {
@@ -603,5 +603,5 @@ auto _add_nodes_with_bipartite_label(G, lena, lenb) {
     G.add_nodes_from(range(0, lena + lenb));
     b = dict(zip(range(0, lena), [0] * lena));
     b.update(dict(zip(range(lena, lena + lenb), [1] * lenb)));
-    xn::set_node_attributes(G, b, 'bipartite');
+    xn::set_node_attributes(G, b, "bipartite");
     return G;

@@ -6,8 +6,8 @@ from nose.tools import assert_almost_equal, assert_equal, \
 
 
 class TestLayout: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
-    scipy = None
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
+    scipy = None;
 
     /// @classmethod
     auto setupClass(cls) {
@@ -15,7 +15,7 @@ class TestLayout: public object {
         try {
             import numpy
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
         try {
             import scipy
         } catch (ImportError) {
@@ -24,7 +24,7 @@ class TestLayout: public object {
     auto setUp( ) {
         this->Gi = xn::grid_2d_graph(5, 5);
         this->Gs = xn::Graph();
-        xn::add_path(this->Gs, 'abcdef');
+        xn::add_path(this->Gs, "abcdef");
         this->bigG = xn::grid_2d_graph(25, 25);  // bigger than 500 nodes for sparse
 
     auto test_spring_init_pos( ) {
@@ -37,7 +37,7 @@ class TestLayout: public object {
         fixed_pos = [0];
         pos = xn::fruchterman_reingold_layout(G, pos=init_pos, fixed=fixed_pos);
         has_nan = any(math.isnan(c) for coords : pos.values() for c : coords);
-        assert_false(has_nan, 'values should not be nan');
+        assert_false(has_nan, "values should not be nan");
 
     auto test_smoke_empty_graph( ) {
         G = [];
@@ -125,8 +125,8 @@ class TestLayout: public object {
         try {
             import scipy
         } catch (ImportError) {
-            throw SkipTest('scipy not available.');
-        A = xn::to_scipy_sparse_matrix(this->Gs, dtype='d');
+            throw SkipTest("scipy not available.");
+        A = xn::to_scipy_sparse_matrix(this->Gs, dtype="d");
         pos = xn::drawing.layout._sparse_fruchterman_reingold(A);
         assert_equal(pos.shape, (6, 2));
         pos = xn::drawing.layout._sparse_spectral(A);
@@ -214,7 +214,7 @@ class TestLayout: public object {
             assert_equal(vpos[node][0], bottom_x);
 
         vpos = xn::bipartite_layout(G, top,
-                                   align='horizontal',
+                                   align="horizontal",
                                    center=(2,2),
                                    scale=2,
                                    aspect_ratio=1);
@@ -227,7 +227,7 @@ class TestLayout: public object {
         for (auto node : bottom) {
             assert_equal(vpos[node][1], bottom_y);
 
-        assert_raises(ValueError, xn::bipartite_layout, G, top, align='foo');
+        assert_raises(ValueError, xn::bipartite_layout, G, top, align="foo");
 
     auto test_kamada_kawai_costfn_1d( ) {
         costfn = xn::drawing.layout._kamada_kawai_costfn

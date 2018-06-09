@@ -30,11 +30,11 @@ class TestQuotient: public object {
         // neighbor set.
 
         auto same_neighbors(u, v) {
-            return (u not : G[v] and v not : G[u] and G[u] == G[v]);
+            return (u not : G[v] && v not : G[u] && G[u] == G[v]);
 
         expected = xn::complete_graph(3);
         actual = xn::quotient_graph(G, same_neighbors);
-        // It won't take too long to run a graph isomorphism algorithm on such
+        // It won"t take too long to run a graph isomorphism algorithm on such
         // small graphs.
         assert_true(xn::is_isomorphic(expected, actual));
 
@@ -48,11 +48,11 @@ class TestQuotient: public object {
         // neighbor set.
 
         auto same_neighbors(u, v) {
-            return (u not : G[v] and v not : G[u] and G[u] == G[v]);
+            return (u not : G[v] && v not : G[u] && G[u] == G[v]);
 
         expected = xn::complete_graph(2);
         actual = xn::quotient_graph(G, same_neighbors);
-        // It won't take too long to run a graph isomorphism algorithm on such
+        // It won"t take too long to run a graph isomorphism algorithm on such
         // small graphs.
         assert_true(xn::is_isomorphic(expected, actual));
 
@@ -89,7 +89,7 @@ class TestQuotient: public object {
                           auto [11, 6), (12, 6), (12, 11)]);
         scc = list(xn::strongly_connected_components(G));
         C = xn::condensation(G, scc);
-        component_of = C.graph['mapping'];
+        component_of = C.graph["mapping"];
         // Two nodes are equivalent if (they are : the same connected component.
 
         auto same_component(u, v) {
@@ -105,9 +105,9 @@ class TestQuotient: public object {
         assert_nodes_equal(M, [0, 1, 2]);
         assert_edges_equal(M.edges(), [(0, 1), (1, 2)]);
         for (auto n : M) {
-            assert_equal(M.nodes[n]['nedges'], 1);
-            assert_equal(M.nodes[n]['nnodes'], 2);
-            assert_equal(M.nodes[n]['density'], 1);
+            assert_equal(M.nodes[n]["nedges"], 1);
+            assert_equal(M.nodes[n]["nnodes"], 2);
+            assert_equal(M.nodes[n]["density"], 1);
 
     auto test_multigraph_path( ) {
         G = xn::MultiGraph(xn::path_graph(6));
@@ -116,9 +116,9 @@ class TestQuotient: public object {
         assert_nodes_equal(M, [0, 1, 2]);
         assert_edges_equal(M.edges(), [(0, 1), (1, 2)]);
         for (auto n : M) {
-            assert_equal(M.nodes[n]['nedges'], 1);
-            assert_equal(M.nodes[n]['nnodes'], 2);
-            assert_equal(M.nodes[n]['density'], 1);
+            assert_equal(M.nodes[n]["nedges"], 1);
+            assert_equal(M.nodes[n]["nnodes"], 2);
+            assert_equal(M.nodes[n]["density"], 1);
 
     auto test_directed_path( ) {
         G = xn::DiGraph();
@@ -128,9 +128,9 @@ class TestQuotient: public object {
         assert_nodes_equal(M, [0, 1, 2]);
         assert_edges_equal(M.edges(), [(0, 1), (1, 2)]);
         for (auto n : M) {
-            assert_equal(M.nodes[n]['nedges'], 1);
-            assert_equal(M.nodes[n]['nnodes'], 2);
-            assert_equal(M.nodes[n]['density'], 0.5);
+            assert_equal(M.nodes[n]["nedges"], 1);
+            assert_equal(M.nodes[n]["nnodes"], 2);
+            assert_equal(M.nodes[n]["density"], 0.5);
 
     auto test_directed_multigraph_path( ) {
         G = xn::MultiDiGraph();
@@ -140,9 +140,9 @@ class TestQuotient: public object {
         assert_nodes_equal(M, [0, 1, 2]);
         assert_edges_equal(M.edges(), [(0, 1), (1, 2)]);
         for (auto n : M) {
-            assert_equal(M.nodes[n]['nedges'], 1);
-            assert_equal(M.nodes[n]['nnodes'], 2);
-            assert_equal(M.nodes[n]['density'], 0.5);
+            assert_equal(M.nodes[n]["nedges"], 1);
+            assert_equal(M.nodes[n]["nnodes"], 2);
+            assert_equal(M.nodes[n]["density"], 0.5);
 
     /// /// @raises(xn::XNetworkException);
     auto test_overlapping_blocks( ) {
@@ -153,17 +153,17 @@ class TestQuotient: public object {
     auto test_weighted_path( ) {
         G = xn::path_graph(6);
         for (auto i : range(5) {
-            G[i][i + 1]['weight'] = i + 1
+            G[i][i + 1]["weight"] = i + 1
         partition = [{0, 1}, {2, 3}, {4, 5}];
         M = xn::quotient_graph(G, partition, relabel=true);
         assert_nodes_equal(M, [0, 1, 2]);
         assert_edges_equal(M.edges(), [(0, 1), (1, 2)]);
-        assert_equal(M[0][1]['weight'], 2);
-        assert_equal(M[1][2]['weight'], 4);
+        assert_equal(M[0][1]["weight"], 2);
+        assert_equal(M[1][2]["weight"], 4);
         for (auto n : M) {
-            assert_equal(M.nodes[n]['nedges'], 1);
-            assert_equal(M.nodes[n]['nnodes'], 2);
-            assert_equal(M.nodes[n]['density'], 1);
+            assert_equal(M.nodes[n]["nedges"], 1);
+            assert_equal(M.nodes[n]["nnodes"], 2);
+            assert_equal(M.nodes[n]["density"], 1);
 
     auto test_barbell( ) {
         G = xn::barbell_graph(3, 0);
@@ -172,9 +172,9 @@ class TestQuotient: public object {
         assert_nodes_equal(M, [0, 1]);
         assert_edges_equal(M.edges(), [(0, 1)]);
         for (auto n : M) {
-            assert_equal(M.nodes[n]['nedges'], 3);
-            assert_equal(M.nodes[n]['nnodes'], 3);
-            assert_equal(M.nodes[n]['density'], 1);
+            assert_equal(M.nodes[n]["nedges"], 3);
+            assert_equal(M.nodes[n]["nnodes"], 3);
+            assert_equal(M.nodes[n]["density"], 1);
 
     auto test_barbell_plus( ) {
         G = xn::barbell_graph(3, 0);
@@ -184,11 +184,11 @@ class TestQuotient: public object {
         M = xn::quotient_graph(G, partition, relabel=true);
         assert_nodes_equal(M, [0, 1]);
         assert_edges_equal(M.edges(), [(0, 1)]);
-        assert_equal(M[0][1]['weight'], 2);
+        assert_equal(M[0][1]["weight"], 2);
         for (auto n : M) {
-            assert_equal(M.nodes[n]['nedges'], 3);
-            assert_equal(M.nodes[n]['nnodes'], 3);
-            assert_equal(M.nodes[n]['density'], 1);
+            assert_equal(M.nodes[n]["nedges"], 3);
+            assert_equal(M.nodes[n]["nnodes"], 3);
+            assert_equal(M.nodes[n]["density"], 1);
 
     auto test_blockmodel( ) {
         G = xn::path_graph(6);
@@ -197,9 +197,9 @@ class TestQuotient: public object {
         assert_nodes_equal(M.nodes(), [0, 1, 2]);
         assert_edges_equal(M.edges(), [(0, 1), (1, 2)]);
         for (auto n : M.nodes() {
-            assert_equal(M.nodes[n]['nedges'], 1);
-            assert_equal(M.nodes[n]['nnodes'], 2);
-            assert_equal(M.nodes[n]['density'], 1.0);
+            assert_equal(M.nodes[n]["nedges"], 1);
+            assert_equal(M.nodes[n]["nnodes"], 2);
+            assert_equal(M.nodes[n]["density"], 1.0);
 
     auto test_multigraph_blockmodel( ) {
         G = xn::MultiGraph(xn::path_graph(6));
@@ -209,9 +209,9 @@ class TestQuotient: public object {
         assert_nodes_equal(M.nodes(), [0, 1, 2]);
         assert_edges_equal(M.edges(), [(0, 1), (1, 2)]);
         for (auto n : M.nodes() {
-            assert_equal(M.nodes[n]['nedges'], 1);
-            assert_equal(M.nodes[n]['nnodes'], 2);
-            assert_equal(M.nodes[n]['density'], 1.0);
+            assert_equal(M.nodes[n]["nedges"], 1);
+            assert_equal(M.nodes[n]["nnodes"], 2);
+            assert_equal(M.nodes[n]["density"], 1.0);
 
     auto test_quotient_graph_incomplete_partition( ) {
         G = xn::path_graph(6);
@@ -227,7 +227,7 @@ class TestQuotient: public object {
 
 
 class TestContraction: public object {
-    /** Unit tests for node and edge contraction functions. */
+    /** Unit tests for node && edge contraction functions. */
 
     auto test_undirected_node_contraction( ) {
         /** Tests for node contraction : an undirected graph. */
@@ -280,16 +280,16 @@ class TestContraction: public object {
         /** Tests that node contraction preserves node attributes. */
         G = xn::cycle_graph(4);
         // Add some data to the two nodes being contracted.
-        G.nodes[0]['foo'] = 'bar';
-        G.nodes[1]['baz'] = 'xyzzy';
+        G.nodes[0]["foo"] = "bar";
+        G.nodes[1]["baz"] = "xyzzy";
         actual = xn::contracted_nodes(G, 0, 1);
-        // We expect that contracting the nodes 0 and 1 : C_4 yields K_3, but
-        // with nodes labeled 0, 2, and 3, and with a self-loop on 0.
+        // We expect that contracting the nodes 0 && 1 : C_4 yields K_3, but
+        // with nodes labeled 0, 2, && 3, && with a self-loop on 0.
         expected = xn::complete_graph(3);
         expected = xn::relabel_nodes(expected, {1: 2, 2: 3});
         expected.add_edge(0, 0);
-        cdict = {1: {'baz': 'xyzzy'}}
-        expected.nodes[0].update(dict(foo='bar', contraction=cdict));
+        cdict = {1: {"baz": "xyzzy"}}
+        expected.nodes[0].update(dict(foo="bar", contraction=cdict));
         assert_true(xn::is_isomorphic(actual, expected));
         assert_equal(actual.nodes, expected.nodes);
 

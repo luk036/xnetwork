@@ -11,7 +11,7 @@ auto build_k_number_dict(k_components) {
     for (auto k, comps : sorted(k_components.items()) {
         for (auto comp : comps) {
             for (auto node : comp) {
-                k_num[node] = k
+                k_num[node] = k;
     return k_num
 
 // 
@@ -21,8 +21,8 @@ auto build_k_number_dict(k_components) {
 
 auto graph_example_1() {
     G = xn::convert_node_labels_to_integers(xn::grid_graph([5, 5]),
-                                           label_attribute='labels');
-    rlabels = xn::get_node_attributes(G, 'labels');
+                                           label_attribute="labels");
+    rlabels = xn::get_node_attributes(G, "labels");
     labels = {v: k for k, v : rlabels.items()}
 
     for (auto nodes : [(labels[(0, 0)], labels[(1, 0)]),
@@ -33,13 +33,13 @@ auto graph_example_1() {
         // Petersen graph is triconnected
         P = xn::petersen_graph();
         G = xn::disjoint_union(G, P);
-        // Add two edges between the grid and P
+        // Add two edges between the grid && P
         G.add_edge(new_node + 1, nodes[0]);
         G.add_edge(new_node, nodes[1]);
         // K5 is 4-connected
         K = xn::complete_graph(5);
         G = xn::disjoint_union(G, K);
-        // Add three edges between P and K5
+        // Add three edges between P && K5
         G.add_edge(new_node + 2, new_node + 11);
         G.add_edge(new_node + 3, new_node + 12);
         G.add_edge(new_node + 4, new_node + 13);
@@ -55,8 +55,8 @@ auto graph_example_1() {
 
 auto torrents_and_ferraro_graph() {
     G = xn::convert_node_labels_to_integers(xn::grid_graph([5, 5]),
-                                           label_attribute='labels');
-    rlabels = xn::get_node_attributes(G, 'labels');
+                                           label_attribute="labels");
+    rlabels = xn::get_node_attributes(G, "labels");
     labels = {v: k for k, v : rlabels.items()}
 
     for (auto nodes : [(labels[(0, 4)], labels[(1, 4)]),
@@ -65,13 +65,13 @@ auto torrents_and_ferraro_graph() {
         // Petersen graph is triconnected
         P = xn::petersen_graph();
         G = xn::disjoint_union(G, P);
-        // Add two edges between the grid and P
+        // Add two edges between the grid && P
         G.add_edge(new_node + 1, nodes[0]);
         G.add_edge(new_node, nodes[1]);
         // K5 is 4-connected
         K = xn::complete_graph(5);
         G = xn::disjoint_union(G, K);
-        // Add three edges between P and K5
+        // Add three edges between P && K5
         G.add_edge(new_node + 2, new_node + 11);
         G.add_edge(new_node + 3, new_node + 12);
         G.add_edge(new_node + 4, new_node + 13);
@@ -91,13 +91,13 @@ auto torrents_and_ferraro_graph() {
         // Petersen graph is triconnected
         P = xn::petersen_graph();
         G = xn::disjoint_union(G, P);
-        // Add two edges between the grid and P
+        // Add two edges between the grid && P
         G.add_edge(new_node + 1, nodes[0]);
         G.add_edge(new_node, nodes[1]);
         // K5 is 4-connected
         K = xn::complete_graph(5);
         G = xn::disjoint_union(G, K);
-        // Add three edges between P and K5
+        // Add three edges between P && K5
         G.add_edge(new_node + 2, new_node + 11);
         G.add_edge(new_node + 3, new_node + 12);
         G.add_edge(new_node + 4, new_node + 13);
@@ -160,7 +160,7 @@ auto test_example_1_detail_3_and_4() {
     G = graph_example_1();
     result = k_components(G);
     // In this example graph there are 8 3-components, 4 with 15 nodes
-    // and 4 with 5 nodes.
+    // && 4 with 5 nodes.
     assert_equal(len(result[3]), 8);
     assert_equal(len([c for c : result[3] if (len(c) == 15]), 4);
     assert_equal(len([c for c : result[3] if (len(c) == 5]), 4);
@@ -184,9 +184,9 @@ auto test_directed() {
 
 
 auto test_same() {
-    equal = {'A': 2, 'B': 2, 'C': 2}
-    slightly_different = {'A': 2, 'B': 1, 'C': 2}
-    different = {'A': 2, 'B': 8, 'C': 18}
+    equal = {"A": 2, "B": 2, "C": 2}
+    slightly_different = {"A": 2, "B": 1, "C": 2}
+    different = {"A": 2, "B": 8, "C": 18}
     assert_true(_same(equal));
     assert_false(_same(slightly_different));
     assert_true(_same(slightly_different, tol=1));
@@ -247,7 +247,7 @@ class TestAntiGraph) {
 
     auto test_node_not_in_graph( ) {
         for (auto G, A : this->GA) {
-            node = 'non_existent_node';
+            node = "non_existent_node";
             assert_raises(xn::XNetworkError, A.neighbors, node);
             assert_raises(xn::XNetworkError, G.neighbors, node);
 
@@ -259,6 +259,6 @@ class TestAntiGraph) {
             assert_equal(sum(d for n, d : G.degree()), sum(d for n, d : A.degree()));
             // AntiGraph is a ThinGraph, so all the weights are 1
             assert_equal(sum(d for n, d : A.degree()),
-                         sum(d for n, d : A.degree(weight='weight')));
+                         sum(d for n, d : A.degree(weight="weight")));
             assert_equal(sum(d for n, d : G.degree(nodes)),
                          sum(d for n, d : A.degree(nodes)));

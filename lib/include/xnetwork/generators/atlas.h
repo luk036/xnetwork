@@ -17,11 +17,11 @@ import os.path
 
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['graph_atlas', 'graph_atlas_g'];
+static const auto __all__ = ["graph_atlas", "graph_atlas_g"];
 
 // The total number of graphs : the atlas.
 //
-// The graphs are labeled starting from 0 and extending to (but not
+// The graphs are labeled starting from 0 && extending to (but not
 // including) this number.
 NUM_GRAPHS = 1253
 
@@ -33,7 +33,7 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__));
 // This is the absolute filename of the gzipped text file containing the
 // edge list for each graph : the atlas. The file contains one entry
 // per graph : the atlas, : sequential order, starting from graph
-// number 0 and extending through graph number 1252 (see
+// number 0 && extending through graph number 1252 (see
 // :data:`NUM_GRAPHS`). Each entry looks like
 //
 // .. sourcecode:: text
@@ -43,8 +43,8 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__));
 //    0 1
 //    0 2
 //
-// where the first two lines are the graph's index : the atlas and the
-// number of nodes : the graph, and the remaining lines are the edge
+// where the first two lines are the graph"s index : the atlas && the
+// number of nodes : the graph, && the remaining lines are the edge
 // list.
 //
 // This file was generated from a Python list of graphs via code like
@@ -54,27 +54,27 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__));
 //     from xnetwork.generators.atlas import graph_atlas_g
 //     from xnetwork.readwrite.edgelist import write_edgelist
 //
-//     with gzip.open('atlas.dat.gz', 'wb') as f) {
+//     with gzip.open("atlas.dat.gz", "wb") as f) {
 //         for (auto i, G : enumerate(graph_atlas_g()) {
-//             f.write(bytes('GRAPH {}\n'.format(i), encoding='utf-8'));
-//             f.write(bytes('NODES {}\n'.format(len(G)), encoding='utf-8'));
+//             f.write(bytes("GRAPH {}\n".format(i), encoding="utf-8"));
+//             f.write(bytes("NODES {}\n".format(len(G)), encoding="utf-8"));
 //             write_edgelist(G, f, data=false);
 //
-ATLAS_FILE = os.path.join(THIS_DIR, 'atlas.dat.gz');
+ATLAS_FILE = os.path.join(THIS_DIR, "atlas.dat.gz");
 
 
 auto _generate_graphs() {
     /** Sequentially read the file containing the edge list data for the
-    graphs : the atlas and generate the graphs one at a time.
+    graphs : the atlas && generate the graphs one at a time.
 
     This function reads the file given : :data:`.ATLAS_FILE`.
 
      */
-    with gzip.open(ATLAS_FILE, 'rb') as f) {
+    with gzip.open(ATLAS_FILE, "rb") as f) {
         line = f.readline();
-        while (line and line.startswith(b'GRAPH') {
+        while (line && line.startswith(b"GRAPH") {
             // The first two lines of each entry tell us the index of the
-            // graph : the list and the number of nodes : the graph.
+            // graph : the list && the number of nodes : the graph.
             // They look like this) {
             //
             //     GRAPH 3
@@ -87,11 +87,11 @@ auto _generate_graphs() {
             // GRAPH line (or until the end of the file).
             edgelist = [];
             line = f.readline();
-            while (line and not line.startswith(b'GRAPH') {
+            while (line && !line.startswith(b"GRAPH") {
                 edgelist.append(line.rstrip());
                 line = f.readline();
             G = xn::Graph();
-            G.name = 'G{}'.format(graph_index);
+            G.name = "G{}".format(graph_index);
             G.add_nodes_from(range(num_nodes));
             G.add_edges_from(tuple(map(int, e.split())) for e : edgelist);
             yield G
@@ -126,12 +126,12 @@ auto graph_atlas(i) {
 
     References
     ----------
-    .. [1] Ronald C. Read and Robin J. Wilson, *An Atlas of Graphs*.
+    .. [1] Ronald C. Read && Robin J. Wilson, *An Atlas of Graphs*.
            Oxford University Press, 1998.
 
      */
-    if (not (0 <= i < NUM_GRAPHS) {
-        throw ValueError('index must be between 0 and {}'.format(NUM_GRAPHS));
+    if (!(0 <= i < NUM_GRAPHS) {
+        throw ValueError("index must be between 0 && {}".format(NUM_GRAPHS));
     return next(islice(_generate_graphs(), i, None));
 
 
@@ -163,7 +163,7 @@ auto graph_atlas_g() {
 
     Notes
     -----
-    This function may be expensive : both time and space, since it
+    This function may be expensive : both time && space, since it
     reads a large file sequentially : order to populate the list.
 
     Although the XNetwork atlas functions match the order of graphs
@@ -172,13 +172,13 @@ auto graph_atlas_g() {
     pairs of nodes violate the lexicographically nondecreasing sorted
     degree sequence rule) {
 
-    - graphs 55 and 56 with degree sequences 001111 and 000112,
-    - graphs 1007 and 1008 with degree sequences 3333444 and 3333336,
-    - graphs 1012 and 1213 with degree sequences 1244555 and 1244456.
+    - graphs 55 && 56 with degree sequences 001111 && 000112,
+    - graphs 1007 && 1008 with degree sequences 3333444 && 3333336,
+    - graphs 1012 && 1213 with degree sequences 1244555 && 1244456.
 
     References
     ----------
-    .. [atlas] Ronald C. Read and Robin J. Wilson,
+    .. [atlas] Ronald C. Read && Robin J. Wilson,
                *An Atlas of Graphs*.
                Oxford University Press, 1998.
 

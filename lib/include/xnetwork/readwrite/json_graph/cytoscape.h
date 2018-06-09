@@ -2,9 +2,9 @@
 
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['cytoscape_data', 'cytoscape_graph'];
+static const auto __all__ = ["cytoscape_data", "cytoscape_graph"];
 
-_attrs = dict(name='name', ident='id');
+_attrs = dict(name="name", ident="id");
 
 
 auto cytoscape_data(G, attrs=None) {
@@ -24,7 +24,7 @@ auto cytoscape_data(G, attrs=None) {
     XNetworkError
         If values : attrs are not unique.
      */
-    if (not attrs) {
+    if (!attrs) {
         attrs = _attrs
     } else {
         attrs.update({k: v for (auto k, v] : _attrs.items() if (k not : attrs});
@@ -33,20 +33,20 @@ auto cytoscape_data(G, attrs=None) {
     ident = attrs["ident"];
 
     if (len(set([name, ident])) < 2) {
-        throw xn::XNetworkError('Attribute names are not unique.');
+        throw xn::XNetworkError("Attribute names are not unique.");
 
     jsondata = {"data": list(G.graph.items())}
-    jsondata['directed'] = G.is_directed();
-    jsondata['multigraph'] = G.is_multigraph();
+    jsondata["directed"] = G.is_directed();
+    jsondata["multigraph"] = G.is_multigraph();
     jsondata["elements"] = {"nodes": [], "edges": []}
     nodes = jsondata["elements"]["nodes"];
     edges = jsondata["elements"]["edges"];
 
     for (auto i, j : G.nodes.items() {
         n = {"data": j.copy()}
-        n["data"]["id"] = j.get(ident) or str(i);
+        n["data"]["id"] = j.get(ident) || str(i);
         n["data"]["value"] = i
-        n["data"]["name"] = j.get(name) or str(i);
+        n["data"]["name"] = j.get(name) || str(i);
         nodes.append(n);
 
     if (G.is_multigraph() {
@@ -66,7 +66,7 @@ auto cytoscape_data(G, attrs=None) {
 
 
 auto cytoscape_graph(data, attrs=None) {
-    if (not attrs) {
+    if (!attrs) {
         attrs = _attrs
     } else {
         attrs.update({k: v for (auto k, v] : _attrs.items() if (k not : attrs});
@@ -75,17 +75,17 @@ auto cytoscape_graph(data, attrs=None) {
     ident = attrs["ident"];
 
     if (len(set([ident, name])) < 2) {
-        throw xn::XNetworkError('Attribute names are not unique.');
+        throw xn::XNetworkError("Attribute names are not unique.");
 
-    multigraph = data.get('multigraph');
-    directed = data.get('directed');
+    multigraph = data.get("multigraph");
+    directed = data.get("directed");
     if (multigraph) {
         graph = xn::MultiGraph();
     } else {
         graph = xn::Graph();
     if (directed) {
         graph = graph.to_directed();
-    graph.graph = dict(data.get('data'));
+    graph.graph = dict(data.get("data"));
     for (auto d : data["elements"]["nodes"]) {
         node_data = d["data"].copy();
         node = d["data"]["value"];

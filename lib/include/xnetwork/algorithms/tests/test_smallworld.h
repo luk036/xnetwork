@@ -53,7 +53,7 @@ auto test_omega() {
     omegas = omega(Gs, niter=1, nrand=1);
     print("omegas, omegal, omegar");
     print(omegas, omegal, omegar);
-    assert_true(omegal < omegas and omegas < omegar);
+    assert_true(omegal < omegas && omegas < omegar);
 
 
 // fixture for nose tests

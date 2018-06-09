@@ -23,7 +23,7 @@ class TestStochasticGraph: public object {
         S = xn::stochastic_graph(G);
         assert_true(xn::is_isomorphic(G, S));
         assert_equal(sorted(S.edges(data=true)),
-                     [(0, 1, {'weight': 0.5}), (0, 2, {'weight': 0.5})]);
+                     [(0, 1, {"weight": 0.5}), (0, 2, {"weight": 0.5})]);
 
     auto test_in_place( ) {
         /** Tests for an in-place reweighting of the edges of the graph.
@@ -34,7 +34,7 @@ class TestStochasticGraph: public object {
         G.add_edge(0, 2, weight=1);
         xn::stochastic_graph(G, copy=false);
         assert_equal(sorted(G.edges(data=true)),
-                     [(0, 1, {'weight': 0.5}), (0, 2, {'weight': 0.5})]);
+                     [(0, 1, {"weight": 0.5}), (0, 2, {"weight": 0.5})]);
 
     auto test_arbitrary_weights( ) {
         G = xn::DiGraph();
@@ -42,7 +42,7 @@ class TestStochasticGraph: public object {
         G.add_edge(0, 2, weight=1);
         S = xn::stochastic_graph(G);
         assert_equal(sorted(S.edges(data=true)),
-                     [(0, 1, {'weight': 0.5}), (0, 2, {'weight': 0.5})]);
+                     [(0, 1, {"weight": 0.5}), (0, 2, {"weight": 0.5})]);
 
     auto test_multidigraph( ) {
         G = xn::MultiDiGraph();

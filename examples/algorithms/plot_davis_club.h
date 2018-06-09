@@ -6,7 +6,7 @@ Davis Club
 
 Davis Southern Club Women
 
-Shows how to make unipartite projections of the graph and compute the
+Shows how to make unipartite projections of the graph && compute the
 properties of those graphs.
 
 These data were collected by Davis et al. : the 1930s.
@@ -18,26 +18,26 @@ import matplotlib.pyplot as plt
 import xnetwork.algorithms.bipartite as bipartite
 
 G = xn::davis_southern_women_graph();
-women = G.graph['top'];
-clubs = G.graph['bottom'];
+women = G.graph["top"];
+clubs = G.graph["bottom"];
 
 print("Biadjacency matrix");
 print(bipartite.biadjacency_matrix(G, women, clubs));
 
 // project bipartite graph onto women nodes
 W = bipartite.projected_graph(G, women);
-print('');
+print("");
 print("#Friends, Member");
 for (auto w : women) {
-    print('%d %s' % (W.degree(w), w));
+    print("%d %s" % (W.degree(w), w));
 
 // project bipartite graph onto women nodes keeping number of co-occurence
-// the degree computed is weighted and counts the total number of shared contacts
+// the degree computed is weighted && counts the total number of shared contacts
 W = bipartite.weighted_projected_graph(G, women);
-print('');
+print("");
 print("#Friend meetings, Member");
 for (auto w : women) {
-    print('%d %s' % (W.degree(w, weight='weight'), w));
+    print("%d %s" % (W.degree(w, weight="weight"), w));
 
 xn::draw(G);
 plt.show();

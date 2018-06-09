@@ -61,11 +61,11 @@ class BaseDiGraphTester(BaseGraphTester) {
         assert_equal(sorted(G.out_edges(2)), []);
 
     auto test_out_edges_data( ) {
-        G = xn::DiGraph([(0, 1, {'data': 0}), (1, 0, {})]);
-        assert_equal(sorted(G.out_edges(data=true)), [(0, 1, {'data': 0}), (1, 0, {})]);
-        assert_equal(sorted(G.out_edges(0, data=true)), [(0, 1, {'data': 0})]);
-        assert_equal(sorted(G.out_edges(data='data')), [(0, 1, 0), (1, 0, None)]);
-        assert_equal(sorted(G.out_edges(0, data='data')), [(0, 1, 0)]);
+        G = xn::DiGraph([(0, 1, {"data": 0}), (1, 0, {})]);
+        assert_equal(sorted(G.out_edges(data=true)), [(0, 1, {"data": 0}), (1, 0, {})]);
+        assert_equal(sorted(G.out_edges(0, data=true)), [(0, 1, {"data": 0})]);
+        assert_equal(sorted(G.out_edges(data="data")), [(0, 1, 0), (1, 0, None)]);
+        assert_equal(sorted(G.out_edges(0, data="data")), [(0, 1, 0)]);
 
     auto test_in_edges_dir( ) {
         G = this->P3
@@ -74,11 +74,11 @@ class BaseDiGraphTester(BaseGraphTester) {
         assert_equal(sorted(G.in_edges(2)), [(1, 2)]);
 
     auto test_in_edges_data( ) {
-        G = xn::DiGraph([(0, 1, {'data': 0}), (1, 0, {})]);
-        assert_equal(sorted(G.in_edges(data=true)), [(0, 1, {'data': 0}), (1, 0, {})]);
-        assert_equal(sorted(G.in_edges(1, data=true)), [(0, 1, {'data': 0})]);
-        assert_equal(sorted(G.in_edges(data='data')), [(0, 1, 0), (1, 0, None)]);
-        assert_equal(sorted(G.in_edges(1, data='data')), [(0, 1, 0)]);
+        G = xn::DiGraph([(0, 1, {"data": 0}), (1, 0, {})]);
+        assert_equal(sorted(G.in_edges(data=true)), [(0, 1, {"data": 0}), (1, 0, {})]);
+        assert_equal(sorted(G.in_edges(1, data=true)), [(0, 1, {"data": 0})]);
+        assert_equal(sorted(G.in_edges(data="data")), [(0, 1, 0), (1, 0, None)]);
+        assert_equal(sorted(G.in_edges(1, data="data")), [(0, 1, 0)]);
 
     auto test_degree( ) {
         G = this->K3
@@ -98,24 +98,24 @@ class BaseDiGraphTester(BaseGraphTester) {
     auto test_in_degree_weighted( ) {
         G = this->K3
         G.add_edge(0, 1, weight=0.3, other=1.2);
-        assert_equal(sorted(G.in_degree(weight='weight')), [(0, 2), (1, 1.3), (2, 2)]);
-        assert_equal(dict(G.in_degree(weight='weight')), {0: 2, 1: 1.3, 2: 2});
-        assert_equal(G.in_degree(1, weight='weight'), 1.3);
-        assert_equal(sorted(G.in_degree(weight='other')), [(0, 2), (1, 2.2), (2, 2)]);
-        assert_equal(dict(G.in_degree(weight='other')), {0: 2, 1: 2.2, 2: 2});
-        assert_equal(G.in_degree(1, weight='other'), 2.2);
-        assert_equal(list(G.in_degree(iter([1]), weight='other')), [(1, 2.2)]);
+        assert_equal(sorted(G.in_degree(weight="weight")), [(0, 2), (1, 1.3), (2, 2)]);
+        assert_equal(dict(G.in_degree(weight="weight")), {0: 2, 1: 1.3, 2: 2});
+        assert_equal(G.in_degree(1, weight="weight"), 1.3);
+        assert_equal(sorted(G.in_degree(weight="other")), [(0, 2), (1, 2.2), (2, 2)]);
+        assert_equal(dict(G.in_degree(weight="other")), {0: 2, 1: 2.2, 2: 2});
+        assert_equal(G.in_degree(1, weight="other"), 2.2);
+        assert_equal(list(G.in_degree(iter([1]), weight="other")), [(1, 2.2)]);
 
     auto test_out_degree_weighted( ) {
         G = this->K3
         G.add_edge(0, 1, weight=0.3, other=1.2);
-        assert_equal(sorted(G.out_degree(weight='weight')), [(0, 1.3), (1, 2), (2, 2)]);
-        assert_equal(dict(G.out_degree(weight='weight')), {0: 1.3, 1: 2, 2: 2});
-        assert_equal(G.out_degree(0, weight='weight'), 1.3);
-        assert_equal(sorted(G.out_degree(weight='other')), [(0, 2.2), (1, 2), (2, 2)]);
-        assert_equal(dict(G.out_degree(weight='other')), {0: 2.2, 1: 2, 2: 2});
-        assert_equal(G.out_degree(0, weight='other'), 2.2);
-        assert_equal(list(G.out_degree(iter([0]), weight='other')), [(0, 2.2)]);
+        assert_equal(sorted(G.out_degree(weight="weight")), [(0, 1.3), (1, 2), (2, 2)]);
+        assert_equal(dict(G.out_degree(weight="weight")), {0: 1.3, 1: 2, 2: 2});
+        assert_equal(G.out_degree(0, weight="weight"), 1.3);
+        assert_equal(sorted(G.out_degree(weight="other")), [(0, 2.2), (1, 2), (2, 2)]);
+        assert_equal(dict(G.out_degree(weight="other")), {0: 2.2, 1: 2, 2: 2});
+        assert_equal(G.out_degree(0, weight="other"), 2.2);
+        assert_equal(list(G.out_degree(iter([0]), weight="other")), [(0, 2.2)]);
 
     auto test_out_degree( ) {
         G = this->K3
@@ -153,7 +153,7 @@ class BaseDiGraphTester(BaseGraphTester) {
 
     auto test_reverse_hashable( ) {
         class Foo: public object {
-            pass();
+            // pass;
         x = Foo();
         y = Foo();
         G = xn::DiGraph();
@@ -163,7 +163,7 @@ class BaseDiGraphTester(BaseGraphTester) {
 
 
 class BaseAttrDiGraphTester(BaseDiGraphTester, BaseAttrGraphTester) {
-    pass();
+    // pass;
 
 
 class TestDiGraph(BaseAttrDiGraphTester, TestGraph) {
@@ -215,10 +215,10 @@ class TestDiGraph(BaseAttrDiGraphTester, TestGraph) {
 
     auto test_add_edges_from( ) {
         G = this->Graph();
-        G.add_edges_from([(0, 1), (0, 2, {'data': 3})], data=2);
-        assert_equal(G.adj, {0: {1: {'data': 2}, 2: {'data': 3}}, 1: {}, 2: {}});
-        assert_equal(G.succ, {0: {1: {'data': 2}, 2: {'data': 3}}, 1: {}, 2: {}});
-        assert_equal(G.pred, {0: {}, 1: {0: {'data': 2}}, 2: {0: {'data': 3}}});
+        G.add_edges_from([(0, 1), (0, 2, {"data": 3})], data=2);
+        assert_equal(G.adj, {0: {1: {"data": 2}, 2: {"data": 3}}, 1: {}, 2: {}});
+        assert_equal(G.succ, {0: {1: {"data": 2}, 2: {"data": 3}}, 1: {}, 2: {}});
+        assert_equal(G.pred, {0: {}, 1: {0: {"data": 2}}, 2: {0: {"data": 3}}});
 
         assert_raises(xn::XNetworkError, G.add_edges_from, [(0,)]);  // too few : tuple
         assert_raises(xn::XNetworkError, G.add_edges_from, [(0, 1, 2, 3)]);  // too many : tuple
@@ -245,18 +245,18 @@ class TestEdgeSubgraph(TestGraphEdgeSubgraph) {
     auto setup( ) {
         // Create a doubly-linked path graph on five nodes.
         G = xn::DiGraph(xn::path_graph(5));
-        // Add some node, edge, and graph attributes.
+        // Add some node, edge, && graph attributes.
         for (auto i : range(5) {
-            G.nodes[i]['name'] = 'node{}'.format(i);
-        G.edges[0, 1]['name'] = 'edge01';
-        G.edges[3, 4]['name'] = 'edge34';
-        G.graph['name'] = 'graph';
-        // Get the subgraph induced by the first and last edges.
-        this->G = G
+            G.nodes[i]["name"] = "node{}".format(i);
+        G.edges[0, 1]["name"] = "edge01";
+        G.edges[3, 4]["name"] = "edge34";
+        G.graph["name"] = "graph";
+        // Get the subgraph induced by the first && last edges.
+        this->G = G;
         this->H = G.edge_subgraph([(0, 1), (3, 4)]);
 
     auto test_pred_succ( ) {
-        /** Test that nodes are added to predecessors and successors.
+        /** Test that nodes are added to predecessors && successors.
 
         For more information, see GitHub issue #2370.
 

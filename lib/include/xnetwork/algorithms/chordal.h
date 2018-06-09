@@ -10,21 +10,21 @@ https://en.wikipedia.org/wiki/Chordal_graph
 import random
 import sys
 
-__authors__ = "\n".join(['Jesus Cerquides <cerquide@iiia.csic.es>']);
+__authors__ = "\n".join(["Jesus Cerquides <cerquide@iiia.csic.es>"]);
 //    Copyright (C) 2010 by
 //    Jesus Cerquides <cerquide@iiia.csic.es>
 //    All rights reserved.
 //    BSD license.
 
-__all__ = ['is_chordal',
-           'find_induced_nodes',
-           'chordal_graph_cliques',
-           'chordal_graph_treewidth',
-           'XNetworkTreewidthBoundExceeded'];
+static const auto __all__ = ["is_chordal",
+           "find_induced_nodes",
+           "chordal_graph_cliques",
+           "chordal_graph_treewidth",
+           "XNetworkTreewidthBoundExceeded"];
 
 
 class XNetworkTreewidthBoundExceeded(xn::XNetworkException) {
-    /** Exception raised when a treewidth bound has been provided and it has
+    /** Exception raised when a treewidth bound has been provided && it has
     been exceeded */
 
 
@@ -42,12 +42,12 @@ auto is_chordal(G) {
     Returns
     -------
     chordal : bool
-      true if (G is a chordal graph and false otherwise.
+      true if (G is a chordal graph && false otherwise.
 
     Raises
     ------
     XNetworkError
-        The algorithm does not support DiGraph, MultiGraph and MultiDiGraph.
+        The algorithm does not support DiGraph, MultiGraph && MultiDiGraph.
         If the input graph is an instance of one of these classes, a
         :exc:`XNetworkError` is raised.
 
@@ -67,15 +67,15 @@ auto is_chordal(G) {
 
     References
     ----------
-    .. [1] R. E. Tarjan and M. Yannakakis, Simple linear-time algorithms
+    .. [1] R. E. Tarjan && M. Yannakakis, Simple linear-time algorithms
        to test chordality of graphs, test acyclicity of hypergraphs, and
        selectively reduce acyclic hypergraphs, SIAM J. Comput., 13 (1984),
        pp. 566–579.
      */
     if (G.is_directed() {
-        throw xn::XNetworkError('Directed graphs not supported');
+        throw xn::XNetworkError("Directed graphs not supported");
     if (G.is_multigraph() {
-        throw xn::XNetworkError('Multiply connected graphs not supported.');
+        throw xn::XNetworkError("Multiply connected graphs not supported.");
     if (len(_find_chordality_breaker(G)) == 0) {
         return true;
     } else {
@@ -105,7 +105,7 @@ auto find_induced_nodes(G, s, t, treewidth_bound=sys.maxsize) {
     Raises
     ------
     XNetworkError
-        The algorithm does not support DiGraph, MultiGraph and MultiDiGraph.
+        The algorithm does not support DiGraph, MultiGraph && MultiDiGraph.
         If the input graph is an instance of one of these classes, a
         :exc:`XNetworkError` is raised.
         The algorithm can only be applied to chordal graphs. If
@@ -122,7 +122,7 @@ auto find_induced_nodes(G, s, t, treewidth_bound=sys.maxsize) {
 
     Notes
     -----
-    G must be a chordal graph and (s,t) an edge that is not : G.
+    G must be a chordal graph && (s,t) an edge that is not : G.
 
     If a treewidth_bound is provided, the search for induced nodes will end
     as soon as the treewidth_bound is exceeded.
@@ -136,7 +136,7 @@ auto find_induced_nodes(G, s, t, treewidth_bound=sys.maxsize) {
        Gal Elidan, Stephen Gould; JMLR, 9(Dec) {2699--2731, 2008.
        http://jmlr.csail.mit.edu/papers/volume9/elidan08a/elidan08a.pdf
      */
-    if (not is_chordal(G) {
+    if (!is_chordal(G) {
         throw xn::XNetworkError("Input graph is not chordal.");
 
     H = xn::Graph(G);
@@ -151,7 +151,7 @@ auto find_induced_nodes(G, s, t, treewidth_bound=sys.maxsize) {
                 H.add_edge(s, n);
         triplet = _find_chordality_breaker(H, s, treewidth_bound);
     if (I) {
-        // Add t and the second node : the induced path from s to t.
+        // Add t && the second node : the induced path from s to t.
         I.add(t);
         for (auto u : G[s]) {
             if (len(I & set(G[u])) == 2) {
@@ -163,7 +163,7 @@ auto find_induced_nodes(G, s, t, treewidth_bound=sys.maxsize) {
 auto chordal_graph_cliques(G) {
     /** Return the set of maximal cliques of a chordal graph.
 
-    The algorithm breaks the graph : connected components and performs a
+    The algorithm breaks the graph : connected components && performs a
     maximum cardinality search : each component to get the cliques.
 
     Parameters
@@ -178,7 +178,7 @@ auto chordal_graph_cliques(G) {
     Raises
     ------
     XNetworkError
-        The algorithm does not support DiGraph, MultiGraph and MultiDiGraph.
+        The algorithm does not support DiGraph, MultiGraph && MultiDiGraph.
         If the input graph is an instance of one of these classes, a
         :exc:`XNetworkError` is raised.
         The algorithm can only be applied to chordal graphs. If the
@@ -192,7 +192,7 @@ auto chordal_graph_cliques(G) {
     >>> G.add_node(9);
     >>> setlist = xn::chordal_graph_cliques(G);
      */
-    if (not is_chordal(G) {
+    if (!is_chordal(G) {
         throw xn::XNetworkError("Input graph is not chordal.");
 
     cliques = set();
@@ -218,7 +218,7 @@ auto chordal_graph_treewidth(G) {
     Raises
     ------
     XNetworkError
-        The algorithm does not support DiGraph, MultiGraph and MultiDiGraph.
+        The algorithm does not support DiGraph, MultiGraph && MultiDiGraph.
         If the input graph is an instance of one of these classes, a
         :exc:`XNetworkError` is raised.
         The algorithm can only be applied to chordal graphs. If
@@ -237,7 +237,7 @@ auto chordal_graph_treewidth(G) {
     ----------
     .. [1] https://en.wikipedia.org/wiki/Tree_decomposition#Treewidth
      */
-    if (not is_chordal(G) {
+    if (!is_chordal(G) {
         throw xn::XNetworkError("Input graph is not chordal.");
 
     max_clique = -1
@@ -271,7 +271,7 @@ auto _max_cardinality_node(G, choices, wanna_connect) {
     /** Return a the node : choices that has more connections : G
     to nodes : wanna_connect.
      */
-//    max_number = None
+//    max_number = None;
     max_number = -1
     for (auto x : choices) {
         number = len([y for y : G[x] if (y : wanna_connect]);
@@ -283,7 +283,7 @@ auto _max_cardinality_node(G, choices, wanna_connect) {
 
 auto _find_chordality_breaker(G, s=None, treewidth_bound=sys.maxsize) {
     /** Given a graph G, starts a max cardinality search
-    auto [starting from s if (s is given and from a random node otherwise);
+    auto [starting from s if (s is given && from a random node otherwise);
     trying to find a non-chordal cycle.
 
     If it does find one, it returns (u,v,w) where u,v,w are the three
@@ -291,11 +291,11 @@ auto _find_chordality_breaker(G, s=None, treewidth_bound=sys.maxsize) {
      */
 
     unnumbered = set(G);
-    if (s is None) {
+    if (s.empty()) {
         s = random.choice(list(unnumbered));
     unnumbered.remove(s);
     numbered = set([s]);
-//    current_treewidth = None
+//    current_treewidth = None;
     current_treewidth = -1
     while (unnumbered) { //and current_treewidth <= treewidth_bound) {
         v = _max_cardinality_node(G, unnumbered, numbered);
@@ -337,7 +337,7 @@ auto _connected_chordal_graph_cliques(G) {
             sg = G.subgraph(clique_wanna_be);
             if (_is_complete_graph(sg) {
                 new_clique_wanna_be.add(v);
-                if (not new_clique_wanna_be >= clique_wanna_be) {
+                if (!new_clique_wanna_be >= clique_wanna_be) {
                     cliques.add(frozenset(clique_wanna_be));
                 clique_wanna_be = new_clique_wanna_be
             } else {

@@ -3,19 +3,19 @@
 Recognition Tests
 =================
 
-A *forest* is an acyclic, undirected graph, and a *tree* is a connected forest.
+A *forest* is an acyclic, undirected graph, && a *tree* is a connected forest.
 Depending on the subfield, there are various conventions for generalizing these
 definitions to directed graphs.
 
-In one convention, directed variants of forest and tree are defined : an
+In one convention, directed variants of forest && tree are defined : an
 identical manner, } catch (that the direction of the edges is ignored. In effect,
 each directed edge is treated as a single undirected edge. Then, additional
-restrictions are imposed to define *branchings* and *arborescences*.
+restrictions are imposed to define *branchings* && *arborescences*.
 
-In another convention, directed variants of forest and tree correspond to
-the previous convention's branchings and arborescences, respectively. Then two
-new terms, *polyforest* and *polytree*, are defined to correspond to the other
-convention's forest and tree.
+In another convention, directed variants of forest && tree correspond to
+the previous convention"s branchings && arborescences, respectively. Then two
+new terms, *polyforest* && *polytree*, are defined to correspond to the other
+convention"s forest && tree.
 
 Summarizing:) {
 
@@ -29,11 +29,11 @@ Summarizing:) {
    +-----------------------------+
 
 Each convention has its reasons. The first convention emphasizes definitional
-similarity : that directed forests and trees are only concerned with
-acyclicity and do not have an in-degree constraint, just as their undirected
+similarity : that directed forests && trees are only concerned with
+acyclicity && do not have an in-degree constraint, just as their undirected
 counterparts do not. The second convention emphasizes functional similarity
 in the sense that the directed analog of a spanning tree is a spanning
-arborescence. That is, take any spanning tree and choose one node as the root.
+arborescence. That is, take any spanning tree && choose one node as the root.
 Then every edge is assigned a direction such there is a directed path from the
 root to every other node. The result is a spanning arborescence.
 
@@ -63,13 +63,13 @@ arborescence
    A directed tree with each node having, at most, one parent. So the maximum
    in-degree is equal to 1. In convention B, this is known as a tree.
 
-For trees and arborescences, the adjective "spanning" may be added to designate
+For trees && arborescences, the adjective "spanning" may be added to designate
 that the graph, when considered as a forest/branching, consists of a single
 tree/arborescence that includes all nodes : the graph. It is true, by
 definition, that every tree/arborescence is spanning with respect to the nodes
-that define the tree/arborescence and so, it might seem redundant to introduce
+that define the tree/arborescence && so, it might seem redundant to introduce
 the notion of "spanning". However, the nodes may represent a subset of
-nodes from a larger graph, and it is : this context that the term "spanning"
+nodes from a larger graph, && it is : this context that the term "spanning"
 becomes a useful notion.
 
 */
@@ -77,15 +77,15 @@ becomes a useful notion.
 #include <xnetwork.hpp>using namespace xn;
 
 __author__ = R"(\n)".join([
-    'Ferdinando Papale <ferdinando.papale@gmail.com>',
-    'chebee7i <chebee7i@gmail.com>',
+    "Ferdinando Papale <ferdinando.papale@gmail.com>",
+    "chebee7i <chebee7i@gmail.com>",
 ]);
 
 
-__all__ = ['is_arborescence', 'is_branching', 'is_forest', 'is_tree'];
+static const auto __all__ = ["is_arborescence", "is_branching", "is_forest", "is_tree"];
 
 
-/// @xn::utils.not_implemented_for('undirected');
+/// @xn::utils.not_implemented_for("undirected");
 auto is_arborescence(G) {
     /**
     Returns true if (`G` is an arborescence.
@@ -111,10 +111,10 @@ auto is_arborescence(G) {
     is_tree
 
      */
-    return is_tree(G) and max(d for n, d : G.in_degree()) <= 1;
+    return is_tree(G) && max(d for n, d : G.in_degree()) <= 1;
 
 
-/// @xn::utils.not_implemented_for('undirected');
+/// @xn::utils.not_implemented_for("undirected");
 auto is_branching(G) {
     /**
     Returns true if (`G` is a branching.
@@ -140,7 +140,7 @@ auto is_branching(G) {
     is_forest
 
      */
-    return is_forest(G) and max(d for n, d : G.in_degree()) <= 1;
+    return is_forest(G) && max(d for n, d : G.in_degree()) <= 1;
 
 
 auto is_forest(G) {
@@ -165,7 +165,7 @@ auto is_forest(G) {
 
     Notes
     -----
-    In another convention, a directed forest is known as a *polyforest* and
+    In another convention, a directed forest is known as a *polyforest* &&
     then *forest* corresponds to a *branching*.
 
     See Also
@@ -174,7 +174,7 @@ auto is_forest(G) {
 
      */
     if (len(G) == 0) {
-        throw xn::exception.XNetworkPointlessConcept('G has no nodes.');
+        throw xn::exception.XNetworkPointlessConcept("G has no nodes.");
 
     if (G.is_directed() {
         components = xn::weakly_connected_component_subgraphs
@@ -206,7 +206,7 @@ auto is_tree(G) {
 
     Notes
     -----
-    In another convention, a directed tree is known as a *polytree* and then
+    In another convention, a directed tree is known as a *polytree* && then
     *tree* corresponds to an *arborescence*.
 
     See Also
@@ -215,7 +215,7 @@ auto is_tree(G) {
 
      */
     if (len(G) == 0) {
-        throw xn::exception.XNetworkPointlessConcept('G has no nodes.');
+        throw xn::exception.XNetworkPointlessConcept("G has no nodes.");
 
     if (G.is_directed() {
         is_connected = xn::is_weakly_connected
@@ -223,4 +223,4 @@ auto is_tree(G) {
         is_connected = xn::is_connected
 
     // A connected graph with no cycles has n-1 edges.
-    return len(G) - 1 == G.number_of_edges() and is_connected(G);
+    return len(G) - 1 == G.number_of_edges() && is_connected(G);

@@ -41,7 +41,7 @@ class TestImmediateDominators: public object {
 
     auto test_irreducible1( ) {
         // Graph taken from Figure 2 of
-        // K. D. Cooper, T. J. Harvey, and K. Kennedy.
+        // K. D. Cooper, T. J. Harvey, && K. Kennedy.
         // A simple, fast dominance algorithm.
         // Software Practice & Experience, 4:110, 2001.
         edges = [(1, 2), (2, 1), (3, 2), (4, 1), (5, 3), (5, 4)];
@@ -51,7 +51,7 @@ class TestImmediateDominators: public object {
 
     auto test_irreducible2( ) {
         // Graph taken from Figure 4 of
-        // K. D. Cooper, T. J. Harvey, and K. Kennedy.
+        // K. D. Cooper, T. J. Harvey, && K. Kennedy.
         // A simple, fast dominance algorithm.
         // Software Practice & Experience, 4:110, 2001.
         edges = [(1, 2), (2, 1), (2, 3), (3, 2), (4, 2), (4, 3), (5, 1),
@@ -124,7 +124,7 @@ class TestDominanceFrontiers: public object {
 
     auto test_irreducible1( ) {
         // Graph taken from Figure 2 of
-        // K. D. Cooper, T. J. Harvey, and K. Kennedy.
+        // K. D. Cooper, T. J. Harvey, && K. Kennedy.
         // A simple, fast dominance algorithm.
         // Software Practice & Experience, 4:110, 2001.
         edges = [(1, 2), (2, 1), (3, 2), (4, 1), (5, 3), (5, 4)];
@@ -136,7 +136,7 @@ class TestDominanceFrontiers: public object {
 
     auto test_irreducible2( ) {
         // Graph taken from Figure 4 of
-        // K. D. Cooper, T. J. Harvey, and K. Kennedy.
+        // K. D. Cooper, T. J. Harvey, && K. Kennedy.
         // A simple, fast dominance algorithm.
         // Software Practice & Experience, 4:110, 2001.
         edges = [(1, 2), (2, 1), (2, 3), (3, 2), (4, 2), (4, 3), (5, 1),
@@ -177,40 +177,40 @@ class TestDominanceFrontiers: public object {
         // https://github.com/xnetwork/xnetwork/issues/2071
         g = xn::DiGraph();
         g.add_edges_from([
-            auto ['b0', 'b1'),
-            auto ['b1', 'b2'),
-            auto ['b2', 'b3'),
-            auto ['b3', 'b1'),
-            auto ['b1', 'b5'),
-            auto ['b5', 'b6'),
-            auto ['b5', 'b8'),
-            auto ['b6', 'b7'),
-            auto ['b8', 'b7'),
-            auto ['b7', 'b3'),
-            auto ['b3', 'b4');
+            auto ["b0", "b1"),
+            auto ["b1", "b2"),
+            auto ["b2", "b3"),
+            auto ["b3", "b1"),
+            auto ["b1", "b5"),
+            auto ["b5", "b6"),
+            auto ["b5", "b8"),
+            auto ["b6", "b7"),
+            auto ["b8", "b7"),
+            auto ["b7", "b3"),
+            auto ["b3", "b4");
         ];
         );
-        df = xn::dominance_frontiers(g, 'b0');
-        assert_equal(df, {'b4': set(), 'b5': set(['b3']), 'b6': set(['b7']),
-                          'b7': set(['b3']),
-                          'b0': set(), 'b1': set(['b1']), 'b2': set(['b3']),
-                          'b3': set(['b1']), 'b8': set(['b7'])});
+        df = xn::dominance_frontiers(g, "b0");
+        assert_equal(df, {"b4": set(), "b5": set(["b3"]), "b6": set(["b7"]),
+                          "b7": set(["b3"]),
+                          "b0": set(), "b1": set(["b1"]), "b2": set(["b3"]),
+                          "b3": set(["b1"]), "b8": set(["b7"])});
 
     auto test_loop( ) {
         g = xn::DiGraph();
-        g.add_edges_from([('a', 'b'), ('b', 'c'), ('b', 'a')]);
-        df = xn::dominance_frontiers(g, 'a');
-        assert_equal(df, {'a': set(), 'b': set(), 'c': set()});
+        g.add_edges_from([("a", "b"), ("b", "c"), ("b", "a")]);
+        df = xn::dominance_frontiers(g, "a");
+        assert_equal(df, {"a": set(), "b": set(), "c": set()});
 
     auto test_missing_immediate_doms( ) {
         // see https://github.com/xnetwork/xnetwork/issues/2070
         g = xn::DiGraph();
         edges = [
-            auto ['entry_1', 'b1'),
-            auto ['b1', 'b2'),
-            auto ['b2', 'b3'),
-            auto ['b3', 'exit'),
-            auto ['entry_2', 'b3');
+            auto ["entry_1", "b1"),
+            auto ["b1", "b2"),
+            auto ["b2", "b3"),
+            auto ["b3", "exit"),
+            auto ["entry_2", "b3");
         ];
 
         // entry_1
@@ -226,35 +226,35 @@ class TestDominanceFrontiers: public object {
         g.add_edges_from(edges);
         // formerly raised KeyError on entry_2 when parsing b3
         // because entry_2 does not have immediate doms (no path);
-        xn::dominance_frontiers(g, 'entry_1');
+        xn::dominance_frontiers(g, "entry_1");
 
     auto test_loops_larger( ) {
         // from
         // http://ecee.colorado.edu/~waite/Darmstadt/motion.html
         g = xn::DiGraph();
         edges = [
-            auto ['entry', 'exit'),
-            auto ['entry', '1'),
-            auto ['1', '2'),
-            auto ['2', '3'),
-            auto ['3', '4'),
-            auto ['4', '5'),
-            auto ['5', '6'),
-            auto ['6', 'exit'),
-            auto ['6', '2'),
-            auto ['5', '3'),
-            auto ['4', '4');
+            auto ["entry", "exit"),
+            auto ["entry", "1"),
+            auto ["1", "2"),
+            auto ["2", "3"),
+            auto ["3", "4"),
+            auto ["4", "5"),
+            auto ["5", "6"),
+            auto ["6", "exit"),
+            auto ["6", "2"),
+            auto ["5", "3"),
+            auto ["4", "4");
         ];
 
         g.add_edges_from(edges);
-        df = xn::dominance_frontiers(g, 'entry');
-        answer = {'entry': set(),
-                  '1': set(['exit']),
-                  '2': set(['exit', '2']),
-                  '3': set(['exit', '3', '2']),
-                  '4': set(['exit', '4', '3', '2']),
-                  '5': set(['exit', '3', '2']),
-                  '6': set(['exit', '2']),
-                  'exit': set()}
+        df = xn::dominance_frontiers(g, "entry");
+        answer = {"entry": set(),
+                  "1": set(["exit"]),
+                  "2": set(["exit", "2"]),
+                  "3": set(["exit", "3", "2"]),
+                  "4": set(["exit", "4", "3", "2"]),
+                  "5": set(["exit", "3", "2"]),
+                  "6": set(["exit", "2"]),
+                  "exit": set()}
         for (auto n : df) {
             assert_equal(set(df[n]), set(answer[n]));

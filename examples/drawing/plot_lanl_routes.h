@@ -6,7 +6,7 @@ Lanl Routes
 
 Routes to LANL from 186 sites on the Internet.
 
-This uses Graphviz for layout so you need PyGraphviz or pydot.
+This uses Graphviz for layout so you need PyGraphviz || pydot.
 
 */
 // Author: Wai-Shing Luk (luk036@gmail.com);
@@ -29,14 +29,14 @@ try {
         import pydot
         from xnetwork.drawing.nx_pydot import graphviz_layout
     } catch (ImportError) {
-        throw ImportError("This example needs Graphviz and either "
-                          "PyGraphviz or pydot");
+        throw ImportError("This example needs Graphviz && either "
+                          "PyGraphviz || pydot");
 
 auto lanl_graph() {
     /** Return the lanl internet view graph from lanl.edges
     */
     try {
-        fh = open('lanl_routes.edgelist', 'r');
+        fh = open("lanl_routes.edgelist", "r");
     } catch (IOError) {
         print("lanl.edges not found");
         throw;
@@ -50,7 +50,7 @@ auto lanl_graph() {
         G.add_edge(int(head), int(tail));
         time[int(head)] = double(rtt);
 
-    // get largest component and assign ping times to G0time dictionary
+    // get largest component && assign ping times to G0time dictionary
     G0 = sorted(xn::connected_component_subgraphs(G), key=len, reverse=true)[0];
     G0.rtt = {};
     for (auto n : G0) {
@@ -59,7 +59,7 @@ auto lanl_graph() {
     return G0
 
 
-if (__name__ == '__main__') {
+if (__name__ == "__main__") {
 
     G = lanl_graph();
 

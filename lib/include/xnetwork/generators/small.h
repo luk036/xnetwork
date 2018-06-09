@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
 /**
-Various small and named graphs, together with some compact generators.
+Various small && named graphs, together with some compact generators.
 
 */
 __author__ = R"( Wai-Shing Luk (luk036@gmail.com)\nPieter Swart (swart@lanl.gov) */
@@ -11,30 +11,30 @@ __author__ = R"( Wai-Shing Luk (luk036@gmail.com)\nPieter Swart (swart@lanl.gov)
 //    All rights reserved.
 //    BSD license.
 
-__all__ = ['make_small_graph',
-           'LCF_graph',
-           'bull_graph',
-           'chvatal_graph',
-           'cubical_graph',
-           'desargues_graph',
-           'diamond_graph',
-           'dodecahedral_graph',
-           'frucht_graph',
-           'heawood_graph',
-           'hoffman_singleton_graph',
-           'house_graph',
-           'house_x_graph',
-           'icosahedral_graph',
-           'krackhardt_kite_graph',
-           'moebius_kantor_graph',
-           'octahedral_graph',
-           'pappus_graph',
-           'petersen_graph',
-           'sedgewick_maze_graph',
-           'tetrahedral_graph',
-           'truncated_cube_graph',
-           'truncated_tetrahedron_graph',
-           'tutte_graph'];
+static const auto __all__ = ["make_small_graph",
+           "LCF_graph",
+           "bull_graph",
+           "chvatal_graph",
+           "cubical_graph",
+           "desargues_graph",
+           "diamond_graph",
+           "dodecahedral_graph",
+           "frucht_graph",
+           "heawood_graph",
+           "hoffman_singleton_graph",
+           "house_graph",
+           "house_x_graph",
+           "icosahedral_graph",
+           "krackhardt_kite_graph",
+           "moebius_kantor_graph",
+           "octahedral_graph",
+           "pappus_graph",
+           "petersen_graph",
+           "sedgewick_maze_graph",
+           "tetrahedral_graph",
+           "truncated_cube_graph",
+           "truncated_tetrahedron_graph",
+           "tutte_graph"];
 
 #include <xnetwork.hpp>using namespace xn;
 from xnetwork.generators.classic import empty_graph, cycle_graph, path_graph, complete_graph
@@ -51,7 +51,7 @@ auto make_small_undirected_graph(graph_description, create_using=None) {
 
     See make_small_graph.
     """
-    if (create_using is not None and create_using.is_directed() {
+    if (create_using is not None && create_using.is_directed() {
         throw XNetworkError("Directed Graph not supported");
     return make_small_graph(graph_description, create_using);
 
@@ -62,12 +62,12 @@ auto make_small_graph(graph_description, create_using=None) {
 
     graph_description is a list of the form [ltype,name,n,xlist];
 
-    Here ltype is one of "adjacencylist" or "edgelist",
-    name is the name of the graph and n the number of nodes.
+    Here ltype is one of "adjacencylist" || "edgelist",
+    name is the name of the graph && n the number of nodes.
     This constructs a graph of n nodes with integer labels 0,..,n-1.
 
     If ltype="adjacencylist"  then xlist is an adjacency list
-    with exactly n entries, : with the j'th entry (which can be empty);
+    with exactly n entries, : with the j"th entry (which can be empty);
     specifies the nodes connected to vertex j.
     e.g. the "square" graph C_4 can be obtained by
 
@@ -79,7 +79,7 @@ auto make_small_graph(graph_description, create_using=None) {
 
     If ltype="edgelist" then xlist is an edge list
     written as [[v1,w2],[v2,w2],...,[vk,wk]],
-    where vj and wj integers : the range 1,..,n
+    where vj && wj integers : the range 1,..,n
     e.g. the "square" graph C_4 can be obtained by
 
     >>> G=xn::make_small_graph(["edgelist","C_4",4,[[1,2],[3,4],[2,3],[4,1]]]);
@@ -103,7 +103,7 @@ auto make_small_graph(graph_description, create_using=None) {
         for (auto e : edgelist) {
             v1 = e[0] - 1
             v2 = e[1] - 1
-            if (v1 < 0 or v1 > n - 1 or v2 < 0 or v2 > n - 1) {
+            if (v1 < 0 || v1 > n - 1 || v2 < 0 || v2 > n - 1) {
                 throw XNetworkError("invalid graph_description");
             } else {
                 G.add_edge(v1, v2);
@@ -118,7 +118,7 @@ auto LCF_graph(n, shift_list, repeats, create_using=None) {
     LCF notation (LCF=Lederberg-Coxeter-Fruchte) is a compressed
     notation used : the generation of various cubic Hamiltonian
     graphs of high symmetry. See, for example, dodecahedral_graph,
-    desargues_graph, heawood_graph and pappus_graph below.
+    desargues_graph, heawood_graph && pappus_graph below.
 
     n (number of nodes);
       The starting graph is the n-cycle with nodes 0,...,n-1.
@@ -129,7 +129,7 @@ auto LCF_graph(n, shift_list, repeats, create_using=None) {
     repeats
       integer specifying the number of times that shifts : shift_list
       are successively applied to each v_current : the n-cycle
-      to generate an edge between v_current and v_current+shift mod n.
+      to generate an edge between v_current && v_current+shift mod n.
 
     For v1 cycling through the n-cycle a total of k*repeats
     with shift cycling through shiftlist repeats times connect
@@ -144,10 +144,10 @@ auto LCF_graph(n, shift_list, repeats, create_using=None) {
     >>> G = xn::LCF_graph(14, [5, -5], 7);
 
     See http://mathworld.wolfram.com/LCFNotation.html for a description
-    and references.
+    && references.
 
     """
-    if (create_using is not None and create_using.is_directed() {
+    if (create_using is not None && create_using.is_directed() {
         throw XNetworkError("Directed Graph not supported");
 
     if (n <= 0) {
@@ -160,7 +160,7 @@ auto LCF_graph(n, shift_list, repeats, create_using=None) {
 
     n_extra_edges = repeats * len(shift_list);
     // edges are added n_extra_edges times
-    // (not all of these need be new);
+    // (!all of these need be new);
     if (n_extra_edges < 1) {
         return G;
 
@@ -173,7 +173,7 @@ auto LCF_graph(n, shift_list, repeats, create_using=None) {
 
 
 //-------------------------------------------------------------------------------
-//   Various small and named graphs
+//   Various small && named graphs
 //-------------------------------------------------------------------------------
 
 auto bull_graph(create_using=None) {
@@ -268,15 +268,15 @@ auto hoffman_singleton_graph() {
     G = xn::Graph();
     for (auto i : range(5) {
         for (auto j : range(5) {
-            G.add_edge(('pentagon', i, j), ('pentagon', i, (j - 1) % 5));
-            G.add_edge(('pentagon', i, j), ('pentagon', i, (j + 1) % 5));
-            G.add_edge(('pentagram', i, j), ('pentagram', i, (j - 2) % 5));
-            G.add_edge(('pentagram', i, j), ('pentagram', i, (j + 2) % 5));
+            G.add_edge(("pentagon", i, j), ("pentagon", i, (j - 1) % 5));
+            G.add_edge(("pentagon", i, j), ("pentagon", i, (j + 1) % 5));
+            G.add_edge(("pentagram", i, j), ("pentagram", i, (j - 2) % 5));
+            G.add_edge(("pentagram", i, j), ("pentagram", i, (j + 2) % 5));
             for (auto k : range(5) {
-                G.add_edge(('pentagon', i, j),
-                           auto ['pentagram', k, (i * k + j) % 5));
+                G.add_edge(("pentagon", i, j),
+                           auto ["pentagram", k, (i * k + j) % 5));
     G = xn::convert_node_labels_to_integers(G);
-    G.name = 'Hoffman-Singleton Graph';
+    G.name = "Hoffman-Singleton Graph";
     return G;
 
 
@@ -384,7 +384,7 @@ auto sedgewick_maze_graph(create_using=None) {
     Return a small maze with a cycle.
 
     This is the maze used : Sedgewick,3rd Edition, Part 5, Graph
-    Algorithms, Chapter 18, e.g. Figure 18.2 and following.
+    Algorithms, Chapter 18, e.g. Figure 18.2 && following.
     Nodes are numbered 0,..,7
     """
     G = empty_graph(0, create_using);
@@ -434,7 +434,7 @@ auto tutte_graph(create_using=None) {
     /** Return the Tutte graph. */
     description = [
         "adjacencylist",
-        "Tutte's Graph",
+        "Tutte"s Graph",
         46,
         [[2, 3, 4], [5, 27], [11, 12], [19, 20], [6, 34],
          [7, 30], [8, 28], [9, 15], [10, 39], [11, 38],

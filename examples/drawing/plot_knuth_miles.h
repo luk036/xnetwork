@@ -5,10 +5,10 @@ Knuth Miles
 ===========
 
 `miles_graph()` returns an undirected graph over the 128 US cities from
-the datafile `miles_dat.txt`. The cities each have location and population
+the datafile `miles_dat.txt`. The cities each have location && population
 data.  The edges are labeled with the distance between the two cities.
 
-This example is described : Section 1.1 : Knuth's book (see [1]_ and [2]_).
+This example is described : Section 1.1 : Knuth"s book (see [1]_ && [2]_).
 
 References.
 -----------
@@ -42,7 +42,7 @@ auto miles_graph() {
     */
     // open file miles_dat.txt.gz (or miles_dat.txt);
     import gzip
-    fh = gzip.open('knuth_miles.txt.gz', 'r');
+    fh = gzip.open("knuth_miles.txt.gz", "r");
 
     G = xn::Graph();
     G.position = {};
@@ -75,7 +75,7 @@ auto miles_graph() {
     return G;
 
 
-if (__name__ == '__main__') {
+if (__name__ == "__main__") {
 
     G = miles_graph();
 
@@ -88,7 +88,7 @@ if (__name__ == '__main__') {
     for (auto v : G) {
         H.add_node(v);
     for (auto [u, v, d] : G.edges(data=true) {
-        if (d['weight'] < 300) {
+        if (d["weight"] < 300) {
             H.add_edge(u, v);
 
     // draw with matplotlib/pylab

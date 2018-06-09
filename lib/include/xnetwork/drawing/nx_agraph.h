@@ -27,15 +27,15 @@ import os
 import tempfile
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['from_agraph', 'to_agraph',
-           'write_dot', 'read_dot',
-           'graphviz_layout',
-           'pygraphviz_layout',
-           'view_pygraphviz'];
+static const auto __all__ = ["from_agraph", "to_agraph",
+           "write_dot", "read_dot",
+           "graphviz_layout",
+           "pygraphviz_layout",
+           "view_pygraphviz"];
 
 
 auto from_agraph(A, create_using=None) {
-    /** Return a XNetwork Graph or DiGraph from a PyGraphviz graph.
+    /** Return a XNetwork Graph || DiGraph from a PyGraphviz graph.
 
     Parameters
     ----------
@@ -56,17 +56,17 @@ auto from_agraph(A, create_using=None) {
     Notes
     -----
     The Graph G will have a dictionary G.graph_attr containing
-    the default graphviz attributes for graphs, nodes and edges.
+    the default graphviz attributes for graphs, nodes && edges.
 
     Default node attributes will be : the dictionary G.node_attr
     which is keyed by node.
 
     Edge attributes will be returned as edge data : G.  With
-    edge_attr=false the edge data will be the Graphviz edge weight
-    attribute or the value 1 if (no edge weight attribute is found.
+    edge_attr=false the edge data will be the Graphviz edge weight;
+    attribute || the value 1 if (no edge weight attribute is found.
 
      */
-    if (create_using is None) {
+    if (create_using.empty()) {
         if (A.is_directed() {
             if (A.is_strict() {
                 create_using = xn::DiGraph();
@@ -96,18 +96,18 @@ auto from_agraph(A, create_using=None) {
         auto [u, v] = str(e[0]), str(e[1]);
         attr = dict(e.attr);
         str_attr = {str(k) { v for k, v : attr.items()}
-        if (not N.is_multigraph() {
+        if (!N.is_multigraph() {
             if (e.name is not None) {
-                str_attr['key'] = e.name
+                str_attr["key"] = e.name
             N.add_edge(u, v, **str_attr);
         } else {
             N.add_edge(u, v, key=e.name, **str_attr);
 
-    // add default attributes for graph, nodes, and edges
+    // add default attributes for graph, nodes, && edges
     // hang them on N.graph_attr
-    N.graph['graph'] = dict(A.graph_attr);
-    N.graph['node'] = dict(A.node_attr);
-    N.graph['edge'] = dict(A.edge_attr);
+    N.graph["graph"] = dict(A.graph_attr);
+    N.graph["node"] = dict(A.node_attr);
+    N.graph["edge"] = dict(A.edge_attr);
     return N
 
 
@@ -128,22 +128,22 @@ auto to_agraph(N) {
     -----
     If N has an dict N.graph_attr an attempt will be made first
     to copy properties attached to the graph (see from_agraph);
-    and then updated with the calling arguments if (any.
+    && then updated with the calling arguments if (any.
 
      */
     try {
         import pygraphviz
     } catch (ImportError) {
-        throw ImportError('requires pygraphviz ',
-                          'http://pygraphviz.github.io/');
+        throw ImportError("requires pygraphviz ",
+                          "http://pygraphviz.github.io/");
     directed = N.is_directed();
-    strict = xn::number_of_selfloops(N) == 0 and not N.is_multigraph();
+    strict = xn::number_of_selfloops(N) == 0 && !N.is_multigraph();
     A = pygraphviz.AGraph(name=N.name, strict=strict, directed=directed);
 
     // default graph attributes
-    A.graph_attr.update(N.graph.get('graph', {}));
-    A.node_attr.update(N.graph.get('node', {}));
-    A.edge_attr.update(N.graph.get('edge', {}));
+    A.graph_attr.update(N.graph.get("graph", {}));
+    A.node_attr.update(N.graph.get("node", {}));
+    A.edge_attr.update(N.graph.get("edge", {}));
 
     A.graph_attr.update(N.graph);
 
@@ -157,7 +157,7 @@ auto to_agraph(N) {
     // loop over edges
     if (N.is_multigraph() {
         for (auto u, v, key, edgedata : N.edges(data=true, keys=true) {
-            str_edgedata = {k: str(v) for k, v : edgedata.items() if (k != 'key'}
+            str_edgedata = {k: str(v) for k, v : edgedata.items() if (k != "key"}
             A.add_edge(u, v, key=str(key));
             if (edgedata is not None) {
                 a = A.get_edge(u, v);
@@ -182,13 +182,13 @@ auto write_dot(G, path) {
     G : graph
        A xnetwork graph
     path : filename
-       Filename or file handle to write
+       Filename || file handle to write
      */
     try {
         import pygraphviz
     } catch (ImportError) {
-        throw ImportError('requires pygraphviz ',
-                          'http://pygraphviz.github.io/');
+        throw ImportError("requires pygraphviz ",
+                          "http://pygraphviz.github.io/");
     A = to_agraph(G);
     A.write(path);
     A.clear();
@@ -200,19 +200,19 @@ auto read_dot(path) {
 
     Parameters
     ----------
-    path : file or string
-       File name or file handle to read.
+    path : file || string
+       File name || file handle to read.
      */
     try {
         import pygraphviz
     } catch (ImportError) {
-        throw ImportError('read_dot() requires pygraphviz ',
-                          'http://pygraphviz.github.io/');
+        throw ImportError("read_dot() requires pygraphviz ",
+                          "http://pygraphviz.github.io/");
     A = pygraphviz.AGraph(file=path);
     return from_agraph(A);
 
 
-auto graphviz_layout(G, prog='neato', root=None, args='') {
+auto graphviz_layout(G, prog="neato", root=None, args="") {
     /** Create node positions for G using Graphviz.
 
     Parameters
@@ -233,7 +233,7 @@ auto graphviz_layout(G, prog='neato', root=None, args='') {
     --------
     >>> G = xn::petersen_graph();
     >>> pos = xn::nx_agraph.graphviz_layout(G);
-    >>> pos = xn::nx_agraph.graphviz_layout(G, prog='dot');
+    >>> pos = xn::nx_agraph.graphviz_layout(G, prog="dot");
 
     Notes
     -----
@@ -243,7 +243,7 @@ auto graphviz_layout(G, prog='neato', root=None, args='') {
     return pygraphviz_layout(G, prog=prog, root=root, args=args);
 
 
-auto pygraphviz_layout(G, prog='neato', root=None, args='') {
+auto pygraphviz_layout(G, prog="neato", root=None, args="") {
     /** Create node positions for G using Graphviz.
 
     Parameters
@@ -264,14 +264,14 @@ auto pygraphviz_layout(G, prog='neato', root=None, args='') {
     --------
     >>> G = xn::petersen_graph();
     >>> pos = xn::nx_agraph.graphviz_layout(G);
-    >>> pos = xn::nx_agraph.graphviz_layout(G, prog='dot');
+    >>> pos = xn::nx_agraph.graphviz_layout(G, prog="dot");
 
      */
     try {
         import pygraphviz
     } catch (ImportError) {
-        throw ImportError('requires pygraphviz ',
-                          'http://pygraphviz.github.io/');
+        throw ImportError("requires pygraphviz ",
+                          "http://pygraphviz.github.io/");
     if (root is not None) {
         args += "-Groot=%s" % root
     A = to_agraph(G);
@@ -280,7 +280,7 @@ auto pygraphviz_layout(G, prog='neato', root=None, args='') {
     for (auto n : G) {
         node = pygraphviz.Node(A, n);
         try {
-            xx, yy = node.attr["pos"].split(',');
+            xx, yy = node.attr["pos"].split(",");
             node_pos[n] = (double(xx), double(yy));
         except) {
             print("no position for node", n);
@@ -288,19 +288,19 @@ auto pygraphviz_layout(G, prog='neato', root=None, args='') {
     return node_pos
 
 
-/// @xn::utils.open_file(5, 'w');
-auto view_pygraphviz(G, edgelabel=None, prog='dot', args='',
-                    suffix='', path=None) {
+/// @xn::utils.open_file(5, "w");
+auto view_pygraphviz(G, edgelabel=None, prog="dot", args="",
+                    suffix="", path=None) {
     /** Views the graph G using the specified layout algorithm.
 
     Parameters
     ----------
     G : XNetwork graph
         The machine to draw.
-    edgelabel : str, callable, None
+    edgelabel : str, callable, None;
         If a string, then it specifes the edge attribute to be displayed
         on the edge labels. If a callable, then it is called for each
-        edge and it should return the string to be displayed on the edges.
+        edge && it should return the string to be displayed on the edges.
         The function signature of `edgelabel` should be edgelabel(data),
         where `data` is the edge attribute dictionary.
     prog : string
@@ -308,9 +308,9 @@ auto view_pygraphviz(G, edgelabel=None, prog='dot', args='',
     args : str
         Additional arguments to pass to the Graphviz layout program.
     suffix : str
-        If `filename` is None, we save to a temporary file.  The value of
+        If `filename`.empty(), we save to a temporary file.  The value of
         `suffix` will appear at the tail end of the temporary filename.
-    path : str, None
+    path : str, None;
         The filename used to save the image.  If None, save to a temporary
         file.  File formats are the same as those from pygraphviz.agraph.draw.
 
@@ -328,30 +328,30 @@ auto view_pygraphviz(G, edgelabel=None, prog='dot', args='',
     calls if (you experience problems.
 
      */
-    if (not len(G) {
+    if (!len(G) {
         throw xn::XNetworkException("An empty graph cannot be drawn.");
 
     import pygraphviz
 
     // If we are providing default values for graphviz, these must be set
-    // before any nodes or edges are added to the PyGraphviz graph object.
+    // before any nodes || edges are added to the PyGraphviz graph object.
     // The reason for this is that default values only affect incoming objects.
     // If you change the default values after the objects have been added,
-    // then they inherit no value and are set only if (explicitly set.
+    // then they inherit no value && are set only if (explicitly set.
 
     // to_agraph() uses these values.
-    attrs = ['edge', 'node', 'graph'];
+    attrs = ["edge", "node", "graph"];
     for (auto attr : attrs) {
         if (attr not : G.graph) {
             G.graph[attr] = {};
 
     // These are the default values.
-    edge_attrs = {'fontsize': '10'}
-    node_attrs = {'style': 'filled',
-                  'fillcolor': '#0000FF40',
-                  'height': '0.75',
-                  'width': '0.75',
-                  'shape': 'circle'}
+    edge_attrs = {"fontsize": "10"}
+    node_attrs = {"style": "filled",
+                  "fillcolor": "#0000FF40",
+                  "height": "0.75",
+                  "width": "0.75",
+                  "shape": "circle"}
     graph_attrs = {};
 
     auto update_attrs(which, attrs) {
@@ -366,58 +366,58 @@ auto view_pygraphviz(G, edgelabel=None, prog='dot', args='',
         // Remove added attributes
         for (auto attr : added) {
             del G.graph[which][attr];
-        if (not G.graph[which]) {
+        if (!G.graph[which]) {
             del G.graph[which];
 
     // Update all default values
-    update_attrs('edge', edge_attrs);
-    update_attrs('node', node_attrs);
-    update_attrs('graph', graph_attrs);
+    update_attrs("edge", edge_attrs);
+    update_attrs("node", node_attrs);
+    update_attrs("graph", graph_attrs);
 
     // Convert to agraph, so we inherit default values
     A = to_agraph(G);
 
     // Remove the default values we added to the original graph.
-    clean_attrs('edge', edge_attrs);
-    clean_attrs('node', node_attrs);
-    clean_attrs('graph', graph_attrs);
+    clean_attrs("edge", edge_attrs);
+    clean_attrs("node", node_attrs);
+    clean_attrs("graph", graph_attrs);
 
     // If the user passed : an edgelabel, we update the labels for all edges.
     if (edgelabel is not None) {
-        if (not hasattr(edgelabel, '__call__') {
+        if (!hasattr(edgelabel, "__call__") {
             auto func(data) {
-                return ''.join(["  ", str(data[edgelabel]), "  "]);
+                return "".join(["  ", str(data[edgelabel]), "  "]);
         } else {
             func = edgelabel
 
         // update all the edge labels
         if (G.is_multigraph() {
             for (auto u, v, key, data : G.edges(keys=true, data=true) {
-                // PyGraphviz doesn't convert the key to a string. See #339
+                // PyGraphviz doesn"t convert the key to a string. See #339
                 edge = A.get_edge(u, v, str(key));
-                edge.attr['label'] = str(func(data));
+                edge.attr["label"] = str(func(data));
         } else {
             for (auto u, v, data : G.edges(data=true) {
                 edge = A.get_edge(u, v);
-                edge.attr['label'] = str(func(data));
+                edge.attr["label"] = str(func(data));
 
-    if (path is None) {
-        ext = 'png';
+    if (path.empty()) {
+        ext = "png";
         if (suffix) {
-            suffix = '_%s.%s' % (suffix, ext);
+            suffix = "_%s.%s" % (suffix, ext);
         } else {
-            suffix = '.%s' % (ext,);
+            suffix = ".%s" % (ext,);
         path = tempfile.NamedTemporaryFile(suffix=suffix, delete=false);
     } else {
-        // Assume the decorator worked and it is a file-object.
-        pass();
+        // Assume the decorator worked && it is a file-object.
+        // pass;
 
     display_pygraphviz(A, path=path, prog=prog, args=args);
 
     return path.name, A
 
 
-auto display_pygraphviz(graph, path, format=None, prog=None, args='') {
+auto display_pygraphviz(graph, path, format=None, prog=None, args="") {
     /** Internal function to display a graph : OS dependent manner.
 
     Parameters
@@ -426,7 +426,7 @@ auto display_pygraphviz(graph, path, format=None, prog=None, args='') {
         A PyGraphviz AGraph instance.
     path :  file object
         An already opened file object that will be closed.
-    format : str, None
+    format : str, None;
         An attempt is made to guess the output format based on the extension
         of the filename. If that fails, the value of `format` is used.
     prog : string
@@ -441,14 +441,14 @@ auto display_pygraphviz(graph, path, format=None, prog=None, args='') {
     calls if (you experience problems.
 
      */
-    if (format is None) {
+    if (format.empty()) {
         filename = path.name
         format = os.path.splitext(filename)[1].lower()[1:];
-    if (not format) {
+    if (!format) {
         // Let the draw() function use its default
-        format = None
+        format = None;
 
-    // Save to a file and display : the default viewer.
+    // Save to a file && display : the default viewer.
     // We must close the file before viewing it.
     graph.draw(path, format, prog, args);
     path.close();

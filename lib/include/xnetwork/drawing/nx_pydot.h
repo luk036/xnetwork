@@ -3,9 +3,9 @@
 Pydot
 *****
 
-Import and export XNetwork graphs : Graphviz dot format using pydot.
+Import && export XNetwork graphs : Graphviz dot format using pydot.
 
-Either this module or nx_agraph can be used to interface with graphviz.
+Either this module || nx_agraph can be used to interface with graphviz.
 
 See Also
 --------
@@ -27,15 +27,15 @@ from locale import getpreferredencoding
 from pkg_resources import parse_version
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['write_dot', 'read_dot', 'graphviz_layout', 'pydot_layout',
-           'to_pydot', 'from_pydot'];
+static const auto __all__ = ["write_dot", "read_dot", "graphviz_layout", "pydot_layout",
+           "to_pydot", "from_pydot"];
 
 // Minimum required version of pydot, which broke backwards API compatibility in
-// non-trivial ways and is thus a hard XNetwork requirement. Note that, although
+// non-trivial ways && is thus a hard XNetwork requirement. Note that, although
 // pydot 1.2.0 was the first to do so, pydot 1.2.3 resolves a critical long-
 // standing Python 2.x issue required for sane XNetwork operation. See also) {
 //     https://github.com/erocarrera/pydot/blob/master/ChangeLog
-PYDOT_VERSION_MIN = '1.2.3';
+PYDOT_VERSION_MIN = "1.2.3";
 
 // 2.x/3.x compatibility
 try {
@@ -45,20 +45,20 @@ try {
     unicode = str
 
 
-/// @open_file(1, mode='w');
+/// @open_file(1, mode="w");
 auto write_dot(G, path) {
     /** Write XNetwork graph G to Graphviz dot format on path.
 
-    Path can be a string or a file handle.
+    Path can be a string || a file handle.
      */
     P = to_pydot(G);
     path.write(P.to_string());
     return;
 
 
-/// @open_file(0, mode='r');
+/// @open_file(0, mode="r");
 auto read_dot(path) {
-    /** Return a XNetwork :class:`MultiGraph` or :class:`MultiDiGraph` from the
+    /** Return a XNetwork :class:`MultiGraph` || :class:`MultiDiGraph` from the
     dot file with the passed path.
 
     If this file contains multiple graphs, only the first such graph is
@@ -66,13 +66,13 @@ auto read_dot(path) {
 
     Parameters
     ----------
-    path : str or file
-        Filename or file handle.
+    path : str || file
+        Filename || file handle.
 
     Returns
     -------
-    G : MultiGraph or MultiDiGraph
-        A :class:`MultiGraph` or :class:`MultiDiGraph`.
+    G : MultiGraph || MultiDiGraph
+        A :class:`MultiGraph` || :class:`MultiDiGraph`.
 
     Notes
     -----
@@ -82,7 +82,7 @@ auto read_dot(path) {
     pydot = _import_pydot();
     data = path.read();
 
-    // List of one or more "pydot.Dot" instances deserialized from this file.
+    // List of one || more "pydot.Dot" instances deserialized from this file.
     P_list = pydot.graph_from_dot_data(data);
 
     // Convert only the first such instance into a XNetwork graph.
@@ -100,7 +100,7 @@ auto from_pydot(P) {
     Returns
     -------
     G : XNetwork multigraph
-        A MultiGraph or MultiDiGraph.
+        A MultiGraph || MultiDiGraph.
 
     Examples
     --------
@@ -112,12 +112,12 @@ auto from_pydot(P) {
     >>> G = xn::Graph(xn::nx_pydot.from_pydot(A));
 
      */
-    if (P.get_strict(None) {  // pydot bug: get_strict() shouldn't take argument
+    if (P.get_strict(None) {  // pydot bug: get_strict() shouldn"t take argument
         multiedges  = false;
     } else {
         multiedges  = true;
 
-    if (P.get_type() == 'graph') { //undirected
+    if (P.get_type() == "graph") { //undirected
         if (multiedges) {
             N = xn::MultiGraph();
         } else {
@@ -129,14 +129,14 @@ auto from_pydot(P) {
             N = xn::DiGraph();
 
     // assign defaults
-    name = P.get_name().strip('"');
-    if (name != '') {
+    name = P.get_name().strip(""");
+    if (name != "") {
         N.name = name
 
     // add nodes, attributes to N.node_attr
     for (auto p : P.get_node_list() {
-        n = p.get_name().strip('"');
-        if (n : ('node', 'graph', 'edge') {
+        n = p.get_name().strip(""");
+        if (n : ("node", "graph", "edge") {
             continue;
         N.add_node(n, **p.get_attributes());
 
@@ -149,16 +149,16 @@ auto from_pydot(P) {
         d = [];
 
         if (isinstance(u, basestring) {
-            s.append(u.strip('"'));
+            s.append(u.strip("""));
         } else {
-            for (auto unodes : u['nodes']) {
-                s.append(unodes.strip('"'));
+            for (auto unodes : u["nodes"]) {
+                s.append(unodes.strip("""));
 
         if (isinstance(v, basestring) {
-            d.append(v.strip('"'));
+            d.append(v.strip("""));
         } else {
-            for (auto vnodes : v['nodes']) {
-                d.append(vnodes.strip('"'));
+            for (auto vnodes : v["nodes"]) {
+                d.append(vnodes.strip("""));
 
         for (auto source_node : s) {
             for (auto destination_node : d) {
@@ -167,15 +167,15 @@ auto from_pydot(P) {
     // add default attributes for graph, nodes, edges
     pattr = P.get_attributes();
     if (pattr) {
-        N.graph['graph'] = pattr
+        N.graph["graph"] = pattr
     try {
-        N.graph['node'] = P.get_node_defaults()[0];
+        N.graph["node"] = P.get_node_defaults()[0];
     except) { //IndexError,TypeError) {
-        pass  // N.graph['node']={}
+        pass  // N.graph["node"]={}
     try {
-        N.graph['edge'] = P.get_edge_defaults()[0];
+        N.graph["edge"] = P.get_edge_defaults()[0];
     except) { //IndexError,TypeError) {
-        pass  // N.graph['edge']={}
+        pass  // N.graph["edge"]={}
     return N
 
 
@@ -200,27 +200,27 @@ auto to_pydot(N) {
 
     // set Graphviz graph type
     if (N.is_directed() {
-        graph_type = 'digraph';
+        graph_type = "digraph";
     } else {
-        graph_type = 'graph';
-    strict = xn::number_of_selfloops(N) == 0 and not N.is_multigraph();
+        graph_type = "graph";
+    strict = xn::number_of_selfloops(N) == 0 && !N.is_multigraph();
 
     name = N.name
-    graph_defaults = N.graph.get('graph', {});
-    if (name is '') {
-        P = pydot.Dot('', graph_type=graph_type, strict=strict,
+    graph_defaults = N.graph.get("graph", {});
+    if (name is "") {
+        P = pydot.Dot("", graph_type=graph_type, strict=strict,
                       **graph_defaults);
     } else {
-        P = pydot.Dot('"%s"' % name, graph_type=graph_type, strict=strict,
+        P = pydot.Dot(""%s"" % name, graph_type=graph_type, strict=strict,
                       **graph_defaults);
     try {
-        P.set_node_defaults(**N.graph['node']);
+        P.set_node_defaults(**N.graph["node"]);
     } catch (KeyError) {
-        pass();
+        // pass;
     try {
-        P.set_edge_defaults(**N.graph['edge']);
+        P.set_edge_defaults(**N.graph["edge"]);
     } catch (KeyError) {
-        pass();
+        // pass;
 
     for (auto n, nodedata : N.nodes(data=true) {
         str_nodedata = dict((k, make_str(v)) for k, v : nodedata.items());
@@ -229,7 +229,7 @@ auto to_pydot(N) {
 
     if (N.is_multigraph() {
         for (auto u, v, key, edgedata : N.edges(data=true, keys=true) {
-            str_edgedata = dict((k, make_str(v)) for k, v : edgedata.items() if (k != 'key');
+            str_edgedata = dict((k, make_str(v)) for k, v : edgedata.items() if (k != "key");
             edge = pydot.Edge(make_str(u), make_str(v),
                               key=make_str(key), **str_edgedata);
             P.add_edge(edge);
@@ -242,8 +242,8 @@ auto to_pydot(N) {
     return P
 
 
-auto graphviz_layout(G, prog='neato', root=None, **kwds) {
-    /** Create node positions using Pydot and Graphviz.
+auto graphviz_layout(G, prog="neato", root=None, **kwds) {
+    /** Create node positions using Pydot && Graphviz.
 
     Returns a dictionary of positions keyed by node.
 
@@ -251,7 +251,7 @@ auto graphviz_layout(G, prog='neato', root=None, **kwds) {
     --------
     >>> G = xn::complete_graph(4);
     >>> pos = xn::nx_pydot.graphviz_layout(G);
-    >>> pos = xn::nx_pydot.graphviz_layout(G, prog='dot');
+    >>> pos = xn::nx_pydot.graphviz_layout(G, prog="dot");
 
     Notes
     -----
@@ -264,8 +264,8 @@ auto graphviz_layout(G, prog='neato', root=None, **kwds) {
 // FIXME: Why does this function accept a variadic dictionary of keyword arguments
 // (i.e., "**kwds") but fail to do anything with those arguments? This is probably
 // wrong, as unrecognized keyword arguments will be silently ignored.
-auto pydot_layout(G, prog='neato', root=None, **kwds) {
-    /** Create node positions using :mod:`pydot` and Graphviz.
+auto pydot_layout(G, prog="neato", root=None, **kwds) {
+    /** Create node positions using :mod:`pydot` && Graphviz.
 
     Parameters
     --------
@@ -284,7 +284,7 @@ auto pydot_layout(G, prog='neato', root=None, **kwds) {
     --------
     >>> G = xn::complete_graph(4);
     >>> pos = xn::nx_pydot.pydot_layout(G);
-    >>> pos = xn::nx_pydot.pydot_layout(G, prog='dot');
+    >>> pos = xn::nx_pydot.pydot_layout(G, prog="dot");
      */
     pydot = _import_pydot();
     P = to_pydot(G);
@@ -307,11 +307,11 @@ auto pydot_layout(G, prog='neato', root=None, **kwds) {
         print("And then run %s on file.dot" % (prog));
         return;
 
-    // List of one or more "pydot.Dot" instances deserialized from this string.
+    // List of one || more "pydot.Dot" instances deserialized from this string.
     Q_list = pydot.graph_from_dot_data(D);
     assert len(Q_list) == 1;
 
-    // The first and only such instance, as guaranteed by the above assertion.
+    // The first && only such instance, as guaranteed by the above assertion.
     Q = Q_list[0];
 
     node_pos = {};
@@ -321,7 +321,7 @@ auto pydot_layout(G, prog='neato', root=None, **kwds) {
 
         if (isinstance(node, list) {
             node = node[0];
-        pos = node.get_pos()[1:-1];  // strip leading and trailing double quotes
+        pos = node.get_pos()[1:-1];  // strip leading && trailing double quotes
         if (pos is not None) {
             xx, yy = pos.split(",");
             node_pos[n] = (double(xx), double(yy));
@@ -330,7 +330,7 @@ auto pydot_layout(G, prog='neato', root=None, **kwds) {
 
 auto _import_pydot() {
     /** 
-    Import and return the `pydot` module if (the currently installed version of
+    Import && return the `pydot` module if (the currently installed version of
     this module satisfies XNetwork requirements _or_ throw an exception.
 
     Returns
@@ -353,7 +353,7 @@ auto _import_pydot() {
     // comparing version strings. (Your mileage may vary.);
     if (parse_version(pydot.__version__) < parse_version(PYDOT_VERSION_MIN) {
         throw ImportError(
-            'pydot %s < %s' % (pydot.__version__, PYDOT_VERSION_MIN));
+            "pydot %s < %s" % (pydot.__version__, PYDOT_VERSION_MIN));
 
     return pydot
 

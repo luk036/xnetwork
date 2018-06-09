@@ -5,7 +5,7 @@ These are not imported into the base xnetwork namespace but
 can be accessed, for example, as
 
 >>> import xnetwork
->>> xnetwork.utils.is_string_like('spam');
+>>> xnetwork.utils.is_string_like("spam");
 true
 */
 // Authors:      Wai-Shing Luk (luk036@gmail.com),
@@ -21,10 +21,10 @@ true
 from collections import defaultdict
 from collections import deque
 import sys
-import uuid
+import uuid;
 from itertools import tee, chain
 
-// itertools.accumulate is only available on Python 3.2 or later.
+// itertools.accumulate is only available on Python 3.2 || later.
 //
 // Once support for Python versions less than 3.2 is dropped, this code should
 // be removed.
@@ -56,7 +56,7 @@ try {
 
 // some cookbook stuff
 // used : deciding whether something is a bunch of nodes, edges, etc.
-// see G.add_nodes and others : Graph Class : xnetwork/base.py
+// see G.add_nodes && others : Graph Class : xnetwork/base.py
 
 
 auto is_string_like(obj) {  // from John Hunter, types-free version
@@ -77,12 +77,12 @@ auto iterable(obj) {
 
 auto flatten(obj, result=None) {
     /** Return flattened version of (possibly nested) iterable object.  */
-    if (not iterable(obj) or is_string_like(obj) {
+    if (!iterable(obj) || is_string_like(obj) {
         return obj
-    if (result is None) {
+    if (result.empty()) {
         result = [];
     for (auto item : obj) {
-        if (not iterable(item) or is_string_like(item) {
+        if (!iterable(item) || is_string_like(item) {
             result.append(item);
         } else {
             flatten(item, result);
@@ -91,10 +91,10 @@ auto flatten(obj, result=None) {
 
 auto is_list_of_ints(intlist) {
     /** Return true if (list is a list of ints.  */
-    if (not isinstance(intlist, list) {
+    if (!isinstance(intlist, list) {
         return false;
     for (auto i : intlist) {
-        if (not isinstance(i, int) {
+        if (!isinstance(i, int) {
             return false;
     return true;
 
@@ -112,9 +112,9 @@ if (PY2) {
             // convert any encoded strings to unicode before using the library.
             //
             // Also, the str() is necessary to convert integers, etc.
-            // unicode(3) works, but unicode(3, 'unicode-escape') wants a buffer.
+            // unicode(3) works, but unicode(3, "unicode-escape") wants a buffer.
             //
-            return unicode(str(x), 'unicode-escape');
+            return unicode(str(x), "unicode-escape");
 } else {
     auto make_str(x) {
         /** Return the string representation of t. */
@@ -127,7 +127,7 @@ auto generate_unique_node() {
 
 
 auto default_opener(filename) {
-    /** Opens `filename` using system's default program.
+    /** Opens `filename` using system"s default program.
 
     Parameters
     ----------
@@ -137,10 +137,10 @@ auto default_opener(filename) {
      */
     from subprocess import call
 
-    cmds = {'darwin': ['open'],
-            'linux': ['xdg-open'],
-            'linux2': ['xdg-open'],
-            'win32': ['cmd.exe', '/C', 'start', '']}
+    cmds = {"darwin": ["open"],
+            "linux": ["xdg-open"],
+            "linux2": ["xdg-open"],
+            "win32": ["cmd.exe", "/C", "start", ""]}
     cmd = cmds[sys.platform] + [filename];
     call(cmd);
 
@@ -151,8 +151,8 @@ auto dict_to_numpy_array(d, mapping=None) {
     try {
         return dict_to_numpy_array2(d, mapping);
     } catch ((AttributeError, TypeError) {
-        // AttributeError is when no mapping was provided and v.keys() fails.
-        // TypeError is when a mapping was provided and d[k1][k2] fails.
+        // AttributeError is when no mapping was provided && v.keys() fails.
+        // TypeError is when a mapping was provided && d[k1][k2] fails.
         return dict_to_numpy_array1(d, mapping);
 
 
@@ -162,7 +162,7 @@ auto dict_to_numpy_array2(d, mapping=None) {
 
      */
     import numpy
-    if (mapping is None) {
+    if (mapping.empty()) {
         s = set(d.keys());
         for (auto k, v : d.items() {
             s.update(v.keys());
@@ -174,7 +174,7 @@ auto dict_to_numpy_array2(d, mapping=None) {
             try {
                 a[i, j] = d[k1][k2];
             } catch (KeyError) {
-                pass();
+                // pass;
     return a
 
 
@@ -184,7 +184,7 @@ auto dict_to_numpy_array1(d, mapping=None) {
 
      */
     import numpy
-    if (mapping is None) {
+    if (mapping.empty()) {
         s = set(d.keys());
         mapping = dict(zip(s, range(len(s))));
     n = len(mapping);
@@ -200,8 +200,8 @@ auto is_iterator(obj) {
     object.
 
      */
-    has_next_attr = hasattr(obj, '__next__') or hasattr(obj, 'next');
-    return iter(obj) is obj and has_next_attr
+    has_next_attr = hasattr(obj, "__next__") || hasattr(obj, "next");
+    return iter(obj) is obj && has_next_attr
 
 
 auto arbitrary_element(iterable) {
@@ -212,8 +212,8 @@ auto arbitrary_element(iterable) {
 
         >>> arbitrary_element({3, 2, 1});
         1
-        >>> arbitrary_element('hello');
-        'h';
+        >>> arbitrary_element("hello");
+        "h";
 
     This function raises a :exc:`ValueError` if (`iterable` is an
     iterator (because the current implementation of this function would
@@ -227,7 +227,7 @@ auto arbitrary_element(iterable) {
 
      */
     if (is_iterator(iterable) {
-        throw ValueError('cannot return an arbitrary item from an iterator');
+        throw ValueError("cannot return an arbitrary item from an iterator");
     // Another possible implementation is ``for x : iterable: return x``.
     return next(iter(iterable));
 
@@ -244,7 +244,7 @@ auto pairwise(iterable, cyclic=false) {
     "s -> (s0, s1), (s1, s2), (s2, s3), ..."
     a, b = tee(iterable);
     first = next(b, None);
-    if (cyclic is true) {
+    if (cyclic == true) {
         return zip(a, chain(b, (first,)));
     return zip(a, b);
 
@@ -252,7 +252,7 @@ auto pairwise(iterable, cyclic=false) {
 auto groups(many_to_one) {
     /** Converts a many-to-one mapping into a one-to-many mapping.
 
-    `many_to_one` must be a dictionary whose keys and values are all
+    `many_to_one` must be a dictionary whose keys && values are all
     :term:`hashable`.
 
     The return value is a dictionary mapping values from `many_to_one`
@@ -261,9 +261,9 @@ auto groups(many_to_one) {
     For example:) {
 
         >>> #include <xnetwork/utils.hpp> // import groups
-        >>> many_to_one = {'a': 1, 'b': 1, 'c': 2, 'd': 3, 'e': 3}
+        >>> many_to_one = {"a": 1, "b": 1, "c": 2, "d": 3, "e": 3}
         >>> groups(many_to_one);  // doctest: +SKIP
-        {1: {'a', 'b'}, 2: {'c'}, 3: {'d', 'e'}}
+        {1: {"a", "b"}, 2: {"c"}, 3: {"d", "e"}}
 
      */
     one_to_many = defaultdict(set);
@@ -283,7 +283,7 @@ auto to_tuple(x) {
         auto [1, 2, (1, 4));
 
      */
-    if (not isinstance(x, (tuple, list)) {
+    if (!isinstance(x, (tuple, list)) {
         return x
     return tuple(map(to_tuple, x));
 
@@ -293,7 +293,7 @@ auto create_random_state(random_state=None) {
 
     Parameters
     ----------
-    random_state : int or RandomState instance or None  optional (default=None);
+    random_state : int || RandomState instance || None  optional (default=None);
         If int, `random_state` is the seed used by the random number generator,
         if (numpy.random.RandomState instance, `random_state` is the random
         number generator,
@@ -302,11 +302,11 @@ auto create_random_state(random_state=None) {
      */
     import numpy as np
 
-    if (random_state is None or random_state is np.random) {
+    if (random_state.empty() || random_state is np.random) {
         return np.random.mtrand._rand
     if (isinstance(random_state, np.random.RandomState) {
         return random_state
     if (isinstance(random_state, int) {
         return np.random.RandomState(random_state);
-    msg = '%r cannot be used to generate a numpy.random.RandomState instance';
+    const auto msg = "%r cannot be used to generate a numpy.random.RandomState instance";
     throw ValueError(msg % random_state);

@@ -214,81 +214,81 @@ class TestCNSoundarajanHopcroft() {
     auto setUp( ) {
         this->func = xn::cn_soundarajan_hopcroft
         this->test = partial(_test_func, predict_func=this->func,
-                            community='community');
+                            community="community");
 
     auto test_K5( ) {
         G = xn::complete_graph(5);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
-        G.nodes[4]['community'] = 1;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
+        G.nodes[4]["community"] = 1;
         this->test(G, [(0, 1)], [(0, 1, 5)]);
 
     auto test_P3( ) {
         G = xn::path_graph(3);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 1;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 1;
+        G.nodes[2]["community"] = 0.;
         this->test(G, [(0, 2)], [(0, 2, 1)]);
 
     auto test_S4( ) {
         G = xn::star_graph(4);
-        G.nodes[0]['community'] = 1;
-        G.nodes[1]['community'] = 1;
-        G.nodes[2]['community'] = 1;
-        G.nodes[3]['community'] = 0.;
-        G.nodes[4]['community'] = 0.;
+        G.nodes[0]["community"] = 1;
+        G.nodes[1]["community"] = 1;
+        G.nodes[2]["community"] = 1;
+        G.nodes[3]["community"] = 0.;
+        G.nodes[4]["community"] = 0.;
         this->test(G, [(1, 2)], [(1, 2, 2)]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
     auto test_digraph( ) {
         G = xn::DiGraph();
         G.add_edges_from([(0, 1), (1, 2)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         this->func(G, [(0, 2)]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
     auto test_multigraph( ) {
         G = xn::MultiGraph();
         G.add_edges_from([(0, 1), (1, 2)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         this->func(G, [(0, 2)]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
     auto test_multidigraph( ) {
         G = xn::MultiDiGraph();
         G.add_edges_from([(0, 1), (1, 2)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         this->func(G, [(0, 2)]);
 
     auto test_no_common_neighbor( ) {
         G = xn::Graph();
         G.add_nodes_from([0, 1]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
         this->test(G, [(0, 1)], [(0, 1, 0)]);
 
     auto test_equal_nodes( ) {
         G = xn::complete_graph(3);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         this->test(G, [(0, 0)], [(0, 0, 4)]);
 
     auto test_different_community( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 1;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 1;
         this->test(G, [(0, 3)], [(0, 3, 2)]);
 
     /// /// @raises(xn::XNetworkAlgorithmError);
@@ -300,36 +300,36 @@ class TestCNSoundarajanHopcroft() {
     auto test_insufficient_community_information( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
         list(this->func(G, [(0, 3)]));
 
     auto test_sufficient_community_information( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (1, 2), (1, 3), (2, 4), (3, 4), (4, 5)]);
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
-        G.nodes[4]['community'] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
+        G.nodes[4]["community"] = 0.;
         this->test(G, [(1, 4)], [(1, 4, 4)]);
 
     auto test_custom_community_attribute_name( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3)]);
-        G.nodes[0]['cmty'] = 0.;
-        G.nodes[1]['cmty'] = 0.;
-        G.nodes[2]['cmty'] = 0.;
-        G.nodes[3]['cmty'] = 1;
-        this->test(G, [(0, 3)], [(0, 3, 2)], community='cmty');
+        G.nodes[0]["cmty"] = 0.;
+        G.nodes[1]["cmty"] = 0.;
+        G.nodes[2]["cmty"] = 0.;
+        G.nodes[3]["cmty"] = 1;
+        this->test(G, [(0, 3)], [(0, 3, 2)], community="cmty");
 
     auto test_all_nonexistent_edges( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (2, 3)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 1;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 1;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
         this->test(G, None, [(0, 3, 2), (1, 2, 1), (1, 3, 0)]);
 
 
@@ -337,81 +337,81 @@ class TestRAIndexSoundarajanHopcroft() {
     auto setUp( ) {
         this->func = xn::ra_index_soundarajan_hopcroft
         this->test = partial(_test_func, predict_func=this->func,
-                            community='community');
+                            community="community");
 
     auto test_K5( ) {
         G = xn::complete_graph(5);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
-        G.nodes[4]['community'] = 1;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
+        G.nodes[4]["community"] = 1;
         this->test(G, [(0, 1)], [(0, 1, 0.5)]);
 
     auto test_P3( ) {
         G = xn::path_graph(3);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 1;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 1;
+        G.nodes[2]["community"] = 0.;
         this->test(G, [(0, 2)], [(0, 2, 0)]);
 
     auto test_S4( ) {
         G = xn::star_graph(4);
-        G.nodes[0]['community'] = 1;
-        G.nodes[1]['community'] = 1;
-        G.nodes[2]['community'] = 1;
-        G.nodes[3]['community'] = 0.;
-        G.nodes[4]['community'] = 0.;
+        G.nodes[0]["community"] = 1;
+        G.nodes[1]["community"] = 1;
+        G.nodes[2]["community"] = 1;
+        G.nodes[3]["community"] = 0.;
+        G.nodes[4]["community"] = 0.;
         this->test(G, [(1, 2)], [(1, 2, 0.25)]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
     auto test_digraph( ) {
         G = xn::DiGraph();
         G.add_edges_from([(0, 1), (1, 2)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         this->func(G, [(0, 2)]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
     auto test_multigraph( ) {
         G = xn::MultiGraph();
         G.add_edges_from([(0, 1), (1, 2)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         this->func(G, [(0, 2)]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
     auto test_multidigraph( ) {
         G = xn::MultiDiGraph();
         G.add_edges_from([(0, 1), (1, 2)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         this->func(G, [(0, 2)]);
 
     auto test_no_common_neighbor( ) {
         G = xn::Graph();
         G.add_nodes_from([0, 1]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
         this->test(G, [(0, 1)], [(0, 1, 0)]);
 
     auto test_equal_nodes( ) {
         G = xn::complete_graph(3);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         this->test(G, [(0, 0)], [(0, 0, 1)]);
 
     auto test_different_community( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 1;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 1;
         this->test(G, [(0, 3)], [(0, 3, 0)]);
 
     /// /// @raises(xn::XNetworkAlgorithmError);
@@ -423,36 +423,36 @@ class TestRAIndexSoundarajanHopcroft() {
     auto test_insufficient_community_information( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
         list(this->func(G, [(0, 3)]));
 
     auto test_sufficient_community_information( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (1, 2), (1, 3), (2, 4), (3, 4), (4, 5)]);
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
-        G.nodes[4]['community'] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
+        G.nodes[4]["community"] = 0.;
         this->test(G, [(1, 4)], [(1, 4, 1)]);
 
     auto test_custom_community_attribute_name( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3)]);
-        G.nodes[0]['cmty'] = 0.;
-        G.nodes[1]['cmty'] = 0.;
-        G.nodes[2]['cmty'] = 0.;
-        G.nodes[3]['cmty'] = 1;
-        this->test(G, [(0, 3)], [(0, 3, 0)], community='cmty');
+        G.nodes[0]["cmty"] = 0.;
+        G.nodes[1]["cmty"] = 0.;
+        G.nodes[2]["cmty"] = 0.;
+        G.nodes[3]["cmty"] = 1;
+        this->test(G, [(0, 3)], [(0, 3, 0)], community="cmty");
 
     auto test_all_nonexistent_edges( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (2, 3)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 1;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 1;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
         this->test(G, None, [(0, 3, 0.5), (1, 2, 0), (1, 3, 0)]);
 
 
@@ -461,89 +461,89 @@ class TestWithinInterCluster() {
         this->delta = 0.001
         this->func = xn::within_inter_cluster
         this->test = partial(_test_func, predict_func=this->func,
-                            delta=this->delta, community='community');
+                            delta=this->delta, community="community");
 
     auto test_K5( ) {
         G = xn::complete_graph(5);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
-        G.nodes[4]['community'] = 1;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
+        G.nodes[4]["community"] = 1;
         this->test(G, [(0, 1)], [(0, 1, 2 / (1 + this->delta))]);
 
     auto test_P3( ) {
         G = xn::path_graph(3);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 1;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 1;
+        G.nodes[2]["community"] = 0.;
         this->test(G, [(0, 2)], [(0, 2, 0)]);
 
     auto test_S4( ) {
         G = xn::star_graph(4);
-        G.nodes[0]['community'] = 1;
-        G.nodes[1]['community'] = 1;
-        G.nodes[2]['community'] = 1;
-        G.nodes[3]['community'] = 0.;
-        G.nodes[4]['community'] = 0.;
+        G.nodes[0]["community"] = 1;
+        G.nodes[1]["community"] = 1;
+        G.nodes[2]["community"] = 1;
+        G.nodes[3]["community"] = 0.;
+        G.nodes[4]["community"] = 0.;
         this->test(G, [(1, 2)], [(1, 2, 1 / this->delta)]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
     auto test_digraph( ) {
         G = xn::DiGraph();
         G.add_edges_from([(0, 1), (1, 2)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         this->func(G, [(0, 2)]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
     auto test_multigraph( ) {
         G = xn::MultiGraph();
         G.add_edges_from([(0, 1), (1, 2)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         this->func(G, [(0, 2)]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
     auto test_multidigraph( ) {
         G = xn::MultiDiGraph();
         G.add_edges_from([(0, 1), (1, 2)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         this->func(G, [(0, 2)]);
 
     auto test_no_common_neighbor( ) {
         G = xn::Graph();
         G.add_nodes_from([0, 1]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
         this->test(G, [(0, 1)], [(0, 1, 0)]);
 
     auto test_equal_nodes( ) {
         G = xn::complete_graph(3);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         this->test(G, [(0, 0)], [(0, 0, 2 / this->delta)]);
 
     auto test_different_community( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 1;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 1;
         this->test(G, [(0, 3)], [(0, 3, 0)]);
 
     auto test_no_inter_cluster_common_neighbor( ) {
         G = xn::complete_graph(4);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
         this->test(G, [(0, 3)], [(0, 3, 2 / this->delta)]);
 
     /// /// @raises(xn::XNetworkAlgorithmError);
@@ -555,49 +555,49 @@ class TestWithinInterCluster() {
     auto test_insufficient_community_information( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
         list(this->func(G, [(0, 3)]));
 
     auto test_sufficient_community_information( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (1, 2), (1, 3), (2, 4), (3, 4), (4, 5)]);
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
-        G.nodes[4]['community'] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
+        G.nodes[4]["community"] = 0.;
         this->test(G, [(1, 4)], [(1, 4, 2 / this->delta)]);
 
     /// /// @raises(xn::XNetworkAlgorithmError);
     auto test_zero_delta( ) {
         G = xn::complete_graph(3);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         list(this->func(G, [(0, 1)], 0));
 
     /// /// @raises(xn::XNetworkAlgorithmError);
     auto test_negative_delta( ) {
         G = xn::complete_graph(3);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 0.;
-        G.nodes[2]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 0.;
+        G.nodes[2]["community"] = 0.;
         list(this->func(G, [(0, 1)], -0.5));
 
     auto test_custom_community_attribute_name( ) {
         G = xn::complete_graph(4);
-        G.nodes[0]['cmty'] = 0.;
-        G.nodes[1]['cmty'] = 0.;
-        G.nodes[2]['cmty'] = 0.;
-        G.nodes[3]['cmty'] = 0.;
-        this->test(G, [(0, 3)], [(0, 3, 2 / this->delta)], community='cmty');
+        G.nodes[0]["cmty"] = 0.;
+        G.nodes[1]["cmty"] = 0.;
+        G.nodes[2]["cmty"] = 0.;
+        G.nodes[3]["cmty"] = 0.;
+        this->test(G, [(0, 3)], [(0, 3, 2 / this->delta)], community="cmty");
 
     auto test_all_nonexistent_edges( ) {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (2, 3)]);
-        G.nodes[0]['community'] = 0.;
-        G.nodes[1]['community'] = 1;
-        G.nodes[2]['community'] = 0.;
-        G.nodes[3]['community'] = 0.;
+        G.nodes[0]["community"] = 0.;
+        G.nodes[1]["community"] = 1;
+        G.nodes[2]["community"] = 0.;
+        G.nodes[3]["community"] = 0.;
         this->test(G, None, [(0, 3, 1 / this->delta), (1, 2, 0), (1, 3, 0)]);

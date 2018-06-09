@@ -13,7 +13,7 @@ class TestGEXF: public object {
         try {
             import xml.etree.ElementTree
         } catch (ImportError) {
-            throw SkipTest('xml.etree.ElementTree not available.');
+            throw SkipTest("xml.etree.ElementTree not available.");
 
     auto setUp( ) {
         this->simple_directed_data = R"(<?xml version="1.0" encoding="UTF-8"?>
@@ -30,12 +30,12 @@ class TestGEXF: public object {
 </gexf>
  */
         this->simple_directed_graph = xn::DiGraph();
-        this->simple_directed_graph.add_node('0', label='Hello');
-        this->simple_directed_graph.add_node('1', label='World');
-        this->simple_directed_graph.add_edge('0', '1', id='0');
+        this->simple_directed_graph.add_node("0", label="Hello");
+        this->simple_directed_graph.add_node("1", label="World");
+        this->simple_directed_graph.add_edge("0", "1", id="0");
 
         this->simple_directed_fh = \
-            io.BytesIO(this->simple_directed_data.encode('UTF-8'));
+            io.BytesIO(this->simple_directed_data.encode("UTF-8"));
 
         this->attribute_data = R"(<?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
@@ -92,29 +92,29 @@ class TestGEXF: public object {
 </gexf>
  */
         this->attribute_graph = xn::DiGraph();
-        this->attribute_graph.graph['node_default'] = {'frog': true}
-        this->attribute_graph.add_node('0',
-                                      label='Gephi',
-                                      url='https://gephi.org',
+        this->attribute_graph.graph["node_default"] = {"frog": true}
+        this->attribute_graph.add_node("0",
+                                      label="Gephi",
+                                      url="https://gephi.org",
                                       indegree=1, frog=false);
-        this->attribute_graph.add_node('1',
-                                      label='Webatlas',
-                                      url='http://webatlas.fr',
+        this->attribute_graph.add_node("1",
+                                      label="Webatlas",
+                                      url="http://webatlas.fr",
                                       indegree=2, frog=false);
-        this->attribute_graph.add_node('2',
-                                      label='RTGI',
-                                      url='http://rtgi.fr',
+        this->attribute_graph.add_node("2",
+                                      label="RTGI",
+                                      url="http://rtgi.fr",
                                       indegree=1, frog=true);
-        this->attribute_graph.add_node('3',
-                                      label='BarabasiLab',
-                                      url='http://barabasilab.com',
+        this->attribute_graph.add_node("3",
+                                      label="BarabasiLab",
+                                      url="http://barabasilab.com",
                                       indegree=1, frog=true);
-        this->attribute_graph.add_edge('0', '1', id='0');
-        this->attribute_graph.add_edge('0', '2', id='1');
-        this->attribute_graph.add_edge('1', '0', id='2');
-        this->attribute_graph.add_edge('2', '1', id='3');
-        this->attribute_graph.add_edge('0', '3', id='4');
-        this->attribute_fh = io.BytesIO(this->attribute_data.encode('UTF-8'));
+        this->attribute_graph.add_edge("0", "1", id="0");
+        this->attribute_graph.add_edge("0", "2", id="1");
+        this->attribute_graph.add_edge("1", "0", id="2");
+        this->attribute_graph.add_edge("2", "1", id="3");
+        this->attribute_graph.add_edge("0", "3", id="4");
+        this->attribute_fh = io.BytesIO(this->attribute_data.encode("UTF-8"));
 
         this->simple_undirected_data = R"(<?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
@@ -130,11 +130,11 @@ class TestGEXF: public object {
 </gexf>
  */
         this->simple_undirected_graph = xn::Graph();
-        this->simple_undirected_graph.add_node('0', label='Hello');
-        this->simple_undirected_graph.add_node('1', label='World');
-        this->simple_undirected_graph.add_edge('0', '1', id='0');
+        this->simple_undirected_graph.add_node("0", label="Hello");
+        this->simple_undirected_graph.add_node("1", label="World");
+        this->simple_undirected_graph.add_edge("0", "1", id="0");
 
-        this->simple_undirected_fh = io.BytesIO(this->simple_undirected_data.encode('UTF-8'));
+        this->simple_undirected_fh = io.BytesIO(this->simple_undirected_data.encode("UTF-8"));
 
     auto test_read_simple_directed_graphml( ) {
         G = this->simple_directed_graph
@@ -178,7 +178,7 @@ class TestGEXF: public object {
 
     auto test_directed_edge_in_undirected( ) {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
-<gexf xmlns="http://www.gexf.net/1.2draft" version='1.2'>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
     <graph mode="static" defaultedgetype="undirected" name="">
         <nodes>
             <node id="0" label="Hello" />
@@ -190,12 +190,12 @@ class TestGEXF: public object {
     </graph>
 </gexf>
  */
-        fh = io.BytesIO(s.encode('UTF-8'));
+        fh = io.BytesIO(s.encode("UTF-8"));
         assert_raises(xn::XNetworkError, xn::read_gexf, fh);
 
     auto test_undirected_edge_in_directed( ) {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
-<gexf xmlns="http://www.gexf.net/1.2draft" version='1.2'>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
     <graph mode="static" defaultedgetype="directed" name="">
         <nodes>
             <node id="0" label="Hello" />
@@ -207,17 +207,17 @@ class TestGEXF: public object {
     </graph>
 </gexf>
  */
-        fh = io.BytesIO(s.encode('UTF-8'));
+        fh = io.BytesIO(s.encode("UTF-8"));
         assert_raises(xn::XNetworkError, xn::read_gexf, fh);
 
     auto test_key_raises( ) {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
-<gexf xmlns="http://www.gexf.net/1.2draft" version='1.2'>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
     <graph mode="static" defaultedgetype="directed" name="">
         <nodes>
             <node id="0" label="Hello">
               <attvalues>
-                <attvalue for='0' value='1'/>
+                <attvalue for="0" value="1"/>
               </attvalues>
             </node>
             <node id="1" label="Word" />
@@ -228,12 +228,12 @@ class TestGEXF: public object {
     </graph>
 </gexf>
  */
-        fh = io.BytesIO(s.encode('UTF-8'));
+        fh = io.BytesIO(s.encode("UTF-8"));
         assert_raises(xn::XNetworkError, xn::read_gexf, fh);
 
     auto test_relabel( ) {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
-<gexf xmlns="http://www.gexf.net/1.2draft" version='1.2'>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
     <graph mode="static" defaultedgetype="directed" name="">
         <nodes>
             <node id="0" label="Hello" />
@@ -245,17 +245,17 @@ class TestGEXF: public object {
     </graph>
 </gexf>
  */
-        fh = io.BytesIO(s.encode('UTF-8'));
+        fh = io.BytesIO(s.encode("UTF-8"));
         G = xn::read_gexf(fh, relabel=true);
         assert_equal(sorted(G.nodes()), ["Hello", "Word"]);
 
     auto test_default_attribute( ) {
         G = xn::Graph();
-        G.add_node(1, label='1', color='green');
+        G.add_node(1, label="1", color="green");
         xn::add_path(G, [0, 1, 2, 3]);
         G.add_edge(1, 2, foo=3);
-        G.graph['node_default'] = {'color': 'yellow'}
-        G.graph['edge_default'] = {'foo': 7}
+        G.graph["node_default"] = {"color": "yellow"}
+        G.graph["edge_default"] = {"foo": 7}
         fh = io.BytesIO();
         xn::write_gexf(G, fh);
         fh.seek(0);
@@ -265,9 +265,9 @@ class TestGEXF: public object {
             sorted(sorted(e) for e : G.edges()),
             sorted(sorted(e) for e : H.edges()));
         // Reading a gexf graph always sets mode attribute to either
-        // 'static' or 'dynamic'. Remove the mode attribute from the
+        // "static" || "dynamic". Remove the mode attribute from the
         // read graph for the sake of comparing remaining attributes.
-        del H.graph['mode'];
+        del H.graph["mode"];
         assert_equal(G.graph, H.graph);
 
     auto test_serialize_ints_to_strings( ) {
@@ -278,18 +278,18 @@ class TestGEXF: public object {
         fh.seek(0);
         H = xn::read_gexf(fh, node_type=int);
         assert_equal(list(H), [7]);
-        assert_equal(H.nodes[7]['label'], '77');
+        assert_equal(H.nodes[7]["label"], "77");
 
     auto test_write_with_node_attributes( ) {
         // Addresses #673.
         G = xn::OrderedGraph();
         G.add_edges_from([(0, 1), (1, 2), (2, 3)]);
         for (auto i : range(4) {
-            G.nodes[i]['id'] = i
-            G.nodes[i]['label'] = i
-            G.nodes[i]['pid'] = i
-            G.nodes[i]['start'] = i
-            G.nodes[i]['end'] = i + 1
+            G.nodes[i]["id"] = i
+            G.nodes[i]["label"] = i
+            G.nodes[i]["pid"] = i
+            G.nodes[i]["start"] = i
+            G.nodes[i]["end"] = i + 1
 
         expected = R"(<gexf version="1.2" xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance">
   <graph defaultedgetype="undirected" mode="dynamic" name="" timeformat="long">
@@ -309,8 +309,8 @@ class TestGEXF: public object {
       <edge id="2" source="2" target="3" />
     </edges>
   </graph>
-</gexf>)".format(xn::__version__, time.strftime('%d/%m/%Y'));
-        obtained = '\n'.join(xn::generate_gexf(G));
+</gexf>)".format(xn::__version__, time.strftime("%d/%m/%Y"));
+        obtained = "\n".join(xn::generate_gexf(G));
         assert_equal(expected, obtained);
 
     auto test_bool( ) {
@@ -320,4 +320,4 @@ class TestGEXF: public object {
         xn::write_gexf(G, fh);
         fh.seek(0);
         H = xn::read_gexf(fh, node_type=int);
-        assert_equal(H.nodes[1]['testattr'], true);
+        assert_equal(H.nodes[1]["testattr"], true);

@@ -10,15 +10,15 @@ from xnetwork.testing.utils import *
 class TestGpickle: public object {
     auto setUp( ) {
         G = xn::Graph(name="test");
-        e = [('a', 'b'), ('b', 'c'), ('c', 'd'), ('d', 'e'), ('e', 'f'), ('a', 'f')];
+        e = [("a", "b"), ("b", "c"), ("c", "d"), ("d", "e"), ("e", "f"), ("a", "f")];
         G.add_edges_from(e, width=10);
-        G.add_node('g', color='green');
-        G.graph['number'] = 1;
+        G.add_node("g", color="green");
+        G.graph["number"] = 1;
         DG = xn::DiGraph(G);
         MG = xn::MultiGraph(G);
-        MG.add_edge('a', 'a');
+        MG.add_edge("a", "a");
         MDG = xn::MultiDiGraph(G);
-        MDG.add_edge('a', 'a');
+        MDG.add_edge("a", "a");
         fG = G.copy();
         fDG = DG.copy();
         fMG = MG.copy();
@@ -27,7 +27,7 @@ class TestGpickle: public object {
         xn::freeze(fDG);
         xn::freeze(fMG);
         xn::freeze(fMDG);
-        this->G = G
+        this->G = G;
         this->DG = DG
         this->MG = MG
         this->MDG = MDG

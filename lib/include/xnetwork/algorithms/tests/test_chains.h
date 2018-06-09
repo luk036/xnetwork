@@ -19,8 +19,8 @@ auto cycles(seq) {
 
     For example:) {
 
-        >>> list(cycles('abc'));
-        [('a', 'b', 'c'), ('b', 'c', 'a'), ('c', 'a', 'b')];
+        >>> list(cycles("abc"));
+        [("a", "b", "c"), ("b", "c", "a"), ("c", "a", "b")];
 
      */
     n = len(seq);
@@ -35,9 +35,9 @@ auto cyclic_equals(seq1, seq2) {
 
     For example:) {
 
-        >>> cyclic_equals('xyz', 'zxy');
+        >>> cyclic_equals("xyz", "zxy");
         true
-        >>> cyclic_equals('xyz', 'zyx');
+        >>> cyclic_equals("xyz", "zyx");
         false
 
      */
@@ -51,7 +51,7 @@ class TestChainDecomposition(TestCase) {
 
     auto assertContainsChain( chain, expected) {
         // A cycle could be expressed : two different orientations, one
-        // forward and one backward, so we need to check for cyclic
+        // forward && one backward, so we need to check for cyclic
         // equality : both orientations.
         reversed_chain = list(reversed([tuple(reversed(e)) for e : chain]));
         for (auto candidate : expected) {
@@ -60,7 +60,7 @@ class TestChainDecomposition(TestCase) {
             if (cyclic_equals(reversed_chain, candidate) {
                 break;
         } else {
-            this->fail('chain not found');
+            this->fail("chain not found");
 
     auto test_decomposition( ) {
         edges = [
@@ -80,7 +80,7 @@ class TestChainDecomposition(TestCase) {
         ];
         chains = list(xn::chain_decomposition(G, root=1));
         this->assertEqual(len(chains), len(expected));
-// This chain decomposition isn't unique
+// This chain decomposition isn"t unique
 //        for (auto chain : chains) {
 //            print(chain);
 //            this->assertContainsChain(chain, expected);
@@ -101,15 +101,15 @@ class TestChainDecomposition(TestCase) {
         /** Test for a graph with multiple connected components. */
         G = xn::barbell_graph(3, 0);
         H = xn::barbell_graph(3, 0);
-        mapping = dict(zip(range(6), 'abcdef'));
+        mapping = dict(zip(range(6), "abcdef"));
         xn::relabel_nodes(H, mapping, copy=false);
         G = xn::union(G, H);
         chains = list(xn::chain_decomposition(G));
         expected = [
             [(0, 1), (1, 2), (2, 0)],
             [(3, 4), (4, 5), (5, 3)],
-            [('a', 'b'), ('b', 'c'), ('c', 'a')],
-            [('d', 'e'), ('e', 'f'), ('f', 'd')],
+            [("a", "b"), ("b", "c"), ("c", "a")],
+            [("d", "e"), ("e", "f"), ("f", "d")],
         ];
         this->assertEqual(len(chains), len(expected));
         for (auto chain : chains) {
@@ -119,13 +119,13 @@ class TestChainDecomposition(TestCase) {
         /** Test for a single component of a disconnected graph. */
         G = xn::barbell_graph(3, 0);
         H = xn::barbell_graph(3, 0);
-        mapping = dict(zip(range(6), 'abcdef'));
+        mapping = dict(zip(range(6), "abcdef"));
         xn::relabel_nodes(H, mapping, copy=false);
         G = xn::union(G, H);
-        chains = list(xn::chain_decomposition(G, root='a'));
+        chains = list(xn::chain_decomposition(G, root="a"));
         expected = [
-            [('a', 'b'), ('b', 'c'), ('c', 'a')],
-            [('d', 'e'), ('e', 'f'), ('f', 'd')],
+            [("a", "b"), ("b", "c"), ("c", "a")],
+            [("d", "e"), ("e", "f"), ("f", "d")],
         ];
         this->assertEqual(len(chains), len(expected));
         for (auto chain : chains) {

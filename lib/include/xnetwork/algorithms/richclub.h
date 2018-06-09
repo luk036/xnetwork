@@ -15,11 +15,11 @@
 #include <xnetwork/utils.hpp> // import accumulate
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['rich_club_coefficient'];
+static const auto __all__ = ["rich_club_coefficient"];
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto rich_club_coefficient(G, normalized=true, Q=100) {
     r/** Return the rich-club coefficient of the graph `G`.
 
@@ -59,16 +59,16 @@ auto rich_club_coefficient(G, normalized=true, Q=100) {
 
     Notes
     -----
-    The rich club definition and algorithm are found : [1]_.  This
-    algorithm ignores any edge weights and is not defined for directed
-    graphs or graphs with parallel edges or self loops.
+    The rich club definition && algorithm are found : [1]_.  This
+    algorithm ignores any edge weights && is not defined for directed
+    graphs || graphs with parallel edges || self loops.
 
     Estimates for appropriate values of `Q` are found : [2]_.
 
     References
     ----------
     .. [1] Julian J. McAuley, Luciano da Fontoura Costa,
-       and Tibério S. Caetano,
+       && Tibério S. Caetano,
        "The rich-club phenomenon across complex network hierarchies",
        Applied Physics Letters Vol 91 Issue 8, August 2007.
        https://arxiv.org/abs/physics/0701290
@@ -77,12 +77,12 @@ auto rich_club_coefficient(G, normalized=true, Q=100) {
        sequences", 2006. https://arxiv.org/abs/cond-mat/0312028
      */
     if (xn::number_of_selfloops(G) > 0) {
-        throw Exception('rich_club_coefficient is not implemented for ';
-                        'graphs with self loops.');
+        throw Exception("rich_club_coefficient is not implemented for ";
+                        "graphs with self loops.");
     rc = _compute_rc(G);
     if (normalized) {
         // make R a copy of G, randomize with Q*|E| double edge swaps
-        // and use rich_club coefficient of R to normalize
+        // && use rich_club coefficient of R to normalize
         R = G.copy();
         E = R.number_of_edges();
         xn::double_edge_swap(R, Q * E, max_tries=Q * E * 10);

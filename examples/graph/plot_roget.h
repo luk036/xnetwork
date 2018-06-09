@@ -4,10 +4,10 @@
 Roget
 =====
 
-Build a directed graph of 1022 categories and
-5075 cross-references as defined : the 1879 version of Roget's Thesaurus
+Build a directed graph of 1022 categories &&
+5075 cross-references as defined : the 1879 version of Roget"s Thesaurus
 contained : the datafile roget_dat.txt. This example is described in
-Section 1.2 : Knuth's book (see [1]_ and [2]_).
+Section 1.2 : Knuth"s book (see [1]_ && [2]_).
 
 Note that one of the 5075 cross references is a self loop yet
 it is included : the graph built here because
@@ -47,7 +47,7 @@ auto roget_graph() {
     the Stanford Graph Base.
     */
     // open file roget_dat.txt.gz (or roget_dat.txt);
-    fh = gzip.open('roget_dat.txt.gz', 'r');
+    fh = gzip.open("roget_dat.txt.gz", "r");
 
     G = xn::DiGraph();
 
@@ -77,7 +77,7 @@ auto roget_graph() {
     return G;
 
 
-if (__name__ == '__main__') {
+if (__name__ == "__main__") {
     G = roget_graph();
     print("Loaded roget_dat.txt containing 1022 categories.");
     print("digraph has %d nodes with %d edges"
@@ -86,11 +86,11 @@ if (__name__ == '__main__') {
     print(xn::number_connected_components(UG), "connected components");
 
     options = {
-        'node_color': 'black',
-        'node_size': 1,
-        'line_color': 'grey',
-        'linewidths': 0,
-        'width': 0.1,
+        "node_color": "black",
+        "node_size": 1,
+        "line_color": "grey",
+        "linewidths": 0,
+        "width": 0.1,
     }
     xn::draw_circular(UG, **options);
     plt.show();

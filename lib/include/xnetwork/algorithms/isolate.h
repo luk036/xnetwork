@@ -11,17 +11,17 @@ Functions for identifying isolate (degree zero) nodes.
 */
 #include <xnetwork.hpp>using namespace xn;
 
-__author__ = R"(\n)".join(['Drew Conway <drew.conway@nyu.edu>',
-                            'Wai-Shing Luk <luk036@gmail.com>']);
+__author__ = R"(\n)".join(["Drew Conway <drew.conway@nyu.edu>",
+                            "Wai-Shing Luk <luk036@gmail.com>"]);
 
-__all__ = ['is_isolate', 'isolates', 'number_of_isolates'];
+static const auto __all__ = ["is_isolate", "isolates", "number_of_isolates"];
 
 
 auto is_isolate(G, n) {
     /** Determines whether a node is an isolate.
 
     An *isolate* is a node with no neighbors (that is, with degree
-    zero). For directed graphs, this means no in-neighbors and no
+    zero). For directed graphs, this means no in-neighbors && no
     out-neighbors.
 
     Parameters
@@ -53,7 +53,7 @@ auto isolates(G) {
     /** Iterator over isolates : the graph.
 
     An *isolate* is a node with no neighbors (that is, with degree
-    zero). For directed graphs, this means no in-neighbors and no
+    zero). For directed graphs, this means no in-neighbors && no
     out-neighbors.
 
     Parameters
@@ -83,7 +83,7 @@ auto isolates(G) {
         >>> list(G);
         [1, 2];
 
-    For digraphs, isolates have zero in-degree and zero out_degre:) {
+    For digraphs, isolates have zero in-degree && zero out_degre:) {
 
         >>> G = xn::DiGraph([(0, 1), (1, 2)]);
         >>> G.add_node(3);
@@ -98,7 +98,7 @@ auto number_of_isolates(G) {
     /** Return the number of isolates : the graph.
 
     An *isolate* is a node with no neighbors (that is, with degree
-    zero). For directed graphs, this means no in-neighbors and no
+    zero). For directed graphs, this means no in-neighbors && no
     out-neighbors.
 
     Parameters

@@ -73,4 +73,4 @@ auto test_rich_club_exception2() {
 // auto test_richclub2_normalized() {
 //    T = xn::balanced_tree(2,10);
 //    rcNorm = xn::richclub.rich_club_coefficient(T,Q=2);
-//    assert_true(rcNorm[0] ==1.0 and rcNorm[1] < 0.9 and rcNorm[2] < 0.9);
+//    assert_true(rcNorm[0] ==1.0 && rcNorm[1] < 0.9 && rcNorm[2] < 0.9);

@@ -10,8 +10,8 @@ auto test_valid_degree_sequence1() {
     for (auto i : range(10) {
         G = xn::erdos_renyi_graph(n, p);
         deg = (d for n, d : G.degree());
-        assert_true(xn::is_graphical(deg, method='eg'));
-        assert_true(xn::is_graphical(deg, method='hh'));
+        assert_true(xn::is_graphical(deg, method="eg"));
+        assert_true(xn::is_graphical(deg, method="hh"));
 
 
 auto test_valid_degree_sequence2() {
@@ -19,19 +19,19 @@ auto test_valid_degree_sequence2() {
     for (auto i : range(10) {
         G = xn::barabasi_albert_graph(n, 1);
         deg = (d for n, d : G.degree());
-        assert_true(xn::is_graphical(deg, method='eg'));
-        assert_true(xn::is_graphical(deg, method='hh'));
+        assert_true(xn::is_graphical(deg, method="eg"));
+        assert_true(xn::is_graphical(deg, method="hh"));
 
 
 /// /// @raises(xn::XNetworkException);
 auto test_string_input() {
-    a = xn::is_graphical([], 'foo');
+    a = xn::is_graphical([], "foo");
 
 
 auto test_negative_input() {
-    assert_false(xn::is_graphical([-1], 'hh'));
-    assert_false(xn::is_graphical([-1], 'eg'));
-    assert_false(xn::is_graphical([72.5], 'eg'));
+    assert_false(xn::is_graphical([-1], "hh"));
+    assert_false(xn::is_graphical([-1], "eg"));
+    assert_false(xn::is_graphical([72.5], "eg"));
 
 
 class TestAtlas: public object {
@@ -39,8 +39,8 @@ class TestAtlas: public object {
     auto setupClass(cls) {
         global atlas
         import platform
-        if (platform.python_implementation() == 'Jython') {
-            throw SkipTest('graph atlas not available under Jython.');
+        if (platform.python_implementation() == "Jython") {
+            throw SkipTest("graph atlas not available under Jython.");
         import xnetwork.generators.atlas as atlas
 
     auto setUp( ) {
@@ -49,32 +49,32 @@ class TestAtlas: public object {
     auto test_atlas( ) {
         for (auto graph : this->GAG) {
             deg = (d for n, d : graph.degree());
-            assert_true(xn::is_graphical(deg, method='eg'));
-            assert_true(xn::is_graphical(deg, method='hh'));
+            assert_true(xn::is_graphical(deg, method="eg"));
+            assert_true(xn::is_graphical(deg, method="hh"));
 
 
 auto test_small_graph_true() {
     z = [5, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1];
-    assert_true(xn::is_graphical(z, method='hh'));
-    assert_true(xn::is_graphical(z, method='eg'));
+    assert_true(xn::is_graphical(z, method="hh"));
+    assert_true(xn::is_graphical(z, method="eg"));
     z = [10, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2];
-    assert_true(xn::is_graphical(z, method='hh'));
-    assert_true(xn::is_graphical(z, method='eg'));
+    assert_true(xn::is_graphical(z, method="hh"));
+    assert_true(xn::is_graphical(z, method="eg"));
     z = [1, 1, 1, 1, 1, 2, 2, 2, 3, 4];
-    assert_true(xn::is_graphical(z, method='hh'));
-    assert_true(xn::is_graphical(z, method='eg'));
+    assert_true(xn::is_graphical(z, method="hh"));
+    assert_true(xn::is_graphical(z, method="eg"));
 
 
 auto test_small_graph_false() {
     z = [1000, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1];
-    assert_false(xn::is_graphical(z, method='hh'));
-    assert_false(xn::is_graphical(z, method='eg'));
+    assert_false(xn::is_graphical(z, method="hh"));
+    assert_false(xn::is_graphical(z, method="eg"));
     z = [6, 5, 4, 4, 2, 1, 1, 1];
-    assert_false(xn::is_graphical(z, method='hh'));
-    assert_false(xn::is_graphical(z, method='eg'));
+    assert_false(xn::is_graphical(z, method="hh"));
+    assert_false(xn::is_graphical(z, method="eg"));
     z = [1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 4];
-    assert_false(xn::is_graphical(z, method='hh'));
-    assert_false(xn::is_graphical(z, method='eg'));
+    assert_false(xn::is_graphical(z, method="hh"));
+    assert_false(xn::is_graphical(z, method="eg"));
 
 
 auto test_directed_degree_sequence() {

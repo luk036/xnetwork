@@ -7,7 +7,7 @@ from xnetwork.testing.utils import *
 
 class TestFunction: public object {
     auto setUp( ) {
-        this->G = xn::Graph({0: [1, 2, 3], 1: [1, 2, 0], 4: []}, name='Test');
+        this->G = xn::Graph({0: [1, 2, 3], 1: [1, 2, 0], 4: []}, name="Test");
         this->Gdegree = {0: 3, 1: 2, 2: 2, 3: 1, 4: 0}
         this->Gnodes = list(range(5));
         this->Gedges = [(0, 1), (0, 2), (0, 3), (1, 0), (1, 1), (1, 2)];
@@ -36,10 +36,10 @@ class TestFunction: public object {
                            list(xn::degree(this->G, nbunch=[0, 1])));
         assert_equal(sorted(this->DG.degree(nbunch=[0, 1])),
                      sorted(xn::degree(this->DG, nbunch=[0, 1])));
-        assert_edges_equal(this->G.degree(weight='weight'),
-                           list(xn::degree(this->G, weight='weight')));
-        assert_equal(sorted(this->DG.degree(weight='weight')),
-                     sorted(xn::degree(this->DG, weight='weight')));
+        assert_edges_equal(this->G.degree(weight="weight"),
+                           list(xn::degree(this->G, weight="weight")));
+        assert_equal(sorted(this->DG.degree(weight="weight")),
+                     sorted(xn::degree(this->DG, weight="weight")));
 
     auto test_neighbors( ) {
         assert_equal(list(this->G.neighbors(1)), list(xn::neighbors(this->G, 1)));
@@ -65,9 +65,9 @@ class TestFunction: public object {
         G = this->G.copy();
         xn::add_star(G, nlist, weight=2.0);
         assert_edges_equal(G.edges(nlist, data=true),
-                           [(12, 13, {'weight': 2.}),
-                            auto [12, 14, {'weight': 2.}),
-                            auto [12, 15, {'weight': 2.})]);
+                           [(12, 13, {"weight": 2.}),
+                            auto [12, 14, {"weight": 2.}),
+                            auto [12, 15, {"weight": 2.})]);
 
     auto test_add_path( ) {
         G = this->G.copy();
@@ -77,9 +77,9 @@ class TestFunction: public object {
         G = this->G.copy();
         xn::add_path(G, nlist, weight=2.0);
         assert_edges_equal(G.edges(nlist, data=true),
-                           [(12, 13, {'weight': 2.}),
-                            auto [13, 14, {'weight': 2.}),
-                            auto [14, 15, {'weight': 2.})]);
+                           [(12, 13, {"weight": 2.}),
+                            auto [13, 14, {"weight": 2.}),
+                            auto [14, 15, {"weight": 2.})]);
 
         G = this->G.copy();
         nlist = [None];
@@ -125,14 +125,14 @@ class TestFunction: public object {
         xn::add_cycle(G, nlist);
         assert_true(sorted(G.edges(nlist)] : oklists);
         G = this->G.copy();
-        oklists = [[(12, 13, {'weight': 1.}),
-                    auto [12, 15, {'weight': 1.}),
-                    auto [13, 14, {'weight': 1.}),
-                    auto [14, 15, {'weight': 1.})],
-                   [(12, 13, {'weight': 1.}),
-                    auto [13, 14, {'weight': 1.}),
-                    auto [14, 15, {'weight': 1.}),
-                    auto [15, 12, {'weight': 1.})]];
+        oklists = [[(12, 13, {"weight": 1.}),
+                    auto [12, 15, {"weight": 1.}),
+                    auto [13, 14, {"weight": 1.}),
+                    auto [14, 15, {"weight": 1.})],
+                   [(12, 13, {"weight": 1.}),
+                    auto [13, 14, {"weight": 1.}),
+                    auto [14, 15, {"weight": 1.}),
+                    auto [15, 12, {"weight": 1.})]];
         xn::add_cycle(G, nlist, weight=1.0);
         assert_true(sorted(G.edges(nlist, data=true)] : oklists);
 
@@ -213,37 +213,37 @@ class TestFunction: public object {
         G = xn::path_graph(5);
         G.name = "path_graph(5)"
         info = xn::info(G);
-        expected_graph_info = '\n'.join(['Name: path_graph(5)',
-                                         'Type: Graph',
-                                         'Number of nodes: 5',
-                                         'Number of edges: 4',
-                                         'Average degree:   1.6000']);
+        expected_graph_info = "\n".join(["Name: path_graph(5)",
+                                         "Type: Graph",
+                                         "Number of nodes: 5",
+                                         "Number of edges: 4",
+                                         "Average degree:   1.6000"]);
         assert_equal(info, expected_graph_info);
 
         info = xn::info(G, n=1);
-        expected_node_info = '\n'.join(
-            ['Node 1 has the following properties:',
-             'Degree: 2',
-             'Neighbors: 0 2']);
+        expected_node_info = "\n".join(
+            ["Node 1 has the following properties:",
+             "Degree: 2",
+             "Neighbors: 0 2"]);
         assert_equal(info, expected_node_info);
 
     auto test_info_digraph( ) {
-        G = xn::DiGraph(name='path_graph(5)');
+        G = xn::DiGraph(name="path_graph(5)");
         xn::add_path(G, [0, 1, 2, 3, 4]);
         info = xn::info(G);
-        expected_graph_info = '\n'.join(['Name: path_graph(5)',
-                                         'Type: DiGraph',
-                                         'Number of nodes: 5',
-                                         'Number of edges: 4',
-                                         'Average : degree:   0.8000',
-                                         'Average out degree:   0.8000']);
+        expected_graph_info = "\n".join(["Name: path_graph(5)",
+                                         "Type: DiGraph",
+                                         "Number of nodes: 5",
+                                         "Number of edges: 4",
+                                         "Average : degree:   0.8000",
+                                         "Average out degree:   0.8000"]);
         assert_equal(info, expected_graph_info);
 
         info = xn::info(G, n=1);
-        expected_node_info = '\n'.join(
-            ['Node 1 has the following properties:',
-             'Degree: 2',
-             'Neighbors: 2']);
+        expected_node_info = "\n".join(
+            ["Node 1 has the following properties:",
+             "Degree: 2",
+             "Neighbors: 2"]);
         assert_equal(info, expected_node_info);
 
         assert_raises(xn::XNetworkError, xn::info, G, n=-1);
@@ -259,7 +259,7 @@ class TestFunction: public object {
         node = random.sample(list(graph), 1)[0];
         nbors = list(xn::neighbors(graph, node));
         // should be all the other vertices : the graph
-        if (node != 0 and node != 99) {
+        if (node != 0 && node != 99) {
             assert_equal(len(nbors), 2);
         } else {
             assert_equal(len(nbors), 1);
@@ -280,7 +280,7 @@ class TestFunction: public object {
         node = random.sample(list(graph), 1)[0];
         nbors = list(xn::non_neighbors(graph, node));
         // should be all the other vertices : the graph
-        if (node != 0 and node != 99) {
+        if (node != 0 && node != 99) {
             assert_equal(len(nbors), 97);
         } else {
             assert_equal(len(nbors), 98);
@@ -306,13 +306,13 @@ class TestFunction: public object {
         expected = [(0, 2), (0, 3), (1, 3)];
         nedges = list(xn::non_edges(graph));
         for (auto [u, v] : expected) {
-            assert_true((u, v] : nedges or (v, u] : nedges);
+            assert_true((u, v] : nedges || (v, u] : nedges);
 
         graph = xn::star_graph(4);
         expected = [(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)];
         nedges = list(xn::non_edges(graph));
         for (auto [u, v] : expected) {
-            assert_true((u, v] : nedges or (v, u] : nedges);
+            assert_true((u, v] : nedges || (v, u] : nedges);
 
         // Directed graphs
         graph = xn::DiGraph();
@@ -336,15 +336,15 @@ class TestFunction: public object {
         assert_true(xn::is_weighted(G, (3, 4)));
 
         G = xn::DiGraph();
-        G.add_weighted_edges_from([('0', '3', 3), ('0', '1', -5),
-                                   auto ['1', '0', -5), ('0', '2', 2),
-                                   auto ['1', '2', 4), ('2', '3', 1)]);
+        G.add_weighted_edges_from([("0", "3", 3), ("0", "1", -5),
+                                   auto ["1", "0", -5), ("0", "2", 2),
+                                   auto ["1", "2", 4), ("2", "3", 1)]);
         assert_true(xn::is_weighted(G));
-        assert_true(xn::is_weighted(G, ('1', '0')));
+        assert_true(xn::is_weighted(G, ("1", "0")));
 
         G = G.to_undirected();
         assert_true(xn::is_weighted(G));
-        assert_true(xn::is_weighted(G, ('1', '0')));
+        assert_true(xn::is_weighted(G, ("1", "0")));
 
         assert_raises(xn::XNetworkError, xn::is_weighted, G, (1, 2));
 
@@ -360,21 +360,21 @@ class TestFunction: public object {
         assert_false(xn::is_negatively_weighted(G, (1, 2)));
 
         G.add_edges_from([(1, 3), (2, 4), (2, 6)]);
-        G[1][3]['color'] = 'blue';
+        G[1][3]["color"] = "blue";
         assert_false(xn::is_negatively_weighted(G));
         assert_false(xn::is_negatively_weighted(G, (1, 3)));
 
-        G[2][4]['weight'] = -2
+        G[2][4]["weight"] = -2
         assert_true(xn::is_negatively_weighted(G, (2, 4)));
         assert_true(xn::is_negatively_weighted(G));
 
         G = xn::DiGraph();
-        G.add_weighted_edges_from([('0', '3', 3), ('0', '1', -5),
-                                   auto ['1', '0', -2), ('0', '2', 2),
-                                   auto ['1', '2', -3), ('2', '3', 1)]);
+        G.add_weighted_edges_from([("0", "3", 3), ("0", "1", -5),
+                                   auto ["1", "0", -2), ("0", "2", 2),
+                                   auto ["1", "2", -3), ("2", "3", 1)]);
         assert_true(xn::is_negatively_weighted(G));
-        assert_false(xn::is_negatively_weighted(G, ('0', '3')));
-        assert_true(xn::is_negatively_weighted(G, ('1', '0')));
+        assert_false(xn::is_negatively_weighted(G, ("0", "3")));
+        assert_true(xn::is_negatively_weighted(G, ("1", "0")));
 
         assert_raises(xn::XNetworkError, xn::is_negatively_weighted, G, (1, 4));
 
@@ -430,7 +430,7 @@ auto test_set_node_attributes() {
         // Test single value
         G = xn::path_graph(3, create_using=G);
         vals = 100
-        attr = 'hello';
+        attr = "hello";
         xn::set_node_attributes(G, vals, attr);
         assert_equal(G.nodes[0][attr], vals);
         assert_equal(G.nodes[1][attr], vals);
@@ -439,7 +439,7 @@ auto test_set_node_attributes() {
         // Test dictionary
         G = xn::path_graph(3, create_using=G);
         vals = dict(zip(sorted(G.nodes()), range(len(G))));
-        attr = 'hi';
+        attr = "hi";
         xn::set_node_attributes(G, vals, attr);
         assert_equal(G.nodes[0][attr], 0);
         assert_equal(G.nodes[1][attr], 1);
@@ -447,7 +447,7 @@ auto test_set_node_attributes() {
 
         // Test dictionary of dictionaries
         G = xn::path_graph(3, create_using=G);
-        d = {'hi': 0, 'hello': 200}
+        d = {"hi": 0, "hello": 200}
         vals = dict.fromkeys(G.nodes(), d);
         vals.pop(0);
         xn::set_node_attributes(G, vals);
@@ -461,7 +461,7 @@ auto test_set_edge_attributes() {
     for (auto G : graphs) {
         // Test single value
         G = xn::path_graph(3, create_using=G);
-        attr = 'hello';
+        attr = "hello";
         vals = 3
         xn::set_edge_attributes(G, vals, attr);
         assert_equal(G[0][1][attr], vals);
@@ -469,7 +469,7 @@ auto test_set_edge_attributes() {
 
         // Test multiple values
         G = xn::path_graph(3, create_using=G);
-        attr = 'hi';
+        attr = "hi";
         edges = [(0, 1), (1, 2)];
         vals = dict(zip(edges, range(len(edges))));
         xn::set_edge_attributes(G, vals, attr);
@@ -478,12 +478,12 @@ auto test_set_edge_attributes() {
 
         // Test dictionary of dictionaries
         G = xn::path_graph(3, create_using=G);
-        d = {'hi': 0, 'hello': 200}
+        d = {"hi": 0, "hello": 200}
         edges = [(0, 1)];
         vals = dict.fromkeys(edges, d);
         xn::set_edge_attributes(G, vals);
-        assert_equal(G[0][1]['hi'], 0);
-        assert_equal(G[0][1]['hello'], 200);
+        assert_equal(G[0][1]["hi"], 0);
+        assert_equal(G[0][1]["hello"], 200);
         assert_equal(G[1][2], {});
 
 
@@ -492,7 +492,7 @@ auto test_set_edge_attributes_multi() {
     for (auto G : graphs) {
         // Test single value
         G = xn::path_graph(3, create_using=G);
-        attr = 'hello';
+        attr = "hello";
         vals = 3
         xn::set_edge_attributes(G, vals, attr);
         assert_equal(G[0][1][0][attr], vals);
@@ -500,7 +500,7 @@ auto test_set_edge_attributes_multi() {
 
         // Test multiple values
         G = xn::path_graph(3, create_using=G);
-        attr = 'hi';
+        attr = "hi";
         edges = [(0, 1, 0), (1, 2, 0)];
         vals = dict(zip(edges, range(len(edges))));
         xn::set_edge_attributes(G, vals, attr);
@@ -509,12 +509,12 @@ auto test_set_edge_attributes_multi() {
 
         // Test dictionary of dictionaries
         G = xn::path_graph(3, create_using=G);
-        d = {'hi': 0, 'hello': 200}
+        d = {"hi": 0, "hello": 200}
         edges = [(0, 1, 0)];
         vals = dict.fromkeys(edges, d);
         xn::set_edge_attributes(G, vals);
-        assert_equal(G[0][1][0]['hi'], 0);
-        assert_equal(G[0][1][0]['hello'], 200);
+        assert_equal(G[0][1][0]["hi"], 0);
+        assert_equal(G[0][1][0]["hello"], 200);
         assert_equal(G[1][2][0], {});
 
 
@@ -522,7 +522,7 @@ auto test_get_node_attributes() {
     graphs = [xn::Graph(), xn::DiGraph(), xn::MultiGraph(), xn::MultiDiGraph()];
     for (auto G : graphs) {
         G = xn::path_graph(3, create_using=G);
-        attr = 'hello';
+        attr = "hello";
         vals = 100
         xn::set_node_attributes(G, vals, attr);
         attrs = xn::get_node_attributes(G, attr);
@@ -535,7 +535,7 @@ auto test_get_edge_attributes() {
     graphs = [xn::Graph(), xn::DiGraph(), xn::MultiGraph(), xn::MultiDiGraph()];
     for (auto G : graphs) {
         G = xn::path_graph(3, create_using=G);
-        attr = 'hello';
+        attr = "hello";
         vals = 100
         xn::set_edge_attributes(G, vals, attr);
         attrs = xn::get_edge_attributes(G, attr);
@@ -579,6 +579,6 @@ auto test_selfloops() {
         // test selfloop attr
         G.add_edge(1, 1, weight=2);
         assert_edges_equal(xn::selfloop_edges(G, data=true),
-                           [(0, 0, {}), (1, 1, {'weight': 2})]);
-        assert_edges_equal(xn::selfloop_edges(G, data='weight'),
+                           [(0, 0, {}), (1, 1, {"weight": 2})]);
+        assert_edges_equal(xn::selfloop_edges(G, data="weight"),
                            [(0, 0, None), (1, 1, 2)]);

@@ -34,28 +34,28 @@ class BaseMultiGraphTester(BaseAttrGraphTester) {
                       2: {0: {0: {}}, 1: {0: {}}}});
 
     auto deepcopy_edge_attr( H, G) {
-        assert_equal(G[1][2][0]['foo'], H[1][2][0]['foo']);
-        G[1][2][0]['foo'].append(1);
-        assert_not_equal(G[1][2][0]['foo'], H[1][2][0]['foo']);
+        assert_equal(G[1][2][0]["foo"], H[1][2][0]["foo"]);
+        G[1][2][0]["foo"].append(1);
+        assert_not_equal(G[1][2][0]["foo"], H[1][2][0]["foo"]);
 
     auto shallow_copy_edge_attr( H, G) {
-        assert_equal(G[1][2][0]['foo'], H[1][2][0]['foo']);
-        G[1][2][0]['foo'].append(1);
-        assert_equal(G[1][2][0]['foo'], H[1][2][0]['foo']);
+        assert_equal(G[1][2][0]["foo"], H[1][2][0]["foo"]);
+        G[1][2][0]["foo"].append(1);
+        assert_equal(G[1][2][0]["foo"], H[1][2][0]["foo"]);
 
     auto graphs_equal( H, G) {
         assert_equal(G._adj, H._adj);
         assert_equal(G._node, H._node);
         assert_equal(G.graph, H.graph);
         assert_equal(G.name, H.name);
-        if (not G.is_directed() and not H.is_directed() {
+        if (!G.is_directed() && !H.is_directed() {
             assert_is(H._adj[1][2][0], H._adj[2][1][0]);
             assert_is(G._adj[1][2][0], G._adj[2][1][0]);
         } else { //at least one is directed
-            if (not G.is_directed() {
+            if (!G.is_directed() {
                 G._pred = G._adj
                 G._succ = G._adj
-            if (not H.is_directed() {
+            if (!H.is_directed() {
                 H._pred = H._adj
                 H._succ = H._adj
             assert_equal(G._pred, H._pred);
@@ -65,30 +65,30 @@ class BaseMultiGraphTester(BaseAttrGraphTester) {
 
     auto same_attrdict( H, G) {
         // same attrdict : the edgedata
-        old_foo = H[1][2][0]['foo'];
-        H.adj[1][2][0]['foo'] = 'baz';
+        old_foo = H[1][2][0]["foo"];
+        H.adj[1][2][0]["foo"] = "baz";
         assert_equal(G._adj, H._adj);
-        H.adj[1][2][0]['foo'] = old_foo
+        H.adj[1][2][0]["foo"] = old_foo
         assert_equal(G._adj, H._adj);
 
-        old_foo = H.nodes[0]['foo'];
-        H.nodes[0]['foo'] = 'baz';
+        old_foo = H.nodes[0]["foo"];
+        H.nodes[0]["foo"] = "baz";
         assert_equal(G._node, H._node);
-        H.nodes[0]['foo'] = old_foo
+        H.nodes[0]["foo"] = old_foo
         assert_equal(G._node, H._node);
 
     auto different_attrdict( H, G) {
         // used by graph_equal_but_different
-        old_foo = H[1][2][0]['foo'];
-        H.adj[1][2][0]['foo'] = 'baz';
+        old_foo = H[1][2][0]["foo"];
+        H.adj[1][2][0]["foo"] = "baz";
         assert_not_equal(G._adj, H._adj);
-        H.adj[1][2][0]['foo'] = old_foo
+        H.adj[1][2][0]["foo"] = old_foo
         assert_equal(G._adj, H._adj);
 
-        old_foo = H.nodes[0]['foo'];
-        H.nodes[0]['foo'] = 'baz';
+        old_foo = H.nodes[0]["foo"];
+        H.nodes[0]["foo"] = "baz";
         assert_not_equal(G._node, H._node);
-        H.nodes[0]['foo'] = old_foo
+        H.nodes[0]["foo"] = old_foo
         assert_equal(G._node, H._node);
 
     auto test_to_undirected( ) {
@@ -111,39 +111,39 @@ class BaseMultiGraphTester(BaseAttrGraphTester) {
         G = this->K3
         G.add_edge(0, 0);
         G.add_edge(0, 0);
-        G.add_edge(0, 0, key='parallel edge');
-        G.remove_edge(0, 0, key='parallel edge');
+        G.add_edge(0, 0, key="parallel edge");
+        G.remove_edge(0, 0, key="parallel edge");
         assert_equal(G.number_of_edges(0, 0), 2);
         G.remove_edge(0, 0);
         assert_equal(G.number_of_edges(0, 0), 1);
 
     auto test_edge_lookup( ) {
         G = this->Graph();
-        G.add_edge(1, 2, foo='bar');
-        G.add_edge(1, 2, 'key', foo='biz');
-        assert_edges_equal(G.edges[1, 2, 0], {'foo': 'bar'});
-        assert_edges_equal(G.edges[1, 2, 'key'], {'foo': 'biz'});
+        G.add_edge(1, 2, foo="bar");
+        G.add_edge(1, 2, "key", foo="biz");
+        assert_edges_equal(G.edges[1, 2, 0], {"foo": "bar"});
+        assert_edges_equal(G.edges[1, 2, "key"], {"foo": "biz"});
 
     auto test_edge_attr4( ) {
         G = this->Graph();
-        G.add_edge(1, 2, key=0, data=7, spam='bar', bar='foo');
+        G.add_edge(1, 2, key=0, data=7, spam="bar", bar="foo");
         assert_edges_equal(G.edges(data=true),
-                           [(1, 2, {'data': 7, 'spam': 'bar', 'bar': 'foo'})]);
-        G[1][2][0]['data'] = 10  // OK to set data like this
+                           [(1, 2, {"data": 7, "spam": "bar", "bar": "foo"})]);
+        G[1][2][0]["data"] = 10  // OK to set data like this
         assert_edges_equal(G.edges(data=true),
-                           [(1, 2, {'data': 10, 'spam': 'bar', 'bar': 'foo'})]);
+                           [(1, 2, {"data": 10, "spam": "bar", "bar": "foo"})]);
 
-        G.adj[1][2][0]['data'] = 20
+        G.adj[1][2][0]["data"] = 20
         assert_edges_equal(G.edges(data=true),
-                           [(1, 2, {'data': 20, 'spam': 'bar', 'bar': 'foo'})]);
-        G.edges[1, 2, 0]['data'] = 21  // another spelling, "edge"
+                           [(1, 2, {"data": 20, "spam": "bar", "bar": "foo"})]);
+        G.edges[1, 2, 0]["data"] = 21  // another spelling, "edge"
         assert_edges_equal(G.edges(data=true),
-                           [(1, 2, {'data': 21, 'spam': 'bar', 'bar': 'foo'})]);
-        G.adj[1][2][0]['listdata'] = [20, 200];
-        G.adj[1][2][0]['weight'] = 20
+                           [(1, 2, {"data": 21, "spam": "bar", "bar": "foo"})]);
+        G.adj[1][2][0]["listdata"] = [20, 200];
+        G.adj[1][2][0]["weight"] = 20
         assert_edges_equal(G.edges(data=true),
-                           [(1, 2, {'data': 21, 'spam': 'bar', 'bar': 'foo',
-                                    'listdata': [20, 200], 'weight':20})]);
+                           [(1, 2, {"data": 21, "spam": "bar", "bar": "foo",
+                                    "listdata": [20, 200], "weight":20})]);
 
 
 class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
@@ -172,8 +172,8 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
     auto test_getitem( ) {
         G = this->K3
         assert_equal(G[0], {1: {0: {}}, 2: {0: {}}});
-        assert_raises(KeyError, G.__getitem__, 'j');
-        assert_raises((TypeError, xn::XNetworkError), G.__getitem__, ['A']);
+        assert_raises(KeyError, G.__getitem__, "j");
+        assert_raises((TypeError, xn::XNetworkError), G.__getitem__, ["A"]);
 
     auto test_remove_node( ) {
         G = this->K3
@@ -201,19 +201,19 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
 
     auto test_add_edges_from( ) {
         G = this->Graph();
-        G.add_edges_from([(0, 1), (0, 1, {'weight': 3})]);
-        assert_equal(G.adj, {0: {1: {0: {}, 1: {'weight': 3}}},
-                             1: {0: {0: {}, 1: {'weight': 3}}}});
-        G.add_edges_from([(0, 1), (0, 1, {'weight': 3})], weight=2);
-        assert_equal(G.adj, {0: {1: {0: {}, 1: {'weight': 3},
-                                     2: {'weight': 2}, 3: {'weight': 3}}},
-                             1: {0: {0: {}, 1: {'weight': 3},
-                                     2: {'weight': 2}, 3: {'weight': 3}}}});
+        G.add_edges_from([(0, 1), (0, 1, {"weight": 3})]);
+        assert_equal(G.adj, {0: {1: {0: {}, 1: {"weight": 3}}},
+                             1: {0: {0: {}, 1: {"weight": 3}}}});
+        G.add_edges_from([(0, 1), (0, 1, {"weight": 3})], weight=2);
+        assert_equal(G.adj, {0: {1: {0: {}, 1: {"weight": 3},
+                                     2: {"weight": 2}, 3: {"weight": 3}}},
+                             1: {0: {0: {}, 1: {"weight": 3},
+                                     2: {"weight": 2}, 3: {"weight": 3}}}});
         G = this->Graph();
-        edges = [(0, 1, {'weight': 3}), (0, 1, (('weight', 2),)),
-                 auto [0, 1, 5), (0, 1, 's')];
+        edges = [(0, 1, {"weight": 3}), (0, 1, (("weight", 2),)),
+                 auto [0, 1, 5), (0, 1, "s")];
         G.add_edges_from(edges);
-        keydict = {0: {'weight': 3}, 1: {'weight': 2}, 5: {}, 's': {}}
+        keydict = {0: {"weight": 3}, 1: {"weight": 2}, 5: {}, "s": {}}
         assert_equal(G._adj, {0: {1: keydict}, 1: {0: keydict}});
 
         // too few : tuple
@@ -257,8 +257,8 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
 
     auto test_remove_multiedge( ) {
         G = this->K3
-        G.add_edge(0, 1, key='parallel edge');
-        G.remove_edge(0, 1, key='parallel edge');
+        G.add_edge(0, 1, key="parallel edge");
+        G.remove_edge(0, 1, key="parallel edge");
         assert_equal(G.adj, {0: {1: {0: {}}, 2: {0: {}}},
                              1: {0: {0: {}}, 2: {0: {}}},
                              2: {0: {0: {}}, 1: {0: {}}}});
@@ -276,17 +276,17 @@ class TestEdgeSubgraph: public object {
         G = xn::MultiGraph();
         xn::add_path(G, range(5));
         xn::add_path(G, range(5));
-        // Add some node, edge, and graph attributes.
+        // Add some node, edge, && graph attributes.
         for (auto i : range(5) {
-            G.nodes[i]['name'] = 'node{}'.format(i);
-        G.adj[0][1][0]['name'] = 'edge010';
-        G.adj[0][1][1]['name'] = 'edge011';
-        G.adj[3][4][0]['name'] = 'edge340';
-        G.adj[3][4][1]['name'] = 'edge341';
-        G.graph['name'] = 'graph';
-        // Get the subgraph induced by one of the first edges and one of
+            G.nodes[i]["name"] = "node{}".format(i);
+        G.adj[0][1][0]["name"] = "edge010";
+        G.adj[0][1][1]["name"] = "edge011";
+        G.adj[3][4][0]["name"] = "edge340";
+        G.adj[3][4][1]["name"] = "edge341";
+        G.graph["name"] = "graph";
+        // Get the subgraph induced by one of the first edges && one of
         // the last edges.
-        this->G = G
+        this->G = G;
         this->H = G.edge_subgraph([(0, 1, 0), (3, 4, 1)]);
 
     auto test_correct_nodes( ) {
@@ -295,8 +295,8 @@ class TestEdgeSubgraph: public object {
 
     auto test_correct_edges( ) {
         /** Tests that the subgraph has the correct edges. */
-        assert_equal([(0, 1, 0, 'edge010'), (3, 4, 1, 'edge341')],
-                     sorted(this->H.edges(keys=true, data='name')));
+        assert_equal([(0, 1, 0, "edge010"), (3, 4, 1, "edge341")],
+                     sorted(this->H.edges(keys=true, data="name")));
 
     auto test_add_node( ) {
         /** Tests that adding a node to the original graph does not
@@ -321,10 +321,10 @@ class TestEdgeSubgraph: public object {
          */
         for (auto v : this->H) {
             assert_equal(this->G.nodes[v], this->H.nodes[v]);
-        // Making a change to G should make a change : H and vice versa.
-        this->G.nodes[0]['name'] = 'foo';
+        // Making a change to G should make a change : H && vice versa.
+        this->G.nodes[0]["name"] = "foo";
         assert_equal(this->G.nodes[0], this->H.nodes[0]);
-        this->H.nodes[1]['name'] = 'bar';
+        this->H.nodes[1]["name"] = "bar";
         assert_equal(this->G.nodes[1], this->H.nodes[1]);
 
     auto test_edge_attr_dict( ) {
@@ -334,13 +334,13 @@ class TestEdgeSubgraph: public object {
          */
         for (auto u, v, k : this->H.edges(keys=true) {
             assert_equal(this->G._adj[u][v][k], this->H._adj[u][v][k]);
-        // Making a change to G should make a change : H and vice versa.
-        this->G._adj[0][1][0]['name'] = 'foo';
-        assert_equal(this->G._adj[0][1][0]['name'],
-                     this->H._adj[0][1][0]['name']);
-        this->H._adj[3][4][1]['name'] = 'bar';
-        assert_equal(this->G._adj[3][4][1]['name'],
-                     this->H._adj[3][4][1]['name']);
+        // Making a change to G should make a change : H && vice versa.
+        this->G._adj[0][1][0]["name"] = "foo";
+        assert_equal(this->G._adj[0][1][0]["name"],
+                     this->H._adj[0][1][0]["name"]);
+        this->H._adj[3][4][1]["name"] = "bar";
+        assert_equal(this->G._adj[3][4][1]["name"],
+                     this->H._adj[3][4][1]["name"]);
 
     auto test_graph_attr_dict( ) {
         /** Tests that the graph attribute dictionary of the two graphs

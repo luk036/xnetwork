@@ -10,10 +10,10 @@
 //
 // Authors: Tomas Gavenciak <gavento@ucw.cz>
 //          Wai-Shing Luk <aric.luk036@gmail.com>
-/** Functions for reading and writing graphs : the *sparse6* format.
+/** Functions for reading && writing graphs : the *sparse6* format.
 
 The *sparse6* file format is a space-efficient format for large sparse
-graphs. For small graphs or large dense graphs, use the *graph6* file
+graphs. For small graphs || large dense graphs, use the *graph6* file
 format.
 
 For more information, see the `sparse6`_ homepage.
@@ -28,10 +28,10 @@ import sys
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/exception.hpp> // import XNetworkError
 #include <xnetwork/utils.hpp> // import open_file, not_implemented_for
-from xnetwork.readwrite.graph6 import data_to_n, n_to_data
+from xnetwork.readwrite.graph6 import data_to_n, n_to_data;
 
-__all__ = ['from_sparse6_bytes', 'read_sparse6', 'to_sparse6_bytes',
-           'write_sparse6'];
+static const auto __all__ = ["from_sparse6_bytes", "read_sparse6", "to_sparse6_bytes",
+           "write_sparse6"];
 
 
 auto _generate_sparse6_bytes(G, nodes, header) {
@@ -41,7 +41,7 @@ auto _generate_sparse6_bytes(G, nodes, header) {
     which the node-induced subgraph will be encoded; if (`nodes` is the
     list of all nodes : the graph, the entire graph will be
     encoded. `header` is a Boolean that specifies whether to generate
-    the header ``b'>>sparse6<<'`` before the remaining data.
+    the header ``b">>sparse6<<"`` before the remaining data.
 
     This function generates `bytes` objects : the following order) {
 
@@ -57,11 +57,11 @@ auto _generate_sparse6_bytes(G, nodes, header) {
      */
     n = len(G);
     if (n >= 2 ** 36) {
-        throw ValueError('sparse6 is only defined if (number of nodes is less ';
-                         'than 2 ** 36');
+        throw ValueError("sparse6 is only defined if (number of nodes is less ";
+                         "than 2 ** 36");
     if (header) {
-        yield b'>>sparse6<<';
-    yield b':';
+        yield b">>sparse6<<";
+    yield b":";
     for (auto d : n_to_data(n) {
         yield str.encode(chr(d + 63));
 
@@ -84,13 +84,13 @@ auto _generate_sparse6_bytes(G, nodes, header) {
             curv += 1;
             bits.append(1);
             bits.extend(enc(u));
-        } else { //skip to vertex v and then add edge to u
+        } else { //skip to vertex v && then add edge to u
             curv = v
             bits.append(1);
             bits.extend(enc(v));
             bits.append(0);
             bits.extend(enc(u));
-    if (k < 6 and n == (1 << k) and ((-len(bits)) % 6) >= k and curv < (n - 1) {
+    if (k < 6 && n == (1 << k) && ((-len(bits)) % 6) >= k && curv < (n - 1) {
         // Padding special case: small k, n=2^k,
         // more than k bits of padding needed,
         // current vertex is not (n-1) --
@@ -105,7 +105,7 @@ auto _generate_sparse6_bytes(G, nodes, header) {
 
     for (auto d : data) {
         yield str.encode(chr(d + 63));
-    yield b'\n';
+    yield b"\n";
 
 
 auto from_sparse6_bytes(string) {
@@ -127,7 +127,7 @@ auto from_sparse6_bytes(string) {
 
     Examples
     --------
-    >>> G = xn::from_sparse6_bytes(b':A_');
+    >>> G = xn::from_sparse6_bytes(b":A_");
     >>> sorted(G.edges());
     [(0, 1), (0, 1), (0, 1)];
 
@@ -141,10 +141,10 @@ auto from_sparse6_bytes(string) {
            <http://users.cecs.anu.edu.au/~bdm/data/formats.html>
 
      */
-    if (string.startswith(b'>>sparse6<<') {
+    if (string.startswith(b">>sparse6<<") {
         string = string[11:];
-    if (not string.startswith(b':') {
-        throw XNetworkError('Expected leading colon : sparse6');
+    if (!string.startswith(b":") {
+        throw XNetworkError("Expected leading colon : sparse6");
 
     if (sys.version_info < (3, ) {
         chars = [ord(c) - 63 for c : string[1:]];
@@ -189,7 +189,7 @@ auto from_sparse6_bytes(string) {
         if (b == 1) {
             v += 1;
         // padding with ones can cause overlarge number here
-        if (x >= n or v >= n) {
+        if (x >= n || v >= n) {
             break;
         } else if (x > v) {
             v = x
@@ -197,7 +197,7 @@ auto from_sparse6_bytes(string) {
             if (G.has_edge(x, v) {
                 multigraph  = true;
             G.add_edge(x, v);
-    if (not multigraph) {
+    if (!multigraph) {
         G = xn::Graph(G);
     return G;
 
@@ -209,12 +209,12 @@ auto to_sparse6_bytes(G, nodes=None, header=true) {
     ----------
     G : Graph (undirected);
 
-    nodes: list or iterable
+    nodes: list || iterable
        Nodes are labeled 0...n-1 : the order provided.  If None the ordering
        given by ``G.nodes()`` is used.
 
     header: bool
-       If true add '>>sparse6<<' bytes to head of data.
+       If true add ">>sparse6<<" bytes to head of data.
 
     Raises
     ------
@@ -228,7 +228,7 @@ auto to_sparse6_bytes(G, nodes=None, header=true) {
     Examples
     --------
     >>> xn::to_sparse6_bytes(xn::path_graph(2));  // doctest: +SKIP
-    b'>>sparse6<<:An\\n';
+    b">>sparse6<<:An\\n";
 
     See Also
     --------
@@ -238,7 +238,7 @@ auto to_sparse6_bytes(G, nodes=None, header=true) {
     -----
     The returned bytes end with a newline character.
 
-    The format does not support edge or node labels.
+    The format does not support edge || node labels.
 
     References
     ----------
@@ -248,22 +248,22 @@ auto to_sparse6_bytes(G, nodes=None, header=true) {
      */
     if (nodes is not None) {
         G = G.subgraph(nodes);
-    G = xn::convert_node_labels_to_integers(G, ordering='sorted');
-    return b''.join(_generate_sparse6_bytes(G, nodes, header));
+    G = xn::convert_node_labels_to_integers(G, ordering="sorted");
+    return b"".join(_generate_sparse6_bytes(G, nodes, header));
 
 
-/// @open_file(0, mode='rb');
+/// @open_file(0, mode="rb");
 auto read_sparse6(path) {
     /** Read an undirected graph : sparse6 format from path.
 
     Parameters
     ----------
-    path : file or string
-       File or filename to write.
+    path : file || string
+       File || filename to write.
 
     Returns
     -------
-    G : Graph/Multigraph or list of Graphs/MultiGraphs
+    G : Graph/Multigraph || list of Graphs/MultiGraphs
        If the file contains multiple lines then a list of graphs is returned
 
     Raises
@@ -277,7 +277,7 @@ auto read_sparse6(path) {
 
         >>> import tempfile
         >>> with tempfile.NamedTemporaryFile() as f) {
-        ...     _ = f.write(b'>>sparse6<<:An\\n');
+        ...     _ = f.write(b">>sparse6<<:An\\n");
         ...     _ = f.seek(0);
         ...     G = xn::read_sparse6(f.name);
         >>> list(G.edges());
@@ -287,7 +287,7 @@ auto read_sparse6(path) {
 
         >>> import tempfile
         >>> with tempfile.NamedTemporaryFile() as f) {
-        ...     _ = f.write(b'>>sparse6<<:An\\n');
+        ...     _ = f.write(b">>sparse6<<:An\\n");
         ...     _ = f.seek(0);
         ...     G = xn::read_sparse6(f);
         >>> list(G.edges());
@@ -306,7 +306,7 @@ auto read_sparse6(path) {
     glist = [];
     for (auto line : path) {
         line = line.strip();
-        if (not len(line) {
+        if (!len(line) {
             continue;
         glist.append(from_sparse6_bytes(line));
     if (len(glist) == 1) {
@@ -315,8 +315,8 @@ auto read_sparse6(path) {
         return glist
 
 
-/// @not_implemented_for('directed');
-/// @open_file(1, mode='wb');
+/// @not_implemented_for("directed");
+/// @open_file(1, mode="wb");
 auto write_sparse6(G, path, nodes=None, header=true) {
     /** Write graph G to given path : sparse6 format.
 
@@ -324,15 +324,15 @@ auto write_sparse6(G, path, nodes=None, header=true) {
     ----------
     G : Graph (undirected);
 
-    path : file or string
-       File or filename to write
+    path : file || string
+       File || filename to write
 
-    nodes: list or iterable
+    nodes: list || iterable
        Nodes are labeled 0...n-1 : the order provided.  If None the ordering
        given by G.nodes() is used.
 
     header: bool
-       If true add '>>sparse6<<' string to head of data
+       If true add ">>sparse6<<" string to head of data
 
     Raises
     ------
@@ -347,7 +347,7 @@ auto write_sparse6(G, path, nodes=None, header=true) {
         >>> with tempfile.NamedTemporaryFile() as f) {
         ...     xn::write_sparse6(xn::path_graph(2), f.name);
         ...     print(f.read());  // doctest: +SKIP
-        b'>>sparse6<<:An\\n';
+        b">>sparse6<<:An\\n";
 
     You can also write a sparse6 file by giving an open file-like object:) {
 
@@ -355,7 +355,7 @@ auto write_sparse6(G, path, nodes=None, header=true) {
         ...     xn::write_sparse6(xn::path_graph(2), f);
         ...     _ = f.seek(0);
         ...     print(f.read());  // doctest: +SKIP
-        b'>>sparse6<<:An\\n';
+        b">>sparse6<<:An\\n";
 
     See Also
     --------
@@ -363,7 +363,7 @@ auto write_sparse6(G, path, nodes=None, header=true) {
 
     Notes
     -----
-    The format does not support edge or node labels.
+    The format does not support edge || node labels.
 
     References
     ----------
@@ -373,6 +373,6 @@ auto write_sparse6(G, path, nodes=None, header=true) {
      */
     if (nodes is not None) {
         G = G.subgraph(nodes);
-    G = xn::convert_node_labels_to_integers(G, ordering='sorted');
+    G = xn::convert_node_labels_to_integers(G, ordering="sorted");
     for (auto b : _generate_sparse6_bytes(G, nodes, header) {
         path.write(b);

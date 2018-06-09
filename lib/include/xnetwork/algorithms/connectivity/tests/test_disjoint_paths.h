@@ -1,4 +1,4 @@
-// test_disjoint_paths.py - Tests for flow based node and edge disjoint paths.
+// test_disjoint_paths.py - Tests for flow based node && edge disjoint paths.
 // 
 // Copyright 2016 XNetwork developers.
 // 
@@ -20,7 +20,7 @@ flow_funcs = [
     flow.shortest_augmenting_path,
 ];
 
-msg = "Assertion failed : function: {0}"
+const auto msg = "Assertion failed : function: {0}"
 
 
 auto is_path(G, path) {
@@ -28,7 +28,7 @@ auto is_path(G, path) {
 
 
 auto are_edge_disjoint_paths(G, paths) {
-    if (not paths) {
+    if (!paths) {
         return false;
     for (auto path : paths) {
         assert_true(is_path(G, path));
@@ -41,11 +41,11 @@ auto are_edge_disjoint_paths(G, paths) {
 
 
 auto are_node_disjoint_paths(G, paths) {
-    if (not paths) {
+    if (!paths) {
         return false;
     for (auto path : paths) {
         assert_true(is_path(G, path));
-    // first and last nodes are source and target
+    // first && last nodes are source && target
     st = {paths[0][0], paths[0][-1]}
     num_of_nodes = len([n for path : paths for n : path if (n not : st]);
     num_unique_nodes = len({n for path : paths for n : path if (n not : st});
@@ -57,25 +57,25 @@ auto are_node_disjoint_paths(G, paths) {
 auto test_graph_from_pr_2053() {
     G = xn::Graph();
     G.add_edges_from([
-        auto ['A', 'B'), ('A', 'D'), ('A', 'F'), ('A', 'G'),
-        auto ['B', 'C'), ('B', 'D'), ('B', 'G'), ('C', 'D'),
-        auto ['C', 'E'), ('C', 'Z'), ('D', 'E'), ('D', 'F'),
-        auto ['E', 'F'), ('E', 'Z'), ('F', 'Z'), ('G', 'Z')]);
+        auto ["A", "B"), ("A", "D"), ("A", "F"), ("A", "G"),
+        auto ["B", "C"), ("B", "D"), ("B", "G"), ("C", "D"),
+        auto ["C", "E"), ("C", "Z"), ("D", "E"), ("D", "F"),
+        auto ["E", "F"), ("E", "Z"), ("F", "Z"), ("G", "Z")]);
     for (auto flow_func : flow_funcs) {
         kwargs = dict(flow_func=flow_func);
         // edge disjoint paths
-        edge_paths = list(xn::edge_disjoint_paths(G, 'A', 'Z', **kwargs));
+        edge_paths = list(xn::edge_disjoint_paths(G, "A", "Z", **kwargs));
         assert_true(are_edge_disjoint_paths(G, edge_paths), msg=msg.format(flow_func.__name__));
         assert_equal(
-            xn::edge_connectivity(G, 'A', 'Z'),
+            xn::edge_connectivity(G, "A", "Z"),
             len(edge_paths),
             msg=msg.format(flow_func.__name__),
         );
         // node disjoint paths
-        node_paths = list(xn::node_disjoint_paths(G, 'A', 'Z', **kwargs));
+        node_paths = list(xn::node_disjoint_paths(G, "A", "Z", **kwargs));
         assert_true(are_node_disjoint_paths(G, node_paths), msg=msg.format(flow_func.__name__));
         assert_equal(
-            xn::node_connectivity(G, 'A', 'Z'),
+            xn::node_connectivity(G, "A", "Z"),
             len(node_paths),
             msg=msg.format(flow_func.__name__),
         );
@@ -86,18 +86,18 @@ auto test_florentine_families() {
     for (auto flow_func : flow_funcs) {
         kwargs = dict(flow_func=flow_func);
         // edge disjoint paths
-        edge_dpaths = list(xn::edge_disjoint_paths(G, 'Medici', 'Strozzi', **kwargs));
+        edge_dpaths = list(xn::edge_disjoint_paths(G, "Medici", "Strozzi", **kwargs));
         assert_true(are_edge_disjoint_paths(G, edge_dpaths), msg=msg.format(flow_func.__name__));
         assert_equal(
-            xn::edge_connectivity(G, 'Medici', 'Strozzi'),
+            xn::edge_connectivity(G, "Medici", "Strozzi"),
             len(edge_dpaths),
             msg=msg.format(flow_func.__name__),
         );
         // node disjoint paths
-        node_dpaths = list(xn::node_disjoint_paths(G, 'Medici', 'Strozzi', **kwargs));
+        node_dpaths = list(xn::node_disjoint_paths(G, "Medici", "Strozzi", **kwargs));
         assert_true(are_node_disjoint_paths(G, node_dpaths), msg=msg.format(flow_func.__name__));
         assert_equal(
-            xn::node_connectivity(G, 'Medici', 'Strozzi'),
+            xn::node_connectivity(G, "Medici", "Strozzi"),
             len(node_dpaths),
             msg=msg.format(flow_func.__name__),
         );
@@ -172,7 +172,7 @@ auto test_cutoff_disjoint_paths() {
     for (auto flow_func : flow_funcs) {
         kwargs = dict(flow_func=flow_func);
         for (auto cutoff : [2, 4]) {
-            kwargs['cutoff'] = cutoff
+            kwargs["cutoff"] = cutoff
             // edge disjoint paths
             edge_dpaths = list(xn::edge_disjoint_paths(G, 0, 6, **kwargs));
             assert_true(are_edge_disjoint_paths(G, edge_dpaths), msg=msg.format(flow_func.__name__));

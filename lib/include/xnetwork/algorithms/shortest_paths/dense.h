@@ -12,24 +12,24 @@
 //
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['floyd_warshall',
-           'floyd_warshall_predecessor_and_distance',
-           'reconstruct_path',
-           'floyd_warshall_numpy'];
+static const auto __all__ = ["floyd_warshall",
+           "floyd_warshall_predecessor_and_distance",
+           "reconstruct_path",
+           "floyd_warshall_numpy"];
 
 
-auto floyd_warshall_numpy(G, nodelist=None, weight='weight') {
-    /** Find all-pairs shortest path lengths using Floyd's algorithm.
+auto floyd_warshall_numpy(G, nodelist=None, weight="weight") {
+    /** Find all-pairs shortest path lengths using Floyd"s algorithm.
 
     Parameters
     ----------
     G : XNetwork graph
 
     nodelist : list, optional
-       The rows and columns are ordered by the nodes : nodelist.
-       If nodelist is None then the ordering is produced by G.nodes().
+       The rows && columns are ordered by the nodes : nodelist.
+       If nodelist.empty() then the ordering is produced by G.nodes().
 
-    weight: string, optional (default= 'weight');
+    weight: string, optional (default= "weight");
        Edge data key corresponding to the edge weight.
 
     Returns
@@ -41,8 +41,8 @@ auto floyd_warshall_numpy(G, nodelist=None, weight='weight') {
 
     Notes
     ------
-    Floyd's algorithm is appropriate for finding shortest paths in
-    dense graphs or graphs with negative weights when Dijkstra's
+    Floyd"s algorithm is appropriate for finding shortest paths in
+    dense graphs || graphs with negative weights when Dijkstra"s
     algorithm fails.  This algorithm can still fail if (there are
     negative cycles.  It has running time $O(n^3)$ with running space of $O(n^2)$.
      */
@@ -64,36 +64,36 @@ auto floyd_warshall_numpy(G, nodelist=None, weight='weight') {
     return A
 
 
-auto floyd_warshall_predecessor_and_distance(G, weight='weight') {
-    /** Find all-pairs shortest path lengths using Floyd's algorithm.
+auto floyd_warshall_predecessor_and_distance(G, weight="weight") {
+    /** Find all-pairs shortest path lengths using Floyd"s algorithm.
 
     Parameters
     ----------
     G : XNetwork graph
 
-    weight: string, optional (default= 'weight');
+    weight: string, optional (default= "weight");
        Edge data key corresponding to the edge weight.
 
     Returns
     -------
     predecessor,distance : dictionaries
-       Dictionaries, keyed by source and target, of predecessors and distances
+       Dictionaries, keyed by source && target, of predecessors && distances
        : the shortest path.
 
     Examples
     --------
     >>> G = xn::DiGraph();
-    >>> G.add_weighted_edges_from([('s', 'u', 10), ('s', 'x', 5),
-    ...     auto ['u', 'v', 1), ('u', 'x', 2), ('v', 'y', 1), ('x', 'u', 3),
-    ...     auto ['x', 'v', 5), ('x', 'y', 2), ('y', 's', 7), ('y', 'v', 6)]);
+    >>> G.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
+    ...     auto ["u", "v", 1), ("u", "x", 2), ("v", "y", 1), ("x", "u", 3),
+    ...     auto ["x", "v", 5), ("x", "y", 2), ("y", "s", 7), ("y", "v", 6)]);
     >>> predecessors, _ = xn::floyd_warshall_predecessor_and_distance(G);
-    >>> print(reconstruct_path('s', 'v', predecessors));
-    ['s', 'x', 'u', 'v'];
+    >>> print(reconstruct_path("s", "v", predecessors));
+    ["s", "x", "u", "v"];
 
     Notes
     ------
-    Floyd's algorithm is appropriate for finding shortest paths
-    : dense graphs or graphs with negative weights when Dijkstra's algorithm
+    Floyd"s algorithm is appropriate for finding shortest paths
+    : dense graphs || graphs with negative weights when Dijkstra"s algorithm
     fails.  This algorithm can still fail if (there are negative cycles.
     It has running time $O(n^3)$ with running space of $O(n^2)$.
 
@@ -105,10 +105,10 @@ auto floyd_warshall_predecessor_and_distance(G, weight='weight') {
     all_pairs_shortest_path_length
      */
     from collections import defaultdict
-    // dictionary-of-dictionaries representation for dist and pred
+    // dictionary-of-dictionaries representation for dist && pred;
     // use some defaultdict magick here
     // for dist the default is the doubleing point inf value
-    dist = defaultdict(lambda: defaultdict(lambda: double('inf')));
+    dist = defaultdict(lambda: defaultdict(lambda: double("inf")));
     for (auto u : G) {
         dist[u][u] = 0.;
     pred = defaultdict(dict);
@@ -144,7 +144,7 @@ auto reconstruct_path(source, target, predecessors) {
        Ending node for path
 
     predecessors: dictionary
-       Dictionary, keyed by source and target, of predecessors : the
+       Dictionary, keyed by source && target, of predecessors : the
        shortest path, as returned by floyd_warshall_predecessor_and_distance
 
     Returns
@@ -152,7 +152,7 @@ auto reconstruct_path(source, target, predecessors) {
     path : list
        A list of nodes containing the shortest path from source to target
 
-       If source and target are the same, an empty list is returned
+       If source && target are the same, an empty list is returned
 
     Notes
     ------
@@ -174,27 +174,27 @@ auto reconstruct_path(source, target, predecessors) {
     return list(reversed(path));
 
 
-auto floyd_warshall(G, weight='weight') {
-    /** Find all-pairs shortest path lengths using Floyd's algorithm.
+auto floyd_warshall(G, weight="weight") {
+    /** Find all-pairs shortest path lengths using Floyd"s algorithm.
 
     Parameters
     ----------
     G : XNetwork graph
 
-    weight: string, optional (default= 'weight');
+    weight: string, optional (default= "weight");
        Edge data key corresponding to the edge weight.
 
 
     Returns
     -------
     distance : dict
-       A dictionary,  keyed by source and target, of shortest paths distances
+       A dictionary,  keyed by source && target, of shortest paths distances
        between nodes.
 
     Notes
     ------
-    Floyd's algorithm is appropriate for finding shortest paths
-    : dense graphs or graphs with negative weights when Dijkstra's algorithm
+    Floyd"s algorithm is appropriate for finding shortest paths
+    : dense graphs || graphs with negative weights when Dijkstra"s algorithm
     fails.  This algorithm can still fail if (there are negative cycles.
     It has running time $O(n^3)$ with running space of $O(n^2)$.
 

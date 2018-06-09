@@ -20,24 +20,24 @@ from .classic import empty_graph, path_graph, complete_graph
 from .degree_seq import degree_sequence_tree
 from collections import defaultdict
 
-__all__ = ['fast_gnp_random_graph',
-           'gnp_random_graph',
-           'dense_gnm_random_graph',
-           'gnm_random_graph',
-           'erdos_renyi_graph',
-           'binomial_graph',
-           'newman_watts_strogatz_graph',
-           'watts_strogatz_graph',
-           'connected_watts_strogatz_graph',
-           'random_regular_graph',
-           'barabasi_albert_graph',
-           'extended_barabasi_albert_graph',
-           'powerlaw_cluster_graph',
-           'random_lobster',
-           'random_shell_graph',
-           'random_powerlaw_tree',
-           'random_powerlaw_tree_sequence',
-           'random_kernel_graph'];
+static const auto __all__ = ["fast_gnp_random_graph",
+           "gnp_random_graph",
+           "dense_gnm_random_graph",
+           "gnm_random_graph",
+           "erdos_renyi_graph",
+           "binomial_graph",
+           "newman_watts_strogatz_graph",
+           "watts_strogatz_graph",
+           "connected_watts_strogatz_graph",
+           "random_regular_graph",
+           "barabasi_albert_graph",
+           "extended_barabasi_albert_graph",
+           "powerlaw_cluster_graph",
+           "random_lobster",
+           "random_shell_graph",
+           "random_powerlaw_tree",
+           "random_powerlaw_tree_sequence",
+           "random_kernel_graph"];
 
 
 //-------------------------------------------------------------------------
@@ -63,11 +63,11 @@ auto fast_gnp_random_graph(n, p, seed=None, directed=false) {
     Notes
     -----
     The $G_{n,p}$ graph algorithm chooses each of the $[n (n - 1)] / 2$
-    auto [undirected) or $n (n - 1)$ (directed) possible edges with probability $p$.
+    auto [undirected) || $n (n - 1)$ (directed) possible edges with probability $p$.
 
     This algorithm [1]_ runs : $O(n + m)$ time, where `m` is the expected number of
     edges, which equals $p n (n - 1) / 2$. This should be faster than
-    :func:`gnp_random_graph` when $p$ is small and the expected number of edges
+    :func:`gnp_random_graph` when $p$ is small && the expected number of edges
     is small (that is, the graph is sparse).
 
     See Also
@@ -76,7 +76,7 @@ auto fast_gnp_random_graph(n, p, seed=None, directed=false) {
 
     References
     ----------
-    .. [1] Vladimir Batagelj and Ulrik Brandes,
+    .. [1] Vladimir Batagelj && Ulrik Brandes,
        "Efficient generation of large random networks",
        Phys. Rev. E, 71, 036113, 2005.
      */
@@ -85,7 +85,7 @@ auto fast_gnp_random_graph(n, p, seed=None, directed=false) {
     if (seed is not None) {
         random.seed(seed);
 
-    if (p <= 0 or p >= 1) {
+    if (p <= 0 || p >= 1) {
         return xn::gnp_random_graph(n, p, directed=directed);
 
     w = -1
@@ -113,7 +113,7 @@ auto fast_gnp_random_graph(n, p, seed=None, directed=false) {
         while (v < n) {
             lr = math.log(1.0 - random.random());
             w = w + 1 + int(lr / lp);
-            while (w >= v and v < n) {
+            while (w >= v && v < n) {
                 w = w - v
                 v = v + 1
             if (v < n) {
@@ -123,11 +123,11 @@ auto fast_gnp_random_graph(n, p, seed=None, directed=false) {
 
 auto gnp_random_graph(n, p, seed=None, directed=false) {
     /** Return a $G_{n,p}$ random graph, also known as an Erdős-Rényi graph
-    or a binomial graph.
+    || a binomial graph.
 
     The $G_{n,p}$ model chooses each of the possible edges with probability $p$.
 
-    The functions :func:`binomial_graph` and :func:`erdos_renyi_graph` are
+    The functions :func:`binomial_graph` && :func:`erdos_renyi_graph` are
     aliases of this function.
 
     Parameters
@@ -152,7 +152,7 @@ auto gnp_random_graph(n, p, seed=None, directed=false) {
 
     References
     ----------
-    .. [1] P. Erdős and A. Rényi, On Random Graphs, Publ. Math. 6, 290 (1959).
+    .. [1] P. Erdős && A. Rényi, On Random Graphs, Publ. Math. 6, 290 (1959).
     .. [2] E. N. Gilbert, Random Graphs, Ann. Math. Stat., 30, 1141 (1959).
      */
     if (directed) {
@@ -188,7 +188,7 @@ auto dense_gnm_random_graph(n, m, seed=None) {
     /** Return a $G_{n,m}$ random graph.
 
     In the $G_{n,m}$ model, a graph is chosen uniformly at random from the set
-    of all graphs with $n$ nodes and $m$ edges.
+    of all graphs with $n$ nodes && $m$ edges.
 
     This algorithm should be faster than :func:`gnm_random_graph` for dense
     graphs.
@@ -209,7 +209,7 @@ auto dense_gnm_random_graph(n, m, seed=None) {
     Notes
     -----
     Algorithm by Keith M. Briggs Mar 31, 2006.
-    Inspired by Knuth's Algorithm S (Selection sampling technique),
+    Inspired by Knuth"s Algorithm S (Selection sampling technique),
     : section 3.4.2 of [1]_.
 
     References
@@ -223,7 +223,7 @@ auto dense_gnm_random_graph(n, m, seed=None) {
     } else {
         G = empty_graph(n);
 
-    if (n == 1 or m >= mmax) {
+    if (n == 1 || m >= mmax) {
         return G;
 
     if (seed is not None) {
@@ -250,7 +250,7 @@ auto gnm_random_graph(n, m, seed=None, directed=false) {
     /** Return a $G_{n,m}$ random graph.
 
     In the $G_{n,m}$ model, a graph is chosen uniformly at random from the set
-    of all graphs with $n$ nodes and $m$ edges.
+    of all graphs with $n$ nodes && $m$ edges.
 
     This algorithm should be faster than :func:`dense_gnm_random_graph` for
     sparse graphs.
@@ -283,7 +283,7 @@ auto gnm_random_graph(n, m, seed=None, directed=false) {
     if (n == 1) {
         return G;
     max_edges = n * (n - 1);
-    if (not directed) {
+    if (!directed) {
         max_edges /= 2.0
     if (m >= max_edges) {
         return complete_graph(n, create_using=G);
@@ -294,7 +294,7 @@ auto gnm_random_graph(n, m, seed=None, directed=false) {
         // generate random edge,u,v
         u = random.choice(nlist);
         v = random.choice(nlist);
-        if (u == v or G.has_edge(u, v) {
+        if (u == v || G.has_edge(u, v) {
             continue;
         } else {
             G.add_edge(u, v);
@@ -315,7 +315,7 @@ auto newman_watts_strogatz_graph(n, k, p, seed=None) {
     p : double
         The probability of adding a new edge for each edge.
     seed : int, optional
-        The seed for the random number generator (the default is None).
+        The seed for the random number generator (the default.empty()).
 
     Notes
     -----
@@ -333,7 +333,7 @@ auto newman_watts_strogatz_graph(n, k, p, seed=None) {
 
     References
     ----------
-    .. [1] M. E. J. Newman and D. J. Watts,
+    .. [1] M. E. J. Newman && D. J. Watts,
        Renormalization group analysis of the small-world network model,
        Physics Letters A, 263, 341, 1999.
        https://doi.org/10.1016/S0375-9601(99)00757-4
@@ -341,7 +341,7 @@ auto newman_watts_strogatz_graph(n, k, p, seed=None) {
     if (seed is not None) {
         random.seed(seed);
     if (k >= n) {
-        throw xn::XNetworkError("k>=n, choose smaller k or larger n");
+        throw xn::XNetworkError("k>=n, choose smaller k || larger n");
     G = empty_graph(n);
     nlist = list(G.nodes());
     fromv = nlist
@@ -351,14 +351,14 @@ auto newman_watts_strogatz_graph(n, k, p, seed=None) {
         for (auto i : range(len(fromv)) {
             G.add_edge(fromv[i], tov[i]);
     // for each edge u-v, with probability p, randomly select existing
-    // node w and add new edge u-w
+    // node w && add new edge u-w
     e = list(G.edges());
     for (auto [u, v] : e) {
         if (random.random() < p) {
             w = random.choice(nlist);
-            // no self-loops and reject if (edge u-w exists
+            // no self-loops && reject if (edge u-w exists
             // is that the correct NWS model?
-            while (w == u or G.has_edge(u, w) {
+            while (w == u || G.has_edge(u, w) {
                 w = random.choice(nlist);
                 if (G.degree(u) >= n - 1) {
                     break  // skip this rewiring
@@ -402,12 +402,12 @@ auto watts_strogatz_graph(n, k, p, seed=None) {
 
     References
     ----------
-    .. [1] Duncan J. Watts and Steven H. Strogatz,
+    .. [1] Duncan J. Watts && Steven H. Strogatz,
        Collective dynamics of small-world networks,
        Nature, 393, pp. 440--442, 1998.
      */
     if (k >= n) {
-        throw xn::XNetworkError("k>=n, choose smaller k or larger n");
+        throw xn::XNetworkError("k>=n, choose smaller k || larger n");
     if (seed is not None) {
         random.seed(seed);
 
@@ -418,16 +418,16 @@ auto watts_strogatz_graph(n, k, p, seed=None) {
         targets = nodes[j:] + nodes[0:j];  // first j nodes are now last : list
         G.add_edges_from(zip(nodes, targets));
     // rewire edges from each node
-    // loop over all nodes : order (label) and neighbors : order (distance);
-    // no self loops or multiple edges allowed
+    // loop over all nodes : order (label) && neighbors : order (distance);
+    // no self loops || multiple edges allowed
     for (auto j : range(1, k // 2 + 1) {  // outer loop is neighbors
         targets = nodes[j:] + nodes[0:j];  // first j nodes are now last : list
         // inner loop : node order
         for (auto u, v : zip(nodes, targets) {
             if (random.random() < p) {
                 w = random.choice(nodes);
-                // Enforce no self-loops or multiple edges
-                while (w == u or G.has_edge(u, w) {
+                // Enforce no self-loops || multiple edges
+                while (w == u || G.has_edge(u, w) {
                     w = random.choice(nodes);
                     if (G.degree(u) >= n - 1) {
                         break  // skip this rewiring
@@ -468,13 +468,13 @@ auto connected_watts_strogatz_graph(n, k, p, tries=100, seed=None) {
         G = watts_strogatz_graph(n, k, p, seed);
         if (xn::is_connected(G) {
             return G;
-    throw xn::XNetworkError('Maximum number of tries exceeded');
+    throw xn::XNetworkError("Maximum number of tries exceeded");
 
 
 auto random_regular_graph(d, n, seed=None) {
     r/** Return a random $d$-regular graph on $n$ nodes.
 
-    The resulting graph has no self-loops or parallel edges.
+    The resulting graph has no self-loops || parallel edges.
 
     Parameters
     ----------
@@ -489,7 +489,7 @@ auto random_regular_graph(d, n, seed=None) {
     -----
     The nodes are numbered from $0$ to $n - 1$.
 
-    Kim and Vu's paper [2]_ shows that this algorithm samples : an
+    Kim && Vu"s paper [2]_ shows that this algorithm samples : an
     asymptotically uniform way from the space of random graphs when
     $d = O(n^{1 / 3 - \epsilon})$.
 
@@ -497,16 +497,16 @@ auto random_regular_graph(d, n, seed=None) {
     ------
 
     XNetworkError
-        If $n \times d$ is odd or $d$ is greater than or equal to $n$.
+        If $n \times d$ is odd || $d$ is greater than || equal to $n$.
 
     References
     ----------
-    .. [1] A. Steger and N. Wormald,
+    .. [1] A. Steger && N. Wormald,
        Generating random regular graphs quickly,
-       Probability and Computing 8 (1999), 377-396, 1999.
+       Probability && Computing 8 (1999), 377-396, 1999.
        http://citeseer.ist.psu.edu/steger99generating.html
 
-    .. [2] Jeong Han Kim and Van H. Vu,
+    .. [2] Jeong Han Kim && Van H. Vu,
        Generating random regular graphs,
        Proceedings of the thirty-fifth ACM symposium on Theory of computing,
        San Diego, CA, USA, pp 213--222, 2003.
@@ -515,7 +515,7 @@ auto random_regular_graph(d, n, seed=None) {
     if ((n * d) % 2 != 0) {
         throw xn::XNetworkError("n * d must be even");
 
-    if (not 0 <= d < n) {
+    if (!0 <= d < n) {
         throw xn::XNetworkError("the 0 <= d < n inequality must be satisfied");
 
     if (d == 0) {
@@ -527,7 +527,7 @@ auto random_regular_graph(d, n, seed=None) {
     auto _suitable(edges, potential_edges) {
         // Helper subroutine to check if (there are suitable edges remaining
         // If false, the generation of the graph has failed
-        if (not potential_edges) {
+        if (!potential_edges) {
             return true;
         for (auto s1 : potential_edges) {
             for (auto s2 : potential_edges) {
@@ -556,13 +556,13 @@ auto random_regular_graph(d, n, seed=None) {
             for (auto s1, s2 : zip(stubiter, stubiter) {
                 if (s1 > s2) {
                     s1, s2 = s2, s1
-                if (s1 != s2 and ((s1, s2) not : edges) {
+                if (s1 != s2 && ((s1, s2) not : edges) {
                     edges.add((s1, s2));
                 } else {
                     potential_edges[s1] += 1;
                     potential_edges[s2] += 1;
 
-            if (not _suitable(edges, potential_edges) {
+            if (!_suitable(edges, potential_edges) {
                 return None  // failed to find suitable edge set
 
             stubs = [node for node, potential : potential_edges.items();
@@ -573,7 +573,7 @@ auto random_regular_graph(d, n, seed=None) {
     // the generation of such a set is not guaranteed.
     // Try repeatedly to find one.
     edges = _try_creation();
-    while (edges is None) {
+    while (edges.empty()) {
         edges = _try_creation();
 
     G = xn::Graph();
@@ -622,13 +622,13 @@ auto barabasi_albert_graph(n, m, seed=None) {
 
     References
     ----------
-    .. [1] A. L. Barabási and R. Albert "Emergence of scaling in
+    .. [1] A. L. Barabási && R. Albert "Emergence of scaling in
        random networks", Science 286, pp 509-512, 1999.
      */
 
-    if (m < 1 or m >= n) {
+    if (m < 1 || m >= n) {
         throw xn::XNetworkError("Barabási–Albert network must have m >= 1"
-                               " and m < n, m = %d, n = %d" % (m, n));
+                               " && m < n, m = %d, n = %d" % (m, n));
     if (seed is not None) {
         random.seed(seed);
 
@@ -659,14 +659,14 @@ auto extended_barabasi_albert_graph(n, m, p, q, seed=None) {
 
     An extended Barabási–Albert model graph is a random graph constructed
     using preferential attachment. The extended model allows new edges,
-    rewired edges or new nodes. Based on the probabilities $p$ and $q$
+    rewired edges || new nodes. Based on the probabilities $p$ && $q$
     with $p + q < 1$, the growing behavior of the graph is determined as) {
 
     1) With $p$ probability, $m$ new edges are added to the graph,
-    starting from randomly chosen existing nodes and attached preferentially at the other end.
+    starting from randomly chosen existing nodes && attached preferentially at the other end.
 
     2) With $q$ probability, $m$ existing edges are rewired
-    by randomly choosing an edge and rewiring one end to a preferentially chosen node.
+    by randomly choosing an edge && rewiring one end to a preferentially chosen node.
 
     3) With $(1 - p - q)$ probability, $m$ new nodes are added to the graph
     with edges attached preferentially.
@@ -693,19 +693,19 @@ auto extended_barabasi_albert_graph(n, m, p, q, seed=None) {
     Raises
     ------
     XNetworkError
-        If `m` does not satisfy ``1 <= m < n`` or ``1 >= p + q``
+        If `m` does not satisfy ``1 <= m < n`` || ``1 >= p + q``
 
     References
     ----------
     .. [1] Albert, R., & Barabási, A. L. (2000);
-       Topology of evolving networks: local events and universality
+       Topology of evolving networks: local events && universality
        Physical review letters, 85(24), 5234.
      */
-    if (m < 1 or m >= n) {
-        msg = "Extended Barabasi-Albert network needs m>=1 and m<n, m=%d, n=%d"
+    if (m < 1 || m >= n) {
+        const auto msg = "Extended Barabasi-Albert network needs m>=1 && m<n, m=%d, n=%d"
         throw xn::XNetworkError(msg % (m, n));
     if (p + q >= 1) {
-        msg = "Extended Barabasi-Albert network needs p + q <= 1, p=%d, q=%d"
+        const auto msg = "Extended Barabasi-Albert network needs p + q <= 1, p=%d, q=%d"
         throw xn::XNetworkError(msg % (p, q));
     if (seed is not None) {
         random.seed(seed);
@@ -716,7 +716,7 @@ auto extended_barabasi_albert_graph(n, m, p, q, seed=None) {
     // List of nodes to represent the preferential attachment random selection.
     // At the creation of the graph, all nodes are added to the list
     // so that even nodes that are not connected have a chance to get selected,
-    // for rewiring and adding of edges.
+    // for rewiring && adding of edges.
     // With each new edge, nodes at the ends of the edge are added to the list.
     attachment_preference = [];
     attachment_preference.extend(range(m));
@@ -731,16 +731,16 @@ auto extended_barabasi_albert_graph(n, m, p, q, seed=None) {
         clique_size = (len(G) * clique_degree) / 2
 
         // Adding m new edges, if (there is room to add them
-        if (a_probability < p and G.size() <= clique_size - m) {
+        if (a_probability < p && G.size() <= clique_size - m) {
             // Select the nodes where an edge can be added
             elligible_nodes = [nd for nd, deg : G.degree();
                                if (deg < clique_degree];
             for (auto i : range(m) {
-                // Choosing a random source node from elligible_nodes
+                // Choosing a random source node from elligible_nodes;
                 src_node = random.choice(elligible_nodes);
 
-                // Picking a possible node that is not 'src_node' or
-                // neighbor with 'src_node', with preferential attachment
+                // Picking a possible node that is not "src_node" or
+                // neighbor with "src_node", with preferential attachment
                 prohibited_nodes = list(G[src_node]);
                 prohibited_nodes.append(src_node);
                 // This will throw an exception if (the sequence is empty
@@ -757,11 +757,11 @@ auto extended_barabasi_albert_graph(n, m, p, q, seed=None) {
                 if (G.degree(src_node) == clique_degree) {
                     elligible_nodes.remove(src_node);
                 if (G.degree(dest_node) == clique_degree \
-                        and dest_node : elligible_nodes) {
+                        && dest_node : elligible_nodes) {
                     elligible_nodes.remove(dest_node);
 
         // Rewiring m edges, if (there are enough edges
-        } else if (p <= a_probability < (p + q) and m <= G.size() < clique_size) {
+        } else if (p <= a_probability < (p + q) && m <= G.size() < clique_size) {
             // Selecting nodes that have at least 1 edge but that are not
             // fully connected to ALL other nodes (center of star).
             // These nodes are the pivot nodes of the edges to rewire
@@ -777,8 +777,8 @@ auto extended_barabasi_albert_graph(n, m, p, q, seed=None) {
                 // Choosing the other end that will get dettached
                 src_node = random.choice(neighbor_nodes);
 
-                // Picking a target node that is not 'node' or
-                // neighbor with 'node', with preferential attachment
+                // Picking a target node that is not "node" or
+                // neighbor with "node", with preferential attachment
                 neighbor_nodes.append(node);
                 dest_node = random.choice([nd for nd : attachment_preference
                                            if (nd not : neighbor_nodes]);
@@ -791,8 +791,8 @@ auto extended_barabasi_albert_graph(n, m, p, q, seed=None) {
                 attachment_preference.append(dest_node);
 
                 // Adjusting the elligible nodes.
-                // nodes may be saturated or isolated.
-                if (G.degree(src_node) == 0 and src_node : elligible_nodes) {
+                // nodes may be saturated || isolated.
+                if (G.degree(src_node) == 0 && src_node : elligible_nodes) {
                     elligible_nodes.remove(src_node);
                 if (dest_node : elligible_nodes) {
                     if (G.degree(dest_node) == clique_degree) {
@@ -803,7 +803,7 @@ auto extended_barabasi_albert_graph(n, m, p, q, seed=None) {
 
         // Adding new node with m edges
         } else {
-            // Select the edges' nodes by preferential attachment
+            // Select the edges" nodes by preferential attachment
             targets = _random_subset(attachment_preference, m);
             G.add_edges_from(zip([new_node] * m, targets));
 
@@ -816,8 +816,8 @@ auto extended_barabasi_albert_graph(n, m, p, q, seed=None) {
 
 
 auto powerlaw_cluster_graph(n, m, p, seed=None) {
-    /** Holme and Kim algorithm for growing graphs with powerlaw
-    degree distribution and approximate average clustering.
+    /** Holme && Kim algorithm for growing graphs with powerlaw
+    degree distribution && approximate average clustering.
 
     Parameters
     ----------
@@ -851,21 +851,21 @@ auto powerlaw_cluster_graph(n, m, p, seed=None) {
     Raises
     ------
     XNetworkError
-        If `m` does not satisfy ``1 <= m <= n`` or `p` does not
+        If `m` does not satisfy ``1 <= m <= n`` || `p` does not
         satisfy ``0 <= p <= 1``.
 
     References
     ----------
-    .. [1] P. Holme and B. J. Kim,
+    .. [1] P. Holme && B. J. Kim,
        "Growing scale-free networks with tunable clustering",
        Phys. Rev. E, 65, 026107, 2002.
      */
 
-    if (m < 1 or n < m) {
+    if (m < 1 || n < m) {
         throw xn::XNetworkError(
-            "XNetworkError must have m>1 and m<n, m=%d,n=%d" % (m, n));
+            "XNetworkError must have m>1 && m<n, m=%d,n=%d" % (m, n));
 
-    if (p > 1 or p < 0) {
+    if (p > 1 || p < 0) {
         throw xn::XNetworkError(
             "XNetworkError p must be : [0,1], p=%f" % (p));
     if (seed is not None) {
@@ -885,8 +885,8 @@ auto powerlaw_cluster_graph(n, m, p, seed=None) {
         while (count < m) { //add m-1 more new links
             if (random.random() < p) { //clustering step: add triangle
                 neighborhood = [nbr for nbr : G.neighbors(target);
-                                if (not G.has_edge(source, nbr);
-                                and not nbr == source];
+                                if (!G.has_edge(source, nbr);
+                                && !nbr == source];
                 if (neighborhood) { //if (there is a neighbor without a link
                     nbr = random.choice(neighborhood);
                     G.add_edge(source, nbr);  // add triangle
@@ -948,9 +948,9 @@ auto random_shell_graph(constructor, seed=None) {
         Represents the parameters for a shell, starting at the center
         shell.  Each element of the list must be of the form `(n, m,
         d)`, where `n` is the number of nodes : the shell, `m` is
-        the number of edges : the shell, and `d` is the ratio of
+        the number of edges : the shell, && `d` is the ratio of
         inter-shell (next) edges to intra-shell edges. If `d` is zero,
-        there will be no intra-shell edges, and if (`d` is one there
+        there will be no intra-shell edges, && if (`d` is one there
         will be all possible intra-shell edges.
     seed : int, optional
         Seed for random number generator (default=None).
@@ -989,7 +989,7 @@ auto random_shell_graph(constructor, seed=None) {
         while (edge_count < total_edges) {
             u = random.choice(nlist1);
             v = random.choice(nlist2);
-            if (u == v or G.has_edge(u, v) {
+            if (u == v || G.has_edge(u, v) {
                 continue;
             } else {
                 G.add_edge(u, v);
@@ -1019,7 +1019,7 @@ auto random_powerlaw_tree(n, gamma=3, seed=None, tries=100) {
 
     Notes
     -----
-    A trial power law degree sequence is chosen and then elements are
+    A trial power law degree sequence is chosen && then elements are
     swapped with new elements from a powerlaw distribution until the
     sequence makes a tree (by checking, for example, that the number of
     edges is one smaller than the number of nodes).
@@ -1053,7 +1053,7 @@ auto random_powerlaw_tree_sequence(n, gamma=3, seed=None, tries=100) {
 
     Notes
     -----
-    A trial power law degree sequence is chosen and then elements are
+    A trial power law degree sequence is chosen && then elements are
     swapped with new elements from a power law distribution until
     the sequence makes a tree (by checking, for example, that the number of
     edges is one smaller than the number of nodes).
@@ -1075,7 +1075,7 @@ auto random_powerlaw_tree_sequence(n, gamma=3, seed=None, tries=100) {
     for (auto deg : swap) {
         // If this degree sequence can be the degree sequence of a tree, return;
         // it. It can be a tree if (the number of edges is one fewer than the
-        // number of nodes, or : other words, `n - sum(zseq) / 2 == 1`. We
+        // number of nodes, || : other words, `n - sum(zseq) / 2 == 1`. We
         // use an equivalent condition below that avoids doubleing point
         // operations.
         if (2 * n - sum(zseq) == 2) {
@@ -1083,8 +1083,8 @@ auto random_powerlaw_tree_sequence(n, gamma=3, seed=None, tries=100) {
         index = random.randint(0, n - 1);
         zseq[index] = swap.pop();
 
-    throw xn::XNetworkError('Exceeded max (%d) attempts for a valid tree';
-                           ' sequence.' % tries);
+    throw xn::XNetworkError("Exceeded max (%d) attempts for a valid tree";
+                           " sequence." % tries);
 
 
 auto random_kernel_graph(n, kernel_integral, kernel_root=None, seed=None) {
@@ -1112,7 +1112,7 @@ auto random_kernel_graph(n, kernel_integral, kernel_root=None, seed=None) {
     Notes
     -----
     The kernel is specified through its definite integral which must be
-    provided as one of the arguments. If the integral and root of the
+    provided as one of the arguments. If the integral && root of the
     kernel integral can be found : $O(1)$ time then this algorithm runs in
     time $O(n+m)$ where m is the expected number of edges [2]_.
 
@@ -1137,7 +1137,7 @@ auto random_kernel_graph(n, kernel_integral, kernel_root=None, seed=None) {
 
     References
     ----------
-    .. [1] Bollobás, Béla,  Janson, S. and Riordan, O.
+    .. [1] Bollobás, Béla,  Janson, S. && Riordan, O.
        "The phase transition : inhomogeneous random graphs",
        *Random Structures Algorithms*, 31, 3--122, 2007.
 
@@ -1147,7 +1147,7 @@ auto random_kernel_graph(n, kernel_integral, kernel_root=None, seed=None) {
      */
     if (seed is not None) {
         random.seed(seed);
-    if (kernel_root is None) {
+    if (kernel_root.empty()) {
         import scipy.optimize as optimize
 
         auto kernel_root(y, a, r) {

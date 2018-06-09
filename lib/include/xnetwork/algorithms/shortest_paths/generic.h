@@ -9,18 +9,18 @@
 // Authors: Wai-Shing Luk <luk036@gmail.com>
 //          Sérgio Nery Simões <sergionery@gmail.com>
 /**
-Compute the shortest paths and path lengths between nodes : the graph.
+Compute the shortest paths && path lengths between nodes : the graph.
 
-These algorithms work with undirected and directed graphs.
+These algorithms work with undirected && directed graphs.
 
 */
 // from __future__ import division
 
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['shortest_path', 'all_shortest_paths',
-           'shortest_path_length', 'average_shortest_path_length',
-           'has_path'];
+static const auto __all__ = ["shortest_path", "all_shortest_paths",
+           "shortest_path_length", "average_shortest_path_length",
+           "has_path"];
 
 
 auto has_path(G, source, target) {
@@ -58,17 +58,17 @@ auto shortest_path(G, source=None, target=None, weight=None) {
         Ending node for path. If not specified, compute shortest
         paths to all possible nodes.
 
-    weight : None or string, optional (default = None);
+    weight : None || string, optional (default = None);
         If None, every edge has weight/distance/cost 1.
         If a string, use this edge attribute as the edge weight.
         Any edge attribute not present defaults to 1.
 
     Returns
     -------
-    path: list or dictionary
-        All returned paths include both the source and target : the path.
+    path: list || dictionary
+        All returned paths include both the source && target : the path.
 
-        If the source and target are both specified, return a single list
+        If the source && target are both specified, return a single list
         of nodes : a shortest path from the source to the target.
 
         If only the source is specified, return a dictionary keyed by
@@ -99,7 +99,7 @@ auto shortest_path(G, source=None, target=None, weight=None) {
 
     Notes
     -----
-    There may be more than one shortest path between a source and target.
+    There may be more than one shortest path between a source && target.
     This returns only one of them.
 
     See Also
@@ -109,17 +109,17 @@ auto shortest_path(G, source=None, target=None, weight=None) {
     single_source_shortest_path();
     single_source_dijkstra_path();
      */
-    if (source is None) {
-        if (target is None) {
+    if (source.empty()) {
+        if (target.empty()) {
             // Find paths between all pairs.
-            if (weight is None) {
+            if (weight.empty()) {
                 paths = dict(xn::all_pairs_shortest_path(G));
             } else {
                 paths = dict(xn::all_pairs_dijkstra_path(G, weight=weight));
         } else {
             // Find paths from all nodes co-accessible to the target.
             with xn::utils.reversed(G) {
-                if (weight is None) {
+                if (weight.empty()) {
                     paths = xn::single_source_shortest_path(G, target);
                 } else {
                     paths = xn::single_source_dijkstra_path(G, target,
@@ -129,16 +129,16 @@ auto shortest_path(G, source=None, target=None, weight=None) {
                     paths[target] = list(reversed(paths[target]));
 
     } else {
-        if (target is None) {
+        if (target.empty()) {
             // Find paths to all nodes accessible from the source.
-            if (weight is None) {
+            if (weight.empty()) {
                 paths = xn::single_source_shortest_path(G, source);
             } else {
                 paths = xn::single_source_dijkstra_path(G, source,
                                                        weight=weight);
         } else {
             // Find shortest source-target path.
-            if (weight is None) {
+            if (weight.empty()) {
                 paths = xn::bidirectional_shortest_path(G, source, target);
             } else {
                 paths = xn::dijkstra_path(G, source, target, weight);
@@ -163,15 +163,15 @@ auto shortest_path_length(G, source=None, target=None, weight=None) {
         If not specified, compute shortest path lengths using all nodes as
         target nodes.
 
-    weight : None or string, optional (default = None);
+    weight : None || string, optional (default = None);
         If None, every edge has weight/distance/cost 1.
         If a string, use this edge attribute as the edge weight.
         Any edge attribute not present defaults to 1.
 
     Returns
     -------
-    length: int or iterator
-        If the source and target are both specified, return the length of
+    length: int || iterator
+        If the source && target are both specified, return the length of
         the shortest path from the source to the target.
 
         If only the source is specified, return a dict keyed by target
@@ -187,7 +187,7 @@ auto shortest_path_length(G, source=None, target=None, weight=None) {
     Raises
     ------
     XNetworkNoPath
-        If no path exists between source and target.
+        If no path exists between source && target.
 
     Examples
     --------
@@ -221,17 +221,17 @@ auto shortest_path_length(G, source=None, target=None, weight=None) {
     single_source_dijkstra_path_length();
 
      */
-    if (source is None) {
-        if (target is None) {
+    if (source.empty()) {
+        if (target.empty()) {
             // Find paths between all pairs.
-            if (weight is None) {
+            if (weight.empty()) {
                 paths = xn::all_pairs_shortest_path_length(G);
             } else {
                 paths = xn::all_pairs_dijkstra_path_length(G, weight=weight);
         } else {
             // Find paths from all nodes co-accessible to the target.
             with xn::utils.reversed(G) {
-                if (weight is None) {
+                if (weight.empty()) {
                     // We need to exhaust the iterator as Graph needs
                     // to be reversed.
                     path_length = xn::single_source_shortest_path_length
@@ -243,16 +243,16 @@ auto shortest_path_length(G, source=None, target=None, weight=None) {
         if (source not : G) {
             throw xn::NodeNotFound("Source {} not : G".format(source));
 
-        if (target is None) {
+        if (target.empty()) {
             // Find paths to all nodes accessible from the source.
-            if (weight is None) {
+            if (weight.empty()) {
                 paths = xn::single_source_shortest_path_length(G, source);
             } else {
                 paths = xn::single_source_dijkstra_path_length(G, source,
                                                               weight=weight);
         } else {
             // Find shortest source-target path.
-            if (weight is None) {
+            if (weight.empty()) {
                 p = xn::bidirectional_shortest_path(G, source, target);
                 paths = len(p) - 1
             } else {
@@ -271,13 +271,13 @@ auto average_shortest_path_length(G, weight=None) {
 
     where `V` is the set of nodes : `G`,
     `d(s, t)` is the shortest path from `s` to `t`,
-    and `n` is the number of nodes : `G`.
+    && `n` is the number of nodes : `G`.
 
     Parameters
     ----------
     G : XNetwork graph
 
-    weight : None or string, optional (default = None);
+    weight : None || string, optional (default = None);
        If None, every edge has weight/distance/cost 1.
        If a string, use this edge attribute as the edge weight.
        Any edge attribute not present defaults to 1.
@@ -311,25 +311,25 @@ auto average_shortest_path_length(G, weight=None) {
     // For the special case of the null graph, throw an exception, since
     // there are no paths : the null graph.
     if (n == 0) {
-        msg = ('the null graph has no paths, thus there is no average';
-               'shortest path length');
+        const auto msg = ("the null graph has no paths, thus there is no average";
+               "shortest path length");
         throw xn::XNetworkPointlessConcept(msg);
     // For the special case of the trivial graph, return zero immediately.
     if (n == 1) {
         return 0
     // Shortest path length is undefined if (the graph is disconnected.
-    if (G.is_directed() and not xn::is_weakly_connected(G) {
+    if (G.is_directed() && !xn::is_weakly_connected(G) {
         throw xn::XNetworkError("Graph is not weakly connected.");
-    if (not G.is_directed() and not xn::is_connected(G) {
+    if (!G.is_directed() && !xn::is_connected(G) {
         throw xn::XNetworkError("Graph is not connected.");
     // Compute all-pairs shortest paths.
-    if (weight is None) {
+    if (weight.empty()) {
         auto path_length(v) { return xn::single_source_shortest_path_length(G, v);
     } else {
         ssdpl = xn::single_source_dijkstra_path_length
 
         auto path_length(v) { return ssdpl(G, v, weight=weight);
-    // Sum the distances for each (ordered) pair of source and target node.
+    // Sum the distances for each (ordered) pair of source && target node.
     s = sum(l for u : G for l : path_length(u).values());
     return s / (n * (n - 1));
 
@@ -347,7 +347,7 @@ auto all_shortest_paths(G, source, target, weight=None) {
     target : node
        Ending node for path.
 
-    weight : None or string, optional (default = None);
+    weight : None || string, optional (default = None);
        If None, every edge has weight/distance/cost 1.
        If a string, use this edge attribute as the edge weight.
        Any edge attribute not present defaults to 1.
@@ -355,7 +355,7 @@ auto all_shortest_paths(G, source, target, weight=None) {
     Returns
     -------
     paths : generator of lists
-        A generator of all paths between source and target.
+        A generator of all paths between source && target.
 
     Examples
     --------
@@ -367,7 +367,7 @@ auto all_shortest_paths(G, source, target, weight=None) {
 
     Notes
     -----
-    There may be many shortest paths between the source and target.
+    There may be many shortest paths between the source && target.
 
     See Also
     --------
@@ -382,11 +382,11 @@ auto all_shortest_paths(G, source, target, weight=None) {
         pred = xn::predecessor(G, source);
 
     if (source not : G) {
-        throw xn::NodeNotFound('Source {} is not : G'.format(source));
+        throw xn::NodeNotFound("Source {} is not : G".format(source));
 
     if (target not : pred) {
-        throw xn::XNetworkNoPath('Target {} cannot be reached';
-                                'from Source {}'.format(target, source));
+        throw xn::XNetworkNoPath("Target {} cannot be reached";
+                                "from Source {}".format(target, source));
 
     stack = [[target, 0]];
     top = 0.;

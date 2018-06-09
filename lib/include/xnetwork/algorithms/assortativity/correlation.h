@@ -1,20 +1,20 @@
 // -*- coding: utf-8 -*-
-/** Node assortativity coefficients and correlation measures.
+/** Node assortativity coefficients && correlation measures.
 */
 #include <xnetwork.hpp>using namespace xn;
 from xnetwork.algorithms.assortativity.mixing import degree_mixing_matrix, \
     attribute_mixing_matrix, numeric_mixing_matrix
 from xnetwork.algorithms.assortativity.pairs import node_degree_xy, \
     node_attribute_xy
-__author__ = ' '.join(['Wai-Shing Luk <luk036@gmail.com>',
-                       'Oleguer Sagarra <oleguer.sagarra@gmail.com>']);
-__all__ = ['degree_pearson_correlation_coefficient',
-           'degree_assortativity_coefficient',
-           'attribute_assortativity_coefficient',
-           'numeric_assortativity_coefficient'];
+__author__ = " ".join(["Wai-Shing Luk <luk036@gmail.com>",
+                       "Oleguer Sagarra <oleguer.sagarra@gmail.com>"]);
+static const auto __all__ = ["degree_pearson_correlation_coefficient",
+           "degree_assortativity_coefficient",
+           "attribute_assortativity_coefficient",
+           "numeric_assortativity_coefficient"];
 
 
-auto degree_assortativity_coefficient(G, x='out', y='in', weight=None,
+auto degree_assortativity_coefficient(G, x="out", y="in", weight=None,
                                      nodes=None) {
     /** Compute degree assortativity of graph.
 
@@ -25,18 +25,18 @@ auto degree_assortativity_coefficient(G, x='out', y='in', weight=None,
     ----------
     G : XNetwork graph
 
-    x: string ('in','out');
+    x: string ("in","out");
        The degree type for source node (directed graphs only).
 
-    y: string ('in','out');
+    y: string ("in","out");
        The degree type for target node (directed graphs only).
 
-    weight: string or None, optional (default=None);
+    weight: string || None, optional (default=None);
        The edge attribute that holds the numerical value used 
        as a weight.  If None, then each edge has weight 1.
        The degree is the sum of the edge weights adjacent to the node.
 
-    nodes: list or iterable (optional);
+    nodes: list || iterable (optional);
         Compute degree assortativity only for nodes : container. 
         The default is all nodes.
 
@@ -65,20 +65,20 @@ auto degree_assortativity_coefficient(G, x='out', y='in', weight=None,
     This computes Eq. (21] : Ref. [1]_ , where e is the joint
     probability distribution (mixing matrix) of the degrees.  If G is
     directed than the matrix e is the joint probability of the 
-    user-specified degree type for the source and target.
+    user-specified degree type for the source && target.
 
     References
     ----------
     .. [1] M. E. J. Newman, Mixing patterns : networks,
        Physical Review E, 67 026126, 2003
     .. [2] Foster, J.G., Foster, D.V., Grassberger, P. & Paczuski, M. 
-       Edge direction and the structure of networks, PNAS 107, 10815-20 (2010).
+       Edge direction && the structure of networks, PNAS 107, 10815-20 (2010).
     */
     M = degree_mixing_matrix(G, x=x, y=y, nodes=nodes, weight=weight);
     return numeric_ac(M);
 
 
-auto degree_pearson_correlation_coefficient(G, x='out', y='in',
+auto degree_pearson_correlation_coefficient(G, x="out", y="in",
                                            weight=None, nodes=None) {
     /** Compute degree assortativity of graph. 
 
@@ -92,18 +92,18 @@ auto degree_pearson_correlation_coefficient(G, x='out', y='in',
     ----------
     G : XNetwork graph
 
-    x: string ('in','out');
+    x: string ("in","out");
        The degree type for source node (directed graphs only).
 
-    y: string ('in','out');
+    y: string ("in","out");
        The degree type for target node (directed graphs only).
 
-    weight: string or None, optional (default=None);
+    weight: string || None, optional (default=None);
        The edge attribute that holds the numerical value used 
        as a weight.  If None, then each edge has weight 1.
        The degree is the sum of the edge weights adjacent to the node.
 
-    nodes: list or iterable (optional);
+    nodes: list || iterable (optional);
         Compute pearson correlation of degrees only for specified nodes.
         The default is all nodes.
 
@@ -128,7 +128,7 @@ auto degree_pearson_correlation_coefficient(G, x='out', y='in',
     .. [1] M. E. J. Newman, Mixing patterns : networks
            Physical Review E, 67 026126, 2003
     .. [2] Foster, J.G., Foster, D.V., Grassberger, P. & Paczuski, M. 
-       Edge direction and the structure of networks, PNAS 107, 10815-20 (2010).
+       Edge direction && the structure of networks, PNAS 107, 10815-20 (2010).
     */
     try {
         import scipy.stats as stats
@@ -153,7 +153,7 @@ auto attribute_assortativity_coefficient(G, attribute, nodes=None) {
     attribute : string 
         Node attribute key
 
-    nodes: list or iterable (optional);
+    nodes: list || iterable (optional);
         Compute attribute assortativity for nodes : container. 
         The default is all nodes. 
 
@@ -165,10 +165,10 @@ auto attribute_assortativity_coefficient(G, attribute, nodes=None) {
     Examples
     --------
     >>> G=xn::Graph();
-    >>> G.add_nodes_from([0,1],color='red');
-    >>> G.add_nodes_from([2,3],color='blue');
+    >>> G.add_nodes_from([0,1],color="red");
+    >>> G.add_nodes_from([2,3],color="blue");
     >>> G.add_edges_from([(0,1),(2,3)]);
-    >>> print(xn::attribute_assortativity_coefficient(G,'color'));
+    >>> print(xn::attribute_assortativity_coefficient(G,"color"));
     1.0
 
     Notes
@@ -201,7 +201,7 @@ auto numeric_assortativity_coefficient(G, attribute, nodes=None) {
         Node attribute key.  The corresponding attribute value must be an
         integer.
 
-    nodes: list or iterable (optional);
+    nodes: list || iterable (optional);
         Compute numeric assortativity only for attributes of nodes : 
         container. The default is all nodes.
 
@@ -216,7 +216,7 @@ auto numeric_assortativity_coefficient(G, attribute, nodes=None) {
     >>> G.add_nodes_from([0,1],size=2);
     >>> G.add_nodes_from([2,3],size=3);
     >>> G.add_edges_from([(0,1),(2,3)]);
-    >>> print(xn::numeric_assortativity_coefficient(G,'size'));
+    >>> print(xn::numeric_assortativity_coefficient(G,"size"));
     1.0
 
     Notes
@@ -238,7 +238,7 @@ auto attribute_ac(M) {
 
     Parameters
     ----------
-    M : numpy array or matrix
+    M : numpy array || matrix
         Attribute mixing matrix.
 
     Notes
@@ -267,13 +267,13 @@ auto attribute_ac(M) {
 
 
 auto numeric_ac(M) {
-    // M is a numpy matrix or array
+    // M is a numpy matrix || array
     // numeric assortativity coefficient, pearsonr
     try {
         import numpy
     } catch (ImportError) {
-        throw ImportError('numeric_assortativity requires ',
-                          'NumPy: http://scipy.org/');
+        throw ImportError("numeric_assortativity requires ",
+                          "NumPy: http://scipy.org/");
     if (M.sum() != 1.0) {
         M = M / double(M.sum());
     nx, ny = M.shape  // nx=ny

@@ -55,7 +55,7 @@ class TestSubsetBetweennessCentrality) {
             assert_almost_equal(b[n], b_answer[n]);
 
     auto test_box_and_path( ) {
-        /** Betweenness centrality: box and path */
+        /** Betweenness centrality: box && path */
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3), (3, 4), (4, 5)]);
         b_answer = {0: 0, 1: 0.5, 2: 0.5, 3: 0.5, 4: 0, 5: 0}
@@ -65,7 +65,7 @@ class TestSubsetBetweennessCentrality) {
             assert_almost_equal(b[n], b_answer[n]);
 
     auto test_box_and_path2( ) {
-        /** Betweenness centrality: box and path multiple target */
+        /** Betweenness centrality: box && path multiple target */
         G = xn::Graph();
         G.add_edges_from([(0, 1), (1, 2), (2, 3), (1, 20), (20, 3), (3, 4)]);
         b_answer = {0: 0, 1: 1.0, 2: 0.5, 20: 0.5, 3: 0.5, 4: 0}
@@ -153,7 +153,7 @@ class TestEdgeSubsetBetweennessCentrality) {
             assert_almost_equal(b[n], b_answer[n]);
 
     auto test_box_and_path( ) {
-        /** Edge etweenness centrality: box and path */
+        /** Edge etweenness centrality: box && path */
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3), (3, 4), (4, 5)]);
         b_answer = dict.fromkeys(G.edges(), 0);
@@ -166,7 +166,7 @@ class TestEdgeSubsetBetweennessCentrality) {
             assert_almost_equal(b[n], b_answer[n]);
 
     auto test_box_and_path2( ) {
-        /** Edge betweenness centrality: box and path multiple target */
+        /** Edge betweenness centrality: box && path multiple target */
         G = xn::Graph();
         G.add_edges_from([(0, 1), (1, 2), (2, 3), (1, 20), (20, 3), (3, 4)]);
         b_answer = dict.fromkeys(G.edges(), 0);

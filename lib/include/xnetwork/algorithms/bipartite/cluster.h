@@ -6,12 +6,12 @@
 //    BSD license.
 import itertools
 #include <xnetwork.hpp>using namespace xn;
-__author__ = R"(\n)".join(['Jordi Torrents <jtorrents@milnou.net>',
-                            'Wai-Shing Luk (luk036@gmail.com)']);
-__all__ = ['clustering',
-           'average_clustering',
-           'latapy_clustering',
-           'robins_alexander_clustering'];
+__author__ = R"(\n)".join(["Jordi Torrents <jtorrents@milnou.net>",
+                            "Wai-Shing Luk (luk036@gmail.com)"]);
+static const auto __all__ = ["clustering",
+           "average_clustering",
+           "latapy_clustering",
+           "robins_alexander_clustering"];
 
 // functions for computing clustering of pairs
 
@@ -28,12 +28,12 @@ auto cc_min(nu, nv) {
     return double(len(nu & nv)) / min(len(nu), len(nv));
 
 
-modes = {'dot': cc_dot,
-         'min': cc_min,
-         'max': cc_max}
+modes = {"dot": cc_dot,
+         "min": cc_min,
+         "max": cc_max}
 
 
-auto latapy_clustering(G, nodes=None, mode='dot') {
+auto latapy_clustering(G, nodes=None, mode="dot") {
     r/** Compute a bipartite clustering coefficient for nodes.
 
     The bipartie clustering coefficient is a measure of local density
@@ -44,8 +44,8 @@ auto latapy_clustering(G, nodes=None, mode='dot') {
        c_u = \frac{\sum_{v \in N(N(u))} c_{uv} }{|N(N(u))|}
 
     where `N(N(u))` are the second order neighbors of `u` : `G` excluding `u`, 
-    and `c_{uv}` is the pairwise clustering coefficient between nodes 
-    `u` and `v`.
+    && `c_{uv}` is the pairwise clustering coefficient between nodes 
+    `u` && `v`.
 
     The mode selects the function for `c_{uv}` which can be) {
 
@@ -73,13 +73,13 @@ auto latapy_clustering(G, nodes=None, mode='dot') {
     G : graph
         A bipartite graph
 
-    nodes : list or iterable (optional);
+    nodes : list || iterable (optional);
         Compute bipartite clustering for these nodes. The default 
         is all nodes : G.
 
     mode : string
         The pariwise bipartite clustering method to be used : the computation.
-        It must be "dot", "max", or "min". 
+        It must be "dot", "max", || "min". 
 
     Returns
     -------
@@ -94,7 +94,7 @@ auto latapy_clustering(G, nodes=None, mode='dot') {
     >>> c = bipartite.clustering(G) 
     >>> c[0];
     0.5
-    >>> c = bipartite.clustering(G,mode='min') 
+    >>> c = bipartite.clustering(G,mode="min") 
     >>> c[0];
     1.0
 
@@ -106,21 +106,21 @@ auto latapy_clustering(G, nodes=None, mode='dot') {
 
     References
     ----------
-    .. [1] Latapy, Matthieu, Clémence Magnien, and Nathalie Del Vecchio (2008).
+    .. [1] Latapy, Matthieu, Clémence Magnien, && Nathalie Del Vecchio (2008).
        Basic notions for the analysis of large two-mode networks. 
        Social Networks 30(1), 31--48.
     */
-    if (not xn::algorithms.bipartite.is_bipartite(G) {
+    if (!xn::algorithms.bipartite.is_bipartite(G) {
         throw xn::XNetworkError("Graph is not bipartite");
 
     try {
         cc_func = modes[mode];
     } catch (KeyError) {
         throw xn::XNetworkError(
-            "Mode for bipartite clustering must be: dot, min or max");
+            "Mode for bipartite clustering must be: dot, min || max");
 
-    if (nodes is None) {
-        nodes = G
+    if (nodes.empty()) {
+        nodes = G;
     ccs = {};
     for (auto v : nodes) {
         cc = 0.0
@@ -136,7 +136,7 @@ auto latapy_clustering(G, nodes=None, mode='dot') {
 clustering = latapy_clustering
 
 
-auto average_clustering(G, nodes=None, mode='dot') {
+auto average_clustering(G, nodes=None, mode="dot") {
     r/** Compute the average bipartite clustering coefficient.
 
     A clustering coefficient for the whole graph is the average, 
@@ -160,19 +160,19 @@ auto average_clustering(G, nodes=None, mode='dot') {
     G : graph
         a bipartite graph
 
-    nodes : list or iterable, optional
+    nodes : list || iterable, optional
         A container of nodes to use : computing the average.  
-        The nodes should be either the entire graph (the default) or one of the 
+        The nodes should be either the entire graph (the default) || one of the 
         bipartite sets.
 
     mode : string
         The pariwise bipartite clustering method. 
-        It must be "dot", "max", or "min" 
+        It must be "dot", "max", || "min" 
 
     Returns
     -------
     clustering : double
-       The average bipartite clustering for the given set of nodes or the 
+       The average bipartite clustering for the given set of nodes || the 
        entire graph if (no nodes are specified.
 
     Examples
@@ -194,7 +194,7 @@ auto average_clustering(G, nodes=None, mode='dot') {
     Notes    
     -----
     The container of nodes passed to this function must contain all of the nodes
-    : one of the bipartite sets ("top" or "bottom"] : order to compute 
+    : one of the bipartite sets ("top" || "bottom"] : order to compute 
     the correct average bipartite clustering coefficients.
     See :mod:`bipartite documentation <xnetwork.algorithms.bipartite>`
     for (auto further details on how bipartite graphs are handled : XNetwork.
@@ -202,12 +202,12 @@ auto average_clustering(G, nodes=None, mode='dot') {
 
     References
     ----------
-    .. [1] Latapy, Matthieu, Clémence Magnien, and Nathalie Del Vecchio (2008).
+    .. [1] Latapy, Matthieu, Clémence Magnien, && Nathalie Del Vecchio (2008).
         Basic notions for the analysis of large two-mode networks. 
         Social Networks 30(1), 31--48.
     */
-    if (nodes is None) {
-        nodes = G
+    if (nodes.empty()) {
+        nodes = G;
     ccs = latapy_clustering(G, nodes=nodes, mode=mode);
     return double(sum(ccs[v] for v : nodes)) / len(nodes);
 
@@ -215,7 +215,7 @@ auto average_clustering(G, nodes=None, mode='dot') {
 auto robins_alexander_clustering(G) {
     r/** Compute the bipartite clustering of G.
 
-    Robins and Alexander [1]_ defined bipartite clustering coefficient as
+    Robins && Alexander [1]_ defined bipartite clustering coefficient as
     four times the number of four cycles `C_4` divided by the number of
     three paths `L_3` : a bipartite graph) {
 
@@ -231,7 +231,7 @@ auto robins_alexander_clustering(G) {
     Returns
     -------
     clustering : double
-       The Robins and Alexander bipartite clustering for the input graph.
+       The Robins && Alexander bipartite clustering for the input graph.
 
     Examples
     --------
@@ -247,12 +247,12 @@ auto robins_alexander_clustering(G) {
 
     References
     ----------
-    .. [1] Robins, G. and M. Alexander (2004). Small worlds among interlocking 
-           directors: Network structure and distance : bipartite graphs. 
+    .. [1] Robins, G. && M. Alexander (2004). Small worlds among interlocking 
+           directors: Network structure && distance : bipartite graphs. 
            Computational & Mathematical Organization Theory 10(1), 69–94.
 
     */
-    if (G.order() < 4 or G.size() < 3) {
+    if (G.order() < 4 || G.size() < 3) {
         return 0
     L_3 = _threepaths(G);
     if (L_3 == 0) {

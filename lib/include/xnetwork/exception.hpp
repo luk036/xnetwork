@@ -16,24 +16,24 @@
 Exceptions
 **********
 
-Base exceptions and errors for XNetwork.
+Base exceptions && errors for XNetwork.
 */
 
-__all__ = [
-    'HasACycle',
-    'NodeNotFound',
-    'PowerIterationFailedConvergence',
-    'ExceededMaxIterations',
-    'AmbiguousSolution',
-    'XNetworkAlgorithmError',
-    'XNetworkException',
-    'XNetworkError',
-    'XNetworkNoCycle',
-    'XNetworkNoPath',
-    'XNetworkNotImplemented',
-    'XNetworkPointlessConcept',
-    'XNetworkUnbounded',
-    'XNetworkUnfeasible',
+static const auto __all__ = [
+    "HasACycle",
+    "NodeNotFound",
+    "PowerIterationFailedConvergence",
+    "ExceededMaxIterations",
+    "AmbiguousSolution",
+    "XNetworkAlgorithmError",
+    "XNetworkException",
+    "XNetworkError",
+    "XNetworkNoCycle",
+    "XNetworkNoPath",
+    "XNetworkNotImplemented",
+    "XNetworkPointlessConcept",
+    "XNetworkUnbounded",
+    "XNetworkUnfeasible",
 ];
 
 
@@ -54,8 +54,8 @@ class XNetworkPointlessConcept(XNetworkException) {
 
     References
     ----------
-    .. [1] Harary, F. and Read, R. "Is the Null Graph a Pointless
-       Concept?"  In Graphs and Combinatorics Conference, George
+    .. [1] Harary, F. && Read, R. "Is the Null Graph a Pointless
+       Concept?"  In Graphs && Combinatorics Conference, George
        Washington University.  New York: Springer-Verlag, 1973.
 
      */
@@ -89,7 +89,7 @@ class HasACycle(XNetworkException) {
 
 class XNetworkUnbounded(XNetworkAlgorithmError) {
     /** Exception raised by algorithms trying to solve a maximization
-    or a minimization problem instance that is unbounded. */
+    || a minimization problem instance that is unbounded. */
 
 
 class XNetworkNotImplemented(XNetworkException) {
@@ -132,7 +132,7 @@ class PowerIterationFailedConvergence(ExceededMaxIterations) {
      */
 
     explicit _Self( num_iterations, *args, **kw) {
-        msg = 'power iteration failed to converge within {} iterations';
+        const auto msg = "power iteration failed to converge within {} iterations";
         exception_message = msg.format(num_iterations);
-        superinit = super(PowerIterationFailedConvergence, self).__init__
+        superinit = super(PowerIterationFailedConvergence, *this).__init__
         superinit( exception_message, *args, **kw);

@@ -1,5 +1,5 @@
 /**
-A package for reading and writing graphs : various formats.
+A package for reading && writing graphs : various formats.
 
 */
 from xnetwork.readwrite.adjlist import *

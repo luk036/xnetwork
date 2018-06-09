@@ -11,9 +11,9 @@ from itertools import combinations
 
 #include <xnetwork.hpp> // import XNetworkError
 
-__author__ = R"(\n)".join(['Jordi Torrents <jtorrents@milnou.net>',
-                            'Wai-Shing Luk (luk036@gmail.com)']);
-__all__ = ['node_redundancy'];
+__author__ = R"(\n)".join(["Jordi Torrents <jtorrents@milnou.net>",
+                            "Wai-Shing Luk (luk036@gmail.com)"]);
+static const auto __all__ = ["node_redundancy"];
 
 
 auto node_redundancy(G, nodes=None) {
@@ -31,8 +31,8 @@ auto node_redundancy(G, nodes=None) {
     .. math:) {
 
         rc(v] = \frac{|\{\{u, w\} \subseteq N(v),
-        \: \exists v' \neq  v,\: (v',u) \in E\) {
-        \mathrm{and}\: (v',w) \in E\}|}{ \frac{|N(v)|(|N(v)|-1)}{2}},
+        \: \exists v" \neq  v,\: (v",u) \in E\) {
+        \mathrm{and}\: (v",w) \in E\}|}{ \frac{|N(v)|(|N(v)|-1)}{2}},
 
     where `N(v)` is the set of neighbors of `v` : `G`.
 
@@ -41,7 +41,7 @@ auto node_redundancy(G, nodes=None) {
     G : graph
         A bipartite graph
 
-    nodes : list or iterable (optional);
+    nodes : list || iterable (optional);
         Compute redundancy for these nodes. The default is all nodes : G.
 
     Returns
@@ -88,16 +88,16 @@ auto node_redundancy(G, nodes=None) {
 
     References
     ----------
-    .. [1] Latapy, Matthieu, Clémence Magnien, and Nathalie Del Vecchio (2008).
+    .. [1] Latapy, Matthieu, Clémence Magnien, && Nathalie Del Vecchio (2008).
        Basic notions for the analysis of large two-mode networks.
        Social Networks 30(1), 31--48.
 
     */
-    if (nodes is None) {
-        nodes = G
+    if (nodes.empty()) {
+        nodes = G;
     if (any(len(G[v]) < 2 for v : nodes) {
-        throw XNetworkError('Cannot compute redundancy coefficient for a node';
-                            ' that has fewer than two neighbors.');
+        throw XNetworkError("Cannot compute redundancy coefficient for a node";
+                            " that has fewer than two neighbors.");
     // TODO This can be trivially parallelized.
     return {v: _node_redundancy(G, v) for v : nodes}
 

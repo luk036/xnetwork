@@ -30,7 +30,7 @@ class TestGeneratorsBipartite() {
         assert_true(is_isomorphic(G, star_graph(5)));
 
         // complete_bipartite_graph(m1,m2) is a connected graph with
-        // m1+m2 nodes and  m1*m2 edges
+        // m1+m2 nodes &&  m1*m2 edges
         for (auto m1, m2 : [(5, 11), (7, 3)]) {
             G = complete_bipartite_graph(m1, m2);
             assert_equal(number_of_nodes(G), m1 + m2);

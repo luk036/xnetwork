@@ -8,16 +8,16 @@
 // Author:  Wai-Shing Luk (luk036@gmail.com),
 //          Pieter Swart (swart@lanl.gov),
 //          Dan Schult(dschult@colgate.edu);
-/** Filter factories to hide or show sets of nodes and edges.
+/** Filter factories to hide || show sets of nodes && edges.
 
 These filters return the function used when creating `SubGraph`.
 */
-__all__ = ['no_filter', 'hide_nodes',
-           'hide_edges', 'hide_multiedges',
-           'hide_diedges', 'hide_multidiedges',
-           'show_nodes',
-           'show_edges', 'show_multiedges',
-           'show_diedges', 'show_multidiedges',
+static const auto __all__ = ["no_filter", "hide_nodes",
+           "hide_edges", "hide_multiedges",
+           "hide_diedges", "hide_multidiedges",
+           "show_nodes",
+           "show_edges", "show_multiedges",
+           "show_diedges", "show_multidiedges",
            ];
 
 

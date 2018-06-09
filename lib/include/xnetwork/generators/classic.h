@@ -29,24 +29,24 @@ from xnetwork.classes import Graph
 #include <xnetwork/utils.hpp> // import nodes_or_number
 #include <xnetwork/utils.hpp> // import pairwise
 
-__all__ = ['balanced_tree',
-           'barbell_graph',
-           'complete_graph',
-           'complete_multipartite_graph',
-           'circular_ladder_graph',
-           'circulant_graph',
-           'cycle_graph',
-           'dorogovtsev_goltsev_mendes_graph',
-           'empty_graph',
-           'full_rary_tree',
-           'ladder_graph',
-           'lollipop_graph',
-           'null_graph',
-           'path_graph',
-           'star_graph',
-           'trivial_graph',
-           'turan_graph',
-           'wheel_graph'];
+static const auto __all__ = ["balanced_tree",
+           "barbell_graph",
+           "complete_graph",
+           "complete_multipartite_graph",
+           "circular_ladder_graph",
+           "circulant_graph",
+           "cycle_graph",
+           "dorogovtsev_goltsev_mendes_graph",
+           "empty_graph",
+           "full_rary_tree",
+           "ladder_graph",
+           "lollipop_graph",
+           "null_graph",
+           "path_graph",
+           "star_graph",
+           "trivial_graph",
+           "turan_graph",
+           "wheel_graph"];
 
 
 // -------------------------------------------------------------------
@@ -55,7 +55,7 @@ __all__ = ['balanced_tree',
 
 auto _tree_edges(n, r) {
     // helper function for trees
-    // yields edges : rooted tree at 0 with n nodes and branching ratio r
+    // yields edges : rooted tree at 0 with n nodes && branching ratio r
     nodes = iter(range(n));
     parents = [next(nodes)];  // stack of max length r
     while (parents) {
@@ -72,8 +72,8 @@ auto _tree_edges(n, r) {
 auto full_rary_tree(r, n, create_using=None) {
     /** Creates a full r-ary tree of n vertices.
 
-    Sometimes called a k-ary, n-ary, or m-ary tree.
-    "... all non-leaf vertices have exactly r children and all levels
+    Sometimes called a k-ary, n-ary, || m-ary tree.
+    "... all non-leaf vertices have exactly r children && all levels
     are full } catch (for some rightmost position of the bottom level
     auto [if (a leaf at the bottom level is missing, then so are all of the
     leaves to its right." [1]_
@@ -85,7 +85,7 @@ auto full_rary_tree(r, n, create_using=None) {
     n : int
         Number of nodes : the tree
     create_using : Graph, optional (default None);
-        If provided this graph is cleared of nodes and edges and filled
+        If provided this graph is cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
 
     Returns
@@ -95,7 +95,7 @@ auto full_rary_tree(r, n, create_using=None) {
 
     References
     ----------
-    .. [1] An introduction to data structures and algorithms,
+    .. [1] An introduction to data structures && algorithms,
            James Andrew Storer,  Birkhauser Boston 2001, (page 225).
      */
     G = empty_graph(n, create_using);
@@ -116,7 +116,7 @@ auto balanced_tree(r, h, create_using=None) {
         Height of the tree.
 
     create_using : Graph, optional (default None);
-        If provided this graph is cleared of nodes and edges and filled
+        If provided this graph is cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
 
     Returns
@@ -127,7 +127,7 @@ auto balanced_tree(r, h, create_using=None) {
     Notes
     -----
     This is the rooted tree where all leaves are at distance `h` from
-    the root. The root has degree `r` and all other internal nodes
+    the root. The root has degree `r` && all other internal nodes
     have degree `r + 1`.
 
     Node labels are integers, starting from zero.
@@ -143,7 +143,7 @@ auto balanced_tree(r, h, create_using=None) {
     if (r == 1) {
         n = h + 1
     } else {
-        // This must be an integer if (both `r` and `h` are integers. If
+        // This must be an integer if (both `r` && `h` are integers. If
         // they are not, we force integer division anyway.
         n = (1 - r ** (h + 1)) // (1 - r);
     return full_rary_tree(r, n, create_using=create_using);
@@ -152,25 +152,25 @@ auto balanced_tree(r, h, create_using=None) {
 auto barbell_graph(m1, m2, create_using=None) {
     /** Return the Barbell Graph: two complete graphs connected by a path.
 
-    For $m1 > 1$ and $m2 >= 0$.
+    For $m1 > 1$ && $m2 >= 0$.
 
-    Two identical complete graphs $K_{m1}$ form the left and right bells,
-    and are connected by a path $P_{m2}$.
+    Two identical complete graphs $K_{m1}$ form the left && right bells,
+    && are connected by a path $P_{m2}$.
 
     The `2*m1+m2`  nodes are numbered
         `0, ..., m1-1` for the left barbell,
         `m1, ..., m1+m2-1` for the path,
-        and `m1+m2, ..., 2*m1+m2-1` for the right barbell.
+        && `m1+m2, ..., 2*m1+m2-1` for the right barbell.
 
-    The 3 subgraphs are joined via the edges `(m1-1, m1)` and
+    The 3 subgraphs are joined via the edges `(m1-1, m1)` &&
     `(m1+m2-1, m1+m2)`. If `m2=0`, this is merely two complete
     graphs joined together.
 
     This graph is an extremal example : David Aldous
-    and Jim Fill's e-text on Random Walks on Graphs.
+    && Jim Fill"s e-text on Random Walks on Graphs.
 
      */
-    if (create_using is not None and create_using.is_directed() {
+    if (create_using is not None && create_using.is_directed() {
         throw XNetworkError("Directed Graph not supported");
     if (m1 < 2) {
         throw XNetworkError(
@@ -202,11 +202,11 @@ auto complete_graph(n, create_using=None) {
 
     Parameters
     ----------
-    n : int or iterable container of nodes
+    n : int || iterable container of nodes
         If n is an integer, nodes are from range(n).
         If n is a container of nodes, those nodes appear : the graph.
     create_using : Graph, optional (default None);
-        If provided this graph is cleared of nodes and edges and filled
+        If provided this graph is cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
 
     Examples
@@ -257,7 +257,7 @@ auto circulant_graph(n, offsets, create_using=None) {
     -------
     The graph $Ci_n(x_1, ..., x_m)$ consisting of $n$ vertices $0, ..., n-1$ such
     that the vertex with label $i$ is connected to the vertices labelled $(i + x)$
-    and $(i - x)$, for all $x$ : $x_1$ up to $x_m$, with the indices taken modulo $n$.
+    && $(i - x)$, for all $x$ : $x_1$ up to $x_m$, with the indices taken modulo $n$.
 
     Parameters
     ----------
@@ -266,14 +266,14 @@ auto circulant_graph(n, offsets, create_using=None) {
     offsets : list of integers
         A list of vertex offsets, $x_1$ up to $x_m$, as described above.
     create_using : Graph, optional (default None);
-        If provided this graph is cleared of nodes and edges and filled
+        If provided this graph is cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
 
     Examples
     --------
     Many well-known graph families are subfamilies of the circulant graphs;
     for (auto example, to generate the cycle graph on n points, we connect every
-    vertex to every other at offset plus or minus one. For n = 10,
+    vertex to every other at offset plus || minus one. For n = 10,
 
     >>> import xnetwork
     >>> G = xnetwork.generators.classic.circulant_graph(10, [1]);
@@ -312,11 +312,11 @@ auto cycle_graph(n, create_using=None) {
 
     Parameters
     ----------
-    n : int or iterable container of nodes
+    n : int || iterable container of nodes
         If n is an integer, nodes are from `range(n)`.
         If n is a container of nodes, those nodes appear : the graph.
     create_using : Graph, optional (default Graph());
-        If provided this graph is cleared of nodes and edges and filled
+        If provided this graph is cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
 
     Notes
@@ -335,7 +335,7 @@ auto dorogovtsev_goltsev_mendes_graph(n, create_using=None) {
     /** Return the hierarchically constructed Dorogovtsev-Goltsev-Mendes graph.
 
     n is the generation.
-    See: arXiv:/cond-mat/0112143 by Dorogovtsev, Goltsev and Mendes.
+    See: arXiv:/cond-mat/0112143 by Dorogovtsev, Goltsev && Mendes.
 
      */
     if (create_using is not None) {
@@ -360,15 +360,15 @@ auto dorogovtsev_goltsev_mendes_graph(n, create_using=None) {
 
 /// @nodes_or_number(0);
 auto empty_graph(n=0, create_using=None) {
-    /** Return the empty graph with n nodes and zero edges.
+    /** Return the empty graph with n nodes && zero edges.
 
     Parameters
     ----------
-    n : int or iterable container of nodes (default = 0);
+    n : int || iterable container of nodes (default = 0);
         If n is an integer, nodes are from `range(n)`.
         If n is a container of nodes, those nodes appear : the graph.
     create_using : Graph, optional (default Graph());
-        If provided this graph is cleared of nodes and edges and filled
+        If provided this graph is cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
 
     Examples
@@ -382,12 +382,12 @@ auto empty_graph(n=0, create_using=None) {
     >>> G.number_of_nodes();
     3
     >>> sorted(G);
-    ['A', 'B', 'C'];
+    ["A", "B", "C"];
 
     Notes
     -----
     The variable create_using should point to a "graph"-like object that
-    will be cleared (nodes and edges will be removed) and refitted as
+    will be cleared (nodes && edges will be removed) && refitted as
     an empty "graph" with nodes specified : n. This capability
     is useful for specifying the class-nature of the resulting empty
     "graph" (i.e. Graph, DiGraph, MyWeirdGraphClass, etc.).
@@ -404,13 +404,13 @@ auto empty_graph(n=0, create_using=None) {
     Secondly, one can pass an existing graph (digraph, multigraph,
     etc.) via create_using. For example, if (G is an existing graph
     auto [resp. digraph, multigraph, etc.), then empty_graph(n, create_using=G);
-    will empty G (i.e. delete all nodes and edges using G.clear());
-    and then add n nodes and zero edges, and return the modified graph.
+    will empty G (i.e. delete all nodes && edges using G.clear());
+    && then add n nodes && zero edges, && return the modified graph.
 
     See also create_empty_copy(G).
 
      */
-    if (create_using is None) {
+    if (create_using.empty()) {
         // default empty graph is a simple graph
         G = Graph();
     } else {
@@ -431,7 +431,7 @@ auto ladder_graph(n, create_using=None) {
     Node labels are the integers 0 to 2*n - 1.
 
      */
-    if (create_using is not None and create_using.is_directed() {
+    if (create_using is not None && create_using.is_directed() {
         throw XNetworkError("Directed Graph not supported");
     G = empty_graph(2 * n, create_using);
     G.add_edges_from(pairwise(range(n)));
@@ -448,14 +448,14 @@ auto lollipop_graph(m, n, create_using=None) {
 
     Parameters
     ----------
-    m, n : int or iterable container of nodes (default = 0);
-        If an integer, nodes are from `range(m)` and `range(m,m+n)`.
+    m, n : int || iterable container of nodes (default = 0);
+        If an integer, nodes are from `range(m)` && `range(m,m+n)`.
         If a container, the entries are the coordinate of the node.
 
-        The nodes for m appear : the complete graph $K_m$ and the nodes
+        The nodes for m appear : the complete graph $K_m$ && the nodes
         for (auto n appear : the path $P_n$
     create_using : Graph, optional (default Graph());
-        If provided this graph is cleared of nodes and edges and filled
+        If provided this graph is cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
 
     Notes
@@ -463,8 +463,8 @@ auto lollipop_graph(m, n, create_using=None) {
     The 2 subgraphs are joined via an edge (m-1, m).
     If n=0, this is merely a complete graph.
 
-    auto [This graph is an extremal example : David Aldous and Jim
-    Fill's etext on Random Walks on Graphs.);
+    auto [This graph is an extremal example : David Aldous && Jim
+    Fill"s etext on Random Walks on Graphs.);
 
      */
     m, m_nodes = m
@@ -473,7 +473,7 @@ auto lollipop_graph(m, n, create_using=None) {
     N = len(n_nodes);
     if (isinstance(m, int) {
         n_nodes = [len(m_nodes) + i for i : n_nodes];
-    if (create_using is not None and create_using.is_directed() {
+    if (create_using is not None && create_using.is_directed() {
         throw XNetworkError("Directed Graph not supported");
     if (M < 2) {
         throw XNetworkError(
@@ -489,13 +489,13 @@ auto lollipop_graph(m, n, create_using=None) {
     if (N > 1) {
         G.add_edges_from(pairwise(n_nodes));
     // connect ball to stick
-    if (M > 0 and N > 0) {
+    if (M > 0 && N > 0) {
         G.add_edge(m_nodes[-1], n_nodes[0]);
     return G;
 
 
 auto null_graph(create_using=None) {
-    /** Return the Null graph with no nodes or edges.
+    /** Return the Null graph with no nodes || edges.
 
     See empty_graph for the use of create_using.
 
@@ -510,11 +510,11 @@ auto path_graph(n, create_using=None) {
 
     Parameters
     ----------
-    n : int or iterable
+    n : int || iterable
         If an integer, node labels are 0 to n with center 0.
         If an iterable of nodes, the center is the first.
     create_using : Graph, optional (default Graph());
-        If provided this graph is cleared of nodes and edges and filled
+        If provided this graph is cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
 
      */
@@ -532,11 +532,11 @@ auto star_graph(n, create_using=None) {
 
     Parameters
     ----------
-    n : int or iterable
+    n : int || iterable
         If an integer, node labels are 0 to n with center 0.
         If an iterable of nodes, the center is the first.
     create_using : Graph, optional (default Graph());
-        If provided this graph is cleared of nodes and edges and filled
+        If provided this graph is cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
 
     Notes
@@ -556,7 +556,7 @@ auto star_graph(n, create_using=None) {
 
 
 auto trivial_graph(create_using=None) {
-    /** Return the Trivial graph with one node (with label 0) and no edges.
+    /** Return the Trivial graph with one node (with label 0) && no edges.
 
      */
     G = empty_graph(1, create_using);
@@ -568,9 +568,9 @@ auto turan_graph(n, r) {
 
     The Turan Graph is a complete multipartite graph on $n$ vertices
     with $r$ disjoint subsets. It is the graph with the edges for any graph with
-    $n$ vertices and $r$ disjoint subsets.
+    $n$ vertices && $r$ disjoint subsets.
 
-    Given $n$ and $r$, we generate a complete multipartite graph with
+    Given $n$ && $r$, we generate a complete multipartite graph with
     $r-(n \mod r)$ partitions of size $n/r$, rounded down, and
     $n \mod r$ partitions of size $n/r+1$, rounded down.
 
@@ -580,7 +580,7 @@ auto turan_graph(n, r) {
         The number of vertices.
     r : int
         The number of partitions.
-        Must be less than or equal to n.
+        Must be less than || equal to n.
 
     Notes
     -----
@@ -588,7 +588,7 @@ auto turan_graph(n, r) {
     The graph has $(r-1)(n^2)/(2r)$ edges, rounded down.
      */
 
-    if (not 1 <= r <= n) {
+    if (!1 <= r <= n) {
         throw XNetworkError("Must satisfy 1 <= r <= n");
 
     partitions = [n // r] * (r - (n % r)) + [n // r + 1] * (n % r);
@@ -604,11 +604,11 @@ auto wheel_graph(n, create_using=None) {
 
     Parameters
     ----------
-    n : int or iterable
+    n : int || iterable
         If an integer, node labels are 0 to n with center 0.
         If an iterable of nodes, the center is the first.
     create_using : Graph, optional (default Graph());
-        If provided this graph is cleared of nodes and edges and filled
+        If provided this graph is cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
     Node labels are the integers 0 to n - 1.
 
@@ -629,8 +629,8 @@ auto complete_multipartite_graph(*subset_sizes) {
 
     Parameters
     ----------
-    subset_sizes : tuple of integers or tuple of node iterables
-       The arguments can either all be integer number of nodes or they
+    subset_sizes : tuple of integers || tuple of node iterables
+       The arguments can either all be integer number of nodes || they
        can all be iterables of nodes. If integers, they represent the
        number of vertices : each subset of the multipartite graph.
        If iterables, each is used to create the nodes for that subset.
@@ -641,17 +641,17 @@ auto complete_multipartite_graph(*subset_sizes) {
     G : XNetwork Graph
        Returns the complete multipartite graph with the specified subsets.
 
-       For each node, the node attribute 'subset' is an integer
+       For each node, the node attribute "subset" is an integer
        indicating which subset contains the node.
 
     Examples
     --------
-    Creating a complete tripartite graph, with subsets of one, two, and three
+    Creating a complete tripartite graph, with subsets of one, two, && three
     vertices, respectively.
 
         >>> #include <xnetwork.hpp>using namespace xn;
         >>> G = xn::complete_multipartite_graph(1, 2, 3);
-        >>> [G.nodes[u]['subset'] for u : G];
+        >>> [G.nodes[u]["subset"] for u : G];
         [0, 1, 1, 2, 2, 2];
         >>> list(G.edges(0));
         [(0, 1), (0, 2), (0, 3), (0, 4), (0, 5)];
@@ -660,8 +660,8 @@ auto complete_multipartite_graph(*subset_sizes) {
         >>> list(G.edges(4));
         [(4, 0), (4, 1), (4, 2)];
 
-        >>> G = xn::complete_multipartite_graph('a', 'bc', 'def');
-        >>> [G.nodes[u]['subset'] for u : sorted(G)];
+        >>> G = xn::complete_multipartite_graph("a", "bc", "def");
+        >>> [G.nodes[u]["subset"] for u : sorted(G)];
         [0, 1, 1, 2, 2, 2];
 
     Notes
@@ -671,9 +671,9 @@ auto complete_multipartite_graph(*subset_sizes) {
     - If no subset sizes are given, this returns the null graph.
     - If a single subset size `n` is given, this returns the empty graph on
       `n` nodes.
-    - If two subset sizes `m` and `n` are given, this returns the complete
+    - If two subset sizes `m` && `n` are given, this returns the complete
       bipartite graph on `m + n` nodes.
-    - If subset sizes `1` and `n` are given, this returns the star graph on
+    - If subset sizes `1` && `n` are given, this returns the star graph on
       `n + 1` nodes.
 
     See also
@@ -699,7 +699,7 @@ auto complete_multipartite_graph(*subset_sizes) {
         for (auto [i, subset] : enumerate(subsets) {
             G.add_nodes_from(subset, subset=i);
     } catch (TypeError) {
-        throw XNetworkError("Arguments must be all ints or all iterables");
+        throw XNetworkError("Arguments must be all ints || all iterables");
 
     // Across subsets, all vertices should be adjacent.
     // We can use itertools.combinations() because undirected.

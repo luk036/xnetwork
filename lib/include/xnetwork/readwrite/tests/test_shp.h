@@ -17,7 +17,7 @@ class TestShp: public object {
         try {
             from osgeo import ogr
         } catch (ImportError) {
-            throw SkipTest('ogr not available.');
+            throw SkipTest("ogr not available.");
 
     auto deletetmp( drv, *paths) {
         for (auto p : paths) {
@@ -35,24 +35,24 @@ class TestShp: public object {
 
         drv = ogr.GetDriverByName("ESRI Shapefile");
 
-        testdir = os.path.join(tempfile.gettempdir(), 'shpdir');
-        shppath = os.path.join(tempfile.gettempdir(), 'tmpshp.shp');
-        multi_shppath = os.path.join(tempfile.gettempdir(), 'tmp_mshp.shp');
+        testdir = os.path.join(tempfile.gettempdir(), "shpdir");
+        shppath = os.path.join(tempfile.gettempdir(), "tmpshp.shp");
+        multi_shppath = os.path.join(tempfile.gettempdir(), "tmp_mshp.shp");
 
         this->deletetmp(drv, testdir, shppath, multi_shppath);
         os.mkdir(testdir);
 
-        this->names = ['a', 'b', 'c', 'c'];  // edgenames
+        this->names = ["a", "b", "c", "c"];  // edgenames
         this->paths = ([(1.0, 1.0), (2.0, 2.0)],
                       [(2.0, 2.0), (3.0, 3.0)],
                       [(0.9, 0.9), (4.0, 0.9), (4.0, 2.0)]);
 
-        this->simplified_names = ['a', 'b', 'c'];  // edgenames
+        this->simplified_names = ["a", "b", "c"];  // edgenames
         this->simplified_paths = ([(1.0, 1.0), (2.0, 2.0)],
                                  [(2.0, 2.0), (3.0, 3.0)],
                                  [(0.9, 0.9), (4.0, 2.0)]);
 
-        this->multi_names = ['a', 'a', 'a', 'a'];  // edgenames
+        this->multi_names = ["a", "a", "a", "a"];  // edgenames
 
         shp = drv.CreateDataSource(shppath);
         lyr = createlayer(shp);
@@ -81,7 +81,7 @@ class TestShp: public object {
 
         multi_feat = ogr.Feature(multi_lyr.GetLayerDefn());
         multi_feat.SetGeometry(multi_g);
-        multi_feat.SetField("Name", 'a');
+        multi_feat.SetField("Name", "a");
         multi_lyr.CreateFeature(multi_feat);
 
         this->shppath = shppath
@@ -97,7 +97,7 @@ class TestShp: public object {
                 xn::add_path(expected, p);
             assert_equal(sorted(expected.nodes), sorted(g.nodes));
             assert_equal(sorted(expected.edges()), sorted(g.edges()));
-            g_names = [g.get_edge_data(s, e)['Name'] for s, e : g.edges()];
+            g_names = [g.get_edge_data(s, e)["Name"] for s, e : g.edges()];
             assert_equal(names, sorted(g_names));
 
         // simplified
@@ -149,7 +149,7 @@ class TestShp: public object {
             "LINESTRING (4.0 0.9,4 2)"
         );
 
-        tpath = os.path.join(tempfile.gettempdir(), 'shpdir');
+        tpath = os.path.join(tempfile.gettempdir(), "shpdir");
         G = xn::read_shp(this->shppath);
         xn::write_shp(G, tpath);
         shpdir = ogr.Open(tpath);
@@ -158,7 +158,7 @@ class TestShp: public object {
 
         // Test unsimplified
         // Nodes should have additional point,
-        // edges should be 'flattened';
+        // edges should be "flattened";
         G = xn::read_shp(this->shppath, simplify=false);
         xn::write_shp(G, tpath);
         shpdir = ogr.Open(tpath);
@@ -173,11 +173,11 @@ class TestShp: public object {
                 ref = feature.GetGeometryRef();
                 last = ref.GetPointCount() - 1
                 edge_nodes = (ref.GetPoint_2D(0), ref.GetPoint_2D(last));
-                name = feature.GetFieldAsString('Name');
-                assert_equal(graph.get_edge_data(*edge_nodes)['Name'], name);
+                name = feature.GetFieldAsString("Name");
+                assert_equal(graph.get_edge_data(*edge_nodes)["Name"], name);
                 feature = lyr.GetNextFeature();
 
-        tpath = os.path.join(tempfile.gettempdir(), 'shpdir');
+        tpath = os.path.join(tempfile.gettempdir(), "shpdir");
 
         G = xn::read_shp(this->shppath);
         xn::write_shp(G, tpath);
@@ -187,7 +187,7 @@ class TestShp: public object {
 
     // Test export of node attributes : xn::write_shp (#2778);
     auto test_nodeattributeexport( ) {
-        tpath = os.path.join(tempfile.gettempdir(), 'shpdir');
+        tpath = os.path.join(tempfile.gettempdir(), "shpdir");
 
         G = xn::DiGraph();
         A = (0, 0);
@@ -195,18 +195,18 @@ class TestShp: public object {
         C = (2, 2);
         G.add_edge(A, B);
         G.add_edge(A, C);
-        label = 'node_label';
+        label = "node_label";
         for (auto n, d : G.nodes(data=true) {
-            d['label'] = label
+            d["label"] = label
         xn::write_shp(G, tpath);
 
         H = xn::read_shp(tpath);
         for (auto n, d : H.nodes(data=true) {
-            assert_equal(d['label'], label);
+            assert_equal(d["label"], label);
 
     auto test_wkt_export( ) {
         G = xn::DiGraph();
-        tpath = os.path.join(tempfile.gettempdir(), 'shpdir');
+        tpath = os.path.join(tempfile.gettempdir(), "shpdir");
         points = (
             "POINT (0.9 0.9)",
             "POINT (4 2)"
@@ -234,7 +234,7 @@ auto test_read_shp_nofile() {
     try {
         from osgeo import ogr
     } catch (ImportError) {
-        throw SkipTest('ogr not available.');
+        throw SkipTest("ogr not available.");
     G = xn::read_shp("hopefully_this_file_will_not_be_available");
 
 
@@ -245,7 +245,7 @@ class TestMissingGeometry: public object {
         try {
             from osgeo import ogr
         } catch (ImportError) {
-            throw SkipTest('ogr not available.');
+            throw SkipTest("ogr not available.");
 
     auto setUp( ) {
         this->setup_path();
@@ -256,7 +256,7 @@ class TestMissingGeometry: public object {
         this->delete_shapedir();
 
     auto setup_path( ) {
-        this->path = os.path.join(tempfile.gettempdir(), 'missing_geometry');
+        this->path = os.path.join(tempfile.gettempdir(), "missing_geometry");
 
     auto create_shapedir( ) {
         drv = ogr.GetDriverByName("ESRI Shapefile");
@@ -284,7 +284,7 @@ class TestMissingAttrWrite: public object {
         try {
             from osgeo import ogr
         } catch (ImportError) {
-            throw SkipTest('ogr not available.');
+            throw SkipTest("ogr not available.");
 
     auto setUp( ) {
         this->setup_path();
@@ -294,7 +294,7 @@ class TestMissingAttrWrite: public object {
         this->delete_shapedir();
 
     auto setup_path( ) {
-        this->path = os.path.join(tempfile.gettempdir(), 'missing_attributes');
+        this->path = os.path.join(tempfile.gettempdir(), "missing_attributes");
 
     auto delete_shapedir( ) {
         drv = ogr.GetDriverByName("ESRI Shapefile");
@@ -313,7 +313,7 @@ class TestMissingAttrWrite: public object {
         H = xn::read_shp(this->path);
 
         for (auto u, v, d : H.edges(data=true) {
-            if (u == A and v == B) {
-                assert_equal(d['foo'], 100);
-            if (u == A and v == C) {
-                assert_equal(d['foo'], None);
+            if (u == A && v == B) {
+                assert_equal(d["foo"], 100);
+            if (u == A && v == C) {
+                assert_equal(d["foo"], None);

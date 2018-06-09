@@ -38,10 +38,10 @@ class TestRandomGeometricGraph: public object {
         for (auto u, v : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
-                assert_true(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
+                assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
             // Nonadjacent vertices must be at greater distance.
             } else {
-                assert_false(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
+                assert_false(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
     auto test_p( ) {
         /** Tests for providing an alternate distance metric to the
@@ -54,10 +54,10 @@ class TestRandomGeometricGraph: public object {
         for (auto u, v : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
-                assert_true(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
+                assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
             // Nonadjacent vertices must be at greater distance.
             } else {
-                assert_false(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
+                assert_false(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
     auto test_node_names( ) {
         /** Tests using values other than sequential numbers as node IDs.
@@ -72,10 +72,10 @@ class TestRandomGeometricGraph: public object {
         for (auto u, v : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
-                assert_true(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
+                assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
             // Nonadjacent vertices must be at greater distance.
             } else {
-                assert_false(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
+                assert_false(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
 
 class TestSoftRandomGeometricGraph: public object {
@@ -102,7 +102,7 @@ class TestSoftRandomGeometricGraph: public object {
         for (auto u, v : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
-                assert_true(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
+                assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
     auto test_p( ) {
         /** Tests for providing an alternate distance metric to the
@@ -115,7 +115,7 @@ class TestSoftRandomGeometricGraph: public object {
         for (auto u, v : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
-                assert_true(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
+                assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
     auto test_node_names( ) {
         /** Tests using values other than sequential numbers as node IDs.
@@ -130,11 +130,11 @@ class TestSoftRandomGeometricGraph: public object {
         for (auto u, v : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
-                assert_true(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
+                assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
     auto test_p_dist_default( ) {
         /** Tests default p_dict = 0.5 returns graph with edge count <= RGG with
-           same n, radius, dim and positions
+           same n, radius, dim && positions
 
          */
         nodes = 50
@@ -157,19 +157,19 @@ class TestSoftRandomGeometricGraph: public object {
 
 auto join(G, u, v, theta, alpha, metric) {
     /** Return ``true`` if (and only if (the nodes whose attributes are
-    ``du`` and ``dv`` should be joined, according to the threshold
+    ``du`` && ``dv`` should be joined, according to the threshold
     condition for geographical threshold graphs.
 
-    ``G`` is an undirected XNetwork graph, and ``u`` and ``v`` are nodes
-    : that graph. The nodes must have node attributes ``'pos'`` and
-    ``'weight'``.
+    ``G`` is an undirected XNetwork graph, && ``u`` && ``v`` are nodes
+    : that graph. The nodes must have node attributes ``"pos"`` &&
+    ``"weight"``.
 
     ``metric`` is a distance metric.
 
      */
     du, dv = G.nodes[u], G.nodes[v];
-    u_pos, v_pos = du['pos'], dv['pos'];
-    u_weight, v_weight = du['weight'], dv['weight'];
+    u_pos, v_pos = du["pos"], dv["pos"];
+    u_weight, v_weight = du["weight"], dv["weight"];
     return (u_weight + v_weight) * metric(u_pos, v_pos) ** alpha >= theta
 
 
@@ -190,7 +190,7 @@ class TestGeographicalThresholdGraph: public object {
         distances meet the given threshold.
 
          */
-        // Use the Euclidean metric and alpha = -2
+        // Use the Euclidean metric && alpha = -2
         // the default according to the documentation.
         dist = euclidean
         G = xn::geographical_threshold_graph(50, 10);
@@ -295,7 +295,7 @@ class TestThresholdedRandomGeometricGraph: public object {
         for (auto u, v : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
-                assert_true(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
+                assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
     auto test_p( ) {
         /** Tests for providing an alternate distance metric to the
@@ -308,7 +308,7 @@ class TestThresholdedRandomGeometricGraph: public object {
         for (auto u, v : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
-                assert_true(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
+                assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
     auto test_node_names( ) {
         /** Tests using values other than sequential numbers as node IDs.
@@ -323,7 +323,7 @@ class TestThresholdedRandomGeometricGraph: public object {
         for (auto u, v : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
-                assert_true(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
+                assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
     auto test_theta( ) {
         /** Tests that pairs of vertices adjacent if (and only if (their sum
@@ -334,4 +334,4 @@ class TestThresholdedRandomGeometricGraph: public object {
         for (auto u, v : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
-                assert_true((G.nodes[u]['weight'] + G.nodes[v]['weight']) >= 0.1);
+                assert_true((G.nodes[u]["weight"] + G.nodes[v]["weight"]) >= 0.1);

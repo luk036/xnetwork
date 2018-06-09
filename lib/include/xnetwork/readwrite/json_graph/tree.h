@@ -8,14 +8,14 @@ from itertools import chain
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import make_str
 __author__ = R"( Wai-Shing Luk (luk036@gmail.com)) */
-__all__ = ['tree_data', 'tree_graph'];
+static const auto __all__ = ["tree_data", "tree_graph"];
 
-_attrs = dict(id='id', children='children');
+_attrs = dict(id="id", children="children");
 
 
 auto tree_data(G, root, attrs=_attrs) {
     /** Return data : tree format that is suitable for JSON serialization
-    and use : Javascript documents.
+    && use : Javascript documents.
 
     Parameters
     ----------
@@ -26,10 +26,10 @@ auto tree_data(G, root, attrs=_attrs) {
        The root of the tree
 
     attrs : dict
-        A dictionary that contains two keys 'id' and 'children'. The
+        A dictionary that contains two keys "id" && "children". The
         corresponding values provide the attribute names for storing
         XNetwork-internal graph data. The values should be unique. Default
-        value: :samp:`dict(id='id', children='children')`.
+        value: :samp:`dict(id="id", children="children")`.
 
         If some user-defined graph data use these attribute names as data keys,
         they may be silently dropped.
@@ -60,23 +60,23 @@ auto tree_data(G, root, attrs=_attrs) {
     Node attributes are stored : this format but keys
     for (auto attributes must be strings if (you want to serialize with JSON.
 
-    Graph and edge attributes are not stored.
+    Graph && edge attributes are not stored.
 
     The default value of attrs will be changed : a future release of XNetwork.
 
     See Also
     --------
-    tree_graph, node_link_data, node_link_data
+    tree_graph, node_link_data, node_link_data;
      */
     if (G.number_of_nodes() != G.number_of_edges() + 1) {
         throw TypeError("G is not a tree.");
-    if (not G.is_directed() {
+    if (!G.is_directed() {
         throw TypeError("G is not directed.");
 
-    id_ = attrs['id'];
-    children = attrs['children'];
+    id_ = attrs["id"];
+    children = attrs["children"];
     if (id_ == children) {
-        throw xn::XNetworkError('Attribute names are not unique.');
+        throw xn::XNetworkError("Attribute names are not unique.");
 
     auto add_children(n, G) {
         nbrs = G[n];
@@ -109,10 +109,10 @@ auto tree_graph(data, attrs=_attrs) {
     G : XNetwork DiGraph
 
     attrs : dict
-        A dictionary that contains two keys 'id' and 'children'. The
+        A dictionary that contains two keys "id" && "children". The
         corresponding values provide the attribute names for storing
         XNetwork-internal graph data. The values should be unique. Default
-        value: :samp:`dict(id='id', children='children')`.
+        value: :samp:`dict(id="id", children="children")`.
 
     Examples
     --------
@@ -127,11 +127,11 @@ auto tree_graph(data, attrs=_attrs) {
 
     See Also
     --------
-    tree_graph, node_link_data, adjacency_data
+    tree_graph, node_link_data, adjacency_data;
      */
     graph = xn::DiGraph();
-    id_ = attrs['id'];
-    children = attrs['children'];
+    id_ = attrs["id"];
+    children = attrs["children"];
 
     auto add_children(parent, children_) {
         for (auto data : children_) {
@@ -141,13 +141,13 @@ auto tree_graph(data, attrs=_attrs) {
             if (grandchildren) {
                 add_children(child, grandchildren);
             nodedata = dict((make_str(k), v) for k, v : data.items();
-                            if (k != id_ and k != children);
+                            if (k != id_ && k != children);
             graph.add_node(child, **nodedata);
 
     root = data[id_];
     children_ = data.get(children, []);
     nodedata = dict((make_str(k), v) for k, v : data.items();
-                    if (k != id_ and k != children);
+                    if (k != id_ && k != children);
     graph.add_node(root, **nodedata);
     add_children(root, children_);
     return graph

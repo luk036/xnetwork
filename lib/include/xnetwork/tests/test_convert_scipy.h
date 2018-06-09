@@ -16,7 +16,7 @@ class TestConvertNumpy: public object {
             import scipy.sparse as sparse
             np_assert_equal = np.testing.assert_equal
         } catch (ImportError) {
-            throw SkipTest('SciPy sparse library not available.');
+            throw SkipTest("SciPy sparse library not available.");
 
     explicit _Self( ) {
         this->G1 = barbell_graph(10, 3);
@@ -27,7 +27,7 @@ class TestConvertNumpy: public object {
 
     auto test_exceptions( ) {
         class G: public object {
-            format = None
+            format = None;
 
         assert_raises(xn::XNetworkError, xn::to_xnetwork_graph, G);
 
@@ -124,38 +124,38 @@ class TestConvertNumpy: public object {
         np_assert_equal(0.5 * A.todense(),
                         xn::to_scipy_sparse_matrix(WP4).todense());
         np_assert_equal(0.3 * A.todense(),
-                        xn::to_scipy_sparse_matrix(WP4, weight='other').todense());
+                        xn::to_scipy_sparse_matrix(WP4, weight="other").todense());
 
     auto test_format_keyword( ) {
         WP4 = xn::Graph();
         WP4.add_edges_from((n, n + 1, dict(weight=0.5, other=0.3));
                            for (auto n : range(3));
         P4 = path_graph(4);
-        A = xn::to_scipy_sparse_matrix(P4, format='csr');
+        A = xn::to_scipy_sparse_matrix(P4, format="csr");
         np_assert_equal(A.todense(),
                         xn::to_scipy_sparse_matrix(WP4, weight=None).todense());
 
-        A = xn::to_scipy_sparse_matrix(P4, format='csc');
+        A = xn::to_scipy_sparse_matrix(P4, format="csc");
         np_assert_equal(A.todense(),
                         xn::to_scipy_sparse_matrix(WP4, weight=None).todense());
 
-        A = xn::to_scipy_sparse_matrix(P4, format='coo');
+        A = xn::to_scipy_sparse_matrix(P4, format="coo");
         np_assert_equal(A.todense(),
                         xn::to_scipy_sparse_matrix(WP4, weight=None).todense());
 
-        A = xn::to_scipy_sparse_matrix(P4, format='bsr');
+        A = xn::to_scipy_sparse_matrix(P4, format="bsr");
         np_assert_equal(A.todense(),
                         xn::to_scipy_sparse_matrix(WP4, weight=None).todense());
 
-        A = xn::to_scipy_sparse_matrix(P4, format='lil');
+        A = xn::to_scipy_sparse_matrix(P4, format="lil");
         np_assert_equal(A.todense(),
                         xn::to_scipy_sparse_matrix(WP4, weight=None).todense());
 
-        A = xn::to_scipy_sparse_matrix(P4, format='dia');
+        A = xn::to_scipy_sparse_matrix(P4, format="dia");
         np_assert_equal(A.todense(),
                         xn::to_scipy_sparse_matrix(WP4, weight=None).todense());
 
-        A = xn::to_scipy_sparse_matrix(P4, format='dok');
+        A = xn::to_scipy_sparse_matrix(P4, format="dok");
         np_assert_equal(A.todense(),
                         xn::to_scipy_sparse_matrix(WP4, weight=None).todense());
 
@@ -165,7 +165,7 @@ class TestConvertNumpy: public object {
         WP4.add_edges_from((n, n + 1, dict(weight=0.5, other=0.3));
                            for (auto n : range(3));
         P4 = path_graph(4);
-        xn::to_scipy_sparse_matrix(P4, format='any_other');
+        xn::to_scipy_sparse_matrix(P4, format="any_other");
 
     /// /// @raises(xn::XNetworkError);
     auto test_null_raise( ) {
@@ -226,7 +226,7 @@ class TestConvertNumpy: public object {
         expected = xn::MultiDiGraph();
         expected.add_edges_from(set(edges), weight=1);
         // The sole self-loop (edge 0) on vertex 1 should have weight 2.
-        expected[1][1][0]['weight'] = 2
+        expected[1][1][0]["weight"] = 2
         actual = xn::from_scipy_sparse_matrix(A, parallel_edges=false,
                                              create_using=xn::MultiDiGraph());
         assert_graphs_equal(actual, expected);

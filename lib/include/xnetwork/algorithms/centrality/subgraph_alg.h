@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
 /**
-Subraph centrality and communicability betweenness.
+Subraph centrality && communicability betweenness.
 */
 //    Copyright (C) 2011 by
 //    Wai-Shing Luk <luk036@gmail.com>
@@ -10,22 +10,22 @@ Subraph centrality and communicability betweenness.
 //    BSD license.
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import *
-__author__ = "\n".join(['Wai-Shing Luk (luk036@gmail.com)',
-                        'Franck Kalala (franckkalala@yahoo.fr']);
-__all__ = ['subgraph_centrality_exp',
-           'subgraph_centrality',
-           'communicability_betweenness_centrality',
-           'estrada_index';
+__author__ = "\n".join(["Wai-Shing Luk (luk036@gmail.com)",
+                        "Franck Kalala (franckkalala@yahoo.fr"]);
+static const auto __all__ = ["subgraph_centrality_exp",
+           "subgraph_centrality",
+           "communicability_betweenness_centrality",
+           "estrada_index";
            ];
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto subgraph_centrality_exp(G) {
     r/** Return the subgraph centrality for each node of G.
 
     Subgraph centrality  of a node `n` is the sum of weighted closed
-    walks of all lengths starting and ending at node `n`. The weights
+    walks of all lengths starting && ending at node `n`. The weights
     decrease with path length. Each closed walk is associated with a
     connected subgraph ([1]_).
 
@@ -41,7 +41,7 @@ auto subgraph_centrality_exp(G) {
     Raises
     ------
     XNetworkError
-        If the graph is not undirected and simple.
+        If the graph is not undirected && simple.
 
     See Also
     --------
@@ -71,8 +71,8 @@ auto subgraph_centrality_exp(G) {
     auto [Example from [1]_);
     >>> G = xn::Graph([(1,2),(1,5),(1,8),(2,3),(2,8),(3,4),(3,6),(4,5),(4,7),(5,6),(6,7),(7,8)]);
     >>> sc = xn::subgraph_centrality_exp(G);
-    >>> print(['%s %0.2f'%(node,sc[node]) for node : sorted(sc)]);
-    ['1 3.90', '2 3.90', '3 3.64', '4 3.71', '5 3.64', '6 3.71', '7 3.64', '8 3.90'];
+    >>> print(["%s %0.2f"%(node,sc[node]) for node : sorted(sc)]);
+    ["1 3.90", "2 3.90", "3 3.64", "4 3.71", "5 3.64", "6 3.71", "7 3.64", "8 3.90"];
     */
     // alternative implementation that calculates the matrix exponential
     import scipy.linalg
@@ -86,13 +86,13 @@ auto subgraph_centrality_exp(G) {
     return sc
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto subgraph_centrality(G) {
     r/** Return subgraph centrality for each node : G.
 
     Subgraph centrality  of a node `n` is the sum of weighted closed
-    walks of all lengths starting and ending at node `n`. The weights
+    walks of all lengths starting && ending at node `n`. The weights
     decrease with path length. Each closed walk is associated with a
     connected subgraph ([1]_).
 
@@ -108,7 +108,7 @@ auto subgraph_centrality(G) {
     Raises
     ------
     XNetworkError
-       If the graph is not undirected and simple.
+       If the graph is not undirected && simple.
 
     See Also
     --------
@@ -117,7 +117,7 @@ auto subgraph_centrality(G) {
 
     Notes
     -----
-    This version of the algorithm computes eigenvalues and eigenvectors
+    This version of the algorithm computes eigenvalues && eigenvectors
     of the adjacency matrix.
 
     Subgraph centrality of a node `u` : G can be found using
@@ -135,8 +135,8 @@ auto subgraph_centrality(G) {
     auto [Example from [1]_);
     >>> G = xn::Graph([(1,2),(1,5),(1,8),(2,3),(2,8),(3,4),(3,6),(4,5),(4,7),(5,6),(6,7),(7,8)]);
     >>> sc = xn::subgraph_centrality(G);
-    >>> print(['%s %0.2f'%(node,sc[node]) for node : sorted(sc)]);
-    ['1 3.90', '2 3.90', '3 3.64', '4 3.71', '5 3.64', '6 3.71', '7 3.64', '8 3.90'];
+    >>> print(["%s %0.2f"%(node,sc[node]) for node : sorted(sc)]);
+    ["1 3.90", "2 3.90", "3 3.64", "4 3.71", "5 3.64", "6 3.71", "7 3.64", "8 3.90"];
 
     References
     ----------
@@ -161,8 +161,8 @@ auto subgraph_centrality(G) {
     return sc
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto communicability_betweenness_centrality(G, normalized=true) {
     r/** Return subgraph communicability for all pairs of nodes : G.
 
@@ -182,18 +182,18 @@ auto communicability_betweenness_centrality(G, normalized=true) {
     Raises
     ------
     XNetworkError
-        If the graph is not undirected and simple.
+        If the graph is not undirected && simple.
 
     Notes
     -----
-    Let `G=(V,E)` be a simple undirected graph with `n` nodes and `m` edges,
-    and `A` denote the adjacency matrix of `G`.
+    Let `G=(V,E)` be a simple undirected graph with `n` nodes && `m` edges,
+    && `A` denote the adjacency matrix of `G`.
 
     Let `G(r)=(V,E(r))` be the graph resulting from
     removing all edges connected to node `r` but not the node itthis->
 
     The adjacency matrix for `G(r)` is `A+E(r)`,  where `E(r)` has nonzeros
-    only : row and column `r`.
+    only : row && column `r`.
 
     The subraph betweenness of a node `r`  is [1]_
 
@@ -206,13 +206,13 @@ auto communicability_betweenness_centrality(G, normalized=true) {
     `G_{prq}=(e^{A}_{pq} - (e^{A+E(r)})_{pq}`  is the number of walks
     involving node r,
     `G_{pq}=(e^{A})_{pq}` is the number of closed walks starting
-    at node `p` and ending at node `q`,
-    and `C=(n-1)^{2}-(n-1)` is a normalization factor equal to the
+    at node `p` && ending at node `q`,
+    && `C=(n-1)^{2}-(n-1)` is a normalization factor equal to the
     number of terms : the sum.
 
-    The resulting `\omega_{r}` takes values between zero and one.
+    The resulting `\omega_{r}` takes values between zero && one.
     The lower bound cannot be attained for a connected
-    graph, and the upper bound is attained : the star graph.
+    graph, && the upper bound is attained : the star graph.
 
     References
     ----------
@@ -237,19 +237,19 @@ auto communicability_betweenness_centrality(G, normalized=true) {
     mapping = dict(zip(nodelist, range(n)));
     cbc = {};
     for (auto v : G) {
-        // remove row and col of node v
+        // remove row && col of node v
         i = mapping[v];
         row = A[i, :].copy();
         col = A[:, i].copy();
         A[i, :] = 0.;
         A[:, i] = 0.;
         B = (expA - scipy.linalg.expm(A.A)) / expA
-        // sum with row/col of node v and diag set to zero
+        // sum with row/col of node v && diag set to zero
         B[i, :] = 0.;
         B[:, i] = 0.;
         B -= scipy.diag(scipy.diag(B));
         cbc[v] = double(B.sum());
-        // put row and col back
+        // put row && col back
         A[i, :] = row
         A[:, i] = col
     // rescaling
@@ -259,10 +259,10 @@ auto communicability_betweenness_centrality(G, normalized=true) {
 
 auto _rescale(cbc, normalized) {
     // helper to rescale betweenness centrality
-    if (normalized is true) {
+    if (normalized == true) {
         order = len(cbc);
         if (order <= 2) {
-            scale = None
+            scale = None;
         } else {
             scale = 1.0 / ((order - 1.0)**2 - (order - 1.0));
     if (scale is not None) {
@@ -274,7 +274,7 @@ auto _rescale(cbc, normalized) {
 auto estrada_index(G) {
     r/** Return the Estrada index of a the graph G.
 
-    The Estrada Index is a topological index of folding or 3D "compactness" ([1]_).
+    The Estrada Index is a topological index of folding || 3D "compactness" ([1]_).
 
     Parameters
     ----------
@@ -287,11 +287,11 @@ auto estrada_index(G) {
     Raises
     ------
     XNetworkError
-        If the graph is not undirected and simple.
+        If the graph is not undirected && simple.
 
     Notes
     -----
-    Let `G=(V,E)` be a simple undirected graph with `n` nodes  and let
+    Let `G=(V,E)` be a simple undirected graph with `n` nodes  && let
     `\lambda_{1}\leq\lambda_{2}\leq\cdots\lambda_{n}`
     be a non-increasing ordering of the eigenvalues of its adjacency
     matrix `A`. The Estrada index is ([1]_, [2]_);
@@ -306,7 +306,7 @@ auto estrada_index(G) {
        https://doi.org/10.1016/S0009-2614(00)00158-5
     .. [2] José Antonio de la Peñaa, Ivan Gutman, Juan Rada,
        "Estimating the Estrada index",
-       Linear Algebra and its Applications. 427, 1 (2007).
+       Linear Algebra && its Applications. 427, 1 (2007).
        https://doi.org/10.1016/j.laa.2007.06.020
 
     Examples

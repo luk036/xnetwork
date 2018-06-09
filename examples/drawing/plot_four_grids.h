@@ -19,7 +19,7 @@ You must have matplotlib for this to work.
 import matplotlib.pyplot as plt
 #include <xnetwork.hpp>using namespace xn;
 
-G = xn::grid_2d_graph(4, 4);  // 4x4 grid
+G = xn::grid_2d_graph(4, 4);  // 4x4 grid;
 
 pos = xn::spring_layout(G, iterations=100);
 
@@ -27,13 +27,13 @@ plt.subplot(221);
 xn::draw(G, pos, font_size=8);
 
 plt.subplot(222);
-xn::draw(G, pos, node_color='k', node_size=0, with_labels=false);
+xn::draw(G, pos, node_color="k", node_size=0, with_labels=false);
 
 plt.subplot(223);
-xn::draw(G, pos, node_color='g', node_size=250, with_labels=false, width=6);
+xn::draw(G, pos, node_color="g", node_size=250, with_labels=false, width=6);
 
 plt.subplot(224);
 H = G.to_directed();
-xn::draw(H, pos, node_color='b', node_size=20, with_labels=false);
+xn::draw(H, pos, node_color="b", node_size=20, with_labels=false);
 
 plt.show();

@@ -100,11 +100,11 @@ class TestKatzCentrality: public object {
     /// /// @raises(xn::XNetworkException);
     auto test_bad_beta_numbe( ) {
         G = xn::Graph([(0, 1)]);
-        e = xn::katz_centrality(G, 0.1, beta='foo');
+        e = xn::katz_centrality(G, 0.1, beta="foo");
 
 
 class TestKatzCentralityNumpy: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -113,7 +113,7 @@ class TestKatzCentralityNumpy: public object {
             import numpy as np
             import scipy
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto test_K5( ) {
         /** Katz centrality: K5*/
@@ -196,7 +196,7 @@ class TestKatzCentralityNumpy: public object {
     /// /// @raises(xn::XNetworkException);
     auto test_bad_beta_numbe( ) {
         G = xn::Graph([(0, 1)]);
-        e = xn::katz_centrality_numpy(G, 0.1, beta='foo');
+        e = xn::katz_centrality_numpy(G, 0.1, beta="foo");
 
     auto test_K5_unweighted( ) {
         /** Katz centrality: K5*/
@@ -260,20 +260,20 @@ class TestKatzCentralityDirected: public object {
     auto test_katz_centrality_weighted( ) {
         G = this->G
         alpha = this->G.alpha
-        p = xn::katz_centrality(G, alpha, weight='weight');
+        p = xn::katz_centrality(G, alpha, weight="weight");
         for (auto [a, b] : zip(list(p.values()), this->G.evc) {
             assert_almost_equal(a, b);
 
     auto test_katz_centrality_unweighted( ) {
         H = this->H
         alpha = this->H.alpha
-        p = xn::katz_centrality(H, alpha, weight='weight');
+        p = xn::katz_centrality(H, alpha, weight="weight");
         for (auto [a, b] : zip(list(p.values()), this->H.evc) {
             assert_almost_equal(a, b);
 
 
 class TestKatzCentralityDirectedNumpy(TestKatzCentralityDirected) {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -282,25 +282,25 @@ class TestKatzCentralityDirectedNumpy(TestKatzCentralityDirected) {
             import numpy as np
             import scipy
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto test_katz_centrality_weighted( ) {
         G = this->G
         alpha = this->G.alpha
-        p = xn::katz_centrality_numpy(G, alpha, weight='weight');
+        p = xn::katz_centrality_numpy(G, alpha, weight="weight");
         for (auto [a, b] : zip(list(p.values()), this->G.evc) {
             assert_almost_equal(a, b);
 
     auto test_katz_centrality_unweighted( ) {
         H = this->H
         alpha = this->H.alpha
-        p = xn::katz_centrality_numpy(H, alpha, weight='weight');
+        p = xn::katz_centrality_numpy(H, alpha, weight="weight");
         for (auto [a, b] : zip(list(p.values()), this->H.evc) {
             assert_almost_equal(a, b);
 
 
 class TestKatzEigenvectorVKatz: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -311,7 +311,7 @@ class TestKatzEigenvectorVKatz: public object {
             import scipy
             from numpy.linalg import eigvals
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto test_eigenvector_v_katz_random( ) {
         G = xn::gnp_random_graph(10, 0.5, seed=1234);

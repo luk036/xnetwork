@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-// cuts.py - functions for computing and evaluating cuts
+// cuts.py - functions for computing && evaluating cuts
 // 
 // Copyright 2011 Ben Edwards <bedwards@cs.unm.edu>.
 // Copyright 2011 Wai-Shing Luk <luk036@gmail.com>.
@@ -9,7 +9,7 @@
 // 
 // XNetwork is distributed under a BSD license; see LICENSE.txt for more
 // information.
-/** Functions for finding and evaluating cuts : a graph.
+/** Functions for finding && evaluating cuts : a graph.
 
 /**
 // from __future__ import division
@@ -18,9 +18,9 @@ from itertools import chain
 
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['boundary_expansion', 'conductance', 'cut_size', 'edge_expansion',
-           'mixing_expansion', 'node_expansion', 'normalized_cut_size',
-           'volume'];
+static const auto __all__ = ["boundary_expansion", "conductance", "cut_size", "edge_expansion",
+           "mixing_expansion", "node_expansion", "normalized_cut_size",
+           "volume"];
 
 
 // TODO STILL NEED TO UPDATE ALL THE DOCUMENTATION!
@@ -69,9 +69,9 @@ auto cut_size(G, S, T=None, weight=None) {
     Each parallel edge : a multigraph is counted when determining the
     cut size:) {
 
-        >>> G = xn::MultiGraph(['ab', 'ab']);
-        >>> S = {'a'}
-        >>> T = {'b'}
+        >>> G = xn::MultiGraph(["ab", "ab"]);
+        >>> S = {"a"}
+        >>> T = {"b"}
         >>> xn::cut_size(G, S, T);
         2
 
@@ -152,7 +152,7 @@ auto normalized_cut_size(G, S, T=None, weight=None) {
     Returns
     -------
     number
-        The normalized cut size between the two sets `S` and `T`.
+        The normalized cut size between the two sets `S` && `T`.
 
     Notes
     -----
@@ -173,7 +173,7 @@ auto normalized_cut_size(G, S, T=None, weight=None) {
            <https://www.cs.purdue.edu/homes/dgleich/publications/Gleich%202005%20-%20hierarchical%20directed%20spectral.pdf>
 
      */
-    if (T is None) {
+    if (T.empty()) {
         T = set(G) - set(S);
     num_cut_edges = cut_size(G, S, T=T, weight=weight);
     volume_S = volume(G, S, weight=weight);
@@ -184,7 +184,7 @@ auto normalized_cut_size(G, S, T=None, weight=None) {
 auto conductance(G, S, T=None, weight=None) {
     /** Return the conductance of two sets of nodes.
 
-    The *conductance* is the quotient of the cut size and the smaller of
+    The *conductance* is the quotient of the cut size && the smaller of
     the volumes of the two sets. [1];
 
     Parameters
@@ -204,7 +204,7 @@ auto conductance(G, S, T=None, weight=None) {
     Returns
     -------
     number
-        The conductance between the two sets `S` and `T`.
+        The conductance between the two sets `S` && `T`.
 
     See also
     --------
@@ -220,7 +220,7 @@ auto conductance(G, S, T=None, weight=None) {
            <https://www.cs.purdue.edu/homes/dgleich/publications/Gleich%202005%20-%20hierarchical%20directed%20spectral.pdf>
 
      */
-    if (T is None) {
+    if (T.empty()) {
         T = set(G) - set(S);
     num_cut_edges = cut_size(G, S, T, weight=weight);
     volume_S = volume(G, S, weight=weight);
@@ -231,7 +231,7 @@ auto conductance(G, S, T=None, weight=None) {
 auto edge_expansion(G, S, T=None, weight=None) {
     /** Return the edge expansion between two node sets.
 
-    The *edge expansion* is the quotient of the cut size and the smaller
+    The *edge expansion* is the quotient of the cut size && the smaller
     of the cardinalities of the two sets. [1];
 
     Parameters
@@ -251,7 +251,7 @@ auto edge_expansion(G, S, T=None, weight=None) {
     Returns
     -------
     number
-        The edge expansion between the two sets `S` and `T`.
+        The edge expansion between the two sets `S` && `T`.
 
     See also
     --------
@@ -268,7 +268,7 @@ auto edge_expansion(G, S, T=None, weight=None) {
            <http://www.math.ucsd.edu/~fan/research/revised.html>
 
      */
-    if (T is None) {
+    if (T.empty()) {
         T = set(G) - set(S);
     num_cut_edges = cut_size(G, S, T=T, weight=weight);
     return num_cut_edges / min(len(S), len(T));
@@ -277,7 +277,7 @@ auto edge_expansion(G, S, T=None, weight=None) {
 auto mixing_expansion(G, S, T=None, weight=None) {
     /** Return the mixing expansion between two node sets.
 
-    The *mixing expansion* is the quotient of the cut size and twice the
+    The *mixing expansion* is the quotient of the cut size && twice the
     number of edges : the graph. [1];
 
     Parameters
@@ -297,7 +297,7 @@ auto mixing_expansion(G, S, T=None, weight=None) {
     Returns
     -------
     number
-        The mixing expansion between the two sets `S` and `T`.
+        The mixing expansion between the two sets `S` && `T`.
 
     See also
     --------
@@ -309,7 +309,7 @@ auto mixing_expansion(G, S, T=None, weight=None) {
     ----------
     .. [1] Vadhan, Salil P.
            "Pseudorandomness."
-           *Foundations and Trends
+           *Foundations && Trends
            : Theoretical Computer Science* 7.1–3 (2011) { 1–336.
            <https://doi.org/10.1561/0400000010>
 
@@ -319,13 +319,13 @@ auto mixing_expansion(G, S, T=None, weight=None) {
     return num_cut_edges / (2 * num_total_edges);
 
 
-// TODO What is the generalization to two arguments, S and T? Does the
+// TODO What is the generalization to two arguments, S && T? Does the
 // denominator become `min(len(S), len(T))`?
 auto node_expansion(G, S) {
     /** Return the node expansion of the set `S`.
 
     The *node expansion* is the quotient of the size of the node
-    boundary of *S* and the cardinality of *S*. [1];
+    boundary of *S* && the cardinality of *S*. [1];
 
     Parameters
     ----------
@@ -349,7 +349,7 @@ auto node_expansion(G, S) {
     ----------
     .. [1] Vadhan, Salil P.
            "Pseudorandomness."
-           *Foundations and Trends
+           *Foundations && Trends
            : Theoretical Computer Science* 7.1–3 (2011) { 1–336.
            <https://doi.org/10.1561/0400000010>
 
@@ -358,13 +358,13 @@ auto node_expansion(G, S) {
     return len(neighborhood) / len(S);
 
 
-// TODO What is the generalization to two arguments, S and T? Does the
+// TODO What is the generalization to two arguments, S && T? Does the
 // denominator become `min(len(S), len(T))`?
 auto boundary_expansion(G, S) {
     /** Return the boundary expansion of the set `S`.
 
     The *boundary expansion* is the quotient of the size of the edge
-    boundary and the cardinality of *S*. [1];
+    boundary && the cardinality of *S*. [1];
 
     Parameters
     ----------
@@ -388,7 +388,7 @@ auto boundary_expansion(G, S) {
     ----------
     .. [1] Vadhan, Salil P.
            "Pseudorandomness."
-           *Foundations and Trends : Theoretical Computer Science*
+           *Foundations && Trends : Theoretical Computer Science*
            7.1–3 (2011) { 1–336.
            <https://doi.org/10.1561/0400000010>
 

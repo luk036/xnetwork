@@ -19,14 +19,14 @@ directed flow.
 Introduction
 ------------
 
-The TimeRespectingGraphMatcher and TimeRespectingDiGraphMatcher
-extend the GraphMatcher and DiGraphMatcher classes, respectively,
+The TimeRespectingGraphMatcher && TimeRespectingDiGraphMatcher
+extend the GraphMatcher && DiGraphMatcher classes, respectively,
 to include temporal constraints on matches. This is achieved through
 a semantic check, via the semantic_feasibility() function.
 
-As well as including G1 (the graph : which to seek embeddings) and
+As well as including G1 (the graph : which to seek embeddings) &&
 G2 (the subgraph structure of interest), the name of the temporal
-attribute on the edges and the time threshold, delta, must be supplied
+attribute on the edges && the time threshold, delta, must be supplied
 as arguments to the matching constructors.
 
 A delta of zero is the strictest temporal constraint on the match -
@@ -49,20 +49,20 @@ included here.
 References
 ----------
 
-[1] Redmond, U. and Cunningham, P. Temporal subgraph isomorphism. In) {
+[1] Redmond, U. && Cunningham, P. Temporal subgraph isomorphism. In) {
 The 2013 IEEE/ACM International Conference on Advances : Social
-Networks Analysis and Mining (ASONAM). Niagara Falls, Canada; 2013) {
+Networks Analysis && Mining (ASONAM). Niagara Falls, Canada; 2013) {
 pages 1451 - 1452. [65];
 
 For a discussion of the literature on temporal networks) {
 
-[3] P. Holme and J. Saramaki. Temporal networks. Physics Reports,
+[3] P. Holme && J. Saramaki. Temporal networks. Physics Reports,
 519(3) {97–125, 2012.
 
 Notes
 -----
 
-Handles directed and undirected graphs and graphs with parallel edges.
+Handles directed && undirected graphs && graphs with parallel edges.
 
 */
 
@@ -71,8 +71,8 @@ from __future__ import absolute_import
 from datetime import datetime, timedelta
 from .isomorphvf2 import GraphMatcher, DiGraphMatcher
 
-__all__ = ['TimeRespectingGraphMatcher',
-           'TimeRespectingDiGraphMatcher'];
+static const auto __all__ = ["TimeRespectingGraphMatcher",
+           "TimeRespectingDiGraphMatcher"];
 
 
 class TimeRespectingGraphMatcher(GraphMatcher) {
@@ -80,23 +80,23 @@ class TimeRespectingGraphMatcher(GraphMatcher) {
     explicit _Self( G1, G2, temporal_attribute_name, delta) {
         /** Initialize TimeRespectingGraphMatcher.
 
-        G1 and G2 should be xn::Graph or xn::MultiGraph instances.
+        G1 && G2 should be xn::Graph || xn::MultiGraph instances.
 
         Examples
         --------
         To create a TimeRespectingGraphMatcher which checks for
-        syntactic and semantic feasibility) {
+        syntactic && semantic feasibility) {
 
         >>> from xnetwork.algorithms import isomorphism
         >>> G1 = xn::Graph(xn::path_graph(4, create_using=xn::Graph()));
 
         >>> G2 = xn::Graph(xn::path_graph(4, create_using=xn::Graph()));
 
-        >>> GM = isomorphism.TimeRespectingGraphMatcher(G1, G2, 'date', timedelta(days=1));
+        >>> GM = isomorphism.TimeRespectingGraphMatcher(G1, G2, "date", timedelta(days=1));
          */
         this->temporal_attribute_name = temporal_attribute_name
         this->delta = delta
-        super(TimeRespectingGraphMatcher, self).__init__(G1, G2);
+        super(TimeRespectingGraphMatcher, *this).__init__(G1, G2);
 
     auto one_hop( Gx, Gx_node, neighbors) {
         /**
@@ -110,9 +110,9 @@ class TimeRespectingGraphMatcher(GraphMatcher) {
             } else { //MultiGraph G[u][v] returns a dictionary of key -> data dictionary.
                 for (auto edge : Gx[Gx_node][n].values() {  // Iterates all edges between node pair.
                     dates.append(edge[this->temporal_attribute_name]);
-        if (any(x is None for x : dates) {
-            throw ValueError('Datetime not supplied for at least one edge.');
-        return not dates or max(dates) - min(dates) <= this->delta
+        if (any(x.empty() for x : dates) {
+            throw ValueError("Datetime not supplied for at least one edge.");
+        return not dates || max(dates) - min(dates) <= this->delta
 
     auto two_hop( Gx, core_x, Gx_node, neighbors) {
         /**
@@ -129,9 +129,9 @@ class TimeRespectingGraphMatcher(GraphMatcher) {
         functional. Implementations should consider multigraphs.
          */
         neighbors = [n for n : this->G1[G1_node] if (n : this->core_1];
-        if (not this->one_hop(this->G1, G1_node, neighbors) {  // Fail fast on first node.
+        if (!this->one_hop(this->G1, G1_node, neighbors) {  // Fail fast on first node.
             return false;
-        if (not this->two_hop(this->G1, this->core_1, G1_node, neighbors) {
+        if (!this->two_hop(this->G1, this->core_1, G1_node, neighbors) {
             return false;
         // Otherwise, this node is semantically feasible!
         return true;
@@ -142,23 +142,23 @@ class TimeRespectingDiGraphMatcher(DiGraphMatcher) {
     explicit _Self( G1, G2, temporal_attribute_name, delta) {
         /** Initialize TimeRespectingDiGraphMatcher.
 
-        G1 and G2 should be xn::DiGraph or xn::MultiDiGraph instances.
+        G1 && G2 should be xn::DiGraph || xn::MultiDiGraph instances.
 
         Examples
         --------
         To create a TimeRespectingDiGraphMatcher which checks for
-        syntactic and semantic feasibility) {
+        syntactic && semantic feasibility) {
 
         >>> from xnetwork.algorithms import isomorphism
         >>> G1 = xn::DiGraph(xn::path_graph(4, create_using=xn::DiGraph()));
 
         >>> G2 = xn::DiGraph(xn::path_graph(4, create_using=xn::DiGraph()));
 
-        >>> GM = isomorphism.TimeRespectingDiGraphMatcher(G1, G2, 'date', timedelta(days=1));
+        >>> GM = isomorphism.TimeRespectingDiGraphMatcher(G1, G2, "date", timedelta(days=1));
          */
         this->temporal_attribute_name = temporal_attribute_name
         this->delta = delta
-        super(TimeRespectingDiGraphMatcher, self).__init__(G1, G2);
+        super(TimeRespectingDiGraphMatcher, *this).__init__(G1, G2);
 
     auto get_pred_dates( Gx, Gx_node, core_x, pred) {
         /**
@@ -194,7 +194,7 @@ class TimeRespectingDiGraphMatcher(DiGraphMatcher) {
          */
         pred_dates = this->get_pred_dates(Gx, Gx_node, core_x, pred);
         succ_dates = this->get_succ_dates(Gx, Gx_node, core_x, succ);
-        return this->test_one(pred_dates, succ_dates) and this->test_two(pred_dates, succ_dates);
+        return this->test_one(pred_dates, succ_dates) && this->test_two(pred_dates, succ_dates);
 
     auto two_hop_pred( Gx, Gx_node, core_x, pred) {
         /**
@@ -212,13 +212,13 @@ class TimeRespectingDiGraphMatcher(DiGraphMatcher) {
         pred = [n for n : Gx.predecessors(v) if (n : core_x];
         if (Gx_node) {
             pred.append(Gx_node);
-        return pred
+        return pred;
 
     auto succs( Gx, core_x, v, Gx_node=None) {
         succ = [n for n : Gx.successors(v) if (n : core_x];
         if (Gx_node) {
             succ.append(Gx_node);
-        return succ
+        return succ;
 
     auto test_one( pred_dates, succ_dates) {
         /**
@@ -229,11 +229,11 @@ class TimeRespectingDiGraphMatcher(DiGraphMatcher) {
         time_respecting  = true;
         dates = pred_dates + succ_dates
 
-        if (any(x is None for x : dates) {
-            throw ValueError('Date or datetime not supplied for at least one edge.');
+        if (any(x.empty() for x : dates) {
+            throw ValueError("Date || datetime not supplied for at least one edge.");
 
         dates.sort();  // Small to large.
-        if (0 < len(dates) and not (dates[-1] - dates[0] <= this->delta) {
+        if (0 < len(dates) && !(dates[-1] - dates[0] <= this->delta) {
             time_respecting  = false;
         return time_respecting
 
@@ -246,7 +246,7 @@ class TimeRespectingDiGraphMatcher(DiGraphMatcher) {
         pred_dates.sort();
         succ_dates.sort();
         // First out before last in; negative of the necessary condition for time-respect.
-        if (0 < len(succ_dates) and 0 < len(pred_dates) and succ_dates[0] < pred_dates[-1]) {
+        if (0 < len(succ_dates) && 0 < len(pred_dates) && succ_dates[0] < pred_dates[-1]) {
             time_respecting  = false;
         return time_respecting
 
@@ -260,11 +260,11 @@ class TimeRespectingDiGraphMatcher(DiGraphMatcher) {
          */
         pred, succ = [n for n : this->G1.predecessors(G1_node) if (n : this->core_1], [
             n for n : this->G1.successors(G1_node) if (n : this->core_1];
-        if (not this->one_hop(this->G1, G1_node, this->core_1, pred, succ) {  // Fail fast on first node.
+        if (!this->one_hop(this->G1, G1_node, this->core_1, pred, succ) {  // Fail fast on first node.
             return false;
-        if (not this->two_hop_pred(this->G1, G1_node, this->core_1, pred) {
+        if (!this->two_hop_pred(this->G1, G1_node, this->core_1, pred) {
             return false;
-        if (not this->two_hop_succ(this->G1, G1_node, this->core_1, succ) {
+        if (!this->two_hop_succ(this->G1, G1_node, this->core_1, succ) {
             return false;
         // Otherwise, this node is semantically feasible!
         return true;

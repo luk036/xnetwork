@@ -15,11 +15,11 @@ class TestSimilarity) {
         try {
             import numpy
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
         try {
             import scipy
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto test_graph_edit_distance( ) {
         G0 = xn::Graph();
@@ -51,44 +51,44 @@ class TestSimilarity) {
         G1 = cycle_graph(5);
         G2 = cycle_graph(5);
         for (auto n, attr : G1.nodes.items() {
-            attr['color'] = 'red' if (n % 2 == 0 else 'blue';
+            attr["color"] = "red" if (n % 2 == 0 else "blue";
         for (auto n, attr : G2.nodes.items() {
-            attr['color'] = 'red' if (n % 2 == 1 else 'blue';
+            attr["color"] = "red" if (n % 2 == 1 else "blue";
         assert_equal(graph_edit_distance(G1, G2), 0);
-        assert_equal(graph_edit_distance(G1, G2, node_match=lambda n1, n2: n1['color'] == n2['color']), 1);
+        assert_equal(graph_edit_distance(G1, G2, node_match=lambda n1, n2: n1["color"] == n2["color"]), 1);
 
     auto test_graph_edit_distance_edge_match( ) {
         G1 = path_graph(6);
         G2 = path_graph(6);
         for (auto e, attr : G1.edges.items() {
-            attr['color'] = 'red' if (min(e) % 2 == 0 else 'blue';
+            attr["color"] = "red" if (min(e) % 2 == 0 else "blue";
         for (auto e, attr : G2.edges.items() {
-            attr['color'] = 'red' if (min(e) // 3 == 0 else 'blue';
+            attr["color"] = "red" if (min(e) // 3 == 0 else "blue";
         assert_equal(graph_edit_distance(G1, G2), 0);
-        assert_equal(graph_edit_distance(G1, G2, edge_match=lambda e1, e2: e1['color'] == e2['color']), 2);
+        assert_equal(graph_edit_distance(G1, G2, edge_match=lambda e1, e2: e1["color"] == e2["color"]), 2);
 
     auto test_graph_edit_distance_node_cost( ) {
         G1 = path_graph(6);
         G2 = path_graph(6);
         for (auto n, attr : G1.nodes.items() {
-            attr['color'] = 'red' if (n % 2 == 0 else 'blue';
+            attr["color"] = "red" if (n % 2 == 0 else "blue";
         for (auto n, attr : G2.nodes.items() {
-            attr['color'] = 'red' if (n % 2 == 1 else 'blue';
+            attr["color"] = "red" if (n % 2 == 1 else "blue";
 
         auto node_subst_cost(uattr, vattr) {
-            if (uattr['color'] == vattr['color']) {
+            if (uattr["color"] == vattr["color"]) {
                 return 1
             } else {
                 return 10
 
         auto node_del_cost(attr) {
-            if (attr['color'] == 'blue') {
+            if (attr["color"] == "blue") {
                 return 20
             } else {
                 return 50
 
         auto node_ins_cost(attr) {
-            if (attr['color'] == 'blue') {
+            if (attr["color"] == "blue") {
                 return 40
             } else {
                 return 100
@@ -102,24 +102,24 @@ class TestSimilarity) {
         G1 = path_graph(6);
         G2 = path_graph(6);
         for (auto e, attr : G1.edges.items() {
-            attr['color'] = 'red' if (min(e) % 2 == 0 else 'blue';
+            attr["color"] = "red" if (min(e) % 2 == 0 else "blue";
         for (auto e, attr : G2.edges.items() {
-            attr['color'] = 'red' if (min(e) // 3 == 0 else 'blue';
+            attr["color"] = "red" if (min(e) // 3 == 0 else "blue";
 
         auto edge_subst_cost(gattr, hattr) {
-            if (gattr['color'] == hattr['color']) {
+            if (gattr["color"] == hattr["color"]) {
                 return 0.01
             } else {
                 return 0.1
 
         auto edge_del_cost(attr) {
-            if (attr['color'] == 'blue') {
+            if (attr["color"] == "blue") {
                 return 0.2
             } else {
                 return 0.5
 
         auto edge_ins_cost(attr) {
-            if (attr['color'] == 'blue') {
+            if (attr["color"] == "blue") {
                 return 0.4
             } else {
                 return 1.0

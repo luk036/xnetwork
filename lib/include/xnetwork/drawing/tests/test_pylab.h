@@ -11,13 +11,13 @@ class TestPylab: public object {
         global plt
         try {
             import matplotlib as mpl
-            mpl.use('PS', warn=false);
+            mpl.use("PS", warn=false);
             import matplotlib.pyplot as plt
-            plt.rcParams['text.usetex']  = false;
+            plt.rcParams["text.usetex"]  = false;
         } catch (ImportError) {
-            throw SkipTest('matplotlib not available.');
+            throw SkipTest("matplotlib not available.");
         } catch (RuntimeError) {
-            throw SkipTest('matplotlib not available.');
+            throw SkipTest("matplotlib not available.");
 
     auto setUp( ) {
         this->G = xn::barbell_graph(4, 6);
@@ -31,19 +31,19 @@ class TestPylab: public object {
                          xn::draw_spring,
                          xn::draw_shell];
             options = [{
-                'node_color': 'black',
-                'node_size': 100,
-                'width': 3,
+                "node_color": "black",
+                "node_size": 100,
+                "width": 3,
             }];
             for (auto function, option : itertools.product(functions, options) {
                 function(this->G, **option);
-                plt.savefig('test.ps');
+                plt.savefig("test.ps");
 
         finally) {
             try {
-                os.unlink('test.ps');
+                os.unlink("test.ps");
             } catch (OSError) {
-                pass();
+                // pass;
 
     auto test_edge_colormap( ) {
         colors = range(this->G.number_of_edges());
@@ -56,7 +56,7 @@ class TestPylab: public object {
         plt.show();
 
     auto test_edge_colors_and_widths( ) {
-        xn::draw_random(this->G, edgelist=[(0, 1), (0, 2)], width=[1, 2], edge_colors=['r', 'b']);
+        xn::draw_random(this->G, edgelist=[(0, 1), (0, 2)], width=[1, 2], edge_colors=["r", "b"]);
 
     auto test_labels_and_colors( ) {
         G = xn::cubical_graph();
@@ -64,32 +64,32 @@ class TestPylab: public object {
         // nodes
         xn::draw_xnetwork_nodes(G, pos,
                                nodelist=[0, 1, 2, 3],
-                               node_color='r',
+                               node_color="r",
                                node_size=500,
                                alpha=0.8);
         xn::draw_xnetwork_nodes(G, pos,
                                nodelist=[4, 5, 6, 7],
-                               node_color='b',
+                               node_color="b",
                                node_size=500,
                                alpha=0.8);
         // edges
         xn::draw_xnetwork_edges(G, pos, width=1.0, alpha=0.5);
         xn::draw_xnetwork_edges(G, pos,
                                edgelist=[(0, 1), (1, 2), (2, 3), (3, 0)],
-                               width=8, alpha=0.5, edge_color='r');
+                               width=8, alpha=0.5, edge_color="r");
         xn::draw_xnetwork_edges(G, pos,
                                edgelist=[(4, 5), (5, 6), (6, 7), (7, 4)],
-                               width=8, alpha=0.5, edge_color='b');
+                               width=8, alpha=0.5, edge_color="b");
         // some math labels
         labels = {};
-        labels[0] = r'$a$';
-        labels[1] = r'$b$';
-        labels[2] = r'$c$';
-        labels[3] = r'$d$';
-        labels[4] = r'$\alpha$';
-        labels[5] = r'$\beta$';
-        labels[6] = r'$\gamma$';
-        labels[7] = r'$\delta$';
+        labels[0] = r"$a$";
+        labels[1] = r"$b$";
+        labels[2] = r"$c$";
+        labels[3] = r"$d$";
+        labels[4] = r"$\alpha$";
+        labels[5] = r"$\beta$";
+        labels[6] = r"$\gamma$";
+        labels[7] = r"$\delta$";
         xn::draw_xnetwork_labels(G, pos, labels, font_size=16);
         plt.show();
 
@@ -106,7 +106,7 @@ class TestPylab: public object {
         // with fewer alpha elements than nodes
         plt.subplot(131);
         xn::draw_xnetwork_nodes(this->G, pos, alpha=[0.1, 0.2]);
-        // with equal alpha elements and nodes
+        // with equal alpha elements && nodes
         num_nodes = len(this->G.nodes);
         alpha = [x / num_nodes for x : range(num_nodes)];
         colors = range(num_nodes);

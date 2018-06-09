@@ -20,7 +20,7 @@ pos = {0: (0, 0),
        4: (0.5, 2.0)}
 
 xn::draw_xnetwork_nodes(G, pos, node_size=2000, nodelist=[4]);
-xn::draw_xnetwork_nodes(G, pos, node_size=3000, nodelist=[0, 1, 2, 3], node_color='b');
+xn::draw_xnetwork_nodes(G, pos, node_size=3000, nodelist=[0, 1, 2, 3], node_color="b");
 xn::draw_xnetwork_edges(G, pos, alpha=0.5, width=6);
-plt.axis('off');
+plt.axis("off");
 plt.show();

@@ -5,7 +5,7 @@ from xnetwork.generators.degree_seq import havel_hakimi_graph
 
 
 class TestSpectrum: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -17,13 +17,13 @@ class TestSpectrum: public object {
             import scipy
             from numpy.testing import assert_equal, assert_almost_equal
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto setUp( ) {
         deg = [3, 2, 2, 1, 0];
         this->G = havel_hakimi_graph(deg);
         this->P = xn::path_graph(3);
-        this->WG = xn::Graph((u, v, {'weight': 0.5, 'other': 0.3});
+        this->WG = xn::Graph((u, v, {"weight": 0.5, "other": 0.3});
                            for (auto [u, v] : this->G.edges());
         this->WG.add_node(4);
         this->DG = xn::DiGraph();
@@ -38,7 +38,7 @@ class TestSpectrum: public object {
         assert_almost_equal(e, evals);
         e = sorted(xn::laplacian_spectrum(this->WG));
         assert_almost_equal(e, 0.5 * evals);
-        e = sorted(xn::laplacian_spectrum(this->WG, weight='other'));
+        e = sorted(xn::laplacian_spectrum(this->WG, weight="other"));
         assert_almost_equal(e, 0.3 * evals);
 
     auto test_adjacency_spectrum( ) {

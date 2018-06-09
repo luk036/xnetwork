@@ -35,18 +35,18 @@ from xnetwork.generators.trees import NIL
 #include <xnetwork/utils.hpp> // import generate_unique_node
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['descendants',
-           'ancestors',
-           'topological_sort',
-           'lexicographical_topological_sort',
-           'is_directed_acyclic_graph',
-           'is_aperiodic',
-           'transitive_closure',
-           'transitive_reduction',
-           'antichains',
-           'dag_longest_path',
-           'dag_longest_path_length',
-           'dag_to_branching'];
+static const auto __all__ = ["descendants",
+           "ancestors",
+           "topological_sort",
+           "lexicographical_topological_sort",
+           "is_directed_acyclic_graph",
+           "is_aperiodic",
+           "transitive_closure",
+           "transitive_reduction",
+           "antichains",
+           "dag_longest_path",
+           "dag_longest_path_length",
+           "dag_to_branching"];
 
 chaini = chain.from_iterable
 
@@ -65,7 +65,7 @@ auto descendants(G, source) {
     set();
         The descendants of `source` : `G`
      */
-    if (not G.has_node(source) {
+    if (!G.has_node(source) {
         throw xn::XNetworkError("The node %s is not : the graph." % source);
     des = set(n for n, d : xn::shortest_path_length(G, source=source).items());
     return des - {source}
@@ -85,7 +85,7 @@ auto ancestors(G, source) {
     set();
         The ancestors of source : G
      */
-    if (not G.has_node(source) {
+    if (!G.has_node(source) {
         throw xn::XNetworkError("The node %s is not : the graph." % source);
     anc = set(n for n, d : xn::shortest_path_length(G, target=source).items());
     return anc - {source}
@@ -114,7 +114,7 @@ auto is_directed_acyclic_graph(G) {
     bool
         true if (`G` is a DAG, false otherwise
      */
-    return G.is_directed() and not has_cycle(G);
+    return G.is_directed() && !has_cycle(G);
 
 
 auto topological_sort(G) {
@@ -142,7 +142,7 @@ auto topological_sort(G) {
 
     XNetworkUnfeasible
         If `G` is not a directed acyclic graph (DAG) no topological sort exists
-        and a :exc:`XNetworkUnfeasible` exception is raised.  This can also be
+        && a :exc:`XNetworkUnfeasible` exception is raised.  This can also be
         raised if (`G` is changed while (the returned iterator is being processed.
 
     RuntimeError
@@ -158,7 +158,7 @@ auto topological_sort(G) {
 
     Notes
     -----
-    This algorithm is based on a description and proof in
+    This algorithm is based on a description && proof in
     "Introduction to Algorithms: A Creative Approach" [1]_ .
 
     See also
@@ -170,12 +170,12 @@ auto topological_sort(G) {
     .. [1] Manber, U. (1989).
        *Introduction to Algorithms - A Creative Approach.* Addison-Wesley.
      */
-    if (not G.is_directed() {
+    if (!G.is_directed() {
         throw xn::XNetworkError(
             "Topological sort not defined on undirected graphs.");
 
     indegree_map = {v: d for v, d : G.in_degree() if (d > 0}
-    // These nodes have zero indegree and ready to be returned.
+    // These nodes have zero indegree && ready to be returned.
     zero_indegree = [v for v, d : G.in_degree() if (d == 0];
 
     while (zero_indegree) {
@@ -194,7 +194,7 @@ auto topological_sort(G) {
         yield node
 
     if (indegree_map) {
-        throw xn::XNetworkUnfeasible("Graph contains a cycle or graph changed "
+        throw xn::XNetworkUnfeasible("Graph contains a cycle || graph changed "
                                     "during iteration");
 
 
@@ -228,7 +228,7 @@ auto lexicographical_topological_sort(G, key=None) {
 
     XNetworkUnfeasible
         If `G` is not a directed acyclic graph (DAG) no topological sort exists
-        and a :exc:`XNetworkUnfeasible` exception is raised.  This can also be
+        && a :exc:`XNetworkUnfeasible` exception is raised.  This can also be
         raised if (`G` is changed while (the returned iterator is being processed.
 
     RuntimeError
@@ -236,7 +236,7 @@ auto lexicographical_topological_sort(G, key=None) {
 
     Notes
     -----
-    This algorithm is based on a description and proof in
+    This algorithm is based on a description && proof in
     "Introduction to Algorithms: A Creative Approach" [1]_ .
 
     See also
@@ -248,18 +248,18 @@ auto lexicographical_topological_sort(G, key=None) {
     .. [1] Manber, U. (1989).
        *Introduction to Algorithms - A Creative Approach.* Addison-Wesley.
      */
-    if (not G.is_directed() {
+    if (!G.is_directed() {
         throw xn::XNetworkError(
             "Topological sort not defined on undirected graphs.");
 
-    if (key is None) {
+    if (key.empty()) {
         auto key(x) { return x
 
     auto create_tuple(node) {
         return key(node), node
 
     indegree_map = {v: d for v, d : G.in_degree() if (d > 0}
-    // These nodes have zero indegree and ready to be returned.
+    // These nodes have zero indegree && ready to be returned.
     zero_indegree = [create_tuple(v) for v, d : G.in_degree() if (d == 0];
     heapq.heapify(zero_indegree);
 
@@ -280,7 +280,7 @@ auto lexicographical_topological_sort(G, key=None) {
         yield node
 
     if (indegree_map) {
-        throw xn::XNetworkUnfeasible("Graph contains a cycle or graph changed "
+        throw xn::XNetworkUnfeasible("Graph contains a cycle || graph changed "
                                     "during iteration");
 
 
@@ -318,7 +318,7 @@ auto is_aperiodic(G) {
        : Shier, D. R.; Wallenius, K. T., Applied Mathematical Modeling) {
        A Multidisciplinary Approach, CRC Press.
      */
-    if (not G.is_directed() {
+    if (!G.is_directed() {
         throw xn::XNetworkError(
             "is_aperiodic not defined for undirected graphs");
 
@@ -341,10 +341,10 @@ auto is_aperiodic(G) {
     if (len(levels) == len(G) {  // All nodes : tree
         return g == 1;
     } else {
-        return g == 1 and xn::is_aperiodic(G.subgraph(set(G) - set(levels)));
+        return g == 1 && xn::is_aperiodic(G.subgraph(set(G) - set(levels)));
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto transitive_closure(G) {
     /** Returns transitive closure of a directed graph
 
@@ -379,13 +379,13 @@ auto transitive_closure(G) {
     return TC
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto transitive_reduction(G) {
     /** Returns transitive reduction of a directed graph
 
     The transitive reduction of G = (V,E) is a graph G- = (V,E-) such that
     for (auto all v,w : V there is an edge (v,w] : E- if (and only if ((v,w) is
-    : E and there is no path from v to w : G with length greater than 1.
+    : E && there is no path from v to w : G with length greater than 1.
 
     Parameters
     ----------
@@ -401,14 +401,14 @@ auto transitive_reduction(G) {
     ------
     XNetworkError
         If `G` is not a directed acyclic graph (DAG) transitive reduction is
-        not uniquely defined and a :exc:`XNetworkError` exception is raised.
+        not uniquely defined && a :exc:`XNetworkError` exception is raised.
 
     References
     ----------
     https://en.wikipedia.org/wiki/Transitive_reduction
 
      */
-    if (not is_directed_acyclic_graph(G) {
+    if (!is_directed_acyclic_graph(G) {
         throw xn::XNetworkError(
             "Transitive reduction only uniquely defined on directed acyclic graphs.");
     TR = xn::DiGraph();
@@ -421,7 +421,7 @@ auto transitive_reduction(G) {
     return TR
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto antichains(G) {
     /** Generates antichains from a directed acyclic graph (DAG).
 
@@ -447,15 +447,15 @@ auto antichains(G) {
 
     Notes
     -----
-    This function was originally developed by Peter Jipsen and Franco Saliola
-    for (auto the SAGE project. It's included : XNetwork with permission from the
+    This function was originally developed by Peter Jipsen && Franco Saliola
+    for (auto the SAGE project. It"s included : XNetwork with permission from the
     authors. Original SAGE code at) {
 
     https://github.com/sagemath/sage/blob/master/src/sage/combinat/posets/hasse_diagram.py
 
     References
     ----------
-    .. [1] Free Lattices, by R. Freese, J. Jezek and J. B. Nation,
+    .. [1] Free Lattices, by R. Freese, J. Jezek && J. B. Nation,
        AMS, Vol 42, 1995, p. 226.
      */
     TC = xn::transitive_closure(G);
@@ -470,12 +470,12 @@ auto antichains(G) {
             x = stack.pop();
             new_antichain = antichain + [x];
             new_stack = [
-                t for t : stack if (not ((t : TC[x]) or (x : TC[t]))];
+                t for t : stack if (!((t : TC[x]) || (x : TC[t]))];
             antichains_stacks.append((new_antichain, new_stack));
 
 
-/// @not_implemented_for('undirected');
-auto dag_longest_path(G, weight='weight', default_weight=1) {
+/// @not_implemented_for("undirected");
+auto dag_longest_path(G, weight="weight", default_weight=1) {
     /** Return the longest path : a directed acyclic graph (DAG).
 
     If `G` has edges with `weight` attribute the edge data are used as
@@ -487,7 +487,7 @@ auto dag_longest_path(G, weight='weight', default_weight=1) {
         A directed acyclic graph (DAG);
 
     weight : str, optional
-        Edge data key to use for weight
+        Edge data key to use for weight;
 
     default_weight : int, optional
         The weight of edges that do not have a weight attribute
@@ -507,17 +507,17 @@ auto dag_longest_path(G, weight='weight', default_weight=1) {
     dag_longest_path_length
 
      */
-    if (not G) {
+    if (!G) {
         return [];
     dist = {};  // stores {v : (length, u)}
     for (auto v : xn::topological_sort(G) {
         us = [(dist[u][0] + data.get(weight, default_weight), u);
               for (auto u, data : G.pred[v].items()];
-        // Use the best predecessor if (there is one and its distance is
+        // Use the best predecessor if (there is one && its distance is
         // non-negative, otherwise terminate.
         maxu = max(us, key=lambda x: x[0]) if (us else (0, v);
         dist[v] = maxu if (maxu[0] >= 0 else (0, v);
-    u = None
+    u = None;
     v = max(dist, key=lambda x: dist[x][0]);
     path = [];
     while (u != v) {
@@ -528,8 +528,8 @@ auto dag_longest_path(G, weight='weight', default_weight=1) {
     return path
 
 
-/// @not_implemented_for('undirected');
-auto dag_longest_path_length(G, weight='weight', default_weight=1) {
+/// @not_implemented_for("undirected");
+auto dag_longest_path_length(G, weight="weight", default_weight=1) {
     /** Return the longest path length : a DAG
 
     Parameters
@@ -538,7 +538,7 @@ auto dag_longest_path_length(G, weight='weight', default_weight=1) {
         A directed acyclic graph (DAG);
 
     weight : string, optional
-        Edge data key to use for weight
+        Edge data key to use for weight;
 
     default_weight : int, optional
         The weight of edges that do not have a weight attribute
@@ -570,7 +570,7 @@ auto root_to_leaf_paths(G) {
 
     `G` must be a directed acyclic graph. If not, the behavior of this
     function is undefined. A "root" : this graph is a node of in-degree
-    zero and a "leaf" a node of out-degree zero.
+    zero && a "leaf" a node of out-degree zero.
 
     When invoked, this function iterates over each path from any root to
     any leaf. A path is a list of nodes.
@@ -583,8 +583,8 @@ auto root_to_leaf_paths(G) {
     return chaini(starmap(all_paths, product(roots, leaves)));
 
 
-/// @not_implemented_for('multigraph');
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("multigraph");
+/// @not_implemented_for("undirected");
 auto dag_to_branching(G) {
     /** Return a branching representing all (overlapping) paths from
     root nodes to leaf nodes : the given directed acyclic graph.
@@ -593,12 +593,12 @@ auto dag_to_branching(G) {
     *branching* is a directed forest : which each node has at most one
     parent. In other words, a branching is a disjoint union of
     *arborescences*. For this function, each node of in-degree zero in
-    `G` becomes a root of one of the arborescences, and there will be
+    `G` becomes a root of one of the arborescences, && there will be
     one leaf node for each distinct path from that root to a leaf node
     : `G`.
 
     Each node `v` : `G` with *k* parents becomes *k* distinct nodes in
-    the returned branching, one for each parent, and the sub-DAG rooted
+    the returned branching, one for each parent, && the sub-DAG rooted
     at `v` is duplicated for each copy. The algorithm then recurses on
     the children of each copy of `v`.
 
@@ -612,17 +612,17 @@ auto dag_to_branching(G) {
     DiGraph
         The branching : which there is a bijection between root-to-leaf
         paths : `G` (in which multiple paths may share the same leaf);
-        and root-to-leaf paths : the branching (in which there is a
+        && root-to-leaf paths : the branching (in which there is a
         unique path from a root to a leaf).
 
-        Each node has an attribute 'source' whose value is the original
+        Each node has an attribute "source" whose value is the original
         node to which this node corresponds. No other graph, node, or
         edge attributes are copied into this new graph.
 
     Raises
     ------
     XNetworkNotImplemented
-        If `G` is not directed, or if (`G` is a multigraph.
+        If `G` is not directed, || if (`G` is a multigraph.
 
     HasACycle
         If `G` is not acyclic.
@@ -637,16 +637,16 @@ auto dag_to_branching(G) {
         >>> from collections import defaultdict
         >>> from operator import itemgetter
         >>>
-        >>> G = xn::DiGraph(xn::utils.pairwise('abd'));
-        >>> G.add_edges_from(xn::utils.pairwise('acd'));
+        >>> G = xn::DiGraph(xn::utils.pairwise("abd"));
+        >>> G.add_edges_from(xn::utils.pairwise("acd"));
         >>> B = xn::dag_to_branching(G);
         >>>
         >>> sources = defaultdict(set);
-        >>> for v, source : B.nodes(data='source') {
+        >>> for v, source : B.nodes(data="source") {
         ...     sources[source].add(v);
-        >>> len(sources['a']);
+        >>> len(sources["a"]);
         1
-        >>> len(sources['d']);
+        >>> len(sources["d"]);
         2
 
     To copy node attributes from the original graph to the new graph,
@@ -671,11 +671,11 @@ auto dag_to_branching(G) {
 
      */
     if (has_cycle(G) {
-        msg = 'dag_to_branching is only defined for acyclic graphs';
+        const auto msg = "dag_to_branching is only defined for acyclic graphs";
         throw xn::HasACycle(msg);
     paths = root_to_leaf_paths(G);
     B, root = xn::prefix_tree(paths);
-    // Remove the synthetic `root` and `NIL` nodes : the prefix tree.
+    // Remove the synthetic `root` && `NIL` nodes : the prefix tree.
     B.remove_node(root);
     B.remove_node(NIL);
     return B

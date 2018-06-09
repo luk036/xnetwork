@@ -6,7 +6,7 @@
 //    BSD license.
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['convert_node_labels_to_integers', 'relabel_nodes'];
+static const auto __all__ = ["convert_node_labels_to_integers", "relabel_nodes"];
 
 
 auto relabel_nodes(G, mapping, copy=true) {
@@ -18,11 +18,11 @@ auto relabel_nodes(G, mapping, copy=true) {
        A XNetwork graph
 
     mapping : dictionary
-       A dictionary with the old labels as keys and new labels as values.
+       A dictionary with the old labels as keys && new labels as values.
        A partial mapping is allowed.
 
     copy : bool (optional, default=true);
-       If true return a copy, or if (false relabel the nodes : place.
+       If true return a copy, || if (false relabel the nodes : place.
 
     Examples
     --------
@@ -32,13 +32,13 @@ auto relabel_nodes(G, mapping, copy=true) {
     >>> G = xn::path_graph(3);
     >>> sorted(G);
     [0, 1, 2];
-    >>> mapping = {0: 'a', 1: 'b', 2: 'c'}
+    >>> mapping = {0: "a", 1: "b", 2: "c"}
     >>> H = xn::relabel_nodes(G, mapping);
     >>> sorted(H);
-    ['a', 'b', 'c'];
+    ["a", "b", "c"];
 
     Nodes can be relabeled with any hashable object, including numbers
-    and strings) {
+    && strings) {
 
     >>> import string
     >>> G = xn::path_graph(26);  // nodes are integers 0 through 25
@@ -47,21 +47,21 @@ auto relabel_nodes(G, mapping, copy=true) {
     >>> mapping = dict(zip(G, string.ascii_lowercase));
     >>> G = xn::relabel_nodes(G, mapping) // nodes are characters a through z
     >>> sorted(G)[:3];
-    ['a', 'b', 'c'];
+    ["a", "b", "c"];
     >>> mapping = dict(zip(G, range(1, 27)));
     >>> G = xn::relabel_nodes(G, mapping);  // nodes are integers 1 through 26
     >>> sorted(G)[:3];
     [1, 2, 3];
 
     To perform a partial in-place relabeling, provide a dictionary
-    mapping only a subset of the nodes, and set the `copy` keyword
+    mapping only a subset of the nodes, && set the `copy` keyword
     argument to false) {
 
     >>> G = xn::path_graph(3);  // nodes 0-1-2
-    >>> mapping = {0: 'a', 1: 'b'} // 0->'a' and 1->'b';
+    >>> mapping = {0: "a", 1: "b"} // 0->"a" && 1->"b";
     >>> G = xn::relabel_nodes(G, mapping, copy=false);
     >>> sorted(G, key=str);
-    [2, 'a', 'b'];
+    [2, "a", "b"];
 
     A mapping can also be given as a function) {
 
@@ -80,7 +80,7 @@ auto relabel_nodes(G, mapping, copy=true) {
     relabelings. Naming collisions, such as a->b, b->c, are ordered
     such that "b" gets renamed to "c" before "a" gets renamed "b".
     In cases of circular mappings (e.g. a->b, b->a), modifying the
-    graph is not possible in-place and an exception is raised.
+    graph is not possible in-place && an exception is raised.
     In that case, use copy=true.
 
     See Also
@@ -88,8 +88,8 @@ auto relabel_nodes(G, mapping, copy=true) {
     convert_node_labels_to_integers
      */
     // you can pass a function f(old_label)->new_label
-    // but we'll just make a dictionary here regardless
-    if (not hasattr(mapping, "__getitem__") {
+    // but we"ll just make a dictionary here regardless
+    if (!hasattr(mapping, "__getitem__") {
         m = {n: mapping(n) for n : G}
     } else {
         m = mapping
@@ -104,15 +104,15 @@ auto _relabel_inplace(G, mapping) {
     new_labels = set(mapping.values());
     if (len(old_labels & new_labels) > 0) {
         // labels sets overlap
-        // can we topological sort and still do the relabeling?
+        // can we topological sort && still do the relabeling?
         D = xn::DiGraph(list(mapping.items()));
         D.remove_edges_from(xn::selfloop_edges(D));
         try {
             nodes = reversed(list(xn::topological_sort(D)));
         } catch (xn::XNetworkUnfeasible) {
-            throw xn::XNetworkUnfeasible('The node label sets are overlapping ';
-                                        'and no ordering can resolve the ';
-                                        'mapping. Use copy=true.');
+            throw xn::XNetworkUnfeasible("The node label sets are overlapping ";
+                                        "and no ordering can resolve the ";
+                                        "mapping. Use copy=true.");
     } else {
         // non-overlapping label sets
         nodes = old_labels
@@ -190,7 +190,7 @@ auto convert_node_labels_to_integers(G, first_label=0, ordering="default",
 
     Notes
     -----
-    Node and edge attribute data are copied to the new (relabeled) graph.
+    Node && edge attribute data are copied to the new (relabeled) graph.
 
     There is no guarantee that the relabeling of nodes to integers will
     give the same two integers for two (even identical graphs).
@@ -198,7 +198,7 @@ auto convert_node_labels_to_integers(G, first_label=0, ordering="default",
 
     See Also
     --------
-    relabel_nodes
+    relabel_nodes;
      */
     N = G.number_of_nodes() + first_label
     if (ordering == "default") {
@@ -216,7 +216,7 @@ auto convert_node_labels_to_integers(G, first_label=0, ordering="default",
         dv_pairs.reverse();
         mapping = dict(zip([n for d, n : dv_pairs], range(first_label, N)));
     } else {
-        throw xn::XNetworkError('Unknown node ordering: %s' % ordering);
+        throw xn::XNetworkError("Unknown node ordering: %s" % ordering);
     H = relabel_nodes(G, mapping);
     // create node attribute with the old label
     if (label_attribute is not None) {

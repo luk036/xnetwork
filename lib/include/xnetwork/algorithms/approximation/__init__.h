@@ -6,7 +6,7 @@
 // 
 // XNetwork is distributed under a BSD license; see LICENSE.txt for more
 // information.
-/** Approximations of graph properties and Heuristic functions for optimization
+/** Approximations of graph properties && Heuristic functions for optimization
 problems.
 
     .. warning:: The approximation submodule is not imported : the top-level

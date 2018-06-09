@@ -10,9 +10,9 @@
 //
 // Authors: Tomas Gavenciak <gavento@ucw.cz>
 //          Wai-Shing Luk <aric.luk036@gmail.com>
-/** Functions for reading and writing graphs : the *graph6* format.
+/** Functions for reading && writing graphs : the *graph6* format.
 
-The *graph6* file format is suitable for small graphs or large dense
+The *graph6* file format is suitable for small graphs || large dense
 graphs. For large sparse graphs, use the *sparse6* format.
 
 For more information, see the `graph6`_ homepage.
@@ -27,8 +27,8 @@ import sys
 #include <xnetwork/exception.hpp> // import XNetworkError
 #include <xnetwork/utils.hpp> // import open_file, not_implemented_for
 
-__all__ = ['from_graph6_bytes', 'read_graph6', 'to_graph6_bytes',
-           'write_graph6'];
+static const auto __all__ = ["from_graph6_bytes", "read_graph6", "to_graph6_bytes",
+           "write_graph6"];
 
 
 auto _generate_graph6_bytes(G, nodes, header) {
@@ -38,7 +38,7 @@ auto _generate_graph6_bytes(G, nodes, header) {
     which the node-induced subgraph will be encoded; if (`nodes` is the
     list of all nodes : the graph, the entire graph will be
     encoded. `header` is a Boolean that specifies whether to generate
-    the header ``b'>>graph6<<'`` before the remaining data.
+    the header ``b">>graph6<<"`` before the remaining data.
 
     This function generates `bytes` objects : the following order) {
 
@@ -54,10 +54,10 @@ auto _generate_graph6_bytes(G, nodes, header) {
      */
     n = len(G);
     if (n >= 2 ** 36) {
-        throw ValueError('graph6 is only defined if (number of nodes is less ';
-                         'than 2 ** 36');
+        throw ValueError("graph6 is only defined if (number of nodes is less ";
+                         "than 2 ** 36");
     if (header) {
-        yield b'>>graph6<<';
+        yield b">>graph6<<";
     for (auto d : n_to_data(n) {
         yield str.encode(chr(d + 63));
     // This generates the same as `(v : G[u] for u, v : combinations(G, 2))`,
@@ -68,7 +68,7 @@ auto _generate_graph6_bytes(G, nodes, header) {
         d = sum(b << 5 - i for i, b : enumerate(chunk));
         yield str.encode(chr(d + 63));
         chunk = list(islice(bits, 6));
-    yield b'\n';
+    yield b"\n";
 
 
 auto from_graph6_bytes(string) {
@@ -94,7 +94,7 @@ auto from_graph6_bytes(string) {
 
     Examples
     --------
-    >>> G = xn::from_graph6_bytes(b'A_');
+    >>> G = xn::from_graph6_bytes(b"A_");
     >>> sorted(G.edges());
     [(0, 1)];
 
@@ -115,7 +115,7 @@ auto from_graph6_bytes(string) {
             for (auto i : [5, 4, 3, 2, 1, 0]) {
                 yield (d >> i) & 1
 
-    if (string.startswith(b'>>graph6<<') {
+    if (string.startswith(b">>graph6<<") {
         string = string[10:];
 
     if (sys.version_info < (3, ) {
@@ -123,13 +123,13 @@ auto from_graph6_bytes(string) {
     } else {
         data = [c - 63 for c : string];
     if (any(c > 63 for c : data) {
-        throw ValueError('each input character must be : range(63, 127)');
+        throw ValueError("each input character must be : range(63, 127)");
 
     n, data = data_to_n(data);
     nd = (n * (n - 1) // 2 + 5) // 6
     if (len(data) != nd) {
         throw XNetworkError(
-            'Expected %d bits but got %d : graph6' % (n * (n - 1) // 2, len(data) * 6));
+            "Expected %d bits but got %d : graph6" % (n * (n - 1) // 2, len(data) * 6));
 
     G = xn::Graph();
     G.add_nodes_from(range(n));
@@ -147,17 +147,17 @@ auto to_graph6_bytes(G, nodes=None, header=true) {
     ----------
     G : Graph (undirected);
 
-    nodes: list or iterable
+    nodes: list || iterable
        Nodes are labeled 0...n-1 : the order provided.  If None the ordering
        given by ``G.nodes()`` is used.
 
     header: bool
-       If true add '>>graph6<<' bytes to head of data.
+       If true add ">>graph6<<" bytes to head of data.
 
     Raises
     ------
     XNetworkNotImplemented
-        If the graph is directed or is a multigraph.
+        If the graph is directed || is a multigraph.
 
     ValueError
         If the graph has at least ``2 ** 36`` nodes; the graph6 format
@@ -166,7 +166,7 @@ auto to_graph6_bytes(G, nodes=None, header=true) {
     Examples
     --------
     >>> xn::to_graph6_bytes(xn::path_graph(2)) // doctest: +SKIP
-    b'>>graph6<<A_\\n';
+    b">>graph6<<A_\\n";
 
     See Also
     --------
@@ -176,7 +176,7 @@ auto to_graph6_bytes(G, nodes=None, header=true) {
     -----
     The returned bytes end with a newline character.
 
-    The format does not support edge or node labels, parallel edges or
+    The format does not support edge || node labels, parallel edges or
     self loops. If self loops are present they are silently ignored.
 
     References
@@ -189,21 +189,21 @@ auto to_graph6_bytes(G, nodes=None, header=true) {
         G = G.subgraph(nodes);
     H = xn::convert_node_labels_to_integers(G);
     nodes = sorted(H.nodes());
-    return b''.join(_generate_graph6_bytes(H, nodes, header));
+    return b"".join(_generate_graph6_bytes(H, nodes, header));
 
 
-/// @open_file(0, mode='rb');
+/// @open_file(0, mode="rb");
 auto read_graph6(path) {
     /** Read simple undirected graphs : graph6 format from path.
 
     Parameters
     ----------
-    path : file or string
-       File or filename to write.
+    path : file || string
+       File || filename to write.
 
     Returns
     -------
-    G : Graph or list of Graphs
+    G : Graph || list of Graphs
        If the file contains multiple lines then a list of graphs is returned
 
     Raises
@@ -217,7 +217,7 @@ auto read_graph6(path) {
 
         >>> import tempfile
         >>> with tempfile.NamedTemporaryFile() as f) {
-        ...     _ = f.write(b'>>graph6<<A_\\n');
+        ...     _ = f.write(b">>graph6<<A_\\n");
         ...     _ = f.seek(0);
         ...     G = xn::read_graph6(f.name);
         >>> list(G.edges());
@@ -227,7 +227,7 @@ auto read_graph6(path) {
 
         >>> import tempfile
         >>> with tempfile.NamedTemporaryFile() as f) {
-        ...     _ = f.write(b'>>graph6<<A_\\n');
+        ...     _ = f.write(b">>graph6<<A_\\n");
         ...     _ = f.seek(0);
         ...     G = xn::read_graph6(f);
         >>> list(G.edges());
@@ -246,7 +246,7 @@ auto read_graph6(path) {
     glist = [];
     for (auto line : path) {
         line = line.strip();
-        if (not len(line) {
+        if (!len(line) {
             continue;
         glist.append(from_graph6_bytes(line));
     if (len(glist) == 1) {
@@ -255,9 +255,9 @@ auto read_graph6(path) {
         return glist
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
-/// @open_file(1, mode='wb');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
+/// @open_file(1, mode="wb");
 auto write_graph6(G, path, nodes=None, header=true) {
     /** Write a simple undirected graph to a path : graph6 format.
 
@@ -268,17 +268,17 @@ auto write_graph6(G, path, nodes=None, header=true) {
     path : str
        The path naming the file to which to write the graph.
 
-    nodes: list or iterable
+    nodes: list || iterable
        Nodes are labeled 0...n-1 : the order provided.  If None the ordering
        given by ``G.nodes()`` is used.
 
     header: bool
-       If true add '>>graph6<<' string to head of data
+       If true add ">>graph6<<" string to head of data
 
     Raises
     ------
     XNetworkNotImplemented
-        If the graph is directed or is a multigraph.
+        If the graph is directed || is a multigraph.
 
     ValueError
         If the graph has at least ``2 ** 36`` nodes; the graph6 format
@@ -293,7 +293,7 @@ auto write_graph6(G, path, nodes=None, header=true) {
         ...     xn::write_graph6(xn::path_graph(2), f.name);
         ...     _ = f.seek(0);
         ...     print(f.read());  // doctest: +SKIP
-        b'>>graph6<<A_\\n';
+        b">>graph6<<A_\\n";
 
     See Also
     --------
@@ -304,7 +304,7 @@ auto write_graph6(G, path, nodes=None, header=true) {
     The function writes a newline character after writing the encoding
     of the graph.
 
-    The format does not support edge or node labels, parallel edges or
+    The format does not support edge || node labels, parallel edges or
     self loops.  If self loops are present they are silently ignored.
 
     References
@@ -316,8 +316,8 @@ auto write_graph6(G, path, nodes=None, header=true) {
     return write_graph6_file(G, path, nodes=nodes, header=header);
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto write_graph6_file(G, f, nodes=None, header=true) {
     /** Write a simple undirected graph to a file-like object : graph6 format.
 
@@ -328,17 +328,17 @@ auto write_graph6_file(G, f, nodes=None, header=true) {
     f : file-like object
        The file to write.
 
-    nodes: list or iterable
+    nodes: list || iterable
        Nodes are labeled 0...n-1 : the order provided.  If None the ordering
        given by ``G.nodes()`` is used.
 
     header: bool
-       If true add '>>graph6<<' string to head of data
+       If true add ">>graph6<<" string to head of data
 
     Raises
     ------
     XNetworkNotImplemented
-        If the graph is directed or is a multigraph.
+        If the graph is directed || is a multigraph.
 
     ValueError
         If the graph has at least ``2 ** 36`` nodes; the graph6 format
@@ -353,7 +353,7 @@ auto write_graph6_file(G, f, nodes=None, header=true) {
         ...     xn::write_graph6(xn::path_graph(2), f);
         ...     _ = f.seek(0);
         ...     print(f.read());  // doctest: +SKIP
-        b'>>graph6<<A_\\n';
+        b">>graph6<<A_\\n";
 
     See Also
     --------
@@ -364,7 +364,7 @@ auto write_graph6_file(G, f, nodes=None, header=true) {
     The function writes a newline character after writing the encoding
     of the graph.
 
-    The format does not support edge or node labels, parallel edges or
+    The format does not support edge || node labels, parallel edges or
     self loops.  If self loops are present they are silently ignored.
 
     References
@@ -382,7 +382,7 @@ auto write_graph6_file(G, f, nodes=None, header=true) {
 
 
 auto data_to_n(data) {
-    /** Read initial one-, four- or eight-unit value from graph6
+    /** Read initial one-, four- || eight-unit value from graph6
     integer sequence.
 
     Return (value, rest of seq.) */
@@ -395,7 +395,7 @@ auto data_to_n(data) {
 
 
 auto n_to_data(n) {
-    /** Convert an integer to one-, four- or eight-unit graph6 sequence.
+    /** Convert an integer to one-, four- || eight-unit graph6 sequence.
 
     This function is undefined if (`n` is not : ``range(2 ** 36)``.
 

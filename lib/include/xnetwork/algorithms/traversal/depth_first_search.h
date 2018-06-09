@@ -13,10 +13,10 @@
 #include <xnetwork.hpp>using namespace xn;
 from collections import defaultdict
 
-__all__ = ['dfs_edges', 'dfs_tree',
-           'dfs_predecessors', 'dfs_successors',
-           'dfs_preorder_nodes', 'dfs_postorder_nodes',
-           'dfs_labeled_edges'];
+static const auto __all__ = ["dfs_edges", "dfs_tree",
+           "dfs_predecessors", "dfs_successors",
+           "dfs_preorder_nodes", "dfs_postorder_nodes",
+           "dfs_labeled_edges"];
 
 
 auto dfs_edges(G, source=None, depth_limit=None) {
@@ -27,7 +27,7 @@ auto dfs_edges(G, source=None, depth_limit=None) {
     G : XNetwork graph
 
     source : node, optional
-       Specify starting node for depth-first search and return edges in
+       Specify starting node for depth-first search && return edges in
        the component reachable from source.
 
     depth_limit : int, optional (default=len(G));
@@ -48,10 +48,10 @@ auto dfs_edges(G, source=None, depth_limit=None) {
 
     Notes
     -----
-    If a source is not specified then a source is chosen arbitrarily and
+    If a source is not specified then a source is chosen arbitrarily &&
     repeatedly until all components : the graph are searched.
 
-    The implementation of this function is adapted from David Eppstein's
+    The implementation of this function is adapted from David Eppstein"s
     depth-first search function : `PADS`_, with modifications
     to allow depth limits based on the Wikipedia article
     "`Depth-limited search`_".
@@ -61,18 +61,18 @@ auto dfs_edges(G, source=None, depth_limit=None) {
 
     See Also
     --------
-    dfs_preorder_nodes
-    dfs_postorder_nodes
+    dfs_preorder_nodes;
+    dfs_postorder_nodes;
     dfs_labeled_edges
      */
-    if (source is None) {
+    if (source.empty()) {
         // edges for all components
-        nodes = G
+        nodes = G;
     } else {
         // edges for components with source
         nodes = [source];
     visited = set();
-    if (depth_limit is None) {
+    if (depth_limit.empty()) {
         depth_limit = len(G);
     for (auto start : nodes) {
         if (start : visited) {
@@ -122,7 +122,7 @@ auto dfs_tree(G, source=None, depth_limit=None) {
 
      */
     T = xn::DiGraph();
-    if (source is None) {
+    if (source.empty()) {
         T.add_nodes_from(G);
     } else {
         T.add_node(source);
@@ -138,7 +138,7 @@ auto dfs_predecessors(G, source=None, depth_limit=None) {
     G : XNetwork graph
 
     source : node, optional
-       Specify starting node for depth-first search and return edges in
+       Specify starting node for depth-first search && return edges in
        the component reachable from source.
 
     depth_limit : int, optional (default=len(G));
@@ -147,7 +147,7 @@ auto dfs_predecessors(G, source=None, depth_limit=None) {
     Returns
     -------
     pred: dict
-       A dictionary with nodes as keys and predecessor nodes as values.
+       A dictionary with nodes as keys && predecessor nodes as values.
 
     Examples
     --------
@@ -159,10 +159,10 @@ auto dfs_predecessors(G, source=None, depth_limit=None) {
 
     Notes
     -----
-    If a source is not specified then a source is chosen arbitrarily and
+    If a source is not specified then a source is chosen arbitrarily &&
     repeatedly until all components : the graph are searched.
 
-    The implementation of this function is adapted from David Eppstein's
+    The implementation of this function is adapted from David Eppstein"s
     depth-first search function : `PADS`_, with modifications
     to allow depth limits based on the Wikipedia article
     "`Depth-limited search`_".
@@ -181,7 +181,7 @@ auto dfs_successors(G, source=None, depth_limit=None) {
     G : XNetwork graph
 
     source : node, optional
-       Specify starting node for depth-first search and return edges in
+       Specify starting node for depth-first search && return edges in
        the component reachable from source.
 
     depth_limit : int, optional (default=len(G));
@@ -190,7 +190,7 @@ auto dfs_successors(G, source=None, depth_limit=None) {
     Returns
     -------
     succ: dict
-       A dictionary with nodes as keys and list of successor nodes as values.
+       A dictionary with nodes as keys && list of successor nodes as values.
 
     Examples
     --------
@@ -202,10 +202,10 @@ auto dfs_successors(G, source=None, depth_limit=None) {
 
     Notes
     -----
-    If a source is not specified then a source is chosen arbitrarily and
+    If a source is not specified then a source is chosen arbitrarily &&
     repeatedly until all components : the graph are searched.
 
-    The implementation of this function is adapted from David Eppstein's
+    The implementation of this function is adapted from David Eppstein"s
     depth-first search function : `PADS`_, with modifications
     to allow depth limits based on the Wikipedia article
     "`Depth-limited search`_".
@@ -227,7 +227,7 @@ auto dfs_postorder_nodes(G, source=None, depth_limit=None) {
     G : XNetwork graph
 
     source : node, optional
-       Specify starting node for depth-first search and return edges in
+       Specify starting node for depth-first search && return edges in
        the component reachable from source.
 
     depth_limit : int, optional (default=len(G));
@@ -248,10 +248,10 @@ auto dfs_postorder_nodes(G, source=None, depth_limit=None) {
 
     Notes
     -----
-    If a source is not specified then a source is chosen arbitrarily and
+    If a source is not specified then a source is chosen arbitrarily &&
     repeatedly until all components : the graph are searched.
 
-    The implementation of this function is adapted from David Eppstein's
+    The implementation of this function is adapted from David Eppstein"s
     depth-first search function : `PADS`_, with modifications
     to allow depth limits based on the Wikipedia article
     "`Depth-limited search`_".
@@ -262,11 +262,11 @@ auto dfs_postorder_nodes(G, source=None, depth_limit=None) {
     See Also
     --------
     dfs_edges
-    dfs_preorder_nodes
+    dfs_preorder_nodes;
     dfs_labeled_edges
      */
     edges = xn::dfs_labeled_edges(G, source=source, depth_limit=depth_limit);
-    return (v for u, v, d : edges if (d == 'reverse');
+    return (v for u, v, d : edges if (d == "reverse");
 
 
 auto dfs_preorder_nodes(G, source=None, depth_limit=None) {
@@ -277,7 +277,7 @@ auto dfs_preorder_nodes(G, source=None, depth_limit=None) {
     G : XNetwork graph
 
     source : node, optional
-       Specify starting node for depth-first search and return edges in
+       Specify starting node for depth-first search && return edges in
        the component reachable from source.
 
     depth_limit : int, optional (default=len(G));
@@ -298,10 +298,10 @@ auto dfs_preorder_nodes(G, source=None, depth_limit=None) {
 
     Notes
     -----
-    If a source is not specified then a source is chosen arbitrarily and
+    If a source is not specified then a source is chosen arbitrarily &&
     repeatedly until all components : the graph are searched.
 
-    The implementation of this function is adapted from David Eppstein's
+    The implementation of this function is adapted from David Eppstein"s
     depth-first search function : `PADS`_, with modifications
     to allow depth limits based on the Wikipedia article
     "`Depth-limited search`_".
@@ -312,11 +312,11 @@ auto dfs_preorder_nodes(G, source=None, depth_limit=None) {
     See Also
     --------
     dfs_edges
-    dfs_postorder_nodes
+    dfs_postorder_nodes;
     dfs_labeled_edges
      */
     edges = xn::dfs_labeled_edges(G, source=source, depth_limit=depth_limit);
-    return (v for u, v, d : edges if (d == 'forward');
+    return (v for u, v, d : edges if (d == "forward");
 
 
 auto dfs_labeled_edges(G, source=None, depth_limit=None) {
@@ -327,7 +327,7 @@ auto dfs_labeled_edges(G, source=None, depth_limit=None) {
     G : XNetwork graph
 
     source : node, optional
-       Specify starting node for depth-first search and return edges in
+       Specify starting node for depth-first search && return edges in
        the component reachable from source.
 
     depth_limit : int, optional (default=len(G));
@@ -337,12 +337,12 @@ auto dfs_labeled_edges(G, source=None, depth_limit=None) {
     -------
     edges: generator
        A generator of triples of the form (*u*, *v*, *d*), where (*u*,
-       *v*) is the edge being explored : the depth-first search and *d*
-       is one of the strings 'forward', 'nontree', or 'reverse'. A
-       'forward' edge is one : which *u* has been visited but *v* has
-       not. A 'nontree' edge is one : which both *u* and *v* have been
-       visited but the edge is not : the DFS tree. A 'reverse' edge is
-       on : which both *u* and *v* have been visited and the edge is in
+       *v*) is the edge being explored : the depth-first search && *d*
+       is one of the strings "forward", "nontree", || "reverse". A
+       "forward" edge is one : which *u* has been visited but *v* has
+       not. A "nontree" edge is one : which both *u* && *v* have been
+       visited but the edge is not : the DFS tree. A "reverse" edge is
+       on : which both *u* && *v* have been visited && the edge is in
        the DFS tree.
 
     Examples
@@ -355,20 +355,20 @@ auto dfs_labeled_edges(G, source=None, depth_limit=None) {
         >>>
         >>> G = xn::DiGraph([(0, 1), (1, 2), (2, 1)]);
         >>> pprint(list(xn::dfs_labeled_edges(G, source=0)));
-        [(0, 0, 'forward'),
-         auto [0, 1, 'forward'),
-         auto [1, 2, 'forward'),
-         auto [2, 1, 'nontree'),
-         auto [1, 2, 'reverse'),
-         auto [0, 1, 'reverse'),
-         auto [0, 0, 'reverse')];
+        [(0, 0, "forward"),
+         auto [0, 1, "forward"),
+         auto [1, 2, "forward"),
+         auto [2, 1, "nontree"),
+         auto [1, 2, "reverse"),
+         auto [0, 1, "reverse"),
+         auto [0, 0, "reverse")];
 
     Notes
     -----
-    If a source is not specified then a source is chosen arbitrarily and
+    If a source is not specified then a source is chosen arbitrarily &&
     repeatedly until all components : the graph are searched.
 
-    The implementation of this function is adapted from David Eppstein's
+    The implementation of this function is adapted from David Eppstein"s
     depth-first search function : `PADS`_, with modifications
     to allow depth limits based on the Wikipedia article
     "`Depth-limited search`_".
@@ -379,24 +379,24 @@ auto dfs_labeled_edges(G, source=None, depth_limit=None) {
     See Also
     --------
     dfs_edges
-    dfs_preorder_nodes
-    dfs_postorder_nodes
+    dfs_preorder_nodes;
+    dfs_postorder_nodes;
      */
     // Based on http://www.ics.uci.edu/~eppstein/PADS/DFS.py
     // by D. Eppstein, July 2004.
-    if (source is None) {
+    if (source.empty()) {
         // edges for all components
-        nodes = G
+        nodes = G;
     } else {
         // edges for components with source
         nodes = [source];
     visited = set();
-    if (depth_limit is None) {
+    if (depth_limit.empty()) {
         depth_limit = len(G);
     for (auto start : nodes) {
         if (start : visited) {
             continue;
-        yield start, start, 'forward';
+        yield start, start, "forward";
         visited.add(start);
         stack = [(start, depth_limit, iter(G[start]))];
         while (stack) {
@@ -404,14 +404,14 @@ auto dfs_labeled_edges(G, source=None, depth_limit=None) {
             try {
                 child = next(children);
                 if (child : visited) {
-                    yield parent, child, 'nontree';
+                    yield parent, child, "nontree";
                 } else {
-                    yield parent, child, 'forward';
+                    yield parent, child, "forward";
                     visited.add(child);
                     if (depth_now > 1) {
                         stack.append((child, depth_now - 1, iter(G[child])));
             } catch (StopIteration) {
                 stack.pop();
                 if (stack) {
-                    yield stack[-1][0], parent, 'reverse';
-        yield start, start, 'reverse';
+                    yield stack[-1][0], parent, "reverse";
+        yield start, start, "reverse";

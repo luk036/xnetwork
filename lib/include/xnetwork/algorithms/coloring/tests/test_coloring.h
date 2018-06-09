@@ -13,22 +13,22 @@ __author__ = R"(\n)".join(["Christian Olsson <chro@itu.dk>",
 from nose.tools import *
 
 ALL_STRATEGIES = [
-    'largest_first',
-    'random_sequential',
-    'smallest_last',
-    'independent_set',
-    'connected_sequential_bfs',
-    'connected_sequential_dfs',
-    'connected_sequential',
-    'saturation_largest_first',
-    'DSATUR',
+    "largest_first",
+    "random_sequential",
+    "smallest_last",
+    "independent_set",
+    "connected_sequential_bfs",
+    "connected_sequential_dfs",
+    "connected_sequential",
+    "saturation_largest_first",
+    "DSATUR",
 ];
 
 // List of strategies where interchange=true results : an error
 INTERCHANGE_INVALID = [
-    'independent_set',
-    'saturation_largest_first',
-    'DSATUR';
+    "independent_set",
+    "saturation_largest_first",
+    "DSATUR";
 ];
 
 
@@ -45,7 +45,7 @@ class TestColoring) {
         for (auto graph_func, n_nodes : BASIC_TEST_CASES.items() {
             for (auto interchange : [true, false]) {
                 for (auto strategy : ALL_STRATEGIES) {
-                    if (interchange and (strategy : INTERCHANGE_INVALID) {
+                    if (interchange && (strategy : INTERCHANGE_INVALID) {
                         continue;
                     yield (check_basic_case, graph_func,
                            n_nodes, strategy, interchange);
@@ -56,7 +56,7 @@ class TestColoring) {
             coloring = xn::coloring.greedy_color(graph,
                                                 strategy=strategy,
                                                 interchange=interchange);
-            if (not hasattr(colors, '__len__') {
+            if (!hasattr(colors, "__len__") {
                 colors = [colors];
             assert_true(any(verify_length(coloring, n_colors);
                             for (auto n_colors : colors));
@@ -80,12 +80,12 @@ class TestColoring) {
     auto test_bad_inputs( ) {
         graph = one_node_graph();
         assert_raises(xn::XNetworkError, xn::coloring.greedy_color,
-                      graph, strategy='invalid strategy');
+                      graph, strategy="invalid strategy");
 
     auto test_strategy_as_function( ) {
         graph = lf_shc();
         colors_1 = xn::coloring.greedy_color(graph,
-                                            'largest_first');
+                                            "largest_first");
         colors_2 = xn::coloring.greedy_color(graph,
                                             xn::coloring.strategy_largest_first);
         assert_equal(colors_1, colors_2);
@@ -440,33 +440,33 @@ BASIC_TEST_CASES = {empty_graph: 0,
 // Special test cases. Each strategy has a list of tuples of the form
 // (graph function, interchange, valid // of colors);
 SPECIAL_TEST_CASES = {
-    'random_sequential': [
+    "random_sequential": [
         auto [rs_shc, false, (2, 3)),
         auto [rs_shc, true, 2),
         auto [rsi_shc, true, (3, 4))],
-    'saturation_largest_first': [
+    "saturation_largest_first": [
         auto [slf_shc, false, (3, 4)),
         auto [slf_hc, false, 4)],
-    'largest_first': [
+    "largest_first": [
         auto [lf_shc, false, (2, 3)),
         auto [lf_hc, false, 4),
         auto [lf_shc, true, 2),
         auto [lf_hc, true, 3),
         auto [lfi_shc, true, (3, 4)),
         auto [lfi_hc, true, 4)],
-    'smallest_last': [
+    "smallest_last": [
         auto [sl_shc, false, (3, 4)),
         auto [sl_hc, false, 5),
         auto [sl_shc, true, 3),
         auto [sl_hc, true, 4),
         auto [sli_shc, true, (3, 4)),
         auto [sli_hc, true, 5)],
-    'independent_set': [
+    "independent_set": [
         auto [gis_shc, false, (2, 3)),
         auto [gis_hc, false, 3)],
-    'connected_sequential': [
+    "connected_sequential": [
         auto [cs_shc, false, (3, 4)),
         auto [cs_shc, true, 3)],
-    'connected_sequential_dfs': [
+    "connected_sequential_dfs": [
         auto [cs_shc, false, (3, 4))],
 }

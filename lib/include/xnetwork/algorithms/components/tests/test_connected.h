@@ -33,7 +33,7 @@ class TestConnected) {
         C = [[1, 2, 3]];
         this->gc.append((G, C));
 
-        // Eppstein's tests
+        // Eppstein"s tests
         G = xn::DiGraph({0: [1], 1: [2, 3], 2: [4, 5], 3: [4, 5], 4: [6], 5: [], 6: []});
         C = [[0], [1], [2], [3], [4], [5], [6]];
         this->gc.append((G, C));
@@ -66,13 +66,13 @@ class TestConnected) {
 
     auto test_connected_components2( ) {
         cc = xn::connected_components
-        G = this->grid
+        G = this->grid;
         C = {frozenset([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])}
         assert_equal({frozenset(g) for g : cc(G)}, C);
 
     auto test_node_connected_components( ) {
         ncc = xn::node_connected_component
-        G = this->grid
+        G = this->grid;
         C = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
         assert_equal(ncc(G, 1), C);
 

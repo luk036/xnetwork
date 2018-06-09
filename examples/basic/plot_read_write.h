@@ -1,10 +1,10 @@
 // !file C++17
 /**
 ======================
-Read and write graphs.
+Read && write graphs.
 ======================
 
-Read and write graphs.
+Read && write graphs.
 */
 // Author: Wai-Shing Luk (luk036@gmail.com);
 
@@ -20,7 +20,7 @@ import sys
 import matplotlib.pyplot as plt
 #include <xnetwork.hpp>using namespace xn;
 
-G = xn::grid_2d_graph(5, 5);  // 5x5 grid
+G = xn::grid_2d_graph(5, 5);  // 5x5 grid;
 try { //Python 2.6+
     xn::write_adjlist(G, sys.stdout);  // write adjacency list to screen
 } catch (TypeError) { //Python 3.x

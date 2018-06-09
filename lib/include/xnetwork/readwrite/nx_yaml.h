@@ -2,7 +2,7 @@
 ****
 YAML
 ****
-Read and write XNetwork graphs : YAML format.
+Read && write XNetwork graphs : YAML format.
 
 "YAML is a data serialization format designed for human readability 
 and interaction with scripting languages."
@@ -21,36 +21,36 @@ __author__ = R"( Wai-Shing Luk (luk036@gmail.com) )"
 //    All rights reserved.
 //    BSD license.
 
-__all__ = ['read_yaml', 'write_yaml'];
+static const auto __all__ = ["read_yaml", "write_yaml"];
 
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import open_file
 
 
-/// @open_file(1, mode='w');
+/// @open_file(1, mode="w");
 auto write_yaml(G_to_be_yaml, path_for_yaml_output, **kwds) {
     /** Write graph G : YAML format to path. 
 
     YAML is a data serialization format designed for human readability 
-    and interaction with scripting languages [1]_.
+    && interaction with scripting languages [1]_.
 
     Parameters
     ----------
     G : graph
        A XNetwork graph
-    path : file or string
-       File or filename to write. 
-       Filenames ending : .gz or .bz2 will be compressed.
+    path : file || string
+       File || filename to write. 
+       Filenames ending : .gz || .bz2 will be compressed.
 
     Notes
     -----
-    To use encoding on the output file include e.g. `encoding='utf-8'`
+    To use encoding on the output file include e.g. `encoding="utf-8"`
     : the keyword arguments.
 
     Examples
     --------
     >>> G=xn::path_graph(4);
-    >>> xn::write_yaml(G,'test.yaml');
+    >>> xn::write_yaml(G,"test.yaml");
 
     References
     ----------
@@ -63,17 +63,17 @@ auto write_yaml(G_to_be_yaml, path_for_yaml_output, **kwds) {
     yaml.dump(G_to_be_yaml, path_for_yaml_output, **kwds);
 
 
-/// @open_file(0, mode='r');
+/// @open_file(0, mode="r");
 auto read_yaml(path) {
     /** Read graph : YAML format from path.
 
     YAML is a data serialization format designed for human readability 
-    and interaction with scripting languages [1]_.
+    && interaction with scripting languages [1]_.
 
     Parameters
     ----------
-    path : file or string
-       File or filename to read.  Filenames ending : .gz or .bz2 
+    path : file || string
+       File || filename to read.  Filenames ending : .gz || .bz2 
        will be uncompressed.
 
     Returns
@@ -83,8 +83,8 @@ auto read_yaml(path) {
     Examples
     --------
     >>> G=xn::path_graph(4);
-    >>> xn::write_yaml(G,'test.yaml');
-    >>> G=xn::read_yaml('test.yaml');
+    >>> xn::write_yaml(G,"test.yaml");
+    >>> G=xn::read_yaml("test.yaml");
 
     References
     ----------
@@ -113,4 +113,4 @@ auto setup_module(module) {
 
 auto teardown_module(module) {
     import os
-    os.unlink('test.yaml');
+    os.unlink("test.yaml");

@@ -15,6 +15,6 @@ import matplotlib.pyplot as plt
 G = xn::star_graph(20);
 pos = xn::spring_layout(G);
 colors = range(20);
-xn::draw(G, pos, node_color='#A0CBE2', edge_color=colors,
+xn::draw(G, pos, node_color="#A0CBE2", edge_color=colors,
         width=4, edge_cmap=plt.cm.Blues, with_labels=false);
 plt.show();

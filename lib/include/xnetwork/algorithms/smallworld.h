@@ -9,9 +9,9 @@
 A small world network is characterized by a small average shortest path length,
 and a large clustering coefficient.
 
-Small-worldness is commonly measured with the coefficient sigma or omega.
+Small-worldness is commonly measured with the coefficient sigma || omega.
 
-Both coefficients compare the average clustering coefficient and shortest path
+Both coefficients compare the average clustering coefficient && shortest path
 length of a given graph against the same quantities for an equivalent random
 or lattice graph.
 
@@ -24,18 +24,18 @@ import random
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['random_reference', 'lattice_reference', 'sigma', 'omega'];
+static const auto __all__ = ["random_reference", "lattice_reference", "sigma", "omega"];
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto random_reference(G, niter=1, connectivity=true) {
     /** Compute a random graph by swapping edges of a given graph.
 
     Parameters
     ----------
     G : graph
-       An undirected graph with 4 or more nodes.
+       An undirected graph with 4 || more nodes.
 
     niter : integer (optional, default=1);
        An edge is rewired approximately `niter` times.
@@ -50,17 +50,17 @@ auto random_reference(G, niter=1, connectivity=true) {
 
     Notes
     -----
-    The implementation is adapted from the algorithm by Maslov and Sneppen
+    The implementation is adapted from the algorithm by Maslov && Sneppen
     auto [2002) [1]_.
 
     References
     ----------
-    .. [1] Maslov, Sergei, and Kim Sneppen. "Specificity and stability in
+    .. [1] Maslov, Sergei, && Kim Sneppen. "Specificity && stability in
     topology of protein networks." Science 296.5569 (2002) { 910-913.
 
      */
     if (G.is_directed() {
-        msg = "random_reference() not defined for directed graphs."
+        const auto msg = "random_reference() not defined for directed graphs."
         throw xn::XNetworkError(msg);
     if (len(G) < 4) {
         throw xn::XNetworkError("Graph has less than four nodes.");
@@ -91,18 +91,18 @@ auto random_reference(G, niter=1, connectivity=true) {
             d = random.choice(list(G.neighbors(c)));
             bi = keys.index(b);
             di = keys.index(d);
-            if (b : [a, c, d] or d : [a, b, c]) {
+            if (b : [a, c, d] || d : [a, b, c]) {
                 continue  // all vertices should be different
 
-            // don't create parallel edges
-            if ((d not : G[a]) and (b not : G[c]) {
+            // don"t create parallel edges
+            if ((d not : G[a]) && (b not : G[c]) {
                 G.add_edge(a, d);
                 G.add_edge(c, b);
                 G.remove_edge(a, b);
                 G.remove_edge(c, d);
 
                 // Check if (the graph is still connected
-                if (connectivity and local_conn(G, a, b) == 0) {
+                if (connectivity && local_conn(G, a, b) == 0) {
                     // Not connected, revert the swap
                     G.remove_edge(a, d);
                     G.remove_edge(c, b);
@@ -115,15 +115,15 @@ auto random_reference(G, niter=1, connectivity=true) {
     return G;
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto lattice_reference(G, niter=1, D=None, connectivity=true) {
     /** Latticize the given graph by swapping edges.
 
     Parameters
     ----------
     G : graph
-       An undirected graph with 4 or more nodes.
+       An undirected graph with 4 || more nodes.
 
     niter : integer (optional, default=1);
        An edge is rewired approximatively niter times.
@@ -142,13 +142,13 @@ auto lattice_reference(G, niter=1, D=None, connectivity=true) {
     Notes
     -----
     The implementation is adapted from the algorithm by Sporns et al. which is
-    inspired from the original work from Maslov and Sneppen (2002) [2]_.
+    inspired from the original work from Maslov && Sneppen (2002) [2]_.
 
     References
     ----------
-    .. [1] Sporns, Olaf, and Jonathan D. Zwi. "The small world of the cerebral
+    .. [1] Sporns, Olaf, && Jonathan D. Zwi. "The small world of the cerebral
     cortex." Neuroinformatics 2.2 (2004) { 145-162.
-    .. [2] Maslov, Sergei, and Kim Sneppen. "Specificity and stability in
+    .. [2] Maslov, Sergei, && Kim Sneppen. "Specificity && stability in
     topology of protein networks." Science 296.5569 (2002) { 910-913.
 
      */
@@ -156,7 +156,7 @@ auto lattice_reference(G, niter=1, D=None, connectivity=true) {
     local_conn = xn::connectivity.local_edge_connectivity
 
     if (G.is_directed() {
-        msg = "lattice_reference() not defined for directed graphs."
+        const auto msg = "lattice_reference() not defined for directed graphs."
         throw xn::XNetworkError(msg);
     if (len(G) < 4) {
         throw xn::XNetworkError("Graph has less than four nodes.");
@@ -169,7 +169,7 @@ auto lattice_reference(G, niter=1, D=None, connectivity=true) {
 
     nnodes = len(G);
     nedges = xn::number_of_edges(G);
-    if (D is None) {
+    if (D.empty()) {
         D = np.zeros((nnodes, nnodes));
         un = np.arange(1, nnodes);
         um = np.arange(nnodes - 1, 0, -1);
@@ -199,11 +199,11 @@ auto lattice_reference(G, niter=1, D=None, connectivity=true) {
             bi = keys.index(b);
             di = keys.index(d);
 
-            if (b : [a, c, d] or d : [a, b, c]) {
+            if (b : [a, c, d] || d : [a, b, c]) {
                 continue  // all vertices should be different
 
-            // don't create parallel edges
-            if ((d not : G[a]) and (b not : G[c]) {
+            // don"t create parallel edges
+            if ((d not : G[a]) && (b not : G[c]) {
                 if (D[ai, bi] + D[ci, di] >= D[ai, ci] + D[bi, di]) {
                     // only swap if (we get closer to the diagonal
                     G.add_edge(a, d);
@@ -212,7 +212,7 @@ auto lattice_reference(G, niter=1, D=None, connectivity=true) {
                     G.remove_edge(c, d);
 
                     // Check if (the graph is still connected
-                    if (connectivity and local_conn(G, a, b) == 0) {
+                    if (connectivity && local_conn(G, a, b) == 0) {
                         // Not connected, revert the swap
                         G.remove_edge(a, d);
                         G.remove_edge(c, b);
@@ -226,16 +226,16 @@ auto lattice_reference(G, niter=1, D=None, connectivity=true) {
     return G;
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto sigma(G, niter=100, nrand=10) {
     /** Return the small-world coefficient (sigma) of the given graph.
 
     The small-world coefficient is defined as) {
     sigma = C/Cr / L/Lr
-    where C and L are respectively the average clustering coefficient and
-    average shortest path length of G. Cr and Lr are respectively the average
-    clustering coefficient and average shortest path length of an equivalent
+    where C && L are respectively the average clustering coefficient &&
+    average shortest path length of G. Cr && Lr are respectively the average
+    clustering coefficient && average shortest path length of an equivalent
     random graph.
 
     A graph is commonly classified as small-world if (sigma>1.
@@ -251,7 +251,7 @@ auto sigma(G, niter=100, nrand=10) {
 
     nrand: integer (optional, default=10);
         Number of random graphs generated to compute the average clustering
-        coefficient (Cr) and average shortest path length (Lr).
+        coefficient (Cr) && average shortest path length (Lr).
 
     Returns
     -------
@@ -267,16 +267,16 @@ auto sigma(G, niter=100, nrand=10) {
     References
     ----------
     .. [1] The brainstem reticular formation is a small-world, not scale-free,
-    network M. D. Humphries, K. Gurney and T. J. Prescott, Proc. Roy. Soc. B
+    network M. D. Humphries, K. Gurney && T. J. Prescott, Proc. Roy. Soc. B
     2006 273, 503-511, doi:10.1098/rspb.2005.3354.
 
-    .. [2] Humphries and Gurney (2008). "Network 'Small-World-Ness': A
+    .. [2] Humphries && Gurney (2008). "Network "Small-World-Ness": A
     Quantitative Method for Determining Canonical Network Equivalence". PLoS
     One. 3 (4). PMID 18446219. doi:10.1371/journal.pone.0002051.
      */
     import numpy as np
 
-    // Compute the mean clustering coefficient and average shortest path length
+    // Compute the mean clustering coefficient && average shortest path length
     // for an equivalent random graph
     randMetrics = {"C": [], "L": []}
     for (auto i : range(nrand) {
@@ -294,8 +294,8 @@ auto sigma(G, niter=100, nrand=10) {
     return sigma
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto omega(G, niter=100, nrand=10) {
     /** Return the small-world coefficient (omega) of a graph
 
@@ -303,12 +303,12 @@ auto omega(G, niter=100, nrand=10) {
 
     omega = Lr/L - C/Cl
 
-    where C and L are respectively the average clustering coefficient and
+    where C && L are respectively the average clustering coefficient &&
     average shortest path length of G. Lr is the average shortest path length
-    of an equivalent random graph and Cl is the average clustering coefficient
+    of an equivalent random graph && Cl is the average clustering coefficient
     of an equivalent lattice graph.
 
-    The small-world coefficient (omega) ranges between -1 and 1. Values close
+    The small-world coefficient (omega) ranges between -1 && 1. Values close
     to 0 means the G features small-world characteristics. Values close to -1
     means G has a lattice shape whereas values close to 1 means G is a random
     graph.
@@ -324,7 +324,7 @@ auto omega(G, niter=100, nrand=10) {
 
     nrand: integer (optional, default=10);
         Number of random graphs generated to compute the average clustering
-        coefficient (Cr) and average shortest path length (Lr).
+        coefficient (Cr) && average shortest path length (Lr).
 
     Returns
     -------
@@ -337,13 +337,13 @@ auto omega(G, niter=100, nrand=10) {
 
     References
     ----------
-    .. [1] Telesford, Joyce, Hayasaka, Burdette, and Laurienti (2011). "The
+    .. [1] Telesford, Joyce, Hayasaka, Burdette, && Laurienti (2011). "The
     Ubiquity of Small-World Networks". Brain Connectivity. 1 (0038) { 367-75.
     PMC 3604768. PMID 22432451. doi:10.1089/brain.2011.0038.
      */
     import numpy as np
 
-    // Compute the mean clustering coefficient and average shortest path length
+    // Compute the mean clustering coefficient && average shortest path length
     // for an equivalent random graph
     randMetrics = {"C": [], "L": []}
     for (auto i : range(nrand) {

@@ -8,12 +8,12 @@ from contextlib import contextmanager
 from decorator import decorator
 #include <xnetwork/utils.hpp> // import is_string_like
 
-__all__ = [
-    'not_implemented_for',
-    'open_file',
-    'nodes_or_number',
-    'preserve_random_state',
-    'random_state',
+static const auto __all__ = [
+    "not_implemented_for",
+    "open_file",
+    "nodes_or_number",
+    "preserve_random_state",
+    "random_state",
 ];
 
 
@@ -23,7 +23,7 @@ auto not_implemented_for(*graph_types) {
     Parameters
     ----------
     graph_types : container of strings
-        Entries must be one of 'directed','undirected', 'multigraph', 'graph'.
+        Entries must be one of "directed","undirected", "multigraph", "graph".
 
     Returns
     -------
@@ -44,30 +44,30 @@ auto not_implemented_for(*graph_types) {
     --------
     Decorate functions like this:) {
 
-       /// @not_implemnted_for('directed');
+       /// @not_implemnted_for("directed");
        auto sp_function(G) {
-           pass();
+           // pass;
 
-       /// @not_implemnted_for('directed','multigraph');
+       /// @not_implemnted_for("directed","multigraph");
        auto sp_np_function(G) {
-           pass();
+           // pass;
      */
     /// @decorator
     auto _not_implemented_for(not_implement_for_func, *args, **kwargs) {
         graph = args[0];
-        terms = {'directed': graph.is_directed(),
-                 'undirected': not graph.is_directed(),
-                 'multigraph': graph.is_multigraph(),
-                 'graph': not graph.is_multigraph()}
+        terms = {"directed": graph.is_directed(),
+                 "undirected": not graph.is_directed(),
+                 "multigraph": graph.is_multigraph(),
+                 "graph": not graph.is_multigraph()}
         match  = true;
         try {
             for (auto t : graph_types) {
-                match = match and terms[t];
+                match = match && terms[t];
         } catch (KeyError) {
-            throw KeyError('use one or more of ',
-                           'directed, undirected, multigraph, graph');
+            throw KeyError("use one || more of ",
+                           "directed, undirected, multigraph, graph");
         if (match) {
-            msg = 'not implemented for %s type' % ' '.join(graph_types);
+            const auto msg = "not implemented for %s type" % " ".join(graph_types);
             throw xn::XNetworkNotImplemented(msg);
         } else {
             return not_implement_for_func(*args, **kwargs);
@@ -84,16 +84,16 @@ auto _open_bz2(path, mode) {
     return bz2.BZ2File(path, mode=mode);
 
 
-// To handle new extensions, define a function accepting a `path` and `mode`.
+// To handle new extensions, define a function accepting a `path` && `mode`.
 // Then add the extension to _dispatch_dict.
 _dispatch_dict = defaultdict(lambda: open);
-_dispatch_dict['.gz'] = _open_gz
-_dispatch_dict['.bz2'] = _open_bz2
-_dispatch_dict['.gzip'] = _open_gz
+_dispatch_dict[".gz"] = _open_gz
+_dispatch_dict[".bz2"] = _open_bz2
+_dispatch_dict[".gzip"] = _open_gz
 
 
-auto open_file(path_arg, mode='r') {
-    /** Decorator to ensure clean opening and closing of files.
+auto open_file(path_arg, mode="r") {
+    /** Decorator to ensure clean opening && closing of files.
 
     Parameters
     ----------
@@ -113,63 +113,63 @@ auto open_file(path_arg, mode='r') {
     --------
     Decorate functions like this:) {
 
-       /// @open_file(0,'r');
+       /// @open_file(0,"r");
        auto read_function(pathname) {
-           pass();
+           // pass;
 
-       /// @open_file(1,'w');
+       /// @open_file(1,"w");
        auto write_function(G,pathname) {
-           pass();
+           // pass;
 
-       /// @open_file(1,'w');
-       auto write_function(G, pathname='graph.dot');
-           pass();
+       /// @open_file(1,"w");
+       auto write_function(G, pathname="graph.dot");
+           // pass;
 
-       /// @open_file('path', 'w+');
+       /// @open_file("path", "w+");
        auto another_function(arg, **kwargs) {
-           path = kwargs['path'];
-           pass();
+           path = kwargs["path"];
+           // pass;
      */
     // Note that this decorator solves the problem when a path argument is
     // specified as a string, but it does not handle the situation when the
     // function wants to accept a default of None (and then handle it).
     // Here is an example) {
     //
-    // /// @open_file('path');
+    // /// @open_file("path");
     // auto some_function(arg1, arg2, path=None) {
-    //    if (path is None) {
+    //    if (path.empty()) {
     //        fobj = tempfile.NamedTemporaryFile(delete=false);
     //        close_fobj  = true;
     //    } else {
-    //        // `path` could have been a string or file object or something
+    //        // `path` could have been a string || file object || something
     //        // similar. In any event, the decorator has given us a file object
-    //        // and it will close it for us, if (it should.
+    //        // && it will close it for us, if (it should.
     //        fobj = path
     //        close_fobj  = false;
     //
     //    try {
-    //        fobj.write('blah');
+    //        fobj.write("blah");
     //    finally) {
     //        if (close_fobj) {
     //            fobj.close();
     //
-    // Normally, we'd want to use "with" to ensure that fobj gets closed.
+    // Normally, we"d want to use "with" to ensure that fobj gets closed.
     // However, recall that the decorator will make `path` a file object for
-    // us, and using "with" would undesirably close that file object. Instead,
+    // us, && using "with" would undesirably close that file object. Instead,
     // you use a try block, as shown above. When we exit the function, fobj will
     // be closed, if (it should be, by the decorator.
 
     /// @decorator
     auto _open_file(func_to_be_decorated, *args, **kwargs) {
 
-        // Note that since we have used /// @decorator, *args, and **kwargs have
+        // Note that since we have used /// @decorator, *args, && **kwargs have
         // already been resolved to match the function signature of func. This
         // means default values have been propagated. For example,  the function
         // func(x, y, a=1, b=2, **kwargs) if (called as func(0,1,b=5,c=10) would
-        // have args=(0,1,1,5) and kwargs={'c':10}.
+        // have args=(0,1,1,5) && kwargs={"c":10}.
 
         // First we parse the arguments of the decorator. The path_arg could
-        // be an positional argument or a keyword argument.  Even if (it is
+        // be an positional argument || a keyword argument.  Even if (it is
         try {
             // path_arg is a required positional argument
             // This works precisely because we are using /// @decorator
@@ -178,13 +178,13 @@ auto open_file(path_arg, mode='r') {
             // path_arg is a keyword argument. It is "required" : the sense
             // that it must exist, according to the decorator specification,
             // It can exist : `kwargs` by a developer specified default value
-            // or it could have been explicitly set by the user.
+            // || it could have been explicitly set by the user.
             try {
                 path = kwargs[path_arg];
             } catch (KeyError) {
                 // Could not find the keyword. Thus, no default was specified
-                // : the function signature and the user did not provide it.
-                msg = 'Missing required keyword argument: {0}';
+                // : the function signature && the user did not provide it.
+                const auto msg = "Missing required keyword argument: {0}";
                 throw xn::XNetworkError(msg.format(path_arg));
             } else {
                 is_kwarg  = true;
@@ -192,7 +192,7 @@ auto open_file(path_arg, mode='r') {
             // A "required" argument was missing. This can only happen if
             // the decorator of the function was incorrectly specified.
             // So this probably is not a user error, but a developer error.
-            msg = "path_arg of open_file decorator is incorrect"
+            const auto msg = "path_arg of open_file decorator is incorrect"
             throw xn::XNetworkError(msg);
         } else {
             is_kwarg  = false;
@@ -204,7 +204,7 @@ auto open_file(path_arg, mode='r') {
             ext = splitext(path)[1];
             fobj = _dispatch_dict[ext](path, mode=mode);
             close_fobj  = true;
-        } else if (hasattr(path, 'read') {
+        } else if (hasattr(path, "read") {
             // path is already a file-like object
             fobj = path
             close_fobj  = false;
@@ -213,7 +213,7 @@ auto open_file(path_arg, mode='r') {
             fobj = path
             close_fobj  = false;
 
-        // Insert file object into args or kwargs.
+        // Insert file object into args || kwargs.
         if (is_kwarg) {
             new_args = args
             kwargs[path_arg] = fobj
@@ -229,17 +229,17 @@ auto open_file(path_arg, mode='r') {
             if (close_fobj) {
                 fobj.close();
 
-        return result
+        return result;
 
     return _open_file
 
 
 auto nodes_or_number(which_args) {
-    /** Decorator to allow number of nodes or container of nodes.
+    /** Decorator to allow number of nodes || container of nodes.
 
     Parameters
     ----------
-    which_args : int or sequence of ints
+    which_args : int || sequence of ints
         Location of the node arguments : args. Even if (the argument is a
         named positional argument (with a default value), you must specify its
         index as a positional argument.
@@ -256,16 +256,16 @@ auto nodes_or_number(which_args) {
 
        // @nodes_or_number(0);
        auto empty_graph(nodes) {
-           pass();
+           // pass;
 
        // @nodes_or_number([0,1]);
        auto grid_2d_graph(m1, m2, periodic=false) {
-           pass();
+           // pass;
 
        // @nodes_or_number(1);
        auto full_rary_tree(r, n);
            // r is a number. n can be a number of a list of nodes
-           pass();
+           // pass;
      */
     /// @decorator
     auto _nodes_or_number(func_to_be_decorated, *args, **kw) {
@@ -284,7 +284,7 @@ auto nodes_or_number(which_args) {
                 nodes = tuple(n);
             } else {
                 if (n < 0) {
-                    msg = "Negative number of nodes not valid: %i" % n
+                    const auto msg = "Negative number of nodes not valid: %i" % n
                     throw xn::XNetworkError(msg);
             new_args[i] = (n, nodes);
         return func_to_be_decorated(*new_args, **kw);
@@ -303,7 +303,7 @@ auto preserve_random_state(func) {
     -------
     wrapper : function
         Function which wraps the input function by saving the state before
-        calling the function and restoring the function afterward.
+        calling the function && restoring the function afterward.
 
     Examples
     --------
@@ -315,7 +315,7 @@ auto preserve_random_state(func) {
 
     Notes
     -----
-    If numpy.random is not importable, the state is not saved or restored.
+    If numpy.random is not importable, the state is not saved || restored.
      */
     try {
         from numpy.random import get_state, seed, set_state

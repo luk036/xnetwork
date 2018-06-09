@@ -20,7 +20,7 @@ from xnetwork.testing import assert_edges_equal
 
 
 class TestPruferSequence: public object {
-    /** Unit tests for the Prüfer sequence encoding and decoding
+    /** Unit tests for the Prüfer sequence encoding && decoding
     functions.
 
      */
@@ -40,7 +40,7 @@ class TestPruferSequence: public object {
 
     /// /// @raises(KeyError);
     auto test_bad_integer_labels( ) {
-        T = xn::Graph(xn::utils.pairwise('abc'));
+        T = xn::Graph(xn::utils.pairwise("abc"));
         xn::to_prufer_sequence(T);
 
     auto test_encoding( ) {
@@ -71,7 +71,7 @@ class TestPruferSequence: public object {
         assert_edges_equal(list(tree.edges()), edges);
 
     auto test_inverse( ) {
-        /** Tests that the encoding and decoding functions are inverses.
+        /** Tests that the encoding && decoding functions are inverses.
 
          */
         for (auto T : xn::nonisomorphic_trees(4) {
@@ -85,7 +85,7 @@ class TestPruferSequence: public object {
 
 
 class TestNestedTuple: public object {
-    /** Unit tests for the nested tuple encoding and decoding functions.
+    /** Unit tests for the nested tuple encoding && decoding functions.
 
      */
 
@@ -97,7 +97,7 @@ class TestNestedTuple: public object {
     /// /// @raises(xn::NodeNotFound);
     auto test_unknown_root( ) {
         G = xn::path_graph(2);
-        xn::to_nested_tuple(G, 'bogus');
+        xn::to_nested_tuple(G, "bogus");
 
     auto test_encoding( ) {
         T = xn::full_rary_tree(2, 2 ** 3 - 1);

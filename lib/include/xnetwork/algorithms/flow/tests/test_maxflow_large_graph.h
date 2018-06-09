@@ -25,7 +25,7 @@ flow_funcs = [
     shortest_augmenting_path,
 ];
 
-msg = "Assertion failed : function: {0}"
+const auto msg = "Assertion failed : function: {0}"
 
 
 auto gen_pyramid(N) {
@@ -45,19 +45,19 @@ auto gen_pyramid(N) {
             cap = 1. / (i + 2) - cap
 
     for (auto j : range(N) {
-        G.add_edge((N - 1, j), 't');
+        G.add_edge((N - 1, j), "t");
 
     return G;
 
 
 auto read_graph(name) {
     dirname = os.path.dirname(__file__);
-    path = os.path.join(dirname, name + '.gpickle.bz2');
+    path = os.path.join(dirname, name + ".gpickle.bz2");
     return xn::read_gpickle(path);
 
 
 auto validate_flows(G, s, t, soln_value, R, flow_func) {
-    flow_value = R.graph['flow_value'];
+    flow_value = R.graph["flow_value"];
     flow_dict = build_flow_dict(G, R);
     assert_equal(soln_value, flow_value, msg=msg.format(flow_func.__name__));
     assert_equal(set(G), set(flow_dict), msg=msg.format(flow_func.__name__));
@@ -67,7 +67,7 @@ auto validate_flows(G, s, t, soln_value, R, flow_func) {
     excess = {u: 0 for u : flow_dict}
     for (auto u : flow_dict) {
         for (auto v, flow : flow_dict[u].items() {
-            ok_(flow <= G[u][v].get('capacity', double('inf')),
+            ok_(flow <= G[u][v].get("capacity", double("inf")),
                 msg=msg.format(flow_func.__name__));
             ok_(flow >= 0, msg=msg.format(flow_func.__name__));
             excess[u] -= flow
@@ -86,12 +86,12 @@ class TestMaxflowLargeGraph) {
     auto test_complete_graph( ) {
         N = 50
         G = xn::complete_graph(N);
-        xn::set_edge_attributes(G, 5, 'capacity');
-        R = build_residual_network(G, 'capacity');
+        xn::set_edge_attributes(G, 5, "capacity");
+        R = build_residual_network(G, "capacity");
         kwargs = dict(residual=R);
 
         for (auto flow_func : flow_funcs) {
-            kwargs['flow_func'] = flow_func
+            kwargs["flow_func"] = flow_func
             flow_value = xn::maximum_flow_value(G, 1, 2, **kwargs);
             assert_equal(flow_value, 5 * (N - 1),
                          msg=msg.format(flow_func.__name__));
@@ -100,20 +100,20 @@ class TestMaxflowLargeGraph) {
         N = 10
         // N = 100 // this gives a graph with 5051 nodes
         G = gen_pyramid(N);
-        R = build_residual_network(G, 'capacity');
+        R = build_residual_network(G, "capacity");
         kwargs = dict(residual=R);
 
         for (auto flow_func : flow_funcs) {
-            kwargs['flow_func'] = flow_func
-            flow_value = xn::maximum_flow_value(G, (0, 0), 't', **kwargs);
+            kwargs["flow_func"] = flow_func
+            flow_value = xn::maximum_flow_value(G, (0, 0), "t", **kwargs);
             assert_almost_equal(flow_value, 1.,
                                 msg=msg.format(flow_func.__name__));
 
     auto test_gl1( ) {
-        G = read_graph('gl1');
+        G = read_graph("gl1");
         s = 1;
         t = len(G);
-        R = build_residual_network(G, 'capacity');
+        R = build_residual_network(G, "capacity");
         kwargs = dict(residual=R);
 
         // do one flow_func to save time
@@ -125,10 +125,10 @@ class TestMaxflowLargeGraph) {
 //                           flow_func);
 
     auto test_gw1( ) {
-        G = read_graph('gw1');
+        G = read_graph("gw1");
         s = 1;
         t = len(G);
-        R = build_residual_network(G, 'capacity');
+        R = build_residual_network(G, "capacity");
         kwargs = dict(residual=R);
 
         for (auto flow_func : flow_funcs) {
@@ -136,10 +136,10 @@ class TestMaxflowLargeGraph) {
                            flow_func);
 
     auto test_wlm3( ) {
-        G = read_graph('wlm3');
+        G = read_graph("wlm3");
         s = 1;
         t = len(G);
-        R = build_residual_network(G, 'capacity');
+        R = build_residual_network(G, "capacity");
         kwargs = dict(residual=R);
 
         // do one flow_func to save time
@@ -151,6 +151,6 @@ class TestMaxflowLargeGraph) {
 //                           flow_func);
 
     auto test_preflow_push_global_relabel( ) {
-        G = read_graph('gw1');
+        G = read_graph("gw1");
         R = preflow_push(G, 1, len(G), global_relabel_freq=50);
-        assert_equal(R.graph['flow_value'], 1202018);
+        assert_equal(R.graph["flow_value"], 1202018);

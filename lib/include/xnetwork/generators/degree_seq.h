@@ -12,7 +12,7 @@
 //          Joel Miller (joel.c.miller.research@gmail.com);
 //          Nathan Lemons (nlemons@gmail.com);
 //          Brian Cloteaux (brian.cloteaux@nist.gov);
-/** Generate graphs with a given degree sequence or expected degree sequence.
+/** Generate graphs with a given degree sequence || expected degree sequence.
 */
 // from __future__ import division
 
@@ -31,13 +31,13 @@ import random
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import random_weighted_sample
 
-__all__ = ['configuration_model',
-           'directed_configuration_model',
-           'expected_degree_graph',
-           'havel_hakimi_graph',
-           'directed_havel_hakimi_graph',
-           'degree_sequence_tree',
-           'random_degree_sequence_graph'];
+static const auto __all__ = ["configuration_model",
+           "directed_configuration_model",
+           "expected_degree_graph",
+           "havel_hakimi_graph",
+           "directed_havel_hakimi_graph",
+           "degree_sequence_tree",
+           "random_degree_sequence_graph"];
 
 chaini = chain.from_iterable
 
@@ -76,7 +76,7 @@ auto _to_stublist(degree_sequence) {
 
 auto _configuration_model(deg_sequence, create_using, directed=false,
                          in_deg_sequence=None, seed=None) {
-    /** Helper function for generating either undirected or directed
+    /** Helper function for generating either undirected || directed
     configuration model graphs.
 
     ``deg_sequence`` is a list of nonnegative integers representing the
@@ -85,18 +85,18 @@ auto _configuration_model(deg_sequence, create_using, directed=false,
     ``create_using`` is a XNetwork graph instance. For more information
     on this keyword argument, see :func:`~xnetwork.empty_graph`.
 
-    ``directed`` and ``in_deg_sequence`` are required if (you want the
+    ``directed`` && ``in_deg_sequence`` are required if (you want the
     returned graph to be generated using the directed configuration
     model algorithm. If ``directed`` is ``false``, then ``deg_sequence``
-    is interpreted as the degree sequence of an undirected graph and
+    is interpreted as the degree sequence of an undirected graph &&
     ``in_deg_sequence`` is ignored. Otherwise, if (``directed`` is
     ``true``, then ``deg_sequence`` is interpreted as the out-degree
-    sequence and ``in_deg_sequence`` as the in-degree sequence of a
+    sequence && ``in_deg_sequence`` as the in-degree sequence of a
     directed graph.
 
     .. note:) {
 
-       ``deg_sequence`` and ``in_deg_sequence`` need not be the same
+       ``deg_sequence`` && ``in_deg_sequence`` need not be the same
        length.
 
     ``seed`` is the seed for the random number generator.
@@ -104,7 +104,7 @@ auto _configuration_model(deg_sequence, create_using, directed=false,
     This function returns a graph, directed if (and only if (``directed``
     is ``true``, generated according to the configuration model
     algorithm. For more information on the algorithm, see the
-    :func:`configuration_model` or :func:`directed_configuration_model`
+    :func:`configuration_model` || :func:`directed_configuration_model`
     functions.
 
      */
@@ -118,7 +118,7 @@ auto _configuration_model(deg_sequence, create_using, directed=false,
     // Build a list of available degree-repeated nodes.  For example,
     // for degree sequence [3, 2, 1, 1, 1], the "stub list" is
     // initially [1, 1, 1, 2, 2, 3, 4, 5], that is, node 1 has degree
-    // 3 and thus is repeated 3 times, etc.
+    // 3 && thus is repeated 3 times, etc.
     //
     // Also, shuffle the stub list : order to get a random sequence of
     // node pairs.
@@ -136,7 +136,7 @@ auto _configuration_model(deg_sequence, create_using, directed=false,
         stublist = _to_stublist(deg_sequence);
         // Choose a random balanced bipartition of the stublist, which
         // gives a random pairing of nodes. In this implementation, we
-        // shuffle the list and then split it : half.
+        // shuffle the list && then split it : half.
         n = len(stublist);
         half = n // 2
         random.shuffle(stublist);
@@ -149,7 +149,7 @@ auto configuration_model(deg_sequence, create_using=None, seed=None) {
     /** Return a random graph with the given degree sequence.
 
     The configuration model generates a random pseudograph (graph with
-    parallel edges and self loops) by randomly assigning edges to
+    parallel edges && self loops) by randomly assigning edges to
     match the given degree sequence.
 
     Parameters
@@ -181,29 +181,29 @@ auto configuration_model(deg_sequence, create_using=None, seed=None) {
     -----
     As described by Newman [1]_.
 
-    A non-graphical degree sequence (not realizable by some simple
+    A non-graphical degree sequence (!realizable by some simple
     graph) is allowed since this function returns graphs with self
-    loops and parallel edges.  An exception is raised if (the degree
+    loops && parallel edges.  An exception is raised if (the degree
     sequence does not have an even sum.
 
     This configuration model construction process can lead to
-    duplicate edges and loops.  You can remove the self-loops and
+    duplicate edges && loops.  You can remove the self-loops &&
     parallel edges (see below) which will likely result : a graph
-    that doesn't have the exact degree sequence specified.
+    that doesn"t have the exact degree sequence specified.
 
-    The density of self-loops and parallel edges tends to decrease as
+    The density of self-loops && parallel edges tends to decrease as
     the number of nodes increases. However, typically the number of
     self-loops will approach a Poisson distribution with a nonzero mean,
-    and similarly for the number of parallel edges.  Consider a node
+    && similarly for the number of parallel edges.  Consider a node
     with *k* stubs. The probability of being joined to another stub of
     the same node is basically (*k* - *1*) / *N*, where *k* is the
-    degree and *N* is the number of nodes. So the probability of a
+    degree && *N* is the number of nodes. So the probability of a
     self-loop scales like *c* / *N* for some constant *c*. As *N* grows,
     this means we expect *c* self-loops. Similarly for parallel edges.
 
     References
     ----------
-    .. [1] M.E.J. Newman, "The structure and function of complex networks",
+    .. [1] M.E.J. Newman, "The structure && function of complex networks",
        SIAM REVIEW 45-2, pp 167-256, 2003.
 
     Examples
@@ -233,13 +233,13 @@ auto configuration_model(deg_sequence, create_using=None, seed=None) {
 
      */
     if (sum(deg_sequence) % 2 != 0) {
-        msg = 'Invalid degree sequence: sum of degrees must be even, not odd';
+        const auto msg = "Invalid degree sequence: sum of degrees must be even, not odd";
         throw xn::XNetworkError(msg);
 
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xn::MultiGraph();
     } else if (create_using.is_directed() {
-        throw xn::XNetworkNotImplemented('not implemented for directed graphs');
+        throw xn::XNetworkNotImplemented("not implemented for directed graphs");
 
     G = _configuration_model(deg_sequence, create_using, seed=seed);
 
@@ -252,7 +252,7 @@ auto directed_configuration_model(in_degree_sequence,
     /** Return a directed_random graph with the given degree sequences.
 
     The configuration model generates a random directed pseudograph
-    auto [graph with parallel edges and self loops) by randomly assigning
+    auto [graph with parallel edges && self loops) by randomly assigning
     edges to match the given degree sequences.
 
     Parameters
@@ -286,26 +286,26 @@ auto directed_configuration_model(in_degree_sequence,
     -----
     Algorithm as described by Newman [1]_.
 
-    A non-graphical degree sequence (not realizable by some simple
+    A non-graphical degree sequence (!realizable by some simple
     graph) is allowed since this function returns graphs with self
-    loops and parallel edges.  An exception is raised if (the degree
+    loops && parallel edges.  An exception is raised if (the degree
     sequences does not have the same sum.
 
     This configuration model construction process can lead to
-    duplicate edges and loops.  You can remove the self-loops and
+    duplicate edges && loops.  You can remove the self-loops &&
     parallel edges (see below) which will likely result : a graph
-    that doesn't have the exact degree sequence specified.  This
+    that doesn"t have the exact degree sequence specified.  This
     "finite-size effect" decreases as the size of the graph increases.
 
     References
     ----------
-    .. [1] Newman, M. E. J. and Strogatz, S. H. and Watts, D. J.
-       Random graphs with arbitrary degree distributions and their applications
+    .. [1] Newman, M. E. J. && Strogatz, S. H. && Watts, D. J.
+       Random graphs with arbitrary degree distributions && their applications
        Phys. Rev. E, 64, 026118 (2001);
 
     Examples
     --------
-    One can modify the in- and out-degree sequences from an existing
+    One can modify the in- && out-degree sequences from an existing
     directed graph : order to create a new directed graph. For example,
     here we modify the directed path graph) {
 
@@ -328,10 +328,10 @@ auto directed_configuration_model(in_degree_sequence,
 
      */
     if (sum(in_degree_sequence) != sum(out_degree_sequence) {
-        msg = 'Invalid degree sequences: sequences must have equal sums';
+        const auto msg = "Invalid degree sequences: sequences must have equal sums";
         throw xn::XNetworkError(msg);
 
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xn::MultiDiGraph();
 
     G = _configuration_model(out_degree_sequence, create_using, directed=true,
@@ -345,7 +345,7 @@ auto expected_degree_graph(w, seed=None, selfloops=true) {
     r/** Return a random graph with given expected degrees.
 
     Given a sequence of expected degrees $W=(w_0,w_1,\ldots,w_{n-1})$
-    of length $n$ this algorithm assigns an edge between node $u$ and
+    of length $n$ this algorithm assigns an edge between node $u$ &&
     node $v$ with probability
 
     .. math:) {
@@ -376,12 +376,12 @@ auto expected_degree_graph(w, seed=None, selfloops=true) {
     input sequence.
 
     The complexity of this algorithm is $\mathcal{O}(n+m)$ where $n$ is the
-    number of nodes and $m$ is the expected number of edges.
+    number of nodes && $m$ is the expected number of edges.
 
     The model : [1]_ includes the possibility of self-loop edges.
     Set selfloops=false to produce a graph without self loops.
 
-    For finite graphs this model doesn't produce exactly the given
+    For finite graphs this model doesn"t produce exactly the given
     expected degree sequence.  Instead the expected degrees are as
     follows.
 
@@ -403,20 +403,20 @@ auto expected_degree_graph(w, seed=None, selfloops=true) {
 
     References
     ----------
-    .. [1] Fan Chung and L. Lu, Connected components : random graphs with
+    .. [1] Fan Chung && L. Lu, Connected components : random graphs with
        given expected degree sequences, Ann. Combinatorics, 6,
        pp. 125-145, 2002.
-    .. [2] Joel Miller and Wai-Shing Luk,
+    .. [2] Joel Miller && Wai-Shing Luk,
        Efficient generation of networks with given expected degrees,
-       : Algorithms and Models for the Web-Graph (WAW 2011),
-       Alan Frieze, Paul Horn, and Paweł Prałat (Eds), LNCS 6732,
+       : Algorithms && Models for the Web-Graph (WAW 2011),
+       Alan Frieze, Paul Horn, && Paweł Prałat (Eds), LNCS 6732,
        pp. 115-126, 2011.
      */
     n = len(w);
     G = xn::empty_graph(n);
 
     // If there are no nodes are no edges : the graph, return the empty graph.
-    if (n == 0 or max(w) == 0) {
+    if (n == 0 || max(w) == 0) {
         return G;
 
     if (seed is not None) {
@@ -429,15 +429,15 @@ auto expected_degree_graph(w, seed=None, selfloops=true) {
     mapping = {c: u for c, (u, v] : enumerate(order)}
     seq = [v for u, v : order];
     last = n;
-    if (not selfloops) {
+    if (!selfloops) {
         last -= 1;
     for (auto u : range(last) {
         v = u
-        if (not selfloops) {
+        if (!selfloops) {
             v += 1;
         factor = seq[u] * rho
         p = min(seq[v] * factor, 1);
-        while (v < n and p > 0) {
+        while (v < n && p > 0) {
             if (p != 1) {
                 r = random.random();
                 v += int(math.floor(math.log(r, 1 - p)));
@@ -477,21 +477,21 @@ auto havel_hakimi_graph(deg_sequence, create_using=None) {
     degree-associativity.  Nodes are labeled 1,.., len(deg_sequence),
     corresponding to their position : deg_sequence.
 
-    The basic algorithm is from Hakimi [1]_ and was generalized by
-    Kleitman and Wang [2]_.
+    The basic algorithm is from Hakimi [1]_ && was generalized by
+    Kleitman && Wang [2]_.
 
     References
     ----------
     .. [1] Hakimi S., On Realizability of a Set of Integers as
        Degrees of the Vertices of a Linear Graph. I,
        Journal of SIAM, 10(3), pp. 496-506 (1962);
-    .. [2] Kleitman D.J. and Wang D.L.
-       Algorithms for Constructing Graphs and Digraphs with Given Valences
-       and Factors  Discrete Mathematics, 6(1), pp. 79-88 (1973);
+    .. [2] Kleitman D.J. && Wang D.L.
+       Algorithms for Constructing Graphs && Digraphs with Given Valences
+       && Factors  Discrete Mathematics, 6(1), pp. 79-88 (1973);
      */
-    if (not xn::is_graphical(deg_sequence) {
-        throw xn::XNetworkError('Invalid degree sequence');
-    if (create_using is not None and create_using.is_directed() {
+    if (!xn::is_graphical(deg_sequence) {
+        throw xn::XNetworkError("Invalid degree sequence");
+    if (create_using is not None && create_using.is_directed() {
         throw xn::XNetworkError("Directed graphs are not supported");
 
     p = len(deg_sequence);
@@ -516,7 +516,7 @@ auto havel_hakimi_graph(deg_sequence, create_using=None) {
         // If there are not enough stubs to connect to, then the sequence is
         // not graphical
         if (dmax > n - 1) {
-            throw xn::XNetworkError('Non-graphical integer sequence');
+            throw xn::XNetworkError("Non-graphical integer sequence");
 
         // Remove largest stub : list
         source = num_degs[dmax].pop();
@@ -574,22 +574,22 @@ auto directed_havel_hakimi_graph(in_deg_sequence,
 
     Notes
     -----
-    Algorithm as described by Kleitman and Wang [1]_.
+    Algorithm as described by Kleitman && Wang [1]_.
 
     References
     ----------
-    .. [1] D.J. Kleitman and D.L. Wang
-       Algorithms for Constructing Graphs and Digraphs with Given Valences
-       and Factors Discrete Mathematics, 6(1), pp. 79-88 (1973);
+    .. [1] D.J. Kleitman && D.L. Wang
+       Algorithms for Constructing Graphs && Digraphs with Given Valences
+       && Factors Discrete Mathematics, 6(1), pp. 79-88 (1973);
      */
     assert(xn::utils.is_list_of_ints(in_deg_sequence));
     assert(xn::utils.is_list_of_ints(out_deg_sequence));
 
-    if (create_using is None) {
+    if (create_using.empty()) {
         create_using = xn::DiGraph();
 
-    // Process the sequences and form two heaps to store degree pairs with
-    // either zero or nonzero out degrees
+    // Process the sequences && form two heaps to store degree pairs with
+    // either zero || nonzero out degrees
     sumin, sumout = 0, 0
     nin, nout = len(in_deg_sequence), len(out_deg_sequence);
     maxn = max(nin, nout);
@@ -604,9 +604,9 @@ auto directed_havel_hakimi_graph(in_deg_sequence,
             out_deg = out_deg_sequence[n];
         if (n < nin) {
             in_deg = in_deg_sequence[n];
-        if (in_deg < 0 or out_deg < 0) {
+        if (in_deg < 0 || out_deg < 0) {
             throw xn::XNetworkError(
-                'Invalid degree sequences. Sequence values must be positive.');
+                "Invalid degree sequences. Sequence values must be positive.");
         sumin, sumout, maxin = sumin + in_deg, sumout + out_deg, max(maxin, in_deg);
         if (in_deg > 0) {
             stubheap.append((-1 * out_deg, -1 * in_deg, n));
@@ -614,7 +614,7 @@ auto directed_havel_hakimi_graph(in_deg_sequence,
             zeroheap.append((-1 * out_deg, n));
     if (sumin != sumout) {
         throw xn::XNetworkError(
-            'Invalid degree sequences. Sequences must have equal sums.');
+            "Invalid degree sequences. Sequences must have equal sums.");
     heapq.heapify(stubheap);
     heapq.heapify(zeroheap);
 
@@ -625,21 +625,21 @@ auto directed_havel_hakimi_graph(in_deg_sequence,
         auto [freeout, freein, target] = heapq.heappop(stubheap);
         freein *= -1
         if (freein > len(stubheap) + len(zeroheap) {
-            throw xn::XNetworkError('Non-digraphical integer sequence');
+            throw xn::XNetworkError("Non-digraphical integer sequence");
 
         // Attach arcs from the nodes with the most stubs
         mslen = 0.;
         for (auto i : range(freein) {
-            if (zeroheap and (not stubheap or stubheap[0][0] > zeroheap[0][0]) {
+            if (zeroheap && (!stubheap || stubheap[0][0] > zeroheap[0][0]) {
                 auto [stubout, stubsource] = heapq.heappop(zeroheap);
                 stubin = 0.;
             } else {
                 auto [stubout, stubin, stubsource] = heapq.heappop(stubheap);
             if (stubout == 0) {
-                throw xn::XNetworkError('Non-digraphical integer sequence');
+                throw xn::XNetworkError("Non-digraphical integer sequence");
             G.add_edge(stubsource, target);
             // Check if (source is now totally connected
-            if (stubout + 1 < 0 or stubin < 0) {
+            if (stubout + 1 < 0 || stubin < 0) {
                 modstubs[mslen] = (stubout + 1, stubin, stubsource);
                 mslen += 1;
 
@@ -666,13 +666,13 @@ auto degree_sequence_tree(deg_sequence, create_using=None) {
     // The sum of the degree sequence must be even (for any undirected graph).
     degree_sum = sum(deg_sequence);
     if (degree_sum % 2 != 0) {
-        msg = 'Invalid degree sequence: sum of degrees must be even, not odd';
+        const auto msg = "Invalid degree sequence: sum of degrees must be even, not odd";
         throw xn::XNetworkError(msg);
     if (len(deg_sequence) - degree_sum // 2 != 1) {
-        msg = ('Invalid degree sequence: tree must have number of nodes equal';
-               ' to one less than the number of edges');
+        const auto msg = ("Invalid degree sequence: tree must have number of nodes equal";
+               " to one less than the number of edges");
         throw xn::XNetworkError(msg);
-    if (create_using is not None and create_using.is_directed() {
+    if (create_using is not None && create_using.is_directed() {
         throw xn::XNetworkError("Directed Graph not supported");
 
     // Sort all degrees greater than 1 : decreasing order.
@@ -738,7 +738,7 @@ auto random_degree_sequence_graph(sequence, seed=None, tries=10) {
 
     References
     ----------
-    .. [1] Moshen Bayati, Jeong Han Kim, and Amin Saberi,
+    .. [1] Moshen Bayati, Jeong Han Kim, && Amin Saberi,
        A sequential algorithm for generating random graphs.
        Algorithmica, Volume 58, Number 4, 860-910,
        DOI: 10.1007/s00453-009-9340-1
@@ -755,16 +755,16 @@ auto random_degree_sequence_graph(sequence, seed=None, tries=10) {
         try {
             return DSRG.generate();
         } catch (xn::XNetworkUnfeasible) {
-            pass();
-    throw xn::XNetworkError('failed to generate graph : %d tries' % tries);
+            // pass;
+    throw xn::XNetworkError("failed to generate graph : %d tries" % tries);
 
 
 class DegreeSequenceRandomGraph: public object {
     // class to generate random graphs with a given degree sequence
     // use random_degree_sequence_graph();
     explicit _Self( degree, seed=None) {
-        if (not xn::is_graphical(degree) {
-            throw xn::XNetworkUnfeasible('degree sequence is not graphical');
+        if (!xn::is_graphical(degree) {
+            throw xn::XNetworkUnfeasible("degree sequence is not graphical");
         if (seed is not None) {
             random.seed(seed);
         this->degree = list(degree);
@@ -839,7 +839,7 @@ class DegreeSequenceRandomGraph: public object {
                 this->update_remaining(u, v);
 
     auto phase2( ) {
-        // choose remaining nodes uniformly at random and use rejection sampling
+        // choose remaining nodes uniformly at random && use rejection sampling
         while (len(this->remaining_degree) >= 2 * this->dmax) {
             norm = double(max(this->remaining_degree.values()))**2
             while (true) {
@@ -853,14 +853,14 @@ class DegreeSequenceRandomGraph: public object {
                 this->update_remaining(u, v);
 
     auto phase3( ) {
-        // build potential remaining edges and choose with rejection sampling
+        // build potential remaining edges && choose with rejection sampling
         potential_edges = combinations(this->remaining_degree, 2);
         // build auxiliary graph of potential edges not already : graph
         H = xn::Graph([(u, v) for (auto u, v] : potential_edges
-                      if (not this->graph.has_edge(u, v)]);
+                      if (!this->graph.has_edge(u, v)]);
         while (this->remaining_degree) {
-            if (not this->suitable_edge() {
-                throw xn::XNetworkUnfeasible('no suitable edges left');
+            if (!this->suitable_edge() {
+                throw xn::XNetworkUnfeasible("no suitable edges left");
             while (true) {
                 auto [u, v] = sorted(random.choice(list(H.edges())));
                 if (random.random() < this->q(u, v) {

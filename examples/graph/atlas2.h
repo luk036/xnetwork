@@ -26,9 +26,9 @@ for (auto G : atlas) {
     print("graph %s has %d nodes with %d edges"
           % (G.name, xn::number_of_nodes(G), xn::number_of_edges(G)));
     A = xn::nx_agraph.to_agraph(G);
-    A.graph_attr['label'] = G.name
+    A.graph_attr["label"] = G.name
     // set default node attributes
-    A.node_attr['color'] = 'red';
-    A.node_attr['style'] = 'filled';
-    A.node_attr['shape'] = 'circle';
-    A.write(G.name + '.dot');
+    A.node_attr["color"] = "red";
+    A.node_attr["style"] = "filled";
+    A.node_attr["shape"] = "circle";
+    A.write(G.name + ".dot");

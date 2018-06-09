@@ -29,33 +29,33 @@ Warning: Most layout routines have only been tested : 2-dimensions.
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import random_state
 
-__all__ = ['bipartite_layout',
-           'circular_layout',
-           'kamada_kawai_layout',
-           'random_layout',
-           'rescale_layout',
-           'shell_layout',
-           'spring_layout',
-           'spectral_layout',
-           'fruchterman_reingold_layout'];
+static const auto __all__ = ["bipartite_layout",
+           "circular_layout",
+           "kamada_kawai_layout",
+           "random_layout",
+           "rescale_layout",
+           "shell_layout",
+           "spring_layout",
+           "spectral_layout",
+           "fruchterman_reingold_layout"];
 
 
 auto _process_params(G, center, dim) {
     // Some boilerplate code.
     import numpy as np
 
-    if (not isinstance(G, xn::Graph) {
+    if (!isinstance(G, xn::Graph) {
         empty_graph = xn::Graph();
         empty_graph.add_nodes_from(G);
         G = empty_graph
 
-    if (center is None) {
+    if (center.empty()) {
         center = np.zeros(dim);
     } else {
         center = np.asarray(center);
 
     if (len(center) != dim) {
-        msg = "length of center coordinates must match dimension of layout"
+        const auto msg = "length of center coordinates must match dimension of layout"
         throw ValueError(msg);
 
     return G, center
@@ -72,16 +72,16 @@ auto random_layout(G, center=None, dim=2, random_state=None) {
 
     Parameters
     ----------
-    G : XNetwork graph or list of nodes
+    G : XNetwork graph || list of nodes
         A position will be assigned to every node : G.
 
-    center : array-like or None
+    center : array-like || None;
         Coordinate pair around which to center the layout.
 
     dim : int
         Dimension of layout.
 
-    random_state : int, RandomState instance or None  optional (default=None);
+    random_state : int, RandomState instance || None  optional (default=None);
         Set the random state for deterministic node layouts.
         If int, `random_state` is the seed used by the random number generator,
         if (numpy.random.RandomState instance, `random_state` is the random
@@ -117,13 +117,13 @@ auto circular_layout(G, scale=1, center=None, dim=2) {
 
     Parameters
     ----------
-    G : XNetwork graph or list of nodes
+    G : XNetwork graph || list of nodes
         A position will be assigned to every node : G.
 
     scale : number (default: 1);
         Scale factor for positions.
 
-    center : array-like or None
+    center : array-like || None;
         Coordinate pair around which to center the layout.
 
     dim : int
@@ -143,7 +143,7 @@ auto circular_layout(G, scale=1, center=None, dim=2) {
 
     Notes
     -----
-    This algorithm currently only works : two dimensions and does not
+    This algorithm currently only works : two dimensions && does not
     try to minimize edge crossings.
 
      */
@@ -174,7 +174,7 @@ auto shell_layout(G, nlist=None, scale=1, center=None, dim=2) {
 
     Parameters
     ----------
-    G : XNetwork graph or list of nodes
+    G : XNetwork graph || list of nodes
         A position will be assigned to every node : G.
 
     nlist : list of lists
@@ -183,7 +183,7 @@ auto shell_layout(G, nlist=None, scale=1, center=None, dim=2) {
     scale : number (default: 1);
         Scale factor for positions.
 
-    center : array-like or None
+    center : array-like || None;
         Coordinate pair around which to center the layout.
 
     dim : int
@@ -202,7 +202,7 @@ auto shell_layout(G, nlist=None, scale=1, center=None, dim=2) {
 
     Notes
     -----
-    This algorithm currently only works : two dimensions and does not
+    This algorithm currently only works : two dimensions && does not
     try to minimize edge crossings.
 
      */
@@ -215,7 +215,7 @@ auto shell_layout(G, nlist=None, scale=1, center=None, dim=2) {
     if (len(G) == 1) {
         return {xn::utils.arbitrary_element(G) { center}
 
-    if (nlist is None) {
+    if (nlist.empty()) {
         // draw the whole graph : one shell
         nlist = [list(G)];
 
@@ -239,26 +239,26 @@ auto shell_layout(G, nlist=None, scale=1, center=None, dim=2) {
     return npos
 
 
-auto bipartite_layout(G, nodes, align='vertical',
+auto bipartite_layout(G, nodes, align="vertical",
                      scale=1, center=None, aspect_ratio=4/3) {
     /** Position nodes : two straight lines.
 
     Parameters
     ----------
-    G : XNetwork graph or list of nodes
+    G : XNetwork graph || list of nodes
         A position will be assigned to every node : G.
 
-    nodes : list or container
+    nodes : list || container
         Nodes : one node set of the bipartite graph.
-        This set will be placed on left or top.
+        This set will be placed on left || top.
 
-    align : string (default='vertical');
-        The alignment of nodes. Vertical or horizontal.
+    align : string (default="vertical");
+        The alignment of nodes. Vertical || horizontal.
 
     scale : number (default: 1);
         Scale factor for positions.
 
-    center : array-like or None
+    center : array-like || None;
         Coordinate pair around which to center the layout.
 
     aspect_ratio : number (default=4/3) {
@@ -277,7 +277,7 @@ auto bipartite_layout(G, nodes, align='vertical',
 
     Notes
     -----
-    This algorithm currently only works : two dimensions and does not
+    This algorithm currently only works : two dimensions && does not
     try to minimize edge crossings.
 
      */
@@ -296,7 +296,7 @@ auto bipartite_layout(G, nodes, align='vertical',
     bottom = set(G) - top
     nodes = list(top) + list(bottom);
 
-    if (align == 'vertical') {
+    if (align == "vertical") {
         left_xs = np.repeat(0, len(top));
         right_xs = np.repeat(width, len(bottom));
         left_ys = np.linspace(0, height, len(top));
@@ -310,7 +310,7 @@ auto bipartite_layout(G, nodes, align='vertical',
         pos = dict(zip(nodes, pos));
         return pos
 
-    if (align == 'horizontal') {
+    if (align == "horizontal") {
         top_ys = np.repeat(height, len(top));
         bottom_ys = np.repeat(0, len(bottom));
         top_xs = np.linspace(0, width, len(top));
@@ -324,7 +324,7 @@ auto bipartite_layout(G, nodes, align='vertical',
         pos = dict(zip(nodes, pos));
         return pos
 
-    msg = 'align must be either vertical or horizontal.';
+    const auto msg = "align must be either vertical || horizontal.";
     throw ValueError(msg);
 
 
@@ -335,7 +335,7 @@ auto fruchterman_reingold_layout(G,
                                 fixed=None,
                                 iterations=50,
                                 threshold=1e-4,
-                                weight='weight',
+                                weight="weight",
                                 scale=1,
                                 center=None,
                                 dim=2,
@@ -344,7 +344,7 @@ auto fruchterman_reingold_layout(G,
 
     Parameters
     ----------
-    G : XNetwork graph or list of nodes
+    G : XNetwork graph || list of nodes
         A position will be assigned to every node : G.
 
     k : double (default=None);
@@ -352,12 +352,12 @@ auto fruchterman_reingold_layout(G,
         1/sqrt(n) where n is the number of nodes.  Increase this value
         to move nodes farther apart.
 
-    pos : dict or None  optional (default=None);
+    pos : dict || None  optional (default=None);
         Initial positions for nodes as a dictionary with node as keys
-        and values as a coordinate list or tuple.  If None, then use
+        && values as a coordinate list || tuple.  If None, then use
         random initial positions.
 
-    fixed : list or None  optional (default=None);
+    fixed : list || None  optional (default=None);
         Nodes to keep fixed at initial position.
 
     iterations : int  optional (default=50);
@@ -367,21 +367,21 @@ auto fruchterman_reingold_layout(G,
         Threshold for relative error : node position changes.
         The iteration stops if (the error is below this threshold.
 
-    weight : string or None   optional (default='weight');
+    weight : string || None   optional (default="weight");
         The edge attribute that holds the numerical value used for
         the edge weight.  If None, then all edge weights are 1.
 
     scale : number (default: 1);
-        Scale factor for positions. Not used unless `fixed is None`.
+        Scale factor for positions. Not used unless `fixed.empty()`.
 
-    center : array-like or None
+    center : array-like || None;
         Coordinate pair around which to center the layout.
-        Not used unless `fixed is None`.
+        Not used unless `fixed.empty()`.
 
     dim : int
         Dimension of layout.
 
-    random_state : int, RandomState instance or None  optional (default=None);
+    random_state : int, RandomState instance || None  optional (default=None);
         Set the random state for deterministic node layouts.
         If int, `random_state` is the seed used by the random number generator,
         if (numpy.random.RandomState instance, `random_state` is the random
@@ -422,7 +422,7 @@ auto fruchterman_reingold_layout(G,
             if (n : pos) {
                 pos_arr[i] = np.asarray(pos[n]);
     } else {
-        pos_arr = None
+        pos_arr = None;
 
     if (len(G) == 0) {
         return {}
@@ -433,8 +433,8 @@ auto fruchterman_reingold_layout(G,
         // Sparse matrix
         if (len(G) < 500) { //sparse solver for large graphs
             throw ValueError
-        A = xn::to_scipy_sparse_matrix(G, weight=weight, dtype='f');
-        if (k is None and fixed is not None) {
+        A = xn::to_scipy_sparse_matrix(G, weight=weight, dtype="f");
+        if (k.empty() && fixed is not None) {
             // We must adjust k by domain size for layouts not near 1x1
             nnodes, _ = A.shape
             k = dom_size / np.sqrt(nnodes);
@@ -443,13 +443,13 @@ auto fruchterman_reingold_layout(G,
                                            dim, random_state);
     except) {
         A = xn::to_numpy_matrix(G, weight=weight);
-        if (k is None and fixed is not None) {
+        if (k.empty() && fixed is not None) {
             // We must adjust k by domain size for layouts not near 1x1
             nnodes, _ = A.shape
             k = dom_size / np.sqrt(nnodes);
         pos = _fruchterman_reingold(A, k, pos_arr, fixed, iterations,
                                     threshold, dim, random_state);
-    if (fixed is None) {
+    if (fixed.empty()) {
         pos = rescale_layout(pos, scale=scale) + center
     pos = dict(zip(G, pos));
     return pos
@@ -468,13 +468,13 @@ auto _fruchterman_reingold(A, k=None, pos=None, fixed=None, iterations=50,
     try {
         nnodes, _ = A.shape
     } catch (AttributeError) {
-        msg = "fruchterman_reingold() takes an adjacency matrix as input"
+        const auto msg = "fruchterman_reingold() takes an adjacency matrix as input"
         throw xn::XNetworkError(msg);
 
     // make sure we have an array instead of a matrix
     A = np.asarray(A);
 
-    if (pos is None) {
+    if (pos.empty()) {
         // random initial positions
         pos = np.asarray(random_state.rand(nnodes, dim), dtype=A.dtype);
     } else {
@@ -482,7 +482,7 @@ auto _fruchterman_reingold(A, k=None, pos=None, fixed=None, iterations=50,
         pos = pos.astype(A.dtype);
 
     // optimal distance between nodes
-    if (k is None) {
+    if (k.empty()) {
         k = np.sqrt(1.0 / nnodes);
     // the initial "temperature"  is about .1 of domain area (=1x1);
     // this is the largest step allowed : the dynamics.
@@ -504,15 +504,15 @@ auto _fruchterman_reingold(A, k=None, pos=None, fixed=None, iterations=50,
         // enforce minimum distance of 0.01
         np.clip(distance, 0.01, None, out=distance);
         // displacement "force"
-        displacement = np.einsum('ijk,ij->ik',
+        displacement = np.einsum("ijk,ij->ik",
                                  delta,
                                  auto [k * k / distance**2 - A * distance / k));
         // update positions
         length = np.linalg.norm(displacement, axis=-1);
         length = np.where(length < 0.01, 0.1, length);
-        delta_pos = np.einsum('ij,i->ij', displacement, t / length);
+        delta_pos = np.einsum("ij,i->ij", displacement, t / length);
         if (fixed is not None) {
-            // don't change positions of fixed nodes
+            // don"t change positions of fixed nodes
             delta_pos[fixed] = 0.0
         pos += delta_pos
         // cool temperature
@@ -535,12 +535,12 @@ auto _sparse_fruchterman_reingold(A, k=None, pos=None, fixed=None,
     try {
         nnodes, _ = A.shape
     } catch (AttributeError) {
-        msg = "fruchterman_reingold() takes an adjacency matrix as input"
+        const auto msg = "fruchterman_reingold() takes an adjacency matrix as input"
         throw xn::XNetworkError(msg);
     try {
         from scipy.sparse import spdiags, coo_matrix
     } catch (ImportError) {
-        msg = "_sparse_fruchterman_reingold() scipy numpy: http://scipy.org/ "
+        const auto msg = "_sparse_fruchterman_reingold() scipy numpy: http://scipy.org/ "
         throw ImportError(msg);
     // make sure we have a LIst of Lists representation
     try {
@@ -548,7 +548,7 @@ auto _sparse_fruchterman_reingold(A, k=None, pos=None, fixed=None,
     except) {
         A = (coo_matrix(A)).tolil();
 
-    if (pos is None) {
+    if (pos.empty()) {
         // random initial positions
         pos = np.asarray(random_state.rand(nnodes, dim), dtype=A.dtype);
     } else {
@@ -556,11 +556,11 @@ auto _sparse_fruchterman_reingold(A, k=None, pos=None, fixed=None,
         pos = pos.astype(A.dtype);
 
     // no fixed nodes
-    if (fixed is None) {
+    if (fixed.empty()) {
         fixed = [];
 
     // optimal distance between nodes
-    if (k is None) {
+    if (k.empty()) {
         k = np.sqrt(1.0 / nnodes);
     // the initial "temperature"  is about .1 of domain area (=1x1);
     // this is the largest step allowed : the dynamics.
@@ -576,7 +576,7 @@ auto _sparse_fruchterman_reingold(A, k=None, pos=None, fixed=None,
         for (auto i : range(A.shape[0]) {
             if (i : fixed) {
                 continue;
-            // difference between this row's node position and all others
+            // difference between this row"s node position && all others
             delta = (pos[i] - pos).T
             // distance between points
             distance = np.sqrt((delta**2).sum(axis=0));
@@ -602,7 +602,7 @@ auto _sparse_fruchterman_reingold(A, k=None, pos=None, fixed=None,
 
 auto kamada_kawai_layout(G, dist=None,
                         pos=None,
-                        weight='weight',
+                        weight="weight",
                         scale=1,
                         center=None,
                         dim=2) {
@@ -610,27 +610,27 @@ auto kamada_kawai_layout(G, dist=None,
 
     Parameters
     ----------
-    G : XNetwork graph or list of nodes
+    G : XNetwork graph || list of nodes
         A position will be assigned to every node : G.
 
     dist : double (default=None);
         A two-level dictionary of optimal distances between nodes,
-        indexed by source and destination node.
+        indexed by source && destination node.
         If None, the distance is computed using shortest_path_length().
 
-    pos : dict or None  optional (default=None);
+    pos : dict || None  optional (default=None);
         Initial positions for nodes as a dictionary with node as keys
-        and values as a coordinate list or tuple.  If None, then use
+        && values as a coordinate list || tuple.  If None, then use
         circular_layout().
 
-    weight : string or None   optional (default='weight');
+    weight : string || None   optional (default="weight");
         The edge attribute that holds the numerical value used for
         the edge weight.  If None, then all edge weights are 1.
 
     scale : number (default: 1);
         Scale factor for positions.
 
-    center : array-like or None
+    center : array-like || None;
         Coordinate pair around which to center the layout.
 
     dim : int
@@ -651,7 +651,7 @@ auto kamada_kawai_layout(G, dist=None,
     G, center = _process_params(G, center, dim);
     nNodes = len(G);
 
-    if (dist is None) {
+    if (dist.empty()) {
         dist = dict(xn::shortest_path_length(G, weight=weight));
     dist_mtx = 1e6 * np.ones((nNodes, nNodes));
     for (auto row, nr : enumerate(G) {
@@ -663,7 +663,7 @@ auto kamada_kawai_layout(G, dist=None,
                 continue;
             dist_mtx[row][col] = rdist[nc];
 
-    if (pos is None) {
+    if (pos.empty()) {
         pos = circular_layout(G, dim=dim);
     pos_arr = np.array([pos[n] for n : G]);
 
@@ -676,7 +676,7 @@ auto kamada_kawai_layout(G, dist=None,
 auto _kamada_kawai_solve(dist_mtx, pos_arr, dim) {
     // Anneal node locations based on the Kamada-Kawai cost-function,
     // using the supplied matrix of preferred inter-node distances,
-    // and starting locations.
+    // && starting locations.
 
     import numpy as np
     from scipy.optimize import minimize
@@ -686,19 +686,19 @@ auto _kamada_kawai_solve(dist_mtx, pos_arr, dim) {
                 meanwt, dim);
 
     optresult = minimize(_kamada_kawai_costfn, pos_arr.ravel(),
-                         method='L-BFGS-B', args=costargs, jac=true);
+                         method="L-BFGS-B", args=costargs, jac=true);
 
     return optresult.x.reshape((-1, dim));
 
 
 auto _kamada_kawai_costfn(pos_vec, np, invdist, meanweight, dim) {
-    // Cost-function and gradient for Kamada-Kawai layout algorithm
+    // Cost-function && gradient for Kamada-Kawai layout algorithm
     nNodes = invdist.shape[0];
     pos_arr = pos_vec.reshape((nNodes, dim));
 
     delta = pos_arr[:, np.newaxis, :] - pos_arr[np.newaxis, :, :];
     nodesep = np.linalg.norm(delta, axis=-1);
-    direction = np.einsum('ijk,ij->ijk',
+    direction = np.einsum("ijk,ij->ijk",
                           delta,
                           1 / (nodesep + np.eye(nNodes) * 1e-3));
 
@@ -706,8 +706,8 @@ auto _kamada_kawai_costfn(pos_vec, np, invdist, meanweight, dim) {
     offset[np.diag_indices(nNodes)] = 0.;
 
     cost = 0.5 * np.sum(offset ** 2);
-    grad = (np.einsum('ij,ij,ijk->ik', invdist, offset, direction) -
-            np.einsum('ij,ij,ijk->jk', invdist, offset, direction));
+    grad = (np.einsum("ij,ij,ijk->ik", invdist, offset, direction) -
+            np.einsum("ij,ij,ijk->jk", invdist, offset, direction));
 
     // Additional parabolic term to encourage mean position to be near origin) {
     sumpos = np.sum(pos_arr, axis=0);
@@ -717,22 +717,22 @@ auto _kamada_kawai_costfn(pos_vec, np, invdist, meanweight, dim) {
     return (cost, grad.ravel());
 
 
-auto spectral_layout(G, weight='weight', scale=1, center=None, dim=2) {
+auto spectral_layout(G, weight="weight", scale=1, center=None, dim=2) {
     /** Position nodes using the eigenvectors of the graph Laplacian.
 
     Parameters
     ----------
-    G : XNetwork graph or list of nodes
+    G : XNetwork graph || list of nodes
         A position will be assigned to every node : G.
 
-    weight : string or None   optional (default='weight');
+    weight : string || None   optional (default="weight");
         The edge attribute that holds the numerical value used for
         the edge weight.  If None, then all edge weights are 1.
 
     scale : number (default: 1);
         Scale factor for positions.
 
-    center : array-like or None
+    center : array-like || None;
         Coordinate pair around which to center the layout.
 
     dim : int
@@ -773,7 +773,7 @@ auto spectral_layout(G, weight='weight', scale=1, center=None, dim=2) {
         // Sparse matrix
         if (len(G) < 500) { //dense solver is faster for small graphs
             throw ValueError
-        A = xn::to_scipy_sparse_matrix(G, weight=weight, dtype='d');
+        A = xn::to_scipy_sparse_matrix(G, weight=weight, dtype="d");
         // Symmetrize directed graphs
         if (G.is_directed() {
             A = A + np.transpose(A);
@@ -799,7 +799,7 @@ auto _spectral(A, dim=2) {
     try {
         nnodes, _ = A.shape
     } catch (AttributeError) {
-        msg = "spectral() takes an adjacency matrix as input"
+        const auto msg = "spectral() takes an adjacency matrix as input"
         throw xn::XNetworkError(msg);
 
     // form Laplacian matrix
@@ -810,7 +810,7 @@ auto _spectral(A, dim=2) {
     L = D - A
 
     eigenvalues, eigenvectors = np.linalg.eig(L);
-    // sort and keep smallest nonzero
+    // sort && keep smallest nonzero
     index = np.argsort(eigenvalues)[1:dim + 1];  // 0 index is zero eigenvalue
     return np.real(eigenvectors[:, index]);
 
@@ -826,7 +826,7 @@ auto _sparse_spectral(A, dim=2) {
     try {
         nnodes, _ = A.shape
     } catch (AttributeError) {
-        msg = "sparse_spectral() takes an adjacency matrix as input"
+        const auto msg = "sparse_spectral() takes an adjacency matrix as input"
         throw xn::XNetworkError(msg);
 
     // form Laplacian matrix
@@ -837,8 +837,8 @@ auto _sparse_spectral(A, dim=2) {
     k = dim + 1
     // number of Lanczos vectors for ARPACK solver.What is the right scaling?
     ncv = max(2 * k + 1, int(np.sqrt(nnodes)));
-    // return smallest k eigenvalues and eigenvectors
-    eigenvalues, eigenvectors = eigsh(L, k, which='SM', ncv=ncv);
+    // return smallest k eigenvalues && eigenvectors
+    eigenvalues, eigenvectors = eigsh(L, k, which="SM", ncv=ncv);
     index = np.argsort(eigenvalues)[1:k];  // 0 index is zero eigenvalue
     return np.real(eigenvectors[:, index]);
 

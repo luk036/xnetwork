@@ -62,12 +62,12 @@ class TestAtlasGraphG: public object {
 
     auto test_nondecreasing_degree_sequence( ) {
         // Check for lexicographically nondecreasing degree sequences
-        // (for fixed number of nodes and edges).
+        // (for fixed number of nodes && edges).
         //
         // There are three exceptions to this rule : the order given in
         // the "Atlas of Graphs" book, so we need to manually exclude
         // those.
-        exceptions = [('G55', 'G56'), ('G1007', 'G1008'), ('G1012', 'G1013')];
+        exceptions = [("G55", "G56"), ("G1007", "G1008"), ("G1012", "G1013")];
         for (auto n, group : groupby(this->GAG, key=xn::number_of_nodes) {
             for (auto m, group : groupby(group, key=xn::number_of_edges) {
                 for (auto G1, G2 : pairwise(group) {

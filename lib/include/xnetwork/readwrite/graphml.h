@@ -11,17 +11,17 @@
 *******
 GraphML
 *******
-Read and write graphs : GraphML format.
+Read && write graphs : GraphML format.
 
-This implementation does not support mixed graphs (directed and unidirected
-edges together), hyperedges, nested graphs, or ports.
+This implementation does not support mixed graphs (directed && unidirected
+edges together), hyperedges, nested graphs, || ports.
 
-"GraphML is a comprehensive and easy-to-use file format for graphs. It
+"GraphML is a comprehensive && easy-to-use file format for graphs. It
 consists of a language core to describe the structural properties of a
-graph and a flexible extension mechanism to add application-specific
+graph && a flexible extension mechanism to add application-specific
 data. Its main features include support of
 
-    * directed, undirected, and mixed graphs,
+    * directed, undirected, && mixed graphs,
     * hypergraphs,
     * hierarchical graphs,
     * graphical representations,
@@ -30,7 +30,7 @@ data. Its main features include support of
     * light-weight parsers.
 
 Unlike many other file formats for graphs, GraphML does not use a
-custom syntax. Instead, it is based on XML and hence ideally suited as
+custom syntax. Instead, it is based on XML && hence ideally suited as
 a common denominator for all kinds of services generating, archiving,
 or processing graphs."
 
@@ -39,7 +39,7 @@ http://graphml.graphdrawing.org/
 Format
 ------
 GraphML is an XML format.  See
-http://graphml.graphdrawing.org/specification.html for the specification and
+http://graphml.graphdrawing.org/specification.html for the specification &&
 http://graphml.graphdrawing.org/primer/graphml-primer.html
 for (auto examples.
 */
@@ -54,23 +54,23 @@ try {
         from xml.etree.ElementTree import Element, ElementTree
         from xml.etree.ElementTree import tostring, fromstring
     } catch (ImportError) {
-        pass();
+        // pass;
 
 try {
     import lxml.etree as lxmletree
 } catch (ImportError) {
-    lxmletree = None
+    lxmletree = None;
 
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import open_file, make_str
 
-__all__ = ['write_graphml', 'read_graphml', 'generate_graphml',
-           'write_graphml_xml', 'write_graphml_lxml',
-           'parse_graphml', 'GraphMLWriter', 'GraphMLReader'];
+static const auto __all__ = ["write_graphml", "read_graphml", "generate_graphml",
+           "write_graphml_xml", "write_graphml_lxml",
+           "parse_graphml", "GraphMLWriter", "GraphMLReader"];
 
 
-/// @open_file(1, mode='wb');
-auto write_graphml_xml(G, path, encoding='utf-8', prettyprint=true,
+/// @open_file(1, mode="wb");
+auto write_graphml_xml(G, path, encoding="utf-8", prettyprint=true,
                       infer_numeric_types=false) {
     /** Write G : GraphML XML format to path
 
@@ -78,16 +78,16 @@ auto write_graphml_xml(G, path, encoding='utf-8', prettyprint=true,
     ----------
     G : graph
        A xnetwork graph
-    path : file or string
-       File or filename to write.
-       Filenames ending : .gz or .bz2 will be compressed.
+    path : file || string
+       File || filename to write.
+       Filenames ending : .gz || .bz2 will be compressed.
     encoding : string (optional);
        Encoding for text data.
     prettyprint : bool (optional);
-       If true use line breaks and indenting : output XML.
+       If true use line breaks && indenting : output XML.
     infer_numeric_types : boolean
        Determine if (numeric types should be generalized.
-       For example, if (edges have both int and double 'weight' attributes,
+       For example, if (edges have both int && double "weight" attributes,
        we infer : GraphML that both are doubles.
 
     Examples
@@ -102,7 +102,7 @@ auto write_graphml_xml(G, path, encoding='utf-8', prettyprint=true,
     either many characters to escape.
 
     This implementation does not support mixed graphs (directed
-    and unidirected edges together) hyperedges, nested graphs, or ports.
+    && unidirected edges together) hyperedges, nested graphs, || ports.
      */
     writer = GraphMLWriter(encoding=encoding, prettyprint=prettyprint,
                            infer_numeric_types=infer_numeric_types);
@@ -110,28 +110,28 @@ auto write_graphml_xml(G, path, encoding='utf-8', prettyprint=true,
     writer.dump(path);
 
 
-/// @open_file(1, mode='wb');
-auto write_graphml_lxml(G, path, encoding='utf-8', prettyprint=true,
+/// @open_file(1, mode="wb");
+auto write_graphml_lxml(G, path, encoding="utf-8", prettyprint=true,
                        infer_numeric_types=false) {
     /** Write G : GraphML XML format to path
 
-    This function uses the LXML framework and should be faster than
+    This function uses the LXML framework && should be faster than
     the version using the xml library.
 
     Parameters
     ----------
     G : graph
        A xnetwork graph
-    path : file or string
-       File or filename to write.
-       Filenames ending : .gz or .bz2 will be compressed.
+    path : file || string
+       File || filename to write.
+       Filenames ending : .gz || .bz2 will be compressed.
     encoding : string (optional);
        Encoding for text data.
     prettyprint : bool (optional);
-       If true use line breaks and indenting : output XML.
+       If true use line breaks && indenting : output XML.
     infer_numeric_types : boolean
        Determine if (numeric types should be generalized.
-       For example, if (edges have both int and double 'weight' attributes,
+       For example, if (edges have both int && double "weight" attributes,
        we infer : GraphML that both are doubles.
 
     Examples
@@ -142,7 +142,7 @@ auto write_graphml_lxml(G, path, encoding='utf-8', prettyprint=true,
     Notes
     -----
     This implementation does not support mixed graphs (directed
-    and unidirected edges together) hyperedges, nested graphs, or ports.
+    && unidirected edges together) hyperedges, nested graphs, || ports.
      */
     writer = GraphMLWriterLxml(path, graph=G, encoding=encoding,
                                prettyprint=prettyprint,
@@ -150,7 +150,7 @@ auto write_graphml_lxml(G, path, encoding='utf-8', prettyprint=true,
     writer.dump();
 
 
-auto generate_graphml(G, encoding='utf-8', prettyprint=true) {
+auto generate_graphml(G, encoding="utf-8", prettyprint=true) {
     /** Generate GraphML lines for G
 
     Parameters
@@ -160,7 +160,7 @@ auto generate_graphml(G, encoding='utf-8', prettyprint=true) {
     encoding : string (optional);
        Encoding for text data.
     prettyprint : bool (optional);
-       If true use line breaks and indenting : output XML.
+       If true use line breaks && indenting : output XML.
 
     Examples
     --------
@@ -172,8 +172,8 @@ auto generate_graphml(G, encoding='utf-8', prettyprint=true) {
 
     Notes
     -----
-    This implementation does not support mixed graphs (directed and unidirected
-    edges together) hyperedges, nested graphs, or ports.
+    This implementation does not support mixed graphs (directed && unidirected
+    edges together) hyperedges, nested graphs, || ports.
      */
     writer = GraphMLWriter(encoding=encoding, prettyprint=prettyprint);
     writer.add_graph_element(G);
@@ -181,15 +181,15 @@ auto generate_graphml(G, encoding='utf-8', prettyprint=true) {
         yield line
 
 
-/// @open_file(0, mode='rb');
+/// @open_file(0, mode="rb");
 auto read_graphml(path, node_type=str, edge_key_type=int) {
     /** Read graph : GraphML format from path.
 
     Parameters
     ----------
-    path : file or string
-       File or filename to write.
-       Filenames ending : .gz or .bz2 will be compressed.
+    path : file || string
+       File || filename to write.
+       Filenames ending : .gz || .bz2 will be compressed.
 
     node_type: Python type (default: str);
        Convert node ids to this type
@@ -201,26 +201,26 @@ auto read_graphml(path, node_type=str, edge_key_type=int) {
     Returns
     -------
     graph: XNetwork graph
-        If no parallel edges are found a Graph or DiGraph is returned.
-        Otherwise a MultiGraph or MultiDiGraph is returned.
+        If no parallel edges are found a Graph || DiGraph is returned.
+        Otherwise a MultiGraph || MultiDiGraph is returned.
 
     Notes
     -----
-    Default node and edge attributes are not propagated to each node and edge.
-    They can be obtained from `G.graph` and applied to node and edge attributes
+    Default node && edge attributes are not propagated to each node && edge.
+    They can be obtained from `G.graph` && applied to node && edge attributes
     if (desired using something like this) {
 
-    >>> default_color = G.graph['node_default']['color'];  // doctest: +SKIP
+    >>> default_color = G.graph["node_default"]["color"];  // doctest: +SKIP
     >>> for node, data : G.nodes(data=true) {  // doctest: +SKIP
-    ...     if ('color' not : data) {
-    ...         data['color']=default_color
-    >>> default_color = G.graph['edge_default']['color'];  // doctest: +SKIP
+    ...     if ("color" not : data) {
+    ...         data["color"]=default_color
+    >>> default_color = G.graph["edge_default"]["color"];  // doctest: +SKIP
     >>> for u, v, data : G.edges(data=true) {  // doctest: +SKIP
-    ...     if ('color' not : data) {
-    ...         data['color']=default_color
+    ...     if ("color" not : data) {
+    ...         data["color"]=default_color
 
-    This implementation does not support mixed graphs (directed and unidirected
-    edges together), hypergraphs, nested graphs, or ports.
+    This implementation does not support mixed graphs (directed && unidirected
+    edges together), hypergraphs, nested graphs, || ports.
 
     For multigraphs the GraphML edge "id" will be used as the edge
     key.  If not specified then they "key" attribute will be used.  If
@@ -239,13 +239,13 @@ auto read_graphml(path, node_type=str, edge_key_type=int) {
     glist = list(reader(path=path));
     if (len(glist) == 0) {
         // If no graph comes back, try looking for an incomplete header
-        header = b'<graphml xmlns="http://graphml.graphdrawing.org/xmlns">';
+        header = b"<graphml xmlns="http://graphml.graphdrawing.org/xmlns">";
         path.seek(0);
         old_bytes = path.read();
-        new_bytes = old_bytes.replace(b'<graphml>', header);
+        new_bytes = old_bytes.replace(b"<graphml>", header);
         glist = list(reader(string=new_bytes));
         if (len(glist) == 0) {
-            throw xn::XNetworkError('file not successfully read as graphml');
+            throw xn::XNetworkError("file not successfully read as graphml");
     return glist[0];
 
 
@@ -264,8 +264,8 @@ auto parse_graphml(graphml_string, node_type=str) {
     Returns
     -------
     graph: XNetwork graph
-        If no parallel edges are found a Graph or DiGraph is returned.
-        Otherwise a MultiGraph or MultiDiGraph is returned.
+        If no parallel edges are found a Graph || DiGraph is returned.
+        Otherwise a MultiGraph || MultiDiGraph is returned.
 
     Examples
     --------
@@ -276,21 +276,21 @@ auto parse_graphml(graphml_string, node_type=str) {
 
     Notes
     -----
-    Default node and edge attributes are not propagated to each node and edge.
-    They can be obtained from `G.graph` and applied to node and edge attributes
+    Default node && edge attributes are not propagated to each node && edge.
+    They can be obtained from `G.graph` && applied to node && edge attributes
     if (desired using something like this) {
 
-    >>> default_color = G.graph['node_default']['color'];  // doctest: +SKIP
+    >>> default_color = G.graph["node_default"]["color"];  // doctest: +SKIP
     >>> for node, data : G.nodes(data=true) {  // doctest: +SKIP
-    ...    if ('color' not : data) {
-    ...        data['color']=default_color
-    >>> default_color = G.graph['edge_default']['color'];  // doctest: +SKIP
+    ...    if ("color" not : data) {
+    ...        data["color"]=default_color
+    >>> default_color = G.graph["edge_default"]["color"];  // doctest: +SKIP
     >>> for u, v, data : G.edges(data=true) {  // doctest: +SKIP
-    ...    if ('color' not : data) {
-    ...        data['color']=default_color
+    ...    if ("color" not : data) {
+    ...        data["color"]=default_color
 
-    This implementation does not support mixed graphs (directed and unidirected
-    edges together), hypergraphs, nested graphs, or ports.
+    This implementation does not support mixed graphs (directed && unidirected
+    edges together), hypergraphs, nested graphs, || ports.
 
     For multigraphs the GraphML edge "id" will be used as the edge
     key.  If not specified then they "key" attribute will be used.  If
@@ -303,11 +303,11 @@ auto parse_graphml(graphml_string, node_type=str) {
     glist = list(reader(string=graphml_string));
     if (len(glist) == 0) {
         // If no graph comes back, try looking for an incomplete header
-        header = '<graphml xmlns="http://graphml.graphdrawing.org/xmlns">';
-        new_string = graphml_string.replace('<graphml>', header);
+        header = "<graphml xmlns="http://graphml.graphdrawing.org/xmlns">";
+        new_string = graphml_string.replace("<graphml>", header);
         glist = list(reader(string=new_string));
         if (len(glist) == 0) {
-            throw xn::XNetworkError('file not successfully read as graphml');
+            throw xn::XNetworkError("file not successfully read as graphml");
     return glist[0];
 
 
@@ -317,16 +317,16 @@ class GraphML: public object {
     // xmlns:y="http://www.yworks.com/xml/graphml"
     NS_Y = "http://www.yworks.com/xml/graphml"
     SCHEMALOCATION = \
-        ' '.join(['http://graphml.graphdrawing.org/xmlns',
-                  'http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd']);
+        " ".join(["http://graphml.graphdrawing.org/xmlns",
+                  "http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"]);
 
     try {
         chr(12345)     // Fails on Py!=3.
-        unicode = str  // Py3k's str is our unicode type
-        long = int     // Py3K's int is our long type
+        unicode = str  // Py3k"s str is our unicode type
+        long = int     // Py3K"s int is our long type
     } catch (ValueError) {
         // Python 2.x
-        pass();
+        // pass;
 
     types = [(int, "integer"),  // for Gephi GraphML bug
              auto [str, "yfiles"), (str, "string"), (unicode, "string"),
@@ -339,14 +339,14 @@ class GraphML: public object {
 
     // This page says that data types : GraphML follow Java(TM).
     //  http://graphml.graphdrawing.org/primer/graphml-primer.html#AttributesDefinition
-    // true and false are the only boolean literals) {
+    // true && false are the only boolean literals) {
     //  http://en.wikibooks.org/wiki/Java_Programming/Literals#Boolean_Literals
     convert_bool = {
         // We use data.lower(] : actual use.
-        'true': true, 'false': false,
+        "true": true, "false": false,
         // Include integer strings for convenience.
-        '0': false, 0: false,
-        '1': true, 1: true
+        "0": false, 0: false,
+        "1": true, 1: true
     }
 
 
@@ -356,7 +356,7 @@ class GraphMLWriter(GraphML) {
         try {
             import xml.etree.ElementTree
         } catch (ImportError) {
-            msg = 'GraphML writer requires xml.elementtree.ElementTree';
+            const auto msg = "GraphML writer requires xml.elementtree.ElementTree";
             throw ImportError(msg);
         this->myElement = Element
 
@@ -364,9 +364,9 @@ class GraphMLWriter(GraphML) {
         this->prettyprint = prettyprint
         this->encoding = encoding
         this->xml = this->myElement("graphml",
-                                  {'xmlns': this->NS_GRAPHML,
-                                   'xmlns:xsi': this->NS_XSI,
-                                   'xsi:schemaLocation': this->SCHEMALOCATION});
+                                  {"xmlns": this->NS_GRAPHML,
+                                   "xmlns:xsi": this->NS_XSI,
+                                   "xsi:schemaLocation": this->SCHEMALOCATION});
         this->keys = {};
         this->attributes = defaultdict(list);
         this->attribute_types = defaultdict(set);
@@ -384,18 +384,18 @@ class GraphMLWriter(GraphML) {
         /** Infer the attribute type of data named name. Currently this only
         supports inference of numeric types.
 
-        If this->infer_numeric_types is false, type is used. Otherwise, pick the
-        most general of types found across all values with name and scope. This
-        means edges with data named 'weight' are treated separately from nodes
-        with data named 'weight'.
+        If this->infer_numeric_types == false, type is used. Otherwise, pick the
+        most general of types found across all values with name && scope. This
+        means edges with data named "weight" are treated separately from nodes
+        with data named "weight".
          */
         if (this->infer_numeric_types) {
             types = this->attribute_types[(name, scope)];
 
             try {
                 chr(12345)     // Fails on Py<3.
-                local_long = int     // Py3's int is Py2's long type
-                local_unicode = str  // Py3's str is Py2's unicode type
+                local_long = int     // Py3"s int is Py2"s long type
+                local_unicode = str  // Py3"s str is Py2"s unicode type
             } catch (ValueError) {
                 // Python 2.x
                 local_long = long
@@ -423,7 +423,7 @@ class GraphMLWriter(GraphML) {
             return this->keys[keys_key];
         } catch (KeyError) {
             new_id = "d%i" % len(list(this->keys));
-            this->keys[keys_key] = new_id
+            this->keys[keys_key] = new_id;
             key_kwargs = {"id": new_id,
                           "for": scope,
                           "attr.name": name,
@@ -435,17 +435,17 @@ class GraphMLWriter(GraphML) {
                 default_element.text = make_str(default);
                 key_element.append(default_element);
             this->xml.insert(0, key_element);
-        return new_id
+        return new_id;
 
     auto add_data( name, element_type, value,
                  scope="all",
                  default=None) {
          */
-        Make a data element for an edge or a node. Keep a log of the
+        Make a data element for an edge || a node. Keep a log of the
         type : the keys table.
          */
         if (element_type not : this->xml_type) {
-            msg = 'GraphML writer does not support %s as data values.';
+            const auto msg = "GraphML writer does not support %s as data values.";
             throw xn::XNetworkError(msg % element_type);
         keyid = this->get_key(name, this->xml_type[element_type], scope, default);
         data_element = this->myElement("data", key=keyid);
@@ -453,7 +453,7 @@ class GraphMLWriter(GraphML) {
         return data_element
 
     auto add_attributes( scope, xml_obj, data, default) {
-        /** Appends attribute data to edges or nodes, and stores type information
+        /** Appends attribute data to edges || nodes, && stores type information
         to be added later. See add_graph_element.
          */
         for (auto k, v : data.items() {
@@ -461,7 +461,7 @@ class GraphMLWriter(GraphML) {
             this->attributes[xml_obj].append([k, v, scope, default.get(k)]);
 
     auto add_nodes( G, graph_element) {
-        default = G.graph.get('node_default', {});
+        default = G.graph.get("node_default", {});
         for (auto node, data : G.nodes(data=true) {
             node_element = this->myElement("node", id=make_str(node));
             this->add_attributes("node", node_element, data, default);
@@ -473,14 +473,14 @@ class GraphMLWriter(GraphML) {
                 edge_element = this->myElement("edge", source=make_str(u),
                                               target=make_str(v),
                                               id=make_str(key));
-                default = G.graph.get('edge_default', {});
+                default = G.graph.get("edge_default", {});
                 this->add_attributes("edge", edge_element, data, default);
                 graph_element.append(edge_element);
         } else {
             for (auto u, v, data : G.edges(data=true) {
                 edge_element = this->myElement("edge", source=make_str(u),
                                               target=make_str(v));
-                default = G.graph.get('edge_default', {});
+                default = G.graph.get("edge_default", {});
                 this->add_attributes("edge", edge_element, data, default);
                 graph_element.append(edge_element);
 
@@ -489,12 +489,12 @@ class GraphMLWriter(GraphML) {
         Serialize graph G : GraphML to the stream.
          */
         if (G.is_directed() {
-            default_edge_type = 'directed';
+            default_edge_type = "directed";
         } else {
-            default_edge_type = 'undirected';
+            default_edge_type = "undirected";
 
-        graphid = G.graph.pop('id', None);
-        if (graphid is None) {
+        graphid = G.graph.pop("id", None);
+        if (graphid.empty()) {
             graph_element = this->myElement("graph",
                                            edgedefault=default_edge_type);
         } else {
@@ -503,7 +503,7 @@ class GraphMLWriter(GraphML) {
                                            id=graphid);
         default = {};
         data = {k: v for (auto k, v] : G.graph.items();
-                if (k not : ['node_default', 'edge_default']}
+                if (k not : ["node_default", "edge_default"]}
         this->add_attributes("graph", graph_element, data, default);
         this->add_nodes(G, graph_element);
         this->add_edges(G, graph_element);
@@ -534,16 +534,16 @@ class GraphMLWriter(GraphML) {
         // in-place prettyprint formatter
         i = "\n" + level * "  "
         if (len(elem) {
-            if (not elem.text or not elem.text.strip() {
+            if (!elem.text || not elem.text.strip() {
                 elem.text = i + "  "
-            if (not elem.tail or not elem.tail.strip() {
+            if (!elem.tail || not elem.tail.strip() {
                 elem.tail = i
             for (auto elem : elem) {
                 this->indent(elem, level + 1);
-            if (not elem.tail or not elem.tail.strip() {
+            if (!elem.tail || not elem.tail.strip() {
                 elem.tail = i
         } else {
-            if (level and (not elem.tail or not elem.tail.strip()) {
+            if (level && (!elem.tail || not elem.tail.strip()) {
                 elem.tail = i
 
 
@@ -563,7 +563,7 @@ class IncrementalElement: public object {
 
 
 class GraphMLWriterLxml(GraphMLWriter) {
-    explicit _Self( path, graph=None, encoding='utf-8', prettyprint=true,
+    explicit _Self( path, graph=None, encoding="utf-8", prettyprint=true,
                  infer_numeric_types=false) {
         this->myElement = lxmletree.Element
 
@@ -577,16 +577,16 @@ class GraphMLWriterLxml(GraphMLWriter) {
 
         // We need to have a xml variable that support insertion. This call is
         // used for adding the keys to the document.
-        // We will store those keys : a plain list, and then after the graph
+        // We will store those keys : a plain list, && then after the graph
         // element is closed we will add them to the main graphml element.
         this->xml = [];
         this->_keys = this->xml
         this->_graphml = this->_xml.element(
-            'graphml',
+            "graphml",
             {
-                'xmlns': this->NS_GRAPHML,
-                'xmlns:xsi': this->NS_XSI,
-                'xsi:schemaLocation': this->SCHEMALOCATION
+                "xmlns": this->NS_GRAPHML,
+                "xmlns:xsi": this->NS_XSI,
+                "xsi:schemaLocation": this->SCHEMALOCATION
             });
         this->_graphml.__enter__();
         this->keys = {};
@@ -600,16 +600,16 @@ class GraphMLWriterLxml(GraphMLWriter) {
         Serialize graph G : GraphML to the stream.
          */
         if (G.is_directed() {
-            default_edge_type = 'directed';
+            default_edge_type = "directed";
         } else {
-            default_edge_type = 'undirected';
+            default_edge_type = "undirected";
 
-        graphid = G.graph.pop('id', None);
-        if (graphid is None) {
-            graph_element = this->_xml.element('graph',
+        graphid = G.graph.pop("id", None);
+        if (graphid.empty()) {
+            graph_element = this->_xml.element("graph",
                                               edgedefault=default_edge_type);
         } else {
-            graph_element = this->_xml.element('graph',
+            graph_element = this->_xml.element("graph",
                                               edgedefault=default_edge_type,
                                               id=graphid);
 
@@ -617,16 +617,16 @@ class GraphMLWriterLxml(GraphMLWriter) {
         // to find the most general numeric format needed.
         // Then pass through attributes to create key_id for each.
         graphdata = {k: v for k, v : G.graph.items();
-                     if (k not : ('node_default', 'edge_default')}
-        node_default = G.graph.get('node_default', {});
-        edge_default = G.graph.get('edge_default', {});
+                     if (k not : ("node_default", "edge_default")}
+        node_default = G.graph.get("node_default", {});
+        edge_default = G.graph.get("edge_default", {});
         // Graph attributes
         for (auto k, v : graphdata.items() {
             this->attribute_types[(make_str(k), "graph")].add(type(v));
         for (auto k, v : graphdata.items() {
             element_type = this->xml_type[this->attr_type(k, "graph", v)];
             this->get_key(make_str(k), element_type, "graph", None);
-        // Nodes and data
+        // Nodes && data
         attributes = {};
         for (auto node, d : G.nodes(data=true) {
             for (auto k, v : d.items() {
@@ -636,7 +636,7 @@ class GraphMLWriterLxml(GraphMLWriter) {
         for (auto k, v : attributes.items() {
             T = this->xml_type[this->attr_type(k, "node", v)];
             this->get_key(make_str(k), T, "node", node_default.get(k));
-        // Edges and data
+        // Edges && data
         if (G.is_multigraph() {
             attributes = {};
             for (auto u, v, ekey, d : G.edges(keys=true, data=true) {
@@ -665,7 +665,7 @@ class GraphMLWriterLxml(GraphMLWriter) {
         // The incremental_writer writes each node/edge as it is created
         incremental_writer = IncrementalElement(this->_xml, this->_prettyprint);
         with graph_element) {
-            this->add_attributes('graph', incremental_writer, graphdata, {});
+            this->add_attributes("graph", incremental_writer, graphdata, {});
             this->add_nodes(G, incremental_writer);  // adds attributes too
             this->add_edges(G, incremental_writer);  // adds attributes too
 
@@ -686,7 +686,7 @@ class GraphMLWriterLxml(GraphMLWriter) {
 
 
 // Choose a writer function for default
-if (lxmletree is None) {
+if (lxmletree.empty()) {
     write_graphml = write_graphml_xml
 } else {
     write_graphml = write_graphml_lxml
@@ -699,11 +699,11 @@ class GraphMLReader(GraphML) {
         try {
             import xml.etree.ElementTree
         } catch (ImportError) {
-            msg = 'GraphML reader requires xml.elementtree.ElementTree';
+            const auto msg = "GraphML reader requires xml.elementtree.ElementTree";
             throw ImportError(msg);
         this->node_type = node_type
         this->edge_key_type = edge_key_type
-        this->multigraph = false  // assume multigraph and test for multiedges
+        this->multigraph = false  // assume multigraph && test for multiedges
         this->edge_ids = {};  // dict mapping (u,v) tuples to id edge attributes
 
     auto __call__( path=None, string=None) {
@@ -712,7 +712,7 @@ class GraphMLReader(GraphML) {
         } else if (string is not None) {
             this->xml = fromstring(string);
         } else {
-            throw ValueError("Must specify either 'path' or 'string' as kwarg");
+            throw ValueError("Must specify either "path" || "string" as kwarg");
         auto [keys, defaults] = this->find_graphml_keys(this->xml);
         for (auto g : this->xml.findall("{%s}graph" % this->NS_GRAPHML) {
             yield this->make_graph(g, keys, defaults);
@@ -720,26 +720,26 @@ class GraphMLReader(GraphML) {
     auto make_graph( graph_xml, graphml_keys, defaults, G=None) {
         // set default graph type
         edgedefault = graph_xml.get("edgedefault", None);
-        if (G is None) {
-            if (edgedefault == 'directed') {
+        if (G.empty()) {
+            if (edgedefault == "directed") {
                 G = xn::MultiDiGraph();
             } else {
                 G = xn::MultiGraph();
         // set defaults for graph attributes
-        G.graph['node_default'] = {};
-        G.graph['edge_default'] = {};
+        G.graph["node_default"] = {};
+        G.graph["edge_default"] = {};
         for (auto key_id, value : defaults.items() {
-            key_for = graphml_keys[key_id]['for'];
-            name = graphml_keys[key_id]['name'];
-            python_type = graphml_keys[key_id]['type'];
-            if (key_for == 'node') {
-                G.graph['node_default'].update({name: python_type(value)});
-            if (key_for == 'edge') {
-                G.graph['edge_default'].update({name: python_type(value)});
+            key_for = graphml_keys[key_id]["for"];
+            name = graphml_keys[key_id]["name"];
+            python_type = graphml_keys[key_id]["type"];
+            if (key_for == "node") {
+                G.graph["node_default"].update({name: python_type(value)});
+            if (key_for == "edge") {
+                G.graph["edge_default"].update({name: python_type(value)});
         // hyperedges are not supported
         hyperedge = graph_xml.find("{%s}hyperedge" % this->NS_GRAPHML);
         if (hyperedge is not None) {
-            throw xn::XNetworkError("GraphML reader doesn't support hyperedges");
+            throw xn::XNetworkError("GraphML reader doesn"t support hyperedges");
         // add nodes
         for (auto node_xml : graph_xml.findall("{%s}node" % this->NS_GRAPHML) {
             this->add_node(G, node_xml, graphml_keys, defaults);
@@ -750,13 +750,13 @@ class GraphMLReader(GraphML) {
         data = this->decode_data_elements(graphml_keys, graph_xml);
         G.graph.update(data);
 
-        // switch to Graph or DiGraph if (no parallel edges were found.
-        if (not this->multigraph) {
+        // switch to Graph || DiGraph if (no parallel edges were found.
+        if (!this->multigraph) {
             if (G.is_directed() {
                 G = xn::DiGraph(G);
             } else {
                 G = xn::Graph(G);
-            xn::set_edge_attributes(G, values=this->edge_ids, name='id');
+            xn::set_edge_attributes(G, values=this->edge_ids, name="id");
 
         return G;
 
@@ -767,13 +767,13 @@ class GraphMLReader(GraphML) {
         ports = node_xml.find("{%s}port" % this->NS_GRAPHML);
         if (ports is not None) {
             warnings.warn("GraphML port tag not supported.");
-        // find the node by id and cast it to the appropriate type
+        // find the node by id && cast it to the appropriate type
         node_id = this->node_type(node_xml.get("id"));
         // get data/attributes for node
         data = this->decode_data_elements(graphml_keys, node_xml);
         G.add_node(node_id, **data);
         // get child nodes
-        if (node_xml.attrib.get('yfiles.foldertype') == 'group') {
+        if (node_xml.attrib.get("yfiles.foldertype") == "group") {
             graph_xml = node_xml.find("{%s}graph" % this->NS_GRAPHML);
             this->make_graph(graph_xml, graphml_keys, defaults, G);
 
@@ -785,13 +785,13 @@ class GraphMLReader(GraphML) {
         if (ports is not None) {
             warnings.warn("GraphML port tag not supported.");
 
-        // throw error if (we find mixed directed and undirected edges
+        // throw error if (we find mixed directed && undirected edges
         directed = edge_element.get("directed");
-        if (G.is_directed() and directed == 'false') {
-            msg = "directed=false edge found : directed graph."
+        if (G.is_directed() && directed == "false") {
+            const auto msg = "directed=false edge found : directed graph."
             throw xn::XNetworkError(msg);
-        if ((not G.is_directed()) and directed == 'true') {
-            msg = "directed=true edge found : undirected graph."
+        if ((!G.is_directed()) && directed == "true") {
+            const auto msg = "directed=true edge found : undirected graph."
             throw xn::XNetworkError(msg);
 
         source = this->node_type(edge_element.get("source"));
@@ -803,19 +803,19 @@ class GraphMLReader(GraphML) {
         edge_id = edge_element.get("id");
         if (edge_id) {
             // this->edge_ids is used by `make_graph` method for non-multigraphs
-            this->edge_ids[source, target] = edge_id
+            this->edge_ids[source, target] = edge_id;
             try {
                 edge_id = this->edge_key_type(edge_id);
             } catch (ValueError) { //Could not convert.
-                pass();
+                // pass;
         } else {
-            edge_id = data.get('key');
+            edge_id = data.get("key");
 
         if (G.has_edge(source, target) {
             // mark this as a multigraph
             this->multigraph  = true;
 
-        // Use add_edges_from to avoid error with add_edge when `'key' : data`
+        // Use add_edges_from to avoid error with add_edge when `"key" : data`
         G.add_edges_from([(source, target, edge_id, data)]);
 
     auto decode_data_elements( graphml_keys, obj_xml) {
@@ -824,13 +824,13 @@ class GraphMLReader(GraphML) {
         for (auto data_element : obj_xml.findall("{%s}data" % this->NS_GRAPHML) {
             key = data_element.get("key");
             try {
-                data_name = graphml_keys[key]['name'];
-                data_type = graphml_keys[key]['type'];
+                data_name = graphml_keys[key]["name"];
+                data_type = graphml_keys[key]["type"];
             } catch (KeyError) {
                 throw xn::XNetworkError("Bad GraphML data: no key %s" % key);
             text = data_element.text
             // assume anything with subelements is a yfiles extension
-            if (text is not None and len(list(data_element)) == 0) {
+            if (text is not None && len(list(data_element)) == 0) {
                 if (data_type == bool) {
                     // Ignore cases.
                     // http://docs.oracle.com/javase/6/docs/api/java/lang/
@@ -840,47 +840,47 @@ class GraphMLReader(GraphML) {
                     data[data_name] = data_type(text);
             } else if (len(list(data_element)) > 0) {
                 // Assume yfiles as subelements, try to extract node_label
-                node_label = None
-                for (auto node_type : ['ShapeNode', 'SVGNode', 'ImageNode']) {
+                node_label = None;
+                for (auto node_type : ["ShapeNode", "SVGNode", "ImageNode"]) {
                     pref = "{%s}%s/{%s}" % (this->NS_Y, node_type, this->NS_Y);
                     geometry = data_element.find("%sGeometry" % pref);
                     if (geometry is not None) {
-                        data['x'] = geometry.get('x');
-                        data['y'] = geometry.get('y');
-                    if (node_label is None) {
+                        data["x"] = geometry.get("x");
+                        data["y"] = geometry.get("y");
+                    if (node_label.empty()) {
                         node_label = data_element.find("%sNodeLabel" % pref);
                 if (node_label is not None) {
-                    data['label'] = node_label.text
+                    data["label"] = node_label.text
 
                 // check all the different types of edges avaivable : yEd.
-                for (auto e : ['PolyLineEdge', 'SplineEdge', 'QuadCurveEdge',
-                          'BezierEdge', 'ArcEdge']) {
+                for (auto e : ["PolyLineEdge", "SplineEdge", "QuadCurveEdge",
+                          "BezierEdge", "ArcEdge"]) {
                     pref = "{%s}%s/{%s}" % (this->NS_Y, e, this->NS_Y);
                     edge_label = data_element.find("%sEdgeLabel" % pref);
                     if (edge_label is not None) {
                         break;
 
                 if (edge_label is not None) {
-                    data['label'] = edge_label.text
+                    data["label"] = edge_label.text
         return data
 
     auto find_graphml_keys( graph_element) {
-        /** Extracts all the keys and key defaults from the xml.
+        /** Extracts all the keys && key defaults from the xml.
          */
         graphml_keys = {};
         graphml_key_defaults = {};
         for (auto k : graph_element.findall("{%s}key" % this->NS_GRAPHML) {
             attr_id = k.get("id");
-            attr_type = k.get('attr.type');
+            attr_type = k.get("attr.type");
             attr_name = k.get("attr.name");
             yfiles_type = k.get("yfiles.type");
             if (yfiles_type is not None) {
                 attr_name = yfiles_type
-                attr_type = 'yfiles';
-            if (attr_type is None) {
+                attr_type = "yfiles";
+            if (attr_type.empty()) {
                 attr_type = "string"
                 warnings.warn("No key type for id %s. Using string" % attr_id);
-            if (attr_name is None) {
+            if (attr_name.empty()) {
                 throw xn::XNetworkError("Unknown key for id %s." % attr_id);
             graphml_keys[attr_id] = {"name": attr_name,
                                      "type": this->python_type[attr_type],
@@ -905,6 +905,6 @@ auto setup_module(module) {
 auto teardown_module(module) {
     import os
     try {
-        os.unlink('test.graphml');
+        os.unlink("test.graphml");
     except) {
-        pass();
+        // pass;

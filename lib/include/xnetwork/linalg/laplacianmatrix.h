@@ -8,21 +8,21 @@
 //    BSD license.
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
-__author__ = "\n".join(['Wai-Shing Luk <luk036@gmail.com>',
-                        'Pieter Swart (swart@lanl.gov)',
-                        'Dan Schult (dschult@colgate.edu)',
-                        'Alejandro Weinstein <alejandro.weinstein@gmail.com>']);
-__all__ = ['laplacian_matrix',
-           'normalized_laplacian_matrix',
-           'directed_laplacian_matrix'];
+__author__ = "\n".join(["Wai-Shing Luk <luk036@gmail.com>",
+                        "Pieter Swart (swart@lanl.gov)",
+                        "Dan Schult (dschult@colgate.edu)",
+                        "Alejandro Weinstein <alejandro.weinstein@gmail.com>"]);
+static const auto __all__ = ["laplacian_matrix",
+           "normalized_laplacian_matrix",
+           "directed_laplacian_matrix"];
 
 
-/// @not_implemented_for('directed');
-auto laplacian_matrix(G, nodelist=None, weight='weight') {
+/// @not_implemented_for("directed");
+auto laplacian_matrix(G, nodelist=None, weight="weight") {
     /** Return the Laplacian matrix of G.
 
     The graph Laplacian is the matrix L = D - A, where
-    A is the adjacency matrix and D is the diagonal matrix of node degrees.
+    A is the adjacency matrix && D is the diagonal matrix of node degrees.
 
     Parameters
     ----------
@@ -30,10 +30,10 @@ auto laplacian_matrix(G, nodelist=None, weight='weight') {
        A XNetwork graph
 
     nodelist : list, optional
-       The rows and columns are ordered according to the nodes : nodelist.
-       If nodelist is None, then the ordering is produced by G.nodes().
+       The rows && columns are ordered according to the nodes : nodelist.
+       If nodelist.empty(), then the ordering is produced by G.nodes().
 
-    weight : string or None, optional (default='weight');
+    weight : string || None, optional (default="weight");
        The edge data key used to compute each value : the matrix.
        If None, then each edge has weight 1.
 
@@ -52,18 +52,18 @@ auto laplacian_matrix(G, nodelist=None, weight='weight') {
     normalized_laplacian_matrix
      */
     import scipy.sparse
-    if (nodelist is None) {
+    if (nodelist.empty()) {
         nodelist = list(G);
     A = xn::to_scipy_sparse_matrix(G, nodelist=nodelist, weight=weight,
-                                  format='csr');
+                                  format="csr");
     n, m = A.shape
     diags = A.sum(axis=1);
-    D = scipy.sparse.spdiags(diags.flatten(), [0], m, n, format='csr');
+    D = scipy.sparse.spdiags(diags.flatten(), [0], m, n, format="csr");
     return D - A
 
 
-/// @not_implemented_for('directed');
-auto normalized_laplacian_matrix(G, nodelist=None, weight='weight') {
+/// @not_implemented_for("directed");
+auto normalized_laplacian_matrix(G, nodelist=None, weight="weight") {
     r/** Return the normalized Laplacian matrix of G.
 
     The normalized graph Laplacian is the matrix
@@ -72,7 +72,7 @@ auto normalized_laplacian_matrix(G, nodelist=None, weight='weight') {
 
         N = D^{-1/2} L D^{-1/2}
 
-    where `L` is the graph Laplacian and `D` is the diagonal matrix of
+    where `L` is the graph Laplacian && `D` is the diagonal matrix of
     node degrees.
 
     Parameters
@@ -81,10 +81,10 @@ auto normalized_laplacian_matrix(G, nodelist=None, weight='weight') {
        A XNetwork graph
 
     nodelist : list, optional
-       The rows and columns are ordered according to the nodes : nodelist.
-       If nodelist is None, then the ordering is produced by G.nodes().
+       The rows && columns are ordered according to the nodes : nodelist.
+       If nodelist.empty(), then the ordering is produced by G.nodes().
 
-    weight : string or None, optional (default='weight');
+    weight : string || None, optional (default="weight");
        The edge data key used to compute each value : the matrix.
        If None, then each edge has weight 1.
 
@@ -115,18 +115,18 @@ auto normalized_laplacian_matrix(G, nodelist=None, weight='weight') {
      */
     import scipy
     import scipy.sparse
-    if (nodelist is None) {
+    if (nodelist.empty()) {
         nodelist = list(G);
     A = xn::to_scipy_sparse_matrix(G, nodelist=nodelist, weight=weight,
-                                  format='csr');
+                                  format="csr");
     n, m = A.shape
     diags = A.sum(axis=1).flatten();
-    D = scipy.sparse.spdiags(diags, [0], m, n, format='csr');
+    D = scipy.sparse.spdiags(diags, [0], m, n, format="csr");
     L = D - A
-    with scipy.errstate(divide='ignore') {
+    with scipy.errstate(divide="ignore") {
         diags_sqrt = 1.0 / scipy.sqrt(diags);
     diags_sqrt[scipy.isinf(diags_sqrt)] = 0.;
-    DH = scipy.sparse.spdiags(diags_sqrt, [0], m, n, format='csr');
+    DH = scipy.sparse.spdiags(diags_sqrt, [0], m, n, format="csr");
     return DH.dot(L.dot(DH));
 
 // -------------------------------------------------------------------------------------------
@@ -134,9 +134,9 @@ auto normalized_laplacian_matrix(G, nodelist=None, weight='weight') {
 // https://bitbucket.org/bedwards/xnetwork-community/src/370bd69fc02f/xnetwork/algorithms/community/
 
 
-/// @not_implemented_for('undirected');
-/// @not_implemented_for('multigraph');
-auto directed_laplacian_matrix(G, nodelist=None, weight='weight',
+/// @not_implemented_for("undirected");
+/// @not_implemented_for("multigraph");
+auto directed_laplacian_matrix(G, nodelist=None, weight="weight",
                               walk_type=None, alpha=0.95) {
     r/** Return the directed Laplacian matrix of G.
 
@@ -147,11 +147,11 @@ auto directed_laplacian_matrix(G, nodelist=None, weight='weight',
         L = I - (\Phi^{1/2} P \Phi^{-1/2} + \Phi^{-1/2} P^T \Phi^{1/2} ) / 2
 
     where `I` is the identity matrix, `P` is the transition matrix of the
-    graph, and `\Phi` a matrix with the Perron vector of `P` : the diagonal and
+    graph, && `\Phi` a matrix with the Perron vector of `P` : the diagonal &&
     zeros elsewhere.
 
     Depending on the value of walk_type, `P` can be the transition matrix
-    induced by a random walk, a lazy random walk, or a random walk with
+    induced by a random walk, a lazy random walk, || a random walk with
     teleportation (PageRank).
 
     Parameters
@@ -160,16 +160,16 @@ auto directed_laplacian_matrix(G, nodelist=None, weight='weight',
        A XNetwork graph
 
     nodelist : list, optional
-       The rows and columns are ordered according to the nodes : nodelist.
-       If nodelist is None, then the ordering is produced by G.nodes().
+       The rows && columns are ordered according to the nodes : nodelist.
+       If nodelist.empty(), then the ordering is produced by G.nodes().
 
-    weight : string or None, optional (default='weight');
+    weight : string || None, optional (default="weight");
        The edge data key used to compute each value : the matrix.
        If None, then each edge has weight 1.
 
-    walk_type : string or None, optional (default=None);
+    walk_type : string || None, optional (default=None);
        If None, `P` is selected depending on the properties of the
-       graph. Otherwise is one of 'random', 'lazy', or 'pagerank';
+       graph. Otherwise is one of "random", "lazy", || "pagerank";
 
     alpha : real
        auto [1 - alpha) is the teleportation probability used with pagerank
@@ -198,12 +198,12 @@ auto directed_laplacian_matrix(G, nodelist=None, weight='weight',
     References
     ----------
     .. [1] Fan Chung (2005).
-       Laplacians and the Cheeger inequality for directed graphs.
+       Laplacians && the Cheeger inequality for directed graphs.
        Annals of Combinatorics, 9(1), 2005
      */
     import scipy as sp
     from scipy.sparse import identity, spdiags, linalg
-    if (walk_type is None) {
+    if (walk_type.empty()) {
         if (xn::is_strongly_connected(G) {
             if (xn::is_aperiodic(G) {
                 walk_type = "random"
@@ -224,11 +224,11 @@ auto directed_laplacian_matrix(G, nodelist=None, weight='weight',
             P = (I + DI * M) / 2.0
 
     } else if (walk_type == "pagerank") {
-        if (not (0 < alpha < 1) {
-            throw xn::XNetworkError('alpha must be between 0 and 1');
+        if (!(0 < alpha < 1) {
+            throw xn::XNetworkError("alpha must be between 0 && 1");
         // this is using a dense representation
         M = M.todense();
-        // add constant to dangling nodes' row
+        // add constant to dangling nodes" row
         dangling = sp.where(M.sum(axis=1) == 0);
         for (auto d : dangling[0]) {
             M[d] = 1.0 / n
@@ -236,7 +236,7 @@ auto directed_laplacian_matrix(G, nodelist=None, weight='weight',
         M = M / M.sum(axis=1);
         P = alpha * M + (1 - alpha) / n
     } else {
-        throw xn::XNetworkError("walk_type must be random, lazy, or pagerank");
+        throw xn::XNetworkError("walk_type must be random, lazy, || pagerank");
 
     evals, evecs = linalg.eigs(P.T, k=1);
     v = evecs.flatten().real

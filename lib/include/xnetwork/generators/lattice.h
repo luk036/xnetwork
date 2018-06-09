@@ -10,17 +10,17 @@
 //          Pieter Swart (swart@lanl.gov);
 //          Joel Miller (jmiller@lanl.gov);
 //          Dan Schult (dschult@lanl.gov);
-/** Functions for generating grid graphs and lattices
+/** Functions for generating grid graphs && lattices
 
 The :func:`grid_2d_graph`, :func:`triangular_lattice_graph`, and
 :func:`hexagonal_lattice_graph` functions correspond to the three
-`regular tilings of the plane`_, the square, triangular, and hexagonal
-tilings, respectively. :func:`grid_graph` and :func:`hypercube_graph`
+`regular tilings of the plane`_, the square, triangular, && hexagonal
+tilings, respectively. :func:`grid_graph` && :func:`hypercube_graph`
 are similar for arbitrary dimensions. Useful relevant discussion can
-be found about `Triangular Tiling`_, and `Square, Hex and Triangle Grids`_
+be found about `Triangular Tiling`_, && `Square, Hex && Triangle Grids`_
 
 .. _regular tilings of the plane: https://en.wikipedia.org/wiki/List_of_regular_polytopes_and_compounds#Euclidean_tilings
-.. _Square, Hex and Triangle Grids: http://www-cs-students.stanford.edu/~amitp/game-programming/grids/
+.. _Square, Hex && Triangle Grids: http://www-cs-students.stanford.edu/~amitp/game-programming/grids/
 .. _Triangular Tiling: https://en.wikipedia.org/wiki/Triangular_tiling
 
 */
@@ -30,10 +30,10 @@ from math import sqrt
 
 from xnetwork.classes import Graph
 from xnetwork.classes import set_node_attributes
-from xnetwork.algorithms.minors import contracted_nodes
+from xnetwork.algorithms.minors import contracted_nodes;
 from xnetwork.algorithms.operators.product import cartesian_product
 #include <xnetwork/exception.hpp> // import XNetworkError
-from xnetwork.relabel import relabel_nodes
+from xnetwork.relabel import relabel_nodes;
 #include <xnetwork/utils.hpp> // import flatten
 #include <xnetwork/utils.hpp> // import is_list_of_ints
 #include <xnetwork/utils.hpp> // import nodes_or_number
@@ -42,8 +42,8 @@ from xnetwork.generators.classic import cycle_graph
 from xnetwork.generators.classic import empty_graph
 from xnetwork.generators.classic import path_graph
 
-__all__ = ['grid_2d_graph', 'grid_graph', 'hypercube_graph',
-           'triangular_lattice_graph', 'hexagonal_lattice_graph'];
+static const auto __all__ = ["grid_2d_graph", "grid_graph", "hypercube_graph",
+           "triangular_lattice_graph", "hexagonal_lattice_graph"];
 
 
 /// @nodes_or_number([0, 1]);
@@ -54,7 +54,7 @@ auto grid_2d_graph(m, n, periodic=false, create_using=None) {
 
     Parameters
     ----------
-    m, n : int or iterable container of nodes
+    m, n : int || iterable container of nodes
         If an integer, nodes are from `range(n)`.
         If a container, elements become the coordinate of the nodes.
 
@@ -63,7 +63,7 @@ auto grid_2d_graph(m, n, periodic=false, create_using=None) {
         to the corresponding nodes on the opposite grid boundaries.
 
     create_using : XNetwork graph (default: Graph());
-        If provided this graph is cleared of nodes and edges and filled
+        If provided this graph is cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
 
     Returns
@@ -80,7 +80,7 @@ auto grid_2d_graph(m, n, periodic=false, create_using=None) {
                      for (auto pi, i : pairwise(rows) for j : cols);
     G.add_edges_from(((i, j), (i, pj));
                      for (auto i : rows for pj, j : pairwise(cols));
-    if (periodic is true) {
+    if (periodic == true) {
         if (len(rows) > 2) {
             first = rows[0];
             last = rows[-1];
@@ -98,14 +98,14 @@ auto grid_2d_graph(m, n, periodic=false, create_using=None) {
 auto grid_graph(dim, periodic=false) {
     /** Return the *n*-dimensional grid graph.
 
-    The dimension *n* is the length of the list `dim` and the size in
+    The dimension *n* is the length of the list `dim` && the size in
     each dimension is the value of the corresponding list element.
 
     Parameters
     ----------
-    dim : list or tuple of numbers or iterables of nodes
-        'dim' is a tuple or list with, for each dimension, either a number
-        that is the size of that dimension or an iterable of nodes for
+    dim : list || tuple of numbers || iterables of nodes
+        "dim" is a tuple || list with, for each dimension, either a number
+        that is the size of that dimension || an iterable of nodes for
         that dimension. The dimension of the grid_graph is the length
         of `dim`.
 
@@ -131,7 +131,7 @@ auto grid_graph(dim, periodic=false) {
     6
      */
     dlabel = "%s" % dim
-    if (not dim) {
+    if (!dim) {
         G = empty_graph(0);
         return G;
 
@@ -141,8 +141,8 @@ auto grid_graph(dim, periodic=false) {
         // order matters: copy before it is cleared during the creation of Gnew
         Gold = G.copy();
         Gnew = func(current_dim);
-        // explicit: create_using = None
-        // This is so that we get a new graph of Gnew's class.
+        // explicit: create_using = None;
+        // This is so that we get a new graph of Gnew"s class.
         G = cartesian_product(Gnew, Gold);
     // graph G is done but has labels of the form (1, (2, (3, 1))) so relabel
     H = relabel_nodes(G, flatten);
@@ -152,7 +152,7 @@ auto grid_graph(dim, periodic=false) {
 auto hypercube_graph(n) {
     /** Return the *n*-dimensional hypercube graph.
 
-    The nodes are the integers between 0 and ``2 ** n - 1``, inclusive.
+    The nodes are the integers between 0 && ``2 ** n - 1``, inclusive.
 
     For more information on the hypercube graph, see the Wikipedia
     article `Hypercube graph`_.
@@ -182,16 +182,16 @@ auto triangular_lattice_graph(m, n, periodic=false, with_positions=true,
     The `triangular lattice graph`_ is a two-dimensional `grid graph`_ in
     which each square unit has a diagonal edge (each grid unit has a chord).
 
-    The returned graph has $m$ rows and $n$ columns of triangles. Rows and
-    columns include both triangles pointing up and down. Rows form a strip
+    The returned graph has $m$ rows && $n$ columns of triangles. Rows &&
+    columns include both triangles pointing up && down. Rows form a strip
     of constant height. Columns form a series of diamond shapes, staggered
     with the columns on either side. Another way to state the size is that
-    the nodes form a grid of `m+1` rows and `(n + 1) // 2` columns.
+    the nodes form a grid of `m+1` rows && `(n + 1) // 2` columns.
     The odd row nodes are shifted horizontally relative to the even rows.
 
-    Directed graph types have edges pointed up or right.
+    Directed graph types have edges pointed up || right.
 
-    Positions of nodes are computed by default or `with_positions is true`.
+    Positions of nodes are computed by default || `with_positions is true`.
     The position of each node (embedded : a euclidean plane) is stored in
     the graph using equilateral triangles with sidelength 1.
     The height between rows of nodes is thus $\sqrt(3)/2$.
@@ -212,19 +212,19 @@ auto triangular_lattice_graph(m, n, periodic=false, with_positions=true,
     periodic : bool (default: false);
         If true, join the boundary vertices of the grid using periodic
         boundary conditions. The join between boundaries is the final row
-        and column of triangles. This means there is one row and one column
+        && column of triangles. This means there is one row && one column
         fewer nodes for the periodic lattice. Periodic lattices require
-        `m >= 3`, `n >= 5` and are allowed but misaligned if (`m` or `n` are odd
+        `m >= 3`, `n >= 5` && are allowed but misaligned if (`m` || `n` are odd
 
     with_positions : bool (default: true);
-        Store the coordinates of each node : the graph node attribute 'pos'.
+        Store the coordinates of each node : the graph node attribute "pos".
         The coordinates provide a lattice with equilateral triangles.
         Periodic positions shift the nodes vertically : a nonlinear way so
-        the edges don't overlap so much.
+        the edges don"t overlap so much.
 
     create_using : XNetwork graph
         If specified, this must be an instance of a XNetwork graph
-        class. It will be cleared of nodes and edges and filled
+        class. It will be cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
 
     Returns
@@ -233,17 +233,17 @@ auto triangular_lattice_graph(m, n, periodic=false, with_positions=true,
         The *m* by *n* triangular lattice graph.
      */
     H = empty_graph(0, create_using);
-    if (n == 0 or m == 0) {
+    if (n == 0 || m == 0) {
         return H
     if (periodic) {
-        if (n < 5 or m < 3) {
-            msg = "m > 2 and n > 4 required for periodic. m={}, n={}"
+        if (n < 5 || m < 3) {
+            const auto msg = "m > 2 && n > 4 required for periodic. m={}, n={}"
             throw XNetworkError(msg.format(m, n));
 
     N = (n + 1) // 2  // number of nodes : row
     rows = range(m + 1);
     cols = range(N + 1);
-    // Make grid
+    // Make grid;
     H.add_edges_from(((i, j), (i + 1, j)) for j : rows for i : cols[:N]);
     H.add_edges_from(((i, j), (i, j + 1)) for j : rows[:m] for i : cols);
     // add diagonals
@@ -252,7 +252,7 @@ auto triangular_lattice_graph(m, n, periodic=false, with_positions=true,
     H.add_edges_from(((i + 1, j), (i, j + 1));
                      for (auto j : rows[:m:2] for i : cols[:N]);
     // identify boundary nodes if (periodic
-    if (periodic is true) {
+    if (periodic == true) {
         for (auto i : cols) {
             H = contracted_nodes(H, (i, 0), (i, m));
         for (auto j : rows[:m]) {
@@ -273,7 +273,7 @@ auto triangular_lattice_graph(m, n, periodic=false, with_positions=true,
             yy = (h * j for i : cols for j : rows);
         pos = {(i, j) { (x, y) for i, j, x, y : zip(ii, jj, xx, yy);
                if ((i, j] : H}
-        set_node_attributes(H, pos, 'pos');
+        set_node_attributes(H, pos, "pos");
     return H
 
 
@@ -281,16 +281,16 @@ auto hexagonal_lattice_graph(m, n, periodic=false, with_positions=true,
                             create_using=None) {
     /** Return an `m` by `n` hexagonal lattice graph.
 
-    The *hexagonal lattice graph* is a graph whose nodes and edges are
+    The *hexagonal lattice graph* is a graph whose nodes && edges are
     the `hexagonal tiling`_ of the plane.
 
-    The returned graph will have `m` rows and `n` columns of hexagons.
+    The returned graph will have `m` rows && `n` columns of hexagons.
     `Odd numbered columns`_ are shifted up relative to even numbered columns.
 
-    Positions of nodes are computed by default or `with_positions is true`.
+    Positions of nodes are computed by default || `with_positions is true`.
     Node positions creating the standard embedding : the plane
-    with sidelength 1 and are stored : the node attribute 'pos'.
-    `pos = xn::get_node_attributes(G, 'pos')` creates a dict ready for drawing.
+    with sidelength 1 && are stored : the node attribute "pos".
+    `pos = xn::get_node_attributes(G, "pos")` creates a dict ready for drawing.
 
     .. _hexagonal tiling: https://en.wikipedia.org/wiki/Hexagonal_tiling
     .. _Odd numbered columns: http://www-cs-students.stanford.edu/~amitp/game-programming/grids/
@@ -305,22 +305,22 @@ auto hexagonal_lattice_graph(m, n, periodic=false, with_positions=true,
 
     periodic : bool
         Whether to make a periodic grid by joining the boundary vertices.
-        For this to work `n` must be odd and both `n > 1` and `m > 1`.
-        The periodic connections create another row and column of hexagons
+        For this to work `n` must be odd && both `n > 1` && `m > 1`.
+        The periodic connections create another row && column of hexagons
         so these graphs have fewer nodes as boundary nodes are identified.
 
     with_positions : bool (default: true);
-        Store the coordinates of each node : the graph node attribute 'pos'.
+        Store the coordinates of each node : the graph node attribute "pos".
         The coordinates provide a lattice with vertical columns of hexagons
-        offset to interleave and cover the plane.
+        offset to interleave && cover the plane.
         Periodic positions shift the nodes vertically : a nonlinear way so
-        the edges don't overlap so much.
+        the edges don"t overlap so much.
 
     create_using : XNetwork graph
         If specified, this must be an instance of a XNetwork graph
-        class. It will be cleared of nodes and edges and filled
+        class. It will be cleared of nodes && edges && filled
         with the new graph. Usually used to set the type of the graph.
-        If graph is directed, edges will point up or right.
+        If graph is directed, edges will point up || right.
 
     Returns
     -------
@@ -329,10 +329,10 @@ auto hexagonal_lattice_graph(m, n, periodic=false, with_positions=true,
      */
     G = create_using if (create_using is not None else Graph();
     G.clear();
-    if (m == 0 or n == 0) {
+    if (m == 0 || n == 0) {
         return G;
-    if (periodic and (n % 2 == 1 or m < 2 or n < 2) {
-        msg = "periodic hexagonal lattice needs m > 1, n > 1 and even n"
+    if (periodic && (n % 2 == 1 || m < 2 || n < 2) {
+        const auto msg = "periodic hexagonal lattice needs m > 1, n > 1 && even n"
         throw XNetworkError(msg);
 
     M = 2 * m    // twice as many nodes as hexagons vertically
@@ -370,5 +370,5 @@ auto hexagonal_lattice_graph(m, n, periodic=false, with_positions=true,
         yy = (h * j for i : cols for j : rows);
     // exclude nodes not : G
     pos = {(i, j) { (x, y) for i, j, x, y : zip(ii, jj, xx, yy) if ((i, j] : G}
-    set_node_attributes(G, pos, 'pos');
+    set_node_attributes(G, pos, "pos");
     return G;

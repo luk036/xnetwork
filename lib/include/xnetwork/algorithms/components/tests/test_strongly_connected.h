@@ -25,7 +25,7 @@ class TestStronglyConnected) {
         C = {frozenset([1, 2, 3])}
         this->gc.append((G, C));
 
-        // Eppstein's tests
+        // Eppstein"s tests
         G = xn::DiGraph({0: [1], 1: [2, 3], 2: [4, 5], 3: [4, 5], 4: [6], 5: [], 6: []});
         C = {
             frozenset([0]),
@@ -101,7 +101,7 @@ class TestStronglyConnected) {
         assert_true(cG.has_edge(*edge));
 
     auto test_contract_scc_isolate( ) {
-        // Bug found and fixed : [1687].
+        // Bug found && fixed : [1687].
         G = xn::DiGraph();
         G.add_edge(1, 2);
         G.add_edge(2, 1);
@@ -130,12 +130,12 @@ class TestStronglyConnected) {
         G, C = this->gc[1];
         C = sorted(C, key=len, reverse=true);
         cG = xn::condensation(G);
-        mapping = cG.graph['mapping'];
+        mapping = cG.graph["mapping"];
         assert_true(all(n : G for n : mapping));
         assert_true(all(0 == cN for n, cN : mapping.items() if (n : C[0]));
         assert_true(all(1 == cN for n, cN : mapping.items() if (n : C[1]));
         for (auto n, d : cG.nodes(data=true) {
-            assert_equal(set(C[n]), cG.nodes[n]['members']);
+            assert_equal(set(C[n]), cG.nodes[n]["members"]);
 
     auto test_null_graph( ) {
         G = xn::DiGraph();

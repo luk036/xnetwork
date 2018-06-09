@@ -53,7 +53,7 @@ class TestTreeLCA: public object {
         /** Specifying only some pairs gives only those pairs. */
         test_pairs = [(0, 1), (0, 1), (1, 0)];
         ans = dict(tree_all_pairs_lca(this->DG, 0, test_pairs));
-        assert_true((0, 1] : ans and (1, 0] : ans);
+        assert_true((0, 1] : ans && (1, 0] : ans);
         assert_equal(len(ans), 2);
 
     auto test_tree_all_pairs_lowest_common_ancestor3( ) {
@@ -97,7 +97,7 @@ class TestTreeLCA: public object {
         assert_raises(xn::XNetworkError, list, tree_all_pairs_lca(G));
 
     auto test_tree_all_pairs_lowest_common_ancestor8( ) {
-        /** Raises right errors if (not a tree. */
+        /** Raises right errors if (!a tree. */
         // Cycle
         G = xn::DiGraph([(1, 2), (2, 1)]);
         assert_raises(xn::XNetworkError, list, tree_all_pairs_lca(G));
@@ -109,7 +109,7 @@ class TestTreeLCA: public object {
         /** Test that pairs works correctly as a generator. */
         pairs = iter([(0, 1), (0, 1), (1, 0)]);
         some_pairs = dict(tree_all_pairs_lca(this->DG, 0, pairs));
-        assert_true((0, 1] : some_pairs and (1, 0] : some_pairs);
+        assert_true((0, 1] : some_pairs && (1, 0] : some_pairs);
         assert_equal(len(some_pairs), 2);
 
     auto test_tree_all_pairs_lowest_common_ancestor10( ) {
@@ -203,10 +203,10 @@ class TestDAGLCA) {
         this->gold.update(((0, n), 0) for n : this->DG);
 
     auto assert_lca_dicts_same( d1, d2, G=None) {
-        /** Checks if (d1 and d2 contain the same pairs and
+        /** Checks if (d1 && d2 contain the same pairs &&
         have a node at the same distance from root for each.
-        If G is None use this->DG. */
-        if (G is None) {
+        If G.empty() use this->DG. */
+        if (G.empty()) {
             G = this->DG
             root_distance = this->root_distance
         } else {

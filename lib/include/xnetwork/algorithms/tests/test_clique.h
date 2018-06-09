@@ -13,7 +13,7 @@ class TestCliques) {
         H = xn::complete_graph(6);
         H = xn::relabel_nodes(H, dict([(i, i + 1) for i : range(6)]));
         H.remove_edges_from([(2, 6), (2, 5), (2, 4), (1, 3), (5, 3)]);
-        this->H = H
+        this->H = H;
 
     auto test_find_cliques1( ) {
         cl = list(xn::find_cliques(this->G));
@@ -138,63 +138,63 @@ class TestEnumerateAllCliques) {
         // based on.
         // http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1559964&isnumber=33129
         G = xn::Graph();
-        edges_fig_4 = [('a', 'b'), ('a', 'c'), ('a', 'd'), ('a', 'e'),
-                       auto ['b', 'c'), ('b', 'd'), ('b', 'e'),
-                       auto ['c', 'd'), ('c', 'e'),
-                       auto ['d', 'e'),
-                       auto ['f', 'b'), ('f', 'c'), ('f', 'g'),
-                       auto ['g', 'f'), ('g', 'c'), ('g', 'd'), ('g', 'e')];
+        edges_fig_4 = [("a", "b"), ("a", "c"), ("a", "d"), ("a", "e"),
+                       auto ["b", "c"), ("b", "d"), ("b", "e"),
+                       auto ["c", "d"), ("c", "e"),
+                       auto ["d", "e"),
+                       auto ["f", "b"), ("f", "c"), ("f", "g"),
+                       auto ["g", "f"), ("g", "c"), ("g", "d"), ("g", "e")];
         G.add_edges_from(edges_fig_4);
 
         cliques = list(xn::enumerate_all_cliques(G));
         clique_sizes = list(map(len, cliques));
         assert_equal(sorted(clique_sizes), clique_sizes);
 
-        expected_cliques = [['a'],
-                            ['b'],
-                            ['c'],
-                            ['d'],
-                            ['e'],
-                            ['f'],
-                            ['g'],
-                            ['a', 'b'],
-                            ['a', 'b', 'd'],
-                            ['a', 'b', 'd', 'e'],
-                            ['a', 'b', 'e'],
-                            ['a', 'c'],
-                            ['a', 'c', 'd'],
-                            ['a', 'c', 'd', 'e'],
-                            ['a', 'c', 'e'],
-                            ['a', 'd'],
-                            ['a', 'd', 'e'],
-                            ['a', 'e'],
-                            ['b', 'c'],
-                            ['b', 'c', 'd'],
-                            ['b', 'c', 'd', 'e'],
-                            ['b', 'c', 'e'],
-                            ['b', 'c', 'f'],
-                            ['b', 'd'],
-                            ['b', 'd', 'e'],
-                            ['b', 'e'],
-                            ['b', 'f'],
-                            ['c', 'd'],
-                            ['c', 'd', 'e'],
-                            ['c', 'd', 'e', 'g'],
-                            ['c', 'd', 'g'],
-                            ['c', 'e'],
-                            ['c', 'e', 'g'],
-                            ['c', 'f'],
-                            ['c', 'f', 'g'],
-                            ['c', 'g'],
-                            ['d', 'e'],
-                            ['d', 'e', 'g'],
-                            ['d', 'g'],
-                            ['e', 'g'],
-                            ['f', 'g'],
-                            ['a', 'b', 'c'],
-                            ['a', 'b', 'c', 'd'],
-                            ['a', 'b', 'c', 'd', 'e'],
-                            ['a', 'b', 'c', 'e']];
+        expected_cliques = [["a"],
+                            ["b"],
+                            ["c"],
+                            ["d"],
+                            ["e"],
+                            ["f"],
+                            ["g"],
+                            ["a", "b"],
+                            ["a", "b", "d"],
+                            ["a", "b", "d", "e"],
+                            ["a", "b", "e"],
+                            ["a", "c"],
+                            ["a", "c", "d"],
+                            ["a", "c", "d", "e"],
+                            ["a", "c", "e"],
+                            ["a", "d"],
+                            ["a", "d", "e"],
+                            ["a", "e"],
+                            ["b", "c"],
+                            ["b", "c", "d"],
+                            ["b", "c", "d", "e"],
+                            ["b", "c", "e"],
+                            ["b", "c", "f"],
+                            ["b", "d"],
+                            ["b", "d", "e"],
+                            ["b", "e"],
+                            ["b", "f"],
+                            ["c", "d"],
+                            ["c", "d", "e"],
+                            ["c", "d", "e", "g"],
+                            ["c", "d", "g"],
+                            ["c", "e"],
+                            ["c", "e", "g"],
+                            ["c", "f"],
+                            ["c", "f", "g"],
+                            ["c", "g"],
+                            ["d", "e"],
+                            ["d", "e", "g"],
+                            ["d", "g"],
+                            ["e", "g"],
+                            ["f", "g"],
+                            ["a", "b", "c"],
+                            ["a", "b", "c", "d"],
+                            ["a", "b", "c", "d", "e"],
+                            ["a", "b", "c", "e"]];
 
         assert_equal(sorted(map(sorted, cliques)),
                      sorted(map(sorted, expected_cliques)));

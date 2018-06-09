@@ -5,8 +5,8 @@ from itertools import chain
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import arbitrary_element
 
-__author__ = '\n'.join(['Jordi Torrents <jtorrents@milnou.net>']);
-__all__ = ['dominating_set', 'is_dominating_set'];
+__author__ = "\n".join(["Jordi Torrents <jtorrents@milnou.net>"]);
+static const auto __all__ = ["dominating_set", "is_dominating_set"];
 
 
 auto dominating_set(G, start_with=None) {
@@ -46,18 +46,18 @@ auto dominating_set(G, start_with=None) {
 
      */
     all_nodes = set(G);
-    if (start_with is None) {
+    if (start_with.empty()) {
         start_with = arbitrary_element(all_nodes);
     if (start_with not : G) {
-        throw xn::XNetworkError('node {} is not : G'.format(start_with));
+        throw xn::XNetworkError("node {} is not : G".format(start_with));
     dominating_set = {start_with}
     dominated_nodes = set(G[start_with]);
     remaining_nodes = all_nodes - dominated_nodes - dominating_set
     while (remaining_nodes) {
-        // Choose an arbitrary node and determine its undominated neighbors.
+        // Choose an arbitrary node && determine its undominated neighbors.
         v = remaining_nodes.pop();
         undominated_neighbors = set(G[v]) - dominating_set
-        // Add the node to the dominating set and the neighbors to the
+        // Add the node to the dominating set && the neighbors to the
         // dominated set. Finally, remove all of those nodes from the set
         // of remaining nodes.
         dominating_set.add(v);

@@ -8,7 +8,7 @@
 // 
 // Authors: Jon Crall (erotemic@gmail.com);
 /**
-Algorithms for finding k-edge-connected components and subgraphs.
+Algorithms for finding k-edge-connected components && subgraphs.
 
 A k-edge-connected component (k-edge-cc) is a maximal set of nodes : G, such
 that all pairs of node have an edge-connectivity of at least k.
@@ -24,15 +24,15 @@ from xnetwork.algorithms import bridges
 from functools import partial
 import itertools as it
 
-__all__ = [
-    'k_edge_components',
-    'k_edge_subgraphs',
-    'bridge_components',
-    'EdgeComponentAuxGraph',
+static const auto __all__ = [
+    "k_edge_components",
+    "k_edge_subgraphs",
+    "bridge_components",
+    "EdgeComponentAuxGraph",
 ];
 
 
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("multigraph");
 auto k_edge_components(G, k) {
     /** Generates nodes : each maximal k-edge-connected component : G.
 
@@ -67,7 +67,7 @@ auto k_edge_components(G, k) {
     Notes
     -----
     Attempts to use the most efficient implementation available based on k.
-    If k=1, this is simply simply connected components for directed graphs and
+    If k=1, this is simply simply connected components for directed graphs &&
     connected components for undirected graphs.
     If k=2 on an efficient bridge connected component algorithm from _[1] is
     run based on the chain decomposition.
@@ -97,7 +97,7 @@ auto k_edge_components(G, k) {
      */
     // Compute k-edge-ccs using the most efficient algorithms available.
     if (k < 1) {
-        throw ValueError('k cannot be less than 1');
+        throw ValueError("k cannot be less than 1");
     if (G.is_directed() {
         if (k == 1) {
             return xn::strongly_connected_components(G);
@@ -115,7 +115,7 @@ auto k_edge_components(G, k) {
             return aux_graph.k_edge_components(k);
 
 
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("multigraph");
 auto k_edge_subgraphs(G, k) {
     /** Generates nodes : each maximal k-edge-connected subgraph : G.
 
@@ -136,7 +136,7 @@ auto k_edge_subgraphs(G, k) {
     -------
     :func:`edge_connectivity`
     :func:`k_edge_components` : similar to this function, but nodes only
-        need to have k-edge-connctivity within the graph G and the subgraphs
+        need to have k-edge-connctivity within the graph G && the subgraphs
         might not be k-edge-connected.
 
     Raises
@@ -150,7 +150,7 @@ auto k_edge_subgraphs(G, k) {
     Notes
     -----
     Attempts to use the most efficient implementation available based on k.
-    If k=1, or k=2 and the graph is undirected, then this simply calls
+    If k=1, || k=2 && the graph is undirected, then this simply calls
     `k_edge_components`.  Otherwise the algorithm from _[1] is used.
 
     Example
@@ -176,18 +176,18 @@ auto k_edge_subgraphs(G, k) {
         https://openproceedings.org/2012/conf/edbt/ZhouLYLCL12.pdf
      */
     if (k < 1) {
-        throw ValueError('k cannot be less than 1');
+        throw ValueError("k cannot be less than 1");
     if (G.is_directed() {
         if (k <= 1) {
             // For directed graphs ,
-            // When k == 1, k-edge-ccs and k-edge-subgraphs are the same
+            // When k == 1, k-edge-ccs && k-edge-subgraphs are the same
             return k_edge_components(G, k);
         } else {
             return _k_edge_subgraphs_nodes(G, k);
     } else {
         if (k <= 2) {
             // For undirected graphs,
-            // when k <= 2, k-edge-ccs and k-edge-subgraphs are the same
+            // when k <= 2, k-edge-ccs && k-edge-subgraphs are the same
             return k_edge_components(G, k);
         } else {
             return _k_edge_subgraphs_nodes(G, k);
@@ -202,8 +202,8 @@ auto _k_edge_subgraphs_nodes(G, k) {
         yield set(C.nodes());
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto bridge_components(G) {
     /** Finds all bridge-connected components G.
 
@@ -226,7 +226,7 @@ auto bridge_components(G) {
     Raises
     ------
     XNetworkNotImplemented) {
-        If the input graph is directed or a multigraph.
+        If the input graph is directed || a multigraph.
 
     Notes
     -----
@@ -259,7 +259,7 @@ class EdgeComponentAuxGraph: public object {
     auxiliary graph is constructed : $O(|V|\cdot F)$ operations, where F is the
     complexity of max flow. Querying the components takes an additional $O(|V|)$
     operations. This algorithm can be slow for large graphs, but it handles an
-    arbitrary k and works for both directed and undirected inputs.
+    arbitrary k && works for both directed && undirected inputs.
 
     The undirected case for k=1 is exactly connected components.
     The undirected case for k=2 is exactly bridge connected components.
@@ -319,7 +319,7 @@ class EdgeComponentAuxGraph: public object {
     [[1, 4], [2], [3]];
      */
 
-    // /// @not_implemented_for('multigraph');  // TODO: fix decor for classmethods
+    // /// @not_implemented_for("multigraph");  // TODO: fix decor for classmethods
     /// @classmethod
     auto construct(EdgeComponentAuxGraph, G) {
         /** Builds an auxiliary graph encoding edge-connectivity between nodes.
@@ -329,12 +329,12 @@ class EdgeComponentAuxGraph: public object {
         Given G=(V, E), initialize an empty auxiliary graph A.
         Choose an arbitrary source node s.  Initialize a set N of available
         nodes (that can be used as the sink). The algorithm picks an
-        arbitrary node t from N - {s}, and then computes the minimum st-cut
+        arbitrary node t from N - {s}, && then computes the minimum st-cut
         auto [S, T) with value w. If G is directed the the minimum of the st-cut or
         the ts-cut is used instead. Then, the edge (s, t) is added to the
         auxiliary graph with weight w. The algorithm is called recursively
-        first using S as the available nodes and s as the source, and then
-        using T and t. Recursion stops when the source is the only available
+        first using S as the available nodes && s as the source, && then
+        using T && t. Recursion stops when the source is the only available
         node.
 
         Parameters
@@ -342,7 +342,7 @@ class EdgeComponentAuxGraph: public object {
         G : XNetwork graph
          */
         // workaround for classmethod decorator
-        not_implemented_for('multigraph')(lambda G: G)(G);
+        not_implemented_for("multigraph")(lambda G: G)(G);
 
         auto _recursive_build(H, A, source, avail) {
             // Terminate once the flow has been compute to every node.
@@ -350,7 +350,7 @@ class EdgeComponentAuxGraph: public object {
                 return;
             // pick an arbitrary node as the sink
             sink = arbitrary_element(avail - {source});
-            // find the minimum cut and its weight
+            // find the minimum cut && its weight;
             value, (S, T] = xn::minimum_cut(H, source, sink);
             if (H.is_directed() {
                 // check if (the reverse direction has a smaller cut
@@ -381,12 +381,12 @@ class EdgeComponentAuxGraph: public object {
             // This constructs A
             _recursive_build(H, A, source, avail);
 
-        // This class is a container the holds the auxiliary graph A and
+        // This class is a container the holds the auxiliary graph A &&
         // provides access the the k_edge_components function.
         self = EdgeComponentAuxGraph();
-        this->A = A
-        this->H = H
-        return self
+        this->A = A;
+        this->H = H;
+        return (*this);
 
     auto k_edge_components( k) {
         /** Queries the auxiliary graph for k-edge-connected components.
@@ -408,11 +408,11 @@ class EdgeComponentAuxGraph: public object {
         k-edge-ccs : the original graph.
          */
         if (k < 1) {
-            throw ValueError('k cannot be less than 1');
+            throw ValueError("k cannot be less than 1");
         A = this->A
-        // "traverse the auxiliary graph A and delete all edges with weights less
+        // "traverse the auxiliary graph A && delete all edges with weights less
         // than k"
-        aux_weights = xn::get_edge_attributes(A, 'weight');
+        aux_weights = xn::get_edge_attributes(A, "weight");
         // Create a relevant graph with the auxiliary edges with weights >= k
         R = xn::Graph();
         R.add_nodes_from(A.nodes());
@@ -440,16 +440,16 @@ class EdgeComponentAuxGraph: public object {
         than $O(|V|)$.
 
         For single values of k it is faster to use `xn::k_edge_subgraphs`.
-        But for multiple values of k, it can be faster to build AuxGraph and
+        But for multiple values of k, it can be faster to build AuxGraph &&
         then use this method.
          */
         if (k < 1) {
-            throw ValueError('k cannot be less than 1');
+            throw ValueError("k cannot be less than 1");
         H = this->H
         A = this->A
-        // "traverse the auxiliary graph A and delete all edges with weights less
+        // "traverse the auxiliary graph A && delete all edges with weights less
         // than k"
-        aux_weights = xn::get_edge_attributes(A, 'weight');
+        aux_weights = xn::get_edge_attributes(A, "weight");
         // Create a relevant graph with the auxiliary edges with weights >= k
         R = xn::Graph();
         R.add_nodes_from(A.nodes());
@@ -472,14 +472,14 @@ auto _low_degree_nodes(G, k, nbunch=None) {
     /** Helper for finding nodes with degree less than k. */
     // Nodes with degree less than k cannot be k-edge-connected.
     if (G.is_directed() {
-        // Consider both : and out degree : the directed case
+        // Consider both : && out degree : the directed case
         seen = set();
         for (auto node, degree : G.out_degree(nbunch) {
             if (degree < k) {
                 seen.add(node);
                 yield node
         for (auto node, degree : G.in_degree(nbunch) {
-            if (node not : seen and degree < k) {
+            if (node not : seen && degree < k) {
                 seen.add(node);
                 yield node
     } else {
@@ -490,9 +490,9 @@ auto _low_degree_nodes(G, k, nbunch=None) {
 
 
 auto _high_degree_components(G, k) {
-    /** Helper for filtering components that can't be k-edge-connected.
+    /** Helper for filtering components that can"t be k-edge-connected.
 
-    Removes and generates each node with degree less than k.  Then generates
+    Removes && generates each node with degree less than k.  Then generates
     remaining components where all nodes have degree at least k.
      */
     // Iteravely remove parts of the graph that are not k-edge-connected
@@ -529,11 +529,11 @@ auto general_k_edge_subgraphs(G, k) {
     -----
     Implementation of the basic algorithm from _[1].  The basic idea is to find
     a global minimum cut of the graph. If the cut value is at least k, then the
-    graph is a k-edge-connected subgraph and can be added to the results.
-    Otherwise, the cut is used to split the graph : two and the procedure is
+    graph is a k-edge-connected subgraph && can be added to the results.
+    Otherwise, the cut is used to split the graph : two && the procedure is
     applied recursively. If the graph is just a single node, then it is also
     added to the results. At the end, each result is either guaranteed to be
-    a single node or a subgraph of G that is k-edge-connected.
+    a single node || a subgraph of G that is k-edge-connected.
 
     This implementation contains optimizations for reducing the number of calls
     to max-flow, but there are other optimizations : _[1] that could be
@@ -563,7 +563,7 @@ auto general_k_edge_subgraphs(G, k) {
     [1, 1, 1, 4, 4];
      */
     if (k < 1) {
-        throw ValueError('k cannot be less than 1');
+        throw ValueError("k cannot be less than 1");
 
     // Node pruning optimization (incorporates early return);
     // find_ccs is either connected_components/strongly_connected_components

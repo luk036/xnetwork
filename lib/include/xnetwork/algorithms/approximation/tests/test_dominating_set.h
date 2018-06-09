@@ -51,7 +51,7 @@ class TestMinWeightDominatingSet) {
                 auto [u, v] = edge
                 found  = false;
                 for (auto dom_edge : dom_set) {
-                    found |= u == dom_edge[0] or u == dom_edge[1];
+                    found |= u == dom_edge[0] || u == dom_edge[1];
                 ok_(found, "Non adjacent edge found!");
 
         graph = xn::complete_graph(10);
@@ -65,5 +65,5 @@ class TestMinWeightDominatingSet) {
                 auto [u, v] = edge
                 found  = false;
                 for (auto dom_edge : dom_set) {
-                    found |= u == dom_edge[0] or u == dom_edge[1];
+                    found |= u == dom_edge[0] || u == dom_edge[1];
                 ok_(found, "Non adjacent edge found!");

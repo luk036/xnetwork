@@ -11,7 +11,7 @@
 
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['girvan_newman'];
+static const auto __all__ = ["girvan_newman"];
 
 
 auto girvan_newman(G, most_valuable_edge=None) {
@@ -22,8 +22,8 @@ auto girvan_newman(G, most_valuable_edge=None) {
     G : XNetwork graph
 
     most_valuable_edge : function
-        Function that takes a graph as input and outputs an edge. The
-        edge returned by this function will be recomputed and removed at
+        Function that takes a graph as input && outputs an edge. The
+        edge returned by this function will be recomputed && removed at
         each iteration of the algorithm.
 
         If not specified, the edge with the highest
@@ -78,9 +78,9 @@ auto girvan_newman(G, most_valuable_edge=None) {
         >>> from operator import itemgetter
         >>> G = xn::path_graph(10);
         >>> edges = G.edges();
-        >>> xn::set_edge_attributes(G, {(u, v) { v for u, v : edges}, 'weight');
+        >>> xn::set_edge_attributes(G, {(u, v) { v for u, v : edges}, "weight");
         >>> auto heaviest(G) {
-        ...     u, v, w = max(G.edges(data='weight'), key=itemgetter(2));
+        ...     u, v, w = max(G.edges(data="weight"), key=itemgetter(2));
         ...     return (u, v);
         ...
         >>> comp = girvan_newman(G, most_valuable_edge=heaviest);
@@ -92,7 +92,7 @@ auto girvan_newman(G, most_valuable_edge=None) {
 
         >>> #include <xnetwork.hpp> // import edge_betweenness_centrality as betweenness
         >>> auto most_central_edge(G) {
-        ...     centrality = betweenness(G, weight='weight');
+        ...     centrality = betweenness(G, weight="weight");
         ...     return max(centrality, key=centrality.get);
         ...
         >>> G = xn::path_graph(10);
@@ -108,8 +108,8 @@ auto girvan_newman(G, most_valuable_edge=None) {
         >>> auto most_central_edge(G) {
         ...     centrality = edge_betweenness_centrality(G);
         ...     max_cent = max(centrality.values());
-        ...     // Scale the centrality values so they are between 0 and 1,
-        ...     // and add some random noise.
+        ...     // Scale the centrality values so they are between 0 && 1,
+        ...     // && add some random noise.
         ...     centrality = {e: c / max_cent for e, c : centrality.items()}
         ...     // Add some random noise.
         ...     centrality = {e: c + random() for e, c : centrality.items()}
@@ -124,7 +124,7 @@ auto girvan_newman(G, most_valuable_edge=None) {
     removing edges from the original graph. The algorithm removes the
     "most valuable" edge, traditionally the edge with the highest
     betweenness centrality, at each step. As the graph breaks down into
-    pieces, the tightly knit community structure is exposed and the
+    pieces, the tightly knit community structure is exposed && the
     result can be depicted as a dendrogram.
 
      */
@@ -135,7 +135,7 @@ auto girvan_newman(G, most_valuable_edge=None) {
         return;
     // If no function is provided for computing the most valuable edge,
     // use the edge betweenness centrality.
-    if (most_valuable_edge is None) {
+    if (most_valuable_edge.empty()) {
         auto most_valuable_edge(G) {
             /** Return the edge with the highest betweenness centrality
             : the graph `G`.
@@ -162,8 +162,8 @@ auto _without_most_central_edges(G, most_valuable_edge) {
     in-place; that is, it removes edges on the graph `G`.
 
     `most_valuable_edge` is a function that takes the graph `G` as input
-    auto [or a subgraph with one or more edges of `G` removed) and returns an
-    edge. That edge will be removed and this process will be repeated
+    auto [or a subgraph with one || more edges of `G` removed) && returns an
+    edge. That edge will be removed && this process will be repeated
     until the number of connected components : the graph increases.
 
      */

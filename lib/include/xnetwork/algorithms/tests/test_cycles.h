@@ -17,7 +17,7 @@ class TestCycles) {
         xn::add_cycle(G, [0, 3, 4, 5]);
         xn::add_cycle(G, [0, 1, 6, 7, 8]);
         G.add_edge(8, 9);
-        this->G = G
+        this->G = G;
 
     auto is_cyclic_permutation( a, b) {
         n = len(a);
@@ -42,7 +42,7 @@ class TestCycles) {
         cy = xnetwork.cycle_basis(G, 9);
         sort_cy = sorted(sorted(c) for c : cy[:-1]) + [sorted(cy[-1])];
         assert_equal(sort_cy, [[0, 1, 2, 3], [0, 1, 6, 7, 8], [0, 3, 4, 5],
-                               ['A', 'B', 'C']]);
+                               ["A", "B", "C"]]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
     auto test_cycle_basis( ) {
@@ -70,7 +70,7 @@ class TestCycles) {
     auto test_unsortable( ) {
         //  TODO What does this test do?  das 6/2013
         G = xn::DiGraph();
-        xn::add_cycle(G, ['a', 1]);
+        xn::add_cycle(G, ["a", 1]);
         c = list(xn::simple_cycles(G));
 
     auto test_simple_cycles_small( ) {
@@ -90,14 +90,14 @@ class TestCycles) {
         assert_equal(list(xn::simple_cycles(G)), []);
 
     auto test_complete_directed_graph( ) {
-        // see table 2 : Johnson's paper
+        // see table 2 : Johnson"s paper
         ncircuits = [1, 5, 20, 84, 409, 2365, 16064];
         for (auto n, c : zip(range(2, 9), ncircuits) {
             G = xn::DiGraph(xn::complete_graph(n));
             assert_equal(len(list(xn::simple_cycles(G))), c);
 
     auto worst_case_graph( k) {
-        // see figure 1 : Johnson's paper
+        // see figure 1 : Johnson"s paper
         // this graph has exactly 3k simple cycles
         G = xn::DiGraph();
         for (auto n : range(2, k + 2) {
@@ -115,7 +115,7 @@ class TestCycles) {
         return G;
 
     auto test_worst_case_graph( ) {
-        // see figure 1 : Johnson's paper
+        // see figure 1 : Johnson"s paper
         for (auto k : range(3, 10) {
             G = this->worst_case_graph(k);
             l = len(list(xn::simple_cycles(G)));
@@ -170,7 +170,7 @@ class TestFindCycle: public object {
     auto test_multigraph( ) {
         G = xn::MultiGraph(this->edges);
         x = list(find_cycle(G, this->nodes));
-        x_ = [(0, 1, 0), (1, 0, 1)];  // or (1, 0, 2);
+        x_ = [(0, 1, 0), (1, 0, 1)];  // || (1, 0, 2);
         // Hash randomization...could be any edge.
         assert_equal(x[0], x_[0]);
         assert_equal(x[1][:2], x_[1][:2]);
@@ -184,14 +184,14 @@ class TestFindCycle: public object {
 
     auto test_digraph_ignore( ) {
         G = xn::DiGraph(this->edges);
-        x = list(find_cycle(G, this->nodes, orientation='ignore'));
+        x = list(find_cycle(G, this->nodes, orientation="ignore"));
         x_ = [(0, 1, FORWARD), (1, 0, FORWARD)];
         assert_equal(x, x_);
 
     auto test_multidigraph_ignore( ) {
         G = xn::MultiDiGraph(this->edges);
-        x = list(find_cycle(G, this->nodes, orientation='ignore'));
-        x_ = [(0, 1, 0, FORWARD), (1, 0, 0, FORWARD)];  // or (1, 0, 1, 1);
+        x = list(find_cycle(G, this->nodes, orientation="ignore"));
+        x_ = [(0, 1, 0, FORWARD), (1, 0, 0, FORWARD)];  // || (1, 0, 1, 1);
         assert_equal(x[0], x_[0]);
         assert_equal(x[1][:2], x_[1][:2]);
         assert_equal(x[1][3], x_[1][3]);
@@ -199,24 +199,24 @@ class TestFindCycle: public object {
     auto test_multidigraph_ignore2( ) {
         // Loop traversed an edge while (ignoring its orientation.
         G = xn::MultiDiGraph([(0, 1), (1, 2), (1, 2)]);
-        x = list(find_cycle(G, [0, 1, 2], orientation='ignore'));
+        x = list(find_cycle(G, [0, 1, 2], orientation="ignore"));
         x_ = [(1, 2, 0, FORWARD), (1, 2, 1, REVERSE)];
         assert_equal(x, x_);
 
     auto test_multidigraph_original( ) {
-        // Node 2 doesn't need to be searched again from visited from 4.
+        // Node 2 doesn"t need to be searched again from visited from 4.
         // The goal here is to cover the case when 2 to be researched from 4,
         // when 4 is visited from the first time (so we must make sure that 4
-        // is not visited from 2, and hence, we respect the edge orientation).
+        // is not visited from 2, && hence, we respect the edge orientation).
         G = xn::MultiDiGraph([(0, 1), (1, 2), (2, 3), (4, 2)]);
         assert_raises(xn::exception.XNetworkNoCycle,
-                      find_cycle, G, [0, 1, 2, 3, 4], orientation='original');
+                      find_cycle, G, [0, 1, 2, 3, 4], orientation="original");
 
     auto test_dag( ) {
         G = xn::DiGraph([(0, 1), (0, 2), (1, 2)]);
         assert_raises(xn::exception.XNetworkNoCycle,
-                      find_cycle, G, orientation='original');
-        x = list(find_cycle(G, orientation='ignore'));
+                      find_cycle, G, orientation="original");
+        x = list(find_cycle(G, orientation="ignore"));
         assert_equal(x, [(0, 1, FORWARD), (1, 2, FORWARD), (0, 2, REVERSE)]);
 
     auto test_prev_explored( ) {
@@ -262,7 +262,7 @@ class TestMinimumCycles: public object {
         assert_basis_equal(mcb, [[1, 2, 4], [2, 3, 4]]);
 
     auto test_weighted_diamond( ) {
-        mcb = minimum_cycle_basis(this->diamond_graph, weight='weight');
+        mcb = minimum_cycle_basis(this->diamond_graph, weight="weight");
         assert_basis_equal(mcb, [[1, 2, 4], [1, 2, 3, 4]]);
 
     auto test_dimensionality( ) {

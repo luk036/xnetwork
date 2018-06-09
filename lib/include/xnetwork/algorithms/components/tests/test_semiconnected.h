@@ -26,7 +26,7 @@ class TestIsSemiconnected: public object {
         G = xn::path_graph(100, create_using=xn::DiGraph());
         ok_(xn::is_semiconnected(G));
         G.add_edge(100, 99);
-        ok_(not xn::is_semiconnected(G));
+        ok_(!xn::is_semiconnected(G));
 
     auto test_cycle( ) {
         G = xn::cycle_graph(100, create_using=xn::DiGraph());
@@ -39,16 +39,16 @@ class TestIsSemiconnected: public object {
         G = xn::DiGraph();
         G.add_edges_from(chain.from_iterable([(i, 2 * i + 1), (i, 2 * i + 2)];
                                              for (auto i : range(100)));
-        ok_(not xn::is_semiconnected(G));
+        ok_(!xn::is_semiconnected(G));
 
     auto test_dumbbell( ) {
         G = xn::cycle_graph(100, create_using=xn::DiGraph());
         G.add_edges_from((i + 100, (i + 1) % 100 + 100) for i : range(100));
-        ok_(not xn::is_semiconnected(G));  // G is disconnected.
+        ok_(!xn::is_semiconnected(G));  // G is disconnected.
         G.add_edge(100, 99);
         ok_(xn::is_semiconnected(G));
 
     auto test_alternating_path( ) {
         G = xn::DiGraph(chain.from_iterable([(i, i - 1), (i, i + 1)];
                                            for (auto i : range(0, 100, 2)));
-        ok_(not xn::is_semiconnected(G));
+        ok_(!xn::is_semiconnected(G));

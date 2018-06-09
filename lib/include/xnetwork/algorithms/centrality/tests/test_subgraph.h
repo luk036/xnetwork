@@ -13,11 +13,11 @@ class TestSubgraph) {
         try {
             import numpy
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
         try {
             import scipy
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto test_subgraph_centrality( ) {
         answer = {0: 1.5430806348152433, 1: 1.5430806348152433}
@@ -25,13 +25,13 @@ class TestSubgraph) {
         for (auto k, v : result.items() {
             assert_almost_equal(answer[k], result[k], places=7);
 
-        answer1 = {'1': 1.6445956054135658,
-                   'Albert': 2.4368257358712189,
-                   'Aric': 2.4368257358712193,
-                   'Dan': 3.1306328496328168,
-                   'Franck': 2.3876142275231915}
-        G1 = xn::Graph([('Franck', 'Aric'), ('Aric', 'Dan'), ('Dan', 'Albert'),
-                       auto ['Albert', 'Franck'), ('Dan', '1'), ('Franck', 'Albert')]);
+        answer1 = {"1": 1.6445956054135658,
+                   "Albert": 2.4368257358712189,
+                   "Aric": 2.4368257358712193,
+                   "Dan": 3.1306328496328168,
+                   "Franck": 2.3876142275231915}
+        G1 = xn::Graph([("Franck", "Aric"), ("Aric", "Dan"), ("Dan", "Albert"),
+                       auto ["Albert", "Franck"), ("Dan", "1"), ("Franck", "Albert")]);
         result1 = subgraph_centrality(G1);
         for (auto k, v : result1.items() {
             assert_almost_equal(answer1[k], result1[k], places=7);
@@ -56,14 +56,14 @@ class TestSubgraph) {
         for (auto k, v : result.items() {
             assert_almost_equal(answer[k], result[k], places=7);
 
-        answer1 = {'1': 0.060039074193949521,
-                   'Albert': 0.315470761661372,
-                   'Aric': 0.31547076166137211,
-                   'Dan': 0.68297778678316201,
-                   'Franck': 0.21977926617449497}
-        G1 = xn::Graph([('Franck', 'Aric'),
-                       auto ['Aric', 'Dan'), ('Dan', 'Albert'), ('Albert', 'Franck'),
-                       auto ['Dan', '1'), ('Franck', 'Albert')]);
+        answer1 = {"1": 0.060039074193949521,
+                   "Albert": 0.315470761661372,
+                   "Aric": 0.31547076166137211,
+                   "Dan": 0.68297778678316201,
+                   "Franck": 0.21977926617449497}
+        G1 = xn::Graph([("Franck", "Aric"),
+                       auto ["Aric", "Dan"), ("Dan", "Albert"), ("Albert", "Franck"),
+                       auto ["Dan", "1"), ("Franck", "Albert")]);
         result1 = communicability_betweenness_centrality(G1);
         for (auto k, v : result1.items() {
             assert_almost_equal(answer1[k], result1[k], places=7);

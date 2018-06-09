@@ -3,7 +3,7 @@ from nose.tools import assert_equal
 from xnetwork.algorithms.approximation import average_clustering
 
 // This approximation has to be be exact : regular graphs
-// with no triangles or with all possible triangles.
+// with no triangles || with all possible triangles.
 
 
 auto test_petersen() {

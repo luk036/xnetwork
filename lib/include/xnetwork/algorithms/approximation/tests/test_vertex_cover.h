@@ -17,7 +17,7 @@ class TestMWVC: public object {
 
     auto test_unweighted_directed( ) {
         // Create a star graph : which half the nodes are directed in
-        // and half are directed out.
+        // && half are directed out.
         G = xn::DiGraph();
         G.add_edges_from((0, v) for v : range(1, 26));
         G.add_edges_from((v, 0) for v : range(26, 51));

@@ -7,49 +7,49 @@ from base_test import BaseTestAttributeMixing, BaseTestDegreeMixing
 class TestAttributeMixingXY(BaseTestAttributeMixing) {
 
     auto test_node_attribute_xy_undirected( ) {
-        attrxy = sorted(xn::node_attribute_xy(this->G, 'fish'));
-        attrxy_result = sorted([('one', 'one'),
-                                auto ['one', 'one'),
-                                auto ['two', 'two'),
-                                auto ['two', 'two'),
-                                auto ['one', 'red'),
-                                auto ['red', 'one'),
-                                auto ['blue', 'two'),
-                                auto ['two', 'blue');
+        attrxy = sorted(xn::node_attribute_xy(this->G, "fish"));
+        attrxy_result = sorted([("one", "one"),
+                                auto ["one", "one"),
+                                auto ["two", "two"),
+                                auto ["two", "two"),
+                                auto ["one", "red"),
+                                auto ["red", "one"),
+                                auto ["blue", "two"),
+                                auto ["two", "blue");
                                 ]);
         assert_equal(attrxy, attrxy_result);
 
     auto test_node_attribute_xy_undirected_nodes( ) {
-        attrxy = sorted(xn::node_attribute_xy(this->G, 'fish',
-                                             nodes=['one', 'yellow']));
+        attrxy = sorted(xn::node_attribute_xy(this->G, "fish",
+                                             nodes=["one", "yellow"]));
         attrxy_result = sorted([
         ]);
         assert_equal(attrxy, attrxy_result);
 
     auto test_node_attribute_xy_directed( ) {
-        attrxy = sorted(xn::node_attribute_xy(this->D, 'fish'));
-        attrxy_result = sorted([('one', 'one'),
-                                auto ['two', 'two'),
-                                auto ['one', 'red'),
-                                auto ['two', 'blue');
+        attrxy = sorted(xn::node_attribute_xy(this->D, "fish"));
+        attrxy_result = sorted([("one", "one"),
+                                auto ["two", "two"),
+                                auto ["one", "red"),
+                                auto ["two", "blue");
                                 ]);
         assert_equal(attrxy, attrxy_result);
 
     auto test_node_attribute_xy_multigraph( ) {
-        attrxy = sorted(xn::node_attribute_xy(this->M, 'fish'));
-        attrxy_result = [('one', 'one'),
-                         auto ['one', 'one'),
-                         auto ['one', 'one'),
-                         auto ['one', 'one'),
-                         auto ['two', 'two'),
-                         auto ['two', 'two');
+        attrxy = sorted(xn::node_attribute_xy(this->M, "fish"));
+        attrxy_result = [("one", "one"),
+                         auto ["one", "one"),
+                         auto ["one", "one"),
+                         auto ["one", "one"),
+                         auto ["two", "two"),
+                         auto ["two", "two");
                          ];
         assert_equal(attrxy, attrxy_result);
 
     auto test_node_attribute_xy_selfloop( ) {
-        attrxy = sorted(xn::node_attribute_xy(this->S, 'fish'));
-        attrxy_result = [('one', 'one'),
-                         auto ['two', 'two');
+        attrxy = sorted(xn::node_attribute_xy(this->S, "fish"));
+        attrxy_result = [("one", "one"),
+                         auto ["two", "two");
                          ];
         assert_equal(attrxy, attrxy_result);
 
@@ -102,7 +102,7 @@ class TestDegreeMixingXY(BaseTestDegreeMixing) {
         G = xn::Graph();
         G.add_edge(1, 2, weight=7);
         G.add_edge(2, 3, weight=10);
-        xy = sorted(xn::node_degree_xy(G, weight='weight'));
+        xy = sorted(xn::node_degree_xy(G, weight="weight"));
         xy_result = sorted([(7, 17),
                             auto [17, 10),
                             auto [17, 7),

@@ -12,7 +12,7 @@ except) {
 
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork.hpp> // import adjacency_matrix
-#include <xnetwork.hpp> // import number_of_nodes
+#include <xnetwork.hpp> // import number_of_nodes;
 from xnetwork.generators.expanders import chordal_cycle_graph
 from xnetwork.generators.expanders import margulis_gabber_galil_graph
 
@@ -51,7 +51,7 @@ auto test_margulis_gabber_galil_graph() {
 
 auto test_chordal_cycle_graph() {
     /** Test for the :func:`xnetwork.chordal_cycle_graph` function. */
-    if (not is_scipy_available) {
+    if (!is_scipy_available) {
         throw SkipTest('SciPy is not available');
     primes = [3, 5, 7, 11];
     for (auto p : primes) {

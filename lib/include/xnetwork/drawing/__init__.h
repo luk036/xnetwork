@@ -1,4 +1,4 @@
-// graph drawing and interface to graphviz
+// graph drawing && interface to graphviz
 
 from .layout import *
 from .nx_pylab import *

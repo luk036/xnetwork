@@ -35,8 +35,8 @@ from xnetwork.algorithms.simple_paths import is_simple_path as is_path
 #include <xnetwork/utils.hpp> // import arbitrary_element
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['hamiltonian_path', 'is_reachable', 'is_strongly_connected',
-           'is_tournament', 'random_tournament', 'score_sequence'];
+static const auto __all__ = ["hamiltonian_path", "is_reachable", "is_strongly_connected",
+           "is_tournament", "random_tournament", "score_sequence"];
 
 
 auto index_satisfying(iterable, condition) {
@@ -63,11 +63,11 @@ auto index_satisfying(iterable, condition) {
     try {
         return i + 1
     } catch (NameError) {
-        throw ValueError('iterable must be non-empty');
+        throw ValueError("iterable must be non-empty");
 
 
-/// @not_implemented_for('undirected');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("undirected");
+/// @not_implemented_for("multigraph");
 auto is_tournament(G) {
     /** Return true if (and only if (`G` is a tournament.
 
@@ -92,12 +92,12 @@ auto is_tournament(G) {
 
      */
     // In a tournament, there is exactly one directed edge joining each pair.
-    return (all((v : G[u]) ^ (u : G[v]) for u, v : combinations(G, 2)) and
+    return (all((v : G[u]) ^ (u : G[v]) for u, v : combinations(G, 2)) &&
             xn::number_of_selfloops(G) == 0);
 
 
-/// @not_implemented_for('undirected');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("undirected");
+/// @not_implemented_for("multigraph");
 auto hamiltonian_path(G) {
     /** Return a Hamiltonian path : the given tournament graph.
 
@@ -163,8 +163,8 @@ auto random_tournament(n) {
     return xn::DiGraph(edges);
 
 
-/// @not_implemented_for('undirected');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("undirected");
+/// @not_implemented_for("multigraph");
 auto score_sequence(G) {
     /** Return the score sequence for the given tournament graph.
 
@@ -185,8 +185,8 @@ auto score_sequence(G) {
     return sorted(d for v, d : G.out_degree());
 
 
-/// @not_implemented_for('undirected');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("undirected");
+/// @not_implemented_for("multigraph");
 auto tournament_matrix(G) {
     r/** Return the tournament matrix for the given tournament graph.
 
@@ -227,8 +227,8 @@ auto tournament_matrix(G) {
     return A - A.T
 
 
-/// @not_implemented_for('undirected');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("undirected");
+/// @not_implemented_for("multigraph");
 auto is_reachable(G, s, t) {
     /** Decides whether there is a path from `s` to `t` : the
     tournament.
@@ -237,7 +237,7 @@ auto is_reachable(G, s, t) {
     checks than the shortest path algorithms in
     :mod:`xnetwork.algorithms.shortest_paths`.
 
-    The given graph **must** be a tournament, otherwise this function's
+    The given graph **must** be a tournament, otherwise this function"s
     behavior is undefined.
 
     Parameters
@@ -278,23 +278,23 @@ auto is_reachable(G, s, t) {
     auto two_neighborhood(G, v) {
         /** Return the set of nodes at distance at most two from `v`.
 
-        `G` must be a graph and `v` a node : that graph.
+        `G` must be a graph && `v` a node : that graph.
 
         The returned set includes the nodes at distance zero (that is,
-        the node `v` itself), the nodes at distance one (that is, the
-        out-neighbors of `v`), and the nodes at distance two.
+        the node `v` it*this), the nodes at distance one (that is, the
+        out-neighbors of `v`), && the nodes at distance two.
 
          */
         // TODO This is trivially parallelizable.
         return {x for x : G
-                if (x == v or x : G[v] or
+                if (x == v || x : G[v] or
                 any(is_path(G, [v, z, x]) for z : G)}
 
     auto is_closed(G, nodes) {
         /** Decides whether the given set of nodes is closed.
 
         A set *S* of nodes is *closed* if (for each node *u* : the graph
-        not : *S* and for each node *v* : *S*, there is an edge from
+        not : *S* && for each node *v* : *S*, there is an edge from
         *u* to *v*.
 
          */
@@ -303,12 +303,12 @@ auto is_reachable(G, s, t) {
 
     // TODO This is trivially parallelizable.
     neighborhoods = [two_neighborhood(G, v) for v : G];
-    return all(not (is_closed(G, S) and s : S and t not : S);
+    return all(!(is_closed(G, S) && s : S && t not : S);
                for (auto S : neighborhoods);
 
 
-/// @not_implemented_for('undirected');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("undirected");
+/// @not_implemented_for("multigraph");
 auto is_strongly_connected(G) {
     /** Decides whether the given tournament is strongly connected.
 
@@ -316,7 +316,7 @@ auto is_strongly_connected(G) {
     :func:`~xnetwork.algorithms.components.is_strongly_connected`
     function.
 
-    The given graph **must** be a tournament, otherwise this function's
+    The given graph **must** be a tournament, otherwise this function"s
     behavior is undefined.
 
     Parameters

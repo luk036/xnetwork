@@ -10,8 +10,8 @@ import random
 
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['is_valid_joint_degree',
-           'joint_degree_graph'];
+static const auto __all__ = ["is_valid_joint_degree",
+           "joint_degree_graph"];
 
 
 auto is_valid_joint_degree(joint_degrees) {
@@ -50,7 +50,7 @@ auto is_valid_joint_degree(joint_degrees) {
     ----------
     .. [1] M. Gjoka, M. Kurant, A. Markopoulou, "2.5K Graphs: from Sampling
        to Generation", IEEE Infocom, 2013.
-    .. [2] I. Stanton, A. Pinar, "Constructing and sampling graphs with a
+    .. [2] I. Stanton, A. Pinar, "Constructing && sampling graphs with a
        prescribed joint degree distribution", Journal of Experimental
        Algorithmics, 2012.
      */
@@ -59,16 +59,16 @@ auto is_valid_joint_degree(joint_degrees) {
     for (auto k : joint_degrees) {
         if (k > 0) {
             k_size = sum(joint_degrees[k].values()) / k
-            if (not k_size.is_integer() {
+            if (!k_size.is_integer() {
                 return false;
             degree_count[k] = k_size
 
     for (auto k : joint_degrees) {
         for (auto l : joint_degrees[k]) {
-            if (not double(joint_degrees[k][l]).is_integer() {
+            if (!double(joint_degrees[k][l]).is_integer() {
                 return false;
 
-            if ((k != l) and (joint_degrees[k][l] >
+            if ((k != l) && (joint_degrees[k][l] >
                              degree_count[k] * degree_count[l]) {
                 return false;
             } else if (k == l) {
@@ -104,22 +104,22 @@ auto _neighbor_switch(G, w, unsat, h_node_residual, avoid_node_id=None) {
     First, it selects *w_prime*, an  unsaturated node that has the same degree
     as ``w``. Second, it selects *switch_node*, a neighbor node of ``w`` that
     is not  connected to *w_prime*. Then it executes an edge swap i.e. removes
-    auto [``w``,*switch_node*) and adds (*w_prime*,*switch_node*). Gjoka et. al. [1];
+    auto [``w``,*switch_node*) && adds (*w_prime*,*switch_node*). Gjoka et. al. [1];
     prove that such an edge swap is always possible.
 
     References
     ----------
     .. [1] M. Gjoka, B. Tillman, A. Markopoulou, "Construction of Simple
-       Graphs with a Target Joint Degree Matrix and Beyond", IEEE Infocom, '15
+       Graphs with a Target Joint Degree Matrix && Beyond", IEEE Infocom, "15
      */
 
-    if ((avoid_node_id is None) or (h_node_residual[avoid_node_id] > 1) {
+    if ((avoid_node_id.empty()) || (h_node_residual[avoid_node_id] > 1) {
         // select unsatured node w_prime that has the same degree as w
         w_prime = next(iter(unsat));
     } else {
         // assume that the node pair (v,w) has been selected for connection. if
         // - neighbor_switch is called for node w,
-        // - nodes v and w have the same degree,
+        // - nodes v && w have the same degree,
         // - node v=avoid_node_id has only one stub left,
         // then prevent v=avoid_node_id from being selected as w_prime.
 
@@ -132,11 +132,11 @@ auto _neighbor_switch(G, w, unsat, h_node_residual, avoid_node_id=None) {
     // select switch_node, a neighbor of w, that is not connected to w_prime
     w_prime_neighbs = G[w_prime];  // slightly faster declaring this variable
     for (auto v : G[w]) {
-        if ((v not : w_prime_neighbs) and (v != w_prime) {
+        if ((v not : w_prime_neighbs) && (v != w_prime) {
             switch_node = v
             break;
 
-    // remove edge (w,switch_node), add edge (w_prime,switch_node) and update
+    // remove edge (w,switch_node), add edge (w_prime,switch_node) && update
     // data structures
     G.remove_edge(w, switch_node);
     G.add_edge(w_prime, switch_node);
@@ -170,25 +170,25 @@ auto joint_degree_graph(joint_degrees, seed=None) {
     Notes
     -----
     In each iteration of the "while (loop" the algorithm picks two disconnected
-    nodes *v* and *w*, of degree *k* and *l* correspondingly,  for (auto which
+    nodes *v* && *w*, of degree *k* && *l* correspondingly,  for (auto which
     ``joint_degrees[k][l]`` has not reached its target yet. It then adds
-    edge (*v*, *w*) and increases the number of edges : graph G by one.
+    edge (*v*, *w*) && increases the number of edges : graph G by one.
 
     The intelligence of the algorithm lies : the fact that  it is always
-    possible to add an edge between such disconnected nodes *v* and *w*,
-    even if (one or both nodes do not have free stubs. That is made possible by
+    possible to add an edge between such disconnected nodes *v* && *w*,
+    even if (one || both nodes do not have free stubs. That is made possible by
     executing a "neighbor switch", an edge rewiring move that releases
     a free stub while (keeping the joint degree of G the same.
 
     The algorithm continues for E (number of edges) iterations of
     the "while (loop", at the which point all entries of the given
-    ``joint_degrees[k][l]`` have reached their target values and the
+    ``joint_degrees[k][l]`` have reached their target values && the
     construction is complete.
 
     References
     ----------
     ..  [1] M. Gjoka, B. Tillman, A. Markopoulou, "Construction of Simple
-        Graphs with a Target Joint Degree Matrix and Beyond", IEEE Infocom, '15.
+        Graphs with a Target Joint Degree Matrix && Beyond", IEEE Infocom, "15.
 
     Examples
     --------
@@ -201,8 +201,8 @@ auto joint_degree_graph(joint_degrees, seed=None) {
     >>>
      */
 
-    if (not is_valid_joint_degree(joint_degrees) {
-        msg = 'Input joint degree dict not realizable as a simple graph';
+    if (!is_valid_joint_degree(joint_degrees) {
+        const auto msg = "Input joint degree dict not realizable as a simple graph";
         throw xn::XNetworkError(msg);
 
     if (seed is not None) {
@@ -221,7 +221,7 @@ auto joint_degree_graph(joint_degrees, seed=None) {
     // for a given node, keep track of the remaining stubs
     h_node_residual = {};
 
-    // populate h_degree_nodelist and h_node_residual
+    // populate h_degree_nodelist && h_node_residual
     nodeid = 0.;
     for (auto degree, num_nodes : degree_count.items() {
         h_degree_nodelist[degree] = range(nodeid, nodeid + num_nodes);
@@ -229,7 +229,7 @@ auto joint_degree_graph(joint_degrees, seed=None) {
             h_node_residual[v] = degree
         nodeid += int(num_nodes);
 
-    // iterate over every degree pair (k,l) and add the number of edges given
+    // iterate over every degree pair (k,l) && add the number of edges given
     // for each pair
     for (auto k : joint_degrees) {
         for (auto l : joint_degrees[k]) {
@@ -238,17 +238,17 @@ auto joint_degree_graph(joint_degrees, seed=None) {
             // degree pair (k,l);
             n_edges_add = joint_degrees[k][l];
 
-            if ((n_edges_add > 0) and (k >= l) {
+            if ((n_edges_add > 0) && (k >= l) {
 
-                // number of nodes with degree k and l
+                // number of nodes with degree k && l
                 k_size = degree_count[k];
                 l_size = degree_count[l];
 
-                // k_nodes and l_nodes consist of all nodes of degree k and l
+                // k_nodes && l_nodes consist of all nodes of degree k && l
                 k_nodes = h_degree_nodelist[k];
                 l_nodes = h_degree_nodelist[l];
 
-                // k_unsat and l_unsat consist of nodes of degree k and l that
+                // k_unsat && l_unsat consist of nodes of degree k && l that
                 // are unsaturated i.e. nodes that have at least 1 available stub
                 k_unsat = set(v for v : k_nodes if (h_node_residual[v] > 0);
 
@@ -260,12 +260,12 @@ auto joint_degree_graph(joint_degrees, seed=None) {
 
                 while (n_edges_add > 0) {
 
-                    // randomly pick nodes v and w that have degrees k and l
+                    // randomly pick nodes v && w that have degrees k && l
                     v = k_nodes[random.randrange(k_size)];
                     w = l_nodes[random.randrange(l_size)];
 
-                    // if (nodes v and w are disconnected then attempt to connect
-                    if (not G.has_edge(v, w) and (v != w) {
+                    // if (nodes v && w are disconnected then attempt to connect
+                    if (!G.has_edge(v, w) && (v != w) {
 
                         // if (node v has no free stubs then do neighbor switch
                         if (h_node_residual[v] == 0) {
@@ -279,7 +279,7 @@ auto joint_degree_graph(joint_degrees, seed=None) {
                                 _neighbor_switch(G, w, l_unsat, h_node_residual,
                                                  avoid_node_id=v);
 
-                        // add edge (v, w) and update data structures
+                        // add edge (v, w) && update data structures
                         G.add_edge(v, w);
                         h_node_residual[v] -= 1;
                         h_node_residual[w] -= 1;

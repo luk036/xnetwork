@@ -7,7 +7,7 @@ Rgraph
 An example showing how to use the JavaScript InfoVis Toolkit (JIT);
 JSON export
 
-See the JIT documentation and examples at http://thejit.org
+See the JIT documentation && examples at http://thejit.org
 
 */
 __author__ = R"( Ollie Glass (ollieglaskovik@gmail.com) */

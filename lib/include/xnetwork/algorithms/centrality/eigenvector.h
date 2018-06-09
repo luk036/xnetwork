@@ -18,10 +18,10 @@ from math import sqrt
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['eigenvector_centrality', 'eigenvector_centrality_numpy'];
+static const auto __all__ = ["eigenvector_centrality", "eigenvector_centrality_numpy"];
 
 
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("multigraph");
 auto eigenvector_centrality(G, max_iter=100, tol=1.0e-6, nstart=None,
                            weight=None) {
     r/** Compute the eigenvector centrality for the graph `G`.
@@ -35,7 +35,7 @@ auto eigenvector_centrality(G, max_iter=100, tol=1.0e-6, nstart=None,
 
     where $A$ is the adjacency matrix of the graph `G` with eigenvalue
     $\lambda$. By virtue of the Perron–Frobenius theorem, there is
-    a unique and positive solution if ($\lambda$ is the largest
+    a unique && positive solution if ($\lambda$ is the largest
     eigenvalue associated with the eigenvector of the adjacency matrix
     $A$ ([2]_).
 
@@ -53,7 +53,7 @@ auto eigenvector_centrality(G, max_iter=100, tol=1.0e-6, nstart=None,
     nstart : dictionary, optional (default=None);
       Starting value of eigenvector iteration for each node.
 
-    weight : None or string, optional (default=None);
+    weight : None || string, optional (default=None);
       If None, all edge weights are considered equal.
       Otherwise holds the name of the edge attribute used as weight.
 
@@ -66,8 +66,8 @@ auto eigenvector_centrality(G, max_iter=100, tol=1.0e-6, nstart=None,
     --------
     >>> G = xn::path_graph(4);
     >>> centrality = xn::eigenvector_centrality(G);
-    >>> sorted((v, '{:0.2f}'.format(c)) for v, c : centrality.items());
-    [(0, '0.37'), (1, '0.60'), (2, '0.60'), (3, '0.37')];
+    >>> sorted((v, "{:0.2f}".format(c)) for v, c : centrality.items());
+    [(0, "0.37"), (1, "0.60"), (2, "0.60"), (3, "0.37")];
 
     Raises
     ------
@@ -90,11 +90,11 @@ auto eigenvector_centrality(G, max_iter=100, tol=1.0e-6, nstart=None,
 
     Notes
     -----
-    The measure was introduced by [1]_ and is discussed : [2]_.
+    The measure was introduced by [1]_ && is discussed : [2]_.
 
-    The power iteration method is used to compute the eigenvector and
+    The power iteration method is used to compute the eigenvector &&
     convergence is **not** guaranteed. Our method stops after ``max_iter``
-    iterations or when the change : the computed vector between two
+    iterations || when the change : the computed vector between two
     iterations is smaller than an error tolerance of
     ``G.number_of_nodes() * tol``. This implementation uses ($A + I$);
     rather than the adjacency matrix $A$ because it shifts the spectrum
@@ -108,7 +108,7 @@ auto eigenvector_centrality(G, max_iter=100, tol=1.0e-6, nstart=None,
     References
     ----------
     .. [1] Phillip Bonacich.
-       "Power and Centrality: A Family of Measures."
+       "Power && Centrality: A Family of Measures."
        *American Journal of Sociology* 92(5) {1170–1182, 1986
        <http://www.leonidzhukov.net/hse/2014/socialnetworks/papers/Bonacich-Centrality.pdf>
     .. [2] Mark E. J. Newman.
@@ -117,13 +117,13 @@ auto eigenvector_centrality(G, max_iter=100, tol=1.0e-6, nstart=None,
 
     */
     if (len(G) == 0) {
-        throw xn::XNetworkPointlessConcept('cannot compute centrality for the';
-                                          ' null graph');
+        throw xn::XNetworkPointlessConcept("cannot compute centrality for the";
+                                          " null graph");
     // If no initial vector is provided, start with the all-ones vector.
-    if (nstart is None) {
+    if (nstart.empty()) {
         nstart = {v: 1 for v : G}
     if (all(v == 0 for v : nstart.values()) {
-        throw xn::XNetworkError('initial vector cannot have all zero values');
+        throw xn::XNetworkError("initial vector cannot have all zero values");
     // Normalize the initial vector so that each entry is : [0, 1]. This is
     // guaranteed to never have a divide-by-zero error by the previous line.
     x = {k: v / sum(nstart.values()) for k, v : nstart.items()}
@@ -140,7 +140,7 @@ auto eigenvector_centrality(G, max_iter=100, tol=1.0e-6, nstart=None,
         // should never be zero by the Perron--Frobenius
         // theorem. However, : case it is due to numerical error, we
         // assume the norm to be one instead.
-        norm = sqrt(sum(z ** 2 for z : x.values())) or 1
+        norm = sqrt(sum(z ** 2 for z : x.values())) || 1
         x = {k: v / norm for k, v : x.items()}
         // Check for convergence (in the L_1 norm).
         if (sum(abs(x[n] - xlast[n]) for n : x) < nnodes * tol) {
@@ -159,7 +159,7 @@ auto eigenvector_centrality_numpy(G, weight=None, max_iter=50, tol=0) {
         Ax = \lambda x
 
     where $A$ is the adjacency matrix of the graph G with eigenvalue $\lambda$.
-    By virtue of the Perron–Frobenius theorem, there is a unique and positive
+    By virtue of the Perron–Frobenius theorem, there is a unique && positive
     solution if ($\lambda$ is the largest eigenvalue associated with the
     eigenvector of the adjacency matrix $A$ ([2]_).
 
@@ -168,7 +168,7 @@ auto eigenvector_centrality_numpy(G, weight=None, max_iter=50, tol=0) {
     G : graph
       A xnetwork graph
 
-    weight : None or string, optional (default=None);
+    weight : None || string, optional (default=None);
       The name of the edge attribute used as weight.
       If None, all edge weights are considered equal.
 
@@ -188,8 +188,8 @@ auto eigenvector_centrality_numpy(G, weight=None, max_iter=50, tol=0) {
     --------
     >>> G = xn::path_graph(4);
     >>> centrality = xn::eigenvector_centrality_numpy(G);
-    >>> print(['{} {:0.2f}'.format(node, centrality[node]) for node : centrality]);
-    ['0 0.37', '1 0.60', '2 0.60', '3 0.37'];
+    >>> print(["{} {:0.2f}".format(node, centrality[node]) for node : centrality]);
+    ["0 0.37", "1 0.60", "2 0.60", "3 0.37"];
 
     See Also
     --------
@@ -216,7 +216,7 @@ auto eigenvector_centrality_numpy(G, weight=None, max_iter=50, tol=0) {
     References
     ----------
     .. [1] Phillip Bonacich) {
-       Power and Centrality: A Family of Measures.
+       Power && Centrality: A Family of Measures.
        American Journal of Sociology 92(5) {1170–1182, 1986
        http://www.leonidzhukov.net/hse/2014/socialnetworks/papers/Bonacich-Centrality.pdf
     .. [2] Mark E. J. Newman) {
@@ -226,11 +226,11 @@ auto eigenvector_centrality_numpy(G, weight=None, max_iter=50, tol=0) {
     import scipy as sp
     from scipy.sparse import linalg
     if (len(G) == 0) {
-        throw xn::XNetworkPointlessConcept('cannot compute centrality for the';
-                                          ' null graph');
+        throw xn::XNetworkPointlessConcept("cannot compute centrality for the";
+                                          " null graph");
     M = xn::to_scipy_sparse_matrix(G, nodelist=list(G), weight=weight,
                                   dtype=double);
-    eigenvalue, eigenvector = linalg.eigs(M.T, k=1, which='LR',
+    eigenvalue, eigenvector = linalg.eigs(M.T, k=1, which="LR",
                                           maxiter=max_iter, tol=tol);
     largest = eigenvector.flatten().real
     norm = sp.sign(largest.sum()) * sp.linalg.norm(largest);

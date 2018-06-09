@@ -5,7 +5,7 @@ from nose.tools import *
 from xnetwork.algorithms.bipartite import spectral_bipartivity as sb
 
 // Examples from Figure 1
-// E. Estrada and J. A. Rodríguez-Velázquez, "Spectral measures of
+// E. Estrada && J. A. Rodríguez-Velázquez, "Spectral measures of
 // bipartivity : complex networks", PhysRev E 72, 046105 (2005);
 
 
@@ -18,7 +18,7 @@ class TestSpectralBipartivity: public object {
         try {
             import scipy.linalg
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto test_star_like( ) {
         // star-like

@@ -5,7 +5,7 @@ from nose import SkipTest
 
 
 class TestFlowClosenessCentrality: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -14,7 +14,7 @@ class TestFlowClosenessCentrality: public object {
             import numpy as np
             import scipy
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
 
     auto test_K4( ) {
         /** Closeness centrality: K4*/
@@ -35,12 +35,12 @@ class TestFlowClosenessCentrality: public object {
     auto test_star( ) {
         /** Closeness centrality: star */
         G = xn::Graph();
-        xn::add_star(G, ['a', 'b', 'c', 'd']);
+        xn::add_star(G, ["a", "b", "c", "d"]);
         b = xn::current_flow_closeness_centrality(G);
-        b_answer = {'a': 1.0 / 3, 'b': 0.6 / 3, 'c': 0.6 / 3, 'd': 0.6 / 3}
+        b_answer = {"a": 1.0 / 3, "b": 0.6 / 3, "c": 0.6 / 3, "d": 0.6 / 3}
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
 
 class TestWeightedFlowClosenessCentrality: public object {
-    pass();
+    // pass;

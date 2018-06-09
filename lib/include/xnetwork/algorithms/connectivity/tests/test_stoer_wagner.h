@@ -59,7 +59,7 @@ auto test_graph2() {
 
 auto test_graph3() {
     // Source) {
-    // Stoer, M. and Wagner, F. (1997). "A simple min-cut algorithm". Journal of
+    // Stoer, M. && Wagner, F. (1997). "A simple min-cut algorithm". Journal of
     // the ACM 44 (4), 585-591.
     G = xn::Graph();
     G.add_edge(1, 2, weight=2);

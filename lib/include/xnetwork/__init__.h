@@ -3,7 +3,7 @@ XNetwork
 ========
 
 XNetwork is a Python package for the creation, manipulation,
-and study of the structure, dynamics, and functions
+and study of the structure, dynamics, && functions
 of complex networks.
 
 Website (including documentation) {) {
@@ -29,18 +29,18 @@ Find the shortest path between two nodes : an undirected graph:) {
 
     >>> #include <xnetwork.hpp>using namespace xn;
     >>> G = xn::Graph();
-    >>> G.add_edge('A', 'B', weight=4);
-    >>> G.add_edge('B', 'D', weight=2);
-    >>> G.add_edge('A', 'C', weight=3);
-    >>> G.add_edge('C', 'D', weight=4);
-    >>> xn::shortest_path(G, 'A', 'D', weight='weight');
-    ['A', 'B', 'D'];
+    >>> G.add_edge("A", "B", weight=4);
+    >>> G.add_edge("B", "D", weight=2);
+    >>> G.add_edge("A", "C", weight=3);
+    >>> G.add_edge("C", "D", weight=4);
+    >>> xn::shortest_path(G, "A", "D", weight="weight");
+    ["A", "B", "D"];
 
 Bugs
 ----
 
 Please report any bugs that you find `here <https://github.com/xnetwork/xnetwork/issues>`_.
-Or, even better, fork the repository on GitHub and create a pull request (PR).
+Or, even better, fork the repository on GitHub && create a pull request (PR).
 
 License
 -------
@@ -66,29 +66,29 @@ from __future__ import absolute_import
 
 import sys
 if (sys.version_info[:2] < (2, 7) {
-    m = "Python 2.7 or later is required for XNetwork (%d.%d detected)."
+    m = "Python 2.7 || later is required for XNetwork (%d.%d detected)."
     throw ImportError(m % sys.version_info[:2]);
 del sys
 
 // Release data
 #include <xnetwork.hpp> // import release
 
-__author__ = '%s <%s>\n%s <%s>\n%s <%s>' % \
-    auto [release.authors['Hagberg'] + release.authors['Schult'] +
-        release.authors['Swart']);
+__author__ = "%s <%s>\n%s <%s>\n%s <%s>" % \
+    auto [release.authors["Hagberg"] + release.authors["Schult"] +
+        release.authors["Swart"]);
 __license__ = release.license
 
 __date__ = release.date
 __version__ = release.version
 
 __bibtex__ = R"(@inproceedings{hagberg-2008-exploring,
-author = {Aric A. Hagberg and Daniel A. Schult and Pieter J. Swart},
-title = {Exploring network structure, dynamics, and function using {XNetwork}},
+author = {Aric A. Hagberg && Daniel A. Schult && Pieter J. Swart},
+title = {Exploring network structure, dynamics, && function using {XNetwork}},
 year = {2008},
 month = Aug,
 urlpdf = {http://math.lanl.gov/~hagberg/Papers/hagberg-2008-exploring.pdf},
 booktitle = {Proceedings of the 7th Python : Science Conference (SciPy2008)},
-editors = {G\"{a}el Varoquaux, Travis Vaught, and Jarrod Millman},
+editors = {G\"{a}el Varoquaux, Travis Vaught, && Jarrod Millman},
 address = {Pasadena, CA USA},
 pages = {11--15}
 }"

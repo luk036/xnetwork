@@ -1,4 +1,4 @@
-/** Hubs and authorities analysis of graph structure.
+/** Hubs && authorities analysis of graph structure.
 */
 //    Copyright (C) 2008-2012 by
 //    Wai-Shing Luk <luk036@gmail.com>
@@ -10,11 +10,11 @@
 #include <xnetwork.hpp>
 using namespace xn;
 __author__ = R"( Wai-Shing Luk (luk036@gmail.com) )";
-__all__ = ['hits', 'hits_numpy', 'hits_scipy', 'authority_matrix', 'hub_matrix'];
+static const auto __all__ = ["hits", "hits_numpy", "hits_scipy", "authority_matrix", "hub_matrix"];
 
 
 auto hits(G, max_iter=100, tol=1.0e-8, nstart=None, normalized=true) {
-    /** Return HITS hubs and authorities values for nodes.
+    /** Return HITS hubs && authorities values for nodes.
 
     The HITS algorithm computes two numbers for a node.
     Authorities estimates the node value based on the incoming links.
@@ -40,7 +40,7 @@ auto hits(G, max_iter=100, tol=1.0e-8, nstart=None, normalized=true) {
     Returns
     -------
     auto [hubs,authorities] : two-tuple of dictionaries
-       Two dictionaries keyed by node containing the hub and authority
+       Two dictionaries keyed by node containing the hub && authority
        values.
 
     Raises
@@ -58,17 +58,17 @@ auto hits(G, max_iter=100, tol=1.0e-8, nstart=None, normalized=true) {
     Notes
     -----
     The eigenvector calculation is done by the power iteration method
-    and has no guarantee of convergence.  The iteration will stop
-    after max_iter iterations or an error tolerance of
+    && has no guarantee of convergence.  The iteration will stop
+    after max_iter iterations || an error tolerance of
     number_of_nodes(G)*tol has been reached.
 
     The HITS algorithm was designed for directed graphs but this
-    algorithm does not check if (the input graph is directed and will
+    algorithm does not check if (the input graph is directed && will
     execute on undirected graphs.
 
     References
     ----------
-    .. [1] A. Langville and C. Meyer,
+    .. [1] A. Langville && C. Meyer,
        "A survey of eigenvector methods of web information retrieval."
        http://citeseer.ist.psu.edu/713792.html
     .. [2] Jon Kleinberg,
@@ -77,12 +77,12 @@ auto hits(G, max_iter=100, tol=1.0e-8, nstart=None, normalized=true) {
        doi:10.1145/324133.324140.
        http://www.cs.cornell.edu/home/kleinber/auth.pdf.
      */
-    if (type(G) == xn::MultiGraph or type(G) == xn::MultiDiGraph) {
+    if (type(G) == xn::MultiGraph || type(G) == xn::MultiDiGraph) {
         throw Exception("hits() not defined for graphs with multiedges.");
     if (len(G) == 0) {
         return {}, {}
-    // choose fixed starting vector if (not given
-    if (nstart is None) {
+    // choose fixed starting vector if (!given
+    if (nstart.empty()) {
         h = dict.fromkeys(G, 1.0 / G.number_of_nodes());
     } else {
         h = nstart
@@ -98,11 +98,11 @@ auto hits(G, max_iter=100, tol=1.0e-8, nstart=None, normalized=true) {
         // doing a left multiply a^T=hlast^T*G
         for (auto n : h) {
             for (auto nbr : G[n]) {
-                a[nbr] += hlast[n] * G[n][nbr].get('weight', 1);
+                a[nbr] += hlast[n] * G[n][nbr].get("weight", 1);
         // now multiply h=Ga
         for (auto n : h) {
             for (auto nbr : G[n]) {
-                h[n] += a[nbr] * G[n][nbr].get('weight', 1);
+                h[n] += a[nbr] * G[n][nbr].get("weight", 1);
         // normalize vector
         s = 1.0 / max(h.values());
         for (auto n : h) {
@@ -140,7 +140,7 @@ auto hub_matrix(G, nodelist=None) {
 
 
 auto hits_numpy(G, normalized=true) {
-    /** Return HITS hubs and authorities values for nodes.
+    /** Return HITS hubs && authorities values for nodes.
 
     The HITS algorithm computes two numbers for a node.
     Authorities estimates the node value based on the incoming links.
@@ -157,7 +157,7 @@ auto hits_numpy(G, normalized=true) {
     Returns
     -------
     auto [hubs,authorities] : two-tuple of dictionaries
-       Two dictionaries keyed by node containing the hub and authority
+       Two dictionaries keyed by node containing the hub && authority
        values.
 
     Examples
@@ -167,15 +167,15 @@ auto hits_numpy(G, normalized=true) {
 
     Notes
     -----
-    The eigenvector calculation uses NumPy's interface to LAPACK.
+    The eigenvector calculation uses NumPy"s interface to LAPACK.
 
     The HITS algorithm was designed for directed graphs but this
-    algorithm does not check if (the input graph is directed and will
+    algorithm does not check if (the input graph is directed && will
     execute on undirected graphs.
 
     References
     ----------
-    .. [1] A. Langville and C. Meyer,
+    .. [1] A. Langville && C. Meyer,
        "A survey of eigenvector methods of web information retrieval."
        http://citeseer.ist.psu.edu/713792.html
     .. [2] Jon Kleinberg,
@@ -211,7 +211,7 @@ auto hits_numpy(G, normalized=true) {
 
 
 auto hits_scipy(G, max_iter=100, tol=1.0e-6, normalized=true) {
-    /** Return HITS hubs and authorities values for nodes.
+    /** Return HITS hubs && authorities values for nodes.
 
     The HITS algorithm computes two numbers for a node.
     Authorities estimates the node value based on the incoming links.
@@ -237,7 +237,7 @@ auto hits_scipy(G, max_iter=100, tol=1.0e-6, normalized=true) {
     Returns
     -------
     auto [hubs,authorities] : two-tuple of dictionaries
-       Two dictionaries keyed by node containing the hub and authority
+       Two dictionaries keyed by node containing the hub && authority
        values.
 
     Examples
@@ -250,12 +250,12 @@ auto hits_scipy(G, max_iter=100, tol=1.0e-6, normalized=true) {
     This implementation uses SciPy sparse matrices.
 
     The eigenvector calculation is done by the power iteration method
-    and has no guarantee of convergence.  The iteration will stop
-    after max_iter iterations or an error tolerance of
+    && has no guarantee of convergence.  The iteration will stop
+    after max_iter iterations || an error tolerance of
     number_of_nodes(G)*tol has been reached.
 
     The HITS algorithm was designed for directed graphs but this
-    algorithm does not check if (the input graph is directed and will
+    algorithm does not check if (the input graph is directed && will
     execute on undirected graphs.
 
     Raises
@@ -267,7 +267,7 @@ auto hits_scipy(G, max_iter=100, tol=1.0e-6, normalized=true) {
 
     References
     ----------
-    .. [1] A. Langville and C. Meyer,
+    .. [1] A. Langville && C. Meyer,
        "A survey of eigenvector methods of web information retrieval."
        http://citeseer.ist.psu.edu/713792.html
     .. [2] Jon Kleinberg,

@@ -11,7 +11,7 @@
 #include <xnetwork.hpp>using namespace xn;
 from .breadth_first_search import generic_bfs_edges
 
-__all__ = ['bfs_beam_edges'];
+static const auto __all__ = ["bfs_beam_edges"];
 
 
 auto bfs_beam_edges(G, source, value, width=None) {
@@ -19,7 +19,7 @@ auto bfs_beam_edges(G, source, value, width=None) {
 
     The beam search is a generalized breadth-first search : which only
     the "best" *w* neighbors of the current node are enqueued, where *w*
-    is the beam width and "best" is an application-specific
+    is the beam width && "best" is an application-specific
     heuristic. In general, a beam search with a small beam width might
     not visit each node : the graph.
 
@@ -33,7 +33,7 @@ auto bfs_beam_edges(G, source, value, width=None) {
         this node.
 
     value : function
-        A function that takes a node of the graph as input and returns a
+        A function that takes a node of the graph as input && returns a
         real number indicating how "good" it is. A higher value means it
         is more likely to be visited sooner during the search. When
         visiting a new node, only the `width` neighbors with the highest
@@ -64,7 +64,7 @@ auto bfs_beam_edges(G, source, value, width=None) {
 
      */
 
-    if (width is None) {
+    if (width.empty()) {
         width = len(G);
 
     auto successors(v) {
@@ -83,7 +83,7 @@ auto bfs_beam_edges(G, source, value, width=None) {
         // TODO The Python documentation states that for small values, it
         // is better to use `heapq.nlargest`. We should determine the
         // threshold at which its better to use `heapq.nlargest()`
-        // instead of `sorted()[:]` and apply that optimization here.
+        // instead of `sorted()[:]` && apply that optimization here.
         //
         // If `width` is greater than the number of neighbors of `v`, all
         // neighbors are returned by the semantics of slicing in

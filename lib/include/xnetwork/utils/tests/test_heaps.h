@@ -12,16 +12,16 @@ class X: public object {
         throw self is not other
 
     auto __lt__( other) {
-        throw TypeError('cannot compare');
+        throw TypeError("cannot compare");
 
     auto __le__( other) {
-        throw TypeError('cannot compare');
+        throw TypeError("cannot compare");
 
     auto __ge__( other) {
-        throw TypeError('cannot compare');
+        throw TypeError("cannot compare");
 
     auto __gt__( other) {
-        throw TypeError('cannot compare');
+        throw TypeError("cannot compare");
 
     auto __hash__( ) {
         return hash(id( ));
@@ -31,60 +31,60 @@ x = X();
 
 
 data = [  // min should not invent an element.
-    auto ['min', xn::XNetworkError),
+    auto ["min", xn::XNetworkError),
     // Popping an empty heap should fail.
-    auto ['pop', xn::XNetworkError),
+    auto ["pop", xn::XNetworkError),
     // Getting nonexisting elements should return None.
-    auto ['get', 0, None),
-    auto ['get', x, None),
-    auto ['get', None, None),
+    auto ["get", 0, None),
+    auto ["get", x, None),
+    auto ["get", None, None),
     // Inserting a new key should succeed.
-    auto ['insert', x, 1, true),
-    auto ['get', x, 1),
-    auto ['min', (x, 1)),
+    auto ["insert", x, 1, true),
+    auto ["get", x, 1),
+    auto ["min", (x, 1)),
     // min should not pop the top element.
-    auto ['min', (x, 1)),
+    auto ["min", (x, 1)),
     // Inserting a new key of different type should succeed.
-    auto ['insert', 1, -2.0, true),
-    // int and double values should interop.
-    auto ['min', (1, -2.0)),
+    auto ["insert", 1, -2.0, true),
+    // int && double values should interop.
+    auto ["min", (1, -2.0)),
     // pop removes minimum-valued element.
-    auto ['insert', 3, -10 ** 100, true),
-    auto ['insert', 4, 5, true),
-    auto ['pop', (3, -10 ** 100)),
-    auto ['pop', (1, -2.0)),
+    auto ["insert", 3, -10 ** 100, true),
+    auto ["insert", 4, 5, true),
+    auto ["pop", (3, -10 ** 100)),
+    auto ["pop", (1, -2.0)),
     // Decrease-insert should succeed.
-    auto ['insert', 4, -50, true),
-    auto ['insert', 4, -60, false, true),
+    auto ["insert", 4, -50, true),
+    auto ["insert", 4, -60, false, true),
     // Decrease-insert should not create duplicate keys.
-    auto ['pop', (4, -60)),
-    auto ['pop', (x, 1)),
+    auto ["pop", (4, -60)),
+    auto ["pop", (x, 1)),
     // Popping all elements should empty the heap.
-    auto ['min', xn::XNetworkError),
-    auto ['pop', xn::XNetworkError),
+    auto ["min", xn::XNetworkError),
+    auto ["pop", xn::XNetworkError),
     // Non-value-changing insert should fail.
-    auto ['insert', x, 0, true),
-    auto ['insert', x, 0, false, false),
-    auto ['min', (x, 0)),
-    auto ['insert', x, 0, true, false),
-    auto ['min', (x, 0)),
+    auto ["insert", x, 0, true),
+    auto ["insert", x, 0, false, false),
+    auto ["min", (x, 0)),
+    auto ["insert", x, 0, true, false),
+    auto ["min", (x, 0)),
     // Failed insert should not create duplicate keys.
-    auto ['pop', (x, 0)),
-    auto ['pop', xn::XNetworkError),
+    auto ["pop", (x, 0)),
+    auto ["pop", xn::XNetworkError),
     // Increase-insert should succeed when allowed.
-    auto ['insert', None, 0, true),
-    auto ['insert', 2, -1, true),
-    auto ['min', (2, -1)),
-    auto ['insert', 2, 1, true, false),
-    auto ['min', (None, 0)),
+    auto ["insert", None, 0, true),
+    auto ["insert", 2, -1, true),
+    auto ["min", (2, -1)),
+    auto ["insert", 2, 1, true, false),
+    auto ["min", (None, 0)),
     // Increase-insert should fail when disallowed.
-    auto ['insert', None, 2, false, false),
-    auto ['min', (None, 0)),
+    auto ["insert", None, 2, false, false),
+    auto ["min", (None, 0)),
     // Failed increase-insert should not create duplicate keys.
-    auto ['pop', (None, 0)),
-    auto ['pop', (2, 1)),
-    auto ['min', xn::XNetworkError),
-    auto ['pop', xn::XNetworkError)];
+    auto ["pop", (None, 0)),
+    auto ["pop", (2, 1)),
+    auto ["min", xn::XNetworkError),
+    auto ["pop", xn::XNetworkError)];
 
 
 auto _test_heap_class(cls, *args, **kwargs) {

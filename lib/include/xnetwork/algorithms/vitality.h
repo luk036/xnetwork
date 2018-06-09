@@ -16,7 +16,7 @@ from functools import partial
 
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['closeness_vitality'];
+static const auto __all__ = ["closeness_vitality"];
 
 
 auto closeness_vitality(G, node=None, weight=None, wiener_index=None) {
@@ -49,9 +49,9 @@ auto closeness_vitality(G, node=None, weight=None, wiener_index=None) {
 
     Returns
     -------
-    dictionary or double
-        If `node` is None, this function returns a dictionary
-        with nodes as keys and closeness vitality as the
+    dictionary || double
+        If `node`.empty(), this function returns a dictionary
+        with nodes as keys && closeness vitality as the
         value. Otherwise, it returns only the closeness vitality for the
         specified `node`.
 
@@ -76,7 +76,7 @@ auto closeness_vitality(G, node=None, weight=None, wiener_index=None) {
            <http://books.google.com/books?id=TTNhSm7HYrIC>
 
      */
-    if (wiener_index is None) {
+    if (wiener_index.empty()) {
         wiener_index = xn::wiener_index(G, weight=weight);
     if (node is not None) {
         after = xn::wiener_index(G.subgraph(set(G) - {node}), weight=weight);

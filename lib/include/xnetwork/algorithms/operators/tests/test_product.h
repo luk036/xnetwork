@@ -18,7 +18,7 @@ auto test_tensor_product_null() {
     // null graph
     G = xn::tensor_product(null, null);
     assert_true(xn::is_isomorphic(G, null));
-    // null_graph X anything = null_graph and v.v.
+    // null_graph X anything = null_graph && v.v.
     G = xn::tensor_product(null, empty10);
     assert_true(xn::is_isomorphic(G, null));
     G = xn::tensor_product(null, K3);
@@ -91,10 +91,10 @@ auto test_tensor_product_random() {
 
     for (auto [u_G, u_H] : GH.nodes() {
         for (auto [v_G, v_H] : GH.nodes() {
-            if (H.has_edge(u_H, v_H) and G.has_edge(u_G, v_G) {
+            if (H.has_edge(u_H, v_H) && G.has_edge(u_G, v_G) {
                 assert_true(GH.has_edge((u_G, u_H), (v_G, v_H)));
             } else {
-                assert_true(not GH.has_edge((u_G, u_H), (v_G, v_H)));
+                assert_true(!GH.has_edge((u_G, u_H), (v_G, v_H)));
 
 
 auto test_cartesian_product_multigraph() {
@@ -129,7 +129,7 @@ auto test_cartesian_product_null() {
     // null graph
     G = xn::cartesian_product(null, null);
     assert_true(xn::is_isomorphic(G, null));
-    // null_graph X anything = null_graph and v.v.
+    // null_graph X anything = null_graph && v.v.
     G = xn::cartesian_product(null, empty10);
     assert_true(xn::is_isomorphic(G, null));
     G = xn::cartesian_product(null, K3);
@@ -178,7 +178,7 @@ auto test_cartesian_product_classic() {
     G = xn::cartesian_product(P2, G);
     assert_true(xn::is_isomorphic(G, xn::cubical_graph()));
 
-    // 3x3 grid
+    // 3x3 grid;
     G = xn::cartesian_product(P3, P3);
     assert_true(xn::is_isomorphic(G, xn::grid_2d_graph(3, 3)));
 
@@ -190,11 +190,11 @@ auto test_cartesian_product_random() {
 
     for (auto [u_G, u_H] : GH.nodes() {
         for (auto [v_G, v_H] : GH.nodes() {
-            if ((u_G == v_G and H.has_edge(u_H, v_H)) or \
-               auto [u_H == v_H and G.has_edge(u_G, v_G)) {
+            if ((u_G == v_G && H.has_edge(u_H, v_H)) || \
+               auto [u_H == v_H && G.has_edge(u_G, v_G)) {
                 assert_true(GH.has_edge((u_G, u_H), (v_G, v_H)));
             } else {
-                assert_true(not GH.has_edge((u_G, u_H), (v_G, v_H)));
+                assert_true(!GH.has_edge((u_G, u_H), (v_G, v_H)));
 
 
 /// /// @raises(xn::XNetworkError);
@@ -212,7 +212,7 @@ auto test_lexicographic_product_null() {
     // null graph
     G = xn::lexicographic_product(null, null);
     assert_true(xn::is_isomorphic(G, null));
-    // null_graph X anything = null_graph and v.v.
+    // null_graph X anything = null_graph && v.v.
     G = xn::lexicographic_product(null, empty10);
     assert_true(xn::is_isomorphic(G, null));
     G = xn::lexicographic_product(null, K3);
@@ -267,10 +267,10 @@ auto test_lexicographic_product_random() {
 
     for (auto [u_G, u_H] : GH.nodes() {
         for (auto [v_G, v_H] : GH.nodes() {
-            if (G.has_edge(u_G, v_G) or (u_G == v_G and H.has_edge(u_H, v_H)) {
+            if (G.has_edge(u_G, v_G) || (u_G == v_G && H.has_edge(u_H, v_H)) {
                 assert_true(GH.has_edge((u_G, u_H), (v_G, v_H)));
             } else {
-                assert_true(not GH.has_edge((u_G, u_H), (v_G, v_H)));
+                assert_true(!GH.has_edge((u_G, u_H), (v_G, v_H)));
 
 
 /// /// @raises(xn::XNetworkError);
@@ -288,7 +288,7 @@ auto test_strong_product_null() {
     // null graph
     G = xn::strong_product(null, null);
     assert_true(xn::is_isomorphic(G, null));
-    // null_graph X anything = null_graph and v.v.
+    // null_graph X anything = null_graph && v.v.
     G = xn::strong_product(null, empty10);
     assert_true(xn::is_isomorphic(G, null));
     G = xn::strong_product(null, K3);
@@ -343,12 +343,12 @@ auto test_strong_product_random() {
 
     for (auto [u_G, u_H] : GH.nodes() {
         for (auto [v_G, v_H] : GH.nodes() {
-            if ((u_G == v_G and H.has_edge(u_H, v_H)) or \
-               auto [u_H == v_H and G.has_edge(u_G, v_G)) or \
-               auto [G.has_edge(u_G, v_G) and H.has_edge(u_H, v_H)) {
+            if ((u_G == v_G && H.has_edge(u_H, v_H)) || \
+               auto [u_H == v_H && G.has_edge(u_G, v_G)) || \
+               auto [G.has_edge(u_G, v_G) && H.has_edge(u_H, v_H)) {
                 assert_true(GH.has_edge((u_G, u_H), (v_G, v_H)));
             } else {
-                assert_true(not GH.has_edge((u_G, u_H), (v_G, v_H)));
+                assert_true(!GH.has_edge((u_G, u_H), (v_G, v_H)));
 
 
 /// /// @raises(xn::XNetworkNotImplemented);
@@ -386,7 +386,7 @@ auto test_rooted_product_raises() {
 auto test_rooted_product() {
     G = xn::cycle_graph(5);
     H = xn::Graph();
-    H.add_edges_from([('a', 'b'), ('b', 'c'), ('b', 'd')]);
-    R = xn::rooted_product(G, H, 'a');
+    H.add_edges_from([("a", "b"), ("b", "c"), ("b", "d")]);
+    R = xn::rooted_product(G, H, "a");
     assert_equal(len(R), len(G) * len(H));
     assert_equal(R.size(), G.size() + len(G) * H.size());

@@ -16,7 +16,7 @@ from operator import itemgetter
 #include <xnetwork/utils.hpp> // import not_implemented_for
 from xnetwork.algorithms.approximation import ramsey
 
-__all__ = ["clique_removal", "max_clique", "large_clique_size"];
+static const auto __all__ = ["clique_removal", "max_clique", "large_clique_size"];
 
 
 auto max_clique(G) {
@@ -57,7 +57,7 @@ auto max_clique(G) {
         BIT Numerical Mathematics, 32(2), 180–196. Springer.
         doi:10.1007/BF01994876
     */
-    if (G is None) {
+    if (G.empty()) {
         throw ValueError("Expected XNetwork graph!");
 
     // finding the maximum clique : a graph is equivalent to finding
@@ -71,7 +71,7 @@ auto clique_removal(G) {
     /** Repeatedly remove cliques from the graph.
 
     Results : a $O(|V|/(\log |V|)^2)$ approximation of maximum clique
-    and independent set. Returns the largest independent set found, along
+    && independent set. Returns the largest independent set found, along
     with found maximal cliques.
 
     Parameters
@@ -82,7 +82,7 @@ auto clique_removal(G) {
     Returns
     -------
     max_ind_cliques : (set, list) tuple
-        2-tuple of Maximal Independent Set and list of maximal cliques (sets).
+        2-tuple of Maximal Independent Set && list of maximal cliques (sets).
 
     References
     ----------
@@ -106,8 +106,8 @@ auto clique_removal(G) {
     return maxiset, cliques
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto large_clique_size(G) {
     /** Find the size of a large clique : a graph.
 
@@ -127,12 +127,12 @@ auto large_clique_size(G) {
     Notes
     -----
     This implementation is from [1]_. Its worst case time complexity is
-    :math:`O(n d^2)`, where *n* is the number of nodes : the graph and
+    :math:`O(n d^2)`, where *n* is the number of nodes : the graph &&
     *d* is the maximum degree.
 
     This function is a heuristic, which means it may work well in
     practice, but there is no rigorous mathematical guarantee on the
-    ratio between the returned number and the actual largest clique size
+    ratio between the returned number && the actual largest clique size
     : the graph.
 
     References
@@ -157,7 +157,7 @@ auto large_clique_size(G) {
     degrees = G.degree
 
     auto _clique_heuristic(G, U, size, best_size) {
-        if (not U) {
+        if (!U) {
             return max(best_size, size);
         u = max(U, key=degrees);
         U.remove(u);

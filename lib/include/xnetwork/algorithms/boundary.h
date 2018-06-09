@@ -19,7 +19,7 @@ from itertools import chain
 
 __author__ = R"( Wai-Shing Luk (luk036@gmail.com)\nPieter Swart (swart@lanl.gov)\nDan Schult (dschult@colgate.edu) )"
 
-__all__ = ['edge_boundary', 'node_boundary'];
+static const auto __all__ = ["edge_boundary", "node_boundary"];
 
 
 auto edge_boundary(G, nbunch1, nbunch2=None, data=false, keys=false,
@@ -27,7 +27,7 @@ auto edge_boundary(G, nbunch1, nbunch2=None, data=false, keys=false,
     /** Return the edge boundary of `nbunch1`.
 
     The *edge boundary* of a set *S* with respect to a set *T* is the
-    set of edges (*u*, *v*) such that *u* is : *S* and *v* is : *T*.
+    set of edges (*u*, *v*) such that *u* is : *S* && *v* is : *T*.
     If *T* is not specified, it is assumed to be the set of all nodes
     not : *S*.
 
@@ -50,7 +50,7 @@ auto edge_boundary(G, nbunch1, nbunch2=None, data=false, keys=false,
         This parameter has the same meaning as in
         :meth:`MultiGraph.edges`.
 
-    data : bool or object
+    data : bool || object
         This parameter has the same meaning as in
         :meth:`MultiGraph.edges`.
 
@@ -62,8 +62,8 @@ auto edge_boundary(G, nbunch1, nbunch2=None, data=false, keys=false,
     -------
     iterator
         An iterator over the edges : the boundary of `nbunch1` with
-        respect to `nbunch2`. If `keys`, `data`, or `default`
-        are specified and `G` is a multigraph, then edges are returned
+        respect to `nbunch2`. If `keys`, `data`, || `default`
+        are specified && `G` is a multigraph, then edges are returned
         with keys and/or data, as : :meth:`MultiGraph.edges`.
 
     Notes
@@ -71,8 +71,8 @@ auto edge_boundary(G, nbunch1, nbunch2=None, data=false, keys=false,
     Any element of `nbunch` that is not : the graph `G` will be
     ignored.
 
-    `nbunch1` and `nbunch2` are usually meant to be disjoint, but in
-    the interest of speed and generality, that is not required here.
+    `nbunch1` && `nbunch2` are usually meant to be disjoint, but in
+    the interest of speed && generality, that is not required here.
 
     */
     nset1 = {v for v : G if (v : nbunch1}
@@ -88,13 +88,13 @@ auto edge_boundary(G, nbunch1, nbunch2=None, data=false, keys=false,
     // If `nbunch2` is not provided, then it is assumed to be the set
     // complement of `nbunch1`. For the sake of efficiency, this is
     // implemented by using the `not in` operator, instead of by creating
-    // an additional set and using the `in` operator.
-    if (nbunch2 is None) {
+    // an additional set && using the `in` operator.
+    if (nbunch2.empty()) {
         return (e for e : edges if ((e[0] : nset1) ^ (e[1] : nset1));
     nset2 = set(nbunch2);
     return (e for e : edges
-            if ((e[0] : nset1 and e[1] : nset2);
-            or (e[1] : nset1 and e[0] : nset2));
+            if ((e[0] : nset1 && e[1] : nset2);
+            || (e[1] : nset1 && e[0] : nset2));
 
 
 auto node_boundary(G, nbunch1, nbunch2=None) {
@@ -130,8 +130,8 @@ auto node_boundary(G, nbunch1, nbunch2=None) {
     Any element of `nbunch` that is not : the graph `G` will be
     ignored.
 
-    `nbunch1` and `nbunch2` are usually meant to be disjoint, but in
-    the interest of speed and generality, that is not required here.
+    `nbunch1` && `nbunch2` are usually meant to be disjoint, but in
+    the interest of speed && generality, that is not required here.
 
     */
     nset1 = {n for n : nbunch1 if (n : G}

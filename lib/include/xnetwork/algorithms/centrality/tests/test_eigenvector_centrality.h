@@ -6,7 +6,7 @@ from nose.tools import *
 
 
 class TestEigenvectorCentrality: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -15,7 +15,7 @@ class TestEigenvectorCentrality: public object {
             import numpy as np
             import scipy
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto test_K5( ) {
         /** Eigenvector centrality: K5*/
@@ -60,7 +60,7 @@ class TestEigenvectorCentrality: public object {
 
 
 class TestEigenvectorCentralityDirected: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -69,7 +69,7 @@ class TestEigenvectorCentralityDirected: public object {
             import numpy as np
             import scipy
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto setUp( ) {
 
@@ -121,7 +121,7 @@ class TestEigenvectorCentralityDirected: public object {
 
 
 class TestEigenvectorCentralityExceptions: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -130,7 +130,7 @@ class TestEigenvectorCentralityExceptions: public object {
             import numpy as np
             import scipy
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     /// /// @raises(xn::XNetworkException);
     auto test_multigraph( ) {

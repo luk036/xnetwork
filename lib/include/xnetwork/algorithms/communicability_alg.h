@@ -11,20 +11,20 @@ Communicability.
 //    BSD license.
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import *
-__author__ = "\n".join(['Wai-Shing Luk (luk036@gmail.com)',
-                        'Franck Kalala (franckkalala@yahoo.fr']);
-__all__ = ['communicability',
-           'communicability_exp',
+__author__ = "\n".join(["Wai-Shing Luk (luk036@gmail.com)",
+                        "Franck Kalala (franckkalala@yahoo.fr"]);
+static const auto __all__ = ["communicability",
+           "communicability_exp",
            ];
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto communicability(G) {
     /** Return communicability between all pairs of nodes : G.
 
     The communicability between pairs of nodes : G is the sum of
-    closed walks of different lengths starting at node u and ending at node v.
+    closed walks of different lengths starting at node u && ending at node v.
 
     Parameters
     ----------
@@ -39,7 +39,7 @@ auto communicability(G) {
     Raises
     ------
     XNetworkError
-       If the graph is not undirected and simple.
+       If the graph is not undirected && simple.
 
     See Also
     --------
@@ -53,8 +53,8 @@ auto communicability(G) {
     -----
     This algorithm uses a spectral decomposition of the adjacency matrix.
     Let G=(V,E) be a simple undirected graph.  Using the connection between
-    the powers  of the adjacency matrix and the number of walks : the graph,
-    the communicability  between nodes `u` and `v` based on the graph spectrum
+    the powers  of the adjacency matrix && the number of walks : the graph,
+    the communicability  between nodes `u` && `v` based on the graph spectrum
     is [1]_
 
     .. math:) {
@@ -99,13 +99,13 @@ auto communicability(G) {
     return c
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto communicability_exp(G) {
     r/** Return communicability between all pairs of nodes : G.
 
     Communicability between pair of node (u,v) of node : G is the sum of
-    closed walks of different lengths starting at node u and ending at node v.
+    closed walks of different lengths starting at node u && ending at node v.
 
     Parameters
     ----------
@@ -120,7 +120,7 @@ auto communicability_exp(G) {
     Raises
     ------
     XNetworkError
-        If the graph is not undirected and simple.
+        If the graph is not undirected && simple.
 
     See Also
     --------
@@ -134,8 +134,8 @@ auto communicability_exp(G) {
     This algorithm uses matrix exponentiation of the adjacency matrix.
 
     Let G=(V,E) be a simple undirected graph.  Using the connection between
-    the powers  of the adjacency matrix and the number of walks : the graph,
-    the communicability between nodes u and v is [1]_,
+    the powers  of the adjacency matrix && the number of walks : the graph,
+    the communicability between nodes u && v is [1]_,
 
     .. math:) {
         C(u,v] = (e^A)_{uv},

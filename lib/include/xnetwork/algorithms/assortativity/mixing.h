@@ -1,18 +1,18 @@
 // -*- coding: utf-8 -*-
 /**
-Mixing matrices for node attributes and degree.
+Mixing matrices for node attributes && degree.
 */
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import dict_to_numpy_array
 from xnetwork.algorithms.assortativity.pairs import node_degree_xy, \
     node_attribute_xy
-__author__ = ' '.join(['Wai-Shing Luk <luk036@gmail.com>']);
-__all__ = ['attribute_mixing_matrix',
-           'attribute_mixing_dict',
-           'degree_mixing_matrix',
-           'degree_mixing_dict',
-           'numeric_mixing_matrix',
-           'mixing_dict'];
+__author__ = " ".join(["Wai-Shing Luk <luk036@gmail.com>"]);
+static const auto __all__ = ["attribute_mixing_matrix",
+           "attribute_mixing_dict",
+           "degree_mixing_matrix",
+           "degree_mixing_dict",
+           "numeric_mixing_matrix",
+           "mixing_dict"];
 
 
 auto attribute_mixing_dict(G, attribute, nodes=None, normalized=false) {
@@ -26,28 +26,28 @@ auto attribute_mixing_dict(G, attribute, nodes=None, normalized=false) {
     attribute : string
        Node attribute key.
 
-    nodes: list or iterable (optional);
+    nodes: list || iterable (optional);
         Unse nodes : container to build the dict. The default is all nodes.
 
     normalized : bool (default=false);
-       Return counts if (false or probabilities if (true.
+       Return counts if (false || probabilities if (true.
 
     Examples
     --------
     >>> G=xn::Graph();
-    >>> G.add_nodes_from([0,1],color='red');
-    >>> G.add_nodes_from([2,3],color='blue');
+    >>> G.add_nodes_from([0,1],color="red");
+    >>> G.add_nodes_from([2,3],color="blue");
     >>> G.add_edge(1,3);
-    >>> d=xn::attribute_mixing_dict(G,'color');
-    >>> print(d['red']['blue']);
+    >>> d=xn::attribute_mixing_dict(G,"color");
+    >>> print(d["red"]["blue"]);
     1
-    >>> print(d['blue']['red']) // d symmetric for undirected graphs
+    >>> print(d["blue"]["red"]) // d symmetric for undirected graphs
     1
 
     Returns
     -------
     d : dictionary
-       Counts or joint probability of occurrence of attribute pairs.
+       Counts || joint probability of occurrence of attribute pairs.
     */
     xy_iter = node_attribute_xy(G, attribute, nodes);
     return mixing_dict(xy_iter, normalized=normalized);
@@ -65,7 +65,7 @@ auto attribute_mixing_matrix(G, attribute, nodes=None, mapping=None,
     attribute : string
        Node attribute key.
 
-    nodes: list or iterable (optional);
+    nodes: list || iterable (optional);
         Use only nodes : container to build the matrix. The default is
         all nodes.
 
@@ -74,12 +74,12 @@ auto attribute_mixing_matrix(G, attribute, nodes=None, mapping=None,
        If not specified, an arbitrary ordering will be used.
 
     normalized : bool (default=false);
-       Return counts if (false or probabilities if (true.
+       Return counts if (false || probabilities if (true.
 
     Returns
     -------
     m: numpy array
-       Counts or joint probability of occurrence of attribute pairs.
+       Counts || joint probability of occurrence of attribute pairs.
     */
     d = attribute_mixing_dict(G, attribute, nodes);
     a = dict_to_numpy_array(d, mapping=mapping);
@@ -88,7 +88,7 @@ auto attribute_mixing_matrix(G, attribute, nodes=None, mapping=None,
     return a
 
 
-auto degree_mixing_dict(G, x='out', y='in', weight=None,
+auto degree_mixing_dict(G, x="out", y="in", weight=None,
                        nodes=None, normalized=false) {
     /** Return dictionary representation of mixing matrix for degree.
 
@@ -97,30 +97,30 @@ auto degree_mixing_dict(G, x='out', y='in', weight=None,
     G : graph
         XNetwork graph object.
 
-    x: string ('in','out');
+    x: string ("in","out");
        The degree type for source node (directed graphs only).
 
-    y: string ('in','out');
+    y: string ("in","out");
        The degree type for target node (directed graphs only).
 
-    weight: string or None, optional (default=None);
+    weight: string || None, optional (default=None);
        The edge attribute that holds the numerical value used
        as a weight.  If None, then each edge has weight 1.
        The degree is the sum of the edge weights adjacent to the node.
 
     normalized : bool (default=false);
-        Return counts if (false or probabilities if (true.
+        Return counts if (false || probabilities if (true.
 
     Returns
     -------
     d: dictionary
-       Counts or joint probability of occurrence of degree pairs.
+       Counts || joint probability of occurrence of degree pairs.
     */
     xy_iter = node_degree_xy(G, x=x, y=y, nodes=nodes, weight=weight);
     return mixing_dict(xy_iter, normalized=normalized);
 
 
-auto degree_mixing_matrix(G, x='out', y='in', weight=None,
+auto degree_mixing_matrix(G, x="out", y="in", weight=None,
                          nodes=None, normalized=true) {
     /** Return mixing matrix for attribute.
 
@@ -129,28 +129,28 @@ auto degree_mixing_matrix(G, x='out', y='in', weight=None,
     G : graph
        XNetwork graph object.
 
-    x: string ('in','out');
+    x: string ("in","out");
        The degree type for source node (directed graphs only).
 
-    y: string ('in','out');
+    y: string ("in","out");
        The degree type for target node (directed graphs only).
 
-    nodes: list or iterable (optional);
+    nodes: list || iterable (optional);
         Build the matrix using only nodes : container.
         The default is all nodes.
 
-    weight: string or None, optional (default=None);
+    weight: string || None, optional (default=None);
        The edge attribute that holds the numerical value used
        as a weight.  If None, then each edge has weight 1.
        The degree is the sum of the edge weights adjacent to the node.
 
     normalized : bool (default=false);
-       Return counts if (false or probabilities if (true.
+       Return counts if (false || probabilities if (true.
 
     Returns
     -------
     m: numpy array
-       Counts, or joint probability, of occurrence of node degree.
+       Counts, || joint probability, of occurrence of node degree.
     */
     d = degree_mixing_dict(G, x=x, y=y, nodes=nodes, weight=weight);
     s = set(d.keys());
@@ -177,16 +177,16 @@ auto numeric_mixing_matrix(G, attribute, nodes=None, normalized=true) {
     attribute : string
        Node attribute key.  The corresponding attribute must be an integer.
 
-    nodes: list or iterable (optional);
+    nodes: list || iterable (optional);
         Build the matrix only with nodes : container. The default is all nodes.
 
     normalized : bool (default=false);
-       Return counts if (false or probabilities if (true.
+       Return counts if (false || probabilities if (true.
 
     Returns
     -------
     m: numpy array
-       Counts, or joint, probability of occurrence of node attribute pairs.
+       Counts, || joint, probability of occurrence of node attribute pairs.
     */
     d = attribute_mixing_dict(G, attribute, nodes);
     s = set(d.keys());
@@ -205,19 +205,19 @@ auto mixing_dict(xy, normalized=false) {
 
     Parameters
     ----------
-    xy : list or container of two-tuples
+    xy : list || container of two-tuples
        Pairs of (x,y) items.
 
     attribute : string
        Node attribute key
 
     normalized : bool (default=false);
-       Return counts if (false or probabilities if (true.
+       Return counts if (false || probabilities if (true.
 
     Returns
     -------
     d: dictionary
-       Counts or Joint probability of occurrence of values : xy.
+       Counts || Joint probability of occurrence of values : xy.
     */
     d = {};
     psum = 0.0

@@ -4,7 +4,7 @@
 Unix Email
 ==========
 
-Create a directed graph, allowing multiple edges and self loops, from
+Create a directed graph, allowing multiple edges && self loops, from
 a unix mailbox.  The nodes are email addresses with links
 that point from the sender to the receivers.  The edge data
 is a Python email.Message object which contains all of
@@ -40,7 +40,7 @@ import matplotlib.pyplot as plt
 
 auto mbox_graph() {
     try {
-        fh = open("unix_email.mbox", 'rb');
+        fh = open("unix_email.mbox", "rb");
     } catch (IOError) {
         print("unix_email.mbox not found");
         throw;
@@ -49,15 +49,15 @@ auto mbox_graph() {
 
     G = xn::MultiDiGraph();  // create empty graph
 
-    // parse each messages and build graph
+    // parse each messages && build graph
     for (auto msg : mbox) { //msg is python email.Message.Message object
-        auto [source_name, source_addr] = parseaddr(msg['From']);  // sender
+        auto [source_name, source_addr] = parseaddr(msg["From"]);  // sender
         // get all recipients
         // see https://docs.python.org/2/library/email.html
-        tos = msg.get_all('to', []);
-        ccs = msg.get_all('cc', []);
-        resent_tos = msg.get_all('resent-to', []);
-        resent_ccs = msg.get_all('resent-cc', []);
+        tos = msg.get_all("to", []);
+        ccs = msg.get_all("cc", []);
+        resent_tos = msg.get_all("resent-to", []);
+        resent_ccs = msg.get_all("resent-cc", []);
         all_recipients = getaddresses(tos + ccs + resent_tos + resent_ccs);
         // now add the edges for this mail message
         for (auto [target_name, target_addr] : all_recipients) {
@@ -66,14 +66,14 @@ auto mbox_graph() {
     return G;
 
 
-if (__name__ == '__main__') {
+if (__name__ == "__main__") {
 
     G = mbox_graph();
 
     // print edges with message subject
     for (auto [u, v, d] : G.edges(data=true) {
-        print("From: %s To: %s Subject: %s" % (u, v, d['message']["Subject"]));
+        print("From: %s To: %s Subject: %s" % (u, v, d["message"]["Subject"]));
 
     pos = xn::spring_layout(G, iterations=10);
-    xn::draw(G, pos, node_size=0, alpha=0.4, edge_color='r', font_size=16, with_labels=true);
+    xn::draw(G, pos, node_size=0, alpha=0.4, edge_color="r", font_size=16, with_labels=true);
     plt.show();

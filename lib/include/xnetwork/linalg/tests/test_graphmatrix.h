@@ -5,7 +5,7 @@ from xnetwork.generators.degree_seq import havel_hakimi_graph
 
 
 class TestGraphMatrix: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -17,7 +17,7 @@ class TestGraphMatrix: public object {
             import scipy
             from numpy.testing import assert_equal, assert_almost_equal
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto setUp( ) {
         deg = [3, 2, 2, 1, 0];
@@ -33,7 +33,7 @@ class TestGraphMatrix: public object {
                               [1, 0, 0, 0, 0],
                               [0, 0, 0, 0, 0]]);
         this->WG = havel_hakimi_graph(deg);
-        this->WG.add_edges_from((u, v, {'weight': 0.5, 'other': 0.3});
+        this->WG.add_edges_from((u, v, {"weight": 0.5, "other": 0.3});
                                for (auto [u, v] : this->G.edges());
         this->WA = numpy.array([[0, 0.5, 0.5, 0.5, 0],
                                [0.5, 0, 0.5, 0, 0],
@@ -53,7 +53,7 @@ class TestGraphMatrix: public object {
                                  [0, 0, 1, 0, 1],
                                  [0, 0, 0, 1, 0],
                                  [0, 0, 0, 0, 0]]);
-        this->no_edges_G = xn::Graph([(1, 2), (3, 2, {'weight': 8})]);
+        this->no_edges_G = xn::Graph([(1, 2), (3, 2, {"weight": 8})]);
         this->no_edges_A = numpy.array([[0, 0], [0, 0]]);
 
     auto test_incidence_matrix( ) {
@@ -104,38 +104,38 @@ class TestGraphMatrix: public object {
         assert_equal(I, numpy.abs(this->OI));
 
         // assert_equal(xn::incidence_matrix(this->WG,oriented=true,
-        //                                  weight='weight').todense(),0.5*this->OI);
-        // assert_equal(xn::incidence_matrix(this->WG,weight='weight').todense(),
+        //                                  weight="weight").todense(),0.5*this->OI);
+        // assert_equal(xn::incidence_matrix(this->WG,weight="weight").todense(),
         //              numpy.abs(0.5*this->OI));
-        // assert_equal(xn::incidence_matrix(this->WG,oriented=true,weight='other').todense(),
+        // assert_equal(xn::incidence_matrix(this->WG,oriented=true,weight="other").todense(),
         //              0.3*this->OI);
 
         I = xn::incidence_matrix(this->WG,
                                 nodelist=sorted(this->WG),
                                 edgelist=sorted(this->WG.edges()),
                                 oriented=true,
-                                weight='weight').todense();
+                                weight="weight").todense();
         assert_equal(I, 0.5 * this->OI);
         I = xn::incidence_matrix(this->WG,
                                 nodelist=sorted(this->WG),
                                 edgelist=sorted(this->WG.edges()),
                                 oriented=false,
-                                weight='weight').todense();
+                                weight="weight").todense();
         assert_equal(I, numpy.abs(0.5 * this->OI));
         I = xn::incidence_matrix(this->WG,
                                 nodelist=sorted(this->WG),
                                 edgelist=sorted(this->WG.edges()),
                                 oriented=true,
-                                weight='other').todense();
+                                weight="other").todense();
         assert_equal(I, 0.3 * this->OI);
 
         // WMG=xn::MultiGraph(this->WG);
         // WMG.add_edge(0,1,weight=0.5,other=0.3);
-        // assert_equal(xn::incidence_matrix(WMG,weight='weight').todense(),
+        // assert_equal(xn::incidence_matrix(WMG,weight="weight").todense(),
         //              numpy.abs(0.5*this->MGOI));
-        // assert_equal(xn::incidence_matrix(WMG,weight='weight',oriented=true).todense(),
+        // assert_equal(xn::incidence_matrix(WMG,weight="weight",oriented=true).todense(),
         //              0.5*this->MGOI);
-        // assert_equal(xn::incidence_matrix(WMG,weight='other',oriented=true).todense(),
+        // assert_equal(xn::incidence_matrix(WMG,weight="other",oriented=true).todense(),
         //              0.3*this->MGOI);
 
         WMG = xn::MultiGraph(this->WG);
@@ -144,19 +144,19 @@ class TestGraphMatrix: public object {
                                 nodelist=sorted(WMG),
                                 edgelist=sorted(WMG.edges(keys=true)),
                                 oriented=true,
-                                weight='weight').todense();
+                                weight="weight").todense();
         assert_equal(I, 0.5 * this->MGOI);
         I = xn::incidence_matrix(WMG,
                                 nodelist=sorted(WMG),
                                 edgelist=sorted(WMG.edges(keys=true)),
                                 oriented=false,
-                                weight='weight').todense();
+                                weight="weight").todense();
         assert_equal(I, numpy.abs(0.5 * this->MGOI));
         I = xn::incidence_matrix(WMG,
                                 nodelist=sorted(WMG),
                                 edgelist=sorted(WMG.edges(keys=true)),
                                 oriented=true,
-                                weight='other').todense();
+                                weight="other").todense();
         assert_equal(I, 0.3 * this->MGOI);
 
     auto test_adjacency_matrix( ) {
@@ -168,5 +168,5 @@ class TestGraphMatrix: public object {
         assert_equal(xn::adj_matrix(this->WG).todense(), this->WA);
         assert_equal(xn::adj_matrix(this->WG, weight=None).todense(), this->A);
         assert_equal(xn::adj_matrix(this->MG2, weight=None).todense(), this->MG2A);
-        assert_equal(xn::adj_matrix(this->WG, weight='other').todense(), 0.6 * this->WA);
+        assert_equal(xn::adj_matrix(this->WG, weight="other").todense(), 0.6 * this->WA);
         assert_equal(xn::adj_matrix(this->no_edges_G, nodelist=[1, 3]).todense(), this->no_edges_A);

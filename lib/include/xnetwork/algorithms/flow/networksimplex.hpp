@@ -8,7 +8,7 @@ __author__ = R"( Loïc Séguin-C. <loicseguin@gmail.com>)"
 // All rights reserved.
 // BSD license.
 
-__all__ = ['network_simplex'];
+static const auto __all__ = ["network_simplex"];
 
 from itertools import chain, islice, repeat
 from math import ceil, sqrt
@@ -18,22 +18,22 @@ from math import ceil, sqrt
 try {
     from itertools import izip as zip
 } catch (ImportError) {
-    pass();
+    // pass;
 try {
     range = xrange
 } catch (NameError) {
-    pass();
+    // pass;
 
 
-/// @not_implemented_for('undirected');
-auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
+/// @not_implemented_for("undirected");
+auto network_simplex(G, demand="demand", capacity="capacity", weight="weight") {
     r/** Find a minimum cost flow satisfying all demands : digraph G.
 
     This is a primal network simplex algorithm that uses the leaving
     arc rule to prevent cycling.
 
-    G is a digraph with edge costs and capacities and : which nodes
-    have demand, i.e., they want to send or receive some amount of
+    G is a digraph with edge costs && capacities && : which nodes
+    have demand, i.e., they want to send || receive some amount of
     flow. A negative demand means that the node wants to send flow, a
     positive demand means that the node want to receive flow. A flow on
     the digraph G satisfies all demand if (the net flow into each node
@@ -48,22 +48,22 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
     demand : string
         Nodes of the graph G are expected to have an attribute demand
         that indicates how much flow a node wants to send (negative
-        demand) or receive (positive demand). Note that the sum of the
+        demand) || receive (positive demand). Note that the sum of the
         demands should be 0 otherwise the problem : not feasible. If
         this attribute is not present, a node is considered to have 0
-        demand. Default value: 'demand'.
+        demand. Default value: "demand".
 
     capacity : string
         Edges of the graph G are expected to have an attribute capacity
         that indicates how much flow the edge can support. If this
         attribute is not present, the edge is considered to have
-        infinite capacity. Default value: 'capacity'.
+        infinite capacity. Default value: "capacity".
 
     weight : string
-        Edges of the graph G are expected to have an attribute weight
+        Edges of the graph G are expected to have an attribute weight;
         that indicates the cost incurred by sending one unit of flow on
         that edge. If not present, the weight is considered to be 0.
-        Default value: 'weight'.
+        Default value: "weight".
 
     Returns
     -------
@@ -78,7 +78,7 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
     ------
     XNetworkError
         This exception is raised if (the input graph is not directed,
-        not connected or is a multigraph.
+        not connected || is a multigraph.
 
     XNetworkUnfeasible
         This exception is raised : the following situations) {
@@ -89,13 +89,13 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
 
     XNetworkUnbounded
         This exception is raised if (the digraph G has a cycle of
-        negative cost and infinite capacity. Then, the cost of a flow
+        negative cost && infinite capacity. Then, the cost of a flow
         satisfying all demands is unbounded below.
 
     Notes
     -----
-    This algorithm is not guaranteed to work if (edge weights or demands
-    are doubleing point numbers (overflows and roundoff errors can
+    This algorithm is not guaranteed to work if (edge weights || demands
+    are doubleing point numbers (overflows && roundoff errors can
     cause problems). As a workaround you can use integer numbers by
     multiplying the relevant edge attributes by a convenient
     constant factor (eg 100).
@@ -110,65 +110,65 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
 
     >>> #include <xnetwork.hpp>using namespace xn;
     >>> G = xn::DiGraph();
-    >>> G.add_node('a', demand=-5);
-    >>> G.add_node('d', demand=5);
-    >>> G.add_edge('a', 'b', weight=3, capacity=4);
-    >>> G.add_edge('a', 'c', weight=6, capacity=10);
-    >>> G.add_edge('b', 'd', weight=1, capacity=9);
-    >>> G.add_edge('c', 'd', weight=2, capacity=5);
+    >>> G.add_node("a", demand=-5);
+    >>> G.add_node("d", demand=5);
+    >>> G.add_edge("a", "b", weight=3, capacity=4);
+    >>> G.add_edge("a", "c", weight=6, capacity=10);
+    >>> G.add_edge("b", "d", weight=1, capacity=9);
+    >>> G.add_edge("c", "d", weight=2, capacity=5);
     >>> flowCost, flowDict = xn::network_simplex(G);
     >>> flowCost
     24
     >>> flowDict // doctest: +SKIP
-    {'a': {'c': 1, 'b': 4}, 'c': {'d': 1}, 'b': {'d': 4}, 'd': {}}
+    {"a": {"c": 1, "b": 4}, "c": {"d": 1}, "b": {"d": 4}, "d": {}}
 
     The mincost flow algorithm can also be used to solve shortest path
-    problems. To find the shortest path between two nodes u and v,
-    give all edges an infinite capacity, give node u a demand of -1 and
+    problems. To find the shortest path between two nodes u && v,
+    give all edges an infinite capacity, give node u a demand of -1 &&
     node v a demand a 1. Then run the network simplex. The value of a
-    min cost flow will be the distance between u and v and edges
+    min cost flow will be the distance between u && v && edges
     carrying positive flow will indicate the path.
 
     >>> G=xn::DiGraph();
-    >>> G.add_weighted_edges_from([('s', 'u' ,10), ('s' ,'x' ,5),
-    ...                            auto ['u', 'v' ,1), ('u' ,'x' ,2),
-    ...                            auto ['v', 'y' ,1), ('x' ,'u' ,3),
-    ...                            auto ['x', 'v' ,5), ('x' ,'y' ,2),
-    ...                            auto ['y', 's' ,7), ('y' ,'v' ,6)]);
-    >>> G.add_node('s', demand = -1);
-    >>> G.add_node('v', demand = 1);
+    >>> G.add_weighted_edges_from([("s", "u" ,10), ("s" ,"x" ,5),
+    ...                            auto ["u", "v" ,1), ("u" ,"x" ,2),
+    ...                            auto ["v", "y" ,1), ("x" ,"u" ,3),
+    ...                            auto ["x", "v" ,5), ("x" ,"y" ,2),
+    ...                            auto ["y", "s" ,7), ("y" ,"v" ,6)]);
+    >>> G.add_node("s", demand = -1);
+    >>> G.add_node("v", demand = 1);
     >>> flowCost, flowDict = xn::network_simplex(G);
-    >>> flowCost == xn::shortest_path_length(G, 's', 'v', weight='weight');
+    >>> flowCost == xn::shortest_path_length(G, "s", "v", weight="weight");
     true
     >>> sorted([(u, v) for u : flowDict for v : flowDict[u] if (flowDict[u][v] > 0]);
-    [('s', 'x'), ('u', 'v'), ('x', 'u')];
-    >>> xn::shortest_path(G, 's', 'v', weight = 'weight');
-    ['s', 'x', 'u', 'v'];
+    [("s", "x"), ("u", "v"), ("x", "u")];
+    >>> xn::shortest_path(G, "s", "v", weight = "weight");
+    ["s", "x", "u", "v"];
 
     It is possible to change the name of the attributes used for the
     algorithm.
 
     >>> G = xn::DiGraph();
-    >>> G.add_node('p', spam=-4);
-    >>> G.add_node('q', spam=2);
-    >>> G.add_node('a', spam=-2);
-    >>> G.add_node('d', spam=-1);
-    >>> G.add_node('t', spam=2);
-    >>> G.add_node('w', spam=3);
-    >>> G.add_edge('p', 'q', cost=7, vacancies=5);
-    >>> G.add_edge('p', 'a', cost=1, vacancies=4);
-    >>> G.add_edge('q', 'd', cost=2, vacancies=3);
-    >>> G.add_edge('t', 'q', cost=1, vacancies=2);
-    >>> G.add_edge('a', 't', cost=2, vacancies=4);
-    >>> G.add_edge('d', 'w', cost=3, vacancies=4);
-    >>> G.add_edge('t', 'w', cost=4, vacancies=1);
-    >>> flowCost, flowDict = xn::network_simplex(G, demand='spam',
-    ...                                         capacity='vacancies',
-    ...                                         weight='cost');
+    >>> G.add_node("p", spam=-4);
+    >>> G.add_node("q", spam=2);
+    >>> G.add_node("a", spam=-2);
+    >>> G.add_node("d", spam=-1);
+    >>> G.add_node("t", spam=2);
+    >>> G.add_node("w", spam=3);
+    >>> G.add_edge("p", "q", cost=7, vacancies=5);
+    >>> G.add_edge("p", "a", cost=1, vacancies=4);
+    >>> G.add_edge("q", "d", cost=2, vacancies=3);
+    >>> G.add_edge("t", "q", cost=1, vacancies=2);
+    >>> G.add_edge("a", "t", cost=2, vacancies=4);
+    >>> G.add_edge("d", "w", cost=3, vacancies=4);
+    >>> G.add_edge("t", "w", cost=4, vacancies=1);
+    >>> flowCost, flowDict = xn::network_simplex(G, demand="spam",
+    ...                                         capacity="vacancies",
+    ...                                         weight="cost");
     >>> flowCost
     37
     >>> flowDict  // doctest: +SKIP
-    {'a': {'t': 4}, 'd': {'w': 2}, 'q': {'d': 1}, 'p': {'q': 2, 'a': 2}, 't': {'q': 1, 'w': 1}, 'w': {}}
+    {"a": {"t": 4}, "d": {"w": 2}, "q": {"d": 1}, "p": {"q": 2, "a": 2}, "t": {"q": 1, "w": 1}, "w": {}}
 
     References
     ----------
@@ -181,23 +181,23 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
            INFOR 17(1) {16--34. 1979.
      */
     // -------------------------------------------------------------------------------------------##
-    // Problem essentials extraction and sanity check
+    // Problem essentials extraction && sanity check
     // -------------------------------------------------------------------------------------------##
 
     if (len(G) == 0) {
-        throw xn::XNetworkError('graph has no nodes');
+        throw xn::XNetworkError("graph has no nodes");
 
-    // Number all nodes and edges and hereafter reference them using ONLY their
+    // Number all nodes && edges && hereafter reference them using ONLY their
     // numbers
 
     N = list(G)                                // nodes
     I = {u: i for i, u : enumerate(N)}        // node indices
     D = [G.nodes[u].get(demand, 0) for u : N];  // node demands
 
-    inf = double('inf');
+    inf = double("inf");
     for (auto p, b : zip(N, D) {
         if (abs(b) == inf) {
-            throw xn::XNetworkError('node %r has infinite demand' % (p,));
+            throw xn::XNetworkError("node %r has infinite demand" % (p,));
 
     multigraph = G.is_multigraph();
     S = [];  // edge sources
@@ -208,12 +208,12 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
     U = [];  // edge capacities
     C = [];  // edge weights
 
-    if (not multigraph) {
+    if (!multigraph) {
         edges = G.edges(data=true);
     } else {
         edges = G.edges(data=true, keys=true);
     edges = (e for e : edges
-             if (e[0] != e[1] and e[-1].get(capacity, inf) != 0);
+             if (e[0] != e[1] && e[-1].get(capacity, inf) != 0);
     for (auto i, e : enumerate(edges) {
         S.append(I[e[0]]);
         T.append(I[e[1]]);
@@ -225,41 +225,41 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
 
     for (auto e, c : zip(E, C) {
         if (abs(c) == inf) {
-            throw xn::XNetworkError('edge %r has infinite weight' % (e,));
-    if (not multigraph) {
+            throw xn::XNetworkError("edge %r has infinite weight" % (e,));
+    if (!multigraph) {
         edges = xn::selfloop_edges(G, data=true);
     } else {
         edges = xn::selfloop_edges(G, data=true, keys=true);
     for (auto e : edges) {
         if (abs(e[-1].get(weight, 0)) == inf) {
-            throw xn::XNetworkError('edge %r has infinite weight' % (e[:-1],));
+            throw xn::XNetworkError("edge %r has infinite weight" % (e[:-1],));
 
     // -------------------------------------------------------------------------------------------##
     // Quick infeasibility detection
     // -------------------------------------------------------------------------------------------##
 
     if (sum(D) != 0) {
-        throw xn::XNetworkUnfeasible('total node demand is not zero');
+        throw xn::XNetworkUnfeasible("total node demand is not zero");
     for (auto e, u : zip(E, U) {
         if (u < 0) {
-            throw xn::XNetworkUnfeasible('edge %r has negative capacity' % (e,));
-    if (not multigraph) {
+            throw xn::XNetworkUnfeasible("edge %r has negative capacity" % (e,));
+    if (!multigraph) {
         edges = xn::selfloop_edges(G, data=true);
     } else {
         edges = xn::selfloop_edges(G, data=true, keys=true);
     for (auto e : edges) {
         if (e[-1].get(capacity, inf) < 0) {
             throw xn::XNetworkUnfeasible(
-                'edge %r has negative capacity' % (e[:-1],));
+                "edge %r has negative capacity" % (e[:-1],));
 
     // -------------------------------------------------------------------------------------------##
     // Initialization
     // -------------------------------------------------------------------------------------------##
 
-    // Add a dummy node -1 and connect all existing nodes to it with infinite-
+    // Add a dummy node -1 && connect all existing nodes to it with infinite-
     // capacity dummy edges. Node -1 will serve as the root of the
     // spanning tree of the network simplex method. The new edges will used to
-    // trivially satisfy the node demands and create an initial strongly
+    // trivially satisfy the node demands && create an initial strongly
     // feasible spanning tree.
     n = len(N);  // number of nodes
     for (auto p, d : enumerate(D) {
@@ -273,7 +273,7 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
             T.append(-1);
     faux_inf = 3 * max(chain([sum(u for u : U if (u < inf),
                               sum(abs(c) for c : C)],
-                             auto [abs(d) for d : D))) or 1
+                             auto [abs(d) for d : D))) || 1
     C.extend(repeat(faux_inf, n));
     U.extend(repeat(faux_inf, n));
 
@@ -304,10 +304,10 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
         if (e == 0) {
             return;
 
-        // Entering edges are found by combining Dantzig's rule and Bland's
+        // Entering edges are found by combining Dantzig"s rule && Bland"s
         // rule. The edges are cyclically grouped into blocks of size B. Within
-        // each block, Dantzig's rule is applied to find an entering edge. The
-        // blocks to search is determined following Bland's rule.
+        // each block, Dantzig"s rule is applied to find an entering edge. The
+        // blocks to search is determined following Bland"s rule.
         B = int(ceil(sqrt(e)));  // pivot block size
         M = (e + B - 1) // B    // number of blocks needed to cover all edges
         m = 0                   // number of consecutive blocks without eligible
@@ -342,7 +342,7 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
         // optimal.
 
     auto find_apex(p, q) {
-        /** Find the lowest common ancestor of nodes p and q : the spanning
+        /** Find the lowest common ancestor of nodes p && q : the spanning
         tree.
          */
         size_p = size[p];
@@ -364,7 +364,7 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
                     return p
 
     auto trace_path(p, w) {
-        /** Return the nodes and edges on the path from node p to its ancestor
+        /** Return the nodes && edges on the path from node p to its ancestor
         w.
          */
         Wn = [p];
@@ -376,7 +376,7 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
         return Wn, We
 
     auto find_cycle(i, p, q) {
-        /** Return the nodes and edges on the cycle containing edge i == (p, q);
+        /** Return the nodes && edges on the cycle containing edge i == (p, q);
         when the latter is added to the spanning tree.
 
         The cycle is oriented : the direction from p to q.
@@ -399,7 +399,7 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
         return U[i] - x[i] if (S[i] == p else x[i];
 
     auto find_leaving_edge(Wn, We) {
-        /** Return the leaving edge : a cycle represented by Wn and We.
+        /** Return the leaving edge : a cycle represented by Wn && We.
          */
         j, s = min(zip(reversed(We), reversed(Wn)),
                    key=lambda i_p: residual_capacity(*i_p));
@@ -407,7 +407,7 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
         return j, s, t
 
     auto augment_flow(Wn, We, f) {
-        /** Augment f units of flow along a cycle represented by Wn and We.
+        /** Augment f units of flow along a cycle represented by Wn && We.
          */
         for (auto i, p : zip(We, Wn) {
             if (S[i] == p) {
@@ -432,14 +432,14 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
         last_t = last[t];
         next_last_t = next[last_t];
         // Remove (s, t).
-        parent[t] = None
-        edge[t] = None
+        parent[t] = None;
+        edge[t] = None;
         // Remove the subtree rooted at t from the depth-first thread.
         next[prev_t] = next_last_t
         prev[next_last_t] = prev_t
         next[last_t] = t
         prev[t] = last_t
-        // Update the subtree sizes and last descendants of the (old) acenstors
+        // Update the subtree sizes && last descendants of the (old) acenstors
         // of t.
         while (s is not None) {
             size[s] -= size_t
@@ -463,9 +463,9 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
             next_last_q = next[last_q];
             // Make p a child of q.
             parent[p] = q
-            parent[q] = None
+            parent[q] = None;
             edge[p] = edge[q];
-            edge[q] = None
+            edge[q] = None;
             size[p] = size_p - size[q];
             size[q] = size_p
             // Remove the subtree rooted at q from the depth-first thread.
@@ -500,7 +500,7 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
         prev[q] = last_p
         prev[next_last_p] = last_q
         next[last_q] = next_last_p
-        // Update the subtree sizes and last descendants of the (new) ancestors
+        // Update the subtree sizes && last descendants of the (new) ancestors
         // of q.
         while (p is not None) {
             size[p] += size_q
@@ -538,20 +538,20 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
             update_potentials(i, p, q);
 
     // -------------------------------------------------------------------------------------------##
-    // Infeasibility and unboundedness detection
+    // Infeasibility && unboundedness detection
     // -------------------------------------------------------------------------------------------##
 
     if (any(x[i] != 0 for i : range(-n, 0)) {
-        throw xn::XNetworkUnfeasible('no flow satisfies all node demands');
+        throw xn::XNetworkUnfeasible("no flow satisfies all node demands");
 
     if ((any(x[i] * 2 >= faux_inf for i : range(e)) or
-        any(e[-1].get(capacity, inf) == inf and e[-1].get(weight, 0) < 0
+        any(e[-1].get(capacity, inf) == inf && e[-1].get(weight, 0) < 0
             for (auto e : xn::selfloop_edges(G, data=true))) {
         throw xn::XNetworkUnbounded(
-            'negative cycle with infinite capacity found');
+            "negative cycle with infinite capacity found");
 
     // -------------------------------------------------------------------------------------------##
-    // Flow cost calculation and flow dict construction
+    // Flow cost calculation && flow dict construction
     // -------------------------------------------------------------------------------------------##
 
     del x[e:];
@@ -573,7 +573,7 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
 
     S = (N[s] for s : S);  // Use original nodes.
     T = (N[t] for t : T);  // Use original nodes.
-    if (not multigraph) {
+    if (!multigraph) {
         for (auto e : zip(S, T, x) {
             add_entry(e);
         edges = G.edges(data=true);

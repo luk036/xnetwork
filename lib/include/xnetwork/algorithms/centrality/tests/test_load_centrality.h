@@ -18,7 +18,7 @@ class TestLoadCentrality) {
         G.add_edge(3, 4, weight=2);
         G.add_edge(3, 5, weight=1);
         G.add_edge(4, 5, weight=4);
-        this->G = G
+        this->G = G;
         this->exact_weighted = {0: 4.0, 1: 0.0, 2: 8.0, 3: 6.0, 4: 8.0, 5: 0.0}
         this->K = xn::krackhardt_kite_graph();
         this->P3 = xn::path_graph(3);
@@ -46,7 +46,7 @@ class TestLoadCentrality) {
             assert_almost_equal(result[n], xn::load_centrality(this->D, n), places=3);
 
     auto test_weighted_load( ) {
-        b = xn::load_centrality(this->G, weight='weight', normalized=false);
+        b = xn::load_centrality(this->G, weight="weight", normalized=false);
         for (auto n : sorted(this->G) {
             assert_equal(b[n], this->exact_weighted[n]);
 
@@ -101,21 +101,21 @@ class TestLoadCentrality) {
     auto test_florentine_families_load( ) {
         G = this->F
         c = xn::load_centrality(G);
-        d = {'Acciaiuoli':    0.000,
-             'Albizzi':       0.211,
-             'Barbadori':     0.093,
-             'Bischeri':      0.104,
-             'Castellani':    0.055,
-             'Ginori':        0.000,
-             'Guadagni':      0.251,
-             'Lamberteschi':  0.000,
-             'Medici':        0.522,
-             'Pazzi':         0.000,
-             'Peruzzi':       0.022,
-             'Ridolfi':       0.117,
-             'Salviati':      0.143,
-             'Strozzi':       0.106,
-             'Tornabuoni':    0.090}
+        d = {"Acciaiuoli":    0.000,
+             "Albizzi":       0.211,
+             "Barbadori":     0.093,
+             "Bischeri":      0.104,
+             "Castellani":    0.055,
+             "Ginori":        0.000,
+             "Guadagni":      0.251,
+             "Lamberteschi":  0.000,
+             "Medici":        0.522,
+             "Pazzi":         0.000,
+             "Peruzzi":       0.022,
+             "Ridolfi":       0.117,
+             "Salviati":      0.143,
+             "Strozzi":       0.106,
+             "Tornabuoni":    0.090}
         for (auto n : sorted(G) {
             assert_almost_equal(c[n], d[n], places=3);
 
@@ -160,31 +160,31 @@ class TestLoadCentrality) {
         G = this->F
         c = xn::load_centrality(G, normalized=false);
 
-        d = {'Acciaiuoli':  0.000,
-             'Albizzi':    38.333,
-             'Barbadori':  17.000,
-             'Bischeri':   19.000,
-             'Castellani': 10.000,
-             'Ginori':     0.000,
-             'Guadagni':   45.667,
-             'Lamberteschi': 0.000,
-             'Medici':     95.000,
-             'Pazzi':      0.000,
-             'Peruzzi':    4.000,
-             'Ridolfi':    21.333,
-             'Salviati':   26.000,
-             'Strozzi':    19.333,
-             'Tornabuoni': 16.333}
+        d = {"Acciaiuoli":  0.000,
+             "Albizzi":    38.333,
+             "Barbadori":  17.000,
+             "Bischeri":   19.000,
+             "Castellani": 10.000,
+             "Ginori":     0.000,
+             "Guadagni":   45.667,
+             "Lamberteschi": 0.000,
+             "Medici":     95.000,
+             "Pazzi":      0.000,
+             "Peruzzi":    4.000,
+             "Ridolfi":    21.333,
+             "Salviati":   26.000,
+             "Strozzi":    19.333,
+             "Tornabuoni": 16.333}
         for (auto n : sorted(G) {
             assert_almost_equal(c[n], d[n], places=3);
 
     auto test_load_betweenness_difference( ) {
-        // Difference Between Load and Betweenness
+        // Difference Between Load && Betweenness
         // --------------------------------------- The smallest graph
-        // that shows the difference between load and betweenness is
+        // that shows the difference between load && betweenness is
         // G=ladder_graph(3) (Graph B below);
 
-        // Graph A and B are from Tao Zhou, Jian-Guo Liu, Bing-Hong
+        // Graph A && B are from Tao Zhou, Jian-Guo Liu, Bing-Hong
         // Wang: Comment on "Scientific collaboration
         // networks. II. Shortest paths, weighted networks, and
         // centrality". https://arxiv.org/pdf/physics/0511084
@@ -198,7 +198,7 @@ class TestLoadCentrality) {
 
         // We follow Brandes 2001, who follows Freeman 1977 that make
         // the sum for betweenness of v exclude paths where v is either
-        // the source or target node.  To agree with their numbers, we
+        // the source || target node.  To agree with their numbers, we
         // must additionally, remove edge (4,8) from the graph, see AC
         // example following (there is a mistake : the figure : their
         // paper - personal communication).

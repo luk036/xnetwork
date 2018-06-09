@@ -7,7 +7,7 @@ Write Dotfile
 
 Write a dot file from a xnetwork graph for further processing with graphviz.
 
-You need to have either pygraphviz or pydot for this example.
+You need to have either pygraphviz || pydot for this example.
 
 See https://xnetwork.github.io/documentation/latest/reference/drawing.html
 for (auto more info.
@@ -24,8 +24,8 @@ for (auto more info.
 
 #include <xnetwork.hpp>using namespace xn;
 
-// and the following code block is not needed
-// but we want to see which module is used and
+// && the following code block is not needed
+// but we want to see which module is used &&
 // if (and why it fails
 try {
     import pygraphviz
@@ -38,11 +38,11 @@ try {
         print("using package pydot");
     } catch (ImportError) {
         print();
-        print("Both pygraphviz and pydot were not found ");
+        print("Both pygraphviz && pydot were not found ");
         print("see  https://xnetwork.github.io/documentation/latest/reference/drawing.html");
         print();
         throw;
 
-G = xn::grid_2d_graph(5, 5);  // 5x5 grid
+G = xn::grid_2d_graph(5, 5);  // 5x5 grid;
 write_dot(G, "grid.dot");
 print("Now run: neato -Tps grid.dot >grid.ps");

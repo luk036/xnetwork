@@ -18,11 +18,11 @@ class TestPydot: public object {
     auto setupClass(cls) {
         /** 
         Fixture defining the `pydot` global to be the `pydot` module if (both
-        importable and of sufficient version _or_ skipping this test.
+        importable && of sufficient version _or_ skipping this test.
          */
         global pydot
         pydot = xn::nx_pydot.setup_module(sys.modules[__name__]);
-        assert pydot is not None
+        assert pydot is not None;
 
     auto pydot_checks( G, prog) {
         /** 
@@ -32,11 +32,11 @@ class TestPydot: public object {
 
         // Set the name of this graph to... "G". Failing to do so will
         // subsequently trip an assertion expecting this name.
-        G.graph['name'] = 'G';
+        G.graph["name"] = "G";
 
-        // Add arbitrary nodes and edges to the passed empty graph.
-        G.add_edges_from([('A', 'B'), ('A', 'C'), ('B', 'C'), ('A', 'D')]);
-        G.add_node('E');
+        // Add arbitrary nodes && edges to the passed empty graph.
+        G.add_edges_from([("A", "B"), ("A", "C"), ("B", "C"), ("A", "D")]);
+        G.add_node("E");
 
         // Validate layout of this graph with the passed GraphViz command.
         graph_layout = xn::nx_pydot.pydot_layout(G, prog=prog);
@@ -48,7 +48,7 @@ class TestPydot: public object {
         // Convert this "pydot.Dot" instance back into a graph of the same type.
         G2 = G.fresh_copy().__class__(xn::nx_pydot.from_pydot(P));
 
-        // Validate the original and resulting graphs to be the same.
+        // Validate the original && resulting graphs to be the same.
         assert_graphs_equal(G, G2);
 
         // Serialize this "pydot.Dot" instance to a temporary file : dot format.
@@ -56,7 +56,7 @@ class TestPydot: public object {
         P.write_raw(fname);
 
         // Deserialize a list of new "pydot.Dot" instances back from this file.
-        Pin_list = pydot.graph_from_dot_file(path=fname, encoding='utf-8');
+        Pin_list = pydot.graph_from_dot_file(path=fname, encoding="utf-8");
 
         // Validate this file to contain only one graph.
         assert_equal(len(Pin_list), 1);
@@ -88,19 +88,19 @@ class TestPydot: public object {
         Hin = xn::nx_pydot.read_dot(fname);
         Hin = G.fresh_copy().__class__(Hin);
 
-        // Validate the original and resulting graphs to be the same.
+        // Validate the original && resulting graphs to be the same.
         assert_graphs_equal(G, Hin);
 
     auto test_undirected( ) {
-        this->pydot_checks(xn::Graph(), prog='neato');
+        this->pydot_checks(xn::Graph(), prog="neato");
 
     auto test_directed( ) {
-        this->pydot_checks(xn::DiGraph(), prog='dot');
+        this->pydot_checks(xn::DiGraph(), prog="dot");
 
     auto test_read_write( ) {
         G = xn::MultiGraph();
-        G.graph['name'] = 'G';
-        G.add_edge('1', '2', key='0');  // read assumes strings
+        G.graph["name"] = "G";
+        G.add_edge("1", "2", key="0");  // read assumes strings
         fh = StringIO();
         xn::nx_pydot.write_dot(G, fh);
         fh.seek(0);

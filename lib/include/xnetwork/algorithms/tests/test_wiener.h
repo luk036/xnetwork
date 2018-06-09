@@ -26,7 +26,7 @@ class TestWienerIndex: public object {
         positive infinity.
 
          */
-        eq_(wiener_index(empty_graph(2)), double('inf'));
+        eq_(wiener_index(empty_graph(2)), double("inf"));
 
     auto test_directed( ) {
         /** Tests that each pair of nodes : the directed graph is
@@ -61,7 +61,7 @@ class TestWienerIndex: public object {
         //
         //     1 * 4 + 2 * 3 + 3 * 2 + 4 * 1 = 2 (1 * 4 + 2 * 3);
         //
-        // and : P_6,
+        // && : P_6,
         //
         //     1 * 5 + 2 * 4 + 3 * 3 + 4 * 2 + 5 * 1 = 2 (1 * 5 + 2 * 4) + 3 * 3
         //

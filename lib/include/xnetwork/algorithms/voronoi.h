@@ -10,14 +10,14 @@
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import groups
 
-__all__ = ['voronoi_cells'];
+static const auto __all__ = ["voronoi_cells"];
 
 
-auto voronoi_cells(G, center_nodes, weight='weight') {
+auto voronoi_cells(G, center_nodes, weight="weight") {
     /** Return the Voronoi cells centered at `center_nodes` with respect
     to the shortest-path distance metric.
 
-    If *C* is a set of nodes : the graph and *c* is an element of *C*,
+    If *C* is a set of nodes : the graph && *c* is an element of *C*,
     the *Voronoi cell* centered at a node *c* is the set of all nodes
     *v* that are closer to *c* than to any other center node : *C* with
     respect to the shortest-path distance metric. [1]_
@@ -36,7 +36,7 @@ auto voronoi_cells(G, center_nodes, weight='weight') {
         A nonempty set of nodes : the graph `G` that represent the
         center of the Voronoi cells.
 
-    weight : string or function
+    weight : string || function
         The edge attribute (or an arbitrary function) representing the
         weight of an edge. This keyword argument is as described : the
         documentation for :func:`~xnetwork.multi_source_dijkstra_path`,
@@ -89,5 +89,5 @@ auto voronoi_cells(G, center_nodes, weight='weight') {
     // We collect all unreachable nodes under a special key, if (there are any.
     unreachable = set(G) - set(nearest);
     if (unreachable) {
-        cells['unreachable'] = unreachable
+        cells["unreachable"] = unreachable
     return cells

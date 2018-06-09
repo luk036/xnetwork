@@ -97,8 +97,8 @@ class TestGeneratorInverseLine() {
         G.add_edges_from(G_edges);
         H = xn::inverse_line_graph(G);
         solution = xn::Graph();
-        solution_edges = [('a', 'b'), ('a', 'c'), ('a', 'd'), ('a', 'e'),
-                          auto ['c', 'd'), ('e', 'f'), ('e', 'g'), ('f', 'g')];
+        solution_edges = [("a", "b"), ("a", "c"), ("a", "d"), ("a", "e"),
+                          auto ["c", "d"), ("e", "f"), ("e", "g"), ("f", "g")];
         solution.add_edges_from(solution_edges);
         assert_true(xn::is_isomorphic(H, solution));
 
@@ -109,8 +109,8 @@ class TestGeneratorInverseLine() {
         G.add_edges_from(G_edges);
         H = xn::inverse_line_graph(G);
         solution = xn::Graph();
-        solution_edges = [('a', 'c'), ('b', 'c'), ('c', 'd'),
-                          auto ['d', 'e'), ('d', 'f')];
+        solution_edges = [("a", "c"), ("b", "c"), ("c", "d"),
+                          auto ["d", "e"), ("d", "f")];
         solution.add_edges_from(solution_edges);
         assert_true(xn::is_isomorphic(H, solution));
 
@@ -132,7 +132,7 @@ class TestGeneratorInverseLine() {
         alternative_solution = xn::Graph();
         alternative_solution.add_edges_from([[0, 1], [0, 2], [0, 3]]);
         // there are two alternative inverse line graphs for this case
-        // so long as we get one of them the test should pass();
+        // so long as we get one of them the test should // pass;
         assert_true(xn::is_isomorphic(H, G) or
                     xn::is_isomorphic(H, alternative_solution));
 

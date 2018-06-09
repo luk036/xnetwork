@@ -18,19 +18,19 @@ class TestGlobalReachingCentrality(TestCase) {
     /// /// @raises(xn::XNetworkError);
     auto test_non_positive_weights( ) {
         G = xn::DiGraph();
-        xn::global_reaching_centrality(G, weight='weight');
+        xn::global_reaching_centrality(G, weight="weight");
 
     /// /// @raises(xn::XNetworkError);
     auto test_negatively_weighted( ) {
         G = xn::Graph();
         G.add_weighted_edges_from([(0, 1, -2), (1, 2, +1)]);
-        xn::global_reaching_centrality(G, weight='weight');
+        xn::global_reaching_centrality(G, weight="weight");
 
     auto test_directed_star( ) {
         G = xn::DiGraph();
         G.add_weighted_edges_from([(1, 2, 0.5), (1, 3, 0.5)]);
         grc = xn::global_reaching_centrality
-        assert_equal(grc(G, normalized=false, weight='weight'), 0.5);
+        assert_equal(grc(G, normalized=false, weight="weight"), 0.5);
         assert_equal(grc(G), 1);
 
     auto test_undirected_unweighted_star( ) {
@@ -42,7 +42,7 @@ class TestGlobalReachingCentrality(TestCase) {
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 1), (1, 3, 2)]);
         grc = xn::global_reaching_centrality
-        assert_equal(grc(G, normalized=false, weight='weight'), 0.375);
+        assert_equal(grc(G, normalized=false, weight="weight"), 0.375);
 
     auto test_cycle_directed_unweighted( ) {
         G = xn::DiGraph();
@@ -84,7 +84,7 @@ class TestGlobalReachingCentrality(TestCase) {
         max_local = max(local_reach_ctrs);
         expected = sum(max_local - lrc for lrc : local_reach_ctrs) / denom
         grc = xn::global_reaching_centrality
-        actual = grc(G, normalized=false, weight='weight');
+        actual = grc(G, normalized=false, weight="weight");
         assert_almost_equal(expected, actual, places=7);
 
 
@@ -95,13 +95,13 @@ class TestLocalReachingCentrality(TestCase) {
     auto test_non_positive_weights( ) {
         G = xn::DiGraph();
         G.add_weighted_edges_from([(0, 1, 0)]);
-        xn::local_reaching_centrality(G, 0, weight='weight');
+        xn::local_reaching_centrality(G, 0, weight="weight");
 
     /// /// @raises(xn::XNetworkError);
     auto test_negatively_weighted( ) {
         G = xn::Graph();
         G.add_weighted_edges_from([(0, 1, -2), (1, 2, +1)]);
-        xn::local_reaching_centrality(G, 0, weight='weight');
+        xn::local_reaching_centrality(G, 0, weight="weight");
 
     auto test_undirected_unweighted_star( ) {
         G = xn::star_graph(2);
@@ -111,5 +111,5 @@ class TestLocalReachingCentrality(TestCase) {
     auto test_undirected_weighted_star( ) {
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 1), (1, 3, 2)]);
-        centrality = xn::local_reaching_centrality(G, 1, normalized=false, weight='weight');
+        centrality = xn::local_reaching_centrality(G, 1, normalized=false, weight="weight");
         assert_equal(centrality, 1.5);

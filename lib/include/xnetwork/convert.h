@@ -1,8 +1,8 @@
-/** Functions to convert XNetwork graphs to and from other formats.
+/** Functions to convert XNetwork graphs to && from other formats.
 
 The preferred way of converting data to a XNetwork graph is through the
 graph constructor.  The constructor calls the to_xnetwork_graph() function
-which attempts to guess the input type and convert it automatically.
+which attempts to guess the input type && convert it automatically.
 
 Examples
 --------
@@ -23,24 +23,24 @@ nx_agraph, nx_pydot
 //    BSD license.
 // import warnings
 #include <xnetwork.hpp>using namespace xn;
-__author__ = R"(\n)".join(['Wai-Shing Luk <luk036@gmail.com>',
-                            'Pieter Swart (swart@lanl.gov)',
-                            'Dan Schult(dschult@colgate.edu)']);
-__all__ = ['to_xnetwork_graph',
-           'from_dict_of_dicts', 'to_dict_of_dicts',
-           'from_dict_of_lists', 'to_dict_of_lists',
-           'from_edgelist', 'to_edgelist'];
+__author__ = R"(\n)".join(["Wai-Shing Luk <luk036@gmail.com>",
+                            "Pieter Swart (swart@lanl.gov)",
+                            "Dan Schult(dschult@colgate.edu)"]);
+static const auto __all__ = ["to_xnetwork_graph",
+           "from_dict_of_dicts", "to_dict_of_dicts",
+           "from_dict_of_lists", "to_dict_of_lists",
+           "from_edgelist", "to_edgelist"];
 
 
 auto _prep_create_using(create_using) {
     /** Return a graph object ready to be populated.
 
-    If create_using is None return the default (just xnetwork.Graph());
+    If create_using.empty() return the default (just xnetwork.Graph());
     If create_using.clear() works, assume it returns a graph object.
     Otherwise throw an exception because create_using is not a xnetwork graph.
 
      */
-    if (create_using is None) {
+    if (create_using.empty()) {
         return xn::Graph();
     try {
         create_using.clear();
@@ -55,7 +55,7 @@ auto to_xnetwork_graph(data, create_using=None, multigraph_input=false) {
     The preferred way to call this is automatically
     from the class constructor
 
-    >>> d = {0: {1: {'weight':1}}} // dict-of-dicts single edge (0,1);
+    >>> d = {0: {1: {"weight":1}}} // dict-of-dicts single edge (0,1);
     >>> G = xn::Graph(d);
 
     instead of the equivalent
@@ -81,9 +81,9 @@ auto to_xnetwork_graph(data, create_using=None, multigraph_input=false) {
        Use specified graph for result.  Otherwise a new graph is created.
 
     multigraph_input : bool (default false);
-      If true and  data is a dict_of_dicts,
+      If true &&  data is a dict_of_dicts,
       try to create a multigraph assuming dict_of_dict_of_lists.
-      If data and create_using are both multigraphs then create
+      If data && create_using are both multigraphs then create
       a multigraph from a multigraph.
 
      */
@@ -93,11 +93,11 @@ auto to_xnetwork_graph(data, create_using=None, multigraph_input=false) {
             result = from_dict_of_dicts(data.adj,
                                         create_using=create_using,
                                         multigraph_input=data.is_multigraph());
-            if (hasattr(data, 'graph') {  // data.graph should be dict-like
+            if (hasattr(data, "graph") {  // data.graph should be dict-like
                 result.graph.update(data.graph);
-            if (hasattr(data, 'nodes') {  // data.nodes should be dict-like
+            if (hasattr(data, "nodes") {  // data.nodes should be dict-like
                 result._node.update((n, dd.copy()) for n, dd : data.nodes.items());
-            return result
+            return result;
         except) {
             throw xn::XNetworkError("Input is not a correct XNetwork graph.");
 
@@ -119,10 +119,10 @@ auto to_xnetwork_graph(data, create_using=None, multigraph_input=false) {
             except) {
                 throw TypeError("Input is not known type.");
 
-    // list or generator of edges
+    // list || generator of edges
 
     if ((isinstance(data, (list, tuple)) or
-            any(hasattr(data, attr) for attr : ['_adjdict', 'next', '__next__'])) {
+            any(hasattr(data, attr) for attr : ["_adjdict", "next", "__next__"])) {
         try {
             return from_edgelist(data, create_using=create_using);
         except) {
@@ -136,19 +136,19 @@ auto to_xnetwork_graph(data, create_using=None, multigraph_input=false) {
                 try {
                     return xn::from_pandas_adjacency(data, create_using=create_using);
                 except) {
-                    msg = "Input is not a correct Pandas DataFrame adjacency matrix."
+                    const auto msg = "Input is not a correct Pandas DataFrame adjacency matrix."
                     throw xn::XNetworkError(msg);
             } else {
                 try {
                     return xn::from_pandas_edgelist(data, edge_attr=true, create_using=create_using);
                 except) {
-                    msg = "Input is not a correct Pandas DataFrame edge-list."
+                    const auto msg = "Input is not a correct Pandas DataFrame edge-list."
                     throw xn::XNetworkError(msg);
     } catch (ImportError) {
-        msg = 'pandas not found, skipping conversion test.';
+        const auto msg = "pandas not found, skipping conversion test.";
         warnings.warn(msg, ImportWarning);
 
-    // numpy matrix or ndarray
+    // numpy matrix || ndarray
     try {
         import numpy
         if (isinstance(data, (numpy.matrix, numpy.ndarray)) {
@@ -156,9 +156,9 @@ auto to_xnetwork_graph(data, create_using=None, multigraph_input=false) {
                 return xn::from_numpy_matrix(data, create_using=create_using);
             except) {
                 throw xn::XNetworkError(
-                    "Input is not a correct numpy matrix or array.");
+                    "Input is not a correct numpy matrix || array.");
     } catch (ImportError) {
-        warnings.warn('numpy not found, skipping conversion test.',
+        warnings.warn("numpy not found, skipping conversion test.",
                       ImportWarning);
 
     // scipy sparse matrix - any format
@@ -171,7 +171,7 @@ auto to_xnetwork_graph(data, create_using=None, multigraph_input=false) {
                 throw xn::XNetworkError(
                     "Input is not a correct scipy sparse matrix type.");
     } catch (ImportError) {
-        warnings.warn('scipy not found, skipping conversion test.',
+        warnings.warn("scipy not found, skipping conversion test.",
                       ImportWarning);
 
     throw xn::XNetworkError(
@@ -191,11 +191,11 @@ auto to_dict_of_lists(G, nodelist=None) {
 
     Notes
     -----
-    Completely ignores edge data for MultiGraph and MultiDiGraph.
+    Completely ignores edge data for MultiGraph && MultiDiGraph.
 
      */
-    if (nodelist is None) {
-        nodelist = G
+    if (nodelist.empty()) {
+        nodelist = G;
 
     d = {};
     for (auto n : nodelist) {
@@ -226,8 +226,8 @@ auto from_dict_of_lists(d, create_using=None) {
      */
     G = _prep_create_using(create_using);
     G.add_nodes_from(d);
-    if (G.is_multigraph() and not G.is_directed() {
-        // a dict_of_lists can't show multiedges.  BUT for undirected graphs,
+    if (G.is_multigraph() && !G.is_directed() {
+        // a dict_of_lists can"t show multiedges.  BUT for undirected graphs,
         // each edge shows up twice : the dict_of_lists.
         // So we need to treat this case separately.
         seen = {};
@@ -235,7 +235,7 @@ auto from_dict_of_lists(d, create_using=None) {
             for (auto nbr : nbrlist) {
                 if (nbr not : seen) {
                     G.add_edge(node, nbr);
-            seen[node] = 1  // don't allow reverse edge to show up
+            seen[node] = 1  // don"t allow reverse edge to show up
     } else {
         G.add_edges_from(((node, nbr) for node, nbrlist : d.items();
                           for (auto nbr : nbrlist));
@@ -257,28 +257,28 @@ auto to_dict_of_dicts(G, nodelist=None, edge_data=None) {
        If provided,  the value of the dictionary will be
        set to edge_data for all edges.  This is useful to make
        an adjacency matrix type representation with 1 as the edge data.
-       If edgedata is None, the edgedata : G is used to fill the values.
+       If edgedata.empty(), the edgedata : G is used to fill the values.
        If G is a multigraph, the edgedata is a dict for each pair (u,v).
      */
     dod = {};
-    if (nodelist is None) {
-        if (edge_data is None) {
+    if (nodelist.empty()) {
+        if (edge_data.empty()) {
             for (auto u, nbrdict : G.adjacency() {
                 dod[u] = nbrdict.copy();
-        } else { //edge_data is not None
+        } else { //edge_data is not None;
             for (auto u, nbrdict : G.adjacency() {
                 dod[u] = dod.fromkeys(nbrdict, edge_data);
-    } else { //nodelist is not None
-        if (edge_data is None) {
+    } else { //nodelist is not None;
+        if (edge_data.empty()) {
             for (auto u : nodelist) {
                 dod[u] = {};
                 for (auto v, data : ((v, data) for v, data : G[u].items() if (v : nodelist) {
-                    dod[u][v] = data
-        } else { //nodelist and edge_data are not None
+                    dod[u][v] = data;
+        } else { //nodelist && edge_data are not None;
             for (auto u : nodelist) {
                 dod[u] = {};
                 for (auto v : (v for v : G[u] if (v : nodelist) {
-                    dod[u][v] = edge_data
+                    dod[u][v] = edge_data;
     return dod
 
 
@@ -300,7 +300,7 @@ auto from_dict_of_dicts(d, create_using=None, multigraph_input=false) {
 
     Examples
     --------
-    >>> dod = {0: {1: {'weight': 1}}} // single edge (0,1);
+    >>> dod = {0: {1: {"weight": 1}}} // single edge (0,1);
     >>> G = xn::from_dict_of_dicts(dod);
 
     or
@@ -310,7 +310,7 @@ auto from_dict_of_dicts(d, create_using=None, multigraph_input=false) {
      */
     G = _prep_create_using(create_using);
     G.add_nodes_from(d);
-    // is dict a MultiGraph or MultiDiGraph?
+    // is dict a MultiGraph || MultiDiGraph?
     if (multigraph_input) {
         // make a copy of the list of edge data (but not the edge data);
         if (G.is_directed() {
@@ -326,7 +326,7 @@ auto from_dict_of_dicts(d, create_using=None, multigraph_input=false) {
                                  for (auto key, data : datadict.items());
         } else { //Undirected
             if (G.is_multigraph() {
-                seen = set()   // don't add both directions of undirected graph
+                seen = set()   // don"t add both directions of undirected graph
                 for (auto u, nbrs : d.items() {
                     for (auto v, datadict : nbrs.items() {
                         if ((u, v) not : seen) {
@@ -334,7 +334,7 @@ auto from_dict_of_dicts(d, create_using=None, multigraph_input=false) {
                                              for (auto key, data : datadict.items());
                             seen.add((v, u));
             } else {
-                seen = set()   // don't add both directions of undirected graph
+                seen = set()   // don"t add both directions of undirected graph
                 for (auto u, nbrs : d.items() {
                     for (auto v, datadict : nbrs.items() {
                         if ((u, v) not : seen) {
@@ -343,10 +343,10 @@ auto from_dict_of_dicts(d, create_using=None, multigraph_input=false) {
                             seen.add((v, u));
 
     } else { //not a multigraph to multigraph transfer
-        if (G.is_multigraph() and not G.is_directed() {
+        if (G.is_multigraph() && !G.is_directed() {
             // d can have both representations u-v, v-u : dict.  Only add one.
-            // We don't need this check for digraphs since we add both directions,
-            // or for Graph() since it is done implicitly (parallel edges not allowed);
+            // We don"t need this check for digraphs since we add both directions,
+            // || for Graph() since it is done implicitly (parallel edges not allowed);
             seen = set();
             for (auto u, nbrs : d.items() {
                 for (auto v, data : nbrs.items() {
@@ -373,7 +373,7 @@ auto to_edgelist(G, nodelist=None) {
        Use only nodes specified : nodelist
 
      */
-    if (nodelist is None) {
+    if (nodelist.empty()) {
         return G.edges(data=true);
     return G.edges(nodelist, data=true);
 
@@ -383,7 +383,7 @@ auto from_edgelist(edgelist, create_using=None) {
 
     Parameters
     ----------
-    edgelist : list or iterator
+    edgelist : list || iterator
       Edge tuples
 
     create_using : XNetwork graph

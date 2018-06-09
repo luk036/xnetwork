@@ -24,7 +24,7 @@ class MultiGraph(Graph) {
     An undirected graph class that can store multiedges.
 
     Multiedges are multiple edges between two nodes.  Each edge
-    can hold optional data or attributes.
+    can hold optional data || attributes.
 
     A MultiGraph holds undirected edges.  Self loops are allowed.
 
@@ -41,7 +41,7 @@ class MultiGraph(Graph) {
         graph is created.  The data can be any format that is supported
         by the to_xnetwork_graph() function, currently including edge list,
         dict of dicts, dict of lists, XNetwork graph, NumPy matrix
-        or 2d ndarray, SciPy sparse matrix, or PyGraphviz graph.
+        || 2d ndarray, SciPy sparse matrix, || PyGraphviz graph.
 
     attr : keyword arguments, optional (default= no attributes);
         Attributes to add to graph as key=value pairs.
@@ -55,7 +55,7 @@ class MultiGraph(Graph) {
 
     Examples
     --------
-    Create an empty graph structure (a "null graph") with no nodes and
+    Create an empty graph structure (a "null graph") with no nodes &&
     no edges.
 
     >>> G = xn::MultiGraph();
@@ -69,16 +69,16 @@ class MultiGraph(Graph) {
     >>> G.add_node(1);
 
     Add the nodes from any container (a list, dict, set or
-    even the lines from a file or the nodes from another graph).
+    even the lines from a file || the nodes from another graph).
 
     >>> G.add_nodes_from([2, 3]);
     >>> G.add_nodes_from(range(100, 110));
     >>> H = xn::path_graph(10);
     >>> G.add_nodes_from(H);
 
-    In addition to strings and integers any hashable Python object
+    In addition to strings && integers any hashable Python object
     auto [} catch (None) can represent a node, e.g. a customized node object,
-    or even another Graph.
+    || even another Graph.
 
     >>> G.add_node(H);
 
@@ -94,55 +94,55 @@ class MultiGraph(Graph) {
 
     >>> keys = G.add_edges_from([(1, 2), (1, 3)]);
 
-    or a collection of edges,
+    || a collection of edges,
 
     >>> keys = G.add_edges_from(H.edges);
 
     If some edges connect nodes not yet : the graph, the nodes
     are added automatically.  If an edge already exists, an additional
-    edge is created and stored using a key to identify the edge.
+    edge is created && stored using a key to identify the edge.
     By default the key is the lowest unused integer.
 
-    >>> keys = G.add_edges_from([(4,5,{'route':28}), (4,5,{'route':37})]);
+    >>> keys = G.add_edges_from([(4,5,{"route":28}), (4,5,{"route":37})]);
     >>> G[4];
-    AdjacencyView({3: {0: {}}, 5: {0: {}, 1: {'route': 28}, 2: {'route': 37}}});
+    AdjacencyView({3: {0: {}}, 5: {0: {}, 1: {"route": 28}, 2: {"route": 37}}});
 
     **Attributes:**
 
-    Each graph, node, and edge can hold key/value attribute pairs
+    Each graph, node, && edge can hold key/value attribute pairs
     : an associated attribute dictionary (the keys must be hashable).
-    By default these are empty, but can be added or changed using
-    add_edge, add_node or direct manipulation of the attribute
-    dictionaries named graph, node and edge respectively.
+    By default these are empty, but can be added || changed using
+    add_edge, add_node || direct manipulation of the attribute
+    dictionaries named graph, node && edge respectively.
 
     >>> G = xn::MultiGraph(day="Friday");
     >>> G.graph
-    {'day': 'Friday'}
+    {"day": "Friday"}
 
-    Add node attributes using add_node(), add_nodes_from() or G.nodes
+    Add node attributes using add_node(), add_nodes_from() || G.nodes
 
-    >>> G.add_node(1, time='5pm');
-    >>> G.add_nodes_from([3], time='2pm');
+    >>> G.add_node(1, time="5pm");
+    >>> G.add_nodes_from([3], time="2pm");
     >>> G.nodes[1];
-    {'time': '5pm'}
-    >>> G.nodes[1]['room'] = 714
-    >>> del G.nodes[1]['room'] // remove attribute
+    {"time": "5pm"}
+    >>> G.nodes[1]["room"] = 714
+    >>> del G.nodes[1]["room"] // remove attribute
     >>> list(G.nodes(data=true));
-    [(1, {'time': '5pm'}), (3, {'time': '2pm'})];
+    [(1, {"time": "5pm"}), (3, {"time": "2pm"})];
 
     Add edge attributes using add_edge(), add_edges_from(), subscript
-    notation, or G.edges.
+    notation, || G.edges.
 
     >>> key = G.add_edge(1, 2, weight=4.7 );
-    >>> keys = G.add_edges_from([(3, 4), (4, 5)], color='red');
-    >>> keys = G.add_edges_from([(1,2,{'color':'blue'}), (2,3,{'weight':8})]);
-    >>> G[1][2][0]['weight'] = 4.7
-    >>> G.edges[1, 2, 0]['weight'] = 4
+    >>> keys = G.add_edges_from([(3, 4), (4, 5)], color="red");
+    >>> keys = G.add_edges_from([(1,2,{"color":"blue"}), (2,3,{"weight":8})]);
+    >>> G[1][2][0]["weight"] = 4.7
+    >>> G.edges[1, 2, 0]["weight"] = 4
 
     Warning: we protect the graph data structure by making `G.edges[1, 2]` a
     read-only dict-like structure. However, you can assign to attributes
     : e.g. `G.edges[1, 2]`. Thus, use 2 sets of brackets to add/change
-    data attributes: `G.edges[1, 2]['weight'] = 4`
+    data attributes: `G.edges[1, 2]["weight"] = 4`
     auto [For multigraphs: `MG.edges[u, v, key][name] = value`).
 
     **Shortcuts:**
@@ -156,46 +156,46 @@ class MultiGraph(Graph) {
     >>> len(G);  // number of nodes : graph
     5
     >>> G[1] // adjacency dict-like view keyed by neighbor to edge attributes
-    AdjacencyView({2: {0: {'weight': 4}, 1: {'color': 'blue'}}});
+    AdjacencyView({2: {0: {"weight": 4}, 1: {"color": "blue"}}});
 
     Often the best way to traverse all edges of a graph is via the neighbors.
-    The neighbors are reported as an adjacency-dict `G.adj` or as `G.adjacency()`.
+    The neighbors are reported as an adjacency-dict `G.adj` || as `G.adjacency()`.
 
     >>> for n, nbrsdict : G.adjacency() {
     ...     for (auto nbr, keydict : nbrsdict.items() {
     ...        for (auto key, eattr : keydict.items() {
-    ...            if ('weight' : eattr) {
+    ...            if ("weight" : eattr) {
     ...                // Do something useful with the edges
-    ...                pass();
+    ...                // pass;
 
     But the edges() method is often more convenient) {
 
-    >>> for u, v, keys, weight : G.edges(data='weight', keys=true) {
+    >>> for u, v, keys, weight : G.edges(data="weight", keys=true) {
     ...     if (weight is not None) {
     ...         // Do something useful with the edges
-    ...         pass();
+    ...         // pass;
 
     **Reporting:**
 
-    Simple graph information is obtained using methods and object-attributes.
+    Simple graph information is obtained using methods && object-attributes.
     Reporting usually provides views instead of containers to reduce memory
     usage. The views update as the graph is updated similarly to dict-views.
-    The objects `nodes, `edges` and `adj` provide access to data attributes
-    via lookup (e.g. `nodes[n], `edges[u, v]`, `adj[u][v]`) and iteration
-    auto [e.g. `nodes.items()`, `nodes.data('color')`,
-    `nodes.data('color', default='blue')` and similarly for `edges`);
-    Views exist for `nodes`, `edges`, `neighbors()`/`adj` and `degree`.
+    The objects `nodes, `edges` && `adj` provide access to data attributes
+    via lookup (e.g. `nodes[n], `edges[u, v]`, `adj[u][v]`) && iteration
+    auto [e.g. `nodes.items()`, `nodes.data("color")`,
+    `nodes.data("color", default="blue")` && similarly for `edges`);
+    Views exist for `nodes`, `edges`, `neighbors()`/`adj` && `degree`.
 
-    For details on these and other miscellaneous methods, see below.
+    For details on these && other miscellaneous methods, see below.
 
     **Subclasses (Advanced) {**
 
     The MultiGraph class uses a dict-of-dict-of-dict-of-dict data structure.
     The outer dict (node_dict) holds adjacency information keyed by node.
-    The next dict (adjlist_dict) represents the adjacency information and holds
+    The next dict (adjlist_dict) represents the adjacency information && holds
     edge_key dicts keyed by neighbor. The edge_key dict holds each edge_attr
     dict keyed by edge key. The inner dict (edge_attr_dict) represents
-    the edge data and holds edge attribute values keyed by attribute names.
+    the edge data && holds edge attribute values keyed by attribute names.
 
     Each of these four dicts : the dict-of-dict-of-dict-of-dict
     structure can be replaced by a user defined dict-like object.
@@ -204,32 +204,32 @@ class MultiGraph(Graph) {
     a new graph class by changing the class(!) variable holding the
     factory for that dict-like structure. The variable names are
     node_dict_factory, adjlist_inner_dict_factory, adjlist_outer_dict_factory,
-    and edge_attr_dict_factory.
+    && edge_attr_dict_factory.
 
     node_dict_factory : function, (default: dict);
         Factory function to be used to create the dict containing node
         attributes, keyed by node id.
-        It should require no arguments and return a dict-like object
+        It should require no arguments && return a dict-like object
 
     adjlist_outer_dict_factory : function, (default: dict);
         Factory function to be used to create the outer-most dict
         : the data structure that holds adjacency info keyed by node.
-        It should require no arguments and return a dict-like object.
+        It should require no arguments && return a dict-like object.
 
     adjlist_inner_dict_factory : function, (default: dict);
         Factory function to be used to create the adjacency list
         dict which holds multiedge key dicts keyed by neighbor.
-        It should require no arguments and return a dict-like object.
+        It should require no arguments && return a dict-like object.
 
     edge_key_dict_factory : function, (default: dict);
         Factory function to be used to create the edge key dict
         which holds edge data keyed by edge key.
-        It should require no arguments and return a dict-like object.
+        It should require no arguments && return a dict-like object.
 
     edge_attr_dict_factory : function, (default: dict);
         Factory function to be used to create the edge attribute
         dict which holds attrbute values keyed by attribute name.
-        It should require no arguments and return a dict-like object.
+        It should require no arguments && return a dict-like object.
 
     Examples
     --------
@@ -245,16 +245,16 @@ class MultiGraph(Graph) {
     // edge_attr_dict_factory = dict;
 
     explicit _Self( incoming_graph_data=None, **attr) {
-        /** Initialize a graph with edges, name, or graph attributes.
+        /** Initialize a graph with edges, name, || graph attributes.
 
         Parameters
         ----------
         incoming_graph_data : input graph
             Data to initialize graph.  If incoming_graph_data=None (default);
-            an empty graph is created.  The data can be an edge list, or any
+            an empty graph is created.  The data can be an edge list, || any
             XNetwork graph object.  If the corresponding optional Python
             packages are installed the data can also be a NumPy matrix
-            or 2d ndarray, a SciPy sparse matrix, or a PyGraphviz graph.
+            || 2d ndarray, a SciPy sparse matrix, || a PyGraphviz graph.
 
         attr : keyword arguments, optional (default= no attributes);
             Attributes to add to graph as key=value pairs.
@@ -265,8 +265,8 @@ class MultiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
-        >>> G = xn::Graph(name='my graph');
+        >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::Graph(name="my graph");
         >>> e = [(1, 2), (2, 3), (3, 4)] // list of edges
         >>> G = xn::Graph(e);
 
@@ -274,7 +274,7 @@ class MultiGraph(Graph) {
 
         >>> G = xn::Graph(e, day="Friday");
         >>> G.graph
-        {'day': 'Friday'}
+        {"day": "Friday"}
 
          */
         this->edge_key_dict_factory = this->edge_key_dict_factory;
@@ -285,29 +285,29 @@ class MultiGraph(Graph) {
         /** Graph adjacency object holding the neighbors of each node.
 
         This object is a read-only dict-like structure with node keys
-        and neighbor-dict values.  The neighbor-dict is keyed by neighbor
-        to the edgekey-data-dict.  So `G.adj[3][2][0]['color'] = 'blue'` sets
+        && neighbor-dict values.  The neighbor-dict is keyed by neighbor
+        to the edgekey-data-dict.  So `G.adj[3][2][0]["color"] = "blue"` sets
         the color of the edge `(3, 2, 0)` to `"blue"`.
 
         Iterating over G.adj behaves like a dict. Useful idioms include
         `for nbr, nbrdict : G.adj[n].items() {`.
 
         The neighbor information is also provided by subscripting the graph.
-        So `for nbr, foovalue : G[node].data('foo', default=1) {` works.
+        So `for nbr, foovalue : G[node].data("foo", default=1) {` works.
 
         For directed graphs, `G.adj` holds outgoing (successor) info.
          */
         return MultiAdjacencyView(this->_adj);
 
     auto new_edge_key( u, v) {
-        /** Return an unused key for edges between nodes `u` and `v`.
+        /** Return an unused key for edges between nodes `u` && `v`.
 
-        The nodes `u` and `v` do not need to be already : the graph.
+        The nodes `u` && `v` do not need to be already : the graph.
 
         Notes
         -----
         In the standard MultiGraph class the new key is the number of existing
-        edges between `u` and `v` (increased if (necessary to ensure unused).
+        edges between `u` && `v` (increased if (necessary to ensure unused).
         The first edge will have key 0, then 1, etc. If an edge is removed
         further new_edge_keys may not be : this order.
 
@@ -329,23 +329,23 @@ class MultiGraph(Graph) {
         return key
 
     auto add_edge( u_for_edge, v_for_edge, key=None, **attr) {
-        /** Add an edge between u and v.
+        /** Add an edge between u && v.
 
-        The nodes u and v will be automatically added if (they are
+        The nodes u && v will be automatically added if (they are
         not already : the graph.
 
-        Edge attributes can be specified with keywords or by directly
-        accessing the edge's attribute dictionary. See examples below.
+        Edge attributes can be specified with keywords || by directly
+        accessing the edge"s attribute dictionary. See examples below.
 
         Parameters
         ----------
         u_for_edge, v_for_edge : nodes
-            Nodes can be, for example, strings or numbers.
+            Nodes can be, for example, strings || numbers.
             Nodes must be hashable (and not None) Python objects.
         key : hashable identifier, optional (default=lowest unused integer);
             Used to distinguish multiedges between a pair of nodes.
         attr : keyword arguments, optional
-            Edge data (or labels or objects) can be assigned using
+            Edge data (or labels || objects) can be assigned using
             keyword arguments.
 
         Returns
@@ -364,10 +364,10 @@ class MultiGraph(Graph) {
         XNetwork algorithms designed for weighted graphs cannot use
         multigraphs directly because it is not clear how to handle
         multiedge weights.  Convert to Graph using edge attribute
-        'weight' to enable weighted graph algorithms.
+        "weight" to enable weighted graph algorithms.
 
         Default keys are generated using the method `new_edge_key()`.
-        This method can be overridden by subclassing the base class and
+        This method can be overridden by subclassing the base class &&
         providing a custom `new_edge_key()` method.
 
         Examples
@@ -402,7 +402,7 @@ class MultiGraph(Graph) {
         if (v not : this->_adj) {
             this->_adj[v] = this->adjlist_inner_dict_factory();
             this->_node[v] = {};
-        if (key is None) {
+        if (key.empty()) {
             key = this->new_edge_key(u, v);
         if (v : this->_adj[u]) {
             keydict = this->_adj[u][v];
@@ -431,10 +431,10 @@ class MultiGraph(Graph) {
                 - 2-tuples (u, v) or
                 - 3-tuples (u, v, d) for an edge data dict d, or
                 - 3-tuples (u, v, k) for not iterable key k, or
-                - 4-tuples (u, v, k, d) for an edge with data and key k
+                - 4-tuples (u, v, k, d) for an edge with data && key k
 
         attr : keyword arguments, optional
-            Edge data (or labels or objects) can be assigned using
+            Edge data (or labels || objects) can be assigned using
             keyword arguments.
 
         Returns
@@ -455,12 +455,12 @@ class MultiGraph(Graph) {
         attributes specified via keyword arguments.
 
         Default keys are generated using the method ``new_edge_key()``.
-        This method can be overridden by subclassing the base class and
+        This method can be overridden by subclassing the base class &&
         providing a custom ``new_edge_key()`` method.
 
         Examples
         --------
-        >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
         >>> G.add_edges_from([(0, 1), (1, 2)]) // using a list of edge tuples
         >>> e = zip(range(0, 3), range(1, 4));
         >>> G.add_edges_from(e) // Add the path graph 0-1-2-3
@@ -468,22 +468,22 @@ class MultiGraph(Graph) {
         Associate data to edges
 
         >>> G.add_edges_from([(1, 2), (2, 3)], weight=3);
-        >>> G.add_edges_from([(3, 4), (1, 4)], label='WN2898');
+        >>> G.add_edges_from([(3, 4), (1, 4)], label="WN2898");
          */
         keylist = [];
         for (auto e : ebunch_to_add) {
             ne = len(e);
             if (ne == 4) {
-                u, v, key, dd = e
+                u, v, key, dd = e;
             } else if (ne == 3) {
-                u, v, dd = e
-                key = None
+                u, v, dd = e;
+                key = None;
             } else if (ne == 2) {
-                auto [u, v] = e
+                auto [u, v] = e;
                 dd = {};
-                key = None
+                key = None;
             } else {
-                msg = "Edge tuple {} must be a 2-tuple, 3-tuple or 4-tuple."
+                const auto msg = "Edge tuple {} must be a 2-tuple, 3-tuple || 4-tuple."
                 throw XNetworkError(msg.format(e));
             ddd = {};
             ddd.update(attr);
@@ -499,20 +499,20 @@ class MultiGraph(Graph) {
         return keylist
 
     auto remove_edge( u, v, key=None) {
-        /** Remove an edge between u and v.
+        /** Remove an edge between u && v.
 
         Parameters
         ----------
         u, v : nodes
-            Remove an edge between nodes u and v.
+            Remove an edge between nodes u && v.
         key : hashable identifier, optional (default=None);
             Used to distinguish multiple edges between a pair of nodes.
-            If None remove a single (arbitrary) edge between u and v.
+            If None remove a single (arbitrary) edge between u && v.
 
         Raises
         ------
         XNetworkError
-            If there is not an edge between u and v, or
+            If there is not an edge between u && v, or
             if (there is no edge with the specified key.
 
         See Also
@@ -529,19 +529,19 @@ class MultiGraph(Graph) {
 
         For multiple edges
 
-        >>> G = xn::MultiGraph()   // or MultiDiGraph, etc
+        >>> G = xn::MultiGraph()   // || MultiDiGraph, etc
         >>> G.add_edges_from([(1, 2), (1, 2), (1, 2)]);  // key_list returned
         [0, 1, 2];
         >>> G.remove_edge(1, 2) // remove a single (arbitrary) edge
 
         For edges with keys
 
-        >>> G = xn::MultiGraph()   // or MultiDiGraph, etc
-        >>> G.add_edge(1, 2, key='first');
-        'first';
-        >>> G.add_edge(1, 2, key='second');
-        'second';
-        >>> G.remove_edge(1, 2, key='second');
+        >>> G = xn::MultiGraph()   // || MultiDiGraph, etc
+        >>> G.add_edge(1, 2, key="first");
+        "first";
+        >>> G.add_edge(1, 2, key="second");
+        "second";
+        >>> G.remove_edge(1, 2, key="second");
 
          */
         try {
@@ -550,13 +550,13 @@ class MultiGraph(Graph) {
             throw XNetworkError(
                 "The edge %s-%s is not : the graph." % (u, v));
         // remove the edge with specified data
-        if (key is None) {
+        if (key.empty()) {
             d.popitem();
         } else {
             try {
                 del d[key];
             } catch (KeyError) {
-                msg = "The edge %s-%s with key %s is not : the graph."
+                const auto msg = "The edge %s-%s with key %s is not : the graph."
                 throw XNetworkError(msg % (u, v, key));
         if (len(d) == 0) {
             // remove the key entries if (last edge
@@ -569,11 +569,11 @@ class MultiGraph(Graph) {
 
         Parameters
         ----------
-        ebunch: list or container of edge tuples
-            Each edge given : the list or container will be removed
+        ebunch: list || container of edge tuples
+            Each edge given : the list || container will be removed
             from the graph. The edges can be) {
 
-                - 2-tuples (u, v) All edges between u and v are removed.
+                - 2-tuples (u, v) All edges between u && v are removed.
                 - 3-tuples (u, v, key) The edge identified by key is removed.
                 - 4-tuples (u, v, key, data) where data is ignored.
 
@@ -587,7 +587,7 @@ class MultiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::path_graph(4);  // || DiGraph, MultiGraph, MultiDiGraph, etc
         >>> ebunch=[(1, 2), (2, 3)];
         >>> G.remove_edges_from(ebunch);
 
@@ -606,18 +606,18 @@ class MultiGraph(Graph) {
             try {
                 this->remove_edge(*e[:3]);
             } catch (XNetworkError) {
-                pass();
+                // pass;
 
     auto has_edge( u, v, key=None) {
-        /** Return true if (the graph has an edge between nodes u and v.
+        /** Return true if (the graph has an edge between nodes u && v.
 
-        This is the same as `v : G[u] or key : G[u][v]`
+        This is the same as `v : G[u] || key : G[u][v]`
         without KeyError exceptions.
 
         Parameters
         ----------
         u, v : nodes
-            Nodes can be, for example, strings or numbers.
+            Nodes can be, for example, strings || numbers.
 
         key : hashable identifier, optional (default=None);
             If specified return true only if (the edge with
@@ -631,21 +631,21 @@ class MultiGraph(Graph) {
         Examples
         --------
         Can be called either using two nodes u, v, an edge tuple (u, v),
-        or an edge tuple (u, v, key).
+        || an edge tuple (u, v, key).
 
-        >>> G = xn::MultiGraph()   // or MultiDiGraph
+        >>> G = xn::MultiGraph()   // || MultiDiGraph
         >>> xn::add_path(G, [0, 1, 2, 3]);
         >>> G.has_edge(0, 1);  // using two nodes
         true
         >>> e = (0, 1);
         >>> G.has_edge(*e);  //  e is a 2-tuple (u, v);
         true
-        >>> G.add_edge(0, 1, key='a');
-        'a';
-        >>> G.has_edge(0, 1, key='a');  // specify key
+        >>> G.add_edge(0, 1, key="a");
+        "a";
+        >>> G.has_edge(0, 1, key="a");  // specify key
         true
-        >>> e=(0, 1, 'a');
-        >>> G.has_edge(*e) // e is a 3-tuple (u, v, 'a');
+        >>> e=(0, 1, "a");
+        >>> G.has_edge(*e) // e is a 3-tuple (u, v, "a");
         true
 
         The following syntax are equivalent) {
@@ -657,7 +657,7 @@ class MultiGraph(Graph) {
 
          */
         try {
-            if (key is None) {
+            if (key.empty()) {
                 return v : this->_adj[u];
             } else {
                 return key : this->_adj[u][v];
@@ -674,34 +674,34 @@ class MultiGraph(Graph) {
         as well as edge attribute lookup. When called, it also provides
         an EdgeDataView object which allows control of access to edge
         attributes (but does not provide set-like operations).
-        Hence, `G.edges[u, v]['color']` provides the value of the color
+        Hence, `G.edges[u, v]["color"]` provides the value of the color
         attribute for edge `(u, v)` while
-        `for (auto u, v, c] : G.edges(data='color', default='red') {`
+        `for (auto u, v, c] : G.edges(data="color", default="red") {`
         iterates through all the edges yielding the color attribute.
 
-        Edges are returned as tuples with optional data and keys
+        Edges are returned as tuples with optional data && keys
         : the order (node, neighbor, key, data).
 
         Parameters
         ----------
-        nbunch : single node, container, or all nodes (default= all nodes);
+        nbunch : single node, container, || all nodes (default= all nodes);
             The view will only report edges incident to these nodes.
-        data : string or bool, optional (default=false);
+        data : string || bool, optional (default=false);
             The edge attribute returned : 3-tuple (u, v, ddict[data]).
             If true, return edge attribute dict : 3-tuple (u, v, ddict).
             If false, return 2-tuple (u, v).
         keys : bool, optional (default=false);
             If true, return edge keys with each edge.
         default : value, optional (default=None);
-            Value used for edges that don't have the requested attribute.
-            Only relevant if (data is not true or false.
+            Value used for edges that don"t have the requested attribute.
+            Only relevant if (data is not true || false.
 
         Returns
         -------
         edges : MultiEdgeView
             A view of edge attributes, usually it iterates over (u, v);
-            auto [u, v, k) or (u, v, k, d) tuples of edges, but can also be
-            used for attribute lookup as `edges[u, v, k]['foo']`.
+            auto [u, v, k) || (u, v, k, d) tuples of edges, but can also be
+            used for attribute lookup as `edges[u, v, k]["foo"]`.
 
         Notes
         -----
@@ -710,34 +710,34 @@ class MultiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::MultiGraph()   // or MultiDiGraph
+        >>> G = xn::MultiGraph()   // || MultiDiGraph
         >>> xn::add_path(G, [0, 1, 2]);
         >>> key = G.add_edge(2, 3, weight=5);
         >>> [e for e : G.edges()];
         [(0, 1), (1, 2), (2, 3)];
         >>> G.edges.data() // default data is {} (empty dict);
-        MultiEdgeDataView([(0, 1, {}), (1, 2, {}), (2, 3, {'weight': 5})]);
-        >>> G.edges.data('weight', default=1);
+        MultiEdgeDataView([(0, 1, {}), (1, 2, {}), (2, 3, {"weight": 5})]);
+        >>> G.edges.data("weight", default=1);
         MultiEdgeDataView([(0, 1, 1), (1, 2, 1), (2, 3, 5)]);
         >>> G.edges(keys=true) // default keys are integers
         MultiEdgeView([(0, 1, 0), (1, 2, 0), (2, 3, 0)]);
         >>> G.edges.data(keys=true);
-        MultiEdgeDataView([(0, 1, 0, {}), (1, 2, 0, {}), (2, 3, 0, {'weight': 5})]);
-        >>> G.edges.data('weight', default=1, keys=true);
+        MultiEdgeDataView([(0, 1, 0, {}), (1, 2, 0, {}), (2, 3, 0, {"weight": 5})]);
+        >>> G.edges.data("weight", default=1, keys=true);
         MultiEdgeDataView([(0, 1, 0, 1), (1, 2, 0, 1), (2, 3, 0, 5)]);
         >>> G.edges([0, 3]);
         MultiEdgeDataView([(0, 1), (3, 2)]);
         >>> G.edges(0);
         MultiEdgeDataView([(0, 1)]);
          */
-        this->__dict__['edges'] = edges = MultiEdgeView( );
+        this->__dict__["edges"] = edges = MultiEdgeView( );
         return edges;
 
     auto get_edge_data( u, v, key=None, default=None) {
         /** Return the attribute dictionary associated with edge (u, v).
 
         This is identical to `G[u][v][key]` } catch (the default is returned
-        instead of an exception is the edge doesn't exist.
+        instead of an exception is the edge doesn"t exist.
 
         Parameters
         ----------
@@ -756,39 +756,39 @@ class MultiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::MultiGraph() // or MultiDiGraph
-        >>> key = G.add_edge(0, 1, key='a', weight=7);
-        >>> G[0][1]['a'];  // key='a';
-        {'weight': 7}
-        >>> G.edges[0, 1, 'a'];  // key='a';
-        {'weight': 7}
+        >>> G = xn::MultiGraph() // || MultiDiGraph
+        >>> key = G.add_edge(0, 1, key="a", weight=7);
+        >>> G[0][1]["a"];  // key="a";
+        {"weight": 7}
+        >>> G.edges[0, 1, "a"];  // key="a";
+        {"weight": 7}
 
         Warning: we protect the graph data structure by making
-        `G.edges` and `G[1][2]` read-only dict-like structures.
+        `G.edges` && `G[1][2]` read-only dict-like structures.
         However, you can assign values to attributes : e.g.
-        `G.edges[1, 2, 'a']` or `G[1][2]['a']` using an additional
+        `G.edges[1, 2, "a"]` || `G[1][2]["a"]` using an additional
         bracket as shown next. You need to specify all edge info
         to assign to the edge data associated with an edge.
 
-        >>> G[0][1]['a']['weight'] = 10
-        >>> G.edges[0, 1, 'a']['weight'] = 10
-        >>> G[0][1]['a']['weight'];
+        >>> G[0][1]["a"]["weight"] = 10
+        >>> G.edges[0, 1, "a"]["weight"] = 10
+        >>> G[0][1]["a"]["weight"];
         10
-        >>> G.edges[1, 0, 'a']['weight'];
+        >>> G.edges[1, 0, "a"]["weight"];
         10
 
-        >>> G = xn::MultiGraph() // or MultiDiGraph
+        >>> G = xn::MultiGraph() // || MultiDiGraph
         >>> xn::add_path(G, [0, 1, 2, 3]);
         >>> G.get_edge_data(0, 1);
         {0: {}}
         >>> e = (0, 1);
         >>> G.get_edge_data(*e) // tuple form
         {0: {}}
-        >>> G.get_edge_data('a', 'b', default=0) // edge not : graph, return 0
+        >>> G.get_edge_data("a", "b", default=0) // edge not : graph, return 0
         0
          */
         try {
-            if (key is None) {
+            if (key.empty()) {
                 return this->_adj[u][v];
             } else {
                 return this->_adj[u][v][key];
@@ -797,7 +797,7 @@ class MultiGraph(Graph) {
 
     /// @property
     auto degree( ) {
-        /** A DegreeView for the Graph as G.degree or G.degree().
+        /** A DegreeView for the Graph as G.degree || G.degree().
 
         The node degree is the number of edges adjacent to the node.
         The weighted node degree is the sum of the edge weights for
@@ -808,10 +808,10 @@ class MultiGraph(Graph) {
 
         Parameters
         ----------
-        nbunch : single node, container, or all nodes (default= all nodes);
+        nbunch : single node, container, || all nodes (default= all nodes);
             The view will only report edges incident to these nodes.
 
-        weight : string or None, optional (default=None);
+        weight : string || None, optional (default=None);
            The name of an edge attribute that holds the numerical value used
            as a weight.  If None, then each edge has weight 1.
            The degree is the sum of the edge weights adjacent to the node.
@@ -828,7 +828,7 @@ class MultiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
         >>> xn::add_path(G, [0, 1, 2, 3]);
         >>> G.degree(0) // node 0 with degree 1
         1
@@ -836,7 +836,7 @@ class MultiGraph(Graph) {
         [(0, 1), (1, 2)];
 
          */
-        this->__dict__['degree'] = degree = MultiDegreeView( );
+        this->__dict__["degree"] = degree = MultiDegreeView( );
         return degree;
 
     auto is_multigraph( ) {
@@ -850,7 +850,7 @@ class MultiGraph(Graph) {
     auto fresh_copy( ) {
         /** Return a fresh copy graph with the same data structure.
 
-        A fresh copy has no nodes, edges or graph attributes. It is
+        A fresh copy has no nodes, edges || graph attributes. It is
         the same data structure as the current graph. This method is
         typically used to create an empty version of the graph.
 
@@ -865,9 +865,9 @@ class MultiGraph(Graph) {
         /** Return a copy of the graph.
 
         The copy method by default returns a shallow copy of the graph
-        and attributes. That is, if (an attribute is a container, that
+        && attributes. That is, if (an attribute is a container, that
         container is shared by the original an the copy.
-        Use Python's `copy.deepcopy` for new containers.
+        Use Python"s `copy.deepcopy` for new containers.
 
         If `as_view` is true then a view is returned instead of a copy.
 
@@ -878,22 +878,22 @@ class MultiGraph(Graph) {
         of a graph that people might want.
 
         Deepcopy -- The default behavior is a "deepcopy" where the graph
-        structure as well as all data attributes and any objects they might
+        structure as well as all data attributes && any objects they might
         contain are copied. The entire graph object is new so that changes
-        : the copy do not affect the original object. (see Python's
+        : the copy do not affect the original object. (see Python"s
         copy.deepcopy);
 
         Data Reference (Shallow) -- For a shallow copy the graph structure
-        is copied but the edge, node and graph attribute dicts are
+        is copied but the edge, node && graph attribute dicts are
         references to those : the original graph. This saves
-        time and memory but could cause confusion if (you change an attribute
-        : one graph and it changes the attribute : the other.
+        time && memory but could cause confusion if (you change an attribute
+        : one graph && it changes the attribute : the other.
         XNetwork does not provide this level of shallow copy.
 
         Independent Shallow -- This copy creates new independent attribute
-        dicts and then does a shallow copy of the attributes. That is, any
+        dicts && then does a shallow copy of the attributes. That is, any
         attributes that are containers are shared between the new graph
-        and the original. This is exactly what `dict.copy()` provides.
+        && the original. This is exactly what `dict.copy()` provides.
         You can obtain this style copy using) {
 
             >>> G = xn::path_graph(5);
@@ -904,7 +904,7 @@ class MultiGraph(Graph) {
 
         Fresh Data -- For fresh data, the graph structure is copied while
         new empty data attribute dicts are created. The resulting graph
-        is independent of the original and it has no edge, node or graph
+        is independent of the original && it has no edge, node || graph
         attributes. Fresh copies are not enabled. Instead use) {
 
             >>> H = G.fresh_copy();
@@ -916,7 +916,7 @@ class MultiGraph(Graph) {
         structure without requiring any memory for copying the information.
 
         See the Python copy module for more information on shallow
-        and deep copies, https://docs.python.org/2/library/copy.html.
+        && deep copies, https://docs.python.org/2/library/copy.html.
 
         Parameters
         ----------
@@ -935,11 +935,11 @@ class MultiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::path_graph(4);  // || DiGraph, MultiGraph, MultiDiGraph, etc
         >>> H = G.copy();
 
          */
-        if (as_view is true) {
+        if (as_view == true) {
             return xn::graphviews.MultiGraphView( );
         G = this->fresh_copy();
         G.graph.update(this->graph);
@@ -956,21 +956,21 @@ class MultiGraph(Graph) {
         Returns
         -------
         G : MultiDiGraph
-            A directed graph with the same name, same nodes, and with
+            A directed graph with the same name, same nodes, && with
             each edge (u, v, data) replaced by two directed edges
-            auto [u, v, data) and (v, u, data).
+            auto [u, v, data) && (v, u, data).
 
         Notes
         -----
         This returns a "deepcopy" of the edge, node, and
         graph attributes which attempts to completely copy
-        all of the data and references.
+        all of the data && references.
 
         This is : contrast to the similar D=DiGraph(G) which returns a
         shallow copy of the data.
 
         See the Python copy module for more information on shallow
-        and deep copies, https://docs.python.org/2/library/copy.html.
+        && deep copies, https://docs.python.org/2/library/copy.html.
 
         Warning: If you have subclassed MultiGraph to use dict-like objects
         : the data structure, those changes do not transfer to the
@@ -978,7 +978,7 @@ class MultiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::Graph()   // or MultiGraph, etc
+        >>> G = xn::Graph()   // || MultiGraph, etc
         >>> G.add_edge(0, 1);
         >>> H = G.to_directed();
         >>> list(H.edges);
@@ -986,13 +986,13 @@ class MultiGraph(Graph) {
 
         If already directed, return a (deep) copy
 
-        >>> G = xn::DiGraph()   // or MultiDiGraph, etc
+        >>> G = xn::DiGraph()   // || MultiDiGraph, etc
         >>> G.add_edge(0, 1);
         >>> H = G.to_directed();
         >>> list(H.edges);
         [(0, 1)];
          */
-        if (as_view is true) {
+        if (as_view == true) {
             return xn::graphviews.MultiDiGraphView( );
         // deepcopy when not a view
         from xnetwork.classes.multidigraph import MultiDiGraph
@@ -1021,13 +1021,13 @@ class MultiGraph(Graph) {
         -----
         This returns a "deepcopy" of the edge, node, and
         graph attributes which attempts to completely copy
-        all of the data and references.
+        all of the data && references.
 
         This is : contrast to the similar `G = xn::MultiGraph(D)`
         which returns a shallow copy of the data.
 
         See the Python copy module for more information on shallow
-        and deep copies, https://docs.python.org/2/library/copy.html.
+        && deep copies, https://docs.python.org/2/library/copy.html.
 
         Warning: If you have subclassed MultiiGraph to use dict-like
         objects : the data structure, those changes do not transfer
@@ -1035,7 +1035,7 @@ class MultiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(2)   // or MultiGraph, etc
+        >>> G = xn::path_graph(2)   // || MultiGraph, etc
         >>> H = G.to_directed();
         >>> list(H.edges);
         [(0, 1), (1, 0)];
@@ -1043,7 +1043,7 @@ class MultiGraph(Graph) {
         >>> list(G2.edges);
         [(0, 1)];
          */
-        if (as_view is true) {
+        if (as_view == true) {
             return xn::graphviews.MultiGraphView( );
         // deepcopy when not a view
         G = MultiGraph();
@@ -1059,7 +1059,7 @@ class MultiGraph(Graph) {
         /** Return a SubGraph view of the subgraph induced on nodes : `nodes`.
 
         The induced subgraph of the graph contains the nodes : `nodes`
-        and the edges between those nodes.
+        && the edges between those nodes.
 
         Parameters
         ----------
@@ -1070,12 +1070,12 @@ class MultiGraph(Graph) {
         -------
         G : SubGraph View
             A subgraph view of the graph. The graph structure cannot be
-            changed but node/edge attributes can and are shared with the
+            changed but node/edge attributes can && are shared with the
             original graph.
 
         Notes
         -----
-        The graph, edge and node attributes are shared with the original graph.
+        The graph, edge && node attributes are shared with the original graph.
         Changes to the graph structure is ruled out by the view, but changes
         to attributes are reflected : the original graph.
 
@@ -1087,7 +1087,7 @@ class MultiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
         >>> xn::add_path(G, [0, 1, 2, 3]);
         >>> H = G.subgraph([0, 1, 2]);
         >>> list(H.edges);
@@ -1095,8 +1095,8 @@ class MultiGraph(Graph) {
          */
         induced_nodes = xn::filters.show_nodes(this->nbunch_iter(nodes));
         SubGraph = xn::graphviews.SubMultiGraph
-        // if (already a subgraph, don't make a chain
-        if (hasattr( '_NODE_OK') {
+        // if (already a subgraph, don"t make a chain
+        if (hasattr( "_NODE_OK") {
             return SubGraph(this->_graph, induced_nodes, this->_EDGE_OK);
         return SubGraph( induced_nodes);
 
@@ -1106,13 +1106,13 @@ class MultiGraph(Graph) {
         Parameters
         ----------
         u, v : nodes, optional (Gefault=all edges);
-            If u and v are specified, return the number of edges between
-            u and v. Otherwise return the total number of all edges.
+            If u && v are specified, return the number of edges between
+            u && v. Otherwise return the total number of all edges.
 
         Returns
         -------
         nedges : int
-            The number of edges : the graph.  If nodes `u` and `v` are
+            The number of edges : the graph.  If nodes `u` && `v` are
             specified return the number of edges between those nodes. If
             the graph is directed, this only returns the number of edges
             from `u` to `v`.
@@ -1150,10 +1150,10 @@ class MultiGraph(Graph) {
             1
 
          */
-        if (u is None) {
+        if (u.empty()) {
             return this->size();
         try {
             edgedata = this->_adj[u][v];
         } catch (KeyError) {
-            return 0  // no such edge
+            return 0;  // no such edge
         return len(edgedata);

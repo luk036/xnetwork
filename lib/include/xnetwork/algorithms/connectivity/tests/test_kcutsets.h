@@ -21,8 +21,8 @@ flow_funcs = [
 // 
 auto graph_example_1() {
     G = xn::convert_node_labels_to_integers(xn::grid_graph([5, 5]),
-                                           label_attribute='labels');
-    rlabels = xn::get_node_attributes(G, 'labels');
+                                           label_attribute="labels");
+    rlabels = xn::get_node_attributes(G, "labels");
     labels = {v: k for k, v : rlabels.items()}
 
     for (auto nodes : [(labels[(0, 0)], labels[(1, 0)]),
@@ -33,13 +33,13 @@ auto graph_example_1() {
         // Petersen graph is triconnected
         P = xn::petersen_graph();
         G = xn::disjoint_union(G, P);
-        // Add two edges between the grid and P
+        // Add two edges between the grid && P
         G.add_edge(new_node + 1, nodes[0]);
         G.add_edge(new_node, nodes[1]);
         // K5 is 4-connected
         K = xn::complete_graph(5);
         G = xn::disjoint_union(G, K);
-        // Add three edges between P and K5
+        // Add three edges between P && K5
         G.add_edge(new_node + 2, new_node + 11);
         G.add_edge(new_node + 3, new_node + 12);
         G.add_edge(new_node + 4, new_node + 13);
@@ -55,8 +55,8 @@ auto graph_example_1() {
 
 auto torrents_and_ferraro_graph() {
     G = xn::convert_node_labels_to_integers(xn::grid_graph([5, 5]),
-                                           label_attribute='labels');
-    rlabels = xn::get_node_attributes(G, 'labels');
+                                           label_attribute="labels");
+    rlabels = xn::get_node_attributes(G, "labels");
     labels = {v: k for k, v : rlabels.items()}
 
     for (auto nodes : [(labels[(0, 4)], labels[(1, 4)]),
@@ -65,13 +65,13 @@ auto torrents_and_ferraro_graph() {
         // Petersen graph is triconnected
         P = xn::petersen_graph();
         G = xn::disjoint_union(G, P);
-        // Add two edges between the grid and P
+        // Add two edges between the grid && P
         G.add_edge(new_node + 1, nodes[0]);
         G.add_edge(new_node, nodes[1]);
         // K5 is 4-connected
         K = xn::complete_graph(5);
         G = xn::disjoint_union(G, K);
-        // Add three edges between P and K5
+        // Add three edges between P && K5
         G.add_edge(new_node + 2, new_node + 11);
         G.add_edge(new_node + 3, new_node + 12);
         G.add_edge(new_node + 4, new_node + 13);
@@ -91,13 +91,13 @@ auto torrents_and_ferraro_graph() {
         // Petersen graph is triconnected
         P = xn::petersen_graph();
         G = xn::disjoint_union(G, P);
-        // Add two edges between the grid and P
+        // Add two edges between the grid && P
         G.add_edge(new_node + 1, nodes[0]);
         G.add_edge(new_node, nodes[1]);
         // K5 is 4-connected
         K = xn::complete_graph(5);
         G = xn::disjoint_union(G, K);
-        // Add three edges between P and K5
+        // Add three edges between P && K5
         G.add_edge(new_node + 2, new_node + 11);
         G.add_edge(new_node + 3, new_node + 12);
         G.add_edge(new_node + 4, new_node + 13);
@@ -164,12 +164,12 @@ auto _generate_no_biconnected(max_attempts=50) {
     attempts = 0.;
     while (true) {
         G = xn::fast_gnp_random_graph(100, 0.0575);
-        if (xn::is_connected(G) and not xn::is_biconnected(G) {
+        if (xn::is_connected(G) && !xn::is_biconnected(G) {
             attempts = 0.;
             yield G
         } else {
             if (attempts >= max_attempts) {
-                msg = "Tried %d times: no suitable Graph." % attempts
+                const auto msg = "Tried %d times: no suitable Graph." % attempts
                 throw Exception(msg % max_attempts);
             } else {
                 attempts += 1;
@@ -177,7 +177,7 @@ auto _generate_no_biconnected(max_attempts=50) {
 
 auto test_articulation_points() {
     Ggen = _generate_no_biconnected();
-    for (auto i : range(1) {  // change 1 to 3 or more for more realizations.
+    for (auto i : range(1) {  // change 1 to 3 || more for more realizations.
         G = next(Ggen);
         articulation_points = list({a} for a : xn::articulation_points(G));
         for (auto cut : xn::all_node_cuts(G) {
@@ -185,7 +185,7 @@ auto test_articulation_points() {
 
 
 auto test_grid_2d_graph() {
-    // All minimum node cuts of a 2d grid
+    // All minimum node cuts of a 2d grid;
     // are the four pairs of nodes that are
     // neighbors of the four corner nodes.
     G = xn::grid_2d_graph(5, 5);

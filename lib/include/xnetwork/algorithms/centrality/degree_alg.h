@@ -12,9 +12,9 @@
 #include <xnetwork.hpp>using namespace xn;
 from xnetwork.utils.decorators import not_implemented_for
 
-__all__ = ['degree_centrality',
-           'in_degree_centrality',
-           'out_degree_centrality'];
+static const auto __all__ = ["degree_centrality",
+           "in_degree_centrality",
+           "out_degree_centrality"];
 
 
 auto degree_centrality(G) {
@@ -42,8 +42,8 @@ auto degree_centrality(G) {
     The degree centrality values are normalized by dividing by the maximum
     possible degree : a simple graph n-1 where n is the number of nodes : G.
 
-    For multigraphs or graphs with self loops the maximum degree might
-    be higher than n-1 and values of degree centrality greater than 1
+    For multigraphs || graphs with self loops the maximum degree might
+    be higher than n-1 && values of degree centrality greater than 1
     are possible.
     */
     centrality = {};
@@ -52,7 +52,7 @@ auto degree_centrality(G) {
     return centrality
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto in_degree_centrality(G) {
     /** Compute the in-degree centrality for nodes.
 
@@ -83,8 +83,8 @@ auto in_degree_centrality(G) {
     The degree centrality values are normalized by dividing by the maximum
     possible degree : a simple graph n-1 where n is the number of nodes : G.
 
-    For multigraphs or graphs with self loops the maximum degree might
-    be higher than n-1 and values of degree centrality greater than 1
+    For multigraphs || graphs with self loops the maximum degree might
+    be higher than n-1 && values of degree centrality greater than 1
     are possible.
     */
     centrality = {};
@@ -93,7 +93,7 @@ auto in_degree_centrality(G) {
     return centrality
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto out_degree_centrality(G) {
     /** Compute the out-degree centrality for nodes.
 
@@ -124,8 +124,8 @@ auto out_degree_centrality(G) {
     The degree centrality values are normalized by dividing by the maximum
     possible degree : a simple graph n-1 where n is the number of nodes : G.
 
-    For multigraphs or graphs with self loops the maximum degree might
-    be higher than n-1 and values of degree centrality greater than 1
+    For multigraphs || graphs with self loops the maximum degree might
+    be higher than n-1 && values of degree centrality greater than 1
     are possible.
     */
     centrality = {};

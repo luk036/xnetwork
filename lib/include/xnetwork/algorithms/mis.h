@@ -10,17 +10,17 @@
 // Authors: Leo Lopes <leo.lopes@monash.edu>
 //          Loïc Séguin-C. <loicseguin@gmail.com>
 /**
-Algorithm to find a maximal (not maximum) independent set.
+Algorithm to find a maximal (!maximum) independent set.
 
 */
 import random
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['maximal_independent_set'];
+static const auto __all__ = ["maximal_independent_set"];
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto maximal_independent_set(G, nodes=None) {
     /** Return a random maximal independent set guaranteed to contain
     a given set of nodes.
@@ -28,13 +28,13 @@ auto maximal_independent_set(G, nodes=None) {
     An independent set is a set of nodes such that the subgraph
     of G induced by these nodes contains no edges. A maximal
     independent set is an independent set such that it is not possible
-    to add a new node and still get an independent set.
+    to add a new node && still get an independent set.
 
     Parameters
     ----------
     G : XNetwork graph
 
-    nodes : list or iterable
+    nodes : list || iterable
        Nodes that must be part of the independent set. This set of nodes
        must be independent.
 
@@ -65,11 +65,11 @@ auto maximal_independent_set(G, nodes=None) {
     This algorithm does not solve the maximum independent set problem.
 
      */
-    if (not nodes) {
+    if (!nodes) {
         nodes = set([random.choice(list(G))]);
     } else {
         nodes = set(nodes);
-    if (not nodes.issubset(G) {
+    if (!nodes.issubset(G) {
         throw xn::XNetworkUnfeasible(
             "%s is not a subset of the nodes of G" % nodes);
     neighbors = set.union(*[set(G.adj[v]) for v : nodes]);
@@ -82,4 +82,4 @@ auto maximal_independent_set(G, nodes=None) {
         node = random.choice(list(available_nodes));
         indep_nodes.append(node);
         available_nodes.difference_update(list(G.adj[node]) + [node]);
-    return indep_nodes
+    return indep_nodes;

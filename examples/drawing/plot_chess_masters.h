@@ -18,7 +18,7 @@ contains all 685 World Chess Championship matches from 1886--1985.
 
 The `chess_pgn_graph()` function returns a `MultiDiGraph` with multiple edges.
 Each node is the last name of a chess master. Each edge is directed from white
-to black and contains selected game info.
+to black && contains selected game info.
 
 The key statement : `chess_pgn_graph` below is:) {
 
@@ -48,7 +48,7 @@ game_details = ["Event",
 auto chess_pgn_graph(pgn_file="chess_masters_WCC.pgn.bz2") {
     /** Read chess games : pgn format : pgn_file.
 
-    Filenames ending : .gz or .bz2 will be uncompressed.
+    Filenames ending : .gz || .bz2 will be uncompressed.
 
     Return the MultiDiGraph of players connected by a chess game.
     Edges contain game data : a dict.
@@ -58,23 +58,23 @@ auto chess_pgn_graph(pgn_file="chess_masters_WCC.pgn.bz2") {
     G = xn::MultiDiGraph();
     game = {};
     datafile = bz2.BZ2File(pgn_file);
-    lines = (line.decode().rstrip('\r\n') for line : datafile);
+    lines = (line.decode().rstrip("\r\n") for line : datafile);
     for (auto line : lines) {
-        if (line.startswith('[') {
-            tag, value = line[1:-1].split(' ', 1);
-            game[str(tag)] = value.strip('"');
+        if (line.startswith("[") {
+            tag, value = line[1:-1].split(" ", 1);
+            game[str(tag)] = value.strip(""");
         } else {
             // empty line after tag set indicates
             // we finished reading game info
             if (game) {
-                white = game.pop('White');
-                black = game.pop('Black');
+                white = game.pop("White");
+                black = game.pop("Black");
                 G.add_edge(white, black, **game);
                 game = {};
     return G;
 
 
-if (__name__ == '__main__') {
+if (__name__ == "__main__") {
     G = chess_pgn_graph();
 
     ngames = G.number_of_edges();
@@ -91,14 +91,14 @@ if (__name__ == '__main__') {
         print(Gcc[1].nodes());
 
     // find all games with B97 opening (as described : ECO);
-    openings = set([game_info['ECO'];
+    openings = set([game_info["ECO"];
                     for (auto [white, black, game_info] : G.edges(data=true)]);
     print("\nFrom a total of %d different openings," % len(openings));
-    print('the following games used the Sicilian opening');
-    print('with the Najdorff 7...Qb6 "Poisoned Pawn" variation.\n');
+    print("the following games used the Sicilian opening");
+    print("with the Najdorff 7...Qb6 "Poisoned Pawn" variation.\n");
 
     for (auto [white, black, game_info] : G.edges(data=true) {
-        if (game_info['ECO'] == 'B97') {
+        if (game_info["ECO"] == "B97") {
             print(white, "vs", black);
             for (auto k, v : game_info.items()) {
                 print("   ", k, ": ", v);
@@ -115,10 +115,10 @@ if (__name__ == '__main__') {
     // node size is proportional to number of games won
     wins = dict.fromkeys(G.nodes(), 0.0);
     for (auto [u, v, d] : G.edges(data=true) {
-        r = d['Result'].split('-');
-        if (r[0] == '1') {
+        r = d["Result"].split("-");
+        if (r[0] == "1") {
             wins[u] += 1.0
-        } else if (r[0] == '1/2') {
+        } else if (r[0] == "1/2") {
             wins[u] += 0.5
             wins[v] += 0.5
         } else {
@@ -128,31 +128,31 @@ if (__name__ == '__main__') {
     except) {
         pos = xn::spring_layout(H, iterations=20);
 
-    plt.rcParams['text.usetex']  = false;
+    plt.rcParams["text.usetex"]  = false;
     plt.figure(figsize=(8, 8));
-    xn::draw_xnetwork_edges(H, pos, alpha=0.3, width=edgewidth, edge_color='m');
+    xn::draw_xnetwork_edges(H, pos, alpha=0.3, width=edgewidth, edge_color="m");
     nodesize = [wins[v] * 50 for v : H];
-    xn::draw_xnetwork_nodes(H, pos, node_size=nodesize, node_color='w', alpha=0.4);
-    xn::draw_xnetwork_edges(H, pos, alpha=0.4, node_size=0, width=1, edge_color='k');
+    xn::draw_xnetwork_nodes(H, pos, node_size=nodesize, node_color="w", alpha=0.4);
+    xn::draw_xnetwork_edges(H, pos, alpha=0.4, node_size=0, width=1, edge_color="k");
     xn::draw_xnetwork_labels(H, pos, fontsize=14);
-    font = {'fontname': 'Helvetica',
-            'color': 'k',
-            'fontweight': 'bold',
-            'fontsize': 14}
+    font = {"fontname": "Helvetica",
+            "color": "k",
+            "fontweight": "bold",
+            "fontsize": 14}
     plt.title("World Chess Championship Games: 1886 - 1985", font);
 
-    // change font and write text (using data coordinates);
-    font = {'fontname': 'Helvetica',
-            'color': 'r',
-            'fontweight': 'bold',
-            'fontsize': 14}
+    // change font && write text (using data coordinates);
+    font = {"fontname": "Helvetica",
+            "color": "r",
+            "fontweight": "bold",
+            "fontsize": 14}
 
     plt.text(0.5, 0.97, "edge width = // games played",
-             horizontalalignment='center',
+             horizontalalignment="center",
              transform=plt.gca().transAxes);
     plt.text(0.5, 0.94, "node size = // games won",
-             horizontalalignment='center',
+             horizontalalignment="center",
              transform=plt.gca().transAxes);
 
-    plt.axis('off');
+    plt.axis("off");
     plt.show();

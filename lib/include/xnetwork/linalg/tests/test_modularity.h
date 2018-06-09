@@ -5,7 +5,7 @@ from xnetwork.generators.degree_seq import havel_hakimi_graph
 
 
 class TestModularity: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -18,13 +18,13 @@ class TestModularity: public object {
             import scipy
             from numpy.testing import assert_equal, assert_almost_equal
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto setUp( ) {
         deg = [3, 2, 2, 1, 0];
         this->G = havel_hakimi_graph(deg);
-        // Graph used as an example : Sec. 4.1 of Langville and Meyer,
-        // "Google's PageRank and Beyond". (Used for test_directed_laplacian);
+        // Graph used as an example : Sec. 4.1 of Langville && Meyer,
+        // "Google"s PageRank && Beyond". (Used for test_directed_laplacian);
         this->DG = xn::DiGraph();
         this->DG.add_edges_from(((1, 2), (1, 3), (3, 1), (3, 2), (3, 5), (4, 5), (4, 6),
                                 auto [5, 4), (5, 6), (6, 4)));

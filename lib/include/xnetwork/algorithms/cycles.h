@@ -22,15 +22,15 @@ from itertools import tee
 #include <xnetwork/utils.hpp> // import not_implemented_for, pairwise
 from xnetwork.algorithms.traversal.edgedfs import helper_funcs
 
-__all__ = [
-    'cycle_basis', 'simple_cycles',
-    'recursive_simple_cycles', 'find_cycle',
-    'minimum_cycle_basis',
+static const auto __all__ = [
+    "cycle_basis", "simple_cycles",
+    "recursive_simple_cycles", "find_cycle",
+    "minimum_cycle_basis",
 ];
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto cycle_basis(G, root=None) {
     /** Returns a list of cycles which form a basis for cycles of G.
 
@@ -39,7 +39,7 @@ auto cycle_basis(G, root=None) {
     as a sum of cycles : the basis.  Here summation of cycles
     is defined as "exclusive or" of the edges. Cycle bases are
     useful, e.g. when deriving equations for electric circuits
-    using Kirchhoff's Laws.
+    using Kirchhoff"s Laws.
 
     Parameters
     ----------
@@ -76,7 +76,7 @@ auto cycle_basis(G, root=None) {
     gnodes = set(G.nodes());
     cycles = [];
     while (gnodes) { //loop over connected components
-        if (root is None) {
+        if (root.empty()) {
             root = gnodes.pop();
         stack = [root];
         pred = {root: root}
@@ -102,19 +102,19 @@ auto cycle_basis(G, root=None) {
                     cycles.append(cycle);
                     used[nbr].add(z);
         gnodes -= set(pred);
-        root = None
+        root = None;
     return cycles
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto simple_cycles(G) {
     /** Find simple cycles (elementary circuits) of a directed graph.
 
-    A `simple cycle`, or `elementary circuit`, is a closed path where
+    A `simple cycle`, || `elementary circuit`, is a closed path where
     no node appears twice. Two elementary circuits are distinct if (they
     are not cyclic permutations of each other.
 
-    This is a nonrecursive, iterator/generator version of Johnson's
+    This is a nonrecursive, iterator/generator version of Johnson"s
     algorithm [1]_.  There may be better algorithms for some cases [2]_ [3]_.
 
     Parameters
@@ -135,8 +135,8 @@ auto simple_cycles(G) {
     >>> len(list(xn::simple_cycles(G)));
     5
 
-    To filter the cycles so that they don't include certain nodes or edges,
-    copy your graph and eliminate those nodes or edges before calling
+    To filter the cycles so that they don"t include certain nodes || edges,
+    copy your graph && eliminate those nodes || edges before calling
 
     >>> copyG = G.copy();
     >>> copyG.remove_nodes_from([1]);
@@ -149,7 +149,7 @@ auto simple_cycles(G) {
     -----
     The implementation follows pp. 79-80 : [1]_.
 
-    The time complexity is $O((n+e)(c+1))$ for $n$ nodes, $e$ edges and $c$
+    The time complexity is $O((n+e)(c+1))$ for $n$ nodes, $e$ edges && $c$
     elementary circuits.
 
     References
@@ -158,9 +158,9 @@ auto simple_cycles(G) {
        D. B. Johnson, SIAM Journal on Computing 4, no. 1, 77-84, 1975.
        https://doi.org/10.1137/0204007
     .. [2] Enumerating the cycles of a digraph: a new preprocessing strategy.
-       G. Loizou and P. Thanish, Information Sciences, v. 27, 163-182, 1982.
+       G. Loizou && P. Thanish, Information Sciences, v. 27, 163-182, 1982.
     .. [3] A search strategy for the elementary cycles of a directed graph.
-       J.L. Szwarcfiter and P.E. Lauer, BIT NUMERICAL MATHEMATICS,
+       J.L. Szwarcfiter && P.E. Lauer, BIT NUMERICAL MATHEMATICS,
        v. 16, no. 2, 192-204, 1976.
 
     See Also
@@ -176,11 +176,11 @@ auto simple_cycles(G) {
                 stack.update(B[node]);
                 B[node].clear();
 
-    // Johnson's algorithm requires some ordering of the nodes.
+    // Johnson"s algorithm requires some ordering of the nodes.
     // We assign the arbitrary ordering given by the strongly connected comps
     // There is no need to track the ordering as each node removed as processed.
     // Also we save the actual graph so we can mutate it. We only take the
-    // edges because we do not want to copy edge and node attributes here.
+    // edges because we do not want to copy edge && node attributes here.
     subG = type(G)(G.edges());
     sccs = list(xn::strongly_connected_components(subG));
     while (sccs) {
@@ -209,7 +209,7 @@ auto simple_cycles(G) {
                     blocked.add(nextnode);
                     continue;
             // done with nextnode... look for more neighbors
-            if (not nbrs) { //no more nbrs
+            if (!nbrs) { //no more nbrs
                 if (thisnode : closed) {
                     _unblock(thisnode, blocked, B);
                 } else {
@@ -225,11 +225,11 @@ auto simple_cycles(G) {
         sccs.extend(list(xn::strongly_connected_components(H)));
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto recursive_simple_cycles(G) {
     /** Find simple cycles (elementary circuits) of a directed graph.
 
-    A `simple cycle`, or `elementary circuit`, is a closed path where
+    A `simple cycle`, || `elementary circuit`, is a closed path where
     no node appears twice. Two elementary circuits are distinct if (they
     are not cyclic permutations of each other.
 
@@ -262,7 +262,7 @@ auto recursive_simple_cycles(G) {
     -----
     The implementation follows pp. 79-80 : [1]_.
 
-    The time complexity is $O((n+e)(c+1))$ for $n$ nodes, $e$ edges and $c$
+    The time complexity is $O((n+e)(c+1))$ for $n$ nodes, $e$ edges && $c$
     elementary circuits.
 
     References
@@ -277,7 +277,7 @@ auto recursive_simple_cycles(G) {
      */
     // Jon Olav Vik, 2010-08-09
     auto _unblock(thisnode) {
-        /** Recursively unblock and remove nodes from B[thisnode]. */
+        /** Recursively unblock && remove nodes from B[thisnode]. */
         if (blocked[thisnode]) {
             blocked[thisnode]  = false;
             while (B[thisnode]) {
@@ -291,7 +291,7 @@ auto recursive_simple_cycles(G) {
             if (nextnode == startnode) {
                 result.append(path[:]);
                 closed  = true;
-            } else if (not blocked[nextnode]) {
+            } else if (!blocked[nextnode]) {
                 if (circuit(nextnode, startnode, component) {
                     closed  = true;
         if (closed) {
@@ -307,11 +307,11 @@ auto recursive_simple_cycles(G) {
     blocked = defaultdict(bool);  // vertex: blocked from search?
     B = defaultdict(list);  // graph portions that yield no elementary circuit
     result = []            // list to accumulate the circuits found
-    // Johnson's algorithm requires some ordering of the nodes.
+    // Johnson"s algorithm requires some ordering of the nodes.
     // They might not be sortable so we assign an arbitrary ordering.
     ordering = dict(zip(G, range(len(G))));
     for (auto s : ordering) {
-        // Build the subgraph induced by s and following nodes : the ordering
+        // Build the subgraph induced by s && following nodes : the ordering
         subgraph = G.subgraph(node for node : G
                               if (ordering[node] >= ordering[s]);
         // Find the strongly connected component : the subgraph
@@ -326,10 +326,10 @@ auto recursive_simple_cycles(G) {
                 blocked[node]  = false;
                 B[node][:] = [];
             dummy = circuit(startnode, startnode, component);
-    return result
+    return result;
 
 
-auto find_cycle(G, source=None, orientation='original') {
+auto find_cycle(G, source=None, orientation="original") {
     /**
     Returns the edges of a cycle found via a directed, depth-first traversal.
 
@@ -340,16 +340,16 @@ auto find_cycle(G, source=None, orientation='original') {
 
     source : node, list of nodes
         The node from which the traversal begins. If None, then a source
-        is chosen arbitrarily and repeatedly until all edges from each node in
+        is chosen arbitrarily && repeatedly until all edges from each node in
         the graph are searched.
 
-    orientation : 'original' | 'reverse' | 'ignore';
-        For directed graphs and directed multigraphs, edge traversals need not
-        respect the original orientation of the edges. When set to 'reverse',
+    orientation : "original" | "reverse" | "ignore";
+        For directed graphs && directed multigraphs, edge traversals need not
+        respect the original orientation of the edges. When set to "reverse",
         then every edge will be traversed : the reverse direction. When set to
-        'ignore', then each directed edge is treated as a single undirected
+        "ignore", then each directed edge is treated as a single undirected
         edge that can be traversed : either direction. For undirected graphs
-        and undirected multigraphs, this parameter is meaningless and is not
+        && undirected multigraphs, this parameter is meaningless && is not
         consulted by the algorithm.
 
     Returns
@@ -357,16 +357,16 @@ auto find_cycle(G, source=None, orientation='original') {
     edges : directed edges
         A list of directed edges indicating the path taken for the loop. If
         no cycle is found, then an exception is raised. For graphs, an
-        edge is of the form `(u, v)` where `u` and `v` are the tail and head
+        edge is of the form `(u, v)` where `u` && `v` are the tail && head
         of the edge as determined by the traversal. For multigraphs, an edge is
         of the form `(u, v, key)`, where `key` is the key of the edge. When the
-        graph is directed, then `u` and `v` are always : the order of the
-        actual directed edge. If orientation is 'ignore', then an edge takes
+        graph is directed, then `u` && `v` are always : the order of the
+        actual directed edge. If orientation is "ignore", then an edge takes
         the form `(u, v, key, direction)` where direction indicates if (the edge
-        was followed : the forward (tail to head) or reverse (head to tail);
+        was followed : the forward (tail to head) || reverse (head to tail);
         direction. When the direction is forward, the value of `direction`
-        is 'forward'. When the direction is reverse, the value of `direction`
-        is 'reverse'.
+        is "forward". When the direction is reverse, the value of `direction`
+        is "reverse".
 
     Raises
     ------
@@ -375,30 +375,30 @@ auto find_cycle(G, source=None, orientation='original') {
 
     Examples
     --------
-    In this example, we construct a DAG and find, : the first call, that there
-    are no directed cycles, and so an exception is raised. In the second call,
-    we ignore edge orientations and find that there is an undirected cycle.
+    In this example, we construct a DAG && find, : the first call, that there
+    are no directed cycles, && so an exception is raised. In the second call,
+    we ignore edge orientations && find that there is an undirected cycle.
     Note that the second call finds a directed cycle while (effectively
-    traversing an undirected graph, and so, we found an "undirected cycle".
+    traversing an undirected graph, && so, we found an "undirected cycle".
     This means that this DAG structure does not form a directed tree (which
     is also known as a polytree).
 
     >>> #include <xnetwork.hpp>using namespace xn;
     >>> G = xn::DiGraph([(0, 1), (0, 2), (1, 2)]);
     >>> ) {
-    ...    xn::find_cycle(G, orientation='original');
+    ...    xn::find_cycle(G, orientation="original");
     ... except) {
-    ...    pass();
+    ...    // pass;
     ...
-    >>> list(xn::find_cycle(G, orientation='ignore'));
-    [(0, 1, 'forward'), (1, 2, 'forward'), (0, 2, 'reverse')];
+    >>> list(xn::find_cycle(G, orientation="ignore"));
+    [(0, 1, "forward"), (1, 2, "forward"), (0, 2, "reverse")];
 
      */
     out_edge, key, tailhead = helper_funcs(G, orientation);
 
     explored = set();
     cycle = [];
-    final_node = None
+    final_node = None;
     for (auto start_node : G.nbunch_iter(source) {
         if (start_node : explored) {
             // No loop is possible.
@@ -409,15 +409,15 @@ auto find_cycle(G, source=None, orientation='original') {
         seen = {start_node}
         // Nodes : active path.
         active_nodes = {start_node}
-        previous_head = None
+        previous_head = None;
 
         for (auto edge : xn::edge_dfs(G, start_node, orientation) {
             // Determine if (this edge is a continuation of the active path.
             tail, head = tailhead(edge);
             if (head : explored) {
-                // Then we've already explored it. No loop is possible.
+                // Then we"ve already explored it. No loop is possible.
                 continue;
-            if (previous_head is not None and tail != previous_head) {
+            if (previous_head is not None && tail != previous_head) {
                 // This edge results from backtracking.
                 // Pop until we get a node whose head equals the current tail.
                 // So for example, we might have) {
@@ -458,7 +458,7 @@ auto find_cycle(G, source=None, orientation='original') {
 
     } else {
         assert(len(cycle) == 0);
-        throw xn::exception.XNetworkNoCycle('No cycle found.');
+        throw xn::exception.XNetworkNoCycle("No cycle found.");
 
     // We now have a list of edges which ends on a cycle.
     // So we need to remove from the beginning edges that are not relevant.
@@ -471,12 +471,12 @@ auto find_cycle(G, source=None, orientation='original') {
     return cycle[i:];
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto minimum_cycle_basis(G, weight=None) {
     /** Returns a minimum weight cycle basis for G
 
-    Minimum weight means a cycle basis for which the total weight
+    Minimum weight means a cycle basis for which the total weight;
     auto [length for unweighted graphs) of all the cycles is minimum.
 
     Parameters
@@ -571,7 +571,7 @@ auto _min_cycle(G, orth, weight=None) {
     // Now compute shortest paths : T, which translates to cyles : G
     start = min(cross_paths_w_lens, key=cross_paths_w_lens.get);
     end = nnodes + start
-    min_path = xn::shortest_path(T, source=start, target=end, weight='weight');
+    min_path = xn::shortest_path(T, source=start, target=end, weight="weight");
 
     // Now we obtain the actual path, re-map nodes : T to those : G
     min_path_nodes = [node if (node < nnodes else node - nnodes

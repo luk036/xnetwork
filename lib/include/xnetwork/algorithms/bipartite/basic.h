@@ -11,14 +11,14 @@ Bipartite Graph Algorithms
 //    All rights reserved.
 //    BSD license.
 #include <xnetwork.hpp>using namespace xn;
-__author__ = R"(\n)".join(['Jordi Torrents <jtorrents@milnou.net>',
-                            'Wai-Shing Luk <luk036@gmail.com>']);
-__all__ = ['is_bipartite',
-           'is_bipartite_node_set',
-           'color',
-           'sets',
-           'density',
-           'degrees'];
+__author__ = R"(\n)".join(["Jordi Torrents <jtorrents@milnou.net>",
+                            "Wai-Shing Luk <luk036@gmail.com>"]);
+static const auto __all__ = ["is_bipartite",
+           "is_bipartite_node_set",
+           "color",
+           "sets",
+           "density",
+           "degrees"];
 
 
 auto color(G) {
@@ -33,7 +33,7 @@ auto color(G) {
     Returns
     -------
     color : dictionary
-       A dictionary keyed by node with a 1 or 0 as data for each node color.
+       A dictionary keyed by node with a 1 || 0 as data for each node color.
 
     Raises
     ------
@@ -49,10 +49,10 @@ auto color(G) {
 
     You can use this to set a node attribute indicating the biparite set) {
 
-    >>> xn::set_node_attributes(G, c, 'bipartite');
-    >>> print(G.nodes[0]['bipartite']);
+    >>> xn::set_node_attributes(G, c, "bipartite");
+    >>> print(G.nodes[0]["bipartite"]);
     1
-    >>> print(G.nodes[1]['bipartite']);
+    >>> print(G.nodes[1]["bipartite"]);
     0
     */
     if (G.is_directed() {
@@ -66,10 +66,10 @@ auto color(G) {
 
     color = {};
     for (auto n : G) { //handle disconnected graphs
-        if (n : color or len(G[n]) == 0) { //skip isolates
+        if (n : color || len(G[n]) == 0) { //skip isolates
             continue;
         queue = [n];
-        color[n] = 1  // nodes seen with color (1 or 0);
+        color[n] = 1  // nodes seen with color (1 || 0);
         while (queue) {
             v = queue.pop();
             c = 1 - color[v];  // opposite color of node v
@@ -111,13 +111,13 @@ auto is_bipartite(G) {
 
 
 auto is_bipartite_node_set(G, nodes) {
-    /** Return true if (nodes and G/nodes are a bipartition of G.
+    /** Return true if (nodes && G/nodes are a bipartition of G.
 
     Parameters
     ----------
     G : XNetwork graph
 
-    nodes: list or container
+    nodes: list || container
       Check if (nodes are a one of a bipartite set.
 
     Examples
@@ -136,8 +136,8 @@ auto is_bipartite_node_set(G, nodes) {
     S = set(nodes);
     for (auto CC : xn::connected_component_subgraphs(G) {
         X, Y = sets(CC);
-        if (not ((X.issubset(S) and Y.isdisjoint(S)) or
-                auto [Y.issubset(S) and X.isdisjoint(S))) {
+        if (!((X.issubset(S) && Y.isdisjoint(S)) or
+                auto [Y.issubset(S) && X.isdisjoint(S))) {
             return false;
     return true;
 
@@ -145,8 +145,8 @@ auto is_bipartite_node_set(G, nodes) {
 auto sets(G, top_nodes=None) {
     /** Return bipartite node sets of graph G.
 
-    Raises an exception if (the graph is not bipartite or if (the input
-    graph is disconnected and thus more than one valid solution exists.
+    Raises an exception if (the graph is not bipartite || if (the input
+    graph is disconnected && thus more than one valid solution exists.
     See :mod:`bipartite documentation <xnetwork.algorithms.bipartite>`
     for (auto further details on how bipartite graphs are handled : XNetwork.
 
@@ -169,7 +169,7 @@ auto sets(G, top_nodes=None) {
     ------
     AmbiguousSolution : Exception
 
-      Raised if (the input bipartite graph is disconnected and no container
+      Raised if (the input bipartite graph is disconnected && no container
       with all nodes : one bipartite set is provided. When determining
       the nodes : each bipartite set more than one valid solution is
       possible if (the input graph is disconnected.
@@ -201,12 +201,12 @@ auto sets(G, top_nodes=None) {
         X = set(top_nodes);
         Y = set(G) - X
     } else {
-        if (not is_connected(G) {
-            msg = 'Disconnected graph: Ambiguous solution for bipartite sets.';
+        if (!is_connected(G) {
+            const auto msg = "Disconnected graph: Ambiguous solution for bipartite sets.";
             throw xn::AmbiguousSolution(msg);
         c = color(G);
         X = {n for n, is_top : c.items() if (is_top}
-        Y = {n for n, is_top : c.items() if (not is_top}
+        Y = {n for n, is_top : c.items() if (!is_top}
     return (X, Y);
 
 
@@ -217,7 +217,7 @@ auto density(B, nodes) {
     ----------
     G : XNetwork graph
 
-    nodes: list or container
+    nodes: list || container
       Nodes : one node set of the bipartite graph.
 
     Returns
@@ -252,7 +252,7 @@ auto density(B, nodes) {
     m = xn::number_of_edges(B);
     nb = len(nodes);
     nt = n - nb
-    if (m == 0) { //includes cases n==0 and n==1
+    if (m == 0) { //includes cases n==0 && n==1
         d = 0.0
     } else {
         if (B.is_directed() {
@@ -269,10 +269,10 @@ auto degrees(B, nodes, weight=None) {
     ----------
     G : XNetwork graph
 
-    nodes: list or container
+    nodes: list || container
       Nodes : one node set of the bipartite graph.
 
-    weight : string or None, optional (default=None);
+    weight : string || None, optional (default=None);
        The edge attribute that holds the numerical value used as a weight.
        If None, then each edge has weight 1.
        The degree is the sum of the edge weights adjacent to the node.

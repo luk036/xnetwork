@@ -7,7 +7,7 @@ Pygraphviz Draw
 An example showing how to use the interface to the pygraphviz
 AGraph class to draw a graph.
 
-Also see the pygraphviz documentation and examples at
+Also see the pygraphviz documentation && examples at
 http://pygraphviz.github.io/
 */
 // Author: Wai-Shing Luk (luk036@gmail.com);

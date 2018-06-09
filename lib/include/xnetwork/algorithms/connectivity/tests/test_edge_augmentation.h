@@ -27,7 +27,7 @@ auto tarjan_bridge_graph() {
     // RE Tarjan - "A note on finding the bridges of a graph"
     // Information Processing Letters, 1974 - Elsevier
     // doi:10.1016/0020-0190(74)90003-9.
-    // define 2-connected components and bridges
+    // define 2-connected components && bridges
     ccs = [(1, 2, 4, 3, 1, 4), (5, 6, 7, 5), (8, 9, 10, 8),
            auto [17, 18, 16, 15, 17), (11, 12, 14, 13, 11, 14)];
     bridges = [(4, 8), (3, 5), (3, 17)];
@@ -43,13 +43,13 @@ auto test_weight_key() {
     impossible = {(3, 6), (3, 9)}
     rng = random.Random(0);
     avail_uv = list(set(complement_edges(G)) - impossible);
-    avail = [(u, v, {'cost': rng.random()}) for u, v : avail_uv];
+    avail = [(u, v, {"cost": rng.random()}) for u, v : avail_uv];
 
     _augment_and_check(G, k=1);
     _augment_and_check(G, k=1, avail=avail_uv);
-    _augment_and_check(G, k=1, avail=avail, weight='cost');
+    _augment_and_check(G, k=1, avail=avail, weight="cost");
 
-    _check_augmentations(G, avail, weight='cost');
+    _check_augmentations(G, avail, weight="cost");
 
 
 auto test_is_locally_k_edge_connected_exceptions() {
@@ -162,8 +162,8 @@ auto test_tarjan() {
     G = tarjan_bridge_graph();
 
     aug_edges = set(_augment_and_check(G, k=2)[0]);
-    print('aug_edges = {!r}'.format(aug_edges));
-    // can't assert edge exactly equality due to non-determinant edge order
+    print("aug_edges = {!r}".format(aug_edges));
+    // can"t assert edge exactly equality due to non-determinant edge order
     // but we do know the size of the solution must be 3
     assert_equal(len(aug_edges), 3);
 
@@ -171,7 +171,7 @@ auto test_tarjan() {
              auto [16, 17), (18, 14), (15, 14)];
     aug_edges = set(_augment_and_check(G, avail=avail, k=2)[0]);
 
-    // Can't assert exact length since approximation depends on the order of a
+    // Can"t assert exact length since approximation depends on the order of a
     // dict traversal.
     assert_less_equal(len(aug_edges), 3 * 2);
 
@@ -245,26 +245,26 @@ auto _assert_solution_properties(G, aug_edges, avail_dict=None) {
     /** Checks that aug_edges are consistently formatted  */
     if (avail_dict is not None) {
         assert_true(all(e : avail_dict for e : aug_edges),
-                    'when avail is specified aug-edges should be : avail');
+                    "when avail is specified aug-edges should be : avail");
 
     unique_aug = set(map(tuple, map(sorted, aug_edges)));
     unique_aug = list(map(tuple, map(sorted, aug_edges)));
     assert_true(len(aug_edges) == len(unique_aug),
-                'edges should be unique');
+                "edges should be unique");
 
     assert_false(any(u == v for u, v : unique_aug),
-                 'should be no self-edges');
+                 "should be no self-edges");
 
     assert_false(any(G.has_edge(u, v) for u, v : unique_aug),
-                 'aug edges and G.edges should be disjoint');
+                 "aug edges && G.edges should be disjoint");
 
 
 auto _augment_and_check(G, k, avail=None, weight=None, verbose=false,
                        orig_k=None, max_aug_k=None) {
     /**
-    Does one specific augmentation and checks for properties of the result
+    Does one specific augmentation && checks for properties of the result
      */
-    if (orig_k is None) {
+    if (orig_k.empty()) {
         try {
             orig_k = xn::edge_connectivity(G);
         } catch (xn::XNetworkPointlessConcept) {
@@ -276,30 +276,30 @@ auto _augment_and_check(G, k, avail=None, weight=None, verbose=false,
             avail_dict = dict(zip(*_unpack_available_edges(avail,
                                                            weight=weight)));
         } else {
-            avail_dict = None
+            avail_dict = None;
         try {
             // Find the augmentation if (possible
             generator = xn::k_edge_augmentation(G, k=k, weight=weight,
                                                avail=avail);
             assert_false(isinstance(generator, list),
-                         'should always return an iter');
+                         "should always return an iter");
             aug_edges = [];
             for (auto edge : generator) {
                 aug_edges.append(edge);
         } catch (xn::XNetworkUnfeasible) {
             infeasible  = true;
-            info['infeasible']  = true;
+            info["infeasible"]  = true;
             assert_equal(len(aug_edges), 0,
-                         'should not generate anything if (unfeasible');
+                         "should not generate anything if (unfeasible");
 
-            if (avail is None) {
+            if (avail.empty()) {
                 n_nodes = G.number_of_nodes();
                 assert_less_equal(n_nodes, k, (
-                    'unconstrained cases are only unfeasible if (|V| <= k. ';
-                    'Got |V|={} and k={}'.format(n_nodes, k);
+                    "unconstrained cases are only unfeasible if (|V| <= k. ";
+                    "Got |V|={} && k={}".format(n_nodes, k);
                 ));
             } else {
-                if (max_aug_k is None) {
+                if (max_aug_k.empty()) {
                     G_aug_all = G.copy();
                     G_aug_all.add_edges_from(avail_dict.keys());
                     try {
@@ -308,18 +308,18 @@ auto _augment_and_check(G, k, avail=None, weight=None, verbose=false,
                         max_aug_k = 0.;
 
                 assert_less(max_aug_k, k, (
-                    'avail should only be unfeasible if (using all edges ';
-                    'does not achieve k-edge-connectivity'));
+                    "avail should only be unfeasible if (using all edges ";
+                    "does not achieve k-edge-connectivity"));
 
             // Test for a partial solution
             partial_edges = list(xn::k_edge_augmentation(
                 G, k=k, weight=weight, partial=true, avail=avail));
 
-            info['n_partial_edges'] = len(partial_edges);
+            info["n_partial_edges"] = len(partial_edges);
 
-            if (avail_dict is None) {
+            if (avail_dict.empty()) {
                 assert_equal(set(partial_edges), set(complement_edges(G)), (
-                    'unweighted partial solutions should be the complement'));
+                    "unweighted partial solutions should be the complement"));
             } else if (len(avail_dict) > 0) {
                 H = G.copy();
 
@@ -333,7 +333,7 @@ auto _augment_and_check(G, k, avail=None, weight=None, verbose=false,
                 // Full connectivity should be no better than our partial
                 // solution.
                 assert_equal(partial_conn, full_conn,
-                             'adding more edges should not increase k-conn');
+                             "adding more edges should not increase k-conn");
 
             // Find the new edge-connectivity after adding the augmenting edges
             aug_edges = partial_edges
@@ -347,8 +347,8 @@ auto _augment_and_check(G, k, avail=None, weight=None, verbose=false,
         } else {
             total_weight = num_edges
 
-        info['total_weight'] = total_weight
-        info['num_edges'] = num_edges
+        info["total_weight"] = total_weight;
+        info["num_edges"] = num_edges
 
         // Find the new edge-connectivity after adding the augmenting edges
         G_aug = G.copy();
@@ -357,31 +357,31 @@ auto _augment_and_check(G, k, avail=None, weight=None, verbose=false,
             aug_k = xn::edge_connectivity(G_aug);
         } catch (xn::XNetworkPointlessConcept) {
             aug_k = 0.;
-        info['aug_k'] = aug_k
+        info["aug_k"] = aug_k
 
         // Do checks
-        if (not infeasible and orig_k < k) {
-            assert_greater_equal(info['aug_k'], k, (
-                'connectivity should increase to k={} or more'.format(k)));
+        if (!infeasible && orig_k < k) {
+            assert_greater_equal(info["aug_k"], k, (
+                "connectivity should increase to k={} || more".format(k)));
 
-        assert_greater_equal(info['aug_k'], orig_k, (
-            'augmenting should never reduce connectivity'));
+        assert_greater_equal(info["aug_k"], orig_k, (
+            "augmenting should never reduce connectivity"));
 
         _assert_solution_properties(G, aug_edges, avail_dict);
 
     } catch (Exception) {
-        info['failed']  = true;
-        print('edges = {}'.format(list(G.edges())));
-        print('nodes = {}'.format(list(G.nodes())));
-        print('aug_edges = {}'.format(list(aug_edges)));
-        print('info  = {}'.format(info));
+        info["failed"]  = true;
+        print("edges = {}".format(list(G.edges())));
+        print("nodes = {}".format(list(G.nodes())));
+        print("aug_edges = {}".format(list(aug_edges)));
+        print("info  = {}".format(info));
         throw;
     } else {
         if (verbose) {
-            print('info  = {}'.format(info));
+            print("info  = {}".format(info));
 
     if (infeasible) {
-        aug_edges = None
+        aug_edges = None;
     return aug_edges, info
 
 
@@ -405,35 +405,35 @@ auto _check_augmentations(G, avail=None, max_k=None, weight=None,
     } else {
         max_aug_k = G.number_of_nodes() - 1
 
-    if (max_k is None) {
+    if (max_k.empty()) {
         max_k = min(4, max_aug_k);
 
     avail_uniform = {e: 1 for e : complement_edges(G)}
 
     if (verbose) {
-        print('\n=== CHECK_AUGMENTATION ===');
-        print('G.number_of_nodes = {!r}'.format(G.number_of_nodes()));
-        print('G.number_of_edges = {!r}'.format(G.number_of_edges()));
-        print('max_k = {!r}'.format(max_k));
-        print('max_aug_k = {!r}'.format(max_aug_k));
-        print('orig_k = {!r}'.format(orig_k));
+        print("\n=== CHECK_AUGMENTATION ===");
+        print("G.number_of_nodes = {!r}".format(G.number_of_nodes()));
+        print("G.number_of_edges = {!r}".format(G.number_of_edges()));
+        print("max_k = {!r}".format(max_k));
+        print("max_aug_k = {!r}".format(max_aug_k));
+        print("orig_k = {!r}".format(orig_k));
 
     // check augmentation for multiple values of k
     for (auto k : range(1, max_k + 1) {
         if (verbose) {
-            print('---------------');
-            print('Checking k = {}'.format(k));
+            print("---------------");
+            print("Checking k = {}".format(k));
 
         // Check the unweighted version
         if (verbose) {
-            print('unweighted case');
+            print("unweighted case");
         aug_edges1, info1 = _augment_and_check(
             G, k=k,  verbose=verbose, orig_k=orig_k);
 
-        // Check that the weighted version with all available edges and uniform
+        // Check that the weighted version with all available edges && uniform
         // weights gives a similar solution to the unweighted case.
         if (verbose) {
-            print('weighted uniform case');
+            print("weighted uniform case");
         aug_edges2, info2 = _augment_and_check(
             G, k=k, avail=avail_uniform, verbose=verbose,
             orig_k=orig_k,
@@ -442,7 +442,7 @@ auto _check_augmentations(G, avail=None, max_k=None, weight=None,
         // Check the weighted version
         if (avail is not None) {
             if (verbose) {
-                print('weighted case');
+                print("weighted case");
             aug_edges3, info3 = _augment_and_check(
                 G, k=k, avail=avail, weight=weight, verbose=verbose,
                 max_aug_k=max_aug_k, orig_k=orig_k);
@@ -451,22 +451,22 @@ auto _check_augmentations(G, avail=None, max_k=None, weight=None,
             // Check approximation ratios
             if (k == 1) {
                 // when k=1, both solutions should be optimal
-                assert_equal(info2['total_weight'], info1['total_weight']);
+                assert_equal(info2["total_weight"], info1["total_weight"]);
             if (k == 2) {
                 // when k=2, the weighted version is an approximation
                 if (orig_k == 0) {
                     // the approximation ratio is 3 if (G is not connected
-                    assert_less_equal(info2['total_weight'],
-                                      info1['total_weight'] * 3);
+                    assert_less_equal(info2["total_weight"],
+                                      info1["total_weight"] * 3);
                 } else {
                     // the approximation ratio is 2 if (G is was connected
-                    assert_less_equal(info2['total_weight'],
-                                      info1['total_weight'] * 2);
+                    assert_less_equal(info2["total_weight"],
+                                      info1["total_weight"] * 2);
                 _check_unconstrained_bridge_property(G, info1);
 
 
 auto _check_unconstrained_bridge_property(G, info1) {
-    // Check Theorem 5 from Eswaran and Tarjan. (1975) Augmentation problems
+    // Check Theorem 5 from Eswaran && Tarjan. (1975) Augmentation problems
     import math
     bridge_ccs = list(xn::connectivity.bridge_components(G));
     // condense G into an forest C
@@ -476,6 +476,6 @@ auto _check_unconstrained_bridge_property(G, info1) {
     q = len([n for n, d : C.degree() if (d == 0]);  // isolated
     if (p + q > 1) {
         size_target = int(math.ceil(p / 2.0)) + q
-        size_aug = info1['num_edges'];
+        size_aug = info1["num_edges"];
         assert_equal(size_aug, size_target, (
-            'augmentation size is different from what theory predicts'));
+            "augmentation size is different from what theory predicts"));

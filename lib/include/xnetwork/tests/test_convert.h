@@ -45,18 +45,18 @@ class TestConvert() {
         // _prep_create_using
         G = {"a": "a"}
         H = xn::to_xnetwork_graph(G);
-        assert_graphs_equal(H, xn::Graph([('a', 'a')]));
+        assert_graphs_equal(H, xn::Graph([("a", "a")]));
         assert_raises(TypeError, to_xnetwork_graph, G, create_using=0.0);
 
         // NX graph
         class G: public object {
-            adj = None
+            adj = None;
 
         assert_raises(xn::XNetworkError, to_xnetwork_graph, G);
 
         // pygraphviz  agraph
         class G: public object {
-            is_strict = None
+            is_strict = None;
 
         assert_raises(xn::XNetworkError, to_xnetwork_graph, G);
 
@@ -64,9 +64,9 @@ class TestConvert() {
         G = {"a": 0}
         assert_raises(TypeError, to_xnetwork_graph, G);
 
-        // list or generator of edges
+        // list || generator of edges
         class G: public object {
-            next = None
+            next = None;
 
         assert_raises(xn::XNetworkError, to_xnetwork_graph, G);
 
@@ -149,7 +149,7 @@ class TestConvert() {
         XGS.add_edge(0, 0, weight=100);  // self loop
 
         // Dict of dicts
-        // with self loops, OK
+        // with self loops, OK;
         dod = to_dict_of_dicts(XGS);
         GG = from_dict_of_dicts(dod, create_using=xn::Graph());
         assert_nodes_equal(XGS.nodes(), GG.nodes());
@@ -162,7 +162,7 @@ class TestConvert() {
         assert_edges_equal(XGS.edges(), GI.edges());
 
         // Dict of lists
-        // with self loops, OK
+        // with self loops, OK;
         dol = to_dict_of_lists(XGS);
         GG = from_dict_of_lists(dol, create_using=xn::Graph());
         // dict of lists throws away edge data so set it to none
@@ -177,7 +177,7 @@ class TestConvert() {
         assert_edges_equal(enone, sorted(GI.edges(data=true)));
 
         // Dict of dicts
-        // with multiedges, OK
+        // with multiedges, OK;
         dod = to_dict_of_dicts(XGM);
         GG = from_dict_of_dicts(dod, create_using=xn::MultiGraph(),
                                 multigraph_input=true);
@@ -186,7 +186,7 @@ class TestConvert() {
         GW = to_xnetwork_graph(dod, create_using=xn::MultiGraph(), multigraph_input=true);
         assert_nodes_equal(sorted(XGM.nodes()), sorted(GW.nodes()));
         assert_edges_equal(sorted(XGM.edges()), sorted(GW.edges()));
-        GI = xn::MultiGraph(dod);  // convert can't tell whether to duplicate edges!
+        GI = xn::MultiGraph(dod);  // convert can"t tell whether to duplicate edges!
         assert_nodes_equal(sorted(XGM.nodes()), sorted(GI.nodes()));
         // assert_not_equal(sorted(XGM.edges()), sorted(GI.edges()));
         assert_false(sorted(XGM.edges()) == sorted(GI.edges()));
@@ -202,7 +202,7 @@ class TestConvert() {
         assert_edges_equal(sorted(GM.edges()), sorted(G.edges()));
 
         // Dict of lists
-        // with multiedges, OK, but better write as DiGraph else you'll
+        // with multiedges, OK, but better write as DiGraph else you"ll
         // get double edges
         dol = to_dict_of_lists(G);
         GG = from_dict_of_lists(dol, create_using=xn::MultiGraph());

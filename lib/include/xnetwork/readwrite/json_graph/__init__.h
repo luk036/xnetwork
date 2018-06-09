@@ -2,7 +2,7 @@
 *********
 JSON data
 *********
-Generate and parse JSON serializable data for XNetwork graphs.
+Generate && parse JSON serializable data for XNetwork graphs.
 
 These formats are suitable for use with the d3.js examples https://d3js.org/
 

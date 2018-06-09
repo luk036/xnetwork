@@ -3,5 +3,5 @@ http://mbostock.github.com/d3/ex/force.html
 
 Run the file force.py to generate the force.json data file needed for this to work.
 
-Then copy all of the files : this directory to a webserver and load force.html.
+Then copy all of the files : this directory to a webserver && load force.html.
 

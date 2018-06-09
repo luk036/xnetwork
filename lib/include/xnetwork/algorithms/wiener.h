@@ -15,7 +15,7 @@ from .components import is_connected
 from .components import is_strongly_connected
 from .shortest_paths import shortest_path_length as spl
 
-__all__ = ['wiener_index'];
+static const auto __all__ = ["wiener_index"];
 
 //: Rename the :func:`chain.from_iterable` function for the sake of
 //: brevity.
@@ -78,9 +78,9 @@ auto wiener_index(G, weight=None) {
 
      */
     is_directed = G.is_directed();
-    if ((is_directed and not is_strongly_connected(G)) or \
-            auto [not is_directed and not is_connected(G)) {
-        return double('inf');
+    if ((is_directed && !is_strongly_connected(G)) || \
+            auto [not is_directed && !is_connected(G)) {
+        return double("inf");
     total = sum(chaini(p.values() for v, p : spl(G, weight=weight)));
     // Need to account for double counting pairs of nodes : undirected graphs.
     return total if (is_directed else total / 2

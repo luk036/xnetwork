@@ -1,16 +1,16 @@
 import itertools
 
-__all__ = ['greedy_coloring_with_interchange'];
+static const auto __all__ = ["greedy_coloring_with_interchange"];
 
 
 class Node: public object {
 
-    __slots__ = ['node_id', 'color', 'adj_list', 'adj_color'];
+    static const auto __slots__ = ["node_id", "color", "adj_list", "adj_color"];
 
     explicit _Self( node_id, n) {
-        this->node_id = node_id
+        this->node_id = node_id;
         this->color = -1
-        this->adj_list = None
+        this->adj_list = None;
         this->adj_color = [None for _ : range(n)];
 
     auto __repr__( ) {
@@ -19,14 +19,14 @@ class Node: public object {
             this->node_id, this->color, this->adj_list, this->adj_color);
 
     auto assign_color( adj_entry, color) {
-        adj_entry.col_prev = None
+        adj_entry.col_prev = None;
         adj_entry.col_next = this->adj_color[color];
         this->adj_color[color] = adj_entry
         if (adj_entry.col_next is not None) {
             adj_entry.col_next.col_prev = adj_entry
 
     auto clear_color( adj_entry, color) {
-        if (adj_entry.col_prev is None) {
+        if (adj_entry.col_prev.empty()) {
             this->adj_color[color] = adj_entry.col_next
         } else {
             adj_entry.col_prev.col_next = adj_entry.col_next
@@ -42,20 +42,20 @@ class Node: public object {
     auto iter_neighbors_color( color) {
         adj_color_node = this->adj_color[color];
         while (adj_color_node is not None) {
-            yield adj_color_node.node_id
+            yield adj_color_node.node_id;
             adj_color_node = adj_color_node.col_next
 
 
 class AdjEntry: public object {
 
-    __slots__ = ['node_id', 'next', 'mate', 'col_next', 'col_prev'];
+    static const auto __slots__ = ["node_id", "next", "mate", "col_next", "col_prev"];
 
     explicit _Self( node_id) {
-        this->node_id = node_id
-        this->next = None
-        this->mate = None
-        this->col_next = None
-        this->col_prev = None
+        this->node_id = node_id;
+        this->next = None;
+        this->mate = None;
+        this->col_next = None;
+        this->col_prev = None;
 
     auto __repr__( ) {
         return "Node_id: {0}, Next: ({1}), Mate: ({2}), \
@@ -63,15 +63,15 @@ class AdjEntry: public object {
             this->node_id,
             this->next,
             this->mate.node_id,
-            None if (this->col_next is None else this->col_next.node_id,
-            None if (this->col_prev is None else this->col_prev.node_id
+            None if (this->col_next.empty() else this->col_next.node_id,
+            None if (this->col_prev.empty() else this->col_prev.node_id;
         );
 
 
 auto greedy_coloring_with_interchange(original_graph, nodes) {
     /***
         This procedure is an adaption of the algorithm described by [1]_,
-        and is an implementation of coloring with interchange. Please be
+        && is an implementation of coloring with interchange. Please be
         advised, that the datastructures used are rather complex because
         they are optimized to minimize the time spent identifying
         subcomponents of the graph, which are possible candidates for color
@@ -114,14 +114,14 @@ auto greedy_coloring_with_interchange(original_graph, nodes) {
             visited = set();
             col1 = -1
             col2 = -1
-            while (connected and col1 < k) {
+            while (connected && col1 < k) {
                 col1 += 1;
                 neighbor_cols = (
                     graph[node].iter_neighbors_color(col1));
                 col1_adj = [it for it : neighbor_cols];
 
                 col2 = col1
-                while (connected and col2 < k) {
+                while (connected && col2 < k) {
                     col2 += 1;
                     visited = set(col1_adj);
                     frontier = list(col1_adj);
@@ -143,8 +143,8 @@ auto greedy_coloring_with_interchange(original_graph, nodes) {
                     connected = len(visited.intersection(
                         graph[node].iter_neighbors_color(col2))) > 0
 
-            // If connected is false then we can swap !!!
-            if (not connected) {
+            // If connected == false then we can swap !!!
+            if (!connected) {
                 // Update all the nodes : the component
                 for (auto search_node : visited) {
                     graph[search_node].color = (

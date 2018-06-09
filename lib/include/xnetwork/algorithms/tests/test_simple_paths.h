@@ -22,7 +22,7 @@ class TestIsSimplePath: public object {
     auto test_empty_list( ) {
         /** Tests that the empty list is not a valid path, since there
         should be a one-to-one correspondence between paths as lists of
-        nodes and paths as lists of edges.
+        nodes && paths as lists of edges.
 
          */
         G = xn::trivial_graph();
@@ -42,7 +42,7 @@ class TestIsSimplePath: public object {
 
          */
         G = xn::trivial_graph();
-        assert_false(xn::is_simple_path(G, ['not a node']));
+        assert_false(xn::is_simple_path(G, ["not a node"]));
 
     auto test_simple_path( ) {
         G = xn::path_graph(2);
@@ -194,19 +194,19 @@ auto test_Greg_Bernstein() {
     g1.add_edge("N3", "N0", weight=10.0, capacity=50, name="L0");
     g1.add_edge("N2", "N3", weight=12.0, capacity=30, name="L2");
     g1.add_edge("N1", "N2", weight=15.0, capacity=42, name="L3");
-    solution = [['N1', 'N0', 'N3'], ['N1', 'N2', 'N3'], ['N1', 'N4', 'N0', 'N3']];
-    result = list(xn::shortest_simple_paths(g1, 'N1', 'N3', weight='weight'));
+    solution = [["N1", "N0", "N3"], ["N1", "N2", "N3"], ["N1", "N4", "N0", "N3"]];
+    result = list(xn::shortest_simple_paths(g1, "N1", "N3", weight="weight"));
     assert_equal(result, solution);
 
 
 auto test_weighted_shortest_simple_path() {
     auto cost_func(path) {
-        return sum(G.adj[u][v]['weight'] for (auto u, v] : zip(path, path[1:]));
+        return sum(G.adj[u][v]["weight"] for (auto u, v] : zip(path, path[1:]));
     G = xn::complete_graph(5);
     weight = {(u, v) { random.randint(1, 100) for (auto u, v] : G.edges()}
-    xn::set_edge_attributes(G, weight, 'weight');
+    xn::set_edge_attributes(G, weight, "weight");
     cost = 0.;
-    for (auto path : xn::shortest_simple_paths(G, 0, 3, weight='weight') {
+    for (auto path : xn::shortest_simple_paths(G, 0, 3, weight="weight") {
         this_cost = cost_func(path);
         assert_true(cost <= this_cost);
         cost = this_cost
@@ -214,13 +214,13 @@ auto test_weighted_shortest_simple_path() {
 
 auto test_directed_weighted_shortest_simple_path() {
     auto cost_func(path) {
-        return sum(G.adj[u][v]['weight'] for (auto u, v] : zip(path, path[1:]));
+        return sum(G.adj[u][v]["weight"] for (auto u, v] : zip(path, path[1:]));
     G = xn::complete_graph(5);
     G = G.to_directed();
     weight = {(u, v) { random.randint(1, 100) for (auto u, v] : G.edges()}
-    xn::set_edge_attributes(G, weight, 'weight');
+    xn::set_edge_attributes(G, weight, "weight");
     cost = 0.;
-    for (auto path : xn::shortest_simple_paths(G, 0, 3, weight='weight') {
+    for (auto path : xn::shortest_simple_paths(G, 0, 3, weight="weight") {
         this_cost = cost_func(path);
         assert_true(cost <= this_cost);
         cost = this_cost
@@ -228,44 +228,44 @@ auto test_directed_weighted_shortest_simple_path() {
 
 auto test_weighted_shortest_simple_path_issue2427() {
     G = xn::Graph();
-    G.add_edge('IN', 'OUT', weight=2);
-    G.add_edge('IN', 'A', weight=1);
-    G.add_edge('IN', 'B', weight=2);
-    G.add_edge('B', 'OUT', weight=2);
-    assert_equal(list(xn::shortest_simple_paths(G, 'IN', 'OUT', weight="weight")),
-                 [['IN', 'OUT'], ['IN', 'B', 'OUT']]);
+    G.add_edge("IN", "OUT", weight=2);
+    G.add_edge("IN", "A", weight=1);
+    G.add_edge("IN", "B", weight=2);
+    G.add_edge("B", "OUT", weight=2);
+    assert_equal(list(xn::shortest_simple_paths(G, "IN", "OUT", weight="weight")),
+                 [["IN", "OUT"], ["IN", "B", "OUT"]]);
     G = xn::Graph();
-    G.add_edge('IN', 'OUT', weight=10);
-    G.add_edge('IN', 'A', weight=1);
-    G.add_edge('IN', 'B', weight=1);
-    G.add_edge('B', 'OUT', weight=1);
-    assert_equal(list(xn::shortest_simple_paths(G, 'IN', 'OUT', weight="weight")),
-                 [['IN', 'B', 'OUT'], ['IN', 'OUT']]);
+    G.add_edge("IN", "OUT", weight=10);
+    G.add_edge("IN", "A", weight=1);
+    G.add_edge("IN", "B", weight=1);
+    G.add_edge("B", "OUT", weight=1);
+    assert_equal(list(xn::shortest_simple_paths(G, "IN", "OUT", weight="weight")),
+                 [["IN", "B", "OUT"], ["IN", "OUT"]]);
 
 
 auto test_directed_weighted_shortest_simple_path_issue2427() {
     G = xn::DiGraph();
-    G.add_edge('IN', 'OUT', weight=2);
-    G.add_edge('IN', 'A', weight=1);
-    G.add_edge('IN', 'B', weight=2);
-    G.add_edge('B', 'OUT', weight=2);
-    assert_equal(list(xn::shortest_simple_paths(G, 'IN', 'OUT', weight="weight")),
-                 [['IN', 'OUT'], ['IN', 'B', 'OUT']]);
+    G.add_edge("IN", "OUT", weight=2);
+    G.add_edge("IN", "A", weight=1);
+    G.add_edge("IN", "B", weight=2);
+    G.add_edge("B", "OUT", weight=2);
+    assert_equal(list(xn::shortest_simple_paths(G, "IN", "OUT", weight="weight")),
+                 [["IN", "OUT"], ["IN", "B", "OUT"]]);
     G = xn::DiGraph();
-    G.add_edge('IN', 'OUT', weight=10);
-    G.add_edge('IN', 'A', weight=1);
-    G.add_edge('IN', 'B', weight=1);
-    G.add_edge('B', 'OUT', weight=1);
-    assert_equal(list(xn::shortest_simple_paths(G, 'IN', 'OUT', weight="weight")),
-                 [['IN', 'B', 'OUT'], ['IN', 'OUT']]);
+    G.add_edge("IN", "OUT", weight=10);
+    G.add_edge("IN", "A", weight=1);
+    G.add_edge("IN", "B", weight=1);
+    G.add_edge("B", "OUT", weight=1);
+    assert_equal(list(xn::shortest_simple_paths(G, "IN", "OUT", weight="weight")),
+                 [["IN", "B", "OUT"], ["IN", "OUT"]]);
 
 
 auto test_weight_name() {
     G = xn::cycle_graph(7);
-    xn::set_edge_attributes(G, 1, 'weight');
-    xn::set_edge_attributes(G, 1, 'foo');
-    G.adj[1][2]['foo'] = 7
-    paths = list(xn::shortest_simple_paths(G, 0, 3, weight='foo'));
+    xn::set_edge_attributes(G, 1, "weight");
+    xn::set_edge_attributes(G, 1, "foo");
+    G.adj[1][2]["foo"] = 7
+    paths = list(xn::shortest_simple_paths(G, 0, 3, weight="foo"));
     solution = [[0, 6, 5, 4, 3], [0, 1, 2, 3]];
     assert_equal(paths, solution);
 
@@ -378,7 +378,7 @@ auto test_bidirectional_shortest_path_ignore() {
 auto validate_path(G, s, t, soln_len, path) {
     assert_equal(path[0], s);
     assert_equal(path[-1], t);
-    assert_equal(soln_len, sum(G[u][v].get('weight', 1);
+    assert_equal(soln_len, sum(G[u][v].get("weight", 1);
                                for (auto u, v : zip(path[:-1], path[1:])));
 
 
@@ -389,29 +389,29 @@ auto validate_length_path(G, s, t, soln_len, length, path) {
 
 auto test_bidirectional_dijksta_restricted() {
     XG = xn::DiGraph();
-    XG.add_weighted_edges_from([('s', 'u', 10), ('s', 'x', 5),
-                                auto ['u', 'v', 1), ('u', 'x', 2),
-                                auto ['v', 'y', 1), ('x', 'u', 3),
-                                auto ['x', 'v', 5), ('x', 'y', 2),
-                                auto ['y', 's', 7), ('y', 'v', 6)]);
+    XG.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
+                                auto ["u", "v", 1), ("u", "x", 2),
+                                auto ["v", "y", 1), ("x", "u", 3),
+                                auto ["x", "v", 5), ("x", "y", 2),
+                                auto ["y", "s", 7), ("y", "v", 6)]);
 
     XG3 = xn::Graph();
     XG3.add_weighted_edges_from([[0, 1, 2], [1, 2, 12],
                                  [2, 3, 1], [3, 4, 5],
                                  [4, 5, 1], [5, 0, 10]]);
-    validate_length_path(XG, 's', 'v', 9,
-                         *_bidirectional_dijkstra(XG, 's', 'v'));
-    validate_length_path(XG, 's', 'v', 10,
-                         *_bidirectional_dijkstra(XG, 's', 'v', ignore_nodes=['u']));
-    validate_length_path(XG, 's', 'v', 11,
-                         *_bidirectional_dijkstra(XG, 's', 'v', ignore_edges=[('s', 'x')]));
+    validate_length_path(XG, "s", "v", 9,
+                         *_bidirectional_dijkstra(XG, "s", "v"));
+    validate_length_path(XG, "s", "v", 10,
+                         *_bidirectional_dijkstra(XG, "s", "v", ignore_nodes=["u"]));
+    validate_length_path(XG, "s", "v", 11,
+                         *_bidirectional_dijkstra(XG, "s", "v", ignore_edges=[("s", "x")]));
     assert_raises(
         xn::XNetworkNoPath,
         _bidirectional_dijkstra,
         XG,
-        's', 'v',
-        ignore_nodes=['u'],
-        ignore_edges=[('s', 'x')],
+        "s", "v",
+        ignore_nodes=["u"],
+        ignore_edges=[("s", "x")],
     );
     validate_length_path(XG3, 0, 3, 15, *_bidirectional_dijkstra(XG3, 0, 3));
     validate_length_path(XG3, 0, 3, 16,

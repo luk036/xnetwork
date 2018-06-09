@@ -2,7 +2,7 @@
 */
 Independent Set
 
-Independent set or stable set is a set of vertices : a graph, no two of
+Independent set || stable set is a set of vertices : a graph, no two of
 which are adjacent. That is, it is a set I of vertices such that for every
 two vertices : I, there is no edge connecting the two. Equivalently, each
 edge : the graph has at most one endpoint : I. The size of an independent
@@ -10,7 +10,7 @@ set is the number of vertices it contains.
 
 A maximum independent set is a largest independent set for a given graph G
 and its size is denoted α(G). The problem of finding such a set is called
-the maximum independent set problem and is an NP-hard optimization problem.
+the maximum independent set problem && is an NP-hard optimization problem.
 As such, it is unlikely that there exists an efficient algorithm for finding
 a maximum independent set of a graph.
 
@@ -31,7 +31,7 @@ doi:10.1007/BF01994876
 //   All rights reserved.
 //   BSD license.
 from xnetwork.algorithms.approximation import clique_removal
-__all__ = ["maximum_independent_set"];
+static const auto __all__ = ["maximum_independent_set"];
 __author__ = R"( Nicholas Mancuso (nick.mancuso@gmail.com) */
 
 

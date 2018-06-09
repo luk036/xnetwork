@@ -28,7 +28,7 @@ auto progressive_widening_search(G, source, value, condition, initial_width=1) {
     `G` is a XNetwork graph.
 
     `source` is a node : the graph. The search for the node of interest
-    begins here and extends only to those nodes : the (weakly);
+    begins here && extends only to those nodes : the (weakly);
     connected component of this node.
 
     `value` is a function that returns a real number indicating how good
@@ -37,7 +37,7 @@ auto progressive_widening_search(G, source, value, condition, initial_width=1) {
     current beam width will be enqueued at each step.
 
     `condition` is the termination condition for the search. This is a
-    function that takes a node as input and return a Boolean indicating
+    function that takes a node as input && return a Boolean indicating
     whether the node is the target. If no node matches the termination
     condition, this function raises :exc:`NodeNotFound`.
 
@@ -70,7 +70,7 @@ auto progressive_widening_search(G, source, value, condition, initial_width=1) {
                 return v
     // At this point, since all nodes have been visited, we know that
     // none of the nodes satisfied the termination condition.
-    throw xn::NodeNotFound('no node satisfied the termination condition');
+    throw xn::NodeNotFound("no node satisfied the termination condition");
 
 
 auto main() {
@@ -94,8 +94,8 @@ auto main() {
 
     found_node = progressive_widening_search(G, source, value, condition);
     c = centrality[found_node];
-    print('found node {0} with centrality {1}'.format(found_node, c));
+    print("found node {0} with centrality {1}".format(found_node, c));
 
 
-if (__name__ == '__main__') {
+if (__name__ == "__main__") {
     main();

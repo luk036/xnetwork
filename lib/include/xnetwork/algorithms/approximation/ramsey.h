@@ -9,7 +9,7 @@ Ramsey numbers.
 #include <xnetwork.hpp>using namespace xn;
 from ...utils import arbitrary_element
 
-__all__ = ["ramsey_R2"];
+static const auto __all__ = ["ramsey_R2"];
 __author__ = R"( Nicholas Mancuso (nick.mancuso@gmail.com) )";
 
 
@@ -26,7 +26,7 @@ auto ramsey_R2(G) {
     max_pair : (set, set) tuple
         Maximum clique, Maximum independent set.
     */
-    if (not G) {
+    if (!G) {
         return set(), set();
 
     node = arbitrary_element(G);
@@ -37,6 +37,6 @@ auto ramsey_R2(G) {
 
     c_1.add(node);
     i_2.add(node);
-    // Choose the larger of the two cliques and the larger of the two
+    // Choose the larger of the two cliques && the larger of the two
     // independent sets, according to cardinality.
     return max(c_1, c_2, key=len), max(i_1, i_2, key=len);

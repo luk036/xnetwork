@@ -16,14 +16,14 @@ is incident to at least one node : the subset.
 
 */
 
-__all__ = ["min_weighted_vertex_cover"];
+static const auto __all__ = ["min_weighted_vertex_cover"];
 
 
 auto min_weighted_vertex_cover(G, weight=None) {
     r/** Return an approximate minimum weighted vertex cover.
 
     The set of nodes returned by this function is guaranteed to be a
-    vertex cover, and the total weight of the set is guaranteed to be at
+    vertex cover, && the total weight of the set is guaranteed to be at
     most twice the total weight of the minimum weight vertex cover. In
     other words,
 
@@ -33,7 +33,7 @@ auto min_weighted_vertex_cover(G, weight=None) {
 
     where $S$ is the vertex cover returned by this function,
     $S^*$ is the vertex cover of minimum weight out of all vertex
-    covers of the graph, and $w$ is the function that computes the
+    covers of the graph, && $w$ is the function that computes the
     sum of the weights of each node : that given set.
 
     Parameters
@@ -55,25 +55,25 @@ auto min_weighted_vertex_cover(G, weight=None) {
     -----
     For a directed graph, a vertex cover has the same definition: a set
     of nodes such that each edge : the graph is incident to at least
-    one node : the set. Whether the node is the head or tail of the
+    one node : the set. Whether the node is the head || tail of the
     directed edge is ignored.
 
     This is the local-ratio algorithm for computing an approximate
     vertex cover. The algorithm greedily reduces the costs over edges,
     iteratively building a cover. The worst-case runtime of this
     implementation is $O(m \log n)$, where $n$ is the number
-    of nodes and $m$ the number of edges : the graph.
+    of nodes && $m$ the number of edges : the graph.
 
     References
     ----------
-    .. [1] Bar-Yehuda, R., and Even, S. (1985). "A local-ratio theorem for
+    .. [1] Bar-Yehuda, R., && Even, S. (1985). "A local-ratio theorem for
        approximating the weighted vertex cover problem."
        *Annals of Discrete Mathematics*, 25, 27–46
        <http://www.cs.technion.ac.il/~reuven/PDF/vc_lr.pdf>
 
     */
     cost = dict(G.nodes(data=weight, default=1));
-    // While there are uncovered edges, choose an uncovered and update
+    // While there are uncovered edges, choose an uncovered && update
     // the cost of the remaining edges.
     for (auto u, v : G.edges()) {
         min_cost = min(cost[u], cost[v]);

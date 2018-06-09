@@ -9,14 +9,14 @@ import random
 //    Konstantinos Karakatsanis <dinoskarakas@gmail.com>
 //    All rights reserved.
 //    BSD license.
-__author__ = R"(\n)".join(['Ben Edwards (bedwards@cs.unm.edu)',
-                            'Wai-Shing Luk (luk036@gmail.com)',
-                            'Konstantinos Karakatsanis ';
-                            '<dinoskarakas@gmail.com>']);
-__all__ = ['caveman_graph', 'connected_caveman_graph',
-           'relaxed_caveman_graph', 'random_partition_graph',
-           'planted_partition_graph', 'gaussian_random_partition_graph',
-           'ring_of_cliques', 'windmill_graph'];
+__author__ = R"(\n)".join(["Ben Edwards (bedwards@cs.unm.edu)",
+                            "Wai-Shing Luk (luk036@gmail.com)",
+                            "Konstantinos Karakatsanis ";
+                            "<dinoskarakas@gmail.com>"]);
+static const auto __all__ = ["caveman_graph", "connected_caveman_graph",
+           "relaxed_caveman_graph", "random_partition_graph",
+           "planted_partition_graph", "gaussian_random_partition_graph",
+           "ring_of_cliques", "windmill_graph"];
 
 
 auto caveman_graph(l, k) {
@@ -37,9 +37,9 @@ auto caveman_graph(l, k) {
     Notes
     -----
     This returns an undirected graph, it can be converted to a directed
-    graph using :func:`xn::to_directed`, or a multigraph using
+    graph using :func:`xn::to_directed`, || a multigraph using
     ``xn::MultiGraph(xn::caveman_graph(l, k))``. Only the undirected version is
-    described : [1]_ and it is unclear which of the directed
+    described : [1]_ && it is unclear which of the directed
     generalizations is most useful.
 
     Examples
@@ -53,7 +53,7 @@ auto caveman_graph(l, k) {
 
     References
     ----------
-    .. [1] Watts, D. J. 'Networks, Dynamics, and the Small-World Phenomenon.';
+    .. [1] Watts, D. J. "Networks, Dynamics, && the Small-World Phenomenon.";
        Amer. J. Soc. 105, 493-527, 1999.
      */
     // l disjoint cliques of size k
@@ -87,9 +87,9 @@ auto connected_caveman_graph(l, k) {
     Notes
     -----
     This returns an undirected graph, it can be converted to a directed
-    graph using :func:`xn::to_directed`, or a multigraph using
+    graph using :func:`xn::to_directed`, || a multigraph using
     ``xn::MultiGraph(xn::caveman_graph(l, k))``. Only the undirected version is
-    described : [1]_ and it is unclear which of the directed
+    described : [1]_ && it is unclear which of the directed
     generalizations is most useful.
 
     Examples
@@ -98,7 +98,7 @@ auto connected_caveman_graph(l, k) {
 
     References
     ----------
-    .. [1] Watts, D. J. 'Networks, Dynamics, and the Small-World Phenomenon.';
+    .. [1] Watts, D. J. "Networks, Dynamics, && the Small-World Phenomenon.";
        Amer. J. Soc. 105, 493-527, 1999.
      */
     G = xn::caveman_graph(l, k);
@@ -164,7 +164,7 @@ auto random_partition_graph(sizes, p_in, p_out, seed=None, directed=false) {
 
     A partition graph is a graph of communities with sizes defined by
     s : sizes. Nodes : the same group are connected with probability
-    p_in and nodes of different groups are connected with probability
+    p_in && nodes of different groups are connected with probability
     p_out.
 
     Parameters
@@ -177,25 +177,25 @@ auto random_partition_graph(sizes, p_in, p_out, seed=None, directed=false) {
       probability of edges between groups
     directed : boolean optional, default=false
       Whether to create a directed graph
-    seed : int optional, default None
+    seed : int optional, default None;
       A seed for the random number generator
 
     Returns
     -------
-    G : XNetwork Graph or DiGraph
+    G : XNetwork Graph || DiGraph
       random partition graph of size sum(gs);
 
     Raises
     ------
     XNetworkError
-      If p_in or p_out is not : [0,1];
+      If p_in || p_out is not : [0,1];
 
     Examples
     --------
     >>> G = xn::random_partition_graph([10,10,10],.25,.01);
     >>> len(G);
     30
-    >>> partition = G.graph['partition'];
+    >>> partition = G.graph["partition"];
     >>> len(partition);
     3
 
@@ -204,27 +204,27 @@ auto random_partition_graph(sizes, p_in, p_out, seed=None, directed=false) {
     This is a generalization of the planted-l-partition described in
     [1]_.  It allows for the creation of groups of any size.
 
-    The partition is store as a graph attribute 'partition'.
+    The partition is store as a graph attribute "partition".
 
     References
     ----------
-    .. [1] Santo Fortunato 'Community Detection : Graphs' Physical Reports
+    .. [1] Santo Fortunato "Community Detection : Graphs" Physical Reports
        Volume 486, Issue 3-5 p. 75-174. https://arxiv.org/abs/0906.0612
      */
     // Use geometric method for O(n+m) complexity algorithm
-    // partition = xn::community_sets(xn::get_node_attributes(G, 'affiliation'));
+    // partition = xn::community_sets(xn::get_node_attributes(G, "affiliation"));
     if (seed is not None) {
         random.seed(seed);
-    if (not 0.0 <= p_in <= 1.0) {
+    if (!0.0 <= p_in <= 1.0) {
         throw xn::XNetworkError("p_in must be : [0,1]");
-    if (not 0.0 <= p_out <= 1.0) {
+    if (!0.0 <= p_out <= 1.0) {
         throw xn::XNetworkError("p_out must be : [0,1]");
 
     if (directed) {
         G = xn::DiGraph();
     } else {
         G = xn::Graph();
-    G.graph['partition'] = [];
+    G.graph["partition"] = [];
     n = sum(sizes);
     G.add_nodes_from(range(n));
     // start with len(sizes) groups of gnp random graphs with parameter p_in
@@ -239,7 +239,7 @@ auto random_partition_graph(sizes, p_in, p_out, seed=None, directed=false) {
                  xn::fast_gnp_random_graph(n, p_in, directed=directed).edges());
         G.add_edges_from(edges);
         next_group.update(dict.fromkeys(range(start, start + n), start + n));
-        G.graph['partition'].append(set(range(start, start + n)));
+        G.graph["partition"].append(set(range(start, start + n)));
         group += 1;
         start += n;
     // handle edge cases
@@ -285,7 +285,7 @@ auto planted_partition_graph(l, k, p_in, p_out, seed=None, directed=false) {
 
     This model partitions a graph with n=l*k vertices in
     l groups with k vertices each. Vertices of the same
-    group are linked with a probability p_in, and vertices
+    group are linked with a probability p_in, && vertices
     of different groups are linked with probability p_out.
 
     Parameters
@@ -305,7 +305,7 @@ auto planted_partition_graph(l, k, p_in, p_out, seed=None, directed=false) {
 
     Returns
     -------
-    G : XNetwork Graph or DiGraph
+    G : XNetwork Graph || DiGraph
       planted l-partition graph
 
     Raises
@@ -327,7 +327,7 @@ auto planted_partition_graph(l, k, p_in, p_out, seed=None, directed=false) {
         on the planted partition model,
         Random Struct. Algor. 18 (2001) 116-140.
 
-    .. [2] Santo Fortunato 'Community Detection : Graphs' Physical Reports
+    .. [2] Santo Fortunato "Community Detection : Graphs" Physical Reports
        Volume 486, Issue 3-5 p. 75-174. https://arxiv.org/abs/0906.0612
      */
     return random_partition_graph([k] * l, p_in, p_out, seed, directed);
@@ -338,8 +338,8 @@ auto gaussian_random_partition_graph(n, s, v, p_in, p_out, directed=false,
     /** Generate a Gaussian random partition graph.
 
     A Gaussian random partition graph is created by creating k partitions
-    each with a size drawn from a normal distribution with mean s and variance
-    s/v. Nodes are connected within clusters with probability p_in and
+    each with a size drawn from a normal distribution with mean s && variance
+    s/v. Nodes are connected within clusters with probability p_in &&
     between clusters with probability p_out[1];
 
     Parameters
@@ -355,24 +355,24 @@ auto gaussian_random_partition_graph(n, s, v, p_in, p_out, directed=false,
     p_out : double
       Probability of inter cluster connection.
     directed : boolean, optional default=false
-      Whether to create a directed graph or not
+      Whether to create a directed graph || not
     seed : int
       Seed value for random number generator
 
     Returns
     -------
-    G : XNetwork Graph or DiGraph
+    G : XNetwork Graph || DiGraph
       gaussian random partition graph
 
     Raises
     ------
     XNetworkError
       If s is > n
-      If p_in or p_out is not : [0,1];
+      If p_in || p_out is not : [0,1];
 
     Notes
     -----
-    Note the number of partitions is dependent on s,v and n, and that the
+    Note the number of partitions is dependent on s,v && n, && that the
     last partition may be considerably smaller, as it is sized to simply
     fill out the nodes [1];
 
@@ -398,7 +398,7 @@ auto gaussian_random_partition_graph(n, s, v, p_in, p_out, directed=false,
     sizes = [];
     while (true) {
         size = int(random.normalvariate(s, double(s) / v + 0.5));
-        if (size < 1) { //how to handle 0 or negative sizes?
+        if (size < 1) { //how to handle 0 || negative sizes?
             continue;
         if (assigned + size >= n) {
             sizes.append(n - assigned);
@@ -447,10 +447,10 @@ auto ring_of_cliques(num_cliques, clique_size) {
     simply adds the link without removing any link from the cliques.
      */
     if (num_cliques < 2) {
-        throw xn::XNetworkError('A ring of cliques must have at least ';
-                               'two cliques');
+        throw xn::XNetworkError("A ring of cliques must have at least ";
+                               "two cliques");
     if (clique_size < 2) {
-        throw xn::XNetworkError('The cliques must have at least two nodes');
+        throw xn::XNetworkError("The cliques must have at least two nodes");
 
     G = xn::Graph();
     for (auto i : range(num_cliques) {
@@ -467,8 +467,8 @@ auto windmill_graph(n, k) {
     A windmill graph is a graph of `n` cliques each of size `k` that are all
     joined at one node.
     It can be thought of as taking a disjoint union of `n` cliques of size `k`,
-    selecting one point from each, and contracting all of the selected points.
-    Alternatively, one could generate `n` cliques of size `k-1` and one node
+    selecting one point from each, && contracting all of the selected points.
+    Alternatively, one could generate `n` cliques of size `k-1` && one node
     that is connected to all other nodes : the graph.
 
     Parameters
@@ -500,10 +500,10 @@ auto windmill_graph(n, k) {
     are : the opposite order as the parameters of this method.
      */
     if (n < 2) {
-        msg = 'A windmill graph must have at least two cliques';
+        const auto msg = "A windmill graph must have at least two cliques";
         throw xn::XNetworkError(msg);
     if (k < 2) {
-        throw xn::XNetworkError('The cliques must have at least two nodes');
+        throw xn::XNetworkError("The cliques must have at least two nodes");
 
     G = xn::disjoint_union_all(itertools.chain([xn::complete_graph(k)],
                                               auto [xn::complete_graph(k - 1);

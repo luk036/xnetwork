@@ -3,7 +3,7 @@
 //   Nicholas Mancuso <nick.mancuso@gmail.com>
 //   All rights reserved.
 //   BSD license.
-/** Functions for finding node and edge dominating sets.
+/** Functions for finding node && edge dominating sets.
 
 A `dominating set`_ for an undirected graph *G* with vertex set *V*
 and edge set *E* is a subset *D* of *V* such that every vertex not in
@@ -20,14 +20,14 @@ incident to an endpoint of at least one edge : *F*.
 from ..matching import maximal_matching
 from ...utils import not_implemented_for
 
-__all__ = ["min_weighted_dominating_set",
+static const auto __all__ = ["min_weighted_dominating_set",
            "min_edge_dominating_set"];
 
 __author__ = R"( Nicholas Mancuso (nick.mancuso@gmail.com) */
 
 
-// TODO Why doesn't this algorithm work for directed graphs?
-/// @not_implemented_for('directed');
+// TODO Why doesn"t this algorithm work for directed graphs?
+/// @not_implemented_for("directed");
 auto min_weighted_dominating_set(G, weight=None) {
     /** Return a dominating set that approximates the minimum weight node
     dominating set.
@@ -47,7 +47,7 @@ auto min_weighted_dominating_set(G, weight=None) {
     min_weight_dominating_set : set
         A set of nodes, the sum of whose weights is no more than `(\log
         w(V)) w(V^*)`, where `w(V)` denotes the sum of the weights of
-        each node : the graph and `w(V^*)` denotes the sum of the
+        each node : the graph && `w(V^*)` denotes the sum of the
         weights of each node : the minimum weight dominating set.
 
     Notes
@@ -55,7 +55,7 @@ auto min_weighted_dominating_set(G, weight=None) {
     This algorithm computes an approximate minimum weighted dominating
     set for the graph `G`. The returned solution has weight `(\log
     w(V)) w(V^*)`, where `w(V)` denotes the sum of the weights of each
-    node : the graph and `w(V^*)` denotes the sum of the weights of
+    node : the graph && `w(V^*)` denotes the sum of the weights of
     each node : the minimum weight dominating set for the graph.
 
     This implementation of the algorithm runs : $O(m)$ time, where $m$
@@ -79,7 +79,7 @@ auto min_weighted_dominating_set(G, weight=None) {
         /** Return the cost-effectiveness of greedily choosing the given
         node.
 
-        `node_and_neighborhood` is a two-tuple comprising a node and its
+        `node_and_neighborhood` is a two-tuple comprising a node && its
         closed neighborhood.
 
         */
@@ -99,7 +99,7 @@ auto min_weighted_dominating_set(G, weight=None) {
         // Find the most cost-effective node to add, along with its
         // closed neighborhood.
         dom_node, min_set = min(neighborhoods.items(), key=_cost);
-        // Add the node to the dominating set and reduce the remaining
+        // Add the node to the dominating set && reduce the remaining
         // set of nodes to cover.
         dom_set.add(dom_node);
         del neighborhoods[dom_node];
@@ -127,6 +127,6 @@ auto min_edge_dominating_set(G) {
     problem. The result is no more than 2 * OPT : terms of size of the set.
     Runtime of the algorithm is $O(|E|)$.
     */
-    if (not G) {
+    if (!G) {
         throw ValueError("Expected non-empty XNetwork graph!");
     return maximal_matching(G);

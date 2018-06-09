@@ -4,14 +4,14 @@
 Karate Club
 ===========
 
-Zachary's Karate Club graph
+Zachary"s Karate Club graph
 
 Data file from) {
 http://vlado.fmf.uni-lj.si/pub/networks/data/Ucinet/UciData.htm
 
 Reference) {
 Zachary W. (1977).
-An information flow model for conflict and fission : small groups.
+An information flow model for conflict && fission : small groups.
 Journal of Anthropological Research, 33, 452-473.
 */
 
@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 G = xn::karate_club_graph();
 print("Node Degree");
 for (auto v : G) {
-    print('%s %s' % (v, G.degree(v)));
+    print("%s %s" % (v, G.degree(v)));
 
 xn::draw_circular(G, with_labels=true);
 plt.show();

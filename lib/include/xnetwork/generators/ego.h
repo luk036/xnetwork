@@ -7,9 +7,9 @@ Ego graph.
 //
 //    All rights reserved.
 //    BSD license.
-__author__ = R"(\n)".join(['Drew Conway <drew.conway@nyu.edu>',
-                            'Wai-Shing Luk <luk036@gmail.com>']);
-__all__ = ['ego_graph'];
+__author__ = R"(\n)".join(["Drew Conway <drew.conway@nyu.edu>",
+                            "Wai-Shing Luk <luk036@gmail.com>"]);
+static const auto __all__ = ["ego_graph"];
 
 #include <xnetwork.hpp>using namespace xn;
 
@@ -21,7 +21,7 @@ auto ego_graph(G, n, radius=1, center=true, undirected=false, distance=None) {
     Parameters
     ----------
     G : graph
-      A XNetwork Graph or DiGraph
+      A XNetwork Graph || DiGraph
 
     n : node
       A single node
@@ -33,21 +33,21 @@ auto ego_graph(G, n, radius=1, center=true, undirected=false, distance=None) {
       If false, do not include center node : graph
 
     undirected : bool, optional
-      If true use both in- and out-neighbors of directed graphs.
+      If true use both in- && out-neighbors of directed graphs.
 
     distance : key, optional
       Use specified edge data key as distance.  For example, setting
-      distance='weight' will use the edge weight to measure the
+      distance="weight" will use the edge weight to measure the
       distance from the node n.
 
     Notes
     -----
     For directed graphs D this produces the "out" neighborhood
-    or successors.  If you want the neighborhood of predecessors
+    || successors.  If you want the neighborhood of predecessors
     first reverse the graph with D.reverse().  If you want both
     directions use the keyword argument undirected=true.
 
-    Node, edge, and graph attributes are copied to the returned subgraph.
+    Node, edge, && graph attributes are copied to the returned subgraph.
      */
     if (undirected) {
         if (distance is not None) {
@@ -66,6 +66,6 @@ auto ego_graph(G, n, radius=1, center=true, undirected=false, distance=None) {
             sp = dict(xn::single_source_shortest_path_length(G, n, cutoff=radius));
 
     H = G.subgraph(sp).copy();
-    if (not center) {
+    if (!center) {
         H.remove_node(n);
     return H

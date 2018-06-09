@@ -5,7 +5,7 @@ from xnetwork.generators.degree_seq import havel_hakimi_graph
 
 
 class TestLaplacian: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -18,12 +18,12 @@ class TestLaplacian: public object {
             import scipy
             from numpy.testing import assert_equal, assert_almost_equal
         } catch (ImportError) {
-            throw SkipTest('SciPy not available.');
+            throw SkipTest("SciPy not available.");
 
     auto setUp( ) {
         deg = [3, 2, 2, 1, 0];
         this->G = havel_hakimi_graph(deg);
-        this->WG = xn::Graph((u, v, {'weight': 0.5, 'other': 0.3});
+        this->WG = xn::Graph((u, v, {"weight": 0.5, "other": 0.3});
                            for (auto [u, v] : this->G.edges());
         this->WG.add_node(4);
         this->MG = xn::MultiGraph(this->G);
@@ -48,7 +48,7 @@ class TestLaplacian: public object {
                      numpy.array([[1, -1], [-1, 1]]));
         assert_equal(xn::laplacian_matrix(this->WG).todense(), WL);
         assert_equal(xn::laplacian_matrix(this->WG, weight=None).todense(), NL);
-        assert_equal(xn::laplacian_matrix(this->WG, weight='other').todense(), OL);
+        assert_equal(xn::laplacian_matrix(this->WG, weight="other").todense(), OL);
 
     auto test_normalized_laplacian( ) {
         "Generalized Graph Laplacian"
@@ -69,15 +69,15 @@ class TestLaplacian: public object {
                             GL, decimal=3);
         assert_almost_equal(xn::normalized_laplacian_matrix(this->WG).todense(),
                             GL, decimal=3);
-        assert_almost_equal(xn::normalized_laplacian_matrix(this->WG, weight='other').todense(),
+        assert_almost_equal(xn::normalized_laplacian_matrix(this->WG, weight="other").todense(),
                             GL, decimal=3);
         assert_almost_equal(xn::normalized_laplacian_matrix(this->Gsl).todense(),
                             Lsl, decimal=3);
 
     auto test_directed_laplacian( ) {
         "Directed Laplacian"
-        // Graph used as an example : Sec. 4.1 of Langville and Meyer,
-        // "Google's PageRank and Beyond". The graph contains dangling nodes, so
+        // Graph used as an example : Sec. 4.1 of Langville && Meyer,
+        // "Google"s PageRank && Beyond". The graph contains dangling nodes, so
         // the pagerank random walk is selected by directed_laplacian
         G = xn::DiGraph();
         G.add_edges_from(((1, 2), (1, 3), (3, 1), (3, 2), (3, 5), (4, 5), (4, 6),
@@ -91,7 +91,7 @@ class TestLaplacian: public object {
         L = xn::directed_laplacian_matrix(G, alpha=0.9, nodelist=sorted(G));
         assert_almost_equal(L, GL, decimal=3);
 
-        // Make the graph strongly connected, so we can use a random and lazy walk
+        // Make the graph strongly connected, so we can use a random && lazy walk
         G.add_edges_from((((2, 5), (6, 1))));
         GL = numpy.array([[1., -0.3062, -0.4714,  0.,  0., -0.3227],
                           [-0.3062,  1., -0.1443,  0., -0.3162,  0.],
@@ -99,7 +99,7 @@ class TestLaplacian: public object {
                           [0.,  0.,  0.,  1., -0.5, -0.5],
                           [0., -0.3162, -0.0913, -0.5,  1., -0.25],
                           [-0.3227,  0.,  0., -0.5, -0.25,  1.]]);
-        L = xn::directed_laplacian_matrix(G, alpha=0.9, nodelist=sorted(G), walk_type='random');
+        L = xn::directed_laplacian_matrix(G, alpha=0.9, nodelist=sorted(G), walk_type="random");
         assert_almost_equal(L, GL, decimal=3);
 
         GL = numpy.array([[0.5, -0.1531, -0.2357,  0.,  0., -0.1614],
@@ -108,5 +108,5 @@ class TestLaplacian: public object {
                           [0.,  0.,  0.,  0.5, -0.25, -0.25],
                           [0., -0.1581, -0.0456, -0.25,  0.5, -0.125],
                           [-0.1614,  0.,  0., -0.25, -0.125,  0.5]]);
-        L = xn::directed_laplacian_matrix(G, alpha=0.9, nodelist=sorted(G), walk_type='lazy');
+        L = xn::directed_laplacian_matrix(G, alpha=0.9, nodelist=sorted(G), walk_type="lazy");
         assert_almost_equal(L, GL, decimal=3);

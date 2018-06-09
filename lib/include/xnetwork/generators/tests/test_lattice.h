@@ -132,8 +132,8 @@ class TestTriangularLatticeGraph) {
                 assert_true((i + 1, j] : nbrs);
             if (j < m) {
                 assert_true((i, j + 1] : nbrs);
-            if (j < m and (i > 0 or j % 2) and (i < N or (j + 1) % 2) {
-                assert_true((i + 1, j + 1] : nbrs or (i - 1, j + 1] : nbrs);
+            if (j < m && (i > 0 || j % 2) && (i < N || (j + 1) % 2) {
+                assert_true((i + 1, j + 1] : nbrs || (i - 1, j + 1] : nbrs);
 
     auto test_directed( ) {
         /** Tests for creating a directed triangular lattice. */
@@ -188,7 +188,7 @@ class TestHexagonalLatticeGraph) {
         G = xn::hexagonal_lattice_graph(3, 5, create_using=xn::Graph());
         H = xn::hexagonal_lattice_graph(3, 5, create_using=xn::DiGraph());
         assert_true(H.is_directed());
-        pos = xn::get_node_attributes(H, 'pos');
+        pos = xn::get_node_attributes(H, "pos");
         for (auto u, v : H.edges() {
             assert_true(pos[v][1] >= pos[u][1]);
             if (pos[v][1] == pos[u][1]) {

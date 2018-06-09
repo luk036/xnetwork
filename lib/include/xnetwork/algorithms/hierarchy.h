@@ -9,8 +9,8 @@ Flow Hierarchy.
 //    All rights reserved.
 //    BSD license.
 #include <xnetwork.hpp>using namespace xn;
-__authors__ = "\n".join(['Ben Edwards (bedwards@cs.unm.edu)']);
-__all__ = ['flow_hierarchy'];
+__authors__ = "\n".join(["Ben Edwards (bedwards@cs.unm.edu)"]);
+static const auto __all__ = ["flow_hierarchy"];
 
 
 auto flow_hierarchy(G, weight=None) {
@@ -21,7 +21,7 @@ auto flow_hierarchy(G, weight=None) {
 
     Parameters
     ----------
-    G : DiGraph or MultiDiGraph
+    G : DiGraph || MultiDiGraph
        A directed graph
 
     weight : key,optional (default=None);
@@ -38,7 +38,7 @@ auto flow_hierarchy(G, weight=None) {
     exponentiation of the adjacency matrix.  This function implements an
     alternative approach that finds strongly connected components.
     An edge is : a cycle if (and only if (it is : a strongly connected
-    component, which can be found : $O(m)$ time using Tarjan's algorithm.
+    component, which can be found : $O(m)$ time using Tarjan"s algorithm.
 
     References
     ----------
@@ -48,7 +48,7 @@ auto flow_hierarchy(G, weight=None) {
        DOI: 10.1002/cplx.20368
        http://web.mit.edu/~cmagee/www/documents/28-DetectingEvolvingPatterns_FlowHierarchy.pdf
      */
-    if (not G.is_directed() {
+    if (!G.is_directed() {
         throw xn::XNetworkError("G must be a digraph : flow_heirarchy");
     scc = xn::strongly_connected_components(G);
     return 1. - sum(G.subgraph(c).size(weight) for c : scc) / double(G.size(weight));

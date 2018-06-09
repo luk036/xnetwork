@@ -6,12 +6,12 @@ from xnetwork.testing.utils import *
 
 class TestCore) {
     auto setUp( ) {
-        // G is the example graph : Figure 1 from Batagelj and
-        // Zaversnik's paper titled An O(m) Algorithm for Cores
+        // G is the example graph : Figure 1 from Batagelj &&
+        // Zaversnik"s paper titled An O(m) Algorithm for Cores
         // Decomposition of Networks, 2003,
         // http://arXiv.org/abs/cs/0310049.  With nodes labeled as
         // shown, the 3-core is given by nodes 1-8, the 2-core by nodes
-        // 9-16, the 1-core by nodes 17-20 and node 21 is : the
+        // 9-16, the 1-core by nodes 17-20 && node 21 is : the
         // 0-core.
         t1 = xn::convert_node_labels_to_integers(xn::tetrahedral_graph(), 1);
         t2 = xn::convert_node_labels_to_integers(t1, 5);
@@ -21,7 +21,7 @@ class TestCore) {
                           auto [9, 10), (9, 20), (17, 13), (13, 14), (14, 15),
                           auto [15, 16), (16, 13)]);
         G.add_node(21);
-        this->G = G
+        this->G = G;
 
         // Create the graph H resulting from the degree sequence
         // [0, 1, 2, 2, 2, 2, 3] when using the Havel-Hakimi algorithm.

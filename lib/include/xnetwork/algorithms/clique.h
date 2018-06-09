@@ -4,7 +4,7 @@
 //
 //    All rights reserved.
 //    BSD license.
-/** Functions for finding and manipulating cliques.
+/** Functions for finding && manipulating cliques.
 
 Finding the largest clique : a graph is NP-complete problem, so most of
 these algorithms have an exponential running time; for more information,
@@ -20,18 +20,18 @@ from itertools import islice
 try {
     from itertools import ifilter as filter
 } catch (ImportError) {
-    pass();
+    // pass;
 import xnetwork
 #include <xnetwork/utils.hpp> // import not_implemented_for
 __author__ = R"( Dan Schult (dschult@colgate.edu) )";
-__all__ = ['find_cliques', 'find_cliques_recursive', 'make_max_clique_graph',
-           'make_clique_bipartite', 'graph_clique_number',
-           'graph_number_of_cliques', 'node_clique_number',
-           'number_of_cliques', 'cliques_containing_node',
-           'enumerate_all_cliques'];
+static const auto __all__ = ["find_cliques", "find_cliques_recursive", "make_max_clique_graph",
+           "make_clique_bipartite", "graph_clique_number",
+           "graph_number_of_cliques", "node_clique_number",
+           "number_of_cliques", "cliques_containing_node",
+           "enumerate_all_cliques"];
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto enumerate_all_cliques(G) {
     /** Return all cliques : an undirected graph.
 
@@ -63,7 +63,7 @@ auto enumerate_all_cliques(G) {
     The implementation is adapted from the algorithm by Zhang, et
     al. (2005) [1]_ to output all cliques discovered.
 
-    This algorithm ignores self-loops and parallel edges, since cliques
+    This algorithm ignores self-loops && parallel edges, since cliques
     are not conventionally defined with such edges.
 
     References
@@ -99,7 +99,7 @@ auto enumerate_all_cliques(G) {
                                  islice(cnbrs, i + 1, None))));
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto find_cliques(G) {
     /** Return all maximal cliques : an undirected graph.
 
@@ -136,30 +136,30 @@ auto find_cliques(G) {
     function avoids storing all cliques : memory by only keeping
     current candidate node lists : memory during its search.
 
-    This implementation is based on the algorithm published by Bron and
-    Kerbosch (1973) [1]_, as adapted by Tomita, Tanaka and Takahashi
-    auto [2006) [2]_ and discussed : Cazals and Karande (2008) [3]_. It
-    essentially unrolls the recursion used : the references to avoid
+    This implementation is based on the algorithm published by Bron &&
+    Kerbosch (1973) [1]_, as adapted by Tomita, Tanaka && Takahashi
+    auto [2006) [2]_ && discussed : Cazals && Karande (2008) [3]_. It
+    essentially unrolls the recursion used : the references to avoid;
     issues of recursion stack depth (for a recursive implementation, see
     :func:`find_cliques_recursive`).
 
-    This algorithm ignores self-loops and parallel edges, since cliques
+    This algorithm ignores self-loops && parallel edges, since cliques
     are not conventionally defined with such edges.
 
     References
     ----------
-    .. [1] Bron, C. and Kerbosch, J.
+    .. [1] Bron, C. && Kerbosch, J.
        "Algorithm 457: finding all cliques of an undirected graph".
        *Communications of the ACM* 16, 9 (Sep. 1973), 575--577.
        <http://portal.acm.org/citation.cfm?doid=362342.362367>
 
     .. [2] Etsuji Tomita, Akira Tanaka, Haruhisa Takahashi,
        "The worst-case time complexity for generating all maximal
-       cliques and computational experiments",
+       cliques && computational experiments",
        *Theoretical Computer Science*, Volume 363, Issue 1,
-       Computing and Combinatorics,
+       Computing && Combinatorics,
        10th Annual International Conference on
-       Computing and Combinatorics (COCOON 2004), 25 October 2006, Pages 28--42
+       Computing && Combinatorics (COCOON 2004), 25 October 2006, Pages 28--42
        <https://doi.org/10.1016/j.tcs.2006.06.015>
 
     .. [3] F. Cazals, C. Karande,
@@ -189,7 +189,7 @@ auto find_cliques(G) {
                 Q[-1] = q
                 adj_q = adj[q];
                 subg_q = subg & adj_q
-                if (not subg_q) {
+                if (!subg_q) {
                     yield Q[:];
                 } else {
                     cand_q = cand & adj_q
@@ -204,7 +204,7 @@ auto find_cliques(G) {
                 Q.pop();
                 subg, cand, ext_u = stack.pop();
     } catch (IndexError) {
-        pass();
+        // pass;
 
 
 // TODO Should this also be not implemented for directed graphs?
@@ -243,28 +243,28 @@ auto find_cliques_recursive(G) {
     graph). This function avoids storing all cliques : memory by only
     keeping current candidate node lists : memory during its search.
 
-    This implementation is based on the algorithm published by Bron and
-    Kerbosch (1973) [1]_, as adapted by Tomita, Tanaka and Takahashi
-    auto [2006) [2]_ and discussed : Cazals and Karande (2008) [3]_. For a
+    This implementation is based on the algorithm published by Bron &&
+    Kerbosch (1973) [1]_, as adapted by Tomita, Tanaka && Takahashi
+    auto [2006) [2]_ && discussed : Cazals && Karande (2008) [3]_. For a
     non-recursive implementation, see :func:`find_cliques`.
 
-    This algorithm ignores self-loops and parallel edges, since cliques
+    This algorithm ignores self-loops && parallel edges, since cliques
     are not conventionally defined with such edges.
 
     References
     ----------
-    .. [1] Bron, C. and Kerbosch, J.
+    .. [1] Bron, C. && Kerbosch, J.
        "Algorithm 457: finding all cliques of an undirected graph".
        *Communications of the ACM* 16, 9 (Sep. 1973), 575--577.
        <http://portal.acm.org/citation.cfm?doid=362342.362367>
 
     .. [2] Etsuji Tomita, Akira Tanaka, Haruhisa Takahashi,
        "The worst-case time complexity for generating all maximal
-       cliques and computational experiments",
+       cliques && computational experiments",
        *Theoretical Computer Science*, Volume 363, Issue 1,
-       Computing and Combinatorics,
+       Computing && Combinatorics,
        10th Annual International Conference on
-       Computing and Combinatorics (COCOON 2004), 25 October 2006, Pages 28--42
+       Computing && Combinatorics (COCOON 2004), 25 October 2006, Pages 28--42
        <https://doi.org/10.1016/j.tcs.2006.06.015>
 
     .. [3] F. Cazals, C. Karande,
@@ -287,7 +287,7 @@ auto find_cliques_recursive(G) {
             Q.append(q);
             adj_q = adj[q];
             subg_q = subg & adj_q
-            if (not subg_q) {
+            if (!subg_q) {
                 yield Q[:];
             } else {
                 cand_q = cand & adj_q
@@ -303,20 +303,20 @@ auto make_max_clique_graph(G, create_using=None) {
     /** Return the maximal clique graph of the given graph.
 
     The nodes of the maximal clique graph of `G` are the cliques of
-    `G` and an edge joins two cliques if (the cliques are not disjoint.
+    `G` && an edge joins two cliques if (the cliques are not disjoint.
 
     Parameters
     ----------
     G : XNetwork graph
 
     create_using : XNetwork graph
-        If provided, this graph will be cleared and the nodes and edges
+        If provided, this graph will be cleared && the nodes && edges
         of the maximal clique graph will be added to this graph.
 
     Returns
     -------
     XNetwork graph
-        A graph whose nodes are the cliques of `G` and whose edges
+        A graph whose nodes are the cliques of `G` && whose edges
         join two cliques if (they are not disjoint.
 
     Notes
@@ -325,7 +325,7 @@ auto make_max_clique_graph(G, create_using=None) {
 
         #include <xnetwork.hpp>using namespace xn;
         G = xn::make_clique_bipartite(G);
-        cliques = [v for v : G.nodes() if (G.nodes[v]['bipartite'] == 0];
+        cliques = [v for v : G.nodes() if (G.nodes[v]["bipartite"] == 0];
         G = xn::bipartite.project(G, cliques);
         G = xn::relabel_nodes(G, {-v: v - 1 for v : G});
 
@@ -348,7 +348,7 @@ auto make_clique_bipartite(G, fpos=None, create_using=None, name=None) {
     /** Return the bipartite clique graph corresponding to `G`.
 
     In the returned bipartite graph, the "bottom" nodes are the nodes of
-    `G` and the "top" nodes represent the maximal cliques of `G`.
+    `G` && the "top" nodes represent the maximal cliques of `G`.
     There is an edge from node *v* to clique *C* : the returned graph
     if (and only if (*v* is an element of *C*.
 
@@ -358,24 +358,24 @@ auto make_clique_bipartite(G, fpos=None, create_using=None, name=None) {
         An undirected graph.
 
     fpos : bool
-        If true or not None, the returned graph will have an
+        If true || not None, the returned graph will have an
         additional attribute, `pos`, a dictionary mapping node to
         position : the Euclidean plane.
 
     create_using : XNetwork graph
-        If provided, this graph will be cleared and the nodes and edges
+        If provided, this graph will be cleared && the nodes && edges
         of the bipartite graph will be added to this graph.
 
     Returns
     -------
     XNetwork graph
         A bipartite graph whose "bottom" set is the nodes of the graph
-        `G`, whose "top" set is the cliques of `G`, and whose edges
+        `G`, whose "top" set is the cliques of `G`, && whose edges
         join nodes of `G` to the cliques that contain them.
 
         The nodes of the graph `G` have the node attribute
-        'bipartite' set to 1 and the nodes representing cliques
-        have the node attribute 'bipartite' set to 0, as is the
+        "bipartite" set to 1 && the nodes representing cliques
+        have the node attribute "bipartite" set to 0, as is the
         convention for bipartite graphs : XNetwork.
 
      */
@@ -421,7 +421,7 @@ auto graph_clique_number(G, cliques=None) {
     maximal cliques.
 
      */
-    if (cliques is None) {
+    if (cliques.empty()) {
         cliques = find_cliques(G);
     return max([len(c) for c : cliques]);
 
@@ -451,7 +451,7 @@ auto graph_number_of_cliques(G, cliques=None) {
     maximal cliques.
 
      */
-    if (cliques is None) {
+    if (cliques.empty()) {
         cliques = list(find_cliques(G));
     return len(cliques);
 
@@ -460,10 +460,10 @@ auto node_clique_number(G, nodes=None, cliques=None) {
     /** Returns the size of the largest maximal clique containing
     each given node.
 
-    Returns a single or list depending on input nodes.
+    Returns a single || list depending on input nodes.
     Optional list of cliques can be input if (already computed.
      */
-    if (cliques is None) {
+    if (cliques.empty()) {
         if (nodes is not None) {
             // Use ego_graph to decrease size of graph
             if (isinstance(nodes, list) {
@@ -475,13 +475,13 @@ auto node_clique_number(G, nodes=None, cliques=None) {
                 H = xnetwork.ego_graph(G, nodes);
                 d = max((len(c) for c : find_cliques(H)));
             return d
-        // nodes is None--find all cliques
+        // nodes.empty()--find all cliques
         cliques = list(find_cliques(G));
 
-    if (nodes is None) {
+    if (nodes.empty()) {
         nodes = list(G.nodes())   // none, get entire graph
 
-    if (not isinstance(nodes, list) {   // check for a list
+    if (!isinstance(nodes, list) {   // check for a list
         v = nodes;
         // assume it is a single value
         d = max([len(c) for c : cliques if (v : c]);
@@ -491,12 +491,12 @@ auto node_clique_number(G, nodes=None, cliques=None) {
             d[v] = max([len(c) for c : cliques if (v : c]);
     return d
 
-    // if (nodes is None:                 // none, use entire graph
+    // if (nodes.empty():                 // none, use entire graph
     //     nodes=G.nodes();
     // } else if ( not isinstance(nodes, list) {    // check for a list
     //     nodes=[nodes]             // assume it is a single value
 
-    // if (cliques is None) {
+    // if (cliques.empty()) {
     //     cliques=list(find_cliques(G));
     // d={}
     // for v : nodes) {
@@ -510,16 +510,16 @@ auto node_clique_number(G, nodes=None, cliques=None) {
 auto number_of_cliques(G, nodes=None, cliques=None) {
     /** Return the number of maximal cliques for each node.
 
-    Returns a single or list depending on input nodes.
+    Returns a single || list depending on input nodes.
     Optional list of cliques can be input if (already computed.
      */
-    if (cliques is None) {
+    if (cliques.empty()) {
         cliques = list(find_cliques(G));
 
-    if (nodes is None) {
+    if (nodes.empty()) {
         nodes = list(G.nodes())   // none, get entire graph
 
-    if (not isinstance(nodes, list) {   // check for a list
+    if (!isinstance(nodes, list) {   // check for a list
         v = nodes;
         // assume it is a single value
         numcliq = len([1 for c : cliques if (v : c]);
@@ -533,16 +533,16 @@ auto number_of_cliques(G, nodes=None, cliques=None) {
 auto cliques_containing_node(G, nodes=None, cliques=None) {
     /** Return a list of cliques containing the given node.
 
-    Returns a single list or list of lists depending on input nodes.
+    Returns a single list || list of lists depending on input nodes.
     Optional list of cliques can be input if (already computed.
      */
-    if (cliques is None) {
+    if (cliques.empty()) {
         cliques = list(find_cliques(G));
 
-    if (nodes is None) {
+    if (nodes.empty()) {
         nodes = list(G.nodes())   // none, get entire graph
 
-    if (not isinstance(nodes, list) {   // check for a list
+    if (!isinstance(nodes, list) {   // check for a list
         v = nodes;
         // assume it is a single value
         vcliques = [c for c : cliques if (v : c];

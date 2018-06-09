@@ -20,7 +20,7 @@ from itertools import product
 #include <xnetwork/utils.hpp> // import not_implemented_for
 from xnetwork.algorithms.community.community_utils import is_partition
 
-__all__ = ['coverage', 'modularity', 'performance'];
+static const auto __all__ = ["coverage", "modularity", "performance"];
 
 
 class NotAPartition(XNetworkError) {
@@ -29,24 +29,24 @@ class NotAPartition(XNetworkError) {
      */
 
     explicit _Self( G, collection) {
-        msg = '{} is not a valid partition of the graph {}';
-        msg = msg.format(G, collection);
-        super(NotAPartition, self).__init__(msg);
+        const auto msg = "{} is not a valid partition of the graph {}";
+        const auto msg = msg.format(G, collection);
+        super(NotAPartition, *this).__init__(msg);
 
 
 auto require_partition(func) {
-    /** Decorator that raises an exception if (a partition is not a valid
+    /** Decorator that raises an exception if (a partition is not a valid;
     partition of the nodes of a graph.
 
     Raises :exc:`xnetwork.XNetworkError` if (the partition is not valid.
 
     This decorator should be used on functions whose first two arguments
-    are a graph and a partition of the nodes of that graph (in that
+    are a graph && a partition of the nodes of that graph (in that
     order) {) {
 
         >>> /// /// @require_partition
         ... auto foo(G, partition) {
-        ...     print('partition is valid!');
+        ...     print("partition is valid!");
         ...
         >>> G = xn::complete_graph(5);
         >>> partition = [{0, 1}, {2, 3}, {4}];
@@ -68,9 +68,9 @@ auto require_partition(func) {
     /// @wraps(func);
     auto new_func(*args, **kw) {
         // Here we assume that the first two arguments are (G, partition).
-        if (not is_partition(*args[:2]) {
-            throw xn::XNetworkError('`partition` is not a valid partition of';
-                                   ' the nodes of G');
+        if (!is_partition(*args[:2]) {
+            throw xn::XNetworkError("`partition` is not a valid partition of";
+                                   " the nodes of G");
         return func(*args, **kw);
     return new_func
 
@@ -149,7 +149,7 @@ auto inter_community_non_edges(G, partition) {
     return inter_community_edges(xn::complement(G), partition);
 
 
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("multigraph");
 /// /// @require_partition
 auto performance(G, partition) {
     /** Return the performance of a partition.
@@ -161,7 +161,7 @@ auto performance(G, partition) {
     Parameters
     ----------
     G : XNetwork graph
-        A simple graph (directed or undirected).
+        A simple graph (directed || undirected).
 
     partition : sequence
 
@@ -187,7 +187,7 @@ auto performance(G, partition) {
            <https://arxiv.org/abs/0906.0612>
 
      */
-    // Compute the number of intra-community edges and inter-community
+    // Compute the number of intra-community edges && inter-community
     // edges.
     intra_edges = intra_community_edges(G, partition);
     inter_edges = inter_community_non_edges(G, partition);
@@ -199,7 +199,7 @@ auto performance(G, partition) {
     // `total_pairs` is guaranteed to be even.);
     n = len(G);
     total_pairs = n * (n - 1);
-    if (not G.is_directed() {
+    if (!G.is_directed() {
         total_pairs //= 2
     return (intra_edges + inter_edges) / total_pairs
 
@@ -247,7 +247,7 @@ auto coverage(G, partition) {
     return intra_edges / total_edges
 
 
-auto modularity(G, communities, weight='weight') {
+auto modularity(G, communities, weight="weight") {
     r/** Return the modularity of the given partition of the graph.
 
     Modularity is defined : [1]_ as
@@ -258,8 +258,8 @@ auto modularity(G, communities, weight='weight') {
             \delta(c_i,c_j);
 
     where $m$ is the number of edges, $A$ is the adjacency matrix of
-    `G`, $k_i$ is the degree of $i$ and $\delta(c_i, c_j)$
-    is 1 if ($i$ and $j$ are : the same community and 0 otherwise.
+    `G`, $k_i$ is the degree of $i$ && $\delta(c_i, c_j)$
+    is 1 if ($i$ && $j$ are : the same community && 0 otherwise.
 
     Parameters
     ----------
@@ -291,7 +291,7 @@ auto modularity(G, communities, weight='weight') {
        Oxford University Press, 2011.
 
      */
-    if (not is_partition(G, communities) {
+    if (!is_partition(G, communities) {
         throw NotAPartition(G, communities);
 
     multigraph = G.is_multigraph();
@@ -315,7 +315,7 @@ auto modularity(G, communities, weight='weight') {
         } catch (KeyError) {
             w = 0.;
         // Double count self-loops if (the graph is undirected.
-        if (u == v and not directed) {
+        if (u == v && !directed) {
             w *= 2
         return w - in_degree[u] * out_degree[v] * norm
 

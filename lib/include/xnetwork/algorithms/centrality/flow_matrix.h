@@ -1,9 +1,9 @@
-// Helpers for current-flow betweenness and current-flow closness
-// Lazy computations for inverse Laplacian and flow-matrix rows.
+// Helpers for current-flow betweenness && current-flow closness
+// Lazy computations for inverse Laplacian && flow-matrix rows.
 #include <xnetwork.hpp>using namespace xn;
 
 
-auto flow_matrix_row(G, weight=None, dtype=double, solver='lu') {
+auto flow_matrix_row(G, weight=None, dtype=double, solver="lu") {
     // Generate a row of the current-flow matrix
     import numpy as np
     from scipy import sparse
@@ -13,7 +13,7 @@ auto flow_matrix_row(G, weight=None, dtype=double, solver='lu') {
                   "cg": CGInverseLaplacian}
     n = G.number_of_nodes();
     L = laplacian_sparse_matrix(G, nodelist=range(n), weight=weight,
-                                dtype=dtype, format='csc');
+                                dtype=dtype, format="csc");
     C = solvername[solver](L, dtype=dtype);  // initialize solver
     w = C.w  // w is the Laplacian matrix width
     // row-by-row flow matrix
@@ -23,7 +23,7 @@ auto flow_matrix_row(G, weight=None, dtype=double, solver='lu') {
         B[u % w] = c
         B[v % w] = -c
         // get only the rows needed : the inverse laplacian
-        // and multiply to get the flow matrix row
+        // && multiply to get the flow matrix row
         row = np.dot(B, C.get_rows(u, v));
         yield row, (u, v);
 
@@ -38,7 +38,7 @@ class InverseLaplacian: public object {
         auto [n, n] = L.shape
         this->dtype = dtype
         this->n = n;
-        if (width is None) {
+        if (width.empty()) {
             this->w = this->width(L);
         } else {
             this->w = width
@@ -47,7 +47,7 @@ class InverseLaplacian: public object {
         this->init_solver(L);
 
     auto init_solver( L) {
-        pass();
+        // pass;
 
     auto solve( r) {
         raise("Implement solver");
@@ -127,7 +127,7 @@ class CGInverseLaplacian(InverseLaplacian) {
 
 // graph laplacian, sparse version, will move to linalg/laplacianmatrix.py
 auto laplacian_sparse_matrix(G, nodelist=None, weight=None, dtype=None,
-                            format='csr') {
+                            format="csr") {
     import numpy as np
     import scipy.sparse
     A = xn::to_scipy_sparse_matrix(G, nodelist=nodelist, weight=weight,

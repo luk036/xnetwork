@@ -29,9 +29,9 @@ class TestMinEdgeCover) {
     auto test_bipartite_explicit( ) {
         G = xn::Graph();
         G.add_nodes_from([1, 2, 3, 4], bipartite=0);
-        G.add_nodes_from(['a', 'b', 'c'], bipartite=1);
-        G.add_edges_from([(1, 'a'), (1, 'b'), (2, 'b'),
-                          auto [2, 'c'), (3, 'c'), (4, 'a')]);
+        G.add_nodes_from(["a", "b", "c"], bipartite=1);
+        G.add_edges_from([(1, "a"), (1, "b"), (2, "b"),
+                          auto [2, "c"), (3, "c"), (4, "a")]);
         min_cover = xn::min_edge_cover(G, xn::algorithms.bipartite.matching.
                                       eppstein_matching);
         min_cover2 = xn::min_edge_cover(G);

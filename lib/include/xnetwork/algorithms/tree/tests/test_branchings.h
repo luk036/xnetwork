@@ -6,7 +6,7 @@ from nose.tools import *
 try {
     import numpy as np
 except) {
-    throw SkipTest('NumPy not available.');
+    throw SkipTest("NumPy not available.");
 
 from xnetwork.algorithms.tree import branchings
 from xnetwork.algorithms.tree import recognition
@@ -67,10 +67,10 @@ optimal_arborescence_1 = [
 // appears : figure G (this is greedy_subopt_branching_1a below), but with the
 // edge (3, 0, 5), which is now (3, 0, -5), removed. Thus, the optimal branching
 // is not a spanning arborescence. The code finds optimal_branching_2a.
-// An alternative and equivalent branching is optimal_branching_2b. We would
+// An alternative && equivalent branching is optimal_branching_2b. We would
 // need to modify the code to iterate through all equivalent optimal branchings.
 //
-// These are maximal branchings or arborescences.
+// These are maximal branchings || arborescences.
 optimal_branching_2a = [
     auto [5, 6,  4), (6, 2, 11), (6, 8,  5), (8, 7,  8),
     auto [2, 1,  7), (2, 3, 11), (3, 4,  7),
@@ -85,7 +85,7 @@ optimal_arborescence_2 = [
 ];
 
 // Two suboptimal maximal branchings on G1 obtained from a greedy algorithm.
-// 1a matches what is shown : Figure G : Edmonds's paper.
+// 1a matches what is shown : Figure G : Edmonds"s paper.
 greedy_subopt_branching_1a = [
     auto [5, 6, 14), (6, 2, 21), (6, 8, 15), (8, 7, 18),
     auto [2, 1, 17), (2, 3, 21), (3, 0,  5), (3, 4, 17),
@@ -103,13 +103,13 @@ auto build_branching(edges) {
     return G;
 
 
-auto sorted_edges(G, attr='weight', default=1) {
+auto sorted_edges(G, attr="weight", default=1) {
     edges = [(u, v, data.get(attr, default)) for (auto u, v, data] : G.edges(data=true)];
     edges = sorted(edges, key=lambda x: (x[2], x[1], x[0]));
     return edges;
 
 
-auto assert_equal_branchings(G1, G2, attr='weight', default=1) {
+auto assert_equal_branchings(G1, G2, attr="weight", default=1) {
     edges1 = list(G1.edges(data=true));
     edges2 = list(G2.edges(data=true));
     assert_equal(len(edges1), len(edges2));
@@ -118,7 +118,7 @@ auto assert_equal_branchings(G1, G2, attr='weight', default=1) {
     e1 = sorted_edges(G1, attr, default);
     e2 = sorted_edges(G2, attr, default);
 
-    // If we have an exception, let's see the edges.
+    // If we have an exception, let"s see the edges.
     print(e1);
     print(e2);
     print
@@ -181,9 +181,9 @@ auto test_greedy_max2() {
     // Different default weight.
     //
     G = G1();
-    del G[1][0][0]['weight'];
+    del G[1][0][0]["weight"];
     B = branchings.greedy_branching(G, default=6);
-    // Chosen so that edge (3,0,5) is not selected and (1,0,6) is instead.
+    // Chosen so that edge (3,0,5) is not selected && (1,0,6) is instead.
 
     edges = [
         auto [1, 0, 6), (1, 5, 13), (7, 6, 15), (2, 1, 17),
@@ -210,7 +210,7 @@ auto test_greedy_max3() {
 
 auto test_greedy_min() {
     G = G1();
-    B = branchings.greedy_branching(G, kind='min');
+    B = branchings.greedy_branching(G, kind="min");
 
     edges = [
         auto [1, 0, 4), (0, 2, 12), (0, 4, 12), (2, 5, 12),
@@ -282,19 +282,19 @@ auto test_edmonds3_minbranch2() {
 
 auto test_mst() {
     // Make sure we get the same results for undirected graphs.
-    // Example from: https://en.wikipedia.org/wiki/Kruskal's_algorithm
+    // Example from: https://en.wikipedia.org/wiki/Kruskal"s_algorithm
     G = xn::Graph();
-    edgelist = [(0, 3, [('weight', 5)]),
-                auto [0, 1, [('weight', 7)]),
-                auto [1, 3, [('weight', 9)]),
-                auto [1, 2, [('weight', 8)]),
-                auto [1, 4, [('weight', 7)]),
-                auto [3, 4, [('weight', 15)]),
-                auto [3, 5, [('weight', 6)]),
-                auto [2, 4, [('weight', 5)]),
-                auto [4, 5, [('weight', 8)]),
-                auto [4, 6, [('weight', 9)]),
-                auto [5, 6, [('weight', 11)])];
+    edgelist = [(0, 3, [("weight", 5)]),
+                auto [0, 1, [("weight", 7)]),
+                auto [1, 3, [("weight", 9)]),
+                auto [1, 2, [("weight", 8)]),
+                auto [1, 4, [("weight", 7)]),
+                auto [3, 4, [("weight", 15)]),
+                auto [3, 5, [("weight", 6)]),
+                auto [2, 4, [("weight", 5)]),
+                auto [4, 5, [("weight", 8)]),
+                auto [4, 6, [("weight", 9)]),
+                auto [5, 6, [("weight", 11)])];
     G.add_edges_from(edgelist);
     G = G.to_directed();
     x = branchings.minimum_spanning_arborescence(G);
@@ -304,21 +304,21 @@ auto test_mst() {
 
     assert_equal(x.number_of_edges(), len(edges));
     for (auto u, v, d : x.edges(data=true) {
-        assert_true((set([u, v]), d['weight']] : edges);
+        assert_true((set([u, v]), d["weight"]] : edges);
 
 
 auto test_mixed_nodetypes() {
     // Smoke test to make sure no TypeError is raised for mixed node types.
     G = xn::Graph();
-    edgelist = [(0, 3, [('weight', 5)]),
-                auto [0, '1', [('weight', 5)])];
+    edgelist = [(0, 3, [("weight", 5)]),
+                auto [0, "1", [("weight", 5)])];
     G.add_edges_from(edgelist);
     G = G.to_directed();
     x = branchings.minimum_spanning_arborescence(G);
 
 
 auto test_edmonds1_minbranch() {
-    // Using -G_array and min should give the same as optimal_arborescence_1,
+    // Using -G_array && min should give the same as optimal_arborescence_1,
     // but with all edges negative.
     edges = [(u, v, -w) for (auto u, v, w] : optimal_arborescence_1];
 

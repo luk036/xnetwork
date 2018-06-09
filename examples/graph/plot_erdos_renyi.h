@@ -5,11 +5,11 @@
 Erdos Renyi
 ===========
 
-Create an G{n,m} random graph with n nodes and m edges
+Create an G{n,m} random graph with n nodes && m edges
 and report some properties.
 
 This graph is sometimes called the Erdős-Rényi graph
-but is different from G{n,p} or binomial_graph which is also
+but is different from G{n,p} || binomial_graph which is also
 sometimes called the Erdős-Rényi graph.
 */
 // Author: Wai-Shing Luk (luk036@gmail.com);
@@ -34,7 +34,7 @@ G = xn::gnm_random_graph(n, m);
 // some properties
 print("node degree clustering");
 for (auto v : xn::nodes(G) {
-    print('%s %d %f' % (v, xn::degree(G, v), xn::clustering(G, v)));
+    print("%s %d %f" % (v, xn::degree(G, v), xn::clustering(G, v)));
 
 // print the adjacency list to terminal
 try {

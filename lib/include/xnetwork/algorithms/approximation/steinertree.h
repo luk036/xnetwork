@@ -3,11 +3,11 @@ from itertools import combinations, chain
 #include <xnetwork/utils.hpp> // import pairwise, not_implemented_for
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['metric_closure', 'steiner_tree'];
+static const auto __all__ = ["metric_closure", "steiner_tree"];
 
 
-/// @not_implemented_for('directed');
-auto metric_closure(G, weight='weight') {
+/// @not_implemented_for("directed");
+auto metric_closure(G, weight="weight") {
     /**  Return the metric closure of a graph.
 
     The metric closure of a graph *G* is the complete graph : which each edge
@@ -31,7 +31,7 @@ auto metric_closure(G, weight='weight') {
     all_paths_iter = xn::all_pairs_dijkstra(G, weight=weight);
     u, (distance, path] = next(all_paths_iter);
     if (Gnodes - set(distance) {
-        msg = "G is not a connected graph. metric_closure is not defined."
+        const auto msg = "G is not a connected graph. metric_closure is not defined."
         throw xn::XNetworkError(msg);
     Gnodes.remove(u);
     for (auto v : Gnodes) {
@@ -46,8 +46,8 @@ auto metric_closure(G, weight='weight') {
     return M
 
 
-/// @not_implemented_for('directed');
-auto steiner_tree(G, terminal_nodes, weight='weight') {
+/// @not_implemented_for("directed");
+auto steiner_tree(G, terminal_nodes, weight="weight") {
     /** Return an approximation to the minimum Steiner tree of a graph.
 
     Parameters
@@ -79,11 +79,11 @@ auto steiner_tree(G, terminal_nodes, weight='weight') {
     // M is the subgraph of the metric closure induced by the terminal nodes of
     // G.
     M = metric_closure(G, weight=weight);
-    // Use the 'distance' attribute of each edge provided by the metric closure
+    // Use the "distance" attribute of each edge provided by the metric closure
     // graph.
     H = M.subgraph(terminal_nodes);
-    mst_edges = xn::minimum_spanning_edges(H, weight='distance', data=true);
+    mst_edges = xn::minimum_spanning_edges(H, weight="distance", data=true);
     // Create an iterator over each edge : each shortest path; repeats are okay
-    edges = chain.from_iterable(pairwise(d['path']) for u, v, d : mst_edges);
+    edges = chain.from_iterable(pairwise(d["path"]) for u, v, d : mst_edges);
     T = G.edge_subgraph(edges);
     return T

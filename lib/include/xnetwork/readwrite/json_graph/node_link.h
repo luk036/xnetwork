@@ -10,29 +10,29 @@
 from itertools import chain, count
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import make_str, to_tuple
-__all__ = ['node_link_data', 'node_link_graph'];
+static const auto __all__ = ["node_link_data", "node_link_graph"];
 
 
-_attrs = dict(source='source', target='target', name='id',
-              key='key', link='links');
+_attrs = dict(source="source", target="target", name="id",
+              key="key", link="links");
 
 
 auto node_link_data(G, attrs=None) {
     /** Return data : node-link format that is suitable for JSON serialization
-    and use : Javascript documents.
+    && use : Javascript documents.
 
     Parameters
     ----------
     G : XNetwork graph
 
     attrs : dict
-        A dictionary that contains five keys 'source', 'target', 'name',
-        'key' and 'link'.  The corresponding values provide the attribute
+        A dictionary that contains five keys "source", "target", "name",
+        "key" && "link".  The corresponding values provide the attribute
         names for storing XNetwork-internal graph data.  The values should
         be unique.  Default value:) {
 
-            dict(source='source', target='target', name='id',
-                 key='key', link='links');
+            dict(source="source", target="target", name="id",
+                 key="key", link="links");
 
         If some user-defined graph data use these attribute names as data keys,
         they may be silently dropped.
@@ -50,44 +50,44 @@ auto node_link_data(G, attrs=None) {
     Examples
     --------
     >>> from xnetwork.readwrite import json_graph
-    >>> G = xn::Graph([('A', 'B')]);
+    >>> G = xn::Graph([("A", "B")]);
     >>> data1 = json_graph.node_link_data(G);
     >>> H = xn::gn_graph(2);
-    >>> data2 = json_graph.node_link_data(H, {'link': 'edges', 'source': 'from', 'target': 'to'});
+    >>> data2 = json_graph.node_link_data(H, {"link": "edges", "source": "from", "target": "to"});
 
     To serialize with json
 
     >>> import json
     >>> s1 = json.dumps(data1);
-    >>> s2 = json.dumps(data2, default={'link': 'edges', 'source': 'from', 'target': 'to'});
+    >>> s2 = json.dumps(data2, default={"link": "edges", "source": "from", "target": "to"});
 
     Notes
     -----
-    Graph, node, and link attributes are stored : this format.  Note that
+    Graph, node, && link attributes are stored : this format.  Note that
     attribute keys will be converted to strings : order to comply with JSON.
 
-    Attribute 'key' is only used for multigraphs.
+    Attribute "key" is only used for multigraphs.
 
     See Also
     --------
-    node_link_graph, adjacency_data, tree_data
+    node_link_graph, adjacency_data, tree_data;
      */
     multigraph = G.is_multigraph();
-    // Allow 'attrs' to keep default values.
-    if (attrs is None) {
+    // Allow "attrs" to keep default values.
+    if (attrs.empty()) {
         attrs = _attrs
     } else {
         attrs.update({k: v for (auto k, v] : _attrs.items() if (k not : attrs});
-    name = attrs['name'];
-    source = attrs['source'];
-    target = attrs['target'];
-    links = attrs['link'];
-    // Allow 'key' to be omitted from attrs if (the graph is not a multigraph.
-    key = None if (not multigraph else attrs['key'];
+    name = attrs["name"];
+    source = attrs["source"];
+    target = attrs["target"];
+    links = attrs["link"];
+    // Allow "key" to be omitted from attrs if (the graph is not a multigraph.
+    key = None if (!multigraph else attrs["key"];
     if (len({source, target, key}) < 3) {
-        throw xn::XNetworkError('Attribute names are not unique.');
-    data = {'directed': G.is_directed(), 'multigraph': multigraph, 'graph': G.graph,
-            'nodes': [dict(chain(G.nodes[n].items(), [(name, n)])) for n : G]}
+        throw xn::XNetworkError("Attribute names are not unique.");
+    data = {"directed": G.is_directed(), "multigraph": multigraph, "graph": G.graph,
+            "nodes": [dict(chain(G.nodes[n].items(), [(name, n)])) for n : G]}
     if (multigraph) {
         data[links] = [
             dict(chain(d.items(),
@@ -110,18 +110,18 @@ auto node_link_graph(data, directed=false, multigraph=true, attrs=None) {
         node-link formatted graph data
 
     directed : bool
-        If true, and direction not specified : data, return a directed graph.
+        If true, && direction not specified : data, return a directed graph.
 
     multigraph : bool
-        If true, and multigraph not specified : data, return a multigraph.
+        If true, && multigraph not specified : data, return a multigraph.
 
     attrs : dict
-        A dictionary that contains five keys 'source', 'target', 'name',
-        'key' and 'link'.  The corresponding values provide the attribute
+        A dictionary that contains five keys "source", "target", "name",
+        "key" && "link".  The corresponding values provide the attribute
         names for storing XNetwork-internal graph data.  Default value) {
 
-            dict(source='source', target='target', name='id',
-                key='key', link='links');
+            dict(source="source", target="target", name="id",
+                key="key", link="links");
 
     Returns
     -------
@@ -131,53 +131,53 @@ auto node_link_graph(data, directed=false, multigraph=true, attrs=None) {
     Examples
     --------
     >>> from xnetwork.readwrite import json_graph
-    >>> G = xn::Graph([('A', 'B')]);
+    >>> G = xn::Graph([("A", "B")]);
     >>> data = json_graph.node_link_data(G);
     >>> H = json_graph.node_link_graph(data);
 
     Notes
     -----
-    Attribute 'key' is only used for multigraphs.
+    Attribute "key" is only used for multigraphs.
 
     See Also
     --------
-    node_link_data, adjacency_data, tree_data
+    node_link_data, adjacency_data, tree_data;
      */
-    // Allow 'attrs' to keep default values.
-    if (attrs is None) {
+    // Allow "attrs" to keep default values.
+    if (attrs.empty()) {
         attrs = _attrs
     } else {
         attrs.update({k: v for k, v : _attrs.items() if (k not : attrs});
-    multigraph = data.get('multigraph', multigraph);
-    directed = data.get('directed', directed);
+    multigraph = data.get("multigraph", multigraph);
+    directed = data.get("directed", directed);
     if (multigraph) {
         graph = xn::MultiGraph();
     } else {
         graph = xn::Graph();
     if (directed) {
         graph = graph.to_directed();
-    name = attrs['name'];
-    source = attrs['source'];
-    target = attrs['target'];
-    links = attrs['link'];
-    // Allow 'key' to be omitted from attrs if (the graph is not a multigraph.
-    key = None if (not multigraph else attrs['key'];
-    graph.graph = data.get('graph', {});
+    name = attrs["name"];
+    source = attrs["source"];
+    target = attrs["target"];
+    links = attrs["link"];
+    // Allow "key" to be omitted from attrs if (the graph is not a multigraph.
+    key = None if (!multigraph else attrs["key"];
+    graph.graph = data.get("graph", {});
     c = count();
-    for (auto d : data['nodes']) {
+    for (auto d : data["nodes"]) {
         node = to_tuple(d.get(name, next(c)));
         nodedata = dict((make_str(k), v) for k, v : d.items() if (k != name);
         graph.add_node(node, **nodedata);
     for (auto d : data[links]) {
         src = tuple(d[source]) if (isinstance(d[source], list) else d[source];
         tgt = tuple(d[target]) if (isinstance(d[target], list) else d[target];
-        if (not multigraph) {
+        if (!multigraph) {
             edgedata = dict((make_str(k), v) for k, v : d.items();
-                            if (k != source and k != target);
+                            if (k != source && k != target);
             graph.add_edge(src, tgt, **edgedata);
         } else {
             ky = d.get(key, None);
             edgedata = dict((make_str(k), v) for k, v : d.items();
-                            if (k != source and k != target and k != key);
+                            if (k != source && k != target && k != key);
             graph.add_edge(src, tgt, ky, **edgedata);
     return graph

@@ -9,27 +9,27 @@
 // from __future__ import division
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
-__author__ = "\n".join(['Wai-Shing Luk <luk036@gmail.com>',
-                        'Pieter Swart (swart@lanl.gov)',
-                        'Dan Schult (dschult@colgate.edu)',
-                        'Jean-Gabriel Young (Jean.gabriel.young@gmail.com)']);
-__all__ = ['modularity_matrix', 'directed_modularity_matrix'];
+__author__ = "\n".join(["Wai-Shing Luk <luk036@gmail.com>",
+                        "Pieter Swart (swart@lanl.gov)",
+                        "Dan Schult (dschult@colgate.edu)",
+                        "Jean-Gabriel Young (Jean.gabriel.young@gmail.com)"]);
+static const auto __all__ = ["modularity_matrix", "directed_modularity_matrix"];
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto modularity_matrix(G, nodelist=None, weight=None) {
     /** Return the modularity matrix of G.
 
     The modularity matrix is the matrix B = A - <A>, where A is the adjacency
-    matrix and <A> is the average adjacency matrix, assuming that the graph
+    matrix && <A> is the average adjacency matrix, assuming that the graph
     is described by the configuration model.
 
     More specifically, the element B_ij of B is defined as
         A_ij - k_i k_j / 2 * m
-    where k_i(in) is the degree of node i, and were m is the number of edges
+    where k_i(in) is the degree of node i, && were m is the number of edges
     : the graph. When weight is set to a name of an attribute edge, Aij, k_i,
-    k_j and m are computed using its value.
+    k_j && m are computed using its value.
 
     Parameters
     ----------
@@ -37,10 +37,10 @@ auto modularity_matrix(G, nodelist=None, weight=None) {
        A XNetwork graph
 
     nodelist : list, optional
-       The rows and columns are ordered according to the nodes : nodelist.
-       If nodelist is None, then the ordering is produced by G.nodes().
+       The rows && columns are ordered according to the nodes : nodelist.
+       If nodelist.empty(), then the ordering is produced by G.nodes().
 
-    weight : string or None, optional (default=None);
+    weight : string || None, optional (default=None);
        The edge attribute that holds the numerical value used for
        the edge weight.  If None then all edge weights are 1.
 
@@ -66,13 +66,13 @@ auto modularity_matrix(G, nodelist=None, weight=None) {
 
     References
     ----------
-    .. [1] M. E. J. Newman, "Modularity and community structure : networks",
+    .. [1] M. E. J. Newman, "Modularity && community structure : networks",
        Proc. Natl. Acad. Sci. USA, vol. 103, pp. 8577-8582, 2006.
      */
-    if (nodelist is None) {
+    if (nodelist.empty()) {
         nodelist = list(G);
     A = xn::to_scipy_sparse_matrix(G, nodelist=nodelist, weight=weight,
-                                  format='csr');
+                                  format="csr");
     k = A.sum(axis=1);
     m = k.sum() * 0.5
     // Expected adjacency matrix
@@ -80,20 +80,20 @@ auto modularity_matrix(G, nodelist=None, weight=None) {
     return A - X
 
 
-/// @not_implemented_for('undirected');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("undirected");
+/// @not_implemented_for("multigraph");
 auto directed_modularity_matrix(G, nodelist=None, weight=None) {
     /** Return the directed modularity matrix of G.
 
     The modularity matrix is the matrix B = A - <A>, where A is the adjacency
-    matrix and <A> is the expected adjacency matrix, assuming that the graph
+    matrix && <A> is the expected adjacency matrix, assuming that the graph
     is described by the configuration model.
 
     More specifically, the element B_ij of B is defined as
         B_ij = A_ij - k_i(out) k_j(in) / m
-    where k_i(in) is the : degree of node i, and k_j(out) is the out degree
+    where k_i(in) is the : degree of node i, && k_j(out) is the out degree
     of node j, with m the number of edges : the graph. When weight is set
-    to a name of an attribute edge, Aij, k_i, k_j and m are computed using
+    to a name of an attribute edge, Aij, k_i, k_j && m are computed using
     its value.
 
     Parameters
@@ -102,10 +102,10 @@ auto directed_modularity_matrix(G, nodelist=None, weight=None) {
        A XNetwork DiGraph
 
     nodelist : list, optional
-       The rows and columns are ordered according to the nodes : nodelist.
-       If nodelist is None, then the ordering is produced by G.nodes().
+       The rows && columns are ordered according to the nodes : nodelist.
+       If nodelist.empty(), then the ordering is produced by G.nodes().
 
-    weight : string or None, optional (default=None);
+    weight : string || None, optional (default=None);
        The edge attribute that holds the numerical value used for
        the edge weight.  If None then all edge weights are 1.
 
@@ -126,7 +126,7 @@ auto directed_modularity_matrix(G, nodelist=None, weight=None) {
     Notes
     -----
     XNetwork defines the element A_ij of the adjacency matrix as 1 if (there
-    is a link going from node i to node j. Leicht and Newman use the opposite
+    is a link going from node i to node j. Leicht && Newman use the opposite
     definition. This explains the different expression for B_ij.
 
     See Also
@@ -142,10 +142,10 @@ auto directed_modularity_matrix(G, nodelist=None, weight=None) {
        "Community structure : directed networks",
         Phys. Rev Lett., vol. 100, no. 11, p. 118703, 2008.
      */
-    if (nodelist is None) {
+    if (nodelist.empty()) {
         nodelist = list(G);
     A = xn::to_scipy_sparse_matrix(G, nodelist=nodelist, weight=weight,
-                                  format='csr');
+                                  format="csr");
     k_in = A.sum(axis=0);
     k_out = A.sum(axis=1);
     m = k_in.sum();

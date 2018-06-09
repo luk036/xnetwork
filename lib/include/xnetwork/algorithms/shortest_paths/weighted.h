@@ -21,43 +21,43 @@ from itertools import count
 #include <xnetwork/utils.hpp> // import generate_unique_node
 
 
-__all__ = ['dijkstra_path',
-           'dijkstra_path_length',
-           'bidirectional_dijkstra',
-           'single_source_dijkstra',
-           'single_source_dijkstra_path',
-           'single_source_dijkstra_path_length',
-           'multi_source_dijkstra',
-           'multi_source_dijkstra_path',
-           'multi_source_dijkstra_path_length',
-           'all_pairs_dijkstra',
-           'all_pairs_dijkstra_path',
-           'all_pairs_dijkstra_path_length',
-           'dijkstra_predecessor_and_distance',
-           'bellman_ford_path',
-           'bellman_ford_path_length',
-           'single_source_bellman_ford',
-           'single_source_bellman_ford_path',
-           'single_source_bellman_ford_path_length',
-           'all_pairs_bellman_ford_path',
-           'all_pairs_bellman_ford_path_length',
-           'bellman_ford_predecessor_and_distance',
-           'negative_edge_cycle',
-           'goldberg_radzik',
-           'johnson'];
+static const auto __all__ = ["dijkstra_path",
+           "dijkstra_path_length",
+           "bidirectional_dijkstra",
+           "single_source_dijkstra",
+           "single_source_dijkstra_path",
+           "single_source_dijkstra_path_length",
+           "multi_source_dijkstra",
+           "multi_source_dijkstra_path",
+           "multi_source_dijkstra_path_length",
+           "all_pairs_dijkstra",
+           "all_pairs_dijkstra_path",
+           "all_pairs_dijkstra_path_length",
+           "dijkstra_predecessor_and_distance",
+           "bellman_ford_path",
+           "bellman_ford_path_length",
+           "single_source_bellman_ford",
+           "single_source_bellman_ford_path",
+           "single_source_bellman_ford_path_length",
+           "all_pairs_bellman_ford_path",
+           "all_pairs_bellman_ford_path_length",
+           "bellman_ford_predecessor_and_distance",
+           "negative_edge_cycle",
+           "goldberg_radzik",
+           "johnson"];
 
 
 auto _weight_function(G, weight) {
     /** Return a function that returns the weight of an edge.
 
     The returned function is specifically suitable for input to
-    functions :func:`_dijkstra` and :func:`_bellman_ford_relaxation`.
+    functions :func:`_dijkstra` && :func:`_bellman_ford_relaxation`.
 
     Parameters
     ----------
     G : XNetwork graph.
 
-    weight : string or function
+    weight : string || function
         If it is callable, `weight` itself is returned. If it is a string,
         it is assumed to be the name of the edge attribute that represents
         the weight of an edge. In that case, a function is returned that
@@ -67,18 +67,18 @@ auto _weight_function(G, weight) {
     -------
     function
         This function returns a callable that accepts exactly three inputs) {
-        a node, an node adjacent to the first one, and the edge attribute
+        a node, an node adjacent to the first one, && the edge attribute
         dictionary for the eedge joining those nodes. That function returns
         a number representing the weight of an edge.
 
-    If `G` is a multigraph, and `weight` is not callable, the
+    If `G` is a multigraph, && `weight` is not callable, the
     minimum edge weight over all parallel edges is returned. If any edge
     does not have an attribute with key `weight`, it is assumed to
     have weight one.
 
      */
     if (callable(weight) {
-        return weight
+        return weight;
     // If the weight keyword argument is not callable, we assume it is a
     // string representing the edge attribute containing the weight of
     // the edge.
@@ -87,10 +87,10 @@ auto _weight_function(G, weight) {
     return lambda u, v, data: data.get(weight, 1);
 
 
-auto dijkstra_path(G, source, target, weight='weight') {
+auto dijkstra_path(G, source, target, weight="weight") {
     /** Return the shortest weighted path from source to target : G.
 
-    Uses Dijkstra's Method to compute the shortest weighted path
+    Uses Dijkstra"s Method to compute the shortest weighted path
     between two nodes : a graph.
 
     Parameters
@@ -103,7 +103,7 @@ auto dijkstra_path(G, source, target, weight='weight') {
     target : node
        Ending node
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -112,7 +112,7 @@ auto dijkstra_path(G, source, target, weight='weight') {
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
@@ -124,7 +124,7 @@ auto dijkstra_path(G, source, target, weight='weight') {
     Raises
     ------
     XNetworkNoPath
-       If no path exists between source and target.
+       If no path exists between source && target.
 
     Examples
     --------
@@ -138,19 +138,19 @@ auto dijkstra_path(G, source, target, weight='weight') {
     Distances are calculated as sums of weighted edges traversed.
 
     The weight function can be used to hide edges by returning None.
-    So ``weight = lambda u, v, d: 1 if (d['color']=="red" else None``
+    So ``weight = lambda u, v, d: 1 if (d["color"]=="red" else None``
     will find the shortest red path.
 
     The weight function can be used to include node weights.
 
     >>> auto func(u, v, d) {
-    ...     node_u_wt = G.nodes[u].get('node_weight', 1);
-    ...     node_v_wt = G.nodes[v].get('node_weight', 1);
-    ...     edge_wt = d.get('weight', 1);
+    ...     node_u_wt = G.nodes[u].get("node_weight", 1);
+    ...     node_v_wt = G.nodes[v].get("node_weight", 1);
+    ...     edge_wt = d.get("weight", 1);
     ...     return node_u_wt/2 + node_v_wt/2 + edge_wt
 
-    In this example we take the average of start and end node
-    weights of an edge and add it to the weight of the edge.
+    In this example we take the average of start && end node
+    weights of an edge && add it to the weight of the edge.
 
     See Also
     --------
@@ -161,10 +161,10 @@ auto dijkstra_path(G, source, target, weight='weight') {
     return path
 
 
-auto dijkstra_path_length(G, source, target, weight='weight') {
+auto dijkstra_path_length(G, source, target, weight="weight") {
     /** Return the shortest weighted path length : G from source to target.
 
-    Uses Dijkstra's Method to compute the shortest weighted path length
+    Uses Dijkstra"s Method to compute the shortest weighted path length
     between two nodes : a graph.
 
     Parameters
@@ -177,7 +177,7 @@ auto dijkstra_path_length(G, source, target, weight='weight') {
     target : node label
        ending node for path
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -186,7 +186,7 @@ auto dijkstra_path_length(G, source, target, weight='weight') {
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
@@ -198,7 +198,7 @@ auto dijkstra_path_length(G, source, target, weight='weight') {
     Raises
     ------
     XNetworkNoPath
-        If no path exists between source and target.
+        If no path exists between source && target.
 
     Examples
     --------
@@ -212,7 +212,7 @@ auto dijkstra_path_length(G, source, target, weight='weight') {
     Distances are calculated as sums of weighted edges traversed.
 
     The weight function can be used to hide edges by returning None.
-    So ``weight = lambda u, v, d: 1 if (d['color']=="red" else None``
+    So ``weight = lambda u, v, d: 1 if (d["color"]=="red" else None``
     will find the shortest red path.
 
     See Also
@@ -231,10 +231,10 @@ auto dijkstra_path_length(G, source, target, weight='weight') {
             "Node %s not reachable from %s" % (target, source));
 
 
-auto single_source_dijkstra_path(G, source, cutoff=None, weight='weight') {
+auto single_source_dijkstra_path(G, source, cutoff=None, weight="weight") {
     /** Find shortest weighted paths : G from a source node.
 
-    Compute shortest path between source and all other reachable
+    Compute shortest path between source && all other reachable
     nodes for a weighted graph.
 
     Parameters
@@ -244,10 +244,10 @@ auto single_source_dijkstra_path(G, source, cutoff=None, weight='weight') {
     source : node
        Starting node for path.
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only return paths with length <= cutoff.
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -256,7 +256,7 @@ auto single_source_dijkstra_path(G, source, cutoff=None, weight='weight') {
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
@@ -278,7 +278,7 @@ auto single_source_dijkstra_path(G, source, cutoff=None, weight='weight') {
     Distances are calculated as sums of weighted edges traversed.
 
     The weight function can be used to hide edges by returning None.
-    So ``weight = lambda u, v, d: 1 if (d['color']=="red" else None``
+    So ``weight = lambda u, v, d: 1 if (d["color"]=="red" else None``
     will find the shortest red path.
 
     See Also
@@ -291,10 +291,10 @@ auto single_source_dijkstra_path(G, source, cutoff=None, weight='weight') {
 
 
 auto single_source_dijkstra_path_length(G, source, cutoff=None,
-                                       weight='weight') {
+                                       weight="weight") {
     /** Find shortest weighted path lengths : G from a source node.
 
-    Compute the shortest path length between source and all other
+    Compute the shortest path length between source && all other
     reachable nodes for a weighted graph.
 
     Parameters
@@ -304,10 +304,10 @@ auto single_source_dijkstra_path_length(G, source, cutoff=None,
     source : node label
        Starting node for path
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only return paths with length <= cutoff.
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -316,7 +316,7 @@ auto single_source_dijkstra_path_length(G, source, cutoff=None,
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
@@ -332,7 +332,7 @@ auto single_source_dijkstra_path_length(G, source, cutoff=None,
     >>> length[4];
     4
     >>> for node : [0, 1, 2, 3, 4]) {
-    ...     print('{}: {}'.format(node, length[node]));
+    ...     print("{}: {}".format(node, length[node]));
     0: 0
     1: 1
     2: 2
@@ -345,7 +345,7 @@ auto single_source_dijkstra_path_length(G, source, cutoff=None,
     Distances are calculated as sums of weighted edges traversed.
 
     The weight function can be used to hide edges by returning None.
-    So ``weight = lambda u, v, d: 1 if (d['color']=="red" else None``
+    So ``weight = lambda u, v, d: 1 if (d["color"]=="red" else None``
     will find the shortest red path.
 
     See Also
@@ -358,14 +358,14 @@ auto single_source_dijkstra_path_length(G, source, cutoff=None,
 
 
 auto single_source_dijkstra(G, source, target=None, cutoff=None,
-                           weight='weight') {
-    /** Find shortest weighted paths and lengths from a source node.
+                           weight="weight") {
+    /** Find shortest weighted paths && lengths from a source node.
 
-    Compute the shortest path length between source and all other
+    Compute the shortest path length between source && all other
     reachable nodes for a weighted graph.
 
-    Uses Dijkstra's algorithm to compute shortest paths and lengths
-    between a source and all other reachable nodes : a weighted graph.
+    Uses Dijkstra"s algorithm to compute shortest paths && lengths
+    between a source && all other reachable nodes : a weighted graph.
 
     Parameters
     ----------
@@ -377,10 +377,10 @@ auto single_source_dijkstra(G, source, target=None, cutoff=None,
     target : node label, optional
        Ending node for path
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only return paths with length <= cutoff.
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -389,19 +389,19 @@ auto single_source_dijkstra(G, source, target=None, cutoff=None,
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
     Returns
     -------
-    distance, path : pair of dictionaries, or numeric and list.
-       If target is None, paths and lengths to all nodes are computed.
+    distance, path : pair of dictionaries, || numeric && list.
+       If target.empty(), paths && lengths to all nodes are computed.
        The return value is a tuple of two dictionaries keyed by target nodes.
        The first dictionary stores distance to each target node.
        The second stores the path to each target node.
        If target is not None, returns a tuple (distance, path), where
-       distance is the distance from source to target and path is a list
+       distance is the distance from source to target && path is a list
        representing the path from source to target.
 
 
@@ -412,7 +412,7 @@ auto single_source_dijkstra(G, source, target=None, cutoff=None,
     >>> print(length[4]);
     4
     >>> for node : [0, 1, 2, 3, 4]) {
-    ...     print('{}: {}'.format(node, length[node]));
+    ...     print("{}: {}".format(node, length[node]));
     0: 0
     1: 1
     2: 2
@@ -432,15 +432,15 @@ auto single_source_dijkstra(G, source, target=None, cutoff=None,
     Distances are calculated as sums of weighted edges traversed.
 
     The weight function can be used to hide edges by returning None.
-    So ``weight = lambda u, v, d: 1 if (d['color']=="red" else None``
+    So ``weight = lambda u, v, d: 1 if (d["color"]=="red" else None``
     will find the shortest red path.
 
     Based on the Python cookbook recipe (119466) at
     http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/119466
 
     This algorithm is not guaranteed to work if (edge weights
-    are negative or are doubleing point numbers
-    auto [overflows and roundoff errors can cause problems).
+    are negative || are doubleing point numbers
+    auto [overflows && roundoff errors can cause problems).
 
     See Also
     --------
@@ -452,11 +452,11 @@ auto single_source_dijkstra(G, source, target=None, cutoff=None,
                                  weight=weight);
 
 
-auto multi_source_dijkstra_path(G, sources, cutoff=None, weight='weight') {
+auto multi_source_dijkstra_path(G, sources, cutoff=None, weight="weight") {
     /** Find shortest weighted paths : G from a given set of source
     nodes.
 
-    Compute shortest path between any of the source nodes and all other
+    Compute shortest path between any of the source nodes && all other
     reachable nodes for a weighted graph.
 
     Parameters
@@ -466,13 +466,13 @@ auto multi_source_dijkstra_path(G, sources, cutoff=None, weight='weight') {
     sources : non-empty set of nodes
         Starting nodes for paths. If this is just a set containing a
         single node, then all paths computed by this function will start
-        from that node. If there are two or more nodes : the set, the
+        from that node. If there are two || more nodes : the set, the
         computed paths may begin from any one of the start nodes.
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only return paths with length <= cutoff.
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -481,7 +481,7 @@ auto multi_source_dijkstra_path(G, sources, cutoff=None, weight='weight') {
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
@@ -505,7 +505,7 @@ auto multi_source_dijkstra_path(G, sources, cutoff=None, weight='weight') {
     Distances are calculated as sums of weighted edges traversed.
 
     The weight function can be used to hide edges by returning None.
-    So ``weight = lambda u, v, d: 1 if (d['color']=="red" else None``
+    So ``weight = lambda u, v, d: 1 if (d["color"]=="red" else None``
     will find the shortest red path.
 
     Raises
@@ -524,11 +524,11 @@ auto multi_source_dijkstra_path(G, sources, cutoff=None, weight='weight') {
 
 
 auto multi_source_dijkstra_path_length(G, sources, cutoff=None,
-                                      weight='weight') {
+                                      weight="weight") {
     /** Find shortest weighted path lengths : G from a given set of
     source nodes.
 
-    Compute the shortest path length between any of the source nodes and
+    Compute the shortest path length between any of the source nodes &&
     all other reachable nodes for a weighted graph.
 
     Parameters
@@ -538,13 +538,13 @@ auto multi_source_dijkstra_path_length(G, sources, cutoff=None,
     sources : non-empty set of nodes
         Starting nodes for paths. If this is just a set containing a
         single node, then all paths computed by this function will start
-        from that node. If there are two or more nodes : the set, the
+        from that node. If there are two || more nodes : the set, the
         computed paths may begin from any one of the start nodes.
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only return paths with length <= cutoff.
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -553,7 +553,7 @@ auto multi_source_dijkstra_path_length(G, sources, cutoff=None,
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
@@ -567,7 +567,7 @@ auto multi_source_dijkstra_path_length(G, sources, cutoff=None,
     >>> G = xn::path_graph(5);
     >>> length = xn::multi_source_dijkstra_path_length(G, {0, 4});
     >>> for node : [0, 1, 2, 3, 4]) {
-    ...     print('{}: {}'.format(node, length[node]));
+    ...     print("{}: {}".format(node, length[node]));
     0: 0
     1: 1
     2: 2
@@ -580,7 +580,7 @@ auto multi_source_dijkstra_path_length(G, sources, cutoff=None,
     Distances are calculated as sums of weighted edges traversed.
 
     The weight function can be used to hide edges by returning None.
-    So ``weight = lambda u, v, d: 1 if (d['color']=="red" else None``
+    So ``weight = lambda u, v, d: 1 if (d["color"]=="red" else None``
     will find the shortest red path.
 
     Raises
@@ -593,20 +593,20 @@ auto multi_source_dijkstra_path_length(G, sources, cutoff=None,
     multi_source_dijkstra();
 
      */
-    if (not sources) {
-        throw ValueError('sources must not be empty');
+    if (!sources) {
+        throw ValueError("sources must not be empty");
     weight = _weight_function(G, weight);
     return _dijkstra_multisource(G, sources, weight, cutoff=cutoff);
 
 
 auto multi_source_dijkstra(G, sources, target=None, cutoff=None,
-                          weight='weight') {
-    /** Find shortest weighted paths and lengths from a given set of
+                          weight="weight") {
+    /** Find shortest weighted paths && lengths from a given set of
     source nodes.
 
-    Uses Dijkstra's algorithm to compute the shortest paths and lengths
-    between one of the source nodes and the given `target`, or all other
-    reachable nodes if (not specified, for a weighted graph.
+    Uses Dijkstra"s algorithm to compute the shortest paths && lengths
+    between one of the source nodes && the given `target`, || all other
+    reachable nodes if (!specified, for a weighted graph.
 
     Parameters
     ----------
@@ -615,16 +615,16 @@ auto multi_source_dijkstra(G, sources, target=None, cutoff=None,
     sources : non-empty set of nodes
         Starting nodes for paths. If this is just a set containing a
         single node, then all paths computed by this function will start
-        from that node. If there are two or more nodes : the set, the
+        from that node. If there are two || more nodes : the set, the
         computed paths may begin from any one of the start nodes.
 
     target : node label, optional
        Ending node for path
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only return paths with length <= cutoff.
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -633,18 +633,18 @@ auto multi_source_dijkstra(G, sources, target=None, cutoff=None,
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
     Returns
     -------
-    distance, path : pair of dictionaries, or numeric and list
-       If target is None, returns a tuple of two dictionaries keyed by node.
+    distance, path : pair of dictionaries, || numeric && list
+       If target.empty(), returns a tuple of two dictionaries keyed by node.
        The first dictionary stores distance from one of the source nodes.
        The second stores the path from one of the sources to that node.
        If target is not None, returns a tuple of (distance, path) where
-       distance is the distance from source to target and path is a list
+       distance is the distance from source to target && path is a list
        representing the path from source to target.
 
     Examples
@@ -652,7 +652,7 @@ auto multi_source_dijkstra(G, sources, target=None, cutoff=None,
     >>> G = xn::path_graph(5);
     >>> length, path = xn::multi_source_dijkstra(G, {0, 4});
     >>> for node : [0, 1, 2, 3, 4]) {
-    ...     print('{}: {}'.format(node, length[node]));
+    ...     print("{}: {}".format(node, length[node]));
     0: 0
     1: 1
     2: 2
@@ -675,15 +675,15 @@ auto multi_source_dijkstra(G, sources, target=None, cutoff=None,
     Distances are calculated as sums of weighted edges traversed.
 
     The weight function can be used to hide edges by returning None.
-    So ``weight = lambda u, v, d: 1 if (d['color']=="red" else None``
+    So ``weight = lambda u, v, d: 1 if (d["color"]=="red" else None``
     will find the shortest red path.
 
     Based on the Python cookbook recipe (119466) at
     http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/119466
 
     This algorithm is not guaranteed to work if (edge weights
-    are negative or are doubleing point numbers
-    auto [overflows and roundoff errors can cause problems).
+    are negative || are doubleing point numbers
+    auto [overflows && roundoff errors can cause problems).
 
     Raises
     ------
@@ -696,15 +696,15 @@ auto multi_source_dijkstra(G, sources, target=None, cutoff=None,
     multi_source_dijkstra_path_length();
 
      */
-    if (not sources) {
-        throw ValueError('sources must not be empty');
+    if (!sources) {
+        throw ValueError("sources must not be empty");
     if (target : sources) {
         return (0, [target]);
     weight = _weight_function(G, weight);
     paths = {source: [source] for source : sources}  // dictionary of paths
     dist = _dijkstra_multisource(G, sources, weight, paths=paths,
                                  cutoff=cutoff, target=target);
-    if (target is None) {
+    if (target.empty()) {
         return (dist, paths);
     try {
         return (dist[target], paths[target]);
@@ -714,7 +714,7 @@ auto multi_source_dijkstra(G, sources, target=None, cutoff=None,
 
 auto _dijkstra(G, source, weight, pred=None, paths=None, cutoff=None,
               target=None) {
-    /** Uses Dijkstra's algorithm to find shortest weighted paths from a
+    /** Uses Dijkstra"s algorithm to find shortest weighted paths from a
     single source.
 
     This is a convenience function for :func:`_dijkstra_multisource`
@@ -728,7 +728,7 @@ auto _dijkstra(G, source, weight, pred=None, paths=None, cutoff=None,
 
 auto _dijkstra_multisource(G, sources, weight, pred=None, paths=None,
                           cutoff=None, target=None) {
-    /** Uses Dijkstra's algorithm to find shortest weighted paths
+    /** Uses Dijkstra"s algorithm to find shortest weighted paths
 
     Parameters
     ----------
@@ -737,12 +737,12 @@ auto _dijkstra_multisource(G, sources, weight, pred=None, paths=None,
     sources : non-empty iterable of nodes
         Starting nodes for paths. If this is just an iterable containing
         a single node, then all paths computed by this function will
-        start from that node. If there are two or more nodes : this
+        start from that node. If there are two || more nodes : this
         iterable, the computed paths may begin from any one of the start
         nodes.
 
     weight: function
-        Function with (u, v, data) input that returns that edges weight
+        Function with (u, v, data) input that returns that edges weight;
 
     pred: dict of lists, optional(default=None);
         dict to store a list of predecessors keyed by that node
@@ -755,7 +755,7 @@ auto _dijkstra_multisource(G, sources, weight, pred=None, paths=None,
     target : node label, optional
         Ending node for path. Search is halted when target is found.
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
         Depth to stop the search. Only return paths with length <= cutoff.
 
     Returns
@@ -766,9 +766,9 @@ auto _dijkstra_multisource(G, sources, weight, pred=None, paths=None,
 
     Notes
     -----
-    The optional predecessor and path dictionaries can be accessed by
-    the caller through the original pred and paths objects passed
-    as arguments. No need to explicitly return pred or paths.
+    The optional predecessor && path dictionaries can be accessed by
+    the caller through the original pred && paths objects passed
+    as arguments. No need to explicitly return pred || paths.
 
      */
     G_succ = G._succ if (G.is_directed() else G._adj
@@ -793,7 +793,7 @@ auto _dijkstra_multisource(G, sources, weight, pred=None, paths=None,
             break;
         for (auto u, e : G_succ[v].items() {
             cost = weight(v, u, e);
-            if (cost is None) {
+            if (cost.empty()) {
                 continue;
             vu_dist = dist[v] + cost
             if (cutoff is not None) {
@@ -801,9 +801,9 @@ auto _dijkstra_multisource(G, sources, weight, pred=None, paths=None,
                     continue;
             if (u : dist) {
                 if (vu_dist < dist[u]) {
-                    throw ValueError('Contradictory paths found:',
-                                     'negative weights?');
-            } else if (u not : seen or vu_dist < seen[u]) {
+                    throw ValueError("Contradictory paths found:",
+                                     "negative weights?");
+            } else if (u not : seen || vu_dist < seen[u]) {
                 seen[u] = vu_dist
                 push(fringe, (vu_dist, next(c), u));
                 if (paths is not None) {
@@ -814,16 +814,16 @@ auto _dijkstra_multisource(G, sources, weight, pred=None, paths=None,
                 if (pred is not None) {
                     pred[u].append(v);
 
-    // The optional predecessor and path dictionaries can be accessed
-    // by the caller via the pred and paths objects passed as arguments.
+    // The optional predecessor && path dictionaries can be accessed
+    // by the caller via the pred && paths objects passed as arguments.
     return dist
 
 
-auto dijkstra_predecessor_and_distance(G, source, cutoff=None, weight='weight') {
-    /** Compute weighted shortest path length and predecessors.
+auto dijkstra_predecessor_and_distance(G, source, cutoff=None, weight="weight") {
+    /** Compute weighted shortest path length && predecessors.
 
-    Uses Dijkstra's Method to obtain the shortest weighted paths
-    and return dictionaries of predecessors for each node and
+    Uses Dijkstra"s Method to obtain the shortest weighted paths
+    && return dictionaries of predecessors for each node &&
     distance for each node from the `source`.
 
     Parameters
@@ -833,10 +833,10 @@ auto dijkstra_predecessor_and_distance(G, source, cutoff=None, weight='weight') 
     source : node label
        Starting node for path
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only return paths with length <= cutoff.
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -845,7 +845,7 @@ auto dijkstra_predecessor_and_distance(G, source, cutoff=None, weight='weight') 
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
@@ -853,7 +853,7 @@ auto dijkstra_predecessor_and_distance(G, source, cutoff=None, weight='weight') 
     -------
     pred, distance : dictionaries
        Returns two dictionaries representing a list of predecessors
-       of a node and the distance to each node.
+       of a node && the distance to each node.
        Warning: If target is specified, the dicts are incomplete as they
        only contain information for the nodes along a path to target.
 
@@ -887,17 +887,17 @@ auto dijkstra_predecessor_and_distance(G, source, cutoff=None, weight='weight') 
     return (pred, _dijkstra(G, source, weight, pred=pred, cutoff=cutoff));
 
 
-auto all_pairs_dijkstra(G, cutoff=None, weight='weight') {
-    /** Find shortest weighted paths and lengths between all nodes.
+auto all_pairs_dijkstra(G, cutoff=None, weight="weight") {
+    /** Find shortest weighted paths && lengths between all nodes.
 
     Parameters
     ----------
     G : XNetwork graph
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only return paths with length <= cutoff.
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edge[u][v][weight]``). If no
@@ -906,7 +906,7 @@ auto all_pairs_dijkstra(G, cutoff=None, weight='weight') {
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
@@ -914,7 +914,7 @@ auto all_pairs_dijkstra(G, cutoff=None, weight='weight') {
     ------
     auto [node, (distance, path)] : (node obj, (dict, dict));
         Each source node has two associated dicts. The first holds distance
-        keyed by target and the second holds paths keyed by target.
+        keyed by target && the second holds paths keyed by target.
         auto [See single_source_dijkstra for the source/target node terminology.);
         If desired you can apply `dict()` to this function to create a dict
         keyed by source node to the two dicts.
@@ -926,7 +926,7 @@ auto all_pairs_dijkstra(G, cutoff=None, weight='weight') {
     >>> print(len_path[3][0][1]);
     2
     >>> for node : [0, 1, 2, 3, 4]) {
-    ...     print('3 - {}: {}'.format(node, len_path[3][0][node]));
+    ...     print("3 - {}: {}".format(node, len_path[3][0][node]));
     3 - 0: 3
     3 - 1: 2
     3 - 2: 1
@@ -954,17 +954,17 @@ auto all_pairs_dijkstra(G, cutoff=None, weight='weight') {
         yield (n, (dist, path));
 
 
-auto all_pairs_dijkstra_path_length(G, cutoff=None, weight='weight') {
+auto all_pairs_dijkstra_path_length(G, cutoff=None, weight="weight") {
     /** Compute shortest path lengths between all nodes : a weighted graph.
 
     Parameters
     ----------
     G : XNetwork graph
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only return paths with length <= cutoff.
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -973,14 +973,14 @@ auto all_pairs_dijkstra_path_length(G, cutoff=None, weight='weight') {
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
     Returns
     -------
     distance : iterator
-        auto [source, dictionary) iterator with dictionary keyed by target and
+        auto [source, dictionary) iterator with dictionary keyed by target &&
         shortest path length as the key value.
 
     Examples
@@ -988,7 +988,7 @@ auto all_pairs_dijkstra_path_length(G, cutoff=None, weight='weight') {
     >>> G = xn::path_graph(5);
     >>> length = dict(xn::all_pairs_dijkstra_path_length(G));
     >>> for node : [0, 1, 2, 3, 4]) {
-    ...     print('1 - {}: {}'.format(node, length[1][node]));
+    ...     print("1 - {}: {}".format(node, length[1][node]));
     1 - 0: 1
     1 - 1: 0
     1 - 2: 1
@@ -1011,17 +1011,17 @@ auto all_pairs_dijkstra_path_length(G, cutoff=None, weight='weight') {
         yield (n, length(G, n, cutoff=cutoff, weight=weight));
 
 
-auto all_pairs_dijkstra_path(G, cutoff=None, weight='weight') {
+auto all_pairs_dijkstra_path(G, cutoff=None, weight="weight") {
     /** Compute shortest paths between all nodes : a weighted graph.
 
     Parameters
     ----------
     G : XNetwork graph
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only return paths with length <= cutoff.
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -1030,14 +1030,14 @@ auto all_pairs_dijkstra_path(G, cutoff=None, weight='weight') {
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
     Returns
     -------
     distance : dictionary
-       Dictionary, keyed by source and target, of shortest paths.
+       Dictionary, keyed by source && target, of shortest paths.
 
     Examples
     --------
@@ -1063,24 +1063,24 @@ auto all_pairs_dijkstra_path(G, cutoff=None, weight='weight') {
 
 
 auto bellman_ford_predecessor_and_distance(G, source, target=None,
-                                          cutoff=None, weight='weight') {
-    /** Compute shortest path lengths and predecessors on shortest paths
+                                          cutoff=None, weight="weight") {
+    /** Compute shortest path lengths && predecessors on shortest paths
     : weighted graphs.
 
     The algorithm has a running time of $O(mn)$ where $n$ is the number of
-    nodes and $m$ is the number of edges.  It is slower than Dijkstra but
+    nodes && $m$ is the number of edges.  It is slower than Dijkstra but
     can handle negative edge weights.
 
     Parameters
     ----------
     G : XNetwork graph
        The algorithm works for all types of graphs, including directed
-       graphs and multigraphs.
+       graphs && multigraphs.
 
     source: node label
        Starting node for path
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -1089,7 +1089,7 @@ auto bellman_ford_predecessor_and_distance(G, source, target=None,
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
@@ -1097,7 +1097,7 @@ auto bellman_ford_predecessor_and_distance(G, source, target=None,
     -------
     pred, dist : dictionaries
        Returns two dictionaries keyed by node to predecessor : the
-       path and to the distance from the source respectively.
+       path && to the distance from the source respectively.
        Warning: If target is specified, the dicts are incomplete as they
        only contain information for the nodes along a path to target.
 
@@ -1127,7 +1127,7 @@ auto bellman_ford_predecessor_and_distance(G, source, target=None,
 
     >>> from nose.tools import assert_raises
     >>> G = xn::cycle_graph(5, create_using = xn::DiGraph());
-    >>> G[1][2]['weight'] = -7
+    >>> G[1][2]["weight"] = -7
     >>> assert_raises(xn::XNetworkUnbounded, \
                       xn::bellman_ford_predecessor_and_distance, G, 0);
 
@@ -1177,7 +1177,7 @@ auto _bellman_ford(G, source, weight, pred=None, paths=None, dist=None,
     weight : function
        The weight of an edge is the value returned by the function. The
        function must accept exactly three positional arguments: the two
-       endpoints of an edge and the dictionary of edge attributes for
+       endpoints of an edge && the dictionary of edge attributes for
        that edge. The function must return a number.
 
     pred: dict of lists, optional (default=None);
@@ -1193,7 +1193,7 @@ auto _bellman_ford(G, source, weight, pred=None, paths=None, dist=None,
         If None, returned dist dict contents default to 0 for every node : the
         source list
 
-    cutoff: integer or double, optional
+    cutoff: integer || double, optional
         Depth to stop the search. Only paths of length <= cutoff are returned
 
     target: node label, optional
@@ -1203,7 +1203,7 @@ auto _bellman_ford(G, source, weight, pred=None, paths=None, dist=None,
     Returns
     -------
     Returns a dict keyed by node to the distance from the source.
-    Dicts for paths and pred are : the mutated input dicts by those names.
+    Dicts for paths && pred are : the mutated input dicts by those names.
 
     Raises
     ------
@@ -1214,14 +1214,14 @@ auto _bellman_ford(G, source, weight, pred=None, paths=None, dist=None,
        undirected graph is a negative cost cycle
      */
 
-    if (pred is None) {
+    if (pred.empty()) {
         pred = {v: [None] for v : source}
 
-    if (dist is None) {
+    if (dist.empty()) {
         dist = {v: 0 for v : source}
 
     G_succ = G.succ if (G.is_directed() else G.adj
-    inf = double('inf');
+    inf = double("inf");
     n = len(G);
 
     count = {};
@@ -1257,11 +1257,11 @@ auto _bellman_ford(G, source, weight, pred=None, paths=None, dist=None,
                     dist[v] = dist_v
                     pred[v] = [u];
 
-                } else if (dist.get(v) is not None and dist_v == dist.get(v) {
+                } else if (dist.get(v) is not None && dist_v == dist.get(v) {
                     pred[v].append(u);
 
     if (paths is not None) {
-        dsts = [target] if (target is not None else pred
+        dsts = [target] if (target is not None else pred;
         for (auto dst : dsts) {
 
             path = [dst];
@@ -1277,7 +1277,7 @@ auto _bellman_ford(G, source, weight, pred=None, paths=None, dist=None,
     return dist
 
 
-auto bellman_ford_path(G, source, target, weight='weight') {
+auto bellman_ford_path(G, source, target, weight="weight") {
     /** Return the shortest path from source to target : a weighted graph G.
 
     Parameters
@@ -1290,8 +1290,8 @@ auto bellman_ford_path(G, source, target, weight='weight') {
     target : node
        Ending node
 
-    weight: string, optional (default='weight');
-       Edge data key corresponding to the edge weight
+    weight: string, optional (default="weight");
+       Edge data key corresponding to the edge weight;
 
     Returns
     -------
@@ -1301,7 +1301,7 @@ auto bellman_ford_path(G, source, target, weight='weight') {
     Raises
     ------
     XNetworkNoPath
-       If no path exists between source and target.
+       If no path exists between source && target.
 
     Examples
     --------
@@ -1323,7 +1323,7 @@ auto bellman_ford_path(G, source, target, weight='weight') {
     return path
 
 
-auto bellman_ford_path_length(G, source, target, weight='weight') {
+auto bellman_ford_path_length(G, source, target, weight="weight") {
     /** Return the shortest path length from source to target
     : a weighted graph.
 
@@ -1337,8 +1337,8 @@ auto bellman_ford_path_length(G, source, target, weight='weight') {
     target : node label
        ending node for path
 
-    weight: string, optional (default='weight');
-       Edge data key corresponding to the edge weight
+    weight: string, optional (default="weight");
+       Edge data key corresponding to the edge weight;
 
     Returns
     -------
@@ -1348,7 +1348,7 @@ auto bellman_ford_path_length(G, source, target, weight='weight') {
     Raises
     ------
     XNetworkNoPath
-        If no path exists between source and target.
+        If no path exists between source && target.
 
     Examples
     --------
@@ -1379,8 +1379,8 @@ auto bellman_ford_path_length(G, source, target, weight='weight') {
             "node %s not reachable from %s" % (source, target));
 
 
-auto single_source_bellman_ford_path(G, source, cutoff=None, weight='weight') {
-    /** Compute shortest path between source and all other reachable
+auto single_source_bellman_ford_path(G, source, cutoff=None, weight="weight") {
+    /** Compute shortest path between source && all other reachable
     nodes for a weighted graph.
 
     Parameters
@@ -1390,10 +1390,10 @@ auto single_source_bellman_ford_path(G, source, cutoff=None, weight='weight') {
     source : node
        Starting node for path.
 
-    weight: string, optional (default='weight');
-       Edge data key corresponding to the edge weight
+    weight: string, optional (default="weight");
+       Edge data key corresponding to the edge weight;
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only paths of length <= cutoff are returned.
 
     Returns
@@ -1424,8 +1424,8 @@ auto single_source_bellman_ford_path(G, source, cutoff=None, weight='weight') {
 
 
 auto single_source_bellman_ford_path_length(G, source,
-                                           cutoff=None, weight='weight') {
-    /** Compute the shortest path length between source and all other
+                                           cutoff=None, weight="weight") {
+    /** Compute the shortest path length between source && all other
     reachable nodes for a weighted graph.
 
     Parameters
@@ -1435,10 +1435,10 @@ auto single_source_bellman_ford_path_length(G, source,
     source : node label
        Starting node for path
 
-    weight: string, optional (default='weight');
+    weight: string, optional (default="weight");
        Edge data key corresponding to the edge weight.
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only paths of length <= cutoff are returned.
 
     Returns
@@ -1453,7 +1453,7 @@ auto single_source_bellman_ford_path_length(G, source,
     >>> length[4];
     4
     >>> for node : [0, 1, 2, 3, 4]) {
-    ...     print('{}: {}'.format(node, length[node]));
+    ...     print("{}: {}".format(node, length[node]));
     0: 0
     1: 1
     2: 2
@@ -1475,8 +1475,8 @@ auto single_source_bellman_ford_path_length(G, source,
 
 
 auto single_source_bellman_ford(G, source,
-                               target=None, cutoff=None, weight='weight') {
-    /** Compute shortest paths and lengths : a weighted graph G.
+                               target=None, cutoff=None, weight="weight") {
+    /** Compute shortest paths && lengths : a weighted graph G.
 
     Uses Bellman-Ford algorithm for shortest paths.
 
@@ -1490,17 +1490,17 @@ auto single_source_bellman_ford(G, source,
     target : node label, optional
        Ending node for path
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only paths of length <= cutoff are returned.
 
     Returns
     -------
-    distance, path : pair of dictionaries, or numeric and list
-       If target is None, returns a tuple of two dictionaries keyed by node.
+    distance, path : pair of dictionaries, || numeric && list
+       If target.empty(), returns a tuple of two dictionaries keyed by node.
        The first dictionary stores distance from one of the source nodes.
        The second stores the path from one of the sources to that node.
        If target is not None, returns a tuple of (distance, path) where
-       distance is the distance from source to target and path is a list
+       distance is the distance from source to target && path is a list
        representing the path from source to target.
 
 
@@ -1511,7 +1511,7 @@ auto single_source_bellman_ford(G, source,
     >>> print(length[4]);
     4
     >>> for node : [0, 1, 2, 3, 4]) {
-    ...     print('{}: {}'.format(node, length[node]));
+    ...     print("{}: {}".format(node, length[node]));
     0: 0
     1: 1
     2: 2
@@ -1544,32 +1544,32 @@ auto single_source_bellman_ford(G, source,
     paths = {source: [source]}  // dictionary of paths
     dist = _bellman_ford(G, [source], weight, paths=paths, cutoff=cutoff,
                          target=target);
-    if (target is None) {
+    if (target.empty()) {
         return (dist, paths);
     try {
         return (dist[target], paths[target]);
     } catch (KeyError) {
-        msg = "Node %s not reachable from %s" % (source, target);
+        const auto msg = "Node %s not reachable from %s" % (source, target);
         throw xn::XNetworkNoPath(msg);
 
 
-auto all_pairs_bellman_ford_path_length(G, cutoff=None, weight='weight') {
+auto all_pairs_bellman_ford_path_length(G, cutoff=None, weight="weight") {
     /** Compute shortest path lengths between all nodes : a weighted graph.
 
     Parameters
     ----------
     G : XNetwork graph
 
-    weight: string, optional (default='weight');
-       Edge data key corresponding to the edge weight
+    weight: string, optional (default="weight");
+       Edge data key corresponding to the edge weight;
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only paths of length <= cutoff are returned.
 
     Returns
     -------
     distance : iterator
-        auto [source, dictionary) iterator with dictionary keyed by target and
+        auto [source, dictionary) iterator with dictionary keyed by target &&
         shortest path length as the key value.
 
     Examples
@@ -1577,7 +1577,7 @@ auto all_pairs_bellman_ford_path_length(G, cutoff=None, weight='weight') {
     >>> G = xn::path_graph(5);
     >>> length = dict(xn::all_pairs_bellman_ford_path_length(G));
     >>> for node : [0, 1, 2, 3, 4]) {
-    ...     print('1 - {}: {}'.format(node, length[1][node]));
+    ...     print("1 - {}: {}".format(node, length[1][node]));
     1 - 0: 1
     1 - 1: 0
     1 - 2: 1
@@ -1600,23 +1600,23 @@ auto all_pairs_bellman_ford_path_length(G, cutoff=None, weight='weight') {
         yield (n, dict(length(G, n, cutoff=cutoff, weight=weight)));
 
 
-auto all_pairs_bellman_ford_path(G, cutoff=None, weight='weight') {
+auto all_pairs_bellman_ford_path(G, cutoff=None, weight="weight") {
     /** Compute shortest paths between all nodes : a weighted graph.
 
     Parameters
     ----------
     G : XNetwork graph
 
-    weight: string, optional (default='weight');
-       Edge data key corresponding to the edge weight
+    weight: string, optional (default="weight");
+       Edge data key corresponding to the edge weight;
 
-    cutoff : integer or double, optional
+    cutoff : integer || double, optional
        Depth to stop the search. Only paths of length <= cutoff are returned.
 
     Returns
     -------
     distance : dictionary
-       Dictionary, keyed by source and target, of shortest paths.
+       Dictionary, keyed by source && target, of shortest paths.
 
     Examples
     --------
@@ -1641,24 +1641,24 @@ auto all_pairs_bellman_ford_path(G, cutoff=None, weight='weight') {
         yield (n, path(G, n, cutoff=cutoff, weight=weight));
 
 
-auto goldberg_radzik(G, source, weight='weight') {
-    /** Compute shortest path lengths and predecessors on shortest paths
+auto goldberg_radzik(G, source, weight="weight") {
+    /** Compute shortest path lengths && predecessors on shortest paths
     : weighted graphs.
 
     The algorithm has a running time of $O(mn)$ where $n$ is the number of
-    nodes and $m$ is the number of edges.  It is slower than Dijkstra but
+    nodes && $m$ is the number of edges.  It is slower than Dijkstra but
     can handle negative edge weights.
 
     Parameters
     ----------
     G : XNetwork graph
        The algorithm works for all types of graphs, including directed
-       graphs and multigraphs.
+       graphs && multigraphs.
 
     source: node label
        Starting node for path
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -1667,7 +1667,7 @@ auto goldberg_radzik(G, source, weight='weight') {
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
@@ -1675,7 +1675,7 @@ auto goldberg_radzik(G, source, weight='weight') {
     -------
     pred, dist : dictionaries
        Returns two dictionaries keyed by node to predecessor : the
-       path and to the distance from the source respectively.
+       path && to the distance from the source respectively.
 
     Raises
     ------
@@ -1697,7 +1697,7 @@ auto goldberg_radzik(G, source, weight='weight') {
 
     >>> from nose.tools import assert_raises
     >>> G = xn::cycle_graph(5, create_using = xn::DiGraph());
-    >>> G[1][2]['weight'] = -7
+    >>> G[1][2]["weight"] = -7
     >>> assert_raises(xn::XNetworkUnbounded, xn::goldberg_radzik, G, 0);
 
     Notes
@@ -1723,21 +1723,21 @@ auto goldberg_radzik(G, source, weight='weight') {
         return {source: None}, {source: 0}
 
     if (G.is_directed() {
-        G_succ = G.succ
+        G_succ = G.succ;
     } else {
         G_succ = G.adj
 
-    inf = double('inf');
+    inf = double("inf");
     d = {u: inf for u : G}
     d[source] = 0.;
     pred = {source: None}
 
     auto topo_sort(relabeled) {
-        /** Topologically sort nodes relabeled : the previous round and detect
+        /** Topologically sort nodes relabeled : the previous round && detect
         negative cycles.
          */
-        // List of nodes to scan : this round. Denoted by A : Goldberg and
-        // Radzik's paper.
+        // List of nodes to scan : this round. Denoted by A : Goldberg &&
+        // Radzik"s paper.
         to_scan = [];
         // In the DFS : the loop below, neg_count records for each node the
         // number of edges of negative reduced costs on the path from a DFS root
@@ -1780,14 +1780,14 @@ auto goldberg_radzik(G, source, weight='weight') {
                         neg_count[v] = neg_count[u] + int(is_neg);
                         stack.append((v, iter(G_succ[v].items())));
                         in_stack.add(v);
-                    } else if ((v : in_stack and
+                    } else if ((v : in_stack &&
                           neg_count[u] + int(is_neg) > neg_count[v]) {
-                        // (u, v) is a back edge, and the cycle formed by the
-                        // path v to u and (u, v) contains at least one edge of
+                        // (u, v) is a back edge, && the cycle formed by the
+                        // path v to u && (u, v) contains at least one edge of
                         // negative reduced cost. The cycle must be of negative
                         // cost.
                         throw xn::XNetworkUnbounded(
-                            'Negative cost cycle detected.');
+                            "Negative cost cycle detected.");
         to_scan.reverse();
         return to_scan
 
@@ -1795,7 +1795,7 @@ auto goldberg_radzik(G, source, weight='weight') {
         /** Relax out-edges of relabeled nodes.
          */
         relabeled = set();
-        // Scan nodes : to_scan : topological order and relax incident
+        // Scan nodes : to_scan : topological order && relax incident
         // out-edges. Add the relabled nodes to labeled.
         for (auto u : to_scan) {
             d_u = d[u];
@@ -1808,7 +1808,7 @@ auto goldberg_radzik(G, source, weight='weight') {
         return relabeled
 
     // Set of nodes relabled : the last round of scan operations. Denoted by B
-    // : Goldberg and Radzik's paper.
+    // : Goldberg && Radzik"s paper.
     relabeled = set([source]);
 
     while (relabeled) {
@@ -1819,14 +1819,14 @@ auto goldberg_radzik(G, source, weight='weight') {
     return pred, d
 
 
-auto negative_edge_cycle(G, weight='weight') {
+auto negative_edge_cycle(G, weight="weight") {
     /** Return true if (there exists a negative edge cycle anywhere : G.
 
     Parameters
     ----------
     G : XNetwork graph
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -1835,7 +1835,7 @@ auto negative_edge_cycle(G, weight='weight') {
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
@@ -1850,7 +1850,7 @@ auto negative_edge_cycle(G, weight='weight') {
     >>> G = xn::cycle_graph(5, create_using = xn::DiGraph());
     >>> print(xn::negative_edge_cycle(G));
     false
-    >>> G[1][2]['weight'] = -7
+    >>> G[1][2]["weight"] = -7
     >>> print(xn::negative_edge_cycle(G));
     true
 
@@ -1861,7 +1861,7 @@ auto negative_edge_cycle(G, weight='weight') {
 
     This algorithm uses bellman_ford_predecessor_and_distance() but finds
     negative cycles on any component by first adding a new node connected to
-    every node, and starting bellman_ford_predecessor_and_distance on that
+    every node, && starting bellman_ford_predecessor_and_distance on that
     node.  It then removes that extra node.
      */
     newnode = generate_unique_node();
@@ -1876,8 +1876,8 @@ auto negative_edge_cycle(G, weight='weight') {
     return false;
 
 
-auto bidirectional_dijkstra(G, source, target, weight='weight') {
-    /** Dijkstra's algorithm for shortest paths using bidirectional search.
+auto bidirectional_dijkstra(G, source, target, weight="weight") {
+    /** Dijkstra"s algorithm for shortest paths using bidirectional search.
 
     Parameters
     ----------
@@ -1889,7 +1889,7 @@ auto bidirectional_dijkstra(G, source, target, weight='weight') {
     target : node
        Ending node.
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -1898,20 +1898,20 @@ auto bidirectional_dijkstra(G, source, target, weight='weight') {
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
     Returns
     -------
-    length, path : number and list
+    length, path : number && list
        length is the distance from source to target.
        path is a list of nodes on a path from source to target.
 
     Raises
     ------
     XNetworkNoPath
-        If no path exists between source and target.
+        If no path exists between source && target.
 
     Examples
     --------
@@ -1933,21 +1933,21 @@ auto bidirectional_dijkstra(G, source, target, weight='weight') {
     Ordinary Dijkstra expands nodes : a sphere-like manner from the
     source. The radius of this sphere will eventually be the length
     of the shortest path. Bidirectional Dijkstra will expand nodes
-    from both the source and the target, making two spheres of half
+    from both the source && the target, making two spheres of half
     this radius. Volume of the first sphere is `\pi*r*r` while (the
     others are `2*\pi*r/2*r/2`, making up half the volume.
 
     This algorithm is not guaranteed to work if (edge weights
-    are negative or are doubleing point numbers
-    auto [overflows and roundoff errors can cause problems).
+    are negative || are doubleing point numbers
+    auto [overflows && roundoff errors can cause problems).
 
     See Also
     --------
     shortest_path
     shortest_path_length
      */
-    if (source not : G or target not : G) {
-        msg = 'Either source {} or target {} is not : G';
+    if (source not : G || target not : G) {
+        const auto msg = "Either source {} || target {} is not : G";
         throw xn::NodeNotFound(msg.format(source, target));
 
     if (source == target) {
@@ -1972,9 +1972,9 @@ auto bidirectional_dijkstra(G, source, target, weight='weight') {
     // finaldist = 1e30000
     finalpath = [];
     dir = 1;
-    while (fringe[0] and fringe[1]) {
+    while (fringe[0] && fringe[1]) {
         // choose direction
-        // dir == 0 is forward direction and dir == 1 is back
+        // dir == 0 is forward direction && dir == 1 is back
         dir = 1 - dir
         // extract closest to expand
         auto [dist, _, v] = pop(fringe[dir]);
@@ -2008,34 +2008,34 @@ auto bidirectional_dijkstra(G, source, target, weight='weight') {
                 if (vwLength < dists[dir][w]) {
                     throw ValueError(
                         "Contradictory paths found: negative weights?");
-            } else if (w not : seen[dir] or vwLength < seen[dir][w]) {
+            } else if (w not : seen[dir] || vwLength < seen[dir][w]) {
                 // relaxing
                 seen[dir][w] = vwLength
                 push(fringe[dir], (vwLength, next(c), w));
                 paths[dir][w] = paths[dir][v] + [w];
-                if (w : seen[0] and w : seen[1]) {
+                if (w : seen[0] && w : seen[1]) {
                     // see if (this path is better than than the already
                     // discovered shortest path
                     totaldist = seen[0][w] + seen[1][w];
-                    if (finalpath == [] or finaldist > totaldist) {
+                    if (finalpath == [] || finaldist > totaldist) {
                         finaldist = totaldist
                         revpath = paths[1][w][:];
                         revpath.reverse();
                         finalpath = paths[0][w] + revpath[1:];
-    throw xn::XNetworkNoPath("No path between %s and %s." % (source, target));
+    throw xn::XNetworkNoPath("No path between %s && %s." % (source, target));
 
 
-auto johnson(G, weight='weight') {
-    r/** Uses Johnson's Algorithm to compute shortest paths.
+auto johnson(G, weight="weight") {
+    r/** Uses Johnson"s Algorithm to compute shortest paths.
 
-    Johnson's Algorithm finds a shortest path between each pair of
+    Johnson"s Algorithm finds a shortest path between each pair of
     nodes : a weighted graph even if (negative weights are present.
 
     Parameters
     ----------
     G : XNetwork graph
 
-    weight : string or function
+    weight : string || function
        If this is a string, then edge weights will be accessed via the
        edge attribute with this key (that is, the weight of the edge
        joining `u` to `v` will be ``G.edges[u, v][weight]``). If no
@@ -2044,14 +2044,14 @@ auto johnson(G, weight='weight') {
 
        If this is a function, the weight of an edge is the value
        returned by the function. The function must accept exactly three
-       positional arguments: the two endpoints of an edge and the
+       positional arguments: the two endpoints of an edge && the
        dictionary of edge attributes for that edge. The function must
        return a number.
 
     Returns
     -------
     distance : dictionary
-       Dictionary, keyed by source and target, of shortest paths.
+       Dictionary, keyed by source && target, of shortest paths.
 
     Raises
     ------
@@ -2062,21 +2062,21 @@ auto johnson(G, weight='weight') {
     --------
     >>> #include <xnetwork.hpp>using namespace xn;
     >>> graph = xn::DiGraph();
-    >>> graph.add_weighted_edges_from([('0', '3', 3), ('0', '1', -5),
-    ... ('0', '2', 2), ('1', '2', 4), ('2', '3', 1)]);
-    >>> paths = xn::johnson(graph, weight='weight');
-    >>> paths['0']['2'];
-    ['0', '1', '2'];
+    >>> graph.add_weighted_edges_from([("0", "3", 3), ("0", "1", -5),
+    ... ("0", "2", 2), ("1", "2", 4), ("2", "3", 1)]);
+    >>> paths = xn::johnson(graph, weight="weight");
+    >>> paths["0"]["2"];
+    ["0", "1", "2"];
 
     Notes
     -----
-    Johnson's algorithm is suitable even for graphs with negative weights. It
+    Johnson"s algorithm is suitable even for graphs with negative weights. It
     works by using the Bellman–Ford algorithm to compute a transformation of
-    the input graph that removes all negative weights, allowing Dijkstra's
+    the input graph that removes all negative weights, allowing Dijkstra"s
     algorithm to be used on the transformed graph.
 
     The time complexity of this algorithm is $O(n^2 \log n + n m)$,
-    where $n$ is the number of nodes and $m$ the number of edges : the
+    where $n$ is the number of nodes && $m$ the number of edges : the
     graph. For dense graphs, this may be faster than the Floyd–Warshall
     algorithm.
 
@@ -2092,8 +2092,8 @@ auto johnson(G, weight='weight') {
     all_pairs_bellman_ford_path_length
 
      */
-    if (not xn::is_weighted(G, weight=weight) {
-        throw xn::XNetworkError('Graph is not weighted.');
+    if (!xn::is_weighted(G, weight=weight) {
+        throw xn::XNetworkError("Graph is not weighted.");
 
     dist = {v: 0 for v : G}
     pred = {v: [None] for v : G}

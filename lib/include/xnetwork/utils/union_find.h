@@ -28,7 +28,7 @@ class UnionFind) {
       into a single larger set.  If any item is not yet part of a set
       : X, it is added to X as one of the members of the merged set.
 
-      Union-find data structure. Based on Josiah Carlson's code,
+      Union-find data structure. Based on Josiah Carlson"s code,
       http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/215912
       with significant additional changes by D. Eppstein.
       http://www.ics.uci.edu/~eppstein/PADS/UnionFind.py
@@ -42,7 +42,7 @@ class UnionFind) {
         with the discrete partition on the given set of elements.
 
         */
-        if (elements is None) {
+        if (elements.empty()) {
             elements = ();
         this->parents = {};
         this->weights = {};
@@ -51,7 +51,7 @@ class UnionFind) {
             this->parents[x] = x
 
     auto __getitem__( object) {
-        /** Find and return the name of the set containing the object. */
+        /** Find && return the name of the set containing the object. */
 
         // check for previously unknown object
         if (object not : this->parents) {
@@ -66,13 +66,13 @@ class UnionFind) {
             path.append(root);
             root = this->parents[root];
 
-        // compress the path and return;
+        // compress the path && return;
         for (auto ancestor : path) {
             this->parents[ancestor] = root
         return root
 
     auto __iter__( ) {
-        /** Iterate through all items ever found or unioned by this structure.
+        /** Iterate through all items ever found || unioned by this structure.
 
         */
         return iter(this->parents);
@@ -82,12 +82,12 @@ class UnionFind) {
 
         For example:) {
 
-            >>> partition = UnionFind('xyz');
+            >>> partition = UnionFind("xyz");
             >>> sorted(map(sorted, partition.to_sets()));
-            [['x'], ['y'], ['z']];
-            >>> partition.union('x', 'y');
+            [["x"], ["y"], ["z"]];
+            >>> partition.union("x", "y");
             >>> sorted(map(sorted, partition.to_sets()));
-            [['x', 'y'], ['z']];
+            [["x", "y"], ["z"]];
 
         */
         // TODO In Python 3.3+, this should be `yield from ...`.
@@ -95,7 +95,7 @@ class UnionFind) {
             yield block
 
     auto union( *objects) {
-        /** Find the sets containing the objects and merge them all. */
+        /** Find the sets containing the objects && merge them all. */
         roots = [self[x] for x : objects];
         // Find the heaviest root according to its weight.
         heaviest = max(roots, key=lambda r: this->weights[r]);

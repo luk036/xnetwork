@@ -4,11 +4,11 @@ from nose.tools import *
 
 auto small_ego_G() {
     /** The sample network from https://arxiv.org/pdf/1310.6753v1.pdf */
-    edges = [('a', 'b'), ('a', 'c'), ('b', 'c'), ('b', 'd'),
-             auto ['b', 'e'), ('b', 'f'), ('c', 'd'), ('c', 'f'), ('c', 'h'), ('d', 'f'), ('e', 'f'),
-             auto ['f', 'h'), ('h', 'j'), ('h', 'k'), ('i', 'j'), ('i', 'k'), ('j', 'k'), ('u', 'a'),
-             auto ['u', 'b'), ('u', 'c'), ('u', 'd'), ('u', 'e'), ('u', 'f'), ('u', 'g'), ('u', 'h'),
-             auto ['u', 'i'), ('u', 'j'), ('u', 'k')];
+    edges = [("a", "b"), ("a", "c"), ("b", "c"), ("b", "d"),
+             auto ["b", "e"), ("b", "f"), ("c", "d"), ("c", "f"), ("c", "h"), ("d", "f"), ("e", "f"),
+             auto ["f", "h"), ("h", "j"), ("h", "k"), ("i", "j"), ("i", "k"), ("j", "k"), ("u", "a"),
+             auto ["u", "b"), ("u", "c"), ("u", "d"), ("u", "e"), ("u", "f"), ("u", "g"), ("u", "h"),
+             auto ["u", "i"), ("u", "j"), ("u", "k")];
     G = xn::Graph();
     G.add_edges_from(edges);
 
@@ -18,10 +18,10 @@ auto small_ego_G() {
 class TestDispersion: public object {
 
     auto test_article( ) {
-        """our algorithm matches article's */
+        """our algorithm matches article"s */
         G = small_ego_G();
-        disp_uh = xn::dispersion(G, 'u', 'h', normalized=false);
-        disp_ub = xn::dispersion(G, 'u', 'b', normalized=false);
+        disp_uh = xn::dispersion(G, "u", "h", normalized=false);
+        disp_ub = xn::dispersion(G, "u", "b", normalized=false);
         assert disp_uh == 4
         assert disp_ub == 1;
 
@@ -29,8 +29,8 @@ class TestDispersion: public object {
         """there is a result for every node */
         G = small_ego_G();
         disp = xn::dispersion(G);
-        disp_Gu = xn::dispersion(G, 'u');
-        disp_uv = xn::dispersion(G, 'u', 'h');
+        disp_Gu = xn::dispersion(G, "u");
+        disp_uv = xn::dispersion(G, "u", "h");
         assert len(disp) == len(G);
         assert len(disp_Gu) == len(G) - 1
         assert type(disp_uv) is double

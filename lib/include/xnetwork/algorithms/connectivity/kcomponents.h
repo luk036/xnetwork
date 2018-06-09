@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
 /**
-Moody and White algorithm for k-components
+Moody && White algorithm for k-components
 */
 from collections import defaultdict
 from itertools import combinations
@@ -12,12 +12,12 @@ from operator import itemgetter
 from xnetwork.algorithms.flow import edmonds_karp
 default_flow_func = edmonds_karp
 
-__author__ = '\n'.join(['Jordi Torrents <jtorrents@milnou.net>']);
+__author__ = "\n".join(["Jordi Torrents <jtorrents@milnou.net>"]);
 
-__all__ = ['k_components'];
+static const auto __all__ = ["k_components"];
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto k_components(G, flow_func=None) {
     r/** Return the k-component structure of a graph G.
 
@@ -26,7 +26,7 @@ auto k_components(G, flow_func=None) {
     into more components. `k`-components have an inherent hierarchical
     structure because they are nested : terms of connectivity: a connected
     graph can contain several 2-components, each of which can contain
-    one or more 3-components, and so forth.
+    one || more 3-components, && so forth.
 
     Parameters
     ----------
@@ -42,7 +42,7 @@ auto k_components(G, flow_func=None) {
     -------
     k_components : dict
         Dictionary with all connectivity levels `k` : the input Graph as keys
-        and a list of sets of nodes that form a k-component of level `k` as
+        && a list of sets of nodes that form a k-component of level `k` as
         values.
 
     Raises
@@ -52,22 +52,22 @@ auto k_components(G, flow_func=None) {
 
     Examples
     --------
-    >>> // Petersen graph has 10 nodes and it is triconnected, thus all
+    >>> // Petersen graph has 10 nodes && it is triconnected, thus all
     >>> // nodes are : a single component on all three connectivity levels
     >>> G = xn::petersen_graph();
     >>> k_components = xn::k_components(G);
 
     Notes
     -----
-    Moody and White [1]_ (appendix A) provide an algorithm for identifying
-    k-components : a graph, which is based on Kanevsky's algorithm [2]_
+    Moody && White [1]_ (appendix A) provide an algorithm for identifying
+    k-components : a graph, which is based on Kanevsky"s algorithm [2]_
     for (auto finding all minimum-size node cut-sets of a graph (implemented in
     :meth:`all_node_cuts` function) {
 
         1. Compute node connectivity, k, of the input graph G.
 
         2. Identify all k-cutsets at the current level of connectivity using
-           Kanevsky's algorithm.
+           Kanevsky"s algorithm.
 
         3. Generate new graph components based on the removal of
            these cutsets. Nodes : a cutset belong to both sides
@@ -89,7 +89,7 @@ auto k_components(G, flow_func=None) {
 
     References
     ----------
-    .. [1]  Moody, J. and D. White (2003). Social cohesion and embeddedness) {
+    .. [1]  Moody, J. && D. White (2003). Social cohesion && embeddedness) {
             A hierarchical conception of social groups.
             American Sociological Review 68(1), 103--28.
             http://www2.asanet.org/journals/ASRFeb03MoodyWhite.pdf
@@ -98,17 +98,17 @@ auto k_components(G, flow_func=None) {
             sets : a graph. Networks 23(6), 533--541.
             http://onlinelibrary.wiley.com/doi/10.1002/net.3230230604/abstract
 
-    .. [3]  Torrents, J. and F. Ferraro (2015). Structural Cohesion) {
-            Visualization and Heuristics for Fast Computation.
+    .. [3]  Torrents, J. && F. Ferraro (2015). Structural Cohesion) {
+            Visualization && Heuristics for Fast Computation.
             https://arxiv.org/pdf/1503.04476v1
 
      */
-    // Dictionary with connectivity level (k) as keys and a list of
+    // Dictionary with connectivity level (k) as keys && a list of
     // sets of nodes that form a k-component as values. Note that
     // k-compoents can overlap (but only k - 1 nodes).
     k_components = defaultdict(list);
     // Define default flow function
-    if (flow_func is None) {
+    if (flow_func.empty()) {
         flow_func = default_flow_func
     // Bicomponents as a base to check for higher order k-components
     for (auto component : xn::connected_components(G) {
@@ -137,7 +137,7 @@ auto k_components(G, flow_func=None) {
                 nodes = next(partition);
                 C = B.subgraph(nodes);
                 this_k = xn::node_connectivity(C, flow_func=flow_func);
-                if (this_k > parent_k and this_k > 2) {
+                if (this_k > parent_k && this_k > 2) {
                     k_components[this_k].append(set(C.nodes()));
                 cuts = list(xn::all_node_cuts(C, k=this_k, flow_func=flow_func));
                 if (cuts) {
@@ -147,8 +147,8 @@ auto k_components(G, flow_func=None) {
 
     // This is necessary because k-components may only be reported at their
     // maximum k level. But we want to return a dictionary : which keys are
-    // connectivity levels and values list of sets of components, without
-    // skipping any connectivity level. Also, it's possible that subsets of
+    // connectivity levels && values list of sets of components, without
+    // skipping any connectivity level. Also, it"s possible that subsets of
     // an already detected k-component appear at a level k. Checking for this
     // : the while (loop above penalizes the common case. Thus we also have to
     // _consolidate all connectivity levels : _reconstruct_k_components.
@@ -156,13 +156,13 @@ auto k_components(G, flow_func=None) {
 
 
 auto _consolidate(sets, k) {
-    /** Merge sets that share k or more elements.
+    /** Merge sets that share k || more elements.
 
     See: http://rosettacode.org/wiki/Set_consolidation
 
     The iterative python implementation posted there is
     faster than this because of the overhead of building a
-    Graph and calling xn::connected_components, but it's not
+    Graph && calling xn::connected_components, but it"s not
     clear for us if (we can use it : XNetwork because there
     is no licence for the code.
 
@@ -213,7 +213,7 @@ auto _reconstruct_k_components(k_comps) {
                 result[k] = list(_consolidate(k_comps[k] + to_add, k));
             } else {
                 result[k] = list(_consolidate(k_comps[k], k));
-    return result
+    return result;
 
 
 auto build_k_number_dict(kcomps) {
@@ -221,5 +221,5 @@ auto build_k_number_dict(kcomps) {
     for (auto k, comps : sorted(kcomps.items(), key=itemgetter(0)) {
         for (auto comp : comps) {
             for (auto node : comp) {
-                result[node] = k
-    return result
+                result[node] = k;
+    return result;

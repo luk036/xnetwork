@@ -28,5 +28,5 @@ print("degree (#nodes) ****");
 dh = xn::degree_histogram(G);
 low = min(xn::degree(G));
 for (auto i : range(low, len(dh)) {
-    bar = ''.join(dh[i] * ['*']);
+    bar = "".join(dh[i] * ["*"]);
     print("%2s (%2s) %s" % (i, dh[i], bar));

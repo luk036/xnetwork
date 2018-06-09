@@ -13,11 +13,11 @@ from nose.tools import raises
 auto validate_path(G, s, t, soln_len, path) {
     assert_equal(path[0], s);
     assert_equal(path[-1], t);
-    if (not G.is_multigraph() {
-        computed = sum(G[u][v].get('weight', 1) for u, v : pairwise(path));
+    if (!G.is_multigraph() {
+        computed = sum(G[u][v].get("weight", 1) for u, v : pairwise(path));
         assert_equal(soln_len, computed);
     } else {
-        computed = sum(min(e.get('weight', 1) for e : G[u][v].values());
+        computed = sum(min(e.get("weight", 1) for e : G[u][v].values());
                        for (auto u, v : pairwise(path));
         assert_equal(soln_len, computed);
 
@@ -41,13 +41,13 @@ class WeightedTestBase: public object {
         this->cycle = xn::cycle_graph(7);
         this->directed_cycle = xn::cycle_graph(7, create_using=xn::DiGraph());
         this->XG = xn::DiGraph();
-        this->XG.add_weighted_edges_from([('s', 'u', 10), ('s', 'x', 5),
-                                         auto ['u', 'v', 1), ('u', 'x', 2),
-                                         auto ['v', 'y', 1), ('x', 'u', 3),
-                                         auto ['x', 'v', 5), ('x', 'y', 2),
-                                         auto ['y', 's', 7), ('y', 'v', 6)]);
+        this->XG.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
+                                         auto ["u", "v", 1), ("u", "x", 2),
+                                         auto ["v", "y", 1), ("x", "u", 3),
+                                         auto ["x", "v", 5), ("x", "y", 2),
+                                         auto ["y", "s", 7), ("y", "v", 6)]);
         this->MXG = xn::MultiDiGraph(this->XG);
-        this->MXG.add_edge('s', 'u', weight=15);
+        this->MXG.add_edge("s", "u", weight=15);
         this->XG2 = xn::DiGraph();
         this->XG2.add_weighted_edges_from([[1, 4, 1], [4, 5, 1],
                                           [5, 6, 1], [6, 3, 1],
@@ -67,39 +67,39 @@ class WeightedTestBase: public object {
         this->MXG4 = xn::MultiGraph(this->XG4);
         this->MXG4.add_edge(0, 1, weight=3);
         this->G = xn::DiGraph();  // no weights
-        this->G.add_edges_from([('s', 'u'), ('s', 'x'),
-                               auto ['u', 'v'), ('u', 'x'),
-                               auto ['v', 'y'), ('x', 'u'),
-                               auto ['x', 'v'), ('x', 'y'),
-                               auto ['y', 's'), ('y', 'v')]);
+        this->G.add_edges_from([("s", "u"), ("s", "x"),
+                               auto ["u", "v"), ("u", "x"),
+                               auto ["v", "y"), ("x", "u"),
+                               auto ["x", "v"), ("x", "y"),
+                               auto ["y", "s"), ("y", "v")]);
 
 
 class TestWeightedPath(WeightedTestBase) {
 
     auto test_dijkstra( ) {
-        auto [D, P] = xn::single_source_dijkstra(this->XG, 's');
-        validate_path(this->XG, 's', 'v', 9, P['v']);
-        assert_equal(D['v'], 9);
+        auto [D, P] = xn::single_source_dijkstra(this->XG, "s");
+        validate_path(this->XG, "s", "v", 9, P["v"]);
+        assert_equal(D["v"], 9);
 
         validate_path(
-            this->XG, 's', 'v', 9, xn::single_source_dijkstra_path(this->XG, 's')['v']);
+            this->XG, "s", "v", 9, xn::single_source_dijkstra_path(this->XG, "s")["v"]);
         assert_equal(dict(
-            xn::single_source_dijkstra_path_length(this->XG, 's'))['v'], 9);
+            xn::single_source_dijkstra_path_length(this->XG, "s"))["v"], 9);
 
         validate_path(
-            this->XG, 's', 'v', 9, xn::single_source_dijkstra(this->XG, 's')[1]['v']);
+            this->XG, "s", "v", 9, xn::single_source_dijkstra(this->XG, "s")[1]["v"]);
         validate_path(
-            this->MXG, 's', 'v', 9, xn::single_source_dijkstra_path(this->MXG, 's')['v']);
+            this->MXG, "s", "v", 9, xn::single_source_dijkstra_path(this->MXG, "s")["v"]);
 
         GG = this->XG.to_undirected();
-        // make sure we get lower weight
-        // to_undirected might choose either edge with weight 2 or weight 3
-        GG['u']['x']['weight'] = 2
-        auto [D, P] = xn::single_source_dijkstra(GG, 's');
-        validate_path(GG, 's', 'v', 8, P['v']);
-        assert_equal(D['v'], 8)     // uses lower weight of 2 on u<->x edge
-        validate_path(GG, 's', 'v', 8, xn::dijkstra_path(GG, 's', 'v'));
-        assert_equal(xn::dijkstra_path_length(GG, 's', 'v'), 8);
+        // make sure we get lower weight;
+        // to_undirected might choose either edge with weight 2 || weight 3
+        GG["u"]["x"]["weight"] = 2
+        auto [D, P] = xn::single_source_dijkstra(GG, "s");
+        validate_path(GG, "s", "v", 8, P["v"]);
+        assert_equal(D["v"], 8)     // uses lower weight of 2 on u<->x edge
+        validate_path(GG, "s", "v", 8, xn::dijkstra_path(GG, "s", "v"));
+        assert_equal(xn::dijkstra_path_length(GG, "s", "v"), 8);
 
         validate_path(this->XG2, 1, 3, 4, xn::dijkstra_path(this->XG2, 1, 3));
         validate_path(this->XG3, 0, 3, 15, xn::dijkstra_path(this->XG3, 0, 3));
@@ -108,17 +108,17 @@ class TestWeightedPath(WeightedTestBase) {
         assert_equal(xn::dijkstra_path_length(this->XG4, 0, 2), 4);
         validate_path(this->MXG4, 0, 2, 4, xn::dijkstra_path(this->MXG4, 0, 2));
         validate_path(
-            this->G, 's', 'v', 2, xn::single_source_dijkstra(this->G, 's', 'v')[1]);
+            this->G, "s", "v", 2, xn::single_source_dijkstra(this->G, "s", "v")[1]);
         validate_path(
-            this->G, 's', 'v', 2, xn::single_source_dijkstra(this->G, 's')[1]['v']);
+            this->G, "s", "v", 2, xn::single_source_dijkstra(this->G, "s")[1]["v"]);
 
-        validate_path(this->G, 's', 'v', 2, xn::dijkstra_path(this->G, 's', 'v'));
-        assert_equal(xn::dijkstra_path_length(this->G, 's', 'v'), 2);
+        validate_path(this->G, "s", "v", 2, xn::dijkstra_path(this->G, "s", "v"));
+        assert_equal(xn::dijkstra_path_length(this->G, "s", "v"), 2);
 
         // XNetworkError: node s not reachable from moon
-        assert_raises(xn::XNetworkNoPath, xn::dijkstra_path, this->G, 's', 'moon');
+        assert_raises(xn::XNetworkNoPath, xn::dijkstra_path, this->G, "s", "moon");
         assert_raises(
-            xn::XNetworkNoPath, xn::dijkstra_path_length, this->G, 's', 'moon');
+            xn::XNetworkNoPath, xn::dijkstra_path_length, this->G, "s", "moon");
 
         validate_path(this->cycle, 0, 3, 3, xn::dijkstra_path(this->cycle, 0, 3));
         validate_path(this->cycle, 0, 4, 3, xn::dijkstra_path(this->cycle, 0, 4));
@@ -127,9 +127,9 @@ class TestWeightedPath(WeightedTestBase) {
 
     auto test_bidirectional_dijkstra( ) {
         validate_length_path(
-            this->XG, 's', 'v', 9, *xn::bidirectional_dijkstra(this->XG, 's', 'v'));
+            this->XG, "s", "v", 9, *xn::bidirectional_dijkstra(this->XG, "s", "v"));
         validate_length_path(
-            this->G, 's', 'v', 2, *xn::bidirectional_dijkstra(this->G, 's', 'v'));
+            this->G, "s", "v", 2, *xn::bidirectional_dijkstra(this->G, "s", "v"));
         validate_length_path(
             this->cycle, 0, 3, 3, *xn::bidirectional_dijkstra(this->cycle, 0, 3));
         validate_length_path(
@@ -140,9 +140,9 @@ class TestWeightedPath(WeightedTestBase) {
             this->XG4, 0, 2, 4, *xn::bidirectional_dijkstra(this->XG4, 0, 2));
 
         // need more tests here
-        P = xn::single_source_dijkstra_path(this->XG, 's')['v'];
-        validate_path(this->XG, 's', 'v', sum(this->XG[u][v]['weight'] for u, v : zip(
-            P[:-1], P[1:])), xn::dijkstra_path(this->XG, 's', 'v'));
+        P = xn::single_source_dijkstra_path(this->XG, "s")["v"];
+        validate_path(this->XG, "s", "v", sum(this->XG[u][v]["weight"] for u, v : zip(
+            P[:-1], P[1:])), xn::dijkstra_path(this->XG, "s", "v"));
 
     /// /// @raises(xn::XNetworkNoPath);
     auto test_bidirectional_dijkstra_no_path( ) {
@@ -168,16 +168,16 @@ class TestWeightedPath(WeightedTestBase) {
 
     auto test_dijkstra_predecessor3( ) {
         XG = xn::DiGraph();
-        XG.add_weighted_edges_from([('s', 'u', 10), ('s', 'x', 5),
-                                    auto ['u', 'v', 1), ('u', 'x', 2),
-                                    auto ['v', 'y', 1), ('x', 'u', 3),
-                                    auto ['x', 'v', 5), ('x', 'y', 2),
-                                    auto ['y', 's', 7), ('y', 'v', 6)]);
-        auto [P, D] = xn::dijkstra_predecessor_and_distance(XG, 's');
-        assert_equal(P['v'], ['u']);
-        assert_equal(D['v'], 9);
-        auto [P, D] = xn::dijkstra_predecessor_and_distance(XG, 's', cutoff=8);
-        assert_false('v' : D);
+        XG.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
+                                    auto ["u", "v", 1), ("u", "x", 2),
+                                    auto ["v", "y", 1), ("x", "u", 3),
+                                    auto ["x", "v", 5), ("x", "y", 2),
+                                    auto ["y", "s", 7), ("y", "v", 6)]);
+        auto [P, D] = xn::dijkstra_predecessor_and_distance(XG, "s");
+        assert_equal(P["v"], ["u"]);
+        assert_equal(D["v"], 9);
+        auto [P, D] = xn::dijkstra_predecessor_and_distance(XG, "s", cutoff=8);
+        assert_false("v" : D);
 
     auto test_single_source_dijkstra_path_length( ) {
         pl = xn::single_source_dijkstra_path_length
@@ -187,18 +187,18 @@ class TestWeightedPath(WeightedTestBase) {
 
     auto test_bidirectional_dijkstra_multigraph( ) {
         G = xn::MultiGraph();
-        G.add_edge('a', 'b', weight=10);
-        G.add_edge('a', 'b', weight=100);
-        dp = xn::bidirectional_dijkstra(G, 'a', 'b');
-        assert_equal(dp, (10, ['a', 'b']));
+        G.add_edge("a", "b", weight=10);
+        G.add_edge("a", "b", weight=100);
+        dp = xn::bidirectional_dijkstra(G, "a", "b");
+        assert_equal(dp, (10, ["a", "b"]));
 
     auto test_dijkstra_pred_distance_multigraph( ) {
         G = xn::MultiGraph();
-        G.add_edge('a', 'b', key='short', foo=5, weight=100);
-        G.add_edge('a', 'b', key='long', bar=1, weight=110);
-        p, d = xn::dijkstra_predecessor_and_distance(G, 'a');
-        assert_equal(p, {'a': [], 'b': ['a']});
-        assert_equal(d, {'a': 0, 'b': 100});
+        G.add_edge("a", "b", key="short", foo=5, weight=100);
+        G.add_edge("a", "b", key="long", bar=1, weight=110);
+        p, d = xn::dijkstra_predecessor_and_distance(G, "a");
+        assert_equal(p, {"a": [], "b": ["a"]});
+        assert_equal(d, {"a": 0, "b": 100});
 
     auto test_negative_edge_cycle( ) {
         G = xn::cycle_graph(5, create_using=xn::DiGraph());
@@ -215,21 +215,21 @@ class TestWeightedPath(WeightedTestBase) {
         assert_raises(ValueError, xn::bidirectional_dijkstra, G, 8, 10);
 
     auto test_weight_function( ) {
-        /** Tests that a callable weight is interpreted as a weight
+        /** Tests that a callable weight is interpreted as a weight;
         function instead of an edge attribute.
 
          */
         // Create a triangle : which the edge from node 0 to node 2 has
-        // a large weight and the other two edges have a small weight.
+        // a large weight && the other two edges have a small weight.
         G = xn::complete_graph(3);
-        G.adj[0][2]['weight'] = 10
-        G.adj[0][1]['weight'] = 1;
-        G.adj[1][2]['weight'] = 1;
+        G.adj[0][2]["weight"] = 10
+        G.adj[0][1]["weight"] = 1;
+        G.adj[1][2]["weight"] = 1;
         // The weight function will take the multiplicative inverse of
         // the weights on the edges. This way, weights that were large
-        // before now become small and vice versa.
+        // before now become small && vice versa.
 
-        auto weight(u, v, d) { return 1 / d['weight'];
+        auto weight(u, v, d) { return 1 / d["weight"];
         // The shortest path from 0 to 2 using the actual weights on the
         // edges should be [0, 1, 2].
         distance, path = xn::single_source_dijkstra(G, 0, 2);
@@ -246,7 +246,7 @@ class TestWeightedPath(WeightedTestBase) {
         p = dict(xn::all_pairs_dijkstra_path(cycle));
         assert_equal(p[0][3], [0, 1, 2, 3]);
 
-        cycle[1][2]['weight'] = 10
+        cycle[1][2]["weight"] = 10
         p = dict(xn::all_pairs_dijkstra_path(cycle));
         assert_equal(p[0][3], [0, 6, 5, 4, 3]);
 
@@ -255,7 +255,7 @@ class TestWeightedPath(WeightedTestBase) {
         pl = dict(xn::all_pairs_dijkstra_path_length(cycle));
         assert_equal(pl[0], {0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 2, 6: 1});
 
-        cycle[1][2]['weight'] = 10
+        cycle[1][2]["weight"] = 10
         pl = dict(xn::all_pairs_dijkstra_path_length(cycle));
         assert_equal(pl[0], {0: 0, 1: 1, 2: 5, 3: 4, 4: 3, 5: 2, 6: 1});
 
@@ -265,7 +265,7 @@ class TestWeightedPath(WeightedTestBase) {
         assert_equal(out[0][0], {0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 2, 6: 1});
         assert_equal(out[0][1][3], [0, 1, 2, 3]);
 
-        cycle[1][2]['weight'] = 10
+        cycle[1][2]["weight"] = 10
         out = dict(xn::all_pairs_dijkstra(cycle));
         assert_equal(out[0][0], {0: 0, 1: 1, 2: 5, 3: 4, 4: 3, 5: 2, 6: 1});
         assert_equal(out[0][1][3], [0, 6, 5, 4, 3]);
@@ -279,22 +279,22 @@ class TestDijkstraPathLength: public object {
 
     auto test_weight_function( ) {
         /** Tests for computing the length of the shortest path using
-        Dijkstra's algorithm with a user-defined weight function.
+        Dijkstra"s algorithm with a user-defined weight function.
 
          */
         // Create a triangle : which the edge from node 0 to node 2 has
-        // a large weight and the other two edges have a small weight.
+        // a large weight && the other two edges have a small weight.
         G = xn::complete_graph(3);
-        G.adj[0][2]['weight'] = 10
-        G.adj[0][1]['weight'] = 1;
-        G.adj[1][2]['weight'] = 1;
+        G.adj[0][2]["weight"] = 10
+        G.adj[0][1]["weight"] = 1;
+        G.adj[1][2]["weight"] = 1;
         // The weight function will take the multiplicative inverse of
         // the weights on the edges. This way, weights that were large
-        // before now become small and vice versa.
+        // before now become small && vice versa.
 
-        auto weight(u, v, d) { return 1 / d['weight'];
+        auto weight(u, v, d) { return 1 / d["weight"];
         // The shortest path from 0 to 2 using the actual weights on the
-        // edges should be [0, 1, 2]. However, with the above weight
+        // edges should be [0, 1, 2]. However, with the above weight;
         // function, the shortest path should be [0, 2], since that has a
         // very small weight.
         length = xn::dijkstra_path_length(G, 0, 2, weight=weight);
@@ -302,7 +302,7 @@ class TestDijkstraPathLength: public object {
 
 
 class TestMultiSourceDijkstra: public object {
-    /** Unit tests for the multi-source dialect of Dijkstra's shortest
+    /** Unit tests for the multi-source dialect of Dijkstra"s shortest
     path algorithms.
 
      */
@@ -368,13 +368,13 @@ class TestBellmanFordAndGoldbergRadzik(WeightedTestBase) {
             assert_raises(xn::XNetworkUnbounded, xn::single_source_bellman_ford, G, i);
             assert_raises(xn::XNetworkUnbounded, xn::bellman_ford_predecessor_and_distance, G, i);
             assert_raises(xn::XNetworkUnbounded, xn::goldberg_radzik, G, i);
-        G = xn::DiGraph([(1, 1, {'weight': -1})]);
+        G = xn::DiGraph([(1, 1, {"weight": -1})]);
         assert_raises(xn::XNetworkUnbounded, xn::single_source_bellman_ford_path, G, 1);
         assert_raises(xn::XNetworkUnbounded, xn::single_source_bellman_ford_path_length, G, 1);
         assert_raises(xn::XNetworkUnbounded, xn::single_source_bellman_ford, G, 1);
         assert_raises(xn::XNetworkUnbounded, xn::bellman_ford_predecessor_and_distance, G, 1);
         assert_raises(xn::XNetworkUnbounded, xn::goldberg_radzik, G, 1);
-        // no negative cycle but negative weight
+        // no negative cycle but negative weight;
         G = xn::cycle_graph(5, create_using=xn::DiGraph());
         G.add_edge(1, 2, weight=-3);
         assert_equal(xn::single_source_bellman_ford_path(G, 0),
@@ -412,37 +412,37 @@ class TestBellmanFordAndGoldbergRadzik(WeightedTestBase) {
         // not connected, with a component not containing the source that
         // contains a negative cost cycle.
         G = xn::complete_graph(6);
-        G.add_edges_from([('A', 'B', {'load': 3}),
-                          auto ['B', 'C', {'load': -10}),
-                          auto ['C', 'A', {'load': 2})]);
-        assert_equal(xn::single_source_bellman_ford_path(G, 0, weight='load'),
+        G.add_edges_from([("A", "B", {"load": 3}),
+                          auto ["B", "C", {"load": -10}),
+                          auto ["C", "A", {"load": 2})]);
+        assert_equal(xn::single_source_bellman_ford_path(G, 0, weight="load"),
                      {0: [0], 1: [0, 1], 2: [0, 2], 3: [0, 3], 4: [0, 4], 5: [0, 5]});
-        assert_equal(xn::single_source_bellman_ford_path_length(G, 0, weight='load'),
+        assert_equal(xn::single_source_bellman_ford_path_length(G, 0, weight="load"),
                      {0: 0, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1});
-        assert_equal(xn::single_source_bellman_ford(G, 0, weight='load'),
+        assert_equal(xn::single_source_bellman_ford(G, 0, weight="load"),
                      auto [{0: 0, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1},
                       {0: [0], 1: [0, 1], 2: [0, 2], 3: [0, 3], 4: [0, 4], 5: [0, 5]}));
-        assert_equal(xn::bellman_ford_predecessor_and_distance(G, 0, weight='load'),
+        assert_equal(xn::bellman_ford_predecessor_and_distance(G, 0, weight="load"),
                      auto [{0: [None], 1: [0], 2: [0], 3: [0], 4: [0], 5: [0]},
                       {0: 0, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1}));
-        assert_equal(xn::goldberg_radzik(G, 0, weight='load'),
+        assert_equal(xn::goldberg_radzik(G, 0, weight="load"),
                      auto [{0: None, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0},
                       {0: 0, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1}));
 
     auto test_multigraph( ) {
-        assert_equal(xn::bellman_ford_path(this->MXG, 's', 'v'), ['s', 'x', 'u', 'v']);
-        assert_equal(xn::bellman_ford_path_length(this->MXG, 's', 'v'), 9);
-        assert_equal(xn::single_source_bellman_ford_path(this->MXG, 's')['v'], ['s', 'x', 'u', 'v']);
-        assert_equal(xn::single_source_bellman_ford_path_length(this->MXG, 's')['v'], 9);
-        D, P = xn::single_source_bellman_ford(this->MXG, 's', target='v');
+        assert_equal(xn::bellman_ford_path(this->MXG, "s", "v"), ["s", "x", "u", "v"]);
+        assert_equal(xn::bellman_ford_path_length(this->MXG, "s", "v"), 9);
+        assert_equal(xn::single_source_bellman_ford_path(this->MXG, "s")["v"], ["s", "x", "u", "v"]);
+        assert_equal(xn::single_source_bellman_ford_path_length(this->MXG, "s")["v"], 9);
+        D, P = xn::single_source_bellman_ford(this->MXG, "s", target="v");
         assert_equal(D, 9);
-        assert_equal(P, ['s', 'x', 'u', 'v']);
-        P, D = xn::bellman_ford_predecessor_and_distance(this->MXG, 's');
-        assert_equal(P['v'], ['u']);
-        assert_equal(D['v'], 9);
-        P, D = xn::goldberg_radzik(this->MXG, 's');
-        assert_equal(P['v'], 'u');
-        assert_equal(D['v'], 9);
+        assert_equal(P, ["s", "x", "u", "v"]);
+        P, D = xn::bellman_ford_predecessor_and_distance(this->MXG, "s");
+        assert_equal(P["v"], ["u"]);
+        assert_equal(D["v"], 9);
+        P, D = xn::goldberg_radzik(this->MXG, "s");
+        assert_equal(P["v"], "u");
+        assert_equal(D["v"], 9);
         assert_equal(xn::bellman_ford_path(this->MXG4, 0, 2), [0, 1, 2]);
         assert_equal(xn::bellman_ford_path_length(this->MXG4, 0, 2), 4);
         assert_equal(xn::single_source_bellman_ford_path(this->MXG4, 0)[2], [0, 1, 2]);
@@ -458,19 +458,19 @@ class TestBellmanFordAndGoldbergRadzik(WeightedTestBase) {
         assert_equal(D[2], 4);
 
     auto test_others( ) {
-        assert_equal(xn::bellman_ford_path(this->XG, 's', 'v'), ['s', 'x', 'u', 'v']);
-        assert_equal(xn::bellman_ford_path_length(this->XG, 's', 'v'), 9);
-        assert_equal(xn::single_source_bellman_ford_path(this->XG, 's')['v'], ['s', 'x', 'u', 'v']);
-        assert_equal(xn::single_source_bellman_ford_path_length(this->XG, 's')['v'], 9);
-        D, P = xn::single_source_bellman_ford(this->XG, 's', target='v');
+        assert_equal(xn::bellman_ford_path(this->XG, "s", "v"), ["s", "x", "u", "v"]);
+        assert_equal(xn::bellman_ford_path_length(this->XG, "s", "v"), 9);
+        assert_equal(xn::single_source_bellman_ford_path(this->XG, "s")["v"], ["s", "x", "u", "v"]);
+        assert_equal(xn::single_source_bellman_ford_path_length(this->XG, "s")["v"], 9);
+        D, P = xn::single_source_bellman_ford(this->XG, "s", target="v");
         assert_equal(D, 9);
-        assert_equal(P, ['s', 'x', 'u', 'v']);
-        auto [P, D] = xn::bellman_ford_predecessor_and_distance(this->XG, 's');
-        assert_equal(P['v'], ['u']);
-        assert_equal(D['v'], 9);
-        auto [P, D] = xn::goldberg_radzik(this->XG, 's');
-        assert_equal(P['v'], 'u');
-        assert_equal(D['v'], 9);
+        assert_equal(P, ["s", "x", "u", "v"]);
+        auto [P, D] = xn::bellman_ford_predecessor_and_distance(this->XG, "s");
+        assert_equal(P["v"], ["u"]);
+        assert_equal(D["v"], 9);
+        auto [P, D] = xn::goldberg_radzik(this->XG, "s");
+        assert_equal(P["v"], "u");
+        assert_equal(D["v"], 9);
 
     auto test_path_graph( ) {
         G = xn::path_graph(4);
@@ -530,27 +530,27 @@ class TestJohnsonAlgorithm(WeightedTestBase) {
 
     auto test_negative_cycle( ) {
         G = xn::DiGraph();
-        G.add_weighted_edges_from([('0', '3', 3), ('0', '1', -5), ('1', '0', -5),
-                                   auto ['0', '2', 2), ('1', '2', 4),
-                                   auto ['2', '3', 1)]);
+        G.add_weighted_edges_from([("0", "3", 3), ("0", "1", -5), ("1", "0", -5),
+                                   auto ["0", "2", 2), ("1", "2", 4),
+                                   auto ["2", "3", 1)]);
         assert_raises(xn::XNetworkUnbounded, xn::johnson, G);
         G = xn::Graph();
-        G.add_weighted_edges_from([('0', '3', 3), ('0', '1', -5), ('1', '0', -5),
-                                   auto ['0', '2', 2), ('1', '2', 4),
-                                   auto ['2', '3', 1)]);
+        G.add_weighted_edges_from([("0", "3", 3), ("0", "1", -5), ("1", "0", -5),
+                                   auto ["0", "2", 2), ("1", "2", 4),
+                                   auto ["2", "3", 1)]);
         assert_raises(xn::XNetworkUnbounded, xn::johnson, G);
 
     auto test_negative_weights( ) {
         G = xn::DiGraph();
-        G.add_weighted_edges_from([('0', '3', 3), ('0', '1', -5),
-                                   auto ['0', '2', 2), ('1', '2', 4),
-                                   auto ['2', '3', 1)]);
+        G.add_weighted_edges_from([("0", "3", 3), ("0", "1", -5),
+                                   auto ["0", "2", 2), ("1", "2", 4),
+                                   auto ["2", "3", 1)]);
         paths = xn::johnson(G);
-        assert_equal(paths, {'1': {'1': ['1'], '3': ['1', '2', '3'],
-                                   '2': ['1', '2']}, '0': {'1': ['0', '1'],
-                                                           '0': ['0'], '3': ['0', '1', '2', '3'],
-                                                           '2': ['0', '1', '2']}, '3': {'3': ['3']},
-                             '2': {'3': ['2', '3'], '2': ['2']}});
+        assert_equal(paths, {"1": {"1": ["1"], "3": ["1", "2", "3"],
+                                   "2": ["1", "2"]}, "0": {"1": ["0", "1"],
+                                                           "0": ["0"], "3": ["0", "1", "2", "3"],
+                                                           "2": ["0", "1", "2"]}, "3": {"3": ["3"]},
+                             "2": {"3": ["2", "3"], "2": ["2"]}});
 
     /// /// @raises(xn::XNetworkError);
     auto test_unweighted_graph( ) {
@@ -558,8 +558,8 @@ class TestJohnsonAlgorithm(WeightedTestBase) {
         xn::johnson(G);
 
     auto test_graphs( ) {
-        validate_path(this->XG, 's', 'v', 9, xn::johnson(this->XG)['s']['v']);
-        validate_path(this->MXG, 's', 'v', 9, xn::johnson(this->MXG)['s']['v']);
+        validate_path(this->XG, "s", "v", 9, xn::johnson(this->XG)["s"]["v"]);
+        validate_path(this->MXG, "s", "v", 9, xn::johnson(this->MXG)["s"]["v"]);
         validate_path(this->XG2, 1, 3, 4, xn::johnson(this->XG2)[1][3]);
         validate_path(this->XG3, 0, 3, 15, xn::johnson(this->XG3)[0][3]);
         validate_path(this->XG4, 0, 2, 4, xn::johnson(this->XG4)[0][2]);

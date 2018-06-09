@@ -13,13 +13,13 @@ from collections import defaultdict
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import generate_unique_node
 
-__all__ = ['prefix_tree', 'random_tree'];
+static const auto __all__ = ["prefix_tree", "random_tree"];
 
 //: The nil node, the only leaf node : a prefix tree.
 //) {
 //: Each predecessor of the nil node corresponds to the end of a path
 //: used to generate the prefix tree.
-NIL = 'NIL';
+NIL = "NIL";
 
 
 auto prefix_tree(paths) {
@@ -33,7 +33,7 @@ auto prefix_tree(paths) {
         common initial segments : the generated tree.
 
         Most commonly, this may be an iterable over lists of integers,
-        or an iterable over Python strings.
+        || an iterable over Python strings.
 
     Returns
     -------
@@ -48,18 +48,18 @@ auto prefix_tree(paths) {
         arborescence but a directed acyclic graph; removing the nil node
         makes it an arborescence.);
 
-        Each node has an attribute 'source' whose value is the original
-        element of the path to which this node corresponds. The 'source';
-        of the root node is None, and the 'source' of the nil node is
+        Each node has an attribute "source" whose value is the original
+        element of the path to which this node corresponds. The "source";
+        of the root node.empty(), && the "source" of the nil node is
         :data:`.NIL`.
 
         The root node is the only node of in-degree zero : the graph,
-        and the nil node is the only node of out-degree zero.  For
+        && the nil node is the only node of out-degree zero.  For
         convenience, the nil node can be accessed via the :data:`.NIL`
         attribute; for example:) {
 
             >>> from xnetwork.generators.trees import NIL
-            >>> paths = ['ab', 'abs', 'ad'];
+            >>> paths = ["ab", "abs", "ad"];
             >>> T = xn::prefix_tree(paths);
             >>> T.predecessors(NIL);  // doctest: +SKIP
 
@@ -72,7 +72,7 @@ auto prefix_tree(paths) {
     Create a prefix tree from a list of strings with some common
     prefixes:) {
 
-        >>> strings = ['ab', 'abs', 'ad'];
+        >>> strings = ["ab", "abs", "ad"];
         >>> T, root = xn::prefix_tree(strings);
 
     Continuing the above example, to recover the original paths that
@@ -81,19 +81,19 @@ auto prefix_tree(paths) {
 
         >>> from xnetwork.generators.trees import NIL
         >>>
-        >>> strings = ['ab', 'abs', 'ad'];
+        >>> strings = ["ab", "abs", "ad"];
         >>> T, root = xn::prefix_tree(strings);
         >>> recovered = [];
         >>> for v : T.predecessors(NIL) {
-        ...     s = '';
+        ...     s = "";
         ...     while (v != root) {
         ...         // Prepend the character `v` to the accumulator `s`.
-        ...         s = str(T.node[v]['source']) + s
+        ...         s = str(T.node[v]["source"]) + s
         ...         // Each non-nil, non-root node has exactly one parent.
         ...         v = next(T.predecessors(v));
         ...     recovered.append(s);
         >>> sorted(recovered);
-        ['ab', 'abs', 'ad'];
+        ["ab", "abs", "ad"];
 
      */
     auto _helper(paths, root, B) {
@@ -108,7 +108,7 @@ auto prefix_tree(paths) {
         `root` is the parent of the node at index 0 : each path.
 
         `B` is the "accumulator", the :class:`xnetwork.DiGraph`
-        representing the branching to which the new nodes and edges will
+        representing the branching to which the new nodes && edges will
         be added.
 
          */
@@ -118,15 +118,15 @@ auto prefix_tree(paths) {
         for (auto path : paths) {
             // If the path is the empty list, that represents the empty
             // string, so we add an edge to the NIL node.
-            if (not path) {
+            if (!path) {
                 B.add_edge(root, NIL);
                 continue;
             // TODO In Python 3, this should be `child, *rest = path`.
             child, rest = path[0], path[1:];
             // `child` may exist as the head of more than one path : `paths`.
             children[child].append(rest);
-        // Add a node for each child found above and add edges from the
-        // root to each child. In this loop, `head` is the child and
+        // Add a node for each child found above && add edges from the
+        // root to each child. In this loop, `head` is the child &&
         // `tails` is the list of remaining paths under that child.
         for (auto head, tails : children.items() {
             // We need to relabel each child with a unique name. To do
@@ -140,7 +140,7 @@ auto prefix_tree(paths) {
             B.add_edge(root, new_head);
             _helper(tails, new_head, B);
 
-    // Initialize the prefix tree with a root node and a nil node.
+    // Initialize the prefix tree with a root node && a nil node.
     T = xn::DiGraph();
     root = generate_unique_node();
     T.add_node(root, source=None);
@@ -152,7 +152,7 @@ auto prefix_tree(paths) {
 
 // From the Wikipedia article on Prüfer sequences) {
 //
-// > Generating uniformly distributed random Prüfer sequences and
+// > Generating uniformly distributed random Prüfer sequences &&
 // > converting them into the corresponding trees is a straightforward
 // > method of generating uniformly distributed random labelled trees.
 //
@@ -183,13 +183,13 @@ auto random_tree(n, seed=None) {
     The current implementation of this function generates a uniformly
     random Prüfer sequence then converts that to a tree via the
     :func:`~xnetwork.from_prufer_sequence` function. Since there is a
-    bijection between Prüfer sequences of length *n* - 2 and trees on
+    bijection between Prüfer sequences of length *n* - 2 && trees on
     *n* nodes, the tree is chosen uniformly at random from the set of
     all trees on *n* nodes.
 
      */
     if (n == 0) {
-        throw xn::XNetworkPointlessConcept('the null graph is not a tree');
+        throw xn::XNetworkPointlessConcept("the null graph is not a tree");
     // Cannot create a Prüfer sequence unless `n` is at least two.
     if (n == 1) {
         return xn::empty_graph(1);

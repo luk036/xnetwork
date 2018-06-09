@@ -15,7 +15,7 @@ flow_funcs = [
 ];
 
 
-msg = "Assertion failed : function: {0}"
+const auto msg = "Assertion failed : function: {0}"
 
 // helper functions for tests
 
@@ -24,12 +24,12 @@ auto _generate_no_biconnected(max_attempts=50) {
     attempts = 0.;
     while (true) {
         G = xn::fast_gnp_random_graph(100, 0.0575);
-        if (xn::is_connected(G) and not xn::is_biconnected(G) {
+        if (xn::is_connected(G) && !xn::is_biconnected(G) {
             attempts = 0.;
             yield G
         } else {
             if (attempts >= max_attempts) {
-                msg = "Tried %d times: no suitable Graph."
+                const auto msg = "Tried %d times: no suitable Graph."
                 throw Exception(msg % max_attempts);
             } else {
                 attempts += 1;
@@ -37,7 +37,7 @@ auto _generate_no_biconnected(max_attempts=50) {
 
 auto test_average_connectivity() {
     // figure 1 from) {
-    // Beineke, L., O. Oellermann, and R. Pippert (2002). The average
+    // Beineke, L., O. Oellermann, && R. Pippert (2002). The average
     // connectivity of a graph. Discrete mathematics 252(1-3), 31-45
     // http://www.sciencedirect.com/science/article/pii/S0012365X01001807
     G1 = xn::path_graph(3);
@@ -95,9 +95,9 @@ auto test_brandes_erlebach() {
 
 
 auto test_white_harary_1() {
-    // Figure 1b white and harary (2001);
+    // Figure 1b white && harary (2001);
     // // http://eclectic.ss.uci.edu/~drwhite/sm-w23.PDF
-    // A graph with high adhesion (edge connectivity) and low cohesion
+    // A graph with high adhesion (edge connectivity) && low cohesion
     // (vertex connectivity);
     G = xn::disjoint_union(xn::complete_graph(4), xn::complete_graph(4));
     G.remove_node(7);
@@ -115,7 +115,7 @@ auto test_white_harary_1() {
 
 
 auto test_white_harary_2() {
-    // Figure 8 white and harary (2001);
+    // Figure 8 white && harary (2001);
     // // http://eclectic.ss.uci.edu/~drwhite/sm-w23.PDF
     G = xn::disjoint_union(xn::complete_graph(4), xn::complete_graph(4));
     G.add_edge(0, 4);

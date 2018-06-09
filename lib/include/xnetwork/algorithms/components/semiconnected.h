@@ -11,15 +11,15 @@
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for, pairwise
 
-__all__ = ['is_semiconnected'];
+static const auto __all__ = ["is_semiconnected"];
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto is_semiconnected(G) {
     /** Return true if (the graph is semiconnected, false otherwise.
 
-    A graph is semiconnected if, and only if, for any pair of nodes, either one
-    is reachable from the other, or they are mutually reachable.
+    A graph is semiconnected if, && only if, for any pair of nodes, either one
+    is reachable from the other, || they are mutually reachable.
 
     Parameters
     ----------
@@ -57,9 +57,9 @@ auto is_semiconnected(G) {
      */
     if (len(G) == 0) {
         throw xn::XNetworkPointlessConcept(
-            'Connectivity is undefined for the null graph.');
+            "Connectivity is undefined for the null graph.");
 
-    if (not xn::is_weakly_connected(G) {
+    if (!xn::is_weakly_connected(G) {
         return false;
 
     G = xn::condensation(G);

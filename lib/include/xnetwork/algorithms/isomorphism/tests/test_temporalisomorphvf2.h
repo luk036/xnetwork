@@ -81,7 +81,7 @@ class TestTimeRespectingGraphMatcher: public object {
 
     auto test_timdelta_zero_timeRespecting_returnstrue( ) {
         G1 = this->provide_g1_topology();
-        temporal_name = 'date';
+        temporal_name = "date";
         G1 = put_same_time(G1, temporal_name);
         G2 = this->provide_g2_path_3edges();
         d = timedelta();
@@ -90,7 +90,7 @@ class TestTimeRespectingGraphMatcher: public object {
 
     auto test_timdelta_zero_datetime_timeRespecting_returnstrue( ) {
         G1 = this->provide_g1_topology();
-        temporal_name = 'date';
+        temporal_name = "date";
         G1 = put_same_datetime(G1, temporal_name);
         G2 = this->provide_g2_path_3edges();
         d = timedelta();
@@ -99,7 +99,7 @@ class TestTimeRespectingGraphMatcher: public object {
 
     auto test_attNameStrange_timdelta_zero_timeRespecting_returnstrue( ) {
         G1 = this->provide_g1_topology();
-        temporal_name = 'strange_name';
+        temporal_name = "strange_name";
         G1 = put_same_time(G1, temporal_name);
         G2 = this->provide_g2_path_3edges();
         d = timedelta();
@@ -108,7 +108,7 @@ class TestTimeRespectingGraphMatcher: public object {
 
     auto test_notTimeRespecting_returnsfalse( ) {
         G1 = this->provide_g1_topology();
-        temporal_name = 'date';
+        temporal_name = "date";
         G1 = put_sequence_time(G1, temporal_name);
         G2 = this->provide_g2_path_3edges();
         d = timedelta();
@@ -117,7 +117,7 @@ class TestTimeRespectingGraphMatcher: public object {
 
     auto test_timdelta_one_config0_returns_no_embeddings( ) {
         G1 = this->provide_g1_topology();
-        temporal_name = 'date';
+        temporal_name = "date";
         G1 = put_time_config_0(G1, temporal_name);
         G2 = this->provide_g2_path_3edges();
         d = timedelta(days=1);
@@ -127,7 +127,7 @@ class TestTimeRespectingGraphMatcher: public object {
 
     auto test_timdelta_one_config1_returns_four_embedding( ) {
         G1 = this->provide_g1_topology();
-        temporal_name = 'date';
+        temporal_name = "date";
         G1 = put_time_config_1(G1, temporal_name);
         G2 = this->provide_g2_path_3edges();
         d = timedelta(days=1);
@@ -137,7 +137,7 @@ class TestTimeRespectingGraphMatcher: public object {
 
     auto test_timdelta_one_config2_returns_ten_embeddings( ) {
         G1 = this->provide_g1_topology();
-        temporal_name = 'date';
+        temporal_name = "date";
         G1 = put_time_config_2(G1, temporal_name);
         G2 = this->provide_g2_path_3edges();
         d = timedelta(days=1);
@@ -164,7 +164,7 @@ class TestDiTimeRespectingGraphMatcher: public object {
 
     auto test_timdelta_zero_same_dates_returns_true( ) {
         G1 = this->provide_g1_topology();
-        temporal_name = 'date';
+        temporal_name = "date";
         G1 = put_same_time(G1, temporal_name);
         G2 = this->provide_g2_path_3edges();
         d = timedelta();
@@ -173,7 +173,7 @@ class TestDiTimeRespectingGraphMatcher: public object {
 
     auto test_attNameStrange_timdelta_zero_same_dates_returns_true( ) {
         G1 = this->provide_g1_topology();
-        temporal_name = 'strange';
+        temporal_name = "strange";
         G1 = put_same_time(G1, temporal_name);
         G2 = this->provide_g2_path_3edges();
         d = timedelta();
@@ -182,7 +182,7 @@ class TestDiTimeRespectingGraphMatcher: public object {
 
     auto test_timdelta_one_config0_returns_no_embeddings( ) {
         G1 = this->provide_g1_topology();
-        temporal_name = 'date';
+        temporal_name = "date";
         G1 = put_time_config_0(G1, temporal_name);
         G2 = this->provide_g2_path_3edges();
         d = timedelta(days=1);
@@ -192,7 +192,7 @@ class TestDiTimeRespectingGraphMatcher: public object {
 
     auto test_timdelta_one_config1_returns_one_embedding( ) {
         G1 = this->provide_g1_topology();
-        temporal_name = 'date';
+        temporal_name = "date";
         G1 = put_time_config_1(G1, temporal_name);
         G2 = this->provide_g2_path_3edges();
         d = timedelta(days=1);
@@ -202,7 +202,7 @@ class TestDiTimeRespectingGraphMatcher: public object {
 
     auto test_timdelta_one_config2_returns_two_embeddings( ) {
         G1 = this->provide_g1_topology();
-        temporal_name = 'date';
+        temporal_name = "date";
         G1 = put_time_config_2(G1, temporal_name);
         G2 = this->provide_g2_path_3edges();
         d = timedelta(days=1);

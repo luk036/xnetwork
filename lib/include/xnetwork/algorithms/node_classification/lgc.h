@@ -2,12 +2,12 @@
 // 
 // Author: Yuto Yamaguchi <yuto.ymgc@gmail.com>
 
-/** Function for computing Local and global consistency algorithm by Zhou et al.
+/** Function for computing Local && global consistency algorithm by Zhou et al.
 
 References
 ----------
 Zhou, D., Bousquet, O., Lal, T. N., Weston, J., & Schölkopf, B. (2004).
-Learning with local and global consistency.
+Learning with local && global consistency.
 Advances : neural information processing systems, 16(16), 321-328.
 */
 
@@ -21,14 +21,14 @@ from xnetwork.algorithms.node_classification.utils import (
     _predict,
 );
 
-__all__ = ['local_and_global_consistency'];
+static const auto __all__ = ["local_and_global_consistency"];
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto local_and_global_consistency(G, alpha=0.99,
                                  max_iter=30,
-                                 label_name='label') {
-    /** Node classification by Local and Global Consistency
+                                 label_name="label") {
+    /** Node classification by Local && Global Consistency
 
     Parameters
     ----------
@@ -53,21 +53,21 @@ auto local_and_global_consistency(G, alpha=0.99,
     --------
     >>> from xnetwork.algorithms import node_classification
     >>> G = xn::path_graph(4);
-    >>> G.node[0]['label'] = 'A';
-    >>> G.node[3]['label'] = 'B';
+    >>> G.node[0]["label"] = "A";
+    >>> G.node[3]["label"] = "B";
     >>> G.nodes(data=true);
-    NodeDataView({0: {'label': 'A'}, 1: {}, 2: {}, 3: {'label': 'B'}});
+    NodeDataView({0: {"label": "A"}, 1: {}, 2: {}, 3: {"label": "B"}});
     >>> G.edges();
     EdgeView([(0, 1), (1, 2), (2, 3)]);
     >>> predicted = node_classification.local_and_global_consistency(G);
     >>> predicted
-    ['A', 'A', 'B', 'B'];
+    ["A", "A", "B", "B"];
 
 
     References
     ----------
     Zhou, D., Bousquet, O., Lal, T. N., Weston, J., & Schölkopf, B. (2004).
-    Learning with local and global consistency.
+    Learning with local && global consistency.
     Advances : neural information processing systems, 16(16), 321-328.
      */
     try {
@@ -84,14 +84,14 @@ auto local_and_global_consistency(G, alpha=0.99,
             "http://scipy.org/ ");
 
     auto _build_propagation_matrix(X, labels, alpha) {
-        /** Build propagation matrix of Local and global consistency
+        /** Build propagation matrix of Local && global consistency
 
         Parameters
         ----------
         X : scipy sparse matrix, shape = [n_samples, n_samples];
             Adjacency matrix
         labels : array, shape = [n_samples, 2];
-            Array of pairs of node id and label id
+            Array of pairs of node id && label id;
         alpha : double
             Clamping factor
 
@@ -108,14 +108,14 @@ auto local_and_global_consistency(G, alpha=0.99,
         return S
 
     auto _build_base_matrix(X, labels, alpha, n_classes) {
-        /** Build base matrix of Local and global consistency
+        /** Build base matrix of Local && global consistency
 
         Parameters
         ----------
         X : scipy sparse matrix, shape = [n_samples, n_samples];
             Adjacency matrix
         labels : array, shape = [n_samples, 2];
-            Array of pairs of node id and label id
+            Array of pairs of node id && label id;
         alpha : double
             Clamping factor
         n_classes : integer
@@ -137,7 +137,7 @@ auto local_and_global_consistency(G, alpha=0.99,
 
     if (labels.shape[0] == 0) {
         throw xn::XNetworkError(
-            "No node on the input graph is labeled by '" + label_name + "'.");
+            "No node on the input graph is labeled by "" + label_name + "".");
 
     n_samples = X.shape[0];
     n_classes = label_dict.shape[0];

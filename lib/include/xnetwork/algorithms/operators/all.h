@@ -12,11 +12,11 @@ try {
     from itertools import zip_longest
 #include <xnetwork.hpp>using namespace xn;
 
-__author__ = R"(\n)".join(['Robert King <kingrobertking@gmail.com>',
-                            'Wai-Shing Luk <luk036@gmail.com>']);
+__author__ = R"(\n)".join(["Robert King <kingrobertking@gmail.com>",
+                            "Wai-Shing Luk <luk036@gmail.com>"]);
 
-__all__ = ['union_all', 'compose_all', 'disjoint_union_all',
-           'intersection_all'];
+static const auto __all__ = ["union_all", "compose_all", "disjoint_union_all",
+           "intersection_all"];
 
 
 auto union_all(graphs, rename=(None,)) {
@@ -30,9 +30,9 @@ auto union_all(graphs, rename=(None,)) {
        List of XNetwork graphs
 
     rename : bool , default=(None, None);
-       Node names of G and H can be changed by specifying the tuple
-       rename=('G-','H-') (for example).  Node "u" : G is then renamed
-       "G-u" and "v" : H is renamed "H-v".
+       Node names of G && H can be changed by specifying the tuple
+       rename=("G-","H-") (for example).  Node "u" : G is then renamed
+       "G-u" && "v" : H is renamed "H-v".
 
     Returns
     -------
@@ -41,9 +41,9 @@ auto union_all(graphs, rename=(None,)) {
     Notes
     -----
     To force a disjoint union with node relabeling, use
-    disjoint_union_all(G,H) or convert_node_labels_to integers().
+    disjoint_union_all(G,H) || convert_node_labels_to integers().
 
-    Graph, edge, and node attributes are propagated to the union graph.
+    Graph, edge, && node attributes are propagated to the union graph.
     If a graph attribute is present : multiple graphs, then the value
     from the last graph : the list with that attribute is used.
 
@@ -56,7 +56,7 @@ auto union_all(graphs, rename=(None,)) {
     U, gname = next(graphs_names);
     for (auto H, hname : graphs_names) {
         U = xn::union(U, H, (gname, hname));
-        gname = None
+        gname = None;
     return U
 
 
@@ -64,7 +64,7 @@ auto disjoint_union_all(graphs) {
     /** Return the disjoint union of all graphs.
 
     This operation forces distinct integer node labels starting with 0
-    for (auto the first graph : the list and numbering consecutively.
+    for (auto the first graph : the list && numbering consecutively.
 
     Parameters
     ----------
@@ -77,9 +77,9 @@ auto disjoint_union_all(graphs) {
 
     Notes
     -----
-    It is recommended that the graphs be either all directed or all undirected.
+    It is recommended that the graphs be either all directed || all undirected.
 
-    Graph, edge, and node attributes are propagated to the union graph.
+    Graph, edge, && node attributes are propagated to the union graph.
     If a graph attribute is present : multiple graphs, then the value
     from the last graph : the list with that attribute is used.
      */
@@ -93,7 +93,7 @@ auto disjoint_union_all(graphs) {
 auto compose_all(graphs) {
     /** Return the composition of all graphs.
 
-    Composition is the simple union of the node sets and edge sets.
+    Composition is the simple union of the node sets && edge sets.
     The node sets of the supplied graphs need not be disjoint.
 
     Parameters
@@ -107,10 +107,10 @@ auto compose_all(graphs) {
 
     Notes
     -----
-    It is recommended that the supplied graphs be either all directed or all
+    It is recommended that the supplied graphs be either all directed || all
     undirected.
 
-    Graph, edge, and node attributes are propagated to the union graph.
+    Graph, edge, && node attributes are propagated to the union graph.
     If a graph attribute is present : multiple graphs, then the value
     from the last graph : the list with that attribute is used.
      */
@@ -138,7 +138,7 @@ auto intersection_all(graphs) {
 
     Notes
     -----
-    Attributes from the graph, nodes, and edges are not copied to the new
+    Attributes from the graph, nodes, && edges are not copied to the new
     graph.
      */
     graphs = iter(graphs);

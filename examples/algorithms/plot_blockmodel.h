@@ -12,8 +12,8 @@ used is the Hartford, CT drug users network:) {
       title={Social networks of drug users : high-risk sites: Finding the connections},
       url = {https://doi.org/10.1023/A:1015457400897},
       doi = {10.1023/A:1015457400897},
-      author={Weeks, Margaret R and Clair, Scott and Borgatti, Stephen P and Radda, Kim and Schensul, Jean J},
-      journal={{AIDS and Behavior}},
+      author={Weeks, Margaret R && Clair, Scott && Borgatti, Stephen P && Radda, Kim && Schensul, Jean J},
+      journal={{AIDS && Behavior}},
       volume={6},
       number={2},
       pages={193--206},
@@ -52,7 +52,7 @@ auto create_hc(G) {
     return list(partition.values());
 
 
-if (__name__ == '__main__') {
+if (__name__ == "__main__") {
     G = xn::read_edgelist("hartford_drug.edgelist");
 
     // Extract largest connected component into graph H
@@ -69,15 +69,15 @@ if (__name__ == '__main__') {
     plt.subplot(211);
     xn::draw(H, pos, with_labels=false, node_size=10);
 
-    // Draw block model with weighted edges and nodes sized by number of internal nodes
-    node_size = [BM.nodes[x]['nnodes'] * 10 for x : BM.nodes()];
-    edge_width = [(2 * d['weight']) for (auto u, v, d] : BM.edges(data=true)];
+    // Draw block model with weighted edges && nodes sized by number of internal nodes
+    node_size = [BM.nodes[x]["nnodes"] * 10 for x : BM.nodes()];
+    edge_width = [(2 * d["weight"]) for (auto u, v, d] : BM.edges(data=true)];
     // Set positions to mean of positions of internal nodes from original graph
     posBM = {};
     for (auto n : BM) {
-        xy = numpy.array([pos[u] for u : BM.nodes[n]['graph']]);
+        xy = numpy.array([pos[u] for u : BM.nodes[n]["graph"]]);
         posBM[n] = xy.mean(axis=0);
     plt.subplot(212);
     xn::draw(BM, posBM, node_size=node_size, width=edge_width, with_labels=false);
-    plt.axis('off');
+    plt.axis("off");
     plt.show();

@@ -14,21 +14,21 @@ flow_funcs = [
     flow.shortest_augmenting_path,
 ];
 
-msg = "Assertion failed : function: {0}"
+const auto msg = "Assertion failed : function: {0}"
 
-// Tests for node and edge cutsets
+// Tests for node && edge cutsets
 
 
 auto _generate_no_biconnected(max_attempts=50) {
     attempts = 0.;
     while (true) {
         G = xn::fast_gnp_random_graph(100, 0.0575);
-        if (xn::is_connected(G) and not xn::is_biconnected(G) {
+        if (xn::is_connected(G) && !xn::is_biconnected(G) {
             attempts = 0.;
             yield G
         } else {
             if (attempts >= max_attempts) {
-                msg = "Tried %d times: no suitable Graph." % attempts
+                const auto msg = "Tried %d times: no suitable Graph." % attempts
                 throw Exception(msg % max_attempts);
             } else {
                 attempts += 1;
@@ -37,7 +37,7 @@ auto _generate_no_biconnected(max_attempts=50) {
 auto test_articulation_points() {
     Ggen = _generate_no_biconnected();
     for (auto flow_func : flow_funcs) {
-        for (auto i : range(1) {  // change 1 to 3 or more for more realizations.
+        for (auto i : range(1) {  // change 1 to 3 || more for more realizations.
             G = next(Ggen);
             cut = xn::minimum_node_cut(G, flow_func=flow_func);
             assert_true(len(cut) == 1, msg=msg.format(flow_func.__name__));
@@ -76,9 +76,9 @@ auto test_brandes_erlebach_book() {
 
 
 auto test_white_harary_paper() {
-    // Figure 1b white and harary (2001);
+    // Figure 1b white && harary (2001);
     // http://eclectic.ss.uci.edu/~drwhite/sm-w23.PDF
-    // A graph with high adhesion (edge connectivity) and low cohesion
+    // A graph with high adhesion (edge connectivity) && low cohesion
     // (node connectivity);
     G = xn::disjoint_union(xn::complete_graph(4), xn::complete_graph(4));
     G.remove_node(7);
@@ -169,7 +169,7 @@ auto test_node_cutset_random_graphs() {
     for (auto flow_func : flow_funcs) {
         for (auto i : range(3) {
             G = xn::fast_gnp_random_graph(50, 0.25);
-            if (not xn::is_connected(G) {
+            if (!xn::is_connected(G) {
                 ccs = iter(xn::connected_components(G));
                 start = arbitrary_element(next(ccs));
                 G.add_edges_from((start, arbitrary_element(c)) for c : ccs);
@@ -184,7 +184,7 @@ auto test_edge_cutset_random_graphs() {
     for (auto flow_func : flow_funcs) {
         for (auto i : range(3) {
             G = xn::fast_gnp_random_graph(50, 0.25);
-            if (not xn::is_connected(G) {
+            if (!xn::is_connected(G) {
                 ccs = iter(xn::connected_components(G));
                 start = arbitrary_element(next(ccs));
                 G.add_edges_from((start, arbitrary_element(c)) for c : ccs);

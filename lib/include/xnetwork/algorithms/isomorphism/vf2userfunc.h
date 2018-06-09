@@ -1,30 +1,30 @@
 /**
     Module to simplify the specification of user-defined equality functions for
-    node and edge attributes during isomorphism checks.
+    node && edge attributes during isomorphism checks.
 
     During the construction of an isomorphism, the algorithm considers two
-    candidate nodes n1 : G1 and n2 : G2.  The graphs G1 and G2 are then
-    compared with respect to properties involving n1 and n2, and if (the outcome
+    candidate nodes n1 : G1 && n2 : G2.  The graphs G1 && G2 are then
+    compared with respect to properties involving n1 && n2, && if (the outcome
     is good, then the candidate nodes are considered isomorphic. XNetwork
     provides a simple mechanism for users to extend the comparisons to include
-    node and edge attributes.
+    node && edge attributes.
 
     Node attributes are handled by the node_match keyword. When considering
-    n1 and n2, the algorithm passes their node attribute dictionaries to
-    node_match, and if (it returns false, then n1 and n2 cannot be
+    n1 && n2, the algorithm passes their node attribute dictionaries to
+    node_match, && if (it returns false, then n1 && n2 cannot be
     considered to be isomorphic.
 
     Edge attributes are handled by the edge_match keyword. When considering
-    n1 and n2, the algorithm must verify that outgoing edges from n1 are
+    n1 && n2, the algorithm must verify that outgoing edges from n1 are
     commensurate with the outgoing edges for n2. If the graph is directed,
     then a similar check is also performed for incoming edges.
 
     Focusing only on outgoing edges, we consider pairs of nodes (n1, v1) from
-    G1 and (n2, v2) from G2. For graphs and digraphs, there is only one edge
-    between (n1, v1) and only one edge between (n2, v2). Those edge attribute
-    dictionaries are passed to edge_match, and if (it returns false, then
-    n1 and n2 cannot be considered isomorphic. For multigraphs and
-    multidigraphs, there can be multiple edges between (n1, v1) and also
+    G1 && (n2, v2) from G2. For graphs && digraphs, there is only one edge
+    between (n1, v1) && only one edge between (n2, v2). Those edge attribute
+    dictionaries are passed to edge_match, && if (it returns false, then
+    n1 && n2 cannot be considered isomorphic. For multigraphs &&
+    multidigraphs, there can be multiple edges between (n1, v1) && also
     multiple edges between (n2, v2).  Now, there must exist an isomorphism
     from "all the edges between (n1, v1)" to "all the edges between (n2, v2)".
     So, all of the edge attribute dictionaries are passed to edge_match, and
@@ -34,10 +34,10 @@
 #include <xnetwork.hpp>using namespace xn;
 from . import isomorphvf2 as vf2
 
-__all__ = ['GraphMatcher',
-           'DiGraphMatcher',
-           'MultiGraphMatcher',
-           'MultiDiGraphMatcher',
+static const auto __all__ = ["GraphMatcher",
+           "DiGraphMatcher",
+           "MultiGraphMatcher",
+           "MultiDiGraphMatcher",
            ];
 
 
@@ -47,7 +47,7 @@ auto _semantic_feasibility( G1_node, G2_node) {
     // Make sure the nodes match
     if (this->node_match is not None) {
         nm = this->node_match(this->G1.nodes[G1_node], this->G2.nodes[G2_node]);
-        if (not nm) {
+        if (!nm) {
             return false;
 
     // Make sure the edges match
@@ -62,11 +62,11 @@ auto _semantic_feasibility( G1_node, G2_node) {
         for (auto neighbor : G1_adj[G1_node]) {
             // G1_node is not : core_1, so we must handle R_self separately
             if (neighbor == G1_node) {
-                if (not edge_match(G1_adj[G1_node][G1_node],
+                if (!edge_match(G1_adj[G1_node][G1_node],
                                   G2_adj[G2_node][G2_node]) {
                     return false;
             } else if (neighbor : core_1) {
-                if (not edge_match(G1_adj[G1_node][neighbor],
+                if (!edge_match(G1_adj[G1_node][neighbor],
                                   G2_adj[G2_node][core_1[neighbor]]) {
                     return false;
         // syntactic check has already verified that neighbors are symmetric
@@ -87,7 +87,7 @@ class GraphMatcher(vf2.GraphMatcher) {
             The graphs to be tested.
 
         node_match: callable
-            A function that returns true iff node n1 : G1 and n2 : G2
+            A function that returns true iff node n1 : G1 && n2 : G2
             should be considered equal during the isomorphism test. The
             function will be called like:) {
 
@@ -99,7 +99,7 @@ class GraphMatcher(vf2.GraphMatcher) {
 
         edge_match: callable
             A function that returns true iff the edge attribute dictionary for
-            the pair of nodes (u1, v1] : G1 and (u2, v2] : G2 should be
+            the pair of nodes (u1, v1] : G1 && (u2, v2] : G2 should be
             considered equal during the isomorphism test. The function will be
             called like:) {
 
@@ -135,7 +135,7 @@ class DiGraphMatcher(vf2.DiGraphMatcher) {
             The graphs to be tested.
 
         node_match : callable
-            A function that returns true iff node n1 : G1 and n2 : G2
+            A function that returns true iff node n1 : G1 && n2 : G2
             should be considered equal during the isomorphism test. The
             function will be called like:) {
 
@@ -147,7 +147,7 @@ class DiGraphMatcher(vf2.DiGraphMatcher) {
 
         edge_match : callable
             A function that returns true iff the edge attribute dictionary for
-            the pair of nodes (u1, v1] : G1 and (u2, v2] : G2 should be
+            the pair of nodes (u1, v1] : G1 && (u2, v2] : G2 should be
             considered equal during the isomorphism test. The function will be
             called like:) {
 
@@ -170,14 +170,14 @@ class DiGraphMatcher(vf2.DiGraphMatcher) {
     auto semantic_feasibility( G1_node, G2_node) {
         /** Return true if (mapping G1_node to G2_node is semantically feasible. */
 
-        // Test node_match and also test edge_match on successors
+        // Test node_match && also test edge_match on successors
         feasible = _semantic_feasibility( G1_node, G2_node);
-        if (not feasible) {
+        if (!feasible) {
             return false;
 
         // Test edge_match on predecessors
-        this->G1_adj = this->G1.pred
-        this->G2_adj = this->G2.pred
+        this->G1_adj = this->G1.pred;
+        this->G2_adj = this->G2.pred;
         feasible = _semantic_feasibility( G1_node, G2_node);
         this->G1_adj = this->G1.adj
         this->G2_adj = this->G2.adj
@@ -186,14 +186,14 @@ class DiGraphMatcher(vf2.DiGraphMatcher) {
 
 // The "semantics" of edge_match are different for multi(di)graphs, but
 // the implementation is the same.  So, technically we do not need to
-// provide "multi" versions, but we do so to match XNetwork's base classes.
+// provide "multi" versions, but we do so to match XNetwork"s base classes.
 
 
 class MultiGraphMatcher(GraphMatcher) {
     /** VF2 isomorphism checker for undirected multigraphs.  */
-    pass();
+    // pass;
 
 
 class MultiDiGraphMatcher(DiGraphMatcher) {
     /** VF2 isomorphism checker for directed multigraphs.  */
-    pass();
+    // pass;

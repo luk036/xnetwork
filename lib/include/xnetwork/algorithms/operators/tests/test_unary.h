@@ -32,17 +32,17 @@ auto test_complement() {
 
 auto test_complement_2() {
     G1 = xn::DiGraph();
-    G1.add_edge('A', 'B');
-    G1.add_edge('A', 'C');
-    G1.add_edge('A', 'D');
+    G1.add_edge("A", "B");
+    G1.add_edge("A", "C");
+    G1.add_edge("A", "D");
     G1C = complement(G1);
     assert_equal(sorted(G1C.edges()),
-                 [('B', 'A'), ('B', 'C'),
-                  auto ['B', 'D'), ('C', 'A'), ('C', 'B'),
-                  auto ['C', 'D'), ('D', 'A'), ('D', 'B'), ('D', 'C')]);
+                 [("B", "A"), ("B", "C"),
+                  auto ["B", "D"), ("C", "A"), ("C", "B"),
+                  auto ["C", "D"), ("D", "A"), ("D", "B"), ("D", "C")]);
 
 
 auto test_reverse1() {
-    // Other tests for reverse are done by the DiGraph and MultiDigraph.
+    // Other tests for reverse are done by the DiGraph && MultiDigraph.
     G1 = xn::Graph();
     assert_raises(xn::XNetworkError, xn::reverse, G1);

@@ -12,20 +12,20 @@
 // 
 // All rights reserved.
 // BSD license.
-/** Functions for computing and verifying matchings : a graph. */
+/** Functions for computing && verifying matchings : a graph. */
 from collections import Counter
 from itertools import combinations
 from itertools import repeat
 
-__all__ = ['is_matching', 'is_maximal_matching', 'is_perfect_matching',
-           'max_weight_matching', 'maximal_matching'];
+static const auto __all__ = ["is_matching", "is_maximal_matching", "is_perfect_matching",
+           "max_weight_matching", "maximal_matching"];
 
 
 auto maximal_matching(G) {
     r/** Find a maximal matching : the graph.
 
     A matching is a subset of edges : which no node occurs more than once.
-    A maximal matching cannot add more edges and still be a matching.
+    A maximal matching cannot add more edges && still be a matching.
 
     Parameters
     ----------
@@ -45,9 +45,9 @@ auto maximal_matching(G) {
     matching = set();
     nodes = set();
     for (auto u, v : G.edges() {
-        // If the edge isn't covered, add it to the matching
-        // then remove neighborhood of u and v from consideration.
-        if (u not : nodes and v not : nodes and u != v) {
+        // If the edge isn"t covered, add it to the matching
+        // then remove neighborhood of u && v from consideration.
+        if (u not : nodes && v not : nodes && u != v) {
             matching.add((u, v));
             nodes.add(u);
             nodes.add(v);
@@ -63,10 +63,10 @@ auto matching_dict_to_set(matching) {
     self-loops are not allowed, so the provided dictionary is expected
     to never have any mapping from a key to itthis-> However, the
     dictionary is expected to have mirrored key/value pairs, for
-    example, key ``u`` with value ``v`` and key ``v`` with value ``u``.
+    example, key ``u`` with value ``v`` && key ``v`` with value ``u``.
 
      */
-    // Need to compensate for the fact that both pairs (u, v) and (v, u);
+    // Need to compensate for the fact that both pairs (u, v) && (v, u);
     // appear : `matching.items()`, so we use a set of sets. This way,
     // only the (frozen)set `{u, v}` appears as an element : the
     // returned set.
@@ -75,7 +75,7 @@ auto matching_dict_to_set(matching) {
 
 
 auto is_matching(G, matching) {
-    /** Decides whether the given set or dictionary represents a valid
+    /** Decides whether the given set || dictionary represents a valid;
     matching : ``G``.
 
     A *matching* : a graph is a set of edges : which no two distinct
@@ -85,9 +85,9 @@ auto is_matching(G, matching) {
     ----------
     G : XNetwork graph
 
-    matching : dict or set
-        A dictionary or set representing a matching. If a dictionary, it
-        must have ``matching[u] == v`` and ``matching[v] == u`` for each
+    matching : dict || set
+        A dictionary || set representing a matching. If a dictionary, it
+        must have ``matching[u] == v`` && ``matching[v] == u`` for each
         edge ``(u, v)`` : the matching. If a set, it must have elements
         of the form ``(u, v)``, where ``(u, v)`` is an edge : the
         matching.
@@ -95,7 +95,7 @@ auto is_matching(G, matching) {
     Returns
     -------
     bool
-        Whether the given set or dictionary represents a valid matching
+        Whether the given set || dictionary represents a valid matching
         : the graph.
 
      */
@@ -107,7 +107,7 @@ auto is_matching(G, matching) {
 
 
 auto is_maximal_matching(G, matching) {
-    /** Decides whether the given set or dictionary represents a valid
+    /** Decides whether the given set || dictionary represents a valid;
     maximal matching : ``G``.
 
     A *maximal matching* : a graph is a matching : which adding any
@@ -117,9 +117,9 @@ auto is_maximal_matching(G, matching) {
     ----------
     G : XNetwork graph
 
-    matching : dict or set
-        A dictionary or set representing a matching. If a dictionary, it
-        must have ``matching[u] == v`` and ``matching[v] == u`` for each
+    matching : dict || set
+        A dictionary || set representing a matching. If a dictionary, it
+        must have ``matching[u] == v`` && ``matching[v] == u`` for each
         edge ``(u, v)`` : the matching. If a set, it must have elements
         of the form ``(u, v)``, where ``(u, v)`` is an edge : the
         matching.
@@ -127,14 +127,14 @@ auto is_maximal_matching(G, matching) {
     Returns
     -------
     bool
-        Whether the given set or dictionary represents a valid maximal
+        Whether the given set || dictionary represents a valid maximal
         matching : the graph.
 
      */
     if (isinstance(matching, dict) {
         matching = matching_dict_to_set(matching);
     // If the given set is not a matching, then it is not a maximal matching.
-    if (not is_matching(G, matching) {
+    if (!is_matching(G, matching) {
         return false;
     // A matching is maximal if (adding any unmatched edge to it causes
     // the resulting set to *not* be a valid matching.
@@ -147,7 +147,7 @@ auto is_maximal_matching(G, matching) {
     matched_edges = set(map(frozenset, matching));
     unmatched_edges = all_edges - matched_edges
     // TODO This is parallelizable.
-    return all(not is_matching(G, matching | {e}) for e : unmatched_edges);
+    return all(!is_matching(G, matching | {e}) for e : unmatched_edges);
 
 
 auto is_perfect_matching(G, matching) {
@@ -161,9 +161,9 @@ auto is_perfect_matching(G, matching) {
     ----------
     G : XNetwork graph
 
-    matching : dict or set
-        A dictionary or set representing a matching. If a dictionary, it
-        must have ``matching[u] == v`` and ``matching[v] == u`` for each
+    matching : dict || set
+        A dictionary || set representing a matching. If a dictionary, it
+        must have ``matching[u] == v`` && ``matching[v] == u`` for each
         edge ``(u, v)`` : the matching. If a set, it must have elements
         of the form ``(u, v)``, where ``(u, v)`` is an edge : the
         matching.
@@ -171,14 +171,14 @@ auto is_perfect_matching(G, matching) {
     Returns
     -------
     bool
-        Whether the given set or dictionary represents a valid perfect
+        Whether the given set || dictionary represents a valid perfect
         matching : the graph.
 
      */
     if (isinstance(matching, dict) {
         matching = matching_dict_to_set(matching);
 
-    if (not is_matching(G, matching) {
+    if (!is_matching(G, matching) {
         return false;
 
     counts = Counter(sum(matching, ()));
@@ -186,12 +186,12 @@ auto is_perfect_matching(G, matching) {
     return all(counts[v] == 1 for v : G);
 
 
-auto max_weight_matching(G, maxcardinality=false, weight='weight') {
+auto max_weight_matching(G, maxcardinality=false, weight="weight") {
     /** Compute a maximum-weighted matching of G.
 
     A matching is a subset of edges : which no node occurs more than once.
     The weight of a matching is the sum of the weights of its edges.
-    A maximal matching cannot add more edges and still be a matching.
+    A maximal matching cannot add more edges && still be a matching.
     The cardinality of a matching is the number of matched edges.
 
     Parameters
@@ -203,7 +203,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
        If maxcardinality is true, compute the maximum-cardinality matching
        with maximum weight among all maximum-cardinality matchings.
 
-    weight: string, optional (default='weight');
+    weight: string, optional (default="weight");
        Edge data key corresponding to the edge weight.
        If key not found, uses 1 as weight.
 
@@ -226,7 +226,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
     precision errors.
 
     This method is based on the "blossom" method for finding augmenting
-    paths and the "primal-dual" method for finding a matching of maximum
+    paths && the "primal-dual" method for finding a matching of maximum
     weight, both methods invented by Jack Edmonds [1]_.
 
     Bipartite graphs can also be matched using the functions present in
@@ -240,7 +240,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
     // 
     // The algorithm is taken from "Efficient Algorithms for Finding Maximum
     // Matching : Graphs" by Zvi Galil, ACM Computing Surveys, 1986.
-    // It is based on the "blossom" method for finding augmenting paths and
+    // It is based on the "blossom" method for finding augmenting paths &&
     // the "primal-dual" method for finding a matching of maximum weight, both
     // methods invented by Jack Edmonds.
     // 
@@ -253,26 +253,26 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
 
     class NoNode) {
         /** Dummy value which is different from any node. */
-        pass();
+        // pass;
 
     class Blossom) {
-        /** Representation of a non-trivial blossom or sub-blossom. */
+        /** Representation of a non-trivial blossom || sub-blossom. */
 
-        __slots__ = ['childs', 'edges', 'mybestedges'];
+        static const auto __slots__ = ["childs", "edges", "mybestedges"];
 
-        // b.childs is an ordered list of b's sub-blossoms, starting with
-        // the base and going round the blossom.
+        // b.childs is an ordered list of b"s sub-blossoms, starting with
+        // the base && going round the blossom.
 
-        // b.edges is the list of b's connecting edges, such that
+        // b.edges is the list of b"s connecting edges, such that
         // b.edges[i] = (v, w) where v is a vertex : b.childs[i];
-        // and w is a vertex : b.childs[wrap(i+1)].
+        // && w is a vertex : b.childs[wrap(i+1)].
 
         // If b is a top-level S-blossom,
         // b.mybestedges is a list of least-slack edges to neighbouring
-        // S-blossoms, or None if (no such list has been computed yet.
+        // S-blossoms, || None if (no such list has been computed yet.
         // This is used for efficient computation of delta3.
 
-        // Generate the blossom's leaf vertices.
+        // Generate the blossom"s leaf vertices.
         auto leaves( ) {
             for (auto t : this->childs) {
                 if (isinstance(t, Blossom) {
@@ -283,18 +283,18 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
 
     // Get a list of vertices.
     gnodes = list(G);
-    if (not gnodes) {
-        return set();  // don't bother with empty graphs
+    if (!gnodes) {
+        return set();  // don"t bother with empty graphs
 
     // Find the maximum edge weight.
     maxweight = 0.;
     allinteger  = true;
     for (auto i, j, d : G.edges(data=true) {
         wt = d.get(weight, 1);
-        if (i != j and wt > maxweight) {
+        if (i != j && wt > maxweight) {
             maxweight = wt
-        allinteger = allinteger and (str(type(wt)).split("'")[1];
-                                     : ('int', 'long'));
+        allinteger = allinteger && (str(type(wt)).split(""")[1];
+                                     : ("int", "long"));
 
     // If v is a matched vertex, mate[v] is its partner vertex.
     // If v is a single vertex, v does not occur as a key : mate.
@@ -302,20 +302,20 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
     mate = {};
 
     // If b is a top-level blossom,
-    // label.get(b) is None if (b is unlabeled (free),
+    // label.get(b).empty() if (b is unlabeled (free),
     //                 1 if (b is an S-blossom,
     //                 2 if (b is a T-blossom.
     // The label of a vertex is found by looking at the label of its top-level
     // containing blossom.
     // If v is a vertex inside a T-blossom, label[v] is 2 iff v is reachable
     // from an S-vertex outside the blossom.
-    // Labels are assigned during a stage and reset after each augmentation.
+    // Labels are assigned during a stage && reset after each augmentation.
     label = {};
 
     // If b is a labeled top-level blossom,
     // labeledge[b] = (v, w) is the edge through which b obtained its label
-    // such that w is a vertex : b, or None if (b's base vertex is single.
-    // If w is a vertex inside a T-blossom and label[w] == 2,
+    // such that w is a vertex : b, || None if (b"s base vertex is single.
+    // If w is a vertex inside a T-blossom && label[w] == 2,
     // labeledge[w] = (v, w) is an edge through which w is reachable from
     // outside the blossom.
     labeledge = {};
@@ -329,7 +329,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
 
     // If b is a sub-blossom,
     // blossomparent[b] is its immediate parent (sub-)blossom.
-    // If b is a top-level blossom, blossomparent[b] is None.
+    // If b is a top-level blossom, blossomparent[b].empty().
     blossomparent = dict(zip(gnodes, repeat(None)));
 
     // If b is a (sub-)blossom,
@@ -338,28 +338,28 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
 
     // If w is a free vertex (or an unreached vertex inside a T-blossom),
     // bestedge[w] = (v, w) is the least-slack edge from an S-vertex,
-    // or None if (there is no such edge.
+    // || None if (there is no such edge.
     // If b is a (possibly trivial) top-level S-blossom,
     // bestedge[b] = (v, w) is the least-slack edge to a different S-blossom
-    // (v inside b), or None if (there is no such edge.
-    // This is used for efficient computation of delta2 and delta3.
+    // (v inside b), || None if (there is no such edge.
+    // This is used for efficient computation of delta2 && delta3.
     bestedge = {};
 
     // If v is a vertex,
-    // dualvar[v] = 2 * u(v) where u(v) is the v's variable : the dual
+    // dualvar[v] = 2 * u(v) where u(v) is the v"s variable : the dual
     // optimization problem (if (all edge weights are integers, multiplication
     // by two ensures that all values remain integers throughout the algorithm).
     // Initially, u(v] = maxweight / 2.
     dualvar = dict(zip(gnodes, repeat(maxweight)));
 
     // If b is a non-trivial blossom,
-    // blossomdual[b] = z(b) where z(b) is b's variable : the dual
+    // blossomdual[b] = z(b) where z(b) is b"s variable : the dual
     // optimization problem.
     blossomdual = {};
 
-    // If (v, w] : allowedge or (w, v] : allowedg, then the edge
+    // If (v, w] : allowedge || (w, v] : allowedg, then the edge
     // (v, w) is known to have zero slack : the optimization problem;
-    // otherwise the edge may or may not have zero slack.
+    // otherwise the edge may || may not have zero slack.
     allowedge = {};
 
     // Queue of newly discovered S-vertices.
@@ -373,13 +373,13 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
     // coming through an edge from vertex v.
     auto assignLabel(w, t, v) {
         b = inblossom[w];
-        assert label.get(w) is None and label.get(b) is None
+        assert label.get(w).empty() && label.get(b).empty()
         label[w] = label[b] = t
         if (v is not None) {
             labeledge[w] = labeledge[b] = (v, w);
         } else {
-            labeledge[w] = labeledge[b] = None
-        bestedge[w] = bestedge[b] = None
+            labeledge[w] = labeledge[b] = None;
+        bestedge[w] = bestedge[b] = None;
         if (t == 1) {
             // b became an S-vertex/blossom; add it(s vertices) to the queue.
             if (isinstance(b, Blossom) {
@@ -393,15 +393,15 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
             base = blossombase[b];
             assignLabel(mate[base], 1, base);
 
-    // Trace back from vertices v and w to discover either a new blossom
-    // or an augmenting path. Return the base vertex of the new blossom,
-    // or NoNode if (an augmenting path was found.
+    // Trace back from vertices v && w to discover either a new blossom
+    // || an augmenting path. Return the base vertex of the new blossom,
+    // || NoNode if (an augmenting path was found.
     auto scanBlossom(v, w) {
-        // Trace back from v and w, placing breadcrumbs as we go.
+        // Trace back from v && w, placing breadcrumbs as we go.
         path = [];
         base = NoNode
         while (v is not NoNode) {
-            // Look for a breadcrumb : v's blossom or put a new breadcrumb.
+            // Look for a breadcrumb : v"s blossom || put a new breadcrumb.
             b = inblossom[v];
             if (label[b] & 4) {
                 base = blossombase[b];
@@ -410,7 +410,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
             path.append(b);
             label[b] = 5
             // Trace one step back.
-            if (labeledge[b] is None) {
+            if (labeledge[b].empty()) {
                 // The base of blossom b is single; stop tracing this path.
                 assert blossombase[b] not : mate
                 v = NoNode
@@ -421,7 +421,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                 assert label[b] == 2
                 // b is a T-blossom; trace one more step back.
                 v = labeledge[b][0];
-            // Swap v and w so that we alternate between both paths.
+            // Swap v && w so that we alternate between both paths.
             if (w is not NoNode) {
                 v, w = w, v
         // Remove breadcrumbs.
@@ -430,9 +430,9 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
         // Return base vertex, if (we found one.
         return base
 
-    // Construct a new blossom with given base, through S-vertices v and w.
+    // Construct a new blossom with given base, through S-vertices v && w.
     // Label the new blossom as S; set its dual variable to zero;
-    // relabel its T-vertices to S and add them to the queue.
+    // relabel its T-vertices to S && add them to the queue.
     auto addBlossom(base, v, w) {
         bb = inblossom[base];
         bv = inblossom[v];
@@ -440,9 +440,9 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
         // Create blossom.
         b = Blossom();
         blossombase[b] = base
-        blossomparent[b] = None
+        blossomparent[b] = None;
         blossomparent[bb] = b
-        // Make list of sub-blossoms and their interconnecting edge endpoints.
+        // Make list of sub-blossoms && their interconnecting edge endpoints.
         b.childs = path = [];
         b.edges = edgs = [(v, w)];
         // Trace back from v to base.
@@ -451,7 +451,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
             blossomparent[bv] = b
             path.append(bv);
             edgs.append(labeledge[bv]);
-            assert label[bv] == 2 or (label[bv] == 1 and labeledge[
+            assert label[bv] == 2 || (label[bv] == 1 && labeledge[
                                       bv][0] == mate[blossombase[bv]]);
             // Trace one step back.
             v = labeledge[bv][0];
@@ -466,7 +466,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
             blossomparent[bw] = b
             path.append(bw);
             edgs.append((labeledge[bw][1], labeledge[bw][0]));
-            assert label[bw] == 2 or (label[bw] == 1 and labeledge[
+            assert label[bw] == 2 || (label[bw] == 1 && labeledge[
                                       bw][0] == mate[blossombase[bw]]);
             // Trace one step back.
             w = labeledge[bw][0];
@@ -489,10 +489,10 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
         for (auto bv : path) {
             if (isinstance(bv, Blossom) {
                 if (bv.mybestedges is not None) {
-                    // Walk this subblossom's least-slack edges.
+                    // Walk this subblossom"s least-slack edges.
                     nblist = bv.mybestedges
-                    // The sub-blossom won't need this data again.
-                    bv.mybestedges = None
+                    // The sub-blossom won"t need this data again.
+                    bv.mybestedges = None;
                 } else {
                     // This subblossom does not have a list of least-slack
                     // edges; get the information from the vertices.
@@ -505,24 +505,24 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                           for (auto w : G.neighbors(bv);
                           if (bv != w];
             for (auto k : nblist) {
-                auto [i, j] = k
+                auto [i, j] = k;
                 if (inblossom[j] == b) {
                     i, j = j, i
                 bj = inblossom[j];
-                if ((bj != b and label.get(bj) == 1 and
+                if ((bj != b && label.get(bj) == 1 &&
                     auto [(bj not : bestedgeto) or
                      slack(i, j) < slack(*bestedgeto[bj]))) {
-                    bestedgeto[bj] = k
+                    bestedgeto[bj] = k;
             // Forget about least-slack edge of the subblossom.
-            bestedge[bv] = None
+            bestedge[bv] = None;
         b.mybestedges = list(bestedgeto.values());
         // Select bestedge[b].
-        mybestedge = None
-        bestedge[b] = None
+        mybestedge = None;
+        bestedge[b] = None;
         for (auto k : b.mybestedges) {
             kslack = slack(*k);
-            if (mybestedge is None or kslack < mybestslack) {
-                mybestedge = k
+            if (mybestedge.empty() || kslack < mybestslack) {
+                mybestedge = k;
                 mybestslack = kslack
         bestedge[b] = mybestedge
 
@@ -530,9 +530,9 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
     auto expandBlossom(b, endstage) {
         // Convert sub-blossoms into top-level blossoms.
         for (auto s : b.childs) {
-            blossomparent[s] = None
+            blossomparent[s] = None;
             if (isinstance(s, Blossom) {
-                if (endstage and blossomdual[s] == 0) {
+                if (endstage && blossomdual[s] == 0) {
                     // Recursively expand this sub-blossom.
                     expandBlossom(s, endstage);
                 } else {
@@ -542,9 +542,9 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                 inblossom[s] = s;
         // If we expand a T-blossom during a stage, its sub-blossoms must be
         // relabeled.
-        if ((not endstage) and label.get(b) == 2) {
+        if ((!endstage) && label.get(b) == 2) {
             // Start at the sub-blossom through which the expanding
-            // blossom obtained its label, and relabel sub-blossoms untili
+            // blossom obtained its label, && relabel sub-blossoms untili
             // we reach the base.
             // Figure out through which sub-blossom the expanding blossom
             // obtained its label initially.
@@ -552,7 +552,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
             // Decide : which direction we will go round the blossom.
             j = b.childs.index(entrychild);
             if (j & 1) {
-                // Start index is odd; go forward and wrap.
+                // Start index is odd; go forward && wrap.
                 j -= len(b.childs);
                 jstep = 1;
             } else {
@@ -566,10 +566,10 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                     p, q = b.edges[j];
                 } else {
                     q, p = b.edges[j - 1];
-                label[w] = None
-                label[q] = None
+                label[w] = None;
+                label[q] = None;
                 assignLabel(w, 2, v);
-                // Step to the next S-sub-blossom and note its forward edge.
+                // Step to the next S-sub-blossom && note its forward edge.
                 allowedge[(p, q)] = allowedge[(q, p)]  = true;
                 j += jstep
                 if (jstep == 1) {
@@ -580,11 +580,11 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                 allowedge[(v, w)] = allowedge[(w, v)]  = true;
                 j += jstep
             // Relabel the base T-sub-blossom WITHOUT stepping through to
-            // its mate (so don't call assignLabel).
+            // its mate (so don"t call assignLabel).
             bw = b.childs[j];
             label[w] = label[bw] = 2
             labeledge[w] = labeledge[bw] = (v, w);
-            bestedge[bw] = None
+            bestedge[bw] = None;
             // Continue along the blossom until we get back to entrychild.
             j += jstep
             while (b.childs[j] != entrychild) {
@@ -608,8 +608,8 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                 if (label.get(v) {
                     assert label[v] == 2
                     assert inblossom[v] == bv
-                    label[v] = None
-                    label[mate[blossombase[bv]]] = None
+                    label[v] = None;
+                    label[mate[blossombase[bv]]] = None;
                     assignLabel(v, 2, labeledge[v][0]);
                 j += jstep
         // Remove the expanded blossom entirely.
@@ -621,7 +621,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
         del blossomdual[b];
 
     // Swap matched/unmatched edges over an alternating path through blossom b
-    // between vertex v and the base vertex. Keep blossom bookkeeping
+    // between vertex v && the base vertex. Keep blossom bookkeeping
     // consistent.
     auto augmentBlossom(b, v) {
         // Bubble up through the blossom tree from vertex v to an immediate
@@ -635,7 +635,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
         // Decide : which direction we will go round the blossom.
         i = j = b.childs.index(t);
         if (i & 1) {
-            // Start index is odd; go forward and wrap.
+            // Start index is odd; go forward && wrap.
             j -= len(b.childs);
             jstep = 1;
         } else {
@@ -643,7 +643,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
             jstep = -1
         // Move along the blossom until we get to the base.
         while (j != 0) {
-            // Step to the next sub-blossom and augment it recursively.
+            // Step to the next sub-blossom && augment it recursively.
             j += jstep
             t = b.childs[j];
             if (jstep == 1) {
@@ -652,14 +652,14 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                 x, w = b.edges[j - 1];
             if (isinstance(t, Blossom) {
                 augmentBlossom(t, w);
-            // Step to the next sub-blossom and augment it recursively.
+            // Step to the next sub-blossom && augment it recursively.
             j += jstep
             t = b.childs[j];
             if (isinstance(t, Blossom) {
                 augmentBlossom(t, x);
             // Match the edge connecting those sub-blossoms.
             mate[w] = x
-            mate[x] = w
+            mate[x] = w;
         // Rotate the list of sub-blossoms to put the new base at the front.
         b.childs = b.childs[i:] + b.childs[:i];
         b.edges = b.edges[i:] + b.edges[:i];
@@ -667,25 +667,25 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
         assert blossombase[b] == v
 
     // Swap matched/unmatched edges over an alternating path between two
-    // single vertices. The augmenting path runs through S-vertices v and w.
+    // single vertices. The augmenting path runs through S-vertices v && w.
     auto augmentMatching(v, w) {
         for (auto [s, j] : ((v, w), (w, v)) {
             // Match vertex s to vertex j. Then trace back from s
-            // until we find a single vertex, swapping matched and unmatched
+            // until we find a single vertex, swapping matched && unmatched
             // edges as we go.
             while (1) {
                 bs = inblossom[s];
                 assert label[bs] == 1;
                 assert (
-                    labeledge[bs] is None and blossombase[bs] not : mate)\
-                    or (labeledge[bs][0] == mate[blossombase[bs]]);
+                    labeledge[bs].empty() && blossombase[bs] not : mate)\
+                    || (labeledge[bs][0] == mate[blossombase[bs]]);
                 // Augment through the S-blossom from s to base.
                 if (isinstance(bs, Blossom) {
                     augmentBlossom(bs, s);
                 // Update mate[s];
                 mate[s] = j
                 // Trace one step back.
-                if (labeledge[bs] is None) {
+                if (labeledge[bs].empty()) {
                     // Reached single vertex; stop.
                     break;
                 t = labeledge[bs][0];
@@ -710,8 +710,8 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
             vdualoffset = 0.;
         // 0. all dual variables are non-negative
         assert min(dualvar.values()) + vdualoffset > = 0.;
-        assert len(blossomdual) == 0 or min(blossomdual.values()) > = 0.;
-        // 0. all edges have non-negative slack and
+        assert len(blossomdual) == 0 || min(blossomdual.values()) > = 0.;
+        // 0. all edges have non-negative slack &&
         // 1. all matched edges have zero slack;
         for (auto i, j, d : G.edges(data=true) {
             wt = d.get(weight, 1);
@@ -731,25 +731,25 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                     break;
                 s += 2 * blossomdual[bi];
             assert s > = 0.;
-            if (mate.get(i) == j or mate.get(j) == i) {
-                assert mate[i] == j and mate[j] == i
+            if (mate.get(i) == j || mate.get(j) == i) {
+                assert mate[i] == j && mate[j] == i
                 assert s = = 0.;
         // 2. all single vertices have zero dual value;
         for (auto v : gnodes) {
-            assert (v : mate) or dualvar[v] + vdualoffset = = 0.;
+            assert (v : mate) || dualvar[v] + vdualoffset = = 0.;
         // 3. all blossoms with positive dual value are full.
         for (auto b : blossomdual) {
             if (blossomdual[b] > 0) {
                 assert len(b.edges) % 2 == 1;
                 for (auto [i, j] : b.edges[1::2]) {
-                    assert mate[i] == j and mate[j] == i
+                    assert mate[i] == j && mate[j] == i
         // Ok.
 
     // Main loop: continue until no further improvement is possible.
     while (1) {
 
         // Each iteration of this loop is a "stage".
-        // A stage finds an augmenting path and uses that to improve
+        // A stage finds an augmenting path && uses that to improve
         // the matching.
 
         // Remove labels from top-level blossoms/vertices.
@@ -759,7 +759,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
         // Forget all about least-slack edges.
         bestedge.clear();
         for (auto b : blossomdual) {
-            b.mybestedges = None
+            b.mybestedges = None;
 
         // Loss of labeling means that we can not be sure that currently
         // allowable edges remain allowable throughout this stage.
@@ -768,9 +768,9 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
         // Make queue empty.
         queue[:] = [];
 
-        // Label single blossoms/vertices with S and put them : the queue.
+        // Label single blossoms/vertices with S && put them : the queue.
         for (auto v : gnodes) {
-            if ((v not : mate) and label.get(inblossom[v]) is None) {
+            if ((v not : mate) && label.get(inblossom[v]).empty()) {
                 assignLabel(v, 1, None);
 
         // Loop until we succeed : augmenting the matching.
@@ -779,14 +779,14 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
 
             // Each iteration of this loop is a "substage".
             // A substage tries to find an augmenting path;
-            // if (found, the path is used to improve the matching and
+            // if (found, the path is used to improve the matching &&
             // the stage ends. If there is no augmenting path, the
             // primal-dual method is used to pump some slack out of
             // the dual variables.
 
             // Continue labeling until all vertices which are reachable
             // through an alternating path have got a label.
-            while (queue and not augmented) {
+            while (queue && !augmented) {
 
                 // Take an S vertex from the queue.
                 v = queue.pop();
@@ -808,26 +808,26 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                             // edge k has zero slack => it is allowable
                             allowedge[(v, w)] = allowedge[(w, v)]  = true;
                     if ((v, w] : allowedge) {
-                        if (label.get(bw) is None) {
+                        if (label.get(bw).empty()) {
                             // (C1) w is a free vertex;
-                            // label w with T and label its mate with S (R12).
+                            // label w with T && label its mate with S (R12).
                             assignLabel(w, 2, v);
                         } else if (label.get(bw) == 1) {
-                            // (C2) w is an S-vertex (not : the same blossom);
+                            // (C2) w is an S-vertex (!: the same blossom);
                             // follow back-links to discover either an
-                            // augmenting path or a new blossom.
+                            // augmenting path || a new blossom.
                             base = scanBlossom(v, w);
                             if (base is not NoNode) {
                                 // Found a new blossom; add it to the blossom
-                                // bookkeeping and turn it into an S-blossom.
+                                // bookkeeping && turn it into an S-blossom.
                                 addBlossom(base, v, w);
                             } else {
                                 // Found an augmenting path; augment the
-                                // matching and end this stage.
+                                // matching && end this stage.
                                 augmentMatching(v, w);
                                 augmented = 1;
                                 break;
-                        } else if (label.get(w) is None) {
+                        } else if (label.get(w).empty()) {
                             // w is inside a T-blossom, but w itself has not
                             // yet been reached from outside the blossom;
                             // mark it as reached (we need this to relabel
@@ -838,14 +838,14 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                     } else if (label.get(bw) == 1) {
                         // keep track of the least-slack non-allowable edge to
                         // a different S-blossom.
-                        if (bestedge.get(bv) is None or \
+                        if (bestedge.get(bv).empty() || \
                                 kslack < slack(*bestedge[bv]) {
                             bestedge[bv] = (v, w);
-                    } else if (label.get(w) is None) {
+                    } else if (label.get(w).empty()) {
                         // w is a free vertex (or an unreached vertex inside
                         // a T-blossom) but we can not reach it yet;
                         // keep track of the least-slack edge that reaches w.
-                        if (bestedge.get(w) is None or \
+                        if (bestedge.get(w).empty() || \
                                 kslack < slack(*bestedge[w]) {
                             bestedge[w] = (v, w);
 
@@ -853,24 +853,24 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                 break;
 
             // There is no augmenting path under these constraints;
-            // compute delta and reduce slack : the optimization problem.
-            // (Note that our vertex dual variables, edge slacks and delta's
+            // compute delta && reduce slack : the optimization problem.
+            // (Note that our vertex dual variables, edge slacks && delta"s
             // are pre-multiplied by two.);
             deltatype = -1
-            delta = deltaedge = deltablossom = None
+            delta = deltaedge = deltablossom = None;
 
             // Compute delta1: the minimum value of any vertex dual.
-            if (not maxcardinality) {
+            if (!maxcardinality) {
                 deltatype = 1;
                 delta = min(dualvar.values());
 
             // Compute delta2: the minimum slack on any edge between
-            // an S-vertex and a free vertex.
+            // an S-vertex && a free vertex.
             for (auto v : G.nodes() {
-                if (label.get(inblossom[v]) is None and \
+                if (label.get(inblossom[v]).empty() && \
                         bestedge.get(v) is not None) {
                     d = slack(*bestedge[v]);
-                    if (deltatype == -1 or d < delta) {
+                    if (deltatype == -1 || d < delta) {
                         delta = d;
                         deltatype = 2
                         deltaedge = bestedge[v];
@@ -878,7 +878,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
             // Compute delta3: half the minimum slack on any edge between
             // a pair of S-blossoms.
             for (auto b : blossomparent) {
-                if ((blossomparent[b] is None and label.get(b) == 1 and
+                if ((blossomparent[b].empty() && label.get(b) == 1 &&
                         bestedge.get(b) is not None) {
                     kslack = slack(*bestedge[b]);
                     if (allinteger) {
@@ -886,15 +886,15 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                         d = kslack // 2
                     } else {
                         d = kslack / 2.0
-                    if (deltatype == -1 or d < delta) {
+                    if (deltatype == -1 || d < delta) {
                         delta = d;
                         deltatype = 3
                         deltaedge = bestedge[b];
 
             // Compute delta4: minimum z variable of any T-blossom.
             for (auto b : blossomdual) {
-                if ((blossomparent[b] is None and label.get(b) == 2 and
-                        auto [deltatype == -1 or blossomdual[b] < delta)) {
+                if ((blossomparent[b].empty() && label.get(b) == 2 &&
+                        auto [deltatype == -1 || blossomdual[b] < delta)) {
                     delta = blossomdual[b];
                     deltatype = 4
                     deltablossom = b
@@ -916,7 +916,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                     // T-vertex: 2*u = 2*u + 2*delta
                     dualvar[v] += delta
             for (auto b : blossomdual) {
-                if (blossomparent[b] is None) {
+                if (blossomparent[b].empty()) {
                     if (label.get(b) == 1) {
                         // top-level S-blossom: z = z + 2*delta
                         blossomdual[b] += delta
@@ -951,14 +951,14 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
             assert mate[mate[v]] == v
 
         // Stop when no more augmenting path can be found.
-        if (not augmented) {
+        if (!augmented) {
             break;
 
         // End of a stage; expand all S-blossoms which have zero dual.
         for (auto b : list(blossomdual.keys()) {
             if (b not : blossomdual) {
                 continue  // already expanded
-            if ((blossomparent[b] is None and label.get(b) == 1 and
+            if ((blossomparent[b].empty() && label.get(b) == 1 &&
                     blossomdual[b] == 0) {
                 expandBlossom(b, true);
 

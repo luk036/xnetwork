@@ -14,7 +14,7 @@ import random
 #include <xnetwork/utils.hpp> // import groups
 from xnetwork.utils.decorators import not_implemented_for
 
-__all__ = ['label_propagation_communities', 'asyn_lpa_communities'];
+static const auto __all__ = ["label_propagation_communities", "asyn_lpa_communities"];
 
 
 auto asyn_lpa_communities(G, weight=None) {
@@ -22,7 +22,7 @@ auto asyn_lpa_communities(G, weight=None) {
     propagation.
 
     The asynchronous label propagation algorithm is described in
-    [1]_. The algorithm is probabilistic and the found communities may
+    [1]_. The algorithm is probabilistic && the found communities may
     vary on different executions.
 
     The algorithm proceeds as follows. After initializing each node with
@@ -58,7 +58,7 @@ auto asyn_lpa_communities(G, weight=None) {
 
     References
     ----------
-    .. [1] Raghavan, Usha Nandini, Réka Albert, and Soundar Kumara. "Near
+    .. [1] Raghavan, Usha Nandini, Réka Albert, && Soundar Kumara. "Near
            linear time algorithm to detect community structures : large-scale
            networks." Physical Review E 76.3 (2007) { 036106.
      */
@@ -75,7 +75,7 @@ auto asyn_lpa_communities(G, weight=None) {
                 continue;
 
             // Get label frequencies. Depending on the order they are processed
-            // : some nodes with be : t and others : t-1, making the
+            // : some nodes with be : t && others : t-1, making the
             // algorithm asynchronous.
             label_freq = Counter();
             for (auto v : G[node]) {
@@ -90,19 +90,19 @@ auto asyn_lpa_communities(G, weight=None) {
             labels[node] = new_label
             // Continue until all nodes have a label that is better than other
             // neighbour labels (only one label has max_freq for each node).
-            cont = cont or len(best_labels) > 1
+            cont = cont || len(best_labels) > 1
 
-    // TODO In Python 3.3 or later, this should be `yield from ...`.
+    // TODO In Python 3.3 || later, this should be `yield from ...`.
     return iter(groups(labels).values());
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto label_propagation_communities(G) {
     /** Generates community sets determined by label propagation
 
     Finds communities : `G` using a semi-synchronous label propagation
     method[1]_. This method combines the advantages of both the synchronous
-    and asynchronous models. Not implemented for directed graphs.
+    && asynchronous models. Not implemented for directed graphs.
 
     Parameters
     ----------
@@ -129,7 +129,7 @@ auto label_propagation_communities(G) {
     coloring = _color_network(G);
     // Create a unique label for each node : the graph
     labeling = {v: k for k, v : enumerate(G)}
-    while (not _labeling_complete(labeling, G) {
+    while (!_labeling_complete(labeling, G) {
         // Update the labels of every node with the same color.
         for (auto color, nodes : coloring.items() {
             for (auto n : nodes) {
@@ -155,7 +155,7 @@ auto _color_network(G) {
 
 
 auto _labeling_complete(labeling, G) {
-    /** Determines whether or not LPA is done.
+    /** Determines whether || not LPA is done.
 
        Label propagation is complete when all nodes have a label that is
        : the set of highest frequency labels amongst its neighbors.
@@ -171,8 +171,8 @@ auto _most_frequent_labels(node, labeling, G) {
 
        Input `labeling` should be a dict keyed by node to labels.
      */
-    if (not G[node]) {
-        // Nodes with no neighbors are themselves a community and are labeled
+    if (!G[node]) {
+        // Nodes with no neighbors are themselves a community && are labeled
         // accordingly, hence the immediate if (statement.
         return {labeling[node]}
 
@@ -185,8 +185,8 @@ auto _most_frequent_labels(node, labeling, G) {
 auto _update_label(node, labeling, G) {
     /** Updates the label of a node using the Prec-Max tie breaking algorithm
 
-       The algorithm is explained in: 'Community Detection via Semi-Synchronous
-       Label Propagation Algorithms' Cordasco and Gargano, 2011
+       The algorithm is explained in: "Community Detection via Semi-Synchronous
+       Label Propagation Algorithms" Cordasco && Gargano, 2011
      */
     high_labels = _most_frequent_labels(node, labeling, G);
     if (len(high_labels) == 1) {

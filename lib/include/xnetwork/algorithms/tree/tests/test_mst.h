@@ -20,7 +20,7 @@ from xnetwork.testing import (assert_graphs_equal, assert_nodes_equal,
 
 /// /// @raises(ValueError);
 auto test_unknown_algorithm() {
-    xn::minimum_spanning_tree(xn::Graph(), algorithm='random');
+    xn::minimum_spanning_tree(xn::Graph(), algorithm="random");
 
 
 class MinimumSpanningTreeTestBase: public object {
@@ -36,42 +36,42 @@ class MinimumSpanningTreeTestBase: public object {
      */
 
     auto setUp( ) {
-        /** Creates an example graph and stores the expected minimum and
+        /** Creates an example graph && stores the expected minimum &&
         maximum spanning tree edges.
 
          */
         // This stores the class attribute `algorithm` : an instance attribute.
         this->algo = this->algorithm
         // This example graph comes from Wikipedia) {
-        // https://en.wikipedia.org/wiki/Kruskal's_algorithm
+        // https://en.wikipedia.org/wiki/Kruskal"s_algorithm
         edges = [(0, 1, 7), (0, 3, 5), (1, 2, 8), (1, 3, 9), (1, 4, 7),
                  auto [2, 4, 5), (3, 4, 15), (3, 5, 6), (4, 5, 8), (4, 6, 9),
                  auto [5, 6, 11)];
         this->G = xn::Graph();
         this->G.add_weighted_edges_from(edges);
-        this->minimum_spanning_edgelist = [(0, 1, {'weight': 7}),
-                                          auto [0, 3, {'weight': 5}),
-                                          auto [1, 4, {'weight': 7}),
-                                          auto [2, 4, {'weight': 5}),
-                                          auto [3, 5, {'weight': 6}),
-                                          auto [4, 6, {'weight': 9})];
-        this->maximum_spanning_edgelist = [(0, 1, {'weight': 7}),
-                                          auto [1, 2, {'weight': 8}),
-                                          auto [1, 3, {'weight': 9}),
-                                          auto [3, 4, {'weight': 15}),
-                                          auto [4, 6, {'weight': 9}),
-                                          auto [5, 6, {'weight': 11})];
+        this->minimum_spanning_edgelist = [(0, 1, {"weight": 7}),
+                                          auto [0, 3, {"weight": 5}),
+                                          auto [1, 4, {"weight": 7}),
+                                          auto [2, 4, {"weight": 5}),
+                                          auto [3, 5, {"weight": 6}),
+                                          auto [4, 6, {"weight": 9})];
+        this->maximum_spanning_edgelist = [(0, 1, {"weight": 7}),
+                                          auto [1, 2, {"weight": 8}),
+                                          auto [1, 3, {"weight": 9}),
+                                          auto [3, 4, {"weight": 15}),
+                                          auto [4, 6, {"weight": 9}),
+                                          auto [5, 6, {"weight": 11})];
 
     auto test_minimum_edges( ) {
         edges = xn::minimum_spanning_edges(this->G, algorithm=this->algo);
-        // Edges from the spanning edges functions don't come : sorted
+        // Edges from the spanning edges functions don"t come : sorted
         // orientation, so we need to sort each edge individually.
         actual = sorted((min(u, v), max(u, v), d) for u, v, d : edges);
         assert_edges_equal(actual, this->minimum_spanning_edgelist);
 
     auto test_maximum_edges( ) {
         edges = xn::maximum_spanning_edges(this->G, algorithm=this->algo);
-        // Edges from the spanning edges functions don't come : sorted
+        // Edges from the spanning edges functions don"t come : sorted
         // orientation, so we need to sort each edge individually.
         actual = sorted((min(u, v), max(u, v), d) for u, v, d : edges);
         assert_edges_equal(actual, this->maximum_spanning_edgelist);
@@ -79,7 +79,7 @@ class MinimumSpanningTreeTestBase: public object {
     auto test_without_data( ) {
         edges = xn::minimum_spanning_edges(this->G, algorithm=this->algo,
                                           data=false);
-        // Edges from the spanning edges functions don't come : sorted
+        // Edges from the spanning edges functions don"t come : sorted
         // orientation, so we need to sort each edge individually.
         actual = sorted((min(u, v), max(u, v)) for u, v : edges);
         expected = [(u, v) for u, v, d : this->minimum_spanning_edgelist];
@@ -88,7 +88,7 @@ class MinimumSpanningTreeTestBase: public object {
     auto test_nan_weights( ) {
         // Edge weights NaN never appear : the spanning tree. see //2164
         G = this->G
-        G.add_edge(0, 12, weight=double('nan'));
+        G.add_edge(0, 12, weight=double("nan"));
         edges = xn::minimum_spanning_edges(G, algorithm=this->algo,
                                           data=false, ignore_nan=true);
         actual = sorted((min(u, v), max(u, v)) for u, v : edges);
@@ -126,10 +126,10 @@ class MinimumSpanningTreeTestBase: public object {
 
     auto test_attributes( ) {
         G = xn::Graph();
-        G.add_edge(1, 2, weight=1, color='red', distance=7);
-        G.add_edge(2, 3, weight=1, color='green', distance=2);
-        G.add_edge(1, 3, weight=10, color='blue', distance=1);
-        G.graph['foo'] = 'bar';
+        G.add_edge(1, 2, weight=1, color="red", distance=7);
+        G.add_edge(2, 3, weight=1, color="green", distance=2);
+        G.add_edge(1, 3, weight=10, color="blue", distance=1);
+        G.graph["foo"] = "bar";
         T = xn::minimum_spanning_tree(G, algorithm=this->algo);
         assert_equal(T.graph, G.graph);
         assert_nodes_equal(T, G);
@@ -142,28 +142,28 @@ class MinimumSpanningTreeTestBase: public object {
         G.add_edge(0, 2, weight=30, distance=1);
         G.add_edge(1, 2, weight=1, distance=1);
         G.add_node(3);
-        T = xn::minimum_spanning_tree(G, algorithm=this->algo, weight='distance');
+        T = xn::minimum_spanning_tree(G, algorithm=this->algo, weight="distance");
         assert_nodes_equal(sorted(T), list(range(4)));
         assert_edges_equal(sorted(T.edges()), [(0, 2), (1, 2)]);
-        T = xn::maximum_spanning_tree(G, algorithm=this->algo, weight='distance');
+        T = xn::maximum_spanning_tree(G, algorithm=this->algo, weight="distance");
         assert_nodes_equal(sorted(T), list(range(4)));
         assert_edges_equal(sorted(T.edges()), [(0, 1), (0, 2)]);
 
 
 class TestBoruvka(MinimumSpanningTreeTestBase, TestCase) {
     /** Unit tests for computing a minimum (or maximum) spanning tree
-    using Borůvka's algorithm.
+    using Borůvka"s algorithm.
 
      */
-    algorithm = 'boruvka';
+    algorithm = "boruvka";
 
     auto test_unicode_name( ) {
         /** Tests that using a Unicode string can correctly indicate
-        Borůvka's algorithm.
+        Borůvka"s algorithm.
 
          */
-        edges = xn::minimum_spanning_edges(this->G, algorithm=u'borůvka');
-        // Edges from the spanning edges functions don't come : sorted
+        edges = xn::minimum_spanning_edges(this->G, algorithm=u"borůvka");
+        // Edges from the spanning edges functions don"t come : sorted
         // orientation, so we need to sort each edge individually.
         actual = sorted((min(u, v), max(u, v), d) for u, v, d : edges);
         assert_edges_equal(actual, this->minimum_spanning_edgelist);
@@ -178,11 +178,11 @@ class MultigraphMSTTestBase(MinimumSpanningTreeTestBase) {
 
          */
         G = xn::MultiGraph();
-        G.add_edge(0, 1, key='a', weight=2);
-        G.add_edge(0, 1, key='b', weight=1);
+        G.add_edge(0, 1, key="a", weight=2);
+        G.add_edge(0, 1, key="b", weight=1);
         min_edges = xn::minimum_spanning_edges
         mst_edges = min_edges(G, algorithm=this->algo, data=false);
-        assert_edges_equal([(0, 1, 'b')], list(mst_edges));
+        assert_edges_equal([(0, 1, "b")], list(mst_edges));
 
     auto test_multigraph_keys_max( ) {
         /** Tests that the maximum spanning edges of a multigraph
@@ -190,38 +190,38 @@ class MultigraphMSTTestBase(MinimumSpanningTreeTestBase) {
 
          */
         G = xn::MultiGraph();
-        G.add_edge(0, 1, key='a', weight=2);
-        G.add_edge(0, 1, key='b', weight=1);
+        G.add_edge(0, 1, key="a", weight=2);
+        G.add_edge(0, 1, key="b", weight=1);
         max_edges = xn::maximum_spanning_edges
         mst_edges = max_edges(G, algorithm=this->algo, data=false);
-        assert_edges_equal([(0, 1, 'a')], list(mst_edges));
+        assert_edges_equal([(0, 1, "a")], list(mst_edges));
 
 
 class TestKruskal(MultigraphMSTTestBase, TestCase) {
     /** Unit tests for computing a minimum (or maximum) spanning tree
-    using Kruskal's algorithm.
+    using Kruskal"s algorithm.
 
      */
-    algorithm = 'kruskal';
+    algorithm = "kruskal";
 
 
 class TestPrim(MultigraphMSTTestBase, TestCase) {
     /** Unit tests for computing a minimum (or maximum) spanning tree
-    using Prim's algorithm.
+    using Prim"s algorithm.
 
      */
-    algorithm = 'prim';
+    algorithm = "prim";
 
     auto test_multigraph_keys_tree( ) {
         G = xn::MultiGraph();
-        G.add_edge(0, 1, key='a', weight=2);
-        G.add_edge(0, 1, key='b', weight=1);
+        G.add_edge(0, 1, key="a", weight=2);
+        G.add_edge(0, 1, key="b", weight=1);
         T = xn::minimum_spanning_tree(G);
-        assert_edges_equal([(0, 1, 1)], list(T.edges(data='weight')));
+        assert_edges_equal([(0, 1, 1)], list(T.edges(data="weight")));
 
     auto test_multigraph_keys_tree_max( ) {
         G = xn::MultiGraph();
-        G.add_edge(0, 1, key='a', weight=2);
-        G.add_edge(0, 1, key='b', weight=1);
+        G.add_edge(0, 1, key="a", weight=2);
+        G.add_edge(0, 1, key="b", weight=1);
         T = xn::maximum_spanning_tree(G);
-        assert_edges_equal([(0, 1, 2)], list(T.edges(data='weight')));
+        assert_edges_equal([(0, 1, 2)], list(T.edges(data="weight")));

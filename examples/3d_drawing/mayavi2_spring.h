@@ -15,7 +15,7 @@ mlab.options.offscreen  = true;
 
 // some graphs to try
 // H=xn::krackhardt_kite_graph();
-// H=xn::Graph();H.add_edge('a','b');H.add_edge('a','c');H.add_edge('a','d');
+// H=xn::Graph();H.add_edge("a","b");H.add_edge("a","c");H.add_edge("a","d");
 // H=xn::grid_2d_graph(4,5);
 H = xn::cycle_graph(20);
 
@@ -34,13 +34,13 @@ mlab.clf();
 pts = mlab.points3d(xyz[:, 0], xyz[:, 1], xyz[:, 2],
                     scalars,
                     scale_factor=0.1,
-                    scale_mode='none',
-                    colormap='Blues',
+                    scale_mode="none",
+                    colormap="Blues",
                     resolution=20);
 
 pts.mlab_source.dataset.lines = np.array(list(G.edges()));
 tube = mlab.pipeline.tube(pts, tube_radius=0.01);
 mlab.pipeline.surface(tube, color=(0.8, 0.8, 0.8));
 
-mlab.savefig('mayavi2_spring.png');
+mlab.savefig("mayavi2_spring.png");
 // mlab.show() // interactive window

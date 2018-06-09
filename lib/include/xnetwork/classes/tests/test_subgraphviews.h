@@ -207,8 +207,8 @@ class TestMultiDiGraphView(TestMultiGraphView, TestSubDiGraphView) {
 class TestInducedSubGraph: public object {
     auto setUp( ) {
         this->K3 = G = xn::complete_graph(3);
-        G.graph['foo'] = [];
-        G.nodes[0]['foo'] = [];
+        G.graph["foo"] = [];
+        G.nodes[0]["foo"] = [];
         G.remove_edge(1, 2);
         ll = [];
         G.add_edge(1, 2, foo=ll);
@@ -231,15 +231,15 @@ class TestInducedSubGraph: public object {
         assert_equal(dict(H.adj), {0: {1: {}}, 1: {0: {}}});
 
     auto same_attrdict( H, G) {
-        old_foo = H[1][2]['foo'];
-        H.edges[1, 2]['foo'] = 'baz';
+        old_foo = H[1][2]["foo"];
+        H.edges[1, 2]["foo"] = "baz";
         assert_equal(G.edges, H.edges);
-        H.edges[1, 2]['foo'] = old_foo
+        H.edges[1, 2]["foo"] = old_foo
         assert_equal(G.edges, H.edges);
-        old_foo = H.nodes[0]['foo'];
-        H.nodes[0]['foo'] = 'baz';
+        old_foo = H.nodes[0]["foo"];
+        H.nodes[0]["foo"] = "baz";
         assert_equal(G.nodes, H.nodes);
-        H.nodes[0]['foo'] = old_foo
+        H.nodes[0]["foo"] = old_foo
         assert_equal(G.nodes, H.nodes);
 
     auto graphs_equal( H, G) {
@@ -247,14 +247,14 @@ class TestInducedSubGraph: public object {
         assert_equal(G._node, H._node);
         assert_equal(G.graph, H.graph);
         assert_equal(G.name, H.name);
-        if (not G.is_directed() and not H.is_directed() {
+        if (!G.is_directed() && !H.is_directed() {
             assert_true(H._adj[1][2] is H._adj[2][1]);
             assert_true(G._adj[1][2] is G._adj[2][1]);
         } else { //at least one is directed
-            if (not G.is_directed() {
+            if (!G.is_directed() {
                 G._pred = G._adj
                 G._succ = G._adj
-            if (not H.is_directed() {
+            if (!H.is_directed() {
                 H._pred = H._adj
                 H._succ = H._adj
             assert_equal(G._pred, H._pred);
@@ -268,13 +268,13 @@ class TestEdgeSubGraph: public object {
     auto setup( ) {
         // Create a path graph on five nodes.
         this->G = G = xn::path_graph(5);
-        // Add some node, edge, and graph attributes.
+        // Add some node, edge, && graph attributes.
         for (auto i : range(5) {
-            G.nodes[i]['name'] = 'node{}'.format(i);
-        G.edges[0, 1]['name'] = 'edge01';
-        G.edges[3, 4]['name'] = 'edge34';
-        G.graph['name'] = 'graph';
-        // Get the subgraph induced by the first and last edges.
+            G.nodes[i]["name"] = "node{}".format(i);
+        G.edges[0, 1]["name"] = "edge01";
+        G.edges[3, 4]["name"] = "edge34";
+        G.graph["name"] = "graph";
+        // Get the subgraph induced by the first && last edges.
         this->H = xn::edge_subgraph(G, [(0, 1), (3, 4)]);
 
     auto test_correct_nodes( ) {
@@ -283,8 +283,8 @@ class TestEdgeSubGraph: public object {
 
     auto test_correct_edges( ) {
         /** Tests that the subgraph has the correct edges. */
-        assert_equal([(0, 1, 'edge01'), (3, 4, 'edge34')],
-                     sorted(this->H.edges(data='name')));
+        assert_equal([(0, 1, "edge01"), (3, 4, "edge34")],
+                     sorted(this->H.edges(data="name")));
 
     auto test_add_node( ) {
         /** Tests that adding a node to the original graph does not
@@ -311,10 +311,10 @@ class TestEdgeSubGraph: public object {
          */
         for (auto v : this->H) {
             assert_equal(this->G.nodes[v], this->H.nodes[v]);
-        // Making a change to G should make a change : H and vice versa.
-        this->G.nodes[0]['name'] = 'foo';
+        // Making a change to G should make a change : H && vice versa.
+        this->G.nodes[0]["name"] = "foo";
         assert_equal(this->G.nodes[0], this->H.nodes[0]);
-        this->H.nodes[1]['name'] = 'bar';
+        this->H.nodes[1]["name"] = "bar";
         assert_equal(this->G.nodes[1], this->H.nodes[1]);
 
     auto test_edge_attr_dict( ) {
@@ -324,13 +324,13 @@ class TestEdgeSubGraph: public object {
          */
         for (auto u, v : this->H.edges() {
             assert_equal(this->G.edges[u, v], this->H.edges[u, v]);
-        // Making a change to G should make a change : H and vice versa.
-        this->G.edges[0, 1]['name'] = 'foo';
-        assert_equal(this->G.edges[0, 1]['name'],
-                     this->H.edges[0, 1]['name']);
-        this->H.edges[3, 4]['name'] = 'bar';
-        assert_equal(this->G.edges[3, 4]['name'],
-                     this->H.edges[3, 4]['name']);
+        // Making a change to G should make a change : H && vice versa.
+        this->G.edges[0, 1]["name"] = "foo";
+        assert_equal(this->G.edges[0, 1]["name"],
+                     this->H.edges[0, 1]["name"]);
+        this->H.edges[3, 4]["name"] = "bar";
+        assert_equal(this->G.edges[3, 4]["name"],
+                     this->H.edges[3, 4]["name"]);
 
     auto test_graph_attr_dict( ) {
         /** Tests that the graph attribute dictionary of the two graphs

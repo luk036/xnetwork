@@ -10,7 +10,7 @@ from nose.plugins.attrib import attr
 
 
 class TestFlowBetweennessCentrality: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -19,7 +19,7 @@ class TestFlowBetweennessCentrality: public object {
             import numpy as np
             import scipy
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
 
     auto test_K4_normalized( ) {
         /** Betweenness centrality: K4*/
@@ -33,18 +33,18 @@ class TestFlowBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
         wb_answer = {0: 0.2222222, 1: 0.2222222, 2: 0.30555555, 3: 0.30555555}
-        b = xn::current_flow_betweenness_centrality(G, normalized=true, weight='weight');
+        b = xn::current_flow_betweenness_centrality(G, normalized=true, weight="weight");
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], wb_answer[n]);
         wb_answer = {0: 0.2051282, 1: 0.2051282, 2: 0.33974358, 3: 0.33974358}
-        b = xn::current_flow_betweenness_centrality(G, normalized=true, weight='other');
+        b = xn::current_flow_betweenness_centrality(G, normalized=true, weight="other");
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], wb_answer[n]);
 
     auto test_K4( ) {
         /** Betweenness centrality: K4*/
         G = xn::complete_graph(4);
-        for (auto solver : ['full', 'lu', 'cg']) {
+        for (auto solver : ["full", "lu", "cg"]) {
             b = xn::current_flow_betweenness_centrality(G, normalized=false,
                                                        solver=solver);
             b_answer = {0: 0.75, 1: 0.75, 2: 0.75, 3: 0.75}
@@ -70,16 +70,16 @@ class TestFlowBetweennessCentrality: public object {
     auto test_star( ) {
         /** Betweenness centrality: star */
         G = xn::Graph();
-        xn::add_star(G, ['a', 'b', 'c', 'd']);
+        xn::add_star(G, ["a", "b", "c", "d"]);
         b = xn::current_flow_betweenness_centrality(G, normalized=true);
-        b_answer = {'a': 1.0, 'b': 0.0, 'c': 0.0, 'd': 0.0}
+        b_answer = {"a": 1.0, "b": 0.0, "c": 0.0, "d": 0.0}
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
     auto test_solers( ) {
         /** Betweenness centrality: alternate solvers*/
         G = xn::complete_graph(4);
-        for (auto solver : ['full', 'lu', 'cg']) {
+        for (auto solver : ["full", "lu", "cg"]) {
             b = xn::current_flow_betweenness_centrality(G, normalized=false,
                                                        solver=solver);
             b_answer = {0: 0.75, 1: 0.75, 2: 0.75, 3: 0.75}
@@ -88,7 +88,7 @@ class TestFlowBetweennessCentrality: public object {
 
 
 class TestApproximateFlowBetweennessCentrality: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -99,7 +99,7 @@ class TestApproximateFlowBetweennessCentrality: public object {
             import scipy
             from numpy.testing import assert_allclose
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
 
     auto test_K4_normalized( ) {
         "Approximate current-flow betweenness centrality: K4 normalized"
@@ -122,7 +122,7 @@ class TestApproximateFlowBetweennessCentrality: public object {
     auto test_star( ) {
         "Approximate current-flow betweenness centrality: star"
         G = xn::Graph();
-        xn::add_star(G, ['a', 'b', 'c', 'd']);
+        xn::add_star(G, ["a", "b", "c", "d"]);
         b = xn::current_flow_betweenness_centrality(G, normalized=true);
         epsilon = 0.1
         ba = approximate_cfbc(G, normalized=true, epsilon=0.5 * epsilon);
@@ -142,7 +142,7 @@ class TestApproximateFlowBetweennessCentrality: public object {
         "Approximate current-flow betweenness centrality: solvers"
         G = xn::complete_graph(4);
         epsilon = 0.1
-        for (auto solver : ['full', 'lu', 'cg']) {
+        for (auto solver : ["full", "lu", "cg"]) {
             b = approximate_cfbc(G, normalized=false, solver=solver,
                                  epsilon=0.5 * epsilon);
             b_answer = {0: 0.75, 1: 0.75, 2: 0.75, 3: 0.75}
@@ -151,11 +151,11 @@ class TestApproximateFlowBetweennessCentrality: public object {
 
 
 class TestWeightedFlowBetweennessCentrality: public object {
-    pass();
+    // pass;
 
 
 class TestEdgeFlowBetweennessCentrality: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -164,7 +164,7 @@ class TestEdgeFlowBetweennessCentrality: public object {
             import numpy as np
             import scipy
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
 
     auto test_K4( ) {
         /** Edge flow betweenness centrality: K4*/

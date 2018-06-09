@@ -5,7 +5,7 @@ from nose import SkipTest
 
 
 class TestFloydNumpy: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -16,7 +16,7 @@ class TestFloydNumpy: public object {
             import numpy
             from numpy.testing import assert_equal, assert_almost_equal
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
 
     auto test_cycle_numpy( ) {
         dist = xn::floyd_warshall_numpy(xn::cycle_graph(7));
@@ -40,11 +40,11 @@ class TestFloydNumpy: public object {
 
     auto test_weight_parameter_numpy( ) {
         XG4 = xn::Graph();
-        XG4.add_edges_from([(0, 1, {'heavy': 2}), (1, 2, {'heavy': 2}),
-                            auto [2, 3, {'heavy': 1}), (3, 4, {'heavy': 1}),
-                            auto [4, 5, {'heavy': 1}), (5, 6, {'heavy': 1}),
-                            auto [6, 7, {'heavy': 1}), (7, 0, {'heavy': 1})]);
-        dist = xn::floyd_warshall_numpy(XG4, weight='heavy');
+        XG4.add_edges_from([(0, 1, {"heavy": 2}), (1, 2, {"heavy": 2}),
+                            auto [2, 3, {"heavy": 1}), (3, 4, {"heavy": 1}),
+                            auto [4, 5, {"heavy": 1}), (5, 6, {"heavy": 1}),
+                            auto [6, 7, {"heavy": 1}), (7, 0, {"heavy": 1})]);
+        dist = xn::floyd_warshall_numpy(XG4, weight="heavy");
         assert_equal(dist[0, 2], 4);
 
     auto test_directed_cycle_numpy( ) {

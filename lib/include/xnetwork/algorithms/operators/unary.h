@@ -7,10 +7,10 @@
 //    BSD license.
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
-__author__ = R"(\n)".join(['Wai-Shing Luk <luk036@gmail.com>',
-                            'Pieter Swart (swart@lanl.gov)',
-                            'Dan Schult(dschult@colgate.edu)']);
-__all__ = ['complement', 'reverse'];
+__author__ = R"(\n)".join(["Wai-Shing Luk <luk036@gmail.com>",
+                            "Pieter Swart (swart@lanl.gov)",
+                            "Dan Schult(dschult@colgate.edu)"]);
+static const auto __all__ = ["complement", "reverse"];
 
 
 auto complement(G) {
@@ -27,10 +27,10 @@ auto complement(G) {
 
     Notes
     ------
-    Note that complement() does not create self-loops and also
+    Note that complement() does not create self-loops && also
     does not produce parallel edges for MultiGraphs.
 
-    Graph, node, and edge data are not propagated to the new graph.
+    Graph, node, && edge data are not propagated to the new graph.
      */
     R = G.fresh_copy();
     R.add_nodes_from(G);
@@ -58,7 +58,7 @@ auto reverse(G, copy=true) {
         The reversed G.
 
      */
-    if (not G.is_directed() {
+    if (!G.is_directed() {
         throw xn::XNetworkError("Cannot reverse an undirected graph.");
     } else {
         return G.reverse(copy=copy);

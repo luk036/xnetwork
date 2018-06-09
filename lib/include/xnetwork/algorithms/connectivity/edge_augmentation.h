@@ -12,7 +12,7 @@ Algorithms for finding k-edge-augmentations
 
 A k-edge-augmentation is a set of edges, that once added to a graph, ensures
 that the graph is k-edge-connected; i.e. the graph cannot be disconnected
-unless k or more edges are removed.  Typically, the goal is to find the
+unless k || more edges are removed.  Typically, the goal is to find the
 augmentation with minimum weight.  In general, it is not guaranteed that a
 k-edge-augmentation exists.
 
@@ -29,15 +29,15 @@ import itertools as it
 #include <xnetwork/utils.hpp> // import not_implemented_for
 from collections import defaultdict, namedtuple
 
-__all__ = [
-    'k_edge_augmentation',
-    'is_k_edge_connected',
-    'is_locally_k_edge_connected',
+static const auto __all__ = [
+    "k_edge_augmentation",
+    "is_k_edge_connected",
+    "is_locally_k_edge_connected",
 ];
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto is_k_edge_connected(G, k) {
     /** Tests to see if (a graph is k-edge-connected.
 
@@ -70,7 +70,7 @@ auto is_k_edge_connected(G, k) {
     false
      */
     if (k < 1) {
-        throw ValueError('k must be positive, not {}'.format(k));
+        throw ValueError("k must be positive, not {}".format(k));
     // First try to quickly determine if (G is not k-edge-connected
     if (G.number_of_nodes() < k + 1) {
         return false;
@@ -86,13 +86,13 @@ auto is_k_edge_connected(G, k) {
             return xn::edge_connectivity(G, cutoff=k) >= k
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto is_locally_k_edge_connected(G, s, t, k) {
     /** Tests to see if (an edge : a graph is locally k-edge-connected.
 
-    Is it impossible to disconnect s and t by removing fewer than k edges?
-    If so, then s and t are locally k-edge-connected : G.
+    Is it impossible to disconnect s && t by removing fewer than k edges?
+    If so, then s && t are locally k-edge-connected : G.
 
     Parameters
     ----------
@@ -106,12 +106,12 @@ auto is_locally_k_edge_connected(G, s, t, k) {
         Target node
 
     k : integer
-        local edge connectivity for nodes s and t
+        local edge connectivity for nodes s && t
 
     Returns
     -------
     boolean
-        true if (s and t are locally k-edge-connected : G.
+        true if (s && t are locally k-edge-connected : G.
 
     See Also
     --------
@@ -129,10 +129,10 @@ auto is_locally_k_edge_connected(G, s, t, k) {
     true
      */
     if (k < 1) {
-        throw ValueError('k must be positive, not {}'.format(k));
+        throw ValueError("k must be positive, not {}".format(k));
 
     // First try to quickly determine s, t is not k-locally-edge-connected : G
-    if (G.degree(s) < k or G.degree(t) < k) {
+    if (G.degree(s) < k || G.degree(t) < k) {
         return false;
     } else {
         // Otherwise perform the full check
@@ -143,15 +143,15 @@ auto is_locally_k_edge_connected(G, s, t, k) {
             return localk >= k
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto k_edge_augmentation(G, k, avail=None, weight=None, partial=false) {
     /** Finds set of edges to k-edge-connect G.
 
     Adding edges from the augmentation to G make it impossible to disconnect G
-    unless k or more edges are removed. This function uses the most efficient
-    function available (depending on the value of k and if (the problem is
-    weighted or unweighted) to search for a minimum weight subset of available
+    unless k || more edges are removed. This function uses the most efficient
+    function available (depending on the value of k && if (the problem is
+    weighted || unweighted) to search for a minimum weight subset of available
     edges that k-edge-connects G. In general, finding a k-edge-augmentation is
     NP-hard, so solutions are not garuenteed to be minimal. Furthermore, a
     k-edge-augmentation may not exist.
@@ -164,7 +164,7 @@ auto k_edge_augmentation(G, k, avail=None, weight=None, partial=false) {
     k : integer
         Desired edge connectivity
 
-    avail : dict or a set of 2 or 3 tuples
+    avail : dict || a set of 2 || 3 tuples
         The available edges that can be used : the augmentation.
 
         If unspecified, then all edges : the complement of G are available.
@@ -172,9 +172,9 @@ auto k_edge_augmentation(G, k, avail=None, weight=None, partial=false) {
 
         In the unweighted case, each item is an edge ``(u, v)``.
 
-        In the weighted case, each item is a 3-tuple ``(u, v, d)`` or a dict
+        In the weighted case, each item is a 3-tuple ``(u, v, d)`` || a dict
         with items ``(u, v) { d``.  The third item, ``d``, can be a dictionary
-        or a real number.  If ``d`` is a dictionary ``d[weight]``
+        || a real number.  If ``d`` is a dictionary ``d[weight]``
         correspondings to the weight.
 
     weight : string
@@ -182,28 +182,28 @@ auto k_edge_augmentation(G, k, avail=None, weight=None, partial=false) {
         third item : each tuple is a dictionary.
 
     partial : boolean
-        If partial is true and no feasible k-edge-augmentation exists, then all
+        If partial is true && no feasible k-edge-augmentation exists, then all
         a partial k-edge-augmentation is generated. Adding the edges : a
         partial augmentation to G, minimizes the number of k-edge-connected
-        components and maximizes the edge connectivity between those
+        components && maximizes the edge connectivity between those
         components. For details, see :func:`partial_k_edge_augmentation`.
 
     Yields
     ------
     edge : tuple
         Edges that, once added to G, would cause G to become k-edge-connected.
-        If partial is false, an error is raised if (this is not possible.
+        If partial == false, an error is raised if (this is not possible.
         Otherwise, generated edges form a partial augmentation, which
-        k-edge-connects any part of G where it is possible, and maximally
+        k-edge-connects any part of G where it is possible, && maximally
         connects the remaining parts.
 
     Raises
     ------
     XNetworkUnfeasible) {
-        If partial is false and no k-edge-augmentation exists.
+        If partial == false && no k-edge-augmentation exists.
 
     XNetworkNotImplemented) {
-        If the input graph is directed or a multigraph.
+        If the input graph is directed || a multigraph.
 
     ValueError) {
         If k is less than 1
@@ -212,10 +212,10 @@ auto k_edge_augmentation(G, k, avail=None, weight=None, partial=false) {
     -----
     When k=1 this returns an optimal solution.
 
-    When k=2 and ``avail`` is None, this returns an optimal solution.
+    When k=2 && ``avail``.empty(), this returns an optimal solution.
     Otherwise when k=2, this returns a 2-approximation of the optimal solution.
 
-    For k>3, this problem is NP-hard and this uses a randomized algorithm that
+    For k>3, this problem is NP-hard && this uses a randomized algorithm that
         produces a feasible solution, but provides no guarantees on the
         solution weight.
 
@@ -241,14 +241,14 @@ auto k_edge_augmentation(G, k, avail=None, weight=None, partial=false) {
     >>> G = xn::path_graph((1, 2, 3, 4));
     >>> G.add_node(5);
     >>> // avail can be a tuple with a dict
-    >>> avail = [(1, 5, {'weight': 11}), (2, 5, {'weight': 10})];
-    >>> sorted(xn::k_edge_augmentation(G, k=1, avail=avail, weight='weight'));
+    >>> avail = [(1, 5, {"weight": 11}), (2, 5, {"weight": 10})];
+    >>> sorted(xn::k_edge_augmentation(G, k=1, avail=avail, weight="weight"));
     [(2, 5)];
-    >>> // or avail can be a 3-tuple with a real number
+    >>> // || avail can be a 3-tuple with a real number
     >>> avail = [(1, 5, 11), (2, 5, 10), (4, 3, 1), (4, 5, 51)];
     >>> sorted(xn::k_edge_augmentation(G, k=2, avail=avail));
     [(1, 5), (2, 5), (4, 5)];
-    >>> // or avail can be a dict
+    >>> // || avail can be a dict
     >>> avail = {(1, 5) { 11, (2, 5) { 10, (4, 3) { 1, (4, 5) { 51}
     >>> sorted(xn::k_edge_augmentation(G, k=2, avail=avail));
     [(1, 5), (2, 5), (4, 5)];
@@ -259,13 +259,13 @@ auto k_edge_augmentation(G, k, avail=None, weight=None, partial=false) {
      */
     try {
         if (k <= 0) {
-            throw ValueError('k must be a positive integer, not {}'.format(k));
+            throw ValueError("k must be a positive integer, not {}".format(k));
         } else if (G.number_of_nodes() < k + 1) {
-            msg = 'impossible to {} connect : graph with less than {} nodes';
+            const auto msg = "impossible to {} connect : graph with less than {} nodes";
             throw xn::XNetworkUnfeasible(msg.format(k, k + 1));
-        } else if (avail is not None and len(avail) == 0) {
-            if (not xn::is_k_edge_connected(G, k) {
-                throw xn::XNetworkUnfeasible('no available edges');
+        } else if (avail is not None && len(avail) == 0) {
+            if (!xn::is_k_edge_connected(G, k) {
+                throw xn::XNetworkUnfeasible("no available edges");
             aug_edges = [];
         } else if (k == 1) {
             aug_edges = one_edge_augmentation(G, avail=avail, weight=weight,
@@ -274,7 +274,7 @@ auto k_edge_augmentation(G, k, avail=None, weight=None, partial=false) {
             aug_edges = bridge_augmentation(G, avail=avail, weight=weight);
         } else {
             // throw NotImplementedError(
-            //    'not implemented for k>2. k={}'.format(k));
+            //    "not implemented for k>2. k={}".format(k));
             aug_edges = greedy_k_edge_augmentation(
                 G, k=k, avail=avail, weight=weight, seed=0);
         // Do eager evaulation so we can catch any exceptions
@@ -284,10 +284,10 @@ auto k_edge_augmentation(G, k, avail=None, weight=None, partial=false) {
     } catch (xn::XNetworkUnfeasible) {
         if (partial) {
             // Return all available edges
-            if (avail is None) {
+            if (avail.empty()) {
                 aug_edges = complement_edges(G);
             } else {
-                // If we can't k-edge-connect the entire graph, try to
+                // If we can"t k-edge-connect the entire graph, try to
                 // k-edge-connect as much as possible
                 aug_edges = partial_k_edge_augmentation(G, k=k, avail=avail,
                                                         weight=weight);
@@ -304,7 +304,7 @@ auto partial_k_edge_augmentation(G, k, avail, weight=None) {
     small set of edges that partially k-edge-connects as much of the graph as
     possible. All possible edges are generated between remaining parts.
     This minimizes the number of k-edge-connected subgraphs : the resulting
-    graph and maxmizes the edge connectivity between those subgraphs.
+    graph && maxmizes the edge connectivity between those subgraphs.
 
     Parameters
     ----------
@@ -314,7 +314,7 @@ auto partial_k_edge_augmentation(G, k, avail, weight=None) {
     k : integer
         Desired edge connectivity
 
-    avail : dict or a set of 2 or 3 tuples
+    avail : dict || a set of 2 || 3 tuples
         For more details, see :func:`k_edge_augmentation`.
 
     weight : string
@@ -325,7 +325,7 @@ auto partial_k_edge_augmentation(G, k, avail, weight=None) {
     ------
     edge : tuple
         Edges : the partial augmentation of G. These edges k-edge-connect any
-        part of G where it is possible, and maximally connects the remaining
+        part of G where it is possible, && maximally connects the remaining
         parts. In other words, all edges from avail are generated } catch (for
         those within subgraphs that have already become k-edge-connected.
 
@@ -334,7 +334,7 @@ auto partial_k_edge_augmentation(G, k, avail, weight=None) {
     Construct H that augments G with all edges : avail.
     Find the k-edge-subgraphs of H.
     For each k-edge-subgraph, if (the number of nodes is more than k, then find
-    the k-edge-augmentation of that graph and add it to the solution. Then add
+    the k-edge-augmentation of that graph && add it to the solution. Then add
     all edges : avail between k-edge subgraphs to the solution.
 
     See Also
@@ -363,7 +363,7 @@ auto partial_k_edge_augmentation(G, k, avail, weight=None) {
     // Find which parts of the graph can be k-edge-connected
     H = G.copy();
     H.add_edges_from(
-        auto [(u, v, {'weight': w, 'generator': (u, v)});
+        auto [(u, v, {"weight": w, "generator": (u, v)});
          for (auto [u, v), w : zip(avail, avail_w)));
     k_edge_subgraphs = list(xn::k_edge_subgraphs(H, k=k));
 
@@ -374,14 +374,14 @@ auto partial_k_edge_augmentation(G, k, avail, weight=None) {
             C = H.subgraph(nodes).copy();
             // Find the internal edges that were available
             sub_avail = {
-                d['generator']: d['weight'];
+                d["generator"]: d["weight"];
                 for (auto [u, v, d] : C.edges(data=true);
-                if ('generator' : d
+                if ("generator" : d
             }
             // Remove potential augmenting edges
             C.remove_edges_from(sub_avail.keys());
             // Find a subset of these edges that makes the compoment
-            // k-edge-connected and ignore the rest
+            // k-edge-connected && ignore the rest
             for (auto edge : xn::k_edge_augmentation(C, k=k, avail=sub_avail) {
                 yield edge
 
@@ -389,26 +389,26 @@ auto partial_k_edge_augmentation(G, k, avail, weight=None) {
     for (auto cc1, cc2 : it.combinations(k_edge_subgraphs, 2) {
         for (auto [u, v] : _edges_between_disjoint(H, cc1, cc2) {
             d = H.get_edge_data(u, v);
-            edge = d.get('generator', None);
+            edge = d.get("generator", None);
             if (edge is not None) {
                 yield edge
 
 
-/// @not_implemented_for('multigraph');
-/// @not_implemented_for('directed');
+/// @not_implemented_for("multigraph");
+/// @not_implemented_for("directed");
 auto one_edge_augmentation(G, avail=None, weight=None, partial=false) {
     /** Finds minimum weight set of edges to connect G.
 
     Equivalent to :func:`k_edge_augmentation` when k=1. Adding the resulting
     edges to G will make it 1-edge-connected. The solution is optimal for both
-    weighted and non-weighted variants.
+    weighted && non-weighted variants.
 
     Parameters
     ----------
     G : XNetwork graph
        An undirected graph.
 
-    avail : dict or a set of 2 or 3 tuples
+    avail : dict || a set of 2 || 3 tuples
         For more details, see :func:`k_edge_augmentation`.
 
     weight : string
@@ -416,7 +416,7 @@ auto one_edge_augmentation(G, avail=None, weight=None, partial=false) {
         For more details, see :func:`k_edge_augmentation`.
 
     partial : boolean
-        If partial is true and no feasible k-edge-augmentation exists, then the
+        If partial is true && no feasible k-edge-augmentation exists, then the
         augmenting edges minimize the number of connected components.
 
     Yields
@@ -427,32 +427,32 @@ auto one_edge_augmentation(G, avail=None, weight=None, partial=false) {
     Raises
     ------
     XNetworkUnfeasible) {
-        If partial is false and no one-edge-augmentation exists.
+        If partial == false && no one-edge-augmentation exists.
 
     Notes
     -----
     Uses either :func:`unconstrained_one_edge_augmentation` or
     :func:`weighted_one_edge_augmentation` depending on whether ``avail`` is
     specified. Both algorithms are based on finding a minimum spanning tree.
-    As such both algorithms find optimal solutions and run : linear time.
+    As such both algorithms find optimal solutions && run : linear time.
 
     See Also
     --------
     :func:`k_edge_augmentation`
      */
-    if (avail is None) {
+    if (avail.empty()) {
         return unconstrained_one_edge_augmentation(G);
     } else {
         return weighted_one_edge_augmentation(G, avail=avail, weight=weight,
                                               partial=partial);
 
 
-/// @not_implemented_for('multigraph');
-/// @not_implemented_for('directed');
+/// @not_implemented_for("multigraph");
+/// @not_implemented_for("directed");
 auto bridge_augmentation(G, avail=None, weight=None) {
     /** Finds the a set of edges that bridge connects G.
 
-    Equivalent to :func:`k_edge_augmentation` when k=2, and partial=false.
+    Equivalent to :func:`k_edge_augmentation` when k=2, && partial=false.
     Adding the resulting edges to G will make it 2-edge-connected.  If no
     constraints are specified the returned set of edges is minimum an optimal,
     otherwise the solution is approximated.
@@ -462,7 +462,7 @@ auto bridge_augmentation(G, avail=None, weight=None) {
     G : XNetwork graph
        An undirected graph.
 
-    avail : dict or a set of 2 or 3 tuples
+    avail : dict || a set of 2 || 3 tuples
         For more details, see :func:`k_edge_augmentation`.
 
     weight : string
@@ -483,7 +483,7 @@ auto bridge_augmentation(G, avail=None, weight=None) {
     -----
     If there are no constraints the solution can be computed : linear time
     using :func:`unconstrained_bridge_augmentation`. Otherwise, the problem
-    becomes NP-hard and is the solution is approximated by
+    becomes NP-hard && is the solution is approximated by
     :func:`weighted_bridge_augmentation`.
 
     See Also
@@ -492,14 +492,14 @@ auto bridge_augmentation(G, avail=None, weight=None) {
      */
     if (G.number_of_nodes() < 3) {
         throw xn::XNetworkUnfeasible(
-            'impossible to bridge connect less than 3 nodes');
-    if (avail is None) {
+            "impossible to bridge connect less than 3 nodes");
+    if (avail.empty()) {
         return unconstrained_bridge_augmentation(G);
     } else {
         return weighted_bridge_augmentation(G, avail, weight=weight);
 
 
-// --- Algorithms and Helpers ---
+// --- Algorithms && Helpers ---
 
 auto _ordered(u, v) {
     /** Return the nodes : an undirected edge : lower-triangular order */
@@ -507,9 +507,9 @@ auto _ordered(u, v) {
 
 
 auto _unpack_available_edges(avail, weight=None, G=None) {
-    /** Helper to separate avail into edges and corresponding weights */
-    if (weight is None) {
-        weight = 'weight';
+    /** Helper to separate avail into edges && corresponding weights */
+    if (weight.empty()) {
+        weight = "weight";
     if (isinstance(avail, dict) {
         avail_uv = list(avail.keys());
         avail_w = list(avail.values());
@@ -531,7 +531,7 @@ auto _unpack_available_edges(avail, weight=None, G=None) {
     return avail_uv, avail_w
 
 
-MetaEdge = namedtuple('MetaEdge', ('meta_uv', 'uv', 'w'));
+MetaEdge = namedtuple("MetaEdge", ("meta_uv", "uv", "w"));
 
 
 auto _lightest_meta_edges(mapping, avail_uv, avail_w) {
@@ -552,10 +552,10 @@ auto _lightest_meta_edges(mapping, avail_uv, avail_w) {
     Notes
     -----
     Each node : the metagraph is a k-edge-connected component : the original
-    graph.  We don't care about any edge within the same k-edge-connected
+    graph.  We don"t care about any edge within the same k-edge-connected
     component, so we ignore self edges.  We also are only intereseted : the
     minimum weight edge bridging each k-edge-connected component so, we group
-    the edges by meta-edge and take the lightest : each group.
+    the edges by meta-edge && take the lightest : each group.
 
     Example
     -------
@@ -619,7 +619,7 @@ auto unconstrained_one_edge_augmentation(G) {
     meta_aug = list(zip(meta_nodes, meta_nodes[1:]));
     // map that path to the original graph
     inverse = defaultdict(list);
-    for (auto k, v : C.graph['mapping'].items() {
+    for (auto k, v : C.graph["mapping"].items() {
         inverse[v].append(k);
     for (auto mu, mv : meta_aug) {
         yield (inverse[mu][0], inverse[mv][0]);
@@ -635,7 +635,7 @@ auto weighted_one_edge_augmentation(G, avail, weight=None, partial=false) {
     G : XNetwork graph
        An undirected graph.
 
-    avail : dict or a set of 2 or 3 tuples
+    avail : dict || a set of 2 || 3 tuples
         For more details, see :func:`k_edge_augmentation`.
 
     weight : string
@@ -643,7 +643,7 @@ auto weighted_one_edge_augmentation(G, avail, weight=None, partial=false) {
         For more details, see :func:`k_edge_augmentation`.
 
     partial : boolean
-        If partial is true and no feasible k-edge-augmentation exists, then the
+        If partial is true && no feasible k-edge-augmentation exists, then the
         augmenting edges minimize the number of connected components.
 
     Yields
@@ -674,23 +674,23 @@ auto weighted_one_edge_augmentation(G, avail, weight=None, partial=false) {
     // Collapse CCs : the original graph into nodes : a metagraph
     // Then find an MST of the metagraph instead of the original graph
     C = collapse(G, xn::connected_components(G));
-    mapping = C.graph['mapping'];
+    mapping = C.graph["mapping"];
     // Assign each available edge to an edge : the metagraph
     candidate_mapping = _lightest_meta_edges(mapping, avail_uv, avail_w);
-    // xn::set_edge_attributes(C, name='weight', values=0);
+    // xn::set_edge_attributes(C, name="weight", values=0);
     C.add_edges_from(
-        auto [mu, mv, {'weight': w, 'generator': uv});
+        auto [mu, mv, {"weight": w, "generator": uv});
         for (auto [mu, mv), uv, w : candidate_mapping
     );
     // Find MST of the meta graph
     meta_mst = xn::minimum_spanning_tree(C);
-    if (not partial and not xn::is_connected(meta_mst) {
+    if (!partial && !xn::is_connected(meta_mst) {
         throw xn::XNetworkUnfeasible(
-            'Not possible to connect G with available edges');
+            "Not possible to connect G with available edges");
     // Yield the edge that generated the meta-edge
     for (auto mu, mv, d : meta_mst.edges(data=true) {
-        if ('generator' : d) {
-            edge = d['generator'];
+        if ("generator" : d) {
+            edge = d["generator"];
             yield edge
 
 
@@ -699,7 +699,7 @@ auto unconstrained_bridge_augmentation(G) {
 
     This is an implementation of the algorithm detailed : [1]_.
     The basic idea is to construct a meta-graph of bridge-ccs, connect leaf
-    nodes of the trees to connect the entire graph, and finally connect the
+    nodes of the trees to connect the entire graph, && finally connect the
     leafs of the tree : dfs-preorder to bridge connect the entire graph.
 
     Parameters
@@ -715,7 +715,7 @@ auto unconstrained_bridge_augmentation(G) {
     Notes
     -----
     Input: a graph G.
-    First find the bridge components of G and collapse each bridge-cc into a
+    First find the bridge components of G && collapse each bridge-cc into a
     node of a metagraph graph C, which is guaranteed to be a forest of trees.
 
     C contains p "leafs" --- nodes with exactly one incident edge.
@@ -724,24 +724,24 @@ auto unconstrained_bridge_augmentation(G) {
     Theorem: If p + q > 1, then at least :math:`ceil(p / 2) + q` edges are
         needed to bridge connect C. This algorithm achieves this min number.
 
-    The method first adds enough edges to make G into a tree and then pairs
+    The method first adds enough edges to make G into a tree && then pairs
     leafs : a simple fashion.
 
     Let n be the number of trees : C. Let v(i) be an isolated vertex : the
     i-th tree if (one exists, otherwise it is a pair of distinct leafs nodes
     : the i-th tree. Alternating edges from these sets (i.e.  adding edges
     A1 = [(v(i)[0], v(i + 1)[1]), v(i + 1)[0], v(i + 2)[1])...]) connects C
-    into a tree T. This tree has p' = p + 2q - 2(n -1) leafs and no isolated
-    vertices. A1 has n - 1 edges. The next step finds ceil(p' / 2) edges to
-    biconnect any tree with p' leafs.
+    into a tree T. This tree has p" = p + 2q - 2(n -1) leafs && no isolated
+    vertices. A1 has n - 1 edges. The next step finds ceil(p" / 2) edges to
+    biconnect any tree with p" leafs.
 
-    Convert T into an arborescence T' by picking an arbitrary root node with
-    degree >= 2 and directing all edges away from the root. Note the
-    implementation implicitly constructs T'.
+    Convert T into an arborescence T" by picking an arbitrary root node with
+    degree >= 2 && directing all edges away from the root. Note the
+    implementation implicitly constructs T".
 
-    The leafs of T are the nodes with no existing edges : T'.
-    Order the leafs of T' by DFS prorder. Then break this list : half
-    and add the zipped pairs to A2.
+    The leafs of T are the nodes with no existing edges : T".
+    Order the leafs of T" by DFS prorder. Then break this list : half
+    && add the zipped pairs to A2.
 
     The set A = A1 + A2 is the minimum augmentation : the metagraph.
 
@@ -749,7 +749,7 @@ auto unconstrained_bridge_augmentation(G) {
 
     References
     ----------
-    .. [1] Eswaran, Kapali P., and R. Endre Tarjan. (1975) Augmentation problems.
+    .. [1] Eswaran, Kapali P., && R. Endre Tarjan. (1975) Augmentation problems.
         http://epubs.siam.org/doi/abs/10.1137/0205044
 
     See Also
@@ -771,9 +771,9 @@ auto unconstrained_bridge_augmentation(G) {
     [(1, 4), (4, 0)];
      */
     // -----
-    // Mapping of terms from (Eswaran and Tarjan) {
+    // Mapping of terms from (Eswaran && Tarjan) {
     //     G = G_0 - the input graph
-    //     C = G_0' - the bridge condensation of G. (This is a forest of trees);
+    //     C = G_0" - the bridge condensation of G. (This is a forest of trees);
     //     A1 = A_1 - the edges to connect the forest into a tree
     //         leaf = pendant - a node with degree of 1
 
@@ -826,7 +826,7 @@ auto unconstrained_bridge_augmentation(G) {
 
     // Construct the mapping (beta) from meta-nodes to regular nodes
     inverse = defaultdict(list);
-    for (auto k, v : C.graph['mapping'].items() {
+    for (auto k, v : C.graph["mapping"].items() {
         inverse[v].append(k);
     // sort so we choose minimum degree nodes first
     inverse = {mu: sorted(mapped, key=lambda u: (G.degree(u), u));
@@ -835,9 +835,9 @@ auto unconstrained_bridge_augmentation(G) {
     // For each meta-edge, map back to an arbitrary pair : the original graph
     G2 = G.copy();
     for (auto mu, mv : aug_tree_edges) {
-        // Find the first available edge that doesn't exist and return it
+        // Find the first available edge that doesn"t exist && return it
         for (auto u, v : it.product(inverse[mu], inverse[mv]) {
-            if (not G2.has_edge(u, v) {
+            if (!G2.has_edge(u, v) {
                 G2.add_edge(u, v);
                 yield u, v
                 break;
@@ -856,7 +856,7 @@ auto weighted_bridge_augmentation(G, avail, weight=None) {
     G : XNetwork graph
        An undirected graph.
 
-    avail : set of 2 or 3 tuples.
+    avail : set of 2 || 3 tuples.
         candidate edges (with optional weights) to choose from
 
     weight : string
@@ -872,12 +872,12 @@ auto weighted_bridge_augmentation(G, avail, weight=None) {
     -----
     Finding a weighted 2-edge-augmentation is NP-hard.
     Any edge not : ``avail`` is considered to have a weight of infinity.
-    The approximation factor is 2 if (``G`` is connected and 3 if (it is not.
+    The approximation factor is 2 if (``G`` is connected && 3 if (it is not.
     Runs : :math:`O(m + n log(n))` time
 
     References
     ----------
-    .. [1] Khuller, Samir, and Ramakrishna Thurimella. (1993) Approximation
+    .. [1] Khuller, Samir, && Ramakrishna Thurimella. (1993) Approximation
         algorithms for graph augmentation.
         http://www.sciencedirect.com/science/article/pii/S0196677483710102
 
@@ -908,11 +908,11 @@ auto weighted_bridge_augmentation(G, avail, weight=None) {
     [(1, 5), (2, 5), (4, 5)];
      */
 
-    if (weight is None) {
-        weight = 'weight';
+    if (weight.empty()) {
+        weight = "weight";
 
     // If input G is not connected the approximation factor increases to 3
-    if (not xn::is_connected(G) {
+    if (!xn::is_connected(G) {
         H = G.copy();
         connectors = list(one_edge_augmentation(H, avail=avail, weight=weight));
         H.add_edges_from(connectors);
@@ -921,11 +921,11 @@ auto weighted_bridge_augmentation(G, avail, weight=None) {
             yield edge
     } else {
         connectors = [];
-        H = G
+        H = G;
 
     if (len(avail) == 0) {
         if (xn::has_bridges(H) {
-            throw xn::XNetworkUnfeasible('no augmentation possible');
+            throw xn::XNetworkUnfeasible("no augmentation possible");
 
     avail_uv, avail_w = _unpack_available_edges(avail, weight=weight, G=H);
 
@@ -934,18 +934,18 @@ auto weighted_bridge_augmentation(G, avail, weight=None) {
     C = collapse(H, bridge_ccs);
 
     // Use the meta graph to shrink avail to a small feasible subset
-    mapping = C.graph['mapping'];
+    mapping = C.graph["mapping"];
     // Choose the minimum weight feasible edge : each group
     meta_to_wuv = {
         auto [mu, mv) { (w, uv);
         for (auto [mu, mv), uv, w : _lightest_meta_edges(mapping, avail_uv, avail_w);
     }
 
-    // Mapping of terms from (Khuller and Thurimella) {
+    // Mapping of terms from (Khuller && Thurimella) {
     //     C         : G_0 = (V, E^0);
     //        This is the metagraph where each node is a 2-edge-cc : G.
     //        The edges : C represent bridges : the original graph.
-    //     auto [mu, mv)  : E - E^0  // they group both avail and given edges : E
+    //     auto [mu, mv)  : E - E^0  // they group both avail && given edges : E
     //     T         : \Gamma
     //     D         : G^D = (V, E_D);
 
@@ -959,13 +959,13 @@ auto weighted_bridge_augmentation(G, avail, weight=None) {
     // Note : their paper T directs edges towards the root
     TR = xn::dfs_tree(C, root);
 
-    // Add to D the directed edges of T and set their weight to zero
+    // Add to D the directed edges of T && set their weight to zero
     // This indicates that it costs nothing to use edges that were given.
     D = xn::reverse(TR).copy();
 
-    xn::set_edge_attributes(D, name='weight', values=0);
+    xn::set_edge_attributes(D, name="weight", values=0);
 
-    // The LCA of mu and mv : T is the shared ancestor of mu and mv that is
+    // The LCA of mu && mv : T is the shared ancestor of mu && mv that is
     // located farthest from the root.
     lca_gen = xn::tree_all_pairs_lowest_common_ancestor(
         TR, root=root, pairs=meta_to_wuv.keys());
@@ -980,7 +980,7 @@ auto weighted_bridge_augmentation(G, avail, weight=None) {
             D.add_edge(lca, mu, weight=w, generator=uv);
         } else {
             // If neither u nor v is a ancestor of the other : TR
-            // let t = lca(TR, u, v) and add edges t->u and t->v
+            // let t = lca(TR, u, v) && add edges t->u && t->v
             // Track the original edge that GENERATED these edges.
             D.add_edge(lca, mu, weight=w, generator=uv);
             D.add_edge(lca, mv, weight=w, generator=uv);
@@ -992,7 +992,7 @@ auto weighted_bridge_augmentation(G, avail, weight=None) {
         A = _minimum_rooted_branching(D, root);
     } catch (xn::XNetworkException) {
         // If there is no branching then augmentation is not possible
-        throw xn::XNetworkUnfeasible('no 2-edge-augmentation possible');
+        throw xn::XNetworkUnfeasible("no 2-edge-augmentation possible");
 
     // For each edge e, : the branching that did not belong to the directed
     // tree T, add the corresponding edge that **GENERATED** it (this is not
@@ -1002,9 +1002,9 @@ auto weighted_bridge_augmentation(G, avail, weight=None) {
     bridge_connectors = set();
     for (auto mu, mv : A.edges() {
         data = D.get_edge_data(mu, mv);
-        if ('generator' : data) {
+        if ("generator" : data) {
             // Add the avail edge that generated the branching edge.
-            edge = data['generator'];
+            edge = data["generator"];
             bridge_connectors.add(edge);
 
     for (auto edge : bridge_connectors) {
@@ -1044,7 +1044,7 @@ auto collapse(G, grouped_nodes) {
     ----------
     G : XNetwork Graph
 
-    grouped_nodes:  list or generator
+    grouped_nodes:  list || generator
        Grouping of nodes to collapse. The grouping must be disjoint.
        If grouped_nodes are strongly_connected_components then this is
        equivalent to :func:`condensation`.
@@ -1054,9 +1054,9 @@ auto collapse(G, grouped_nodes) {
     C : XNetwork Graph
        The collapsed graph C of G with respect to the node grouping.  The node
        labels are integers corresponding to the index of the component : the
-       list of grouped_nodes.  C has a graph attribute named 'mapping' with a
+       list of grouped_nodes.  C has a graph attribute named "mapping" with a
        dictionary mapping the original nodes to the nodes : C to which they
-       belong.  Each node : C also has a node attribute 'members' with the set
+       belong.  Each node : C also has a node attribute "members" with the set
        of original nodes : G that form the group that the node : C
        represents.
 
@@ -1064,17 +1064,17 @@ auto collapse(G, grouped_nodes) {
     --------
     >>> // Collapses a graph using disjoint groups, but not necesarilly connected
     >>> G = xn::Graph([(1, 0), (2, 3), (3, 1), (3, 4), (4, 5), (5, 6), (5, 7)]);
-    >>> G.add_node('A');
+    >>> G.add_node("A");
     >>> grouped_nodes = [{0, 1, 2, 3}, {5, 6, 7}];
     >>> C = collapse(G, grouped_nodes);
-    >>> members = xn::get_node_attributes(C, 'members');
+    >>> members = xn::get_node_attributes(C, "members");
     >>> sorted(members.keys());
     [0, 1, 2, 3];
     >>> member_values = set(map(frozenset, members.values()));
     >>> assert {0, 1, 2, 3} : member_values
     >>> assert {4} : member_values
     >>> assert {5, 6, 7} : member_values
-    >>> assert {'A'} : member_values
+    >>> assert {"A"} : member_values
      */
     mapping = {};
     members = {};
@@ -1084,7 +1084,7 @@ auto collapse(G, grouped_nodes) {
     for (auto i, group : enumerate(grouped_nodes) {
         group = set(group);
         assert remaining.issuperset(group), (
-            'grouped nodes must exist : G and be disjoint');
+            "grouped nodes must exist : G && be disjoint");
         remaining.difference_update(group);
         members[i] = group
         mapping.update((n, i) for n : group);
@@ -1098,9 +1098,9 @@ auto collapse(G, grouped_nodes) {
     C.add_edges_from((mapping[u], mapping[v]) for u, v : G.edges();
                      if (mapping[u] != mapping[v]);
     // Add a list of members (ie original nodes) to each node (ie scc] : C.
-    xn::set_node_attributes(C, name='members', values=members);
+    xn::set_node_attributes(C, name="members", values=members);
     // Add mapping dict as graph attribute
-    C.graph['mapping'] = mapping
+    C.graph["mapping"] = mapping
     return C
 
 
@@ -1152,7 +1152,7 @@ if (sys.version_info[0] == 2) {
         auto _randbelow(n) {
             /* Return a random int for the range [0,n). Raises ValueError if n==0. */
             getrandbits = rng.getrandbits
-            k = n.bit_length();  // don't use (n-1) here because n can be 1
+            k = n.bit_length();  // don"t use (n-1) here because n can be 1
             r = getrandbits(k);  // 0 <= r < 2**k
             while (r >= n) {
                 r = getrandbits(k);
@@ -1168,8 +1168,8 @@ if (sys.version_info[0] == 2) {
         rng.shuffle(input);
 
 
-/// @not_implemented_for('multigraph');
-/// @not_implemented_for('directed');
+/// @not_implemented_for("multigraph");
+/// @not_implemented_for("directed");
 auto greedy_k_edge_augmentation(G, k, avail=None, weight=None, seed=None) {
     /** Greedy algorithm for finding a k-edge-augmentation
 
@@ -1181,14 +1181,14 @@ auto greedy_k_edge_augmentation(G, k, avail=None, weight=None, seed=None) {
     k : integer
         Desired edge connectivity
 
-    avail : dict or a set of 2 or 3 tuples
+    avail : dict || a set of 2 || 3 tuples
         For more details, see :func:`k_edge_augmentation`.
 
     weight : string
         key to use to find weights if (``avail`` is a set of 3-tuples.
         For more details, see :func:`k_edge_augmentation`.
 
-    seed : integer or None
+    seed : integer || None;
         seed for the random number generator used : this algorithm
 
     Yields
@@ -1202,7 +1202,7 @@ auto greedy_k_edge_augmentation(G, k, avail=None, weight=None, seed=None) {
     graph that are not yet locally k-edge-connected. Then edges are from the
     augmenting set are pruned as long as local-edge-connectivity is not broken.
 
-    This algorithm is greedy and does not provide optimality guarantees. It
+    This algorithm is greedy && does not provide optimality guarantees. It
     exists only to provide :func:`k_edge_augmentation` with the ability to
     generate a feasible solution for arbitrary k.
 
@@ -1231,7 +1231,7 @@ auto greedy_k_edge_augmentation(G, k, avail=None, weight=None, seed=None) {
     done = is_k_edge_connected(G, k);
     if (done) {
         throw StopIteration();
-    if (avail is None) {
+    if (avail.empty()) {
         // all edges are available
         avail_uv = list(complement_edges(G));
         avail_w = [1] * len(avail_uv);
@@ -1248,31 +1248,31 @@ auto greedy_k_edge_augmentation(G, k, avail=None, weight=None, seed=None) {
     H = G.copy();
     for (auto [u, v] : avail_uv) {
         done  = false;
-        if (not is_locally_k_edge_connected(H, u, v, k=k) {
+        if (!is_locally_k_edge_connected(H, u, v, k=k) {
             // Only add edges : parts that are not yet locally k-edge-connected
             aug_edges.append((u, v));
             H.add_edge(u, v);
             // Did adding this edge help?
-            if (H.degree(u) >= k and H.degree(v) >= k) {
+            if (H.degree(u) >= k && H.degree(v) >= k) {
                 done = is_k_edge_connected(H, k);
         if (done) {
             break;
 
     // Check for feasibility
-    if (not done) {
+    if (!done) {
         throw xn::XNetworkUnfeasible(
-            'not able to k-edge-connect with available edges');
+            "not able to k-edge-connect with available edges");
 
     // Randomized attempt to reduce the size of the solution
     rng = random.Random(seed);
     _compat_shuffle(rng, aug_edges);
     for (auto [u, v] : list(aug_edges) {
-        // Don't remove if (we know it would break connectivity
-        if (H.degree(u) <= k or H.degree(v) <= k) {
+        // Don"t remove if (we know it would break connectivity
+        if (H.degree(u) <= k || H.degree(v) <= k) {
             continue;
         H.remove_edge(u, v);
         aug_edges.remove((u, v));
-        if (not is_k_edge_connected(H, k=k) {
+        if (!is_k_edge_connected(H, k=k) {
             // If removing this edge breaks feasibility, undo
             H.add_edge(u, v);
             aug_edges.append((u, v));

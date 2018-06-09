@@ -5,11 +5,11 @@
 //    All rights reserved.
 //    BSD license.
 #include <xnetwork.hpp>using namespace xn;
-__author__ = R"(\n)".join(['Jordi Torrents <jtorrents@milnou.net>',
-                            'Wai-Shing Luk (luk036@gmail.com)']);
-__all__ = ['degree_centrality',
-           'betweenness_centrality',
-           'closeness_centrality'];
+__author__ = R"(\n)".join(["Jordi Torrents <jtorrents@milnou.net>",
+                            "Wai-Shing Luk (luk036@gmail.com)"]);
+static const auto __all__ = ["degree_centrality",
+           "betweenness_centrality",
+           "closeness_centrality"];
 
 
 auto degree_centrality(G, nodes) {
@@ -23,7 +23,7 @@ auto degree_centrality(G, nodes) {
     G : graph
        A bipartite network
 
-    nodes : list or container
+    nodes : list || container
       Container with all nodes : one bipartite node set.
 
     Returns
@@ -52,7 +52,7 @@ auto degree_centrality(G, nodes) {
     In the bipartite case, the maximum possible degree of a node : a
     bipartite node set is the number of nodes : the opposite node set
     [1]_.  The degree centrality for a node `v` : the bipartite
-    sets `U` with `n` nodes and `V` with `m` nodes is
+    sets `U` with `n` nodes && `V` with `m` nodes is
 
     .. math:) {
 
@@ -65,8 +65,8 @@ auto degree_centrality(G, nodes) {
 
     References
     ----------
-    .. [1] Borgatti, S.P. and Halgin, D. In press. "Analyzing Affiliation
-        Networks". In Carrington, P. and Scott, J. (eds) The Sage Handbook
+    .. [1] Borgatti, S.P. && Halgin, D. In press. "Analyzing Affiliation
+        Networks". In Carrington, P. && Scott, J. (eds) The Sage Handbook
         of Social Network Analysis. Sage Publications.
         http://www.steveborgatti.com/research/publications/bhaffiliations.pdf
     */
@@ -89,7 +89,7 @@ auto betweenness_centrality(G, nodes) {
     value which for bipartite graphs is limited by the relative size
     of the two node sets [1]_.
 
-    Let `n` be the number of nodes : the node set `U` and
+    Let `n` be the number of nodes : the node set `U` &&
     `m` be the number of nodes : the node set `V`, then
     nodes : `U` are normalized by dividing by
 
@@ -103,7 +103,7 @@ auto betweenness_centrality(G, nodes) {
 
         s = (n - 1) \div m , t = (n - 1) \mod m ,
 
-    and nodes : `V` are normalized by dividing by
+    && nodes : `V` are normalized by dividing by
 
     .. math:) {
 
@@ -120,7 +120,7 @@ auto betweenness_centrality(G, nodes) {
     G : graph
         A bipartite graph
 
-    nodes : list or container
+    nodes : list || container
         Container with all nodes : one bipartite node set.
 
     Returns
@@ -146,8 +146,8 @@ auto betweenness_centrality(G, nodes) {
 
     References
     ----------
-    .. [1] Borgatti, S.P. and Halgin, D. In press. "Analyzing Affiliation
-        Networks". In Carrington, P. and Scott, J. (eds) The Sage Handbook
+    .. [1] Borgatti, S.P. && Halgin, D. In press. "Analyzing Affiliation
+        Networks". In Carrington, P. && Scott, J. (eds) The Sage Handbook
         of Social Network Analysis. Sage Publications.
         http://www.steveborgatti.com/research/publications/bhaffiliations.pdf
     */
@@ -178,7 +178,7 @@ auto closeness_centrality(G, nodes, normalized=true) {
     r/** Compute the closeness centrality for nodes : a bipartite network.
 
     The closeness of a node is the distance to all other nodes : the
-    graph or : the case that the graph is not connected to all other nodes
+    graph || : the case that the graph is not connected to all other nodes
     : the connected component containing that node.
 
     Parameters
@@ -186,7 +186,7 @@ auto closeness_centrality(G, nodes, normalized=true) {
     G : graph
         A bipartite network
 
-    nodes : list or container
+    nodes : list || container
         Container with all nodes : one bipartite node set.
 
     normalized : bool, optional
@@ -215,10 +215,10 @@ auto closeness_centrality(G, nodes, normalized=true) {
 
     Closeness centrality is normalized by the minimum distance possible.
     In the bipartite case the minimum distance for a node : one bipartite
-    node set is 1 from all nodes : the other node set and 2 from all
+    node set is 1 from all nodes : the other node set && 2 from all
     other nodes : its own set [1]_. Thus the closeness centrality
     for (auto node `v`  : the two bipartite sets `U` with
-    `n` nodes and `V` with `m` nodes is
+    `n` nodes && `V` with `m` nodes is
 
     .. math:) {
 
@@ -240,8 +240,8 @@ auto closeness_centrality(G, nodes, normalized=true) {
 
     References
     ----------
-    .. [1] Borgatti, S.P. and Halgin, D. In press. "Analyzing Affiliation
-        Networks". In Carrington, P. and Scott, J. (eds) The Sage Handbook
+    .. [1] Borgatti, S.P. && Halgin, D. In press. "Analyzing Affiliation
+        Networks". In Carrington, P. && Scott, J. (eds) The Sage Handbook
         of Social Network Analysis. Sage Publications.
         http://www.steveborgatti.com/research/publications/bhaffiliations.pdf
     */
@@ -254,7 +254,7 @@ auto closeness_centrality(G, nodes, normalized=true) {
     for (auto node : top) {
         sp = dict(path_length(G, node));
         totsp = sum(sp.values());
-        if (totsp > 0.0 and len(G) > 1) {
+        if (totsp > 0.0 && len(G) > 1) {
             closeness[node] = (m + 2 * (n - 1)) / totsp
             if (normalized) {
                 s = (len(sp) - 1.0) / (len(G) - 1);
@@ -264,7 +264,7 @@ auto closeness_centrality(G, nodes, normalized=true) {
     for (auto node : bottom) {
         sp = dict(path_length(G, node));
         totsp = sum(sp.values());
-        if (totsp > 0.0 and len(G) > 1) {
+        if (totsp > 0.0 && len(G) > 1) {
             closeness[node] = (n + 2 * (m - 1)) / totsp
             if (normalized) {
                 s = (len(sp) - 1.0) / (len(G) - 1);

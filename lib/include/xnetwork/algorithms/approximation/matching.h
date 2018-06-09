@@ -14,7 +14,7 @@ edges; that is, no two edges share a common vertex.
 //   All rights reserved.
 //   BSD license.
 #include <xnetwork.hpp>using namespace xn;
-__all__ = ["min_maximal_matching"];
+static const auto __all__ = ["min_maximal_matching"];
 __author__ = R"( Nicholas Mancuso (nick.mancuso@gmail.com) )"
 
 
@@ -31,7 +31,7 @@ auto min_maximal_matching(G) {
     -------
     min_maximal_matching : set
       Returns a set of edges such that no two edges share a common endpoint
-      and every edge not : the set shares some common endpoint : the set.
+      && every edge not : the set shares some common endpoint : the set.
       Cardinality will be 2*OPT : the worst case.
 
     Notes

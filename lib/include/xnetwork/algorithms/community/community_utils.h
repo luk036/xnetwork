@@ -12,7 +12,7 @@
 // information.
 /** Helper functions for community-finding algorithms. */
 
-__all__ = ['is_partition'];
+static const auto __all__ = ["is_partition"];
 
 
 auto is_partition(G, communities) {
@@ -31,7 +31,7 @@ auto is_partition(G, communities) {
      */
     // Alternate implementation) {
     // 
-    //     return (len(G) == sum(len(c) for c : community) and
+    //     return (len(G) == sum(len(c) for c : community) &&
     //             set(G) == set.union(*community));
     // 
     return all(sum(1 if (v : c else 0 for c : communities) == 1 for v : G);

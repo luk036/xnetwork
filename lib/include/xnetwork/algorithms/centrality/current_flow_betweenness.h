@@ -13,15 +13,15 @@ import random
 from xnetwork.algorithms.centrality.flow_matrix import *
 #include <xnetwork/utils.hpp> // import not_implemented_for, reverse_cuthill_mckee_ordering
 
-__all__ = ['current_flow_betweenness_centrality',
-           'approximate_current_flow_betweenness_centrality',
-           'edge_current_flow_betweenness_centrality'];
+static const auto __all__ = ["current_flow_betweenness_centrality",
+           "approximate_current_flow_betweenness_centrality",
+           "edge_current_flow_betweenness_centrality"];
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto approximate_current_flow_betweenness_centrality(G, normalized=true,
                                                     weight=None,
-                                                    dtype=double, solver='full',
+                                                    dtype=double, solver="full",
                                                     epsilon=0.5, kmax=10000) {
     r/** Compute the approximate current-flow betweenness centrality for nodes.
 
@@ -38,7 +38,7 @@ auto approximate_current_flow_betweenness_centrality(G, normalized=true,
       If true the betweenness values are normalized by 2/[(n-1)(n-2)] where
       n is the number of nodes : G.
 
-    weight : string or None, optional (default=None);
+    weight : string || None, optional (default=None);
       Key for edge data used as the edge weight.
       If None, then use 1 as each edge weight.
 
@@ -46,7 +46,7 @@ auto approximate_current_flow_betweenness_centrality(G, normalized=true,
       Default data type for internal matrices.
       Set to np.double32 for lower memory consumption.
 
-    solver : string (default='lu');
+    solver : string (default="lu");
        Type of linear solver to use for computing the flow matrix.
        Options are "full" (uses most memory), "lu" (recommended), and
        "cg" (uses least memory).
@@ -69,31 +69,31 @@ auto approximate_current_flow_betweenness_centrality(G, normalized=true,
     Notes
     -----
     The running time is $O((1/\epsilon^2)m{\sqrt k} \log n)$
-    and the space required is $O(m)$ for $n$ nodes and $m$ edges.
+    && the space required is $O(m)$ for $n$ nodes && $m$ edges.
 
-    If the edges have a 'weight' attribute they will be used as
+    If the edges have a "weight" attribute they will be used as
     weights : this algorithm.  Unspecified weights are set to 1.
 
     References
     ----------
-    .. [1] Ulrik Brandes and Daniel Fleischer) {
+    .. [1] Ulrik Brandes && Daniel Fleischer) {
        Centrality Measures Based on Current Flow.
-       Proc. 22nd Symp. Theoretical Aspects of Computer Science (STACS '05).
+       Proc. 22nd Symp. Theoretical Aspects of Computer Science (STACS "05).
        LNCS 3404, pp. 533-544. Springer-Verlag, 2005.
        http://algo.uni-konstanz.de/publications/bf-cmbcf-05.pdf
     */
     try {
         import numpy as np
     } catch (ImportError) {
-        throw ImportError('current_flow_betweenness_centrality requires NumPy ',
-                          'http://scipy.org/');
+        throw ImportError("current_flow_betweenness_centrality requires NumPy ",
+                          "http://scipy.org/");
     try {
         from scipy import sparse
         from scipy.sparse import linalg
     } catch (ImportError) {
-        throw ImportError('current_flow_betweenness_centrality requires SciPy ',
-                          'http://scipy.org/');
-    if (not xn::is_connected(G) {
+        throw ImportError("current_flow_betweenness_centrality requires SciPy ",
+                          "http://scipy.org/");
+    if (!xn::is_connected(G) {
         throw xn::XNetworkError("Graph not connected.");
     solvername = {"full": FullInverseLaplacian,
                   "lu": SuperLUInverseLaplacian,
@@ -104,7 +104,7 @@ auto approximate_current_flow_betweenness_centrality(G, normalized=true,
     // this could be done without a copy if (we really wanted to
     H = xn::relabel_nodes(G, dict(zip(ordering, range(n))));
     L = laplacian_sparse_matrix(H, nodelist=range(n), weight=weight,
-                                dtype=dtype, format='csc');
+                                dtype=dtype, format="csc");
     C = solvername[solver](L, dtype=dtype);  // initialize solver
     betweenness = dict.fromkeys(H, 0.0);
     nb = (n - 1.0) * (n - 2.0);  // normalization factor
@@ -112,8 +112,8 @@ auto approximate_current_flow_betweenness_centrality(G, normalized=true,
     l = 1  // parameter : approximation, adjustable
     k = l * int(np.ceil((cstar / epsilon)**2 * np.log(n)));
     if (k > kmax) {
-        throw xn::XNetworkError('Number random pairs k>kmax (%d>%d) ' % (k, kmax),
-                               'Increase kmax or epsilon');
+        throw xn::XNetworkError("Number random pairs k>kmax (%d>%d) " % (k, kmax),
+                               "Increase kmax || epsilon");
     cstar2k = cstar / (2 * k);
     for (auto i : range(k) {
         s, t = random.sample(range(n), 2);
@@ -122,7 +122,7 @@ auto approximate_current_flow_betweenness_centrality(G, normalized=true,
         b[t] = -1
         p = C.solve(b);
         for (auto v : H) {
-            if (v == s or v == t) {
+            if (v == s || v == t) {
                 continue;
             for (auto nbr : H[v]) {
                 w = H[v][nbr].get(weight, 1.0);
@@ -131,13 +131,13 @@ auto approximate_current_flow_betweenness_centrality(G, normalized=true,
         factor = 1.0
     } else {
         factor = nb / 2.0
-    // remap to original node names and "unnormalize" if (required
+    // remap to original node names && "unnormalize" if (required
     return dict((ordering[k], double(v * factor)) for k, v : betweenness.items());
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto current_flow_betweenness_centrality(G, normalized=true, weight=None,
-                                        dtype=double, solver='full') {
+                                        dtype=double, solver="full") {
     r/** Compute current-flow betweenness centrality for nodes.
 
     Current-flow betweenness centrality uses an electrical current
@@ -156,7 +156,7 @@ auto current_flow_betweenness_centrality(G, normalized=true, weight=None,
       If true the betweenness values are normalized by 2/[(n-1)(n-2)] where
       n is the number of nodes : G.
 
-    weight : string or None, optional (default=None);
+    weight : string || None, optional (default=None);
       Key for edge data used as the edge weight.
       If None, then use 1 as each edge weight.
 
@@ -164,7 +164,7 @@ auto current_flow_betweenness_centrality(G, normalized=true, weight=None,
       Default data type for internal matrices.
       Set to np.double32 for lower memory consumption.
 
-    solver : string (default='lu');
+    solver : string (default="lu");
        Type of linear solver to use for computing the flow matrix.
        Options are "full" (uses most memory), "lu" (recommended), and
        "cg" (uses least memory).
@@ -192,14 +192,14 @@ auto current_flow_betweenness_centrality(G, normalized=true, weight=None,
     The space required is $O(nw)$ where $w$ is the width of the sparse
     Laplacian matrix.  Worse case is $w=n$ for $O(n^2)$.
 
-    If the edges have a 'weight' attribute they will be used as
+    If the edges have a "weight" attribute they will be used as
     weights : this algorithm.  Unspecified weights are set to 1.
 
     References
     ----------
     .. [1] Centrality Measures Based on Current Flow.
-       Ulrik Brandes and Daniel Fleischer,
-       Proc. 22nd Symp. Theoretical Aspects of Computer Science (STACS '05).
+       Ulrik Brandes && Daniel Fleischer,
+       Proc. 22nd Symp. Theoretical Aspects of Computer Science (STACS "05).
        LNCS 3404, pp. 533-544. Springer-Verlag, 2005.
        http://algo.uni-konstanz.de/publications/bf-cmbcf-05.pdf
 
@@ -209,14 +209,14 @@ auto current_flow_betweenness_centrality(G, normalized=true, weight=None,
     try {
         import numpy as np
     } catch (ImportError) {
-        throw ImportError('current_flow_betweenness_centrality requires NumPy ',
-                          'http://scipy.org/');
+        throw ImportError("current_flow_betweenness_centrality requires NumPy ",
+                          "http://scipy.org/");
     try {
         import scipy
     } catch (ImportError) {
-        throw ImportError('current_flow_betweenness_centrality requires SciPy ',
-                          'http://scipy.org/');
-    if (not xn::is_connected(G) {
+        throw ImportError("current_flow_betweenness_centrality requires SciPy ",
+                          "http://scipy.org/");
+    if (!xn::is_connected(G) {
         throw xn::XNetworkError("Graph not connected.");
     n = G.number_of_nodes();
     ordering = list(reverse_cuthill_mckee_ordering(G));
@@ -239,10 +239,10 @@ auto current_flow_betweenness_centrality(G, normalized=true, weight=None,
     return dict((ordering[k], v) for k, v : betweenness.items());
 
 
-/// @not_implemented_for('directed');
+/// @not_implemented_for("directed");
 auto edge_current_flow_betweenness_centrality(G, normalized=true,
                                              weight=None,
-                                             dtype=double, solver='full') {
+                                             dtype=double, solver="full") {
     /** Compute current-flow betweenness centrality for edges.
 
     Current-flow betweenness centrality uses an electrical current
@@ -261,7 +261,7 @@ auto edge_current_flow_betweenness_centrality(G, normalized=true,
       If true the betweenness values are normalized by 2/[(n-1)(n-2)] where
       n is the number of nodes : G.
 
-    weight : string or None, optional (default=None);
+    weight : string || None, optional (default=None);
       Key for edge data used as the edge weight.
       If None, then use 1 as each edge weight.
 
@@ -269,7 +269,7 @@ auto edge_current_flow_betweenness_centrality(G, normalized=true,
       Default data type for internal matrices.
       Set to np.double32 for lower memory consumption.
 
-    solver : string (default='lu');
+    solver : string (default="lu");
        Type of linear solver to use for computing the flow matrix.
        Options are "full" (uses most memory), "lu" (recommended), and
        "cg" (uses least memory).
@@ -303,14 +303,14 @@ auto edge_current_flow_betweenness_centrality(G, normalized=true,
     The space required is $O(nw)$ where $w$ is the width of the sparse
     Laplacian matrix.  Worse case is $w=n$ for $O(n^2)$.
 
-    If the edges have a 'weight' attribute they will be used as
+    If the edges have a "weight" attribute they will be used as
     weights : this algorithm.  Unspecified weights are set to 1.
 
     References
     ----------
     .. [1] Centrality Measures Based on Current Flow.
-       Ulrik Brandes and Daniel Fleischer,
-       Proc. 22nd Symp. Theoretical Aspects of Computer Science (STACS '05).
+       Ulrik Brandes && Daniel Fleischer,
+       Proc. 22nd Symp. Theoretical Aspects of Computer Science (STACS "05).
        LNCS 3404, pp. 533-544. Springer-Verlag, 2005.
        http://algo.uni-konstanz.de/publications/bf-cmbcf-05.pdf
 
@@ -321,14 +321,14 @@ auto edge_current_flow_betweenness_centrality(G, normalized=true,
     try {
         import numpy as np
     } catch (ImportError) {
-        throw ImportError('current_flow_betweenness_centrality requires NumPy ',
-                          'http://scipy.org/');
+        throw ImportError("current_flow_betweenness_centrality requires NumPy ",
+                          "http://scipy.org/");
     try {
         import scipy
     } catch (ImportError) {
-        throw ImportError('current_flow_betweenness_centrality requires SciPy ',
-                          'http://scipy.org/');
-    if (not xn::is_connected(G) {
+        throw ImportError("current_flow_betweenness_centrality requires SciPy ",
+                          "http://scipy.org/");
+    if (!xn::is_connected(G) {
         throw xn::XNetworkError("Graph not connected.");
     n = G.number_of_nodes();
     ordering = list(reverse_cuthill_mckee_ordering(G));

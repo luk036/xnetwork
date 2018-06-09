@@ -6,14 +6,14 @@ from xnetwork.testing import assert_nodes_equal, assert_edges_equal, assert_grap
 
 
 class TestConvertPandas: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
         try {
             import pandas as pd
         } catch (ImportError) {
-            throw SkipTest('Pandas not available.');
+            throw SkipTest("Pandas not available.");
 
     explicit _Self( ) {
         global pd
@@ -21,14 +21,14 @@ class TestConvertPandas: public object {
 
         this->r = pd.np.random.RandomState(seed=5);
         ints = this->r.random_integers(1, 10, size=(3, 2));
-        a = ['A', 'B', 'C'];
-        b = ['D', 'A', 'E'];
-        df = pd.DataFrame(ints, columns=['weight', 'cost']);
+        a = ["A", "B", "C"];
+        b = ["D", "A", "E"];
+        df = pd.DataFrame(ints, columns=["weight", "cost"]);
         df[0] = a  // Column label 0 (int);
-        df['b'] = b  // Column label 'b' (str);
+        df["b"] = b  // Column label "b" (str);
         this->df = df
-        mdf = pd.DataFrame([[4, 16, 'A', 'D']],
-                           columns=['weight', 'cost', 0, 'b']);
+        mdf = pd.DataFrame([[4, 16, "A", "D"]],
+                           columns=["weight", "cost", 0, "b"]);
         this->mdf = df.append(mdf);
 
     auto test_exceptions( ) {
@@ -40,65 +40,65 @@ class TestConvertPandas: public object {
         assert_raises(xn::XNetworkError, xn::from_pandas_adjacency, df);
 
     auto test_from_edgelist_all_attr( ) {
-        Gtrue = xn::Graph([('E', 'C', {'cost': 9, 'weight': 10}),
-                          auto ['B', 'A', {'cost': 1, 'weight': 7}),
-                          auto ['A', 'D', {'cost': 7, 'weight': 4})]);
-        G = xn::from_pandas_edgelist(this->df, 0, 'b', true);
+        Gtrue = xn::Graph([("E", "C", {"cost": 9, "weight": 10}),
+                          auto ["B", "A", {"cost": 1, "weight": 7}),
+                          auto ["A", "D", {"cost": 7, "weight": 4})]);
+        G = xn::from_pandas_edgelist(this->df, 0, "b", true);
         assert_graphs_equal(G, Gtrue);
         // MultiGraph
         MGtrue = xn::MultiGraph(Gtrue);
-        MGtrue.add_edge('A', 'D', cost=16, weight=4);
-        MG = xn::from_pandas_edgelist(this->mdf, 0, 'b', true, xn::MultiGraph());
+        MGtrue.add_edge("A", "D", cost=16, weight=4);
+        MG = xn::from_pandas_edgelist(this->mdf, 0, "b", true, xn::MultiGraph());
         assert_graphs_equal(MG, MGtrue);
 
     auto test_from_edgelist_multi_attr( ) {
-        Gtrue = xn::Graph([('E', 'C', {'cost': 9, 'weight': 10}),
-                          auto ['B', 'A', {'cost': 1, 'weight': 7}),
-                          auto ['A', 'D', {'cost': 7, 'weight': 4})]);
-        G = xn::from_pandas_edgelist(this->df, 0, 'b', ['weight', 'cost']);
+        Gtrue = xn::Graph([("E", "C", {"cost": 9, "weight": 10}),
+                          auto ["B", "A", {"cost": 1, "weight": 7}),
+                          auto ["A", "D", {"cost": 7, "weight": 4})]);
+        G = xn::from_pandas_edgelist(this->df, 0, "b", ["weight", "cost"]);
         assert_graphs_equal(G, Gtrue);
 
     auto test_from_edgelist_multidigraph_and_edge_attr( ) {
         // example from issue #2374
-        Gtrue = xn::MultiDiGraph([('X1', 'X4', {'Co': 'zA', 'Mi': 0, 'St': 'X1'}),
-                                 auto ['X1', 'X4', {'Co': 'zB', 'Mi': 54, 'St': 'X2'}),
-                                 auto ['X1', 'X4', {'Co': 'zB', 'Mi': 49, 'St': 'X3'}),
-                                 auto ['X1', 'X4', {'Co': 'zB', 'Mi': 44, 'St': 'X4'}),
-                                 auto ['Y1', 'Y3', {'Co': 'zC', 'Mi': 0, 'St': 'Y1'}),
-                                 auto ['Y1', 'Y3', {'Co': 'zC', 'Mi': 34, 'St': 'Y2'}),
-                                 auto ['Y1', 'Y3', {'Co': 'zC', 'Mi': 29, 'St': 'X2'}),
-                                 auto ['Y1', 'Y3', {'Co': 'zC', 'Mi': 24, 'St': 'Y3'}),
-                                 auto ['Z1', 'Z3', {'Co': 'zD', 'Mi': 0, 'St': 'Z1'}),
-                                 auto ['Z1', 'Z3', {'Co': 'zD', 'Mi': 14, 'St': 'X3'}),
-                                 auto ['Z1', 'Z3', {'Co': 'zE', 'Mi': 9, 'St': 'Z2'}),
-                                 auto ['Z1', 'Z3', {'Co': 'zE', 'Mi': 4, 'St': 'Z3'})]);
+        Gtrue = xn::MultiDiGraph([("X1", "X4", {"Co": "zA", "Mi": 0, "St": "X1"}),
+                                 auto ["X1", "X4", {"Co": "zB", "Mi": 54, "St": "X2"}),
+                                 auto ["X1", "X4", {"Co": "zB", "Mi": 49, "St": "X3"}),
+                                 auto ["X1", "X4", {"Co": "zB", "Mi": 44, "St": "X4"}),
+                                 auto ["Y1", "Y3", {"Co": "zC", "Mi": 0, "St": "Y1"}),
+                                 auto ["Y1", "Y3", {"Co": "zC", "Mi": 34, "St": "Y2"}),
+                                 auto ["Y1", "Y3", {"Co": "zC", "Mi": 29, "St": "X2"}),
+                                 auto ["Y1", "Y3", {"Co": "zC", "Mi": 24, "St": "Y3"}),
+                                 auto ["Z1", "Z3", {"Co": "zD", "Mi": 0, "St": "Z1"}),
+                                 auto ["Z1", "Z3", {"Co": "zD", "Mi": 14, "St": "X3"}),
+                                 auto ["Z1", "Z3", {"Co": "zE", "Mi": 9, "St": "Z2"}),
+                                 auto ["Z1", "Z3", {"Co": "zE", "Mi": 4, "St": "Z3"})]);
         df = pd.DataFrame.from_items([
-            auto ['O', ['X1', 'X1', 'X1', 'X1', 'Y1', 'Y1', 'Y1', 'Y1', 'Z1', 'Z1', 'Z1', 'Z1']),
-            auto ['D', ['X4', 'X4', 'X4', 'X4', 'Y3', 'Y3', 'Y3', 'Y3', 'Z3', 'Z3', 'Z3', 'Z3']),
-            auto ['St', ['X1', 'X2', 'X3', 'X4', 'Y1', 'Y2', 'X2', 'Y3', 'Z1', 'X3', 'Z2', 'Z3']),
-            auto ['Co', ['zA', 'zB', 'zB', 'zB', 'zC', 'zC', 'zC', 'zC', 'zD', 'zD', 'zE', 'zE']),
-            auto ['Mi', [0,   54,   49,   44,    0,   34,   29,   24,    0,   14,    9,   4])]);
-        G1 = xn::from_pandas_edgelist(df, source='O', target='D',
+            auto ["O", ["X1", "X1", "X1", "X1", "Y1", "Y1", "Y1", "Y1", "Z1", "Z1", "Z1", "Z1"]),
+            auto ["D", ["X4", "X4", "X4", "X4", "Y3", "Y3", "Y3", "Y3", "Z3", "Z3", "Z3", "Z3"]),
+            auto ["St", ["X1", "X2", "X3", "X4", "Y1", "Y2", "X2", "Y3", "Z1", "X3", "Z2", "Z3"]),
+            auto ["Co", ["zA", "zB", "zB", "zB", "zC", "zC", "zC", "zC", "zD", "zD", "zE", "zE"]),
+            auto ["Mi", [0,   54,   49,   44,    0,   34,   29,   24,    0,   14,    9,   4])]);
+        G1 = xn::from_pandas_edgelist(df, source="O", target="D",
                                      edge_attr=true,
                                      create_using=xn::MultiDiGraph());
-        G2 = xn::from_pandas_edgelist(df, source='O', target='D',
-                                     edge_attr=['St', 'Co', 'Mi'],
+        G2 = xn::from_pandas_edgelist(df, source="O", target="D",
+                                     edge_attr=["St", "Co", "Mi"],
                                      create_using=xn::MultiDiGraph());
         assert_graphs_equal(G1, Gtrue);
         assert_graphs_equal(G2, Gtrue);
 
     auto test_from_edgelist_one_attr( ) {
-        Gtrue = xn::Graph([('E', 'C', {'weight': 10}),
-                          auto ['B', 'A', {'weight': 7}),
-                          auto ['A', 'D', {'weight': 4})]);
-        G = xn::from_pandas_edgelist(this->df, 0, 'b', 'weight');
+        Gtrue = xn::Graph([("E", "C", {"weight": 10}),
+                          auto ["B", "A", {"weight": 7}),
+                          auto ["A", "D", {"weight": 4})]);
+        G = xn::from_pandas_edgelist(this->df, 0, "b", "weight");
         assert_graphs_equal(G, Gtrue);
 
     auto test_from_edgelist_no_attr( ) {
-        Gtrue = xn::Graph([('E', 'C', {}),
-                          auto ['B', 'A', {}),
-                          auto ['A', 'D', {})]);
-        G = xn::from_pandas_edgelist(this->df, 0, 'b',);
+        Gtrue = xn::Graph([("E", "C", {}),
+                          auto ["B", "A", {}),
+                          auto ["A", "D", {})]);
+        G = xn::from_pandas_edgelist(this->df, 0, "b",);
         assert_graphs_equal(G, Gtrue);
 
     auto test_from_edgelist( ) {
@@ -110,11 +110,11 @@ class TestConvertPandas: public object {
         edgelist = xn::to_edgelist(G);
         source = [s for s, t, d : edgelist];
         target = [t for s, t, d : edgelist];
-        weight = [d['weight'] for s, t, d : edgelist];
-        edges = pd.DataFrame({'source': source,
-                              'target': target,
-                              'weight': weight});
-        GG = xn::from_pandas_edgelist(edges, edge_attr='weight');
+        weight = [d["weight"] for s, t, d : edgelist];
+        edges = pd.DataFrame({"source": source,
+                              "target": target,
+                              "weight": weight});
+        GG = xn::from_pandas_edgelist(edges, edge_attr="weight");
         assert_nodes_equal(G.nodes(), GG.nodes());
         assert_edges_equal(G.edges(), GG.edges());
         GW = xn::to_xnetwork_graph(edges, create_using=xn::Graph());
@@ -135,7 +135,7 @@ class TestConvertPandas: public object {
         G = xn::from_pandas_edgelist(df);
         assert_graphs_equal(Gtrue, G);
         // adjacency
-        Gtrue = xn::Graph(({1: {1: {'weight': 1}, 2: {'weight': 1}}, 2: {1: {'weight': 1}}}));
+        Gtrue = xn::Graph(({1: {1: {"weight": 1}, 2: {"weight": 1}}, 2: {1: {"weight": 1}}}));
         df = xn::to_pandas_adjacency(Gtrue, dtype=int);
         G = xn::from_pandas_adjacency(df);
         assert_graphs_equal(Gtrue, G);

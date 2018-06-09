@@ -12,7 +12,7 @@ from nose.plugins.attrib import attr
 
 
 class TestFlowBetweennessCentrality: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -21,7 +21,7 @@ class TestFlowBetweennessCentrality: public object {
             import numpy as np
             import scipy
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
 
     auto test_K4_normalized( ) {
         /** Betweenness centrality: K4*/
@@ -64,8 +64,8 @@ class TestFlowBetweennessCentrality: public object {
                                                           list(G),
                                                           list(G),
                                                           normalized=true,
-                                                          weight='other');
-        b_answer = xn::current_flow_betweenness_centrality(G, normalized=true, weight='other');
+                                                          weight="other");
+        b_answer = xn::current_flow_betweenness_centrality(G, normalized=true, weight="other");
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
@@ -94,7 +94,7 @@ class TestFlowBetweennessCentrality: public object {
     auto test_star( ) {
         /** Betweenness centrality: star */
         G = xn::Graph();
-        xn::add_star(G, ['a', 'b', 'c', 'd']);
+        xn::add_star(G, ["a", "b", "c", "d"]);
         b = xn::current_flow_betweenness_centrality_subset(G,
                                                           list(G),
                                                           list(G),
@@ -105,11 +105,11 @@ class TestFlowBetweennessCentrality: public object {
 
 
 // class TestWeightedFlowBetweennessCentrality() {
-//     pass();
+//     // pass;
 
 
 class TestEdgeFlowBetweennessCentrality: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -118,7 +118,7 @@ class TestEdgeFlowBetweennessCentrality: public object {
             import numpy as np
             import scipy
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
 
     auto test_K4_normalized( ) {
         /** Betweenness centrality: K4*/
@@ -140,7 +140,7 @@ class TestEdgeFlowBetweennessCentrality: public object {
         // test weighted network
         G.add_edge(0, 1, weight=0.5, other=0.3);
         b = edge_current_flow_subset(G, list(G), list(G), normalized=false, weight=None);
-        // weight is None => same as unweighted network
+        // weight.empty() => same as unweighted network
         for (auto [s, t), v1 : b_answer.items() {
             v2 = b.get((s, t), b.get((t, s)));
             assert_almost_equal(v1, v2);
@@ -151,8 +151,8 @@ class TestEdgeFlowBetweennessCentrality: public object {
             v2 = b.get((s, t), b.get((t, s)));
             assert_almost_equal(v1, v2);
 
-        b = edge_current_flow_subset(G, list(G), list(G), normalized=false, weight='other');
-        b_answer = edge_current_flow(G, normalized=false, weight='other');
+        b = edge_current_flow_subset(G, list(G), list(G), normalized=false, weight="other");
+        b_answer = edge_current_flow(G, normalized=false, weight="other");
         for (auto [s, t), v1 : b_answer.items() {
             v2 = b.get((s, t), b.get((t, s)));
             assert_almost_equal(v1, v2);

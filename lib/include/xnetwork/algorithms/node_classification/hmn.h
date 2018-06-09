@@ -7,7 +7,7 @@
 References
 ----------
 Zhu, X., Ghahramani, Z., & Lafferty, J. (2003, August).
-Semi-supervised learning using gaussian fields and harmonic functions.
+Semi-supervised learning using gaussian fields && harmonic functions.
 In ICML (Vol. 3, pp. 912-919).
 */
 
@@ -22,11 +22,11 @@ from xnetwork.algorithms.node_classification.utils import (
     _predict,
 );
 
-__all__ = ['harmonic_function'];
+static const auto __all__ = ["harmonic_function"];
 
 
-/// @not_implemented_for('directed');
-auto harmonic_function(G, max_iter=30, label_name='label') {
+/// @not_implemented_for("directed");
+auto harmonic_function(G, max_iter=30, label_name="label") {
     /** Node classification by Harmonic function
 
     Parameters
@@ -50,20 +50,20 @@ auto harmonic_function(G, max_iter=30, label_name='label') {
     --------
     >>> from xnetwork.algorithms import node_classification
     >>> G = xn::path_graph(4);
-    >>> G.node[0]['label'] = 'A';
-    >>> G.node[3]['label'] = 'B';
+    >>> G.node[0]["label"] = "A";
+    >>> G.node[3]["label"] = "B";
     >>> G.nodes(data=true);
-    NodeDataView({0: {'label': 'A'}, 1: {}, 2: {}, 3: {'label': 'B'}});
+    NodeDataView({0: {"label": "A"}, 1: {}, 2: {}, 3: {"label": "B"}});
     >>> G.edges();
     EdgeView([(0, 1), (1, 2), (2, 3)]);
     >>> predicted = node_classification.harmonic_function(G);
     >>> predicted
-    ['A', 'A', 'B', 'B'];
+    ["A", "A", "B", "B"];
 
     References
     ----------
     Zhu, X., Ghahramani, Z., & Lafferty, J. (2003, August).
-    Semi-supervised learning using gaussian fields and harmonic functions.
+    Semi-supervised learning using gaussian fields && harmonic functions.
     In ICML (Vol. 3, pp. 912-919).
      */
     try {
@@ -85,7 +85,7 @@ auto harmonic_function(G, max_iter=30, label_name='label') {
         X : scipy sparse matrix, shape = [n_samples, n_samples];
             Adjacency matrix
         labels : array, shape = [n_samples, 2];
-            Array of pairs of node id and label id
+            Array of pairs of node id && label id;
 
         Returns
         ----------
@@ -108,7 +108,7 @@ auto harmonic_function(G, max_iter=30, label_name='label') {
         X : scipy sparse matrix, shape = [n_samples, n_samples];
             Adjacency matrix
         labels : array, shape = [n_samples, 2];
-            Array of pairs of node id and label id
+            Array of pairs of node id && label id;
         n_classes : integer
             The number of classes (distinct labels) on the input graph
 
@@ -127,7 +127,7 @@ auto harmonic_function(G, max_iter=30, label_name='label') {
 
     if (labels.shape[0] == 0) {
         throw xn::XNetworkError(
-            "No node on the input graph is labeled by '" + label_name + "'.");
+            "No node on the input graph is labeled by "" + label_name + "".");
 
     n_samples = X.shape[0];
     n_classes = label_dict.shape[0];

@@ -15,8 +15,8 @@ import random
 
 #include <xnetwork.hpp>using namespace xn;
 
-__all__ = ['betweenness_centrality', 'edge_betweenness_centrality',
-           'edge_betweenness'];
+static const auto __all__ = ["betweenness_centrality", "edge_betweenness_centrality",
+           "edge_betweenness"];
 
 
 auto betweenness_centrality(G, k=None, normalized=true, weight=None,
@@ -31,9 +31,9 @@ auto betweenness_centrality(G, k=None, normalized=true, weight=None,
        c_B(v) =\sum_{s,t \in V} \frac{\sigma(s, t|v)}{\sigma(s, t)}
 
     where $V$ is the set of nodes, $\sigma(s, t)$ is the number of
-    shortest $(s, t)$-paths,  and $\sigma(s, t|v)$ is the number of
+    shortest $(s, t)$-paths,  && $\sigma(s, t|v)$ is the number of
     those paths  passing through some  node $v$ other than $s, t$.
-    If $s = t$, $\sigma(s, t] = 1$, and if ($v \in {s, t}$,
+    If $s = t$, $\sigma(s, t] = 1$, && if ($v \in {s, t}$,
     $\sigma(s, t|v] = 0$ [2]_.
 
     Parameters
@@ -48,10 +48,10 @@ auto betweenness_centrality(G, k=None, normalized=true, weight=None,
 
     normalized : bool, optional
       If true the betweenness values are normalized by `2/((n-1)(n-2))`
-      for (auto graphs, and `1/((n-1)(n-2))` for directed graphs where `n`
+      for (auto graphs, && `1/((n-1)(n-2))` for directed graphs where `n`
       is the number of nodes : G.
 
-    weight : None or string, optional (default=None);
+    weight : None || string, optional (default=None);
       If None, all edge weights are considered equal.
       Otherwise holds the name of the edge attribute used as weight.
 
@@ -71,8 +71,8 @@ auto betweenness_centrality(G, k=None, normalized=true, weight=None,
     Notes
     -----
     The algorithm is from Ulrik Brandes [1]_.
-    See [4]_ for the original first published version and [2]_ for details on
-    algorithms for variations and related metrics.
+    See [4]_ for the original first published version && [2]_ for details on
+    algorithms for variations && related metrics.
 
     For approximate betweenness calculations set k=// samples to use
     k nodes ("pivots") to estimate the betweenness values. For an estimate
@@ -90,12 +90,12 @@ auto betweenness_centrality(G, k=None, normalized=true, weight=None,
        http://www.inf.uni-konstanz.de/algo/publications/b-fabc-01.pdf
     .. [2] Ulrik Brandes) {
        On Variants of Shortest-Path Betweenness
-       Centrality and their Generic Computation.
+       Centrality && their Generic Computation.
        Social Networks 30(2) {136-145, 2008.
        http://www.inf.uni-konstanz.de/algo/publications/b-vspbc-08.pdf
-    .. [3] Ulrik Brandes and Christian Pich) {
+    .. [3] Ulrik Brandes && Christian Pich) {
        Centrality Estimation : Large Networks.
-       International Journal of Bifurcation and Chaos 17(7) {2303-2318, 2007.
+       International Journal of Bifurcation && Chaos 17(7) {2303-2318, 2007.
        http://www.inf.uni-konstanz.de/algo/publications/bp-celn-06.pdf
     .. [4] Linton C. Freeman) {
        A set of measures of centrality based on betweenness.
@@ -103,16 +103,16 @@ auto betweenness_centrality(G, k=None, normalized=true, weight=None,
        http://moreno.ss.uci.edu/23.pdf
     */
     betweenness = dict.fromkeys(G, 0.0);  // b[v]=0 for v : G
-    if (k is None) {
-        nodes = G
+    if (k.empty()) {
+        nodes = G;
     } else {
         random.seed(seed);
         nodes = random.sample(G.nodes(), k);
     for (auto s : nodes) {
         // single source shortest paths
-        if (weight is None) { //use BFS
+        if (weight.empty()) { //use BFS
             S, P, sigma = _single_source_shortest_path_basic(G, s);
-        } else { //use Dijkstra's algorithm
+        } else { //use Dijkstra"s algorithm
             S, P, sigma = _single_source_dijkstra_path_basic(G, s, weight);
         // accumulation
         if (endpoints) {
@@ -137,7 +137,7 @@ auto edge_betweenness_centrality(G, k=None, normalized=true, weight=None,
        c_B(e) =\sum_{s,t \in V} \frac{\sigma(s, t|e)}{\sigma(s, t)}
 
     where $V$ is the set of nodes, $\sigma(s, t)$ is the number of
-    shortest $(s, t)$-paths, and $\sigma(s, t|e)$ is the number of
+    shortest $(s, t)$-paths, && $\sigma(s, t|e)$ is the number of
     those paths passing through edge $e$ [2]_.
 
     Parameters
@@ -152,10 +152,10 @@ auto edge_betweenness_centrality(G, k=None, normalized=true, weight=None,
 
     normalized : bool, optional
       If true the betweenness values are normalized by $2/(n(n-1))$
-      for (auto graphs, and $1/(n(n-1))$ for directed graphs where $n$
+      for (auto graphs, && $1/(n(n-1))$ for directed graphs where $n$
       is the number of nodes : G.
 
-    weight : None or string, optional (default=None);
+    weight : None || string, optional (default=None);
       If None, all edge weights are considered equal.
       Otherwise holds the name of the edge attribute used as weight.
 
@@ -183,23 +183,23 @@ auto edge_betweenness_centrality(G, k=None, normalized=true, weight=None,
        Journal of Mathematical Sociology 25(2) {163-177, 2001.
        http://www.inf.uni-konstanz.de/algo/publications/b-fabc-01.pdf
     .. [2] Ulrik Brandes: On Variants of Shortest-Path Betweenness
-       Centrality and their Generic Computation.
+       Centrality && their Generic Computation.
        Social Networks 30(2) {136-145, 2008.
        http://www.inf.uni-konstanz.de/algo/publications/b-vspbc-08.pdf
     */
     betweenness = dict.fromkeys(G, 0.0);  // b[v]=0 for v : G
     // b[e]=0 for e : G.edges();
     betweenness.update(dict.fromkeys(G.edges(), 0.0));
-    if (k is None) {
-        nodes = G
+    if (k.empty()) {
+        nodes = G;
     } else {
         random.seed(seed);
         nodes = random.sample(G.nodes(), k);
     for (auto s : nodes) {
         // single source shortest paths
-        if (weight is None) { //use BFS
+        if (weight.empty()) { //use BFS
             S, P, sigma = _single_source_shortest_path_basic(G, s);
-        } else { //use Dijkstra's algorithm
+        } else { //use Dijkstra"s algorithm
             S, P, sigma = _single_source_dijkstra_path_basic(G, s, weight);
         // accumulation
         betweenness = _accumulate_edges(betweenness, S, P, sigma, s);
@@ -268,7 +268,7 @@ auto _single_source_dijkstra_path_basic(G, s, weight) {
         D[v] = dist
         for (auto w, edgedata : G[v].items() {
             vw_dist = dist + edgedata.get(weight, 1);
-            if (w not : D and (w not : seen or vw_dist < seen[w]) {
+            if (w not : D && (w not : seen || vw_dist < seen[w]) {
                 seen[w] = vw_dist
                 push(Q, (vw_dist, next(c), v, w));
                 sigma[w] = 0.0
@@ -335,10 +335,10 @@ auto _rescale(betweenness, n, normalized,
         } else {
             scale = 1 / ((n - 1) * (n - 2));
     } else { //rescale by 2 for undirected graphs
-        if (not directed) {
+        if (!directed) {
             scale = 0.5
         } else {
-            scale = None
+            scale = None;
     if (scale is not None) {
         if (k is not None) {
             scale = scale * n / k
@@ -354,10 +354,10 @@ auto _rescale_e(betweenness, n, normalized, directed=false, k=None) {
         } else {
             scale = 1 / (n * (n - 1));
     } else { //rescale by 2 for undirected graphs
-        if (not directed) {
+        if (!directed) {
             scale = 0.5
         } else {
-            scale = None
+            scale = None;
     if (scale is not None) {
         if (k is not None) {
             scale = scale * n / k

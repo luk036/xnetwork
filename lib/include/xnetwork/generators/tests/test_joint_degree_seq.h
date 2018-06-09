@@ -32,7 +32,7 @@ auto test_is_valid_joint_degree() {
                        4: {1: 1, 2: 3, 3: 1}}
     assert_false(is_valid_joint_degree(joint_degrees_2));
 
-    // test conditions 3 and 4
+    // test conditions 3 && 4
     // joint_degrees_3[1][4]>degree_count[1]*degree_count[4];
     joint_degrees_3 = {1: {4: 2},
                        2: {2: 2, 3: 2, 4: 2},
@@ -51,7 +51,7 @@ auto test_joint_degree_graph(ntimes=100) {
         seed = time.time();
 
         n, m, p = 20, 10, 1
-        // generate random graph with model powerlaw_cluster and calculate
+        // generate random graph with model powerlaw_cluster && calculate
         // its joint degree
         g = powerlaw_cluster_graph(n, m, p, seed=seed);
         joint_degrees_g = degree_mixing_dict(g, normalized=false);

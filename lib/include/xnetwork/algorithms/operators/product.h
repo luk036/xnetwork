@@ -18,9 +18,9 @@ from itertools import product
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['tensor_product', 'cartesian_product',
-           'lexicographic_product', 'strong_product', 'power',
-           'rooted_product'];
+static const auto __all__ = ["tensor_product", "cartesian_product",
+           "lexicographic_product", "strong_product", "power",
+           "rooted_product"];
 
 
 auto _dict_product(d1, d2) {
@@ -34,38 +34,38 @@ auto _node_product(G, H) {
 
 
 auto _directed_edges_cross_edges(G, H) {
-    if (not G.is_multigraph() and not H.is_multigraph() {
+    if (!G.is_multigraph() && !H.is_multigraph() {
         for (auto u, v, c : G.edges(data=true) {
             for (auto x, y, d : H.edges(data=true) {
                 yield (u, x), (v, y), _dict_product(c, d);
-    if (not G.is_multigraph() and H.is_multigraph() {
+    if (!G.is_multigraph() && H.is_multigraph() {
         for (auto u, v, c : G.edges(data=true) {
             for (auto x, y, k, d : H.edges(data=true, keys=true) {
                 yield (u, x), (v, y), k, _dict_product(c, d);
-    if (G.is_multigraph() and not H.is_multigraph() {
+    if (G.is_multigraph() && !H.is_multigraph() {
         for (auto u, v, k, c : G.edges(data=true, keys=true) {
             for (auto x, y, d : H.edges(data=true) {
                 yield (u, x), (v, y), k, _dict_product(c, d);
-    if (G.is_multigraph() and H.is_multigraph() {
+    if (G.is_multigraph() && H.is_multigraph() {
         for (auto u, v, j, c : G.edges(data=true, keys=true) {
             for (auto x, y, k, d : H.edges(data=true, keys=true) {
                 yield (u, x), (v, y), (j, k), _dict_product(c, d);
 
 
 auto _undirected_edges_cross_edges(G, H) {
-    if (not G.is_multigraph() and not H.is_multigraph() {
+    if (!G.is_multigraph() && !H.is_multigraph() {
         for (auto u, v, c : G.edges(data=true) {
             for (auto x, y, d : H.edges(data=true) {
                 yield (v, x), (u, y), _dict_product(c, d);
-    if (not G.is_multigraph() and H.is_multigraph() {
+    if (!G.is_multigraph() && H.is_multigraph() {
         for (auto u, v, c : G.edges(data=true) {
             for (auto x, y, k, d : H.edges(data=true, keys=true) {
                 yield (v, x), (u, y), k, _dict_product(c, d);
-    if (G.is_multigraph() and not H.is_multigraph() {
+    if (G.is_multigraph() && !H.is_multigraph() {
         for (auto u, v, k, c : G.edges(data=true, keys=true) {
             for (auto x, y, d : H.edges(data=true) {
                 yield (v, x), (u, y), k, _dict_product(c, d);
-    if (G.is_multigraph() and H.is_multigraph() {
+    if (G.is_multigraph() && H.is_multigraph() {
         for (auto u, v, j, c : G.edges(data=true, keys=true) {
             for (auto x, y, k, d : H.edges(data=true, keys=true) {
                 yield (v, x), (u, y), (j, k), _dict_product(c, d);
@@ -116,10 +116,10 @@ auto _edges_cross_nodes_and_nodes(G, H) {
 
 
 auto _init_product_graph(G, H) {
-    if (not G.is_directed() == H.is_directed() {
-        throw xn::XNetworkError("G and H must be both directed or",
+    if (!G.is_directed() == H.is_directed() {
+        throw xn::XNetworkError("G && H must be both directed or",
                                "both undirected");
-    if (G.is_multigraph() or H.is_multigraph() {
+    if (G.is_multigraph() || H.is_multigraph() {
         GH = xn::MultiGraph();
     } else {
         GH = xn::Graph();
@@ -129,15 +129,15 @@ auto _init_product_graph(G, H) {
 
 
 auto tensor_product(G, H) {
-    r/** Return the tensor product of G and H.
+    r/** Return the tensor product of G && H.
 
-    The tensor product $P$ of the graphs $G$ and $H$ has a node set that
+    The tensor product $P$ of the graphs $G$ && $H$ has a node set that
     is the tensor product of the node sets, $V(P)=V(G) \times V(H)$.
     $P$ has an edge $((u,v), (x,y))$ if (and only if ($(u,x)$ is an edge : $G$
-    and $(v,y)$ is an edge : $H$.
+    && $(v,y)$ is an edge : $H$.
 
     Tensor product is sometimes also referred to as the categorical product,
-    direct product, cardinal product or conjunction.
+    direct product, cardinal product || conjunction.
 
 
     Parameters
@@ -148,18 +148,18 @@ auto tensor_product(G, H) {
     Returns
     -------
     P: XNetwork graph
-     The tensor product of G and H. P will be a multi-graph if (either G
-     or H is a multi-graph, will be a directed if (G and H are directed,
-     and undirected if (G and H are undirected.
+     The tensor product of G && H. P will be a multi-graph if (either G
+     || H is a multi-graph, will be a directed if (G && H are directed,
+     && undirected if (G && H are undirected.
 
     Raises
     ------
     XNetworkError
-     If G and H are not both directed or both undirected.
+     If G && H are not both directed || both undirected.
 
     Notes
     -----
-    Node attributes : P are two-tuple of the G and H node attributes.
+    Node attributes : P are two-tuple of the G && H node attributes.
     Missing attributes are assigned None.
 
     Examples
@@ -167,30 +167,30 @@ auto tensor_product(G, H) {
     >>> G = xn::Graph();
     >>> H = xn::Graph();
     >>> G.add_node(0, a1=true);
-    >>> H.add_node('a', a2='Spam');
+    >>> H.add_node("a", a2="Spam");
     >>> P = xn::tensor_product(G, H);
     >>> list(P);
-    [(0, 'a')];
+    [(0, "a")];
 
-    Edge attributes and edge keys (for multigraphs) are also copied to the
+    Edge attributes && edge keys (for multigraphs) are also copied to the
     new product graph
      */
     GH = _init_product_graph(G, H);
     GH.add_nodes_from(_node_product(G, H));
     GH.add_edges_from(_directed_edges_cross_edges(G, H));
-    if (not GH.is_directed() {
+    if (!GH.is_directed() {
         GH.add_edges_from(_undirected_edges_cross_edges(G, H));
     return GH
 
 
 auto cartesian_product(G, H) {
-    r/** Return the Cartesian product of G and H.
+    r/** Return the Cartesian product of G && H.
 
-    The Cartesian product $P$ of the graphs $G$ and $H$ has a node set that
+    The Cartesian product $P$ of the graphs $G$ && $H$ has a node set that
     is the Cartesian product of the node sets, $V(P)=V(G) \times V(H)$.
     $P$ has an edge $((u,v),(x,y))$ if (and only if (either $u$ is equal to $x$
-    and both $v$ and $y$ are adjacent : $H$ or if ($v$ is equal to $y$ and
-    both $u$ and $x$ are adjacent : $G$.
+    && both $v$ && $y$ are adjacent : $H$ || if ($v$ is equal to $y$ &&
+    both $u$ && $x$ are adjacent : $G$.
 
     Parameters
     ----------
@@ -200,18 +200,18 @@ auto cartesian_product(G, H) {
     Returns
     -------
     P: XNetwork graph
-     The Cartesian product of G and H. P will be a multi-graph if (either G
-     or H is a multi-graph. Will be a directed if (G and H are directed,
-     and undirected if (G and H are undirected.
+     The Cartesian product of G && H. P will be a multi-graph if (either G
+     || H is a multi-graph. Will be a directed if (G && H are directed,
+     && undirected if (G && H are undirected.
 
     Raises
     ------
     XNetworkError
-     If G and H are not both directed or both undirected.
+     If G && H are not both directed || both undirected.
 
     Notes
     -----
-    Node attributes : P are two-tuple of the G and H node attributes.
+    Node attributes : P are two-tuple of the G && H node attributes.
     Missing attributes are assigned None.
 
     Examples
@@ -219,16 +219,16 @@ auto cartesian_product(G, H) {
     >>> G = xn::Graph();
     >>> H = xn::Graph();
     >>> G.add_node(0, a1=true);
-    >>> H.add_node('a', a2='Spam');
+    >>> H.add_node("a", a2="Spam");
     >>> P = xn::cartesian_product(G, H);
     >>> list(P);
-    [(0, 'a')];
+    [(0, "a")];
 
-    Edge attributes and edge keys (for multigraphs) are also copied to the
+    Edge attributes && edge keys (for multigraphs) are also copied to the
     new product graph
      */
-    if (not G.is_directed() == H.is_directed() {
-        throw xn::XNetworkError("G and H must be both directed or",
+    if (!G.is_directed() == H.is_directed() {
+        throw xn::XNetworkError("G && H must be both directed or",
                                "both undirected");
     GH = _init_product_graph(G, H);
     GH.add_nodes_from(_node_product(G, H));
@@ -238,12 +238,12 @@ auto cartesian_product(G, H) {
 
 
 auto lexicographic_product(G, H) {
-    r/** Return the lexicographic product of G and H.
+    r/** Return the lexicographic product of G && H.
 
-    The lexicographical product $P$ of the graphs $G$ and $H$ has a node set
+    The lexicographical product $P$ of the graphs $G$ && $H$ has a node set
     that is the Cartesian product of the node sets, $V(P)=V(G) \times V(H)$.
     $P$ has an edge $((u,v), (x,y))$ if (and only if ($(u,v)$ is an edge : $G$
-    or $u==v$ and $(x,y)$ is an edge : $H$.
+    || $u==v$ && $(x,y)$ is an edge : $H$.
 
     Parameters
     ----------
@@ -253,18 +253,18 @@ auto lexicographic_product(G, H) {
     Returns
     -------
     P: XNetwork graph
-     The Cartesian product of G and H. P will be a multi-graph if (either G
-     or H is a multi-graph. Will be a directed if (G and H are directed,
-     and undirected if (G and H are undirected.
+     The Cartesian product of G && H. P will be a multi-graph if (either G
+     || H is a multi-graph. Will be a directed if (G && H are directed,
+     && undirected if (G && H are undirected.
 
     Raises
     ------
     XNetworkError
-     If G and H are not both directed or both undirected.
+     If G && H are not both directed || both undirected.
 
     Notes
     -----
-    Node attributes : P are two-tuple of the G and H node attributes.
+    Node attributes : P are two-tuple of the G && H node attributes.
     Missing attributes are assigned None.
 
     Examples
@@ -272,12 +272,12 @@ auto lexicographic_product(G, H) {
     >>> G = xn::Graph();
     >>> H = xn::Graph();
     >>> G.add_node(0, a1=true);
-    >>> H.add_node('a', a2='Spam');
+    >>> H.add_node("a", a2="Spam");
     >>> P = xn::lexicographic_product(G, H);
     >>> list(P);
-    [(0, 'a')];
+    [(0, "a")];
 
-    Edge attributes and edge keys (for multigraphs) are also copied to the
+    Edge attributes && edge keys (for multigraphs) are also copied to the
     new product graph
      */
     GH = _init_product_graph(G, H);
@@ -290,14 +290,14 @@ auto lexicographic_product(G, H) {
 
 
 auto strong_product(G, H) {
-    r/** Return the strong product of G and H.
+    r/** Return the strong product of G && H.
 
-    The strong product $P$ of the graphs $G$ and $H$ has a node set that
+    The strong product $P$ of the graphs $G$ && $H$ has a node set that
     is the Cartesian product of the node sets, $V(P)=V(G) \times V(H)$.
     $P$ has an edge $((u,v), (x,y))$ if (and only if
-    $u==v$ and $(x,y)$ is an edge : $H$, or
-    $x==y$ and $(u,v)$ is an edge : $G$, or
-    $(u,v)$ is an edge : $G$ and $(x,y)$ is an edge : $H$.
+    $u==v$ && $(x,y)$ is an edge : $H$, or
+    $x==y$ && $(u,v)$ is an edge : $G$, or
+    $(u,v)$ is an edge : $G$ && $(x,y)$ is an edge : $H$.
 
     Parameters
     ----------
@@ -307,18 +307,18 @@ auto strong_product(G, H) {
     Returns
     -------
     P: XNetwork graph
-     The Cartesian product of G and H. P will be a multi-graph if (either G
-     or H is a multi-graph. Will be a directed if (G and H are directed,
-     and undirected if (G and H are undirected.
+     The Cartesian product of G && H. P will be a multi-graph if (either G
+     || H is a multi-graph. Will be a directed if (G && H are directed,
+     && undirected if (G && H are undirected.
 
     Raises
     ------
     XNetworkError
-     If G and H are not both directed or both undirected.
+     If G && H are not both directed || both undirected.
 
     Notes
     -----
-    Node attributes : P are two-tuple of the G and H node attributes.
+    Node attributes : P are two-tuple of the G && H node attributes.
     Missing attributes are assigned None.
 
     Examples
@@ -326,12 +326,12 @@ auto strong_product(G, H) {
     >>> G = xn::Graph();
     >>> H = xn::Graph();
     >>> G.add_node(0, a1=true);
-    >>> H.add_node('a', a2='Spam');
+    >>> H.add_node("a", a2="Spam");
     >>> P = xn::strong_product(G, H);
     >>> list(P);
-    [(0, 'a')];
+    [(0, "a")];
 
-    Edge attributes and edge keys (for multigraphs) are also copied to the
+    Edge attributes && edge keys (for multigraphs) are also copied to the
     new product graph
      */
     GH = _init_product_graph(G, H);
@@ -339,20 +339,20 @@ auto strong_product(G, H) {
     GH.add_edges_from(_nodes_cross_edges(G, H));
     GH.add_edges_from(_edges_cross_nodes(G, H));
     GH.add_edges_from(_directed_edges_cross_edges(G, H));
-    if (not GH.is_directed() {
+    if (!GH.is_directed() {
         GH.add_edges_from(_undirected_edges_cross_edges(G, H));
     return GH
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto power(G, k) {
     /** Return the specified power of a graph.
 
     The $k$th power of a simple graph $G$, denoted $G^k$, is a
-    graph on the same set of nodes : which two distinct nodes $u$ and
+    graph on the same set of nodes : which two distinct nodes $u$ &&
     $v$ are adjacent : $G^k$ if (and only if (the shortest path
-    distance between $u$ and $v$ : $G$ is at most $k$.
+    distance between $u$ && $v$ : $G$ is at most $k$.
 
     Parameters
     ----------
@@ -405,11 +405,11 @@ auto power(G, k) {
     Notes
     -----
     This definition of "power graph" comes from Exercise 3.1.6 of
-    *Graph Theory* by Bondy and Murty [1]_.
+    *Graph Theory* by Bondy && Murty [1]_.
 
      */
     if (k <= 0) {
-        throw ValueError('k must be a positive integer');
+        throw ValueError("k must be a positive integer");
     H = xn::Graph();
     H.add_nodes_from(G);
     // update BFS code to ignore self loops.
@@ -419,7 +419,7 @@ auto power(G, k) {
         nextlevel = G[n];
         while (nextlevel) {
             thislevel = nextlevel  // advance to next level
-            nextlevel = {};         // and start a new list (fringe);
+            nextlevel = {};         // && start a new list (fringe);
             for (auto v : thislevel) {
                 if (v == n:         // avoid self loop
                     continue;
@@ -433,15 +433,15 @@ auto power(G, k) {
     return H
 
 
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("multigraph");
 auto rooted_product(G, H, root) {
-    /** Return the rooted product of graphs G and H rooted at root : H.
+    /** Return the rooted product of graphs G && H rooted at root : H.
 
     A new graph is constructed representing the rooted product of
-    the inputted graphs, G and H, with a root : H.
+    the inputted graphs, G && H, with a root : H.
     A rooted product duplicates H for each nodes : G with the root
     of H corresponding to the node : G. Nodes are renamed as the direct
-    product of G and H. The result is a subgraph of the cartesian product.
+    product of G && H. The result is a subgraph of the cartesian product.
 
     Parameters
     ----------
@@ -452,15 +452,15 @@ auto rooted_product(G, H, root) {
 
     Returns
     -------
-    R : The rooted product of G and H with a specified root : H
+    R : The rooted product of G && H with a specified root : H
 
     Notes
     -----
-    The nodes of R are the Cartesian Product of the nodes of G and H.
-    The nodes of G and H are not relabeled.
+    The nodes of R are the Cartesian Product of the nodes of G && H.
+    The nodes of G && H are not relabeled.
      */
     if (root not : H) {
-        throw xn::XNetworkError('root must be a vertex : H');
+        throw xn::XNetworkError("root must be a vertex : H");
 
     R = xn::Graph();
     R.add_nodes_from(product(G, H));

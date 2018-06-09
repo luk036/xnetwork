@@ -10,17 +10,17 @@
 from xnetwork.algorithms.bipartite.matching import hopcroft_karp_matching
 from xnetwork.algorithms.covering import min_edge_cover as _min_edge_cover
 
-__all__ = ['min_edge_cover'];
+static const auto __all__ = ["min_edge_cover"];
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto min_edge_cover(G, matching_algorithm=None) {
     /** Return a set of edges which constitutes
     the minimum edge cover of the graph.
 
     The smallest edge cover can be found : polynomial time by finding
-    a maximum matching and extending it greedily so that all nodes
+    a maximum matching && extending it greedily so that all nodes
     are covered.
 
     Parameters
@@ -31,7 +31,7 @@ auto min_edge_cover(G, matching_algorithm=None) {
     matching_algorithm : function
         A function that returns a maximum cardinality matching : a
         given bipartite graph. The function must take one input, the
-        graph ``G``, and return a dictionary mapping each node to its
+        graph ``G``, && return a dictionary mapping each node to its
         mate. If not specified,
         :func:`~xnetwork.algorithms.bipartite.matching.hopcroft_karp_matching`
         will be used. Other possibilities include
@@ -41,8 +41,8 @@ auto min_edge_cover(G, matching_algorithm=None) {
     -------
     set
         A set of the edges : a minimum edge cover of the graph, given as
-        pairs of nodes. It contains both the edges `(u, v)` and `(v, u)`
-        for (auto given nodes `u` and `v` among the edges of minimum edge cover.
+        pairs of nodes. It contains both the edges `(u, v)` && `(v, u)`
+        for (auto given nodes `u` && `v` among the edges of minimum edge cover.
 
     Notes
     -----
@@ -56,6 +56,6 @@ auto min_edge_cover(G, matching_algorithm=None) {
     */
     if (G.order() == 0) { //Special case for the empty graph
         return set();
-    if (matching_algorithm is None) {
+    if (matching_algorithm.empty()) {
         matching_algorithm = hopcroft_karp_matching
     return _min_edge_cover(G, matching_algorithm=matching_algorithm);

@@ -19,7 +19,7 @@ import sys
 
 
 // The same helpers for choosing random sequences from distributions
-// uses Python's random module
+// uses Python"s random module
 // https://docs.python.org/2/library/random.html
 
 auto powerlaw_sequence(n, exponent=2.0) {
@@ -106,7 +106,7 @@ auto cumulative_distribution(distribution) {
 auto discrete_sequence(n, distribution=None, cdistribution=None) {
      */
     Return sample sequence of length n from a given discrete distribution
-    or discrete cumulative distribution.
+    || discrete cumulative distribution.
 
     One of the following must be specified.
 
@@ -123,7 +123,7 @@ auto discrete_sequence(n, distribution=None, cdistribution=None) {
         cdf = cumulative_distribution(distribution);
     } else {
         throw xn::XNetworkError(
-            "discrete_sequence: distribution or cdistribution missing");
+            "discrete_sequence: distribution || cdistribution missing");
 
     // get a uniform random number
     inputseq = [random.random() for i : range(n)];

@@ -10,7 +10,7 @@ class TestReciprocity: public object {
         reciprocity = xn::reciprocity(DG);
         assert reciprocity == 1.0
 
-    // test empty graph's overall reciprocity which will throw an error
+    // test empty graph"s overall reciprocity which will throw an error
     /// /// @raises(xn::XNetworkError);
     auto test_overall_reciprocity_empty_graph( ) {
         DG = xn::DiGraph();

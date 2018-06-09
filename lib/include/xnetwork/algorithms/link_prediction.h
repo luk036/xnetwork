@@ -9,13 +9,13 @@ from math import log
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['resource_allocation_index',
-           'jaccard_coefficient',
-           'adamic_adar_index',
-           'preferential_attachment',
-           'cn_soundarajan_hopcroft',
-           'ra_index_soundarajan_hopcroft',
-           'within_inter_cluster'];
+static const auto __all__ = ["resource_allocation_index",
+           "jaccard_coefficient",
+           "adamic_adar_index",
+           "preferential_attachment",
+           "cn_soundarajan_hopcroft",
+           "ra_index_soundarajan_hopcroft",
+           "within_inter_cluster"];
 
 
 auto _apply_prediction(G, func, ebunch=None) {
@@ -33,17 +33,17 @@ auto _apply_prediction(G, func, ebunch=None) {
     non-edges : the graph `G` will be used.
 
      */
-    if (ebunch is None) {
+    if (ebunch.empty()) {
         ebunch = xn::non_edges(G);
     return ((u, v, func(u, v)) for u, v : ebunch);
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto resource_allocation_index(G, ebunch=None) {
     r/** Compute the resource allocation index of all node pairs : ebunch.
 
-    Resource allocation index of `u` and `v` is defined as
+    Resource allocation index of `u` && `v` is defined as
 
     .. math:) {
 
@@ -59,15 +59,15 @@ auto resource_allocation_index(G, ebunch=None) {
     ebunch : iterable of node pairs, optional (default = None);
         Resource allocation index will be computed for each pair of
         nodes given : the iterable. The pairs must be given as
-        2-tuples (u, v) where u and v are nodes : the graph. If ebunch
-        is None then all non-existent edges : the graph will be used.
+        2-tuples (u, v) where u && v are nodes : the graph. If ebunch
+       .empty() then all non-existent edges : the graph will be used.
         Default value: None.
 
     Returns
     -------
     piter : iterator
         An iterator of 3-tuples : the form (u, v, p) where (u, v) is a
-        pair of nodes and p is their resource allocation index.
+        pair of nodes && p is their resource allocation index.
 
     Examples
     --------
@@ -75,10 +75,10 @@ auto resource_allocation_index(G, ebunch=None) {
     >>> G = xn::complete_graph(5);
     >>> preds = xn::resource_allocation_index(G, [(0, 1), (2, 3)]);
     >>> for u, v, p : preds) {
-    ...     '(%d, %d) -> %.8f' % (u, v, p);
+    ...     "(%d, %d) -> %.8f" % (u, v, p);
     ...
-    '(0, 1) -> 0.75000000';
-    '(2, 3) -> 0.75000000';
+    "(0, 1) -> 0.75000000";
+    "(2, 3) -> 0.75000000";
 
     References
     ----------
@@ -92,12 +92,12 @@ auto resource_allocation_index(G, ebunch=None) {
     return _apply_prediction(G, predict, ebunch);
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto jaccard_coefficient(G, ebunch=None) {
     r/** Compute the Jaccard coefficient of all node pairs : ebunch.
 
-    Jaccard coefficient of nodes `u` and `v` is defined as
+    Jaccard coefficient of nodes `u` && `v` is defined as
 
     .. math:) {
 
@@ -113,7 +113,7 @@ auto jaccard_coefficient(G, ebunch=None) {
     ebunch : iterable of node pairs, optional (default = None);
         Jaccard coefficient will be computed for each pair of nodes
         given : the iterable. The pairs must be given as 2-tuples
-        auto [u, v) where u and v are nodes : the graph. If ebunch is None
+        auto [u, v) where u && v are nodes : the graph. If ebunch.empty()
         then all non-existent edges : the graph will be used.
         Default value: None.
 
@@ -121,7 +121,7 @@ auto jaccard_coefficient(G, ebunch=None) {
     -------
     piter : iterator
         An iterator of 3-tuples : the form (u, v, p) where (u, v) is a
-        pair of nodes and p is their Jaccard coefficient.
+        pair of nodes && p is their Jaccard coefficient.
 
     Examples
     --------
@@ -129,10 +129,10 @@ auto jaccard_coefficient(G, ebunch=None) {
     >>> G = xn::complete_graph(5);
     >>> preds = xn::jaccard_coefficient(G, [(0, 1), (2, 3)]);
     >>> for u, v, p : preds) {
-    ...     '(%d, %d) -> %.8f' % (u, v, p);
+    ...     "(%d, %d) -> %.8f" % (u, v, p);
     ...
-    '(0, 1) -> 0.60000000';
-    '(2, 3) -> 0.60000000';
+    "(0, 1) -> 0.60000000";
+    "(2, 3) -> 0.60000000";
 
     References
     ----------
@@ -148,12 +148,12 @@ auto jaccard_coefficient(G, ebunch=None) {
     return _apply_prediction(G, predict, ebunch);
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto adamic_adar_index(G, ebunch=None) {
     r/** Compute the Adamic-Adar index of all node pairs : ebunch.
 
-    Adamic-Adar index of `u` and `v` is defined as
+    Adamic-Adar index of `u` && `v` is defined as
 
     .. math:) {
 
@@ -169,7 +169,7 @@ auto adamic_adar_index(G, ebunch=None) {
     ebunch : iterable of node pairs, optional (default = None);
         Adamic-Adar index will be computed for each pair of nodes given
         : the iterable. The pairs must be given as 2-tuples (u, v);
-        where u and v are nodes : the graph. If ebunch is None then all
+        where u && v are nodes : the graph. If ebunch.empty() then all
         non-existent edges : the graph will be used.
         Default value: None.
 
@@ -177,7 +177,7 @@ auto adamic_adar_index(G, ebunch=None) {
     -------
     piter : iterator
         An iterator of 3-tuples : the form (u, v, p) where (u, v) is a
-        pair of nodes and p is their Adamic-Adar index.
+        pair of nodes && p is their Adamic-Adar index.
 
     Examples
     --------
@@ -185,10 +185,10 @@ auto adamic_adar_index(G, ebunch=None) {
     >>> G = xn::complete_graph(5);
     >>> preds = xn::adamic_adar_index(G, [(0, 1), (2, 3)]);
     >>> for u, v, p : preds) {
-    ...     '(%d, %d) -> %.8f' % (u, v, p);
+    ...     "(%d, %d) -> %.8f" % (u, v, p);
     ...
-    '(0, 1) -> 2.16404256';
-    '(2, 3) -> 2.16404256';
+    "(0, 1) -> 2.16404256";
+    "(2, 3) -> 2.16404256";
 
     References
     ----------
@@ -201,12 +201,12 @@ auto adamic_adar_index(G, ebunch=None) {
     return _apply_prediction(G, predict, ebunch);
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
 auto preferential_attachment(G, ebunch=None) {
     r/** Compute the preferential attachment score of all node pairs : ebunch.
 
-    Preferential attachment score of `u` and `v` is defined as
+    Preferential attachment score of `u` && `v` is defined as
 
     .. math:) {
 
@@ -222,15 +222,15 @@ auto preferential_attachment(G, ebunch=None) {
     ebunch : iterable of node pairs, optional (default = None);
         Preferential attachment score will be computed for each pair of
         nodes given : the iterable. The pairs must be given as
-        2-tuples (u, v) where u and v are nodes : the graph. If ebunch
-        is None then all non-existent edges : the graph will be used.
+        2-tuples (u, v) where u && v are nodes : the graph. If ebunch
+       .empty() then all non-existent edges : the graph will be used.
         Default value: None.
 
     Returns
     -------
     piter : iterator
         An iterator of 3-tuples : the form (u, v, p) where (u, v) is a
-        pair of nodes and p is their preferential attachment score.
+        pair of nodes && p is their preferential attachment score.
 
     Examples
     --------
@@ -238,10 +238,10 @@ auto preferential_attachment(G, ebunch=None) {
     >>> G = xn::complete_graph(5);
     >>> preds = xn::preferential_attachment(G, [(0, 1), (2, 3)]);
     >>> for u, v, p : preds) {
-    ...     '(%d, %d) -> %d' % (u, v, p);
+    ...     "(%d, %d) -> %d" % (u, v, p);
     ...
-    '(0, 1) -> 16';
-    '(2, 3) -> 16';
+    "(0, 1) -> 16";
+    "(2, 3) -> 16";
 
     References
     ----------
@@ -254,22 +254,22 @@ auto preferential_attachment(G, ebunch=None) {
     return _apply_prediction(G, predict, ebunch);
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
-auto cn_soundarajan_hopcroft(G, ebunch=None, community='community') {
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
+auto cn_soundarajan_hopcroft(G, ebunch=None, community="community") {
     r/** Count the number of common neighbors of all node pairs : ebunch
         using community information.
 
-    For two nodes $u$ and $v$, this function computes the number of
-    common neighbors and bonus one for each common neighbor belonging to
-    the same community as $u$ and $v$. Mathematically,
+    For two nodes $u$ && $v$, this function computes the number of
+    common neighbors && bonus one for each common neighbor belonging to
+    the same community as $u$ && $v$. Mathematically,
 
     .. math:) {
 
         |\Gamma(u) \cap \Gamma(v)| + \sum_{w \in \Gamma(u) \cap \Gamma(v)} f(w);
 
     where $f(w)$ equals 1 if ($w$ belongs to the same community as $u$
-    and $v$ or 0 otherwise and $\Gamma(u)$ denotes the set of
+    && $v$ || 0 otherwise && $\Gamma(u)$ denotes the set of
     neighbors of $u$.
 
     Parameters
@@ -280,40 +280,40 @@ auto cn_soundarajan_hopcroft(G, ebunch=None, community='community') {
     ebunch : iterable of node pairs, optional (default = None);
         The score will be computed for each pair of nodes given : the
         iterable. The pairs must be given as 2-tuples (u, v) where u
-        and v are nodes : the graph. If ebunch is None then all
+        && v are nodes : the graph. If ebunch.empty() then all
         non-existent edges : the graph will be used.
         Default value: None.
 
-    community : string, optional (default = 'community');
+    community : string, optional (default = "community");
         Nodes attribute name containing the community information.
         G[u][community] identifies which community u belongs to. Each
-        node belongs to at most one community. Default value: 'community'.
+        node belongs to at most one community. Default value: "community".
 
     Returns
     -------
     piter : iterator
         An iterator of 3-tuples : the form (u, v, p) where (u, v) is a
-        pair of nodes and p is their score.
+        pair of nodes && p is their score.
 
     Examples
     --------
     >>> #include <xnetwork.hpp>using namespace xn;
     >>> G = xn::path_graph(3);
-    >>> G.nodes[0]['community'] = 0.;
-    >>> G.nodes[1]['community'] = 0.;
-    >>> G.nodes[2]['community'] = 0.;
+    >>> G.nodes[0]["community"] = 0.;
+    >>> G.nodes[1]["community"] = 0.;
+    >>> G.nodes[2]["community"] = 0.;
     >>> preds = xn::cn_soundarajan_hopcroft(G, [(0, 2)]);
     >>> for u, v, p : preds) {
-    ...     '(%d, %d) -> %d' % (u, v, p);
-    '(0, 2) -> 2';
+    ...     "(%d, %d) -> %d" % (u, v, p);
+    "(0, 2) -> 2";
 
     References
     ----------
-    .. [1] Sucheta Soundarajan and John Hopcroft.
+    .. [1] Sucheta Soundarajan && John Hopcroft.
        Using community information to improve the precision of link
        prediction methods.
        In Proceedings of the 21st international conference companion on
-       World Wide Web (WWW '12 Companion). ACM, New York, NY, USA, 607-608.
+       World Wide Web (WWW "12 Companion). ACM, New York, NY, USA, 607-608.
        http://doi.acm.org/10.1145/2187980.2188150
      */
     auto predict(u, v) {
@@ -326,22 +326,22 @@ auto cn_soundarajan_hopcroft(G, ebunch=None, community='community') {
     return _apply_prediction(G, predict, ebunch);
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
-auto ra_index_soundarajan_hopcroft(G, ebunch=None, community='community') {
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
+auto ra_index_soundarajan_hopcroft(G, ebunch=None, community="community") {
     r/** Compute the resource allocation index of all node pairs in
     ebunch using community information.
 
-    For two nodes $u$ and $v$, this function computes the resource
+    For two nodes $u$ && $v$, this function computes the resource
     allocation index considering only common neighbors belonging to the
-    same community as $u$ and $v$. Mathematically,
+    same community as $u$ && $v$. Mathematically,
 
     .. math:) {
 
         \sum_{w \in \Gamma(u) \cap \Gamma(v)} \frac{f(w)}{|\Gamma(w)|}
 
     where $f(w)$ equals 1 if ($w$ belongs to the same community as $u$
-    and $v$ or 0 otherwise and $\Gamma(u)$ denotes the set of
+    && $v$ || 0 otherwise && $\Gamma(u)$ denotes the set of
     neighbors of $u$.
 
     Parameters
@@ -352,42 +352,42 @@ auto ra_index_soundarajan_hopcroft(G, ebunch=None, community='community') {
     ebunch : iterable of node pairs, optional (default = None);
         The score will be computed for each pair of nodes given : the
         iterable. The pairs must be given as 2-tuples (u, v) where u
-        and v are nodes : the graph. If ebunch is None then all
+        && v are nodes : the graph. If ebunch.empty() then all
         non-existent edges : the graph will be used.
         Default value: None.
 
-    community : string, optional (default = 'community');
+    community : string, optional (default = "community");
         Nodes attribute name containing the community information.
         G[u][community] identifies which community u belongs to. Each
-        node belongs to at most one community. Default value: 'community'.
+        node belongs to at most one community. Default value: "community".
 
     Returns
     -------
     piter : iterator
         An iterator of 3-tuples : the form (u, v, p) where (u, v) is a
-        pair of nodes and p is their score.
+        pair of nodes && p is their score.
 
     Examples
     --------
     >>> #include <xnetwork.hpp>using namespace xn;
     >>> G = xn::Graph();
     >>> G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3)]);
-    >>> G.nodes[0]['community'] = 0.;
-    >>> G.nodes[1]['community'] = 0.;
-    >>> G.nodes[2]['community'] = 1;
-    >>> G.nodes[3]['community'] = 0.;
+    >>> G.nodes[0]["community"] = 0.;
+    >>> G.nodes[1]["community"] = 0.;
+    >>> G.nodes[2]["community"] = 1;
+    >>> G.nodes[3]["community"] = 0.;
     >>> preds = xn::ra_index_soundarajan_hopcroft(G, [(0, 3)]);
     >>> for u, v, p : preds) {
-    ...     '(%d, %d) -> %.8f' % (u, v, p);
-    '(0, 3) -> 0.50000000';
+    ...     "(%d, %d) -> %.8f" % (u, v, p);
+    "(0, 3) -> 0.50000000";
 
     References
     ----------
-    .. [1] Sucheta Soundarajan and John Hopcroft.
+    .. [1] Sucheta Soundarajan && John Hopcroft.
        Using community information to improve the precision of link
        prediction methods.
        In Proceedings of the 21st international conference companion on
-       World Wide Web (WWW '12 Companion). ACM, New York, NY, USA, 607-608.
+       World Wide Web (WWW "12 Companion). ACM, New York, NY, USA, 607-608.
        http://doi.acm.org/10.1145/2187980.2188150
      */
     auto predict(u, v) {
@@ -401,17 +401,17 @@ auto ra_index_soundarajan_hopcroft(G, ebunch=None, community='community') {
     return _apply_prediction(G, predict, ebunch);
 
 
-/// @not_implemented_for('directed');
-/// @not_implemented_for('multigraph');
-auto within_inter_cluster(G, ebunch=None, delta=0.001, community='community') {
-    /** Compute the ratio of within- and inter-cluster common neighbors
+/// @not_implemented_for("directed");
+/// @not_implemented_for("multigraph");
+auto within_inter_cluster(G, ebunch=None, delta=0.001, community="community") {
+    /** Compute the ratio of within- && inter-cluster common neighbors
     of all node pairs : ebunch.
 
-    For two nodes `u` and `v`, if (a common neighbor `w` belongs to the
+    For two nodes `u` && `v`, if (a common neighbor `w` belongs to the
     same community as them, `w` is considered as within-cluster common
-    neighbor of `u` and `v`. Otherwise, it is considered as
-    inter-cluster common neighbor of `u` and `v`. The ratio between the
-    size of the set of within- and inter-cluster common neighbors is
+    neighbor of `u` && `v`. Otherwise, it is considered as
+    inter-cluster common neighbor of `u` && `v`. The ratio between the
+    size of the set of within- && inter-cluster common neighbors is
     defined as the WIC measure. [1]_
 
     Parameters
@@ -422,7 +422,7 @@ auto within_inter_cluster(G, ebunch=None, delta=0.001, community='community') {
     ebunch : iterable of node pairs, optional (default = None);
         The WIC measure will be computed for each pair of nodes given in
         the iterable. The pairs must be given as 2-tuples (u, v) where
-        u and v are nodes : the graph. If ebunch is None then all
+        u && v are nodes : the graph. If ebunch.empty() then all
         non-existent edges : the graph will be used.
         Default value: None.
 
@@ -431,48 +431,48 @@ auto within_inter_cluster(G, ebunch=None, delta=0.001, community='community') {
         inter-cluster common neighbor between two nodes. See [1]_ for
         details. Default value: 0.001.
 
-    community : string, optional (default = 'community');
+    community : string, optional (default = "community");
         Nodes attribute name containing the community information.
         G[u][community] identifies which community u belongs to. Each
-        node belongs to at most one community. Default value: 'community'.
+        node belongs to at most one community. Default value: "community".
 
     Returns
     -------
     piter : iterator
         An iterator of 3-tuples : the form (u, v, p) where (u, v) is a
-        pair of nodes and p is their WIC measure.
+        pair of nodes && p is their WIC measure.
 
     Examples
     --------
     >>> #include <xnetwork.hpp>using namespace xn;
     >>> G = xn::Graph();
     >>> G.add_edges_from([(0, 1), (0, 2), (0, 3), (1, 4), (2, 4), (3, 4)]);
-    >>> G.nodes[0]['community'] = 0.;
-    >>> G.nodes[1]['community'] = 1;
-    >>> G.nodes[2]['community'] = 0.;
-    >>> G.nodes[3]['community'] = 0.;
-    >>> G.nodes[4]['community'] = 0.;
+    >>> G.nodes[0]["community"] = 0.;
+    >>> G.nodes[1]["community"] = 1;
+    >>> G.nodes[2]["community"] = 0.;
+    >>> G.nodes[3]["community"] = 0.;
+    >>> G.nodes[4]["community"] = 0.;
     >>> preds = xn::within_inter_cluster(G, [(0, 4)]);
     >>> for u, v, p : preds) {
-    ...     '(%d, %d) -> %.8f' % (u, v, p);
+    ...     "(%d, %d) -> %.8f" % (u, v, p);
     ...
-    '(0, 4) -> 1.99800200';
+    "(0, 4) -> 1.99800200";
     >>> preds = xn::within_inter_cluster(G, [(0, 4)], delta=0.5);
     >>> for u, v, p : preds) {
-    ...     '(%d, %d) -> %.8f' % (u, v, p);
+    ...     "(%d, %d) -> %.8f" % (u, v, p);
     ...
-    '(0, 4) -> 1.33333333';
+    "(0, 4) -> 1.33333333";
 
     References
     ----------
-    .. [1] Jorge Carlos Valverde-Rebaza and Alneu de Andrade Lopes.
+    .. [1] Jorge Carlos Valverde-Rebaza && Alneu de Andrade Lopes.
        Link prediction : complex networks based on cluster information.
        In Proceedings of the 21st Brazilian conference on Advances in
-       Artificial Intelligence (SBIA'12);
+       Artificial Intelligence (SBIA"12);
        https://doi.org/10.1007/978-3-642-34459-6_10
      */
     if (delta <= 0) {
-        throw xn::XNetworkAlgorithmError('Delta must be greater than zero');
+        throw xn::XNetworkAlgorithmError("Delta must be greater than zero");
 
     auto predict(u, v) {
         Cu = _community(G, u, community);
@@ -494,4 +494,4 @@ auto _community(G, u, community) {
     try {
         return node_u[community];
     } catch (KeyError) {
-        throw xn::XNetworkAlgorithmError('No community information');
+        throw xn::XNetworkAlgorithmError("No community information");

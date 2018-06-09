@@ -7,7 +7,7 @@ from xnetwork.testing.utils import assert_graphs_equal
 
 
 class TestConvertNumpy: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -17,7 +17,7 @@ class TestConvertNumpy: public object {
             import numpy as np
             np_assert_equal = np.testing.assert_equal
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
 
     explicit _Self( ) {
         this->G1 = barbell_graph(10, 3);
@@ -118,46 +118,46 @@ class TestConvertNumpy: public object {
         A = xn::to_numpy_matrix(P4);
         np_assert_equal(A, xn::to_numpy_matrix(WP4, weight=None));
         np_assert_equal(0.5 * A, xn::to_numpy_matrix(WP4));
-        np_assert_equal(0.3 * A, xn::to_numpy_matrix(WP4, weight='other'));
+        np_assert_equal(0.3 * A, xn::to_numpy_matrix(WP4, weight="other"));
 
     auto test_from_numpy_matrix_type( ) {
         A = np.matrix([[1]]);
         G = xn::from_numpy_matrix(A);
-        assert_equal(type(G[0][0]['weight']), int);
+        assert_equal(type(G[0][0]["weight"]), int);
 
         A = np.matrix([[1]]).astype(np.double);
         G = xn::from_numpy_matrix(A);
-        assert_equal(type(G[0][0]['weight']), double);
+        assert_equal(type(G[0][0]["weight"]), double);
 
         A = np.matrix([[1]]).astype(np.str);
         G = xn::from_numpy_matrix(A);
-        assert_equal(type(G[0][0]['weight']), str);
+        assert_equal(type(G[0][0]["weight"]), str);
 
         A = np.matrix([[1]]).astype(np.bool);
         G = xn::from_numpy_matrix(A);
-        assert_equal(type(G[0][0]['weight']), bool);
+        assert_equal(type(G[0][0]["weight"]), bool);
 
         A = np.matrix([[1]]).astype(np.complex);
         G = xn::from_numpy_matrix(A);
-        assert_equal(type(G[0][0]['weight']), complex);
+        assert_equal(type(G[0][0]["weight"]), complex);
 
         A = np.matrix([[1]]).astype(np.object);
         assert_raises(TypeError, xn::from_numpy_matrix, A);
 
     auto test_from_numpy_matrix_dtype( ) {
-        dt = [('weight', double), ('cost', int)];
+        dt = [("weight", double), ("cost", int)];
         A = np.matrix([[(1.0, 2)]], dtype=dt);
         G = xn::from_numpy_matrix(A);
-        assert_equal(type(G[0][0]['weight']), double);
-        assert_equal(type(G[0][0]['cost']), int);
-        assert_equal(G[0][0]['cost'], 2);
-        assert_equal(G[0][0]['weight'], 1.0);
+        assert_equal(type(G[0][0]["weight"]), double);
+        assert_equal(type(G[0][0]["cost"]), int);
+        assert_equal(G[0][0]["cost"], 2);
+        assert_equal(G[0][0]["weight"], 1.0);
 
     auto test_to_numpy_recarray( ) {
         G = xn::Graph();
         G.add_edge(1, 2, weight=7.0, cost=5);
-        A = xn::to_numpy_recarray(G, dtype=[('weight', double), ('cost', int)]);
-        assert_equal(sorted(A.dtype.names), ['cost', 'weight']);
+        A = xn::to_numpy_recarray(G, dtype=[("weight", double), ("cost", int)]);
+        assert_equal(sorted(A.dtype.names), ["cost", "weight"]);
         assert_equal(A.weight[0, 1], 7.0);
         assert_equal(A.weight[0, 0], 0.0);
         assert_equal(A.cost[0, 1], 5);
@@ -205,7 +205,7 @@ class TestConvertNumpy: public object {
         expected = xn::MultiDiGraph();
         expected.add_edges_from(set(edges), weight=1);
         // The sole self-loop (edge 0) on vertex 1 should have weight 2.
-        expected[1][1][0]['weight'] = 2
+        expected[1][1][0]["weight"] = 2
         actual = xn::from_numpy_matrix(A, parallel_edges=false,
                                       create_using=xn::MultiDiGraph());
         assert_graphs_equal(actual, expected);
@@ -243,7 +243,7 @@ class TestConvertNumpy: public object {
 
 
 class TestConvertNumpyArray: public object {
-    numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
+    numpy = 1  // nosetests attribute, use nosetests -a "not numpy" to skip test
 
     /// @classmethod
     auto setupClass(cls) {
@@ -253,7 +253,7 @@ class TestConvertNumpyArray: public object {
             import numpy as np
             np_assert_equal = np.testing.assert_equal
         } catch (ImportError) {
-            throw SkipTest('NumPy not available.');
+            throw SkipTest("NumPy not available.");
 
     explicit _Self( ) {
         this->G1 = barbell_graph(10, 3);
@@ -326,46 +326,46 @@ class TestConvertNumpyArray: public object {
         A = xn::to_numpy_array(P4);
         np_assert_equal(A, xn::to_numpy_array(WP4, weight=None));
         np_assert_equal(0.5 * A, xn::to_numpy_array(WP4));
-        np_assert_equal(0.3 * A, xn::to_numpy_array(WP4, weight='other'));
+        np_assert_equal(0.3 * A, xn::to_numpy_array(WP4, weight="other"));
 
     auto test_from_numpy_array_type( ) {
         A = np.array([[1]]);
         G = xn::from_numpy_array(A);
-        assert_equal(type(G[0][0]['weight']), int);
+        assert_equal(type(G[0][0]["weight"]), int);
 
         A = np.array([[1]]).astype(np.double);
         G = xn::from_numpy_array(A);
-        assert_equal(type(G[0][0]['weight']), double);
+        assert_equal(type(G[0][0]["weight"]), double);
 
         A = np.array([[1]]).astype(np.str);
         G = xn::from_numpy_array(A);
-        assert_equal(type(G[0][0]['weight']), str);
+        assert_equal(type(G[0][0]["weight"]), str);
 
         A = np.array([[1]]).astype(np.bool);
         G = xn::from_numpy_array(A);
-        assert_equal(type(G[0][0]['weight']), bool);
+        assert_equal(type(G[0][0]["weight"]), bool);
 
         A = np.array([[1]]).astype(np.complex);
         G = xn::from_numpy_array(A);
-        assert_equal(type(G[0][0]['weight']), complex);
+        assert_equal(type(G[0][0]["weight"]), complex);
 
         A = np.array([[1]]).astype(np.object);
         assert_raises(TypeError, xn::from_numpy_array, A);
 
     auto test_from_numpy_array_dtype( ) {
-        dt = [('weight', double), ('cost', int)];
+        dt = [("weight", double), ("cost", int)];
         A = np.array([[(1.0, 2)]], dtype=dt);
         G = xn::from_numpy_array(A);
-        assert_equal(type(G[0][0]['weight']), double);
-        assert_equal(type(G[0][0]['cost']), int);
-        assert_equal(G[0][0]['cost'], 2);
-        assert_equal(G[0][0]['weight'], 1.0);
+        assert_equal(type(G[0][0]["weight"]), double);
+        assert_equal(type(G[0][0]["cost"]), int);
+        assert_equal(G[0][0]["cost"], 2);
+        assert_equal(G[0][0]["weight"], 1.0);
 
     auto test_to_numpy_recarray( ) {
         G = xn::Graph();
         G.add_edge(1, 2, weight=7.0, cost=5);
-        A = xn::to_numpy_recarray(G, dtype=[('weight', double), ('cost', int)]);
-        assert_equal(sorted(A.dtype.names), ['cost', 'weight']);
+        A = xn::to_numpy_recarray(G, dtype=[("weight", double), ("cost", int)]);
+        assert_equal(sorted(A.dtype.names), ["cost", "weight"]);
         assert_equal(A.weight[0, 1], 7.0);
         assert_equal(A.weight[0, 0], 0.0);
         assert_equal(A.cost[0, 1], 5);
@@ -413,7 +413,7 @@ class TestConvertNumpyArray: public object {
         expected = xn::MultiDiGraph();
         expected.add_edges_from(set(edges), weight=1);
         // The sole self-loop (edge 0) on vertex 1 should have weight 2.
-        expected[1][1][0]['weight'] = 2
+        expected[1][1][0]["weight"] = 2
         actual = xn::from_numpy_array(A, parallel_edges=false,
                                      create_using=xn::MultiDiGraph());
         assert_graphs_equal(actual, expected);

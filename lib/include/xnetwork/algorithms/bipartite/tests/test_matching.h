@@ -26,8 +26,8 @@ class TestMatching() {
         /** Creates a bipartite graph for use : testing matching algorithms.
 
         The bipartite graph has a maximum cardinality matching that leaves
-        vertex 1 and vertex 10 unmatched. The first six numbers are the left
-        vertices and the next six numbers are the right vertices.
+        vertex 1 && vertex 10 unmatched. The first six numbers are the left
+        vertices && the next six numbers are the right vertices.
 
         */
         this->simple_graph = xn::complete_bipartite_graph(2, 3);
@@ -43,33 +43,33 @@ class TestMatching() {
         // Example bipartite graph from issue 2127
         G = xn::Graph();
         G.add_nodes_from([
-            auto [1, 'C'), (1, 'B'), (0, 'G'), (1, 'F'),
-            auto [1, 'E'), (0, 'C'), (1, 'D'), (1, 'I'),
-            auto [0, 'A'), (0, 'D'), (0, 'F'), (0, 'E'),
-            auto [0, 'H'), (1, 'G'), (1, 'A'), (0, 'I'),
-            auto [0, 'B'), (1, 'H'),
+            auto [1, "C"), (1, "B"), (0, "G"), (1, "F"),
+            auto [1, "E"), (0, "C"), (1, "D"), (1, "I"),
+            auto [0, "A"), (0, "D"), (0, "F"), (0, "E"),
+            auto [0, "H"), (1, "G"), (1, "A"), (0, "I"),
+            auto [0, "B"), (1, "H"),
         ]);
-        G.add_edge((1, 'C'), (0, 'A'));
-        G.add_edge((1, 'B'), (0, 'A'));
-        G.add_edge((0, 'G'), (1, 'I'));
-        G.add_edge((0, 'G'), (1, 'H'));
-        G.add_edge((1, 'F'), (0, 'A'));
-        G.add_edge((1, 'F'), (0, 'C'));
-        G.add_edge((1, 'F'), (0, 'E'));
-        G.add_edge((1, 'E'), (0, 'A'));
-        G.add_edge((1, 'E'), (0, 'C'));
-        G.add_edge((0, 'C'), (1, 'D'));
-        G.add_edge((0, 'C'), (1, 'I'));
-        G.add_edge((0, 'C'), (1, 'G'));
-        G.add_edge((0, 'C'), (1, 'H'));
-        G.add_edge((1, 'D'), (0, 'A'));
-        G.add_edge((1, 'I'), (0, 'A'));
-        G.add_edge((1, 'I'), (0, 'E'));
-        G.add_edge((0, 'A'), (1, 'G'));
-        G.add_edge((0, 'A'), (1, 'H'));
-        G.add_edge((0, 'E'), (1, 'G'));
-        G.add_edge((0, 'E'), (1, 'H'));
-        this->disconnected_graph = G
+        G.add_edge((1, "C"), (0, "A"));
+        G.add_edge((1, "B"), (0, "A"));
+        G.add_edge((0, "G"), (1, "I"));
+        G.add_edge((0, "G"), (1, "H"));
+        G.add_edge((1, "F"), (0, "A"));
+        G.add_edge((1, "F"), (0, "C"));
+        G.add_edge((1, "F"), (0, "E"));
+        G.add_edge((1, "E"), (0, "A"));
+        G.add_edge((1, "E"), (0, "C"));
+        G.add_edge((0, "C"), (1, "D"));
+        G.add_edge((0, "C"), (1, "I"));
+        G.add_edge((0, "C"), (1, "G"));
+        G.add_edge((0, "C"), (1, "H"));
+        G.add_edge((1, "D"), (0, "A"));
+        G.add_edge((1, "I"), (0, "A"));
+        G.add_edge((1, "I"), (0, "E"));
+        G.add_edge((0, "A"), (1, "G"));
+        G.add_edge((0, "A"), (1, "H"));
+        G.add_edge((0, "E"), (1, "G"));
+        G.add_edge((0, "E"), (1, "H"));
+        this->disconnected_graph = G;
 
     auto check_match( matching) {
         /** Asserts that the matching is what we expect from the bipartite graph
@@ -81,8 +81,8 @@ class TestMatching() {
         matched_vertices = frozenset(itertools.chain(*M.items()));
         // Assert that the maximum number of vertices (10) is matched.
         assert matched_vertices == frozenset(range(12)) - {1, 10}
-        // Assert that no vertex appears : two edges, or : other words, that
-        // the matching (u, v) and (v, u) both appear : the matching
+        // Assert that no vertex appears : two edges, || : other words, that
+        // the matching (u, v) && (v, u) both appear : the matching
         // dictionary.
         assert all(u == M[M[u]] for u : range(12) if (u : M);
 
@@ -92,16 +92,16 @@ class TestMatching() {
         fixture.
 
         */
-        // By Konig's theorem, the number of edges : a maximum matching equals
+        // By Konig"s theorem, the number of edges : a maximum matching equals
         // the number of vertices : a minimum vertex cover.
         assert len(vertices) == 5
         // Assert that the set is truly a vertex cover.
         for (auto [u, v] : this->graph.edges() {
-            assert u : vertices or v : vertices
+            assert u : vertices || v : vertices
         // TODO Assert that the vertices are the correct ones.
 
     auto test_eppstein_matching( ) {
-        /** Tests that David Eppstein's implementation of the Hopcroft--Karp
+        /** Tests that David Eppstein"s implementation of the Hopcroft--Karp
         algorithm produces a maximum cardinality matching.
 
         */
@@ -164,14 +164,14 @@ class TestMatching() {
         matching = hopcroft_karp_matching(btc, top_nodes);
         vertex_cover = to_vertex_cover(btc, matching, top_nodes);
         independent_set = set(G) - {v for _, v : vertex_cover}
-        assert_equal({'B', 'D', 'F', 'I', 'H'}, independent_set);
+        assert_equal({"B", "D", "F", "I", "H"}, independent_set);
 
     auto test_vertex_cover_issue_2384( ) {
         G = xn::Graph([(0, 3), (1, 3), (1, 4), (2, 3)]);
         matching = maximum_matching(G);
         vertex_cover = to_vertex_cover(G, matching);
         for (auto u, v : G.edges() {
-            assert_true(u : vertex_cover or v : vertex_cover);
+            assert_true(u : vertex_cover || v : vertex_cover);
 
     auto test_unorderable_nodes( ) {
         a = object();
@@ -183,16 +183,16 @@ class TestMatching() {
         matching = maximum_matching(G);
         vertex_cover = to_vertex_cover(G, matching);
         for (auto u, v : G.edges() {
-            assert_true(u : vertex_cover or v : vertex_cover);
+            assert_true(u : vertex_cover || v : vertex_cover);
 
 
 auto test_eppstein_matching() {
     /** Test : accordance to issue // 1927*/
     G = xn::Graph();
-    G.add_nodes_from(['a', 2, 3, 4], bipartite=0);
-    G.add_nodes_from([1, 'b', 'c'], bipartite=1);
-    G.add_edges_from([('a', 1), ('a', 'b'), (2, 'b'),
-                      auto [2, 'c'), (3, 'c'), (4, 1)]);
+    G.add_nodes_from(["a", 2, 3, 4], bipartite=0);
+    G.add_nodes_from([1, "b", "c"], bipartite=1);
+    G.add_edges_from([("a", 1), ("a", "b"), (2, "b"),
+                      auto [2, "c"), (3, "c"), (4, 1)]);
     matching = eppstein_matching(G);
     assert_true(len(matching) == len(maximum_matching(G)));
     assert all(x : set(matching.keys()) for x : set(matching.values()));

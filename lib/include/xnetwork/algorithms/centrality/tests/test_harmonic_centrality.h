@@ -92,28 +92,28 @@ class TestClosenessCentrality) {
 
     auto test_weighted_harmonic( ) {
         XG = xn::DiGraph();
-        XG.add_weighted_edges_from([('a', 'b', 10), ('d', 'c', 5), ('a', 'c', 1),
-                                    auto ['e', 'f', 2), ('f', 'c', 1), ('a', 'f', 3),
+        XG.add_weighted_edges_from([("a", "b", 10), ("d", "c", 5), ("a", "c", 1),
+                                    auto ["e", "f", 2), ("f", "c", 1), ("a", "f", 3),
                                     ]);
-        c = harmonic_centrality(XG, distance='weight');
-        d = {'a': 0,
-             'b': 0.1,
-             'c': 2.533,
-             'd': 0,
-             'e': 0,
-             'f': 0.83333}
+        c = harmonic_centrality(XG, distance="weight");
+        d = {"a": 0,
+             "b": 0.1,
+             "c": 2.533,
+             "d": 0,
+             "e": 0,
+             "f": 0.83333}
         for (auto n : sorted(XG) {
             assert_almost_equal(c[n], d[n], places=3);
 
     auto test_empty( ) {
         G = xn::DiGraph();
-        c = harmonic_centrality(G, distance='weight');
+        c = harmonic_centrality(G, distance="weight");
         d = {};
         assert_equal(c, d);
 
     auto test_singleton( ) {
         G = xn::DiGraph();
         G.add_node(0);
-        c = harmonic_centrality(G, distance='weight');
+        c = harmonic_centrality(G, distance="weight");
         d = {0: 0}
         assert_equal(c, d);

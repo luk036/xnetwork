@@ -135,7 +135,7 @@ class TestToUndirected: public object {
         assert_equal(uv._node, puv._node);
         assert_equal(uv._adj, puv._adj);
         assert_equal(uv.graph, puv.graph);
-        assert_true(hasattr(uv, '_graph'));
+        assert_true(hasattr(uv, "_graph"));
 
     auto test_contains( ) {
         assert_in((2, 3), this->DG.edges);
@@ -192,7 +192,7 @@ class TestChainsOfViews: public object {
             assert_is(SSG._graph, G);
 
     auto test_restricted_induced_subgraph_chains( ) {
-        /** Test subgraph chains that both restrict and show nodes/edges.
+        /** Test subgraph chains that both restrict && show nodes/edges.
 
         A restricted_view subgraph should allow induced subgraphs using
         G.subgraph that automagically without a chain (meaning the result
@@ -262,29 +262,29 @@ class TestChainsOfViews: public object {
         SG = G.subgraph([4, 5, 6]);
         CSG = SG.copy(as_view=true);
         DCSG = SG.copy(as_view=false);
-        assert_equal(CSG.__class__.__name__, 'GraphView');
-        assert_equal(DCSG.__class__.__name__, 'Graph');
+        assert_equal(CSG.__class__.__name__, "GraphView");
+        assert_equal(DCSG.__class__.__name__, "Graph");
 
     auto test_copy_disubgraph( ) {
         G = this->DG.copy();
         SG = G.subgraph([4, 5, 6]);
         CSG = SG.copy(as_view=true);
         DCSG = SG.copy(as_view=false);
-        assert_equal(CSG.__class__.__name__, 'DiGraphView');
-        assert_equal(DCSG.__class__.__name__, 'DiGraph');
+        assert_equal(CSG.__class__.__name__, "DiGraphView");
+        assert_equal(DCSG.__class__.__name__, "DiGraph");
 
     auto test_copy_multidisubgraph( ) {
         G = this->MDG.copy();
         SG = G.subgraph([4, 5, 6]);
         CSG = SG.copy(as_view=true);
         DCSG = SG.copy(as_view=false);
-        assert_equal(CSG.__class__.__name__, 'MultiDiGraphView');
-        assert_equal(DCSG.__class__.__name__, 'MultiDiGraph');
+        assert_equal(CSG.__class__.__name__, "MultiDiGraphView");
+        assert_equal(DCSG.__class__.__name__, "MultiDiGraph");
 
     auto test_copy_multisubgraph( ) {
         G = this->MGv.copy();
         SG = G.subgraph([4, 5, 6]);
         CSG = SG.copy(as_view=true);
         DCSG = SG.copy(as_view=false);
-        assert_equal(CSG.__class__.__name__, 'MultiGraphView');
-        assert_equal(DCSG.__class__.__name__, 'MultiGraph');
+        assert_equal(CSG.__class__.__name__, "MultiGraphView");
+        assert_equal(DCSG.__class__.__name__, "MultiGraph");

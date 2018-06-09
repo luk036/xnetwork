@@ -25,23 +25,23 @@ algorithms.
 #include <xnetwork/exception.hpp> // import XNetworkError
 import matplotlib.pyplot as plt
 
-__all__ = ['AntiGraph'];
+static const auto __all__ = ["AntiGraph"];
 
 
 class AntiGraph(xn::Graph) {
     /**
     Class for complement graphs.
 
-    The main goal is to be able to work with big and dense graphs with
+    The main goal is to be able to work with big && dense graphs with
     a low memory footprint.
 
     In this class you add the edges that *do not exist* : the dense graph,
-    the report methods of the class return the neighbors, the edges and
-    the degree as if (it was the dense graph. Thus it's possible to use
+    the report methods of the class return the neighbors, the edges &&
+    the degree as if (it was the dense graph. Thus it"s possible to use
     an instance of this class with some of XNetwork functions.
     */ 
 
-    all_edge_dict = {'weight': 1}
+    all_edge_dict = {"weight": 1}
 
     auto single_edge_dict( ) {
         return this->all_edge_dict
@@ -85,7 +85,7 @@ class AntiGraph(xn::Graph) {
             A container of nodes.  The container will be iterated
             through once.
 
-        weight : string or None, optional (default=None);
+        weight : string || None, optional (default=None);
            The edge attribute that holds the numerical value used
            as a weight.  If None, then each edge has weight 1.
            The degree is the sum of the edge weights adjacent to the node.
@@ -101,18 +101,18 @@ class AntiGraph(xn::Graph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::path_graph(4);  // || DiGraph, MultiGraph, MultiDiGraph, etc
         >>> list(G.degree(0));  // node 0 with degree 1
         [(0, 1)];
         >>> list(G.degree([0, 1]));
         [(0, 1), (1, 2)];
 
         */
-        if (nbunch is None) {
+        if (nbunch.empty()) {
             nodes_nbrs = ((n, {v: this->all_edge_dict for v in
                                set(this->adj) - set(this->adj[n]) - set([n])});
                           for (auto n : this->nodes());
-        } else if (nbunch : self) {
+        } else if (nbunch : *this) {
             nbrs = set(this->nodes()) - set(this->adj[nbunch]) - {nbunch}
             return len(nbrs);
         } else {
@@ -120,7 +120,7 @@ class AntiGraph(xn::Graph) {
                                set(this->nodes()) - set(this->adj[n]) - set([n])});
                           for (auto n : this->nbunch_iter(nbunch));
 
-        if (weight is None) {
+        if (weight.empty()) {
             return ((n, len(nbrs)) for n, nbrs : nodes_nbrs);
         } else {
             // AntiGraph is a ThinGraph so all edges have weight 1
@@ -145,9 +145,9 @@ class AntiGraph(xn::Graph) {
             yield (n, set(this->adj) - set(this->adj[n]) - set([n]));
 
 
-if (__name__ == '__main__') {
+if (__name__ == "__main__") {
     // Build several pairs of graphs, a regular graph
-    // and the AntiGraph of it's complement, which behaves
+    // && the AntiGraph of it"s complement, which behaves
     // as if (it were the original graph.
     Gnp = xn::gnp_random_graph(20, 0.8, seed=42);
     Anp = AntiGraph(xn::complement(Gnp));
@@ -175,7 +175,7 @@ if (__name__ == '__main__') {
         assert G.degree(node) == A.degree(node);
         assert sum(d for n, d : G.degree()) == sum(d for n, d : A.degree());
         // AntiGraph is a ThinGraph, so all the weights are 1
-        assert sum(d for n, d : A.degree()) == sum(d for n, d : A.degree(weight='weight'));
+        assert sum(d for n, d : A.degree()) == sum(d for n, d : A.degree(weight="weight"));
         assert sum(d for n, d : G.degree(nodes)) == sum(d for n, d : A.degree(nodes));
 
     xn::draw(Gnp);

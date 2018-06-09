@@ -40,10 +40,10 @@ class TestGenericPath) {
         validate_grid_path(4, 4, 1, 12, xn::shortest_path(this->grid, 1, 12));
         assert_equal(xn::shortest_path(this->directed_cycle, 0, 3), [0, 1, 2, 3]);
         // now with weights
-        assert_equal(xn::shortest_path(this->cycle, 0, 3, weight='weight'), [0, 1, 2, 3]);
-        assert_equal(xn::shortest_path(this->cycle, 0, 4, weight='weight'), [0, 6, 5, 4]);
-        validate_grid_path(4, 4, 1, 12, xn::shortest_path(this->grid, 1, 12, weight='weight'));
-        assert_equal(xn::shortest_path(this->directed_cycle, 0, 3, weight='weight'),
+        assert_equal(xn::shortest_path(this->cycle, 0, 3, weight="weight"), [0, 1, 2, 3]);
+        assert_equal(xn::shortest_path(this->cycle, 0, 4, weight="weight"), [0, 6, 5, 4]);
+        validate_grid_path(4, 4, 1, 12, xn::shortest_path(this->grid, 1, 12, weight="weight"));
+        assert_equal(xn::shortest_path(this->directed_cycle, 0, 3, weight="weight"),
                      [0, 1, 2, 3]);
 
     auto test_shortest_path_target( ) {
@@ -55,9 +55,9 @@ class TestGenericPath) {
         assert_equal(xn::shortest_path_length(this->grid, 1, 12), 5);
         assert_equal(xn::shortest_path_length(this->directed_cycle, 0, 4), 4);
         // now with weights
-        assert_equal(xn::shortest_path_length(this->cycle, 0, 3, weight='weight'), 3);
-        assert_equal(xn::shortest_path_length(this->grid, 1, 12, weight='weight'), 5);
-        assert_equal(xn::shortest_path_length(this->directed_cycle, 0, 4, weight='weight'), 4);
+        assert_equal(xn::shortest_path_length(this->cycle, 0, 3, weight="weight"), 3);
+        assert_equal(xn::shortest_path_length(this->grid, 1, 12, weight="weight"), 5);
+        assert_equal(xn::shortest_path_length(this->directed_cycle, 0, 4, weight="weight"), 4);
 
     auto test_shortest_path_length_target( ) {
         sp = dict(xn::shortest_path_length(xn::path_graph(3), target=1));
@@ -72,10 +72,10 @@ class TestGenericPath) {
         p = xn::shortest_path(this->grid, 1);
         validate_grid_path(4, 4, 1, 12, p[12]);
         // now with weights
-        p = xn::shortest_path(this->cycle, 0, weight='weight');
+        p = xn::shortest_path(this->cycle, 0, weight="weight");
         assert_equal(p[3], [0, 1, 2, 3]);
         assert_equal(p, xn::single_source_dijkstra_path(this->cycle, 0));
-        p = xn::shortest_path(this->grid, 1, weight='weight');
+        p = xn::shortest_path(this->grid, 1, weight="weight");
         validate_grid_path(4, 4, 1, 12, p[12]);
 
     auto test_single_source_shortest_path_length( ) {
@@ -85,11 +85,11 @@ class TestGenericPath) {
         l = dict(xn::shortest_path_length(this->grid, 1));
         assert_equal(l[16], 6);
         // now with weights
-        l = dict(xn::shortest_path_length(this->cycle, 0, weight='weight'));
+        l = dict(xn::shortest_path_length(this->cycle, 0, weight="weight"));
         assert_equal(l, {0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 2, 6: 1});
         assert_equal(l, dict(xn::single_source_dijkstra_path_length(
             this->cycle, 0)));
-        l = dict(xn::shortest_path_length(this->grid, 1, weight='weight'));
+        l = dict(xn::shortest_path_length(this->grid, 1, weight="weight"));
         assert_equal(l[16], 6);
 
     auto test_all_pairs_shortest_path( ) {
@@ -99,10 +99,10 @@ class TestGenericPath) {
         p = xn::shortest_path(this->grid);
         validate_grid_path(4, 4, 1, 12, p[1][12]);
         // now with weights
-        p = xn::shortest_path(this->cycle, weight='weight');
+        p = xn::shortest_path(this->cycle, weight="weight");
         assert_equal(p[0][3], [0, 1, 2, 3]);
         assert_equal(p, dict(xn::all_pairs_dijkstra_path(this->cycle)));
-        p = xn::shortest_path(this->grid, weight='weight');
+        p = xn::shortest_path(this->grid, weight="weight");
         validate_grid_path(4, 4, 1, 12, p[1][12]);
 
     auto test_all_pairs_shortest_path_length( ) {
@@ -112,10 +112,10 @@ class TestGenericPath) {
         l = dict(xn::shortest_path_length(this->grid));
         assert_equal(l[1][16], 6);
         // now with weights
-        l = dict(xn::shortest_path_length(this->cycle, weight='weight'));
+        l = dict(xn::shortest_path_length(this->cycle, weight="weight"));
         assert_equal(l[0], {0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 2, 6: 1});
         assert_equal(l, dict(xn::all_pairs_dijkstra_path_length(this->cycle)));
-        l = dict(xn::shortest_path_length(this->grid, weight='weight'));
+        l = dict(xn::shortest_path_length(this->grid, weight="weight"));
         assert_equal(l[1][16], 6);
 
     auto test_has_path( ) {
@@ -152,11 +152,11 @@ class TestAverageShortestPathLength: public object {
     auto test_weighted( ) {
         G = xn::Graph();
         xn::add_cycle(G, range(7), weight=2);
-        l = xn::average_shortest_path_length(G, weight='weight');
+        l = xn::average_shortest_path_length(G, weight="weight");
         assert_almost_equal(l, 4);
         G = xn::Graph();
         xn::add_path(G, range(5), weight=2);
-        l = xn::average_shortest_path_length(G, weight='weight');
+        l = xn::average_shortest_path_length(G, weight="weight");
         assert_almost_equal(l, 4);
 
     auto test_disconnected( ) {

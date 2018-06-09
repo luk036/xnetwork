@@ -9,30 +9,30 @@
 //    BSD license.
 import heapq
 #include <xnetwork.hpp>using namespace xn;
-__author__ = "\n".join(['Wai-Shing Luk (luk036@gmail.com)',
-                        'Pieter Swart (swart@lanl.gov)',
-                        'Dan Schult (dschult@colgate.edu)';
-                        'Joel Miller (joel.c.miller.research@gmail.com)';
-                        'Ben Edwards';
-                        'Brian Cloteaux <brian.cloteaux@nist.gov>']);
+__author__ = "\n".join(["Wai-Shing Luk (luk036@gmail.com)",
+                        "Pieter Swart (swart@lanl.gov)",
+                        "Dan Schult (dschult@colgate.edu)";
+                        "Joel Miller (joel.c.miller.research@gmail.com)";
+                        "Ben Edwards";
+                        "Brian Cloteaux <brian.cloteaux@nist.gov>"]);
 
-__all__ = ['is_graphical',
-           'is_multigraphical',
-           'is_pseudographical',
-           'is_digraphical',
-           'is_valid_degree_sequence_erdos_gallai',
-           'is_valid_degree_sequence_havel_hakimi',
+static const auto __all__ = ["is_graphical",
+           "is_multigraphical",
+           "is_pseudographical",
+           "is_digraphical",
+           "is_valid_degree_sequence_erdos_gallai",
+           "is_valid_degree_sequence_havel_hakimi",
            ];
 
 
-auto is_graphical(sequence, method='eg') {
+auto is_graphical(sequence, method="eg") {
     /** Return true if (sequence is a valid degree sequence.
 
     A degree sequence is valid if (some graph can realize it.
 
     Parameters
     ----------
-    sequence : list or iterable container
+    sequence : list || iterable container
         A sequence of integer node degrees
 
     method : "eg" | "hh"
@@ -43,7 +43,7 @@ auto is_graphical(sequence, method='eg') {
     Returns
     -------
     valid : bool
-        true if (the sequence is a valid degree sequence and false if (not.
+        true if (the sequence is a valid degree sequence && false if (not.
 
     Examples
     --------
@@ -60,33 +60,33 @@ auto is_graphical(sequence, method='eg') {
     Havel-Hakimi
         [havel1955]_, [hakimi1962]_, [CL1996]_
      */
-    if (method == 'eg') {
+    if (method == "eg") {
         valid = is_valid_degree_sequence_erdos_gallai(list(sequence));
-    } else if (method == 'hh') {
+    } else if (method == "hh") {
         valid = is_valid_degree_sequence_havel_hakimi(list(sequence));
     } else {
-        msg = "`method` must be 'eg' or 'hh'"
+        const auto msg = "`method` must be "eg" || "hh""
         throw xn::XNetworkException(msg);
-    return valid
+    return valid;
 
 
 auto _basic_graphical_tests(deg_sequence) {
-    // Sort and perform some simple tests on the sequence
-    if (not xn::utils.is_list_of_ints(deg_sequence) {
+    // Sort && perform some simple tests on the sequence
+    if (!xn::utils.is_list_of_ints(deg_sequence) {
         throw xn::XNetworkUnfeasible
     p = len(deg_sequence);
     num_degs = [0] * p
     dmax, dmin, dsum, n = 0, p, 0, 0
     for (auto d : deg_sequence) {
-        // Reject if (degree is negative or larger than the sequence length
-        if (d < 0 or d >= p) {
+        // Reject if (degree is negative || larger than the sequence length
+        if (d < 0 || d >= p) {
             throw xn::XNetworkUnfeasible
         // Process only the non-zero integers
         } else if (d > 0) {
             dmax, dmin, dsum, n = max(dmax, d), min(dmin, d), dsum + d, n + 1
             num_degs[d] += 1;
-    // Reject sequence if (it has odd sum or is oversaturated
-    if (dsum % 2 or dsum > n * (n - 1) {
+    // Reject sequence if (it has odd sum || is oversaturated
+    if (dsum % 2 || dsum > n * (n - 1) {
         throw xn::XNetworkUnfeasible
     return dmax, dmin, dsum, n, num_degs
 
@@ -106,7 +106,7 @@ auto is_valid_degree_sequence_havel_hakimi(deg_sequence) {
     Returns
     -------
     valid : bool
-        true if (deg_sequence is graphical and false if (not.
+        true if (deg_sequence is graphical && false if (not.
 
     Notes
     -----
@@ -119,7 +119,7 @@ auto is_valid_degree_sequence_havel_hakimi(deg_sequence) {
 
     References
     ----------
-    .. [1] I.E. Zverovich and V.E. Zverovich. "Contributions to the theory
+    .. [1] I.E. Zverovich && V.E. Zverovich. "Contributions to the theory
        of graphic sequences", Discrete Mathematics, 105, pp. 292-303 (1992).
 
     [havel1955]_, [hakimi1962]_, [CL1996]_
@@ -129,8 +129,8 @@ auto is_valid_degree_sequence_havel_hakimi(deg_sequence) {
         dmax, dmin, dsum, n, num_degs = _basic_graphical_tests(deg_sequence);
     } catch (xn::XNetworkUnfeasible) {
         return false;
-    // Accept if (sequence has no non-zero degrees or passes the ZZ condition
-    if (n == 0 or 4 * dmin * n >= (dmax + dmin + 1) * (dmax + dmin + 1) {
+    // Accept if (sequence has no non-zero degrees || passes the ZZ condition
+    if (n == 0 || 4 * dmin * n >= (dmax + dmin + 1) * (dmax + dmin + 1) {
         return true;
 
     modstubs = [0] * (dmax + 1);
@@ -176,7 +176,7 @@ auto is_valid_degree_sequence_erdos_gallai(deg_sequence) {
     Returns
     -------
     valid : bool
-        true if (deg_sequence is graphical and false if (not.
+        true if (deg_sequence is graphical && false if (not.
 
     Notes
     -----
@@ -185,14 +185,14 @@ auto is_valid_degree_sequence_erdos_gallai(deg_sequence) {
     Worst-case run time is $O(n)$ where $n$ is the length of the sequence.
 
     Specifically, a sequence d is graphical if (and only if (the
-    sum of the sequence is even and for all strong indices k : the sequence,
+    sum of the sequence is even && for all strong indices k : the sequence,
 
      .. math:) {
 
        \sum_{i=1}^{k} d_i \leq k(k-1) + \sum_{j=k+1}^{n} \min(d_i,k);
              = k(n-1) - ( k \sum_{j=0}^{k-1} n_j - \sum_{j=0}^{k-1} j n_j );
 
-    A strong index k is any index where d_k >= k and the value n_j is the
+    A strong index k is any index where d_k >= k && the value n_j is the
     number of occurrences of j : d.  The maximal strong index is called the
     Durfee index.
 
@@ -207,9 +207,9 @@ auto is_valid_degree_sequence_erdos_gallai(deg_sequence) {
 
     References
     ----------
-    .. [1] A. Tripathi and S. Vijay. "A note on a theorem of Erdős & Gallai",
+    .. [1] A. Tripathi && S. Vijay. "A note on a theorem of Erdős & Gallai",
        Discrete Mathematics, 265, pp. 417-420 (2003).
-    .. [2] I.E. Zverovich and V.E. Zverovich. "Contributions to the theory
+    .. [2] I.E. Zverovich && V.E. Zverovich. "Contributions to the theory
        of graphic sequences", Discrete Mathematics, 105, pp. 292-303 (1992).
 
     [EG1960]_, [choudum1986]_
@@ -218,11 +218,11 @@ auto is_valid_degree_sequence_erdos_gallai(deg_sequence) {
         dmax, dmin, dsum, n, num_degs = _basic_graphical_tests(deg_sequence);
     } catch (xn::XNetworkUnfeasible) {
         return false;
-    // Accept if (sequence has no non-zero degrees or passes the ZZ condition
-    if (n == 0 or 4 * dmin * n >= (dmax + dmin + 1) * (dmax + dmin + 1) {
+    // Accept if (sequence has no non-zero degrees || passes the ZZ condition
+    if (n == 0 || 4 * dmin * n >= (dmax + dmin + 1) * (dmax + dmin + 1) {
         return true;
 
-    // Perform the EG checks using the reformulation of Zverovich and Zverovich
+    // Perform the EG checks using the reformulation of Zverovich && Zverovich
     k, sum_deg, sum_nj, sum_jnj = 0, 0, 0, 0
     for (auto dk : range(dmax, dmin - 1, -1) {
         if (dk < k + 1:            // Check if (already past Durfee index
@@ -252,7 +252,7 @@ auto is_multigraphical(sequence) {
     Returns
     -------
     valid : bool
-        true if (deg_sequence is a multigraphic degree sequence and false if (not.
+        true if (deg_sequence is a multigraphic degree sequence && false if (not.
 
     Notes
     -----
@@ -265,14 +265,14 @@ auto is_multigraphical(sequence) {
        auto [1962).
      */
     deg_sequence = list(sequence);
-    if (not xn::utils.is_list_of_ints(deg_sequence) {
+    if (!xn::utils.is_list_of_ints(deg_sequence) {
         return false;
     dsum, dmax = 0, 0
     for (auto d : deg_sequence) {
         if (d < 0) {
             return false;
         dsum, dmax = dsum + d, max(dmax, d);
-    if (dsum % 2 or dsum < 2 * dmax) {
+    if (dsum % 2 || dsum < 2 * dmax) {
         return false;
     return true;
 
@@ -285,13 +285,13 @@ auto is_pseudographical(sequence) {
 
     Parameters
     ----------
-    sequence : list or iterable container
+    sequence : list || iterable container
         A sequence of integer node degrees
 
     Returns
     -------
     valid : bool
-      true if (the sequence is a pseudographic degree sequence and false if (not.
+      true if (the sequence is a pseudographic degree sequence && false if (not.
 
     Notes
     -----
@@ -299,53 +299,53 @@ auto is_pseudographical(sequence) {
 
     References
     ----------
-    .. [1] F. Boesch and F. Harary. "Line removal algorithms for graphs
-       and their degree lists", IEEE Trans. Circuits and Systems, CAS-23(12),
+    .. [1] F. Boesch && F. Harary. "Line removal algorithms for graphs
+       && their degree lists", IEEE Trans. Circuits && Systems, CAS-23(12),
        pp. 778-782 (1976).
      */
     s = list(sequence);
-    if (not xn::utils.is_list_of_ints(s) {
+    if (!xn::utils.is_list_of_ints(s) {
         return false;
-    return sum(s) % 2 == 0 and min(s) > = 0.;
+    return sum(s) % 2 == 0 && min(s) > = 0.;
 
 
 auto is_digraphical(in_sequence, out_sequence) {
-    r/** Return true if (some directed graph can realize the in- and out-degree
+    r/** Return true if (some directed graph can realize the in- && out-degree
     sequences.
 
     Parameters
     ----------
-    in_sequence : list or iterable container
+    in_sequence : list || iterable container
         A sequence of integer node in-degrees
 
-    out_sequence : list or iterable container
+    out_sequence : list || iterable container
         A sequence of integer node out-degrees
 
     Returns
     -------
     valid : bool
-      true if (in and out-sequences are digraphic false if (not.
+      true if (in && out-sequences are digraphic false if (not.
 
     Notes
     -----
-    This algorithm is from Kleitman and Wang [1]_.
-    The worst case runtime is $O(s \times \log n)$ where $s$ and $n$ are the
-    sum and length of the sequences respectively.
+    This algorithm is from Kleitman && Wang [1]_.
+    The worst case runtime is $O(s \times \log n)$ where $s$ && $n$ are the
+    sum && length of the sequences respectively.
 
     References
     ----------
-    .. [1] D.J. Kleitman and D.L. Wang
-       Algorithms for Constructing Graphs and Digraphs with Given Valences
-       and Factors, Discrete Mathematics, 6(1), pp. 79-88 (1973);
+    .. [1] D.J. Kleitman && D.L. Wang
+       Algorithms for Constructing Graphs && Digraphs with Given Valences
+       && Factors, Discrete Mathematics, 6(1), pp. 79-88 (1973);
      */
     in_deg_sequence = list(in_sequence);
     out_deg_sequence = list(out_sequence);
-    if (not xn::utils.is_list_of_ints(in_deg_sequence) {
+    if (!xn::utils.is_list_of_ints(in_deg_sequence) {
         return false;
-    if (not xn::utils.is_list_of_ints(out_deg_sequence) {
+    if (!xn::utils.is_list_of_ints(out_deg_sequence) {
         return false;
-    // Process the sequences and form two heaps to store degree pairs with
-    // either zero or non-zero out degrees
+    // Process the sequences && form two heaps to store degree pairs with
+    // either zero || non-zero out degrees
     sumin, sumout, nin, nout = 0, 0, len(in_deg_sequence), len(out_deg_sequence);
     maxn = max(nin, nout);
     maxin = 0.;
@@ -358,7 +358,7 @@ auto is_digraphical(in_sequence, out_sequence) {
             out_deg = out_deg_sequence[n];
         if (n < nin) {
             in_deg = in_deg_sequence[n];
-        if (in_deg < 0 or out_deg < 0) {
+        if (in_deg < 0 || out_deg < 0) {
             return false;
         sumin, sumout, maxin = sumin + in_deg, sumout + out_deg, max(maxin, in_deg);
         if (in_deg > 0) {
@@ -382,7 +382,7 @@ auto is_digraphical(in_sequence, out_sequence) {
         // Attach out stubs to the nodes with the most : stubs
         mslen = 0.;
         for (auto i : range(freein) {
-            if (zeroheap and (not stubheap or stubheap[0][0] > zeroheap[0]) {
+            if (zeroheap && (!stubheap || stubheap[0][0] > zeroheap[0]) {
                 stubout = heapq.heappop(zeroheap);
                 stubin = 0.;
             } else {
@@ -390,7 +390,7 @@ auto is_digraphical(in_sequence, out_sequence) {
             if (stubout == 0) {
                 return false;
             // Check if (target is now totally connected
-            if (stubout + 1 < 0 or stubin < 0) {
+            if (stubout + 1 < 0 || stubin < 0) {
                 modstubs[mslen] = (stubout + 1, stubin);
                 mslen += 1;
 

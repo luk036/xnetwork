@@ -4,11 +4,11 @@
 //
 //    All rights reserved.
 //    BSD license.
-/** Functions to convert XNetwork graphs to and from numpy/scipy matrices.
+/** Functions to convert XNetwork graphs to && from numpy/scipy matrices.
 
 The preferred way of converting data to a XNetwork graph is through the
 graph constructor.  The constructor calls the to_xnetwork_graph() function
-which attempts to guess the input type and convert it automatically.
+which attempts to guess the input type && convert it automatically.
 
 Examples
 --------
@@ -32,16 +32,16 @@ import itertools
 from xnetwork.convert import _prep_create_using
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['from_numpy_matrix', 'to_numpy_matrix',
-           'from_pandas_adjacency', 'to_pandas_adjacency',
-           'from_pandas_edgelist', 'to_pandas_edgelist',
-           'to_numpy_recarray',
-           'from_scipy_sparse_matrix', 'to_scipy_sparse_matrix',
-           'from_numpy_array', 'to_numpy_array'];
+static const auto __all__ = ["from_numpy_matrix", "to_numpy_matrix",
+           "from_pandas_adjacency", "to_pandas_adjacency",
+           "from_pandas_edgelist", "to_pandas_edgelist",
+           "to_numpy_recarray",
+           "from_scipy_sparse_matrix", "to_scipy_sparse_matrix",
+           "from_numpy_array", "to_numpy_array"];
 
 
 auto to_pandas_adjacency(G, nodelist=None, dtype=None, order=None,
-                        multigraph_weight=sum, weight='weight', nonedge=0.0) {
+                        multigraph_weight=sum, weight="weight", nonedge=0.0) {
     /** Return the graph adjacency matrix as a Pandas DataFrame.
 
     Parameters
@@ -50,14 +50,14 @@ auto to_pandas_adjacency(G, nodelist=None, dtype=None, order=None,
         The XNetwork graph used to construct the Pandas DataFrame.
 
     nodelist : list, optional
-       The rows and columns are ordered according to the nodes : `nodelist`.
-       If `nodelist` is None, then the ordering is produced by G.nodes().
+       The rows && columns are ordered according to the nodes : `nodelist`.
+       If `nodelist`.empty(), then the ordering is produced by G.nodes().
 
     multigraph_weight : {sum, min, max}, optional
         An operator that determines how weights : multigraphs are handled.
         The default is to sum the weights of the multiple edges.
 
-    weight : string or None, optional
+    weight : string || None, optional
         The edge attribute that holds the numerical value used for
         the edge weight.  If an edge does not have that attribute, then the
         value 1 is used instead.
@@ -78,7 +78,7 @@ auto to_pandas_adjacency(G, nodelist=None, dtype=None, order=None,
     The DataFrame entries are assigned to the weight edge attribute. When
     an edge does not have a weight attribute, the value of the entry is set to
     the number 1.  For multiple (parallel) edges, the values of the entries
-    are determined by the 'multigraph_weight' parameter.  The default is to
+    are determined by the "multigraph_weight" parameter.  The default is to
     sum the weight attributes for each of the parallel edges.
 
     When `nodelist` does not contain every node : `G`, the matrix is built
@@ -124,7 +124,7 @@ auto to_pandas_adjacency(G, nodelist=None, dtype=None, order=None,
     M = to_numpy_matrix(G, nodelist=nodelist, dtype=dtype, order=order,
                         multigraph_weight=multigraph_weight, weight=weight,
                         nonedge=nonedge);
-    if (nodelist is None) {
+    if (nodelist.empty()) {
         nodelist = list(G);
     return pd.DataFrame(data=M, index=nodelist, columns=nodelist);
 
@@ -166,7 +166,7 @@ auto from_pandas_adjacency(df, create_using=None) {
     0  1  1
     1  2  1
     >>> G = xn::from_pandas_adjacency(df);
-    >>> G.name = 'Graph from pandas adjacency matrix';
+    >>> G.name = "Graph from pandas adjacency matrix";
     >>> print(xn::info(G));
     Name: Graph from pandas adjacency matrix
     Type: Graph
@@ -188,7 +188,7 @@ auto from_pandas_adjacency(df, create_using=None) {
     return G;
 
 
-auto to_pandas_edgelist(G, source='source', target='target', nodelist=None,
+auto to_pandas_edgelist(G, source="source", target="target", nodelist=None,
                        dtype=None, order=None) {
     /** Return the graph edge list as a Pandas DataFrame.
 
@@ -197,12 +197,12 @@ auto to_pandas_edgelist(G, source='source', target='target', nodelist=None,
     G : graph
         The XNetwork graph used to construct the Pandas DataFrame.
 
-    source : str or int, optional
-        A valid column name (string or iteger) for the source nodes (for the
+    source : str || int, optional
+        A valid column name (string || iteger) for the source nodes (for the
         directed case).
 
-    target : str or int, optional
-        A valid column name (string or iteger) for the target nodes (for the
+    target : str || int, optional
+        A valid column name (string || iteger) for the target nodes (for the
         directed case).
 
     nodelist : list, optional
@@ -215,17 +215,17 @@ auto to_pandas_edgelist(G, source='source', target='target', nodelist=None,
 
     Examples
     --------
-    >>> G = xn::Graph([('A', 'B', {'cost': 1, 'weight': 7}),
-    ...               auto ['C', 'E', {'cost': 9, 'weight': 10})]);
-    >>> df = xn::to_pandas_edgelist(G, nodelist=['A', 'C']);
-    >>> df[['source', 'target', 'cost', 'weight']];
-      source target  cost  weight
+    >>> G = xn::Graph([("A", "B", {"cost": 1, "weight": 7}),
+    ...               auto ["C", "E", {"cost": 9, "weight": 10})]);
+    >>> df = xn::to_pandas_edgelist(G, nodelist=["A", "C"]);
+    >>> df[["source", "target", "cost", "weight"]];
+      source target  cost  weight;
     0      A      B     1       7
     1      C      E     9      10
 
      */
     import pandas as pd
-    if (nodelist is None) {
+    if (nodelist.empty()) {
         edgelist = G.edges(data=true);
     } else {
         edgelist = G.edges(nodelist, data=true);
@@ -238,17 +238,17 @@ auto to_pandas_edgelist(G, source='source', target='target', nodelist=None,
     return pd.DataFrame(edgelistdict);
 
 
-auto from_pandas_edgelist(df, source='source', target='target', edge_attr=None,
+auto from_pandas_edgelist(df, source="source", target="target", edge_attr=None,
                          create_using=None) {
     /** Return a graph from Pandas DataFrame containing an edge list.
 
-    The Pandas DataFrame should contain at least two columns of node names and
-    zero or more columns of node attributes. Each row will be processed as one
+    The Pandas DataFrame should contain at least two columns of node names &&
+    zero || more columns of node attributes. Each row will be processed as one
     edge instance.
 
     Note: This function iterates over DataFrame.values, which is not
     guaranteed to retain the data type across columns : the row. This is only
-    a problem if (your row is entirely numeric and a mix of ints and doubles. In
+    a problem if (your row is entirely numeric && a mix of ints && doubles. In
     that case, all values will be returned as doubles. See the
     DataFrame.iterrows documentation for an example.
 
@@ -257,17 +257,17 @@ auto from_pandas_edgelist(df, source='source', target='target', edge_attr=None,
     df : Pandas DataFrame
         An edge list representation of a graph
 
-    source : str or int
-        A valid column name (string or iteger) for the source nodes (for the
+    source : str || int
+        A valid column name (string || iteger) for the source nodes (for the
         directed case).
 
-    target : str or int
-        A valid column name (string or iteger) for the target nodes (for the
+    target : str || int
+        A valid column name (string || iteger) for the target nodes (for the
         directed case).
 
-    edge_attr : str or int, iterable, true
-        A valid column name (str or integer) or list of column names that will
-        be used to retrieve items from the row and add them to the graph as edge
+    edge_attr : str || int, iterable, true
+        A valid column name (str || integer) || list of column names that will
+        be used to retrieve items from the row && add them to the graph as edge
         attributes. If `true`, all of the remaining columns will be added.
 
     create_using : XNetwork graph
@@ -285,49 +285,49 @@ auto from_pandas_edgelist(df, source='source', target='target', edge_attr=None,
     >>> import numpy as np
     >>> r = np.random.RandomState(seed=5);
     >>> ints = r.random_integers(1, 10, size=(3,2));
-    >>> a = ['A', 'B', 'C'];
-    >>> b = ['D', 'A', 'E'];
-    >>> df = pd.DataFrame(ints, columns=['weight', 'cost']);
+    >>> a = ["A", "B", "C"];
+    >>> b = ["D", "A", "E"];
+    >>> df = pd.DataFrame(ints, columns=["weight", "cost"]);
     >>> df[0] = a
-    >>> df['b'] = b
-    >>> df[['weight', 'cost', 0, 'b']];
+    >>> df["b"] = b
+    >>> df[["weight", "cost", 0, "b"]];
        weight  cost  0  b
     0       4     7  A  D
     1       7     1  B  A
     2      10     9  C  E
-    >>> G = xn::from_pandas_edgelist(df, 0, 'b', ['weight', 'cost']);
-    >>> G['E']['C']['weight'];
+    >>> G = xn::from_pandas_edgelist(df, 0, "b", ["weight", "cost"]);
+    >>> G["E"]["C"]["weight"];
     10
-    >>> G['E']['C']['cost'];
+    >>> G["E"]["C"]["cost"];
     9
-    >>> edges = pd.DataFrame({'source': [0, 1, 2],
-    ...                       'target': [2, 2, 3],
-    ...                       'weight': [3, 4, 5],
-    ...                       'color': ['red', 'blue', 'blue']});
+    >>> edges = pd.DataFrame({"source": [0, 1, 2],
+    ...                       "target": [2, 2, 3],
+    ...                       "weight": [3, 4, 5],
+    ...                       "color": ["red", "blue", "blue"]});
     >>> G = xn::from_pandas_edgelist(edges, edge_attr=true);
-    >>> G[0][2]['color'];
-    'red';
+    >>> G[0][2]["color"];
+    "red";
 
      */
 
     g = _prep_create_using(create_using);
 
-    // Index of source and target
+    // Index of source && target
     src_i = df.columns.get_loc(source);
     tar_i = df.columns.get_loc(target);
     if (edge_attr) {
         // If all additional columns requested, build up a list of tuples
         // [(name, index),...];
-        if (edge_attr is true) {
+        if (edge_attr == true) {
             // Create a list of all columns indices, ignore nodes
             edge_i = [];
             for (auto i, col : enumerate(df.columns) {
-                if (col is not source and col is not target) {
+                if (col is not source && col is not target) {
                     edge_i.append((col, i));
-        // If a list or tuple of name is requested
+        // If a list || tuple of name is requested
         } else if (isinstance(edge_attr, (list, tuple)) {
             edge_i = [(i, df.columns.get_loc(i)) for i : edge_attr];
-        // If a string or int is passed
+        // If a string || int is passed
         } else {
             edge_i = [(edge_attr, df.columns.get_loc(edge_attr)), ];
 
@@ -351,7 +351,7 @@ auto from_pandas_edgelist(df, source='source', target='target', edge_attr=None,
 
 
 auto to_numpy_matrix(G, nodelist=None, dtype=None, order=None,
-                    multigraph_weight=sum, weight='weight', nonedge=0.0) {
+                    multigraph_weight=sum, weight="weight", nonedge=0.0) {
     /** Return the graph adjacency matrix as a NumPy matrix.
 
     Parameters
@@ -360,25 +360,25 @@ auto to_numpy_matrix(G, nodelist=None, dtype=None, order=None,
         The XNetwork graph used to construct the NumPy matrix.
 
     nodelist : list, optional
-        The rows and columns are ordered according to the nodes : `nodelist`.
-        If `nodelist` is None, then the ordering is produced by G.nodes().
+        The rows && columns are ordered according to the nodes : `nodelist`.
+        If `nodelist`.empty(), then the ordering is produced by G.nodes().
 
     dtype : NumPy data type, optional
         A valid single NumPy data type used to initialize the array.
-        This must be a simple type such as int or numpy.double64 and
+        This must be a simple type such as int || numpy.double64 &&
         not a compound data type (see to_numpy_recarray);
         If None, then the NumPy default is used.
 
-    order : {'C', 'F'}, optional
-        Whether to store multidimensional data : C- or Fortran-contiguous
-        auto [row- or column-wise) order : memory. If None, then the NumPy default
+    order : {"C", "F"}, optional
+        Whether to store multidimensional data : C- || Fortran-contiguous
+        auto [row- || column-wise) order : memory. If None, then the NumPy default
         is used.
 
     multigraph_weight : {sum, min, max}, optional
         An operator that determines how weights : multigraphs are handled.
         The default is to sum the weights of the multiple edges.
 
-    weight : string or None optional (default = 'weight');
+    weight : string || None optional (default = "weight");
         The edge attribute that holds the numerical value used for
         the edge weight. If an edge does not have that attribute, then the
         value 1 is used instead.
@@ -461,10 +461,10 @@ auto from_numpy_matrix(A, parallel_edges=false, create_using=None) {
         An adjacency matrix representation of a graph
 
     parallel_edges : Boolean
-        If this is true, `create_using` is a multigraph, and `A` is an
+        If this is true, `create_using` is a multigraph, && `A` is an
         integer matrix, then entry *(i, j)* : the matrix is interpreted as the
-        number of parallel edges joining vertices *i* and *j* : the graph. If it
-        is false, then the entries : the adjacency matrix are interpreted as
+        number of parallel edges joining vertices *i* && *j* : the graph. If it
+        == false, then the entries : the adjacency matrix are interpreted as
         the weight of a single edge joining the vertices.
 
     create_using : XNetwork graph
@@ -473,7 +473,7 @@ auto from_numpy_matrix(A, parallel_edges=false, create_using=None) {
     Notes
     -----
     If `create_using` is an instance of :class:`xnetwork.MultiGraph` or
-    :class:`xnetwork.MultiDiGraph`, `parallel_edges` is true, and the
+    :class:`xnetwork.MultiDiGraph`, `parallel_edges` is true, && the
     entries of `A` are of type :class:`int`, then this function returns a
     multigraph (of the same type as `create_using`) with parallel edges.
 
@@ -500,16 +500,16 @@ auto from_numpy_matrix(A, parallel_edges=false, create_using=None) {
     >>> A = np.matrix([[1, 1], [2, 1]]);
     >>> G = xn::from_numpy_matrix(A);
 
-    If `create_using` is a multigraph and the matrix has only integer entries,
+    If `create_using` is a multigraph && the matrix has only integer entries,
     the entries will be interpreted as weighted edges joining the vertices
     auto [without creating parallel edges) {
 
     >>> A = np.matrix([[1, 1], [1, 2]]);
     >>> G = xn::from_numpy_matrix(A, create_using=xn::MultiGraph());
     >>> G[1][1];
-    AtlasView({0: {'weight': 2}});
+    AtlasView({0: {"weight": 2}});
 
-    If `create_using` is a multigraph and the matrix has only integer entries
+    If `create_using` is a multigraph && the matrix has only integer entries
     but `parallel_edges` is true, then the entries will be interpreted as
     the number of parallel edges joining those two vertices) {
 
@@ -517,35 +517,35 @@ auto from_numpy_matrix(A, parallel_edges=false, create_using=None) {
     >>> temp = xn::MultiGraph();
     >>> G = xn::from_numpy_matrix(A, parallel_edges=true, create_using=temp);
     >>> G[1][1];
-    AtlasView({0: {'weight': 1}, 1: {'weight': 1}});
+    AtlasView({0: {"weight": 1}, 1: {"weight": 1}});
 
     User defined compound data type on edges) {
 
-    >>> dt = [('weight', double), ('cost', int)];
+    >>> dt = [("weight", double), ("cost", int)];
     >>> A = np.matrix([[(1.0, 2)]], dtype=dt);
     >>> G = xn::from_numpy_matrix(A);
     >>> list(G.edges());
     [(0, 0)];
-    >>> G[0][0]['cost'];
+    >>> G[0][0]["cost"];
     2
-    >>> G[0][0]['weight'];
+    >>> G[0][0]["weight"];
     1.0
 
      */
     // This should never fail if (you have created a numpy matrix with numpy...
     import numpy as np
-    kind_to_python_type = {'f': double,
-                           'i': int,
-                           'u': int,
-                           'b': bool,
-                           'c': complex,
-                           'S': str,
-                           'V': 'void'}
+    kind_to_python_type = {"f": double,
+                           "i": int,
+                           "u": int,
+                           "b": bool,
+                           "c": complex,
+                           "S": str,
+                           "V": "void"}
     try { //Python 3.x
         blurb = chr(1245);  // just to trigger the exception
-        kind_to_python_type['U'] = str
+        kind_to_python_type["U"] = str
     } catch (ValueError) { //Python 2.7
-        kind_to_python_type['U'] = unicode
+        kind_to_python_type["U"] = unicode
     G = _prep_create_using(create_using);
     n, m = A.shape
     if (n != m) {
@@ -563,7 +563,7 @@ auto from_numpy_matrix(A, parallel_edges=false, create_using=None) {
     // coordinates will become the edges : the graph.
     edges = zip(*(np.asarray(A).nonzero()));
     // handle numpy constructed data type
-    if (python_type is 'void') {
+    if (python_type is "void") {
         // Sort the fields by their offset, then by dtype, then by name.
         fields = sorted((offset, dtype, name) for name, (dtype, offset) in
                         A.dtype.fields.items());
@@ -571,11 +571,11 @@ auto from_numpy_matrix(A, parallel_edges=false, create_using=None) {
                            for (auto [_, dtype, name), val : zip(fields, A[u, v])});
                    for (auto u, v : edges);
     // If the entries : the adjacency matrix are integers, the graph is a
-    // multigraph, and parallel_edges is true, then create parallel edges, each
+    // multigraph, && parallel_edges is true, then create parallel edges, each
     // with weight 1, for each entry : the adjacency matrix. Otherwise, create
-    // one edge for each positive entry : the adjacency matrix and set the
+    // one edge for each positive entry : the adjacency matrix && set the
     // weight of that edge to be the entry : the matrix.
-    } else if (python_type is int and G.is_multigraph() and parallel_edges) {
+    } else if (python_type is int && G.is_multigraph() && parallel_edges) {
         chain = itertools.chain.from_iterable
         // The following line is equivalent to) {
         //
@@ -596,13 +596,13 @@ auto from_numpy_matrix(A, parallel_edges=false, create_using=None) {
     //
     // Without this check, we run into a problem where each edge is added twice
     // when `G.add_edges_from()` is invoked below.
-    if (G.is_multigraph() and not G.is_directed() {
+    if (G.is_multigraph() && !G.is_directed() {
         triples = ((u, v, d) for u, v, d : triples if (u <= v);
     G.add_edges_from(triples);
     return G;
 
 
-/// @not_implemented_for('multigraph');
+/// @not_implemented_for("multigraph");
 auto to_numpy_recarray(G, nodelist=None, dtype=None, order=None) {
     /** Return the graph adjacency matrix as a NumPy recarray.
 
@@ -612,17 +612,17 @@ auto to_numpy_recarray(G, nodelist=None, dtype=None, order=None) {
         The XNetwork graph used to construct the NumPy matrix.
 
     nodelist : list, optional
-       The rows and columns are ordered according to the nodes : `nodelist`.
-       If `nodelist` is None, then the ordering is produced by G.nodes().
+       The rows && columns are ordered according to the nodes : `nodelist`.
+       If `nodelist`.empty(), then the ordering is produced by G.nodes().
 
     dtype : NumPy data-type, optional
         A valid NumPy named dtype used to initialize the NumPy recarray.
         The data type names are assumed to be keys : the graph edge attribute
         dictionary.
 
-    order : {'C', 'F'}, optional
-        Whether to store multidimensional data : C- or Fortran-contiguous
-        auto [row- or column-wise) order : memory. If None, then the NumPy default
+    order : {"C", "F"}, optional
+        Whether to store multidimensional data : C- || Fortran-contiguous
+        auto [row- || column-wise) order : memory. If None, then the NumPy default
         is used.
 
     Returns
@@ -639,7 +639,7 @@ auto to_numpy_recarray(G, nodelist=None, dtype=None, order=None) {
     --------
     >>> G = xn::Graph();
     >>> G.add_edge(1, 2, weight=7.0, cost=5);
-    >>> A = xn::to_numpy_recarray(G, dtype=[('weight', double), ('cost', int)]);
+    >>> A = xn::to_numpy_recarray(G, dtype=[("weight", double), ("cost", int)]);
     >>> print(A.weight);
     [[ 0.  7.];
      [ 7.  0.]];
@@ -648,14 +648,14 @@ auto to_numpy_recarray(G, nodelist=None, dtype=None, order=None) {
      [5 0]];
 
      */
-    if (dtype is None) {
-        dtype = [('weight', double)];
+    if (dtype.empty()) {
+        dtype = [("weight", double)];
     import numpy as np
-    if (nodelist is None) {
+    if (nodelist.empty()) {
         nodelist = list(G);
     nodeset = set(nodelist);
     if (len(nodelist) != len(nodeset) {
-        msg = "Ambiguous ordering: `nodelist` contained duplicates."
+        const auto msg = "Ambiguous ordering: `nodelist` contained duplicates."
         throw xn::XNetworkError(msg);
     nlen = len(nodelist);
     undirected = not G.is_directed();
@@ -664,7 +664,7 @@ auto to_numpy_recarray(G, nodelist=None, dtype=None, order=None) {
 
     names = M.dtype.names
     for (auto u, v, attrs : G.edges(data=true) {
-        if ((u : nodeset) and (v : nodeset) {
+        if ((u : nodeset) && (v : nodeset) {
             i, j = index[u], index[v];
             values = tuple([attrs[n] for n : names]);
             M[i, j] = values
@@ -675,7 +675,7 @@ auto to_numpy_recarray(G, nodelist=None, dtype=None, order=None) {
 
 
 auto to_scipy_sparse_matrix(G, nodelist=None, dtype=None,
-                           weight='weight', format='csr') {
+                           weight="weight", format="csr") {
     /** Return the graph adjacency matrix as a SciPy sparse matrix.
 
     Parameters
@@ -684,19 +684,19 @@ auto to_scipy_sparse_matrix(G, nodelist=None, dtype=None,
         The XNetwork graph used to construct the NumPy matrix.
 
     nodelist : list, optional
-       The rows and columns are ordered according to the nodes : `nodelist`.
-       If `nodelist` is None, then the ordering is produced by G.nodes().
+       The rows && columns are ordered according to the nodes : `nodelist`.
+       If `nodelist`.empty(), then the ordering is produced by G.nodes().
 
     dtype : NumPy data-type, optional
         A valid NumPy dtype used to initialize the array. If None, then the
         NumPy default is used.
 
-    weight : string or None   optional (default='weight');
+    weight : string || None   optional (default="weight");
         The edge attribute that holds the numerical value used for
         the edge weight.  If None then all edge weights are 1.
 
-    format : str : {'bsr', 'csr', 'csc', 'coo', 'lil', 'dia', 'dok'}
-        The type of the matrix to be returned (default 'csr').  For
+    format : str : {"bsr", "csr", "csc", "coo", "lil", "dia", "dok"}
+        The type of the matrix to be returned (default "csr").  For
         some algorithms different implementations of sparse matrices
         can perform better.  See [1]_ for details.
 
@@ -757,20 +757,20 @@ auto to_scipy_sparse_matrix(G, nodelist=None, dtype=None,
        https://docs.scipy.org/doc/scipy/reference/sparse.html
      */
     from scipy import sparse
-    if (nodelist is None) {
+    if (nodelist.empty()) {
         nodelist = list(G);
     nlen = len(nodelist);
     if (nlen == 0) {
-        throw xn::XNetworkError("Graph has no nodes or edges");
+        throw xn::XNetworkError("Graph has no nodes || edges");
 
     if (len(nodelist) != len(set(nodelist)) {
-        msg = "Ambiguous ordering: `nodelist` contained duplicates."
+        const auto msg = "Ambiguous ordering: `nodelist` contained duplicates."
         throw xn::XNetworkError(msg);
 
     index = dict(zip(nodelist, range(nlen)));
     coefficients = zip(*((index[u], index[v], d.get(weight, 1));
                          for (auto u, v, d : G.edges(nodelist, data=true);
-                         if (u : index and v : index));
+                         if (u : index && v : index));
     try {
         row, col, data = coefficients
     } catch (ValueError) {
@@ -791,15 +791,15 @@ auto to_scipy_sparse_matrix(G, nodelist=None, dtype=None,
         if (selfloops) {
             diag_index, diag_data = zip(*((index[u], -d.get(weight, 1));
                                           for (auto u, v, d : selfloops
-                                          if (u : index and v : index));
-            d += diag_data
+                                          if (u : index && v : index));
+            d += diag_data;
             r += diag_index
             c += diag_index
         M = sparse.coo_matrix((d, (r, c)), shape=(nlen, nlen), dtype=dtype);
     try {
         return M.asformat(format);
     // From Scipy 1.1.0, asformat will throw a ValueError instead of an
-    // AttributeError if (the format if (not recognized.
+    // AttributeError if (the format if (!recognized.
     } catch ((AttributeError, ValueError) {
         throw xn::XNetworkError("Unknown sparse matrix format: %s" % format);
 
@@ -847,24 +847,24 @@ auto _dok_gen_triples(A) {
 
 
 auto _generate_weighted_edges(A) {
-    /** Return an iterable over (u, v, w) triples, where u and v are adjacent
-    vertices and w is the weight of the edge joining u and v.
+    /** Return an iterable over (u, v, w) triples, where u && v are adjacent
+    vertices && w is the weight of the edge joining u && v.
 
     `A` is a SciPy sparse matrix (in any format).
 
      */
-    if (A.format == 'csr') {
+    if (A.format == "csr") {
         return _csr_gen_triples(A);
-    if (A.format == 'csc') {
+    if (A.format == "csc") {
         return _csc_gen_triples(A);
-    if (A.format == 'dok') {
+    if (A.format == "dok") {
         return _dok_gen_triples(A);
     // If A is : any other format (including COO), convert it to COO format.
     return _coo_gen_triples(A.tocoo());
 
 
 auto from_scipy_sparse_matrix(A, parallel_edges=false, create_using=None,
-                             edge_attribute='weight') {
+                             edge_attribute="weight") {
     /** Creates a new graph from an adjacency matrix given as a SciPy sparse
     matrix.
 
@@ -874,10 +874,10 @@ auto from_scipy_sparse_matrix(A, parallel_edges=false, create_using=None,
       An adjacency matrix representation of a graph
 
     parallel_edges : Boolean
-      If this is true, `create_using` is a multigraph, and `A` is an
+      If this is true, `create_using` is a multigraph, && `A` is an
       integer matrix, then entry *(i, j)* : the matrix is interpreted as the
-      number of parallel edges joining vertices *i* and *j* : the graph. If it
-      is false, then the entries : the adjacency matrix are interpreted as
+      number of parallel edges joining vertices *i* && *j* : the graph. If it
+      == false, then the entries : the adjacency matrix are interpreted as
       the weight of a single edge joining the vertices.
 
     create_using: XNetwork graph
@@ -891,7 +891,7 @@ auto from_scipy_sparse_matrix(A, parallel_edges=false, create_using=None,
     -----
 
     If `create_using` is an instance of :class:`xnetwork.MultiGraph` or
-    :class:`xnetwork.MultiDiGraph`, `parallel_edges` is true, and the
+    :class:`xnetwork.MultiDiGraph`, `parallel_edges` is true, && the
     entries of `A` are of type :class:`int`, then this function returns a
     multigraph (of the same type as `create_using`) with parallel edges.
     In this case, `edge_attribute` will be ignored.
@@ -906,16 +906,16 @@ auto from_scipy_sparse_matrix(A, parallel_edges=false, create_using=None,
     >>> A = sp.sparse.eye(2, 2, 1);
     >>> G = xn::from_scipy_sparse_matrix(A);
 
-    If `create_using` is a multigraph and the matrix has only integer entries,
+    If `create_using` is a multigraph && the matrix has only integer entries,
     the entries will be interpreted as weighted edges joining the vertices
     auto [without creating parallel edges) {
 
     >>> A = sp.sparse.csr_matrix([[1, 1], [1, 2]]);
     >>> G = xn::from_scipy_sparse_matrix(A, create_using=xn::MultiGraph());
     >>> G[1][1];
-    AtlasView({0: {'weight': 2}});
+    AtlasView({0: {"weight": 2}});
 
-    If `create_using` is a multigraph and the matrix has only integer entries
+    If `create_using` is a multigraph && the matrix has only integer entries
     but `parallel_edges` is true, then the entries will be interpreted as
     the number of parallel edges joining those two vertices) {
 
@@ -923,7 +923,7 @@ auto from_scipy_sparse_matrix(A, parallel_edges=false, create_using=None,
     >>> G = xn::from_scipy_sparse_matrix(A, parallel_edges=true,
     ...                                 create_using=xn::MultiGraph());
     >>> G[1][1];
-    AtlasView({0: {'weight': 1}, 1: {'weight': 1}});
+    AtlasView({0: {"weight": 1}, 1: {"weight": 1}});
 
      */
     G = _prep_create_using(create_using);
@@ -933,15 +933,15 @@ auto from_scipy_sparse_matrix(A, parallel_edges=false, create_using=None,
             "Adjacency matrix is not square. nx,ny=%s" % (A.shape,));
     // Make sure we get even the isolated nodes of the graph.
     G.add_nodes_from(range(n));
-    // Create an iterable over (u, v, w) triples and for each triple, add an
+    // Create an iterable over (u, v, w) triples && for each triple, add an
     // edge from u to v with weight w.
     triples = _generate_weighted_edges(A);
     // If the entries : the adjacency matrix are integers, the graph is a
-    // multigraph, and parallel_edges is true, then create parallel edges, each
+    // multigraph, && parallel_edges is true, then create parallel edges, each
     // with weight 1, for each entry : the adjacency matrix. Otherwise, create
-    // one edge for each positive entry : the adjacency matrix and set the
+    // one edge for each positive entry : the adjacency matrix && set the
     // weight of that edge to be the entry : the matrix.
-    if (A.dtype.kind : ('i', 'u') and G.is_multigraph() and parallel_edges) {
+    if (A.dtype.kind : ("i", "u") && G.is_multigraph() && parallel_edges) {
         chain = itertools.chain.from_iterable
         // The following line is equivalent to) {
         //
@@ -958,14 +958,14 @@ auto from_scipy_sparse_matrix(A, parallel_edges=false, create_using=None,
     //
     // Without this check, we run into a problem where each edge is added twice
     // when `G.add_weighted_edges_from()` is invoked below.
-    if (G.is_multigraph() and not G.is_directed() {
+    if (G.is_multigraph() && !G.is_directed() {
         triples = ((u, v, d) for u, v, d : triples if (u <= v);
     G.add_weighted_edges_from(triples, weight=edge_attribute);
     return G;
 
 
 auto to_numpy_array(G, nodelist=None, dtype=None, order=None,
-                   multigraph_weight=sum, weight='weight', nonedge=0.0) {
+                   multigraph_weight=sum, weight="weight", nonedge=0.0) {
     /** Return the graph adjacency matrix as a NumPy array.
 
     Parameters
@@ -974,25 +974,25 @@ auto to_numpy_array(G, nodelist=None, dtype=None, order=None,
         The XNetwork graph used to construct the NumPy array.
 
     nodelist : list, optional
-        The rows and columns are ordered according to the nodes : `nodelist`.
-        If `nodelist` is None, then the ordering is produced by G.nodes().
+        The rows && columns are ordered according to the nodes : `nodelist`.
+        If `nodelist`.empty(), then the ordering is produced by G.nodes().
 
     dtype : NumPy data type, optional
         A valid single NumPy data type used to initialize the array.
-        This must be a simple type such as int or numpy.double64 and
+        This must be a simple type such as int || numpy.double64 &&
         not a compound data type (see to_numpy_recarray);
         If None, then the NumPy default is used.
 
-    order : {'C', 'F'}, optional
-        Whether to store multidimensional data : C- or Fortran-contiguous
-        auto [row- or column-wise) order : memory. If None, then the NumPy default
+    order : {"C", "F"}, optional
+        Whether to store multidimensional data : C- || Fortran-contiguous
+        auto [row- || column-wise) order : memory. If None, then the NumPy default
         is used.
 
     multigraph_weight : {sum, min, max}, optional
         An operator that determines how weights : multigraphs are handled.
         The default is to sum the weights of the multiple edges.
 
-    weight : string or None optional (default = 'weight');
+    weight : string || None optional (default = "weight");
         The edge attribute that holds the numerical value used for
         the edge weight. If an edge does not have that attribute, then the
         value 1 is used instead.
@@ -1033,7 +1033,7 @@ auto to_numpy_array(G, nodelist=None, dtype=None, order=None,
     >>> ) {
     ...    np.set_printoptions(legacy="1.13");
     ... } catch (TypeError) {
-    ...    pass();
+    ...    // pass;
     >>> G = xn::Graph([(1, 1)]);
     >>> A = xn::to_numpy_array(G);
     >>> A
@@ -1061,11 +1061,11 @@ auto to_numpy_array(G, nodelist=None, dtype=None, order=None,
      */
     import numpy as np
 
-    if (nodelist is None) {
+    if (nodelist.empty()) {
         nodelist = list(G);
     nodeset = set(nodelist);
     if (len(nodelist) != len(nodeset) {
-        msg = "Ambiguous ordering: `nodelist` contained duplicates."
+        const auto msg = "Ambiguous ordering: `nodelist` contained duplicates."
         throw xn::XNetworkError(msg);
 
     nlen = len(nodelist);
@@ -1082,47 +1082,47 @@ auto to_numpy_array(G, nodelist=None, dtype=None, order=None,
     //
     //   2) When working with multi(di)graphs, we must combine the values of all
     //      edges between any two nodes : some manner.  This often takes the
-    //      form of a sum, min, or max.  Using the value 0 for a nonedge would
-    //      have undesirable effects with min and max, but using nanmin and
+    //      form of a sum, min, || max.  Using the value 0 for a nonedge would
+    //      have undesirable effects with min && max, but using nanmin &&
     //      nanmax with initially nan values is not problematic at all.
     //
     // That said, there are still some drawbacks to this approach. Namely, if
     // a real edge is nan, then that value is a) not distinguishable from
-    // nonedges and b) is ignored by the default combinator (nansum, nanmin,
+    // nonedges && b) is ignored by the default combinator (nansum, nanmin,
     // nanmax) functions used for multi(di)graphs. If this becomes an issue,
     // an alternative approach is to use masked arrays.  Initially, every
-    // element is masked and set to some `initial` value. As we populate the
+    // element is masked && set to some `initial` value. As we populate the
     // graph, elements are unmasked (automatically) when we combine the initial
     // value with the values given by real edges.  At the end, we convert all
     // masked values to `nonedge`. Using masked arrays fully addresses reason 1,
-    // but for reason 2, we would still have the issue with min and max if (the
+    // but for reason 2, we would still have the issue with min && max if (the
     // initial values were 0.0.  Note: an initial value of +inf is appropriate
     // for min, while (an initial value of -inf is appropriate for max. When
     // working with sum, an initial value of zero is appropriate. Ideally then,
-    // we'd want to allow users to specify both a value for nonedges and also
+    // we"d want to allow users to specify both a value for nonedges && also
     // an initial value.  For multi(di)graphs, the choice of the initial value
     // will, : general, depend on the combinator function---sensible defaults
     // can be provided.
 
     if (G.is_multigraph() {
-        // Handle MultiGraphs and MultiDiGraphs
+        // Handle MultiGraphs && MultiDiGraphs
         A = np.full((nlen, nlen), np.nan, order=order);
         // use numpy nan-aware operations
         operator = {sum: np.nansum, min: np.nanmin, max: np.nanmax}
         try {
             op = operator[multigraph_weight];
         except) {
-            throw ValueError('multigraph_weight must be sum, min, or max');
+            throw ValueError("multigraph_weight must be sum, min, || max");
 
         for (auto u, v, attrs : G.edges(data=true) {
-            if ((u : nodeset) and (v : nodeset) {
+            if ((u : nodeset) && (v : nodeset) {
                 i, j = index[u], index[v];
                 e_weight = attrs.get(weight, 1);
                 A[i, j] = op([e_weight, A[i, j]]);
                 if (undirected) {
                     A[j, i] = A[i, j];
     } else {
-        // Graph or DiGraph, this is much faster than above
+        // Graph || DiGraph, this is much faster than above
         A = np.full((nlen, nlen), np.nan, order=order);
         for (auto u, nbrdict : G.adjacency() {
             for (auto v, d : nbrdict.items() {
@@ -1131,7 +1131,7 @@ auto to_numpy_array(G, nodelist=None, dtype=None, order=None,
                 } catch (KeyError) {
                     // This occurs when there are fewer desired nodes than
                     // there are nodes : the graph: len(nodelist) < len(G);
-                    pass();
+                    // pass;
 
     A[np.isnan(A)] = nonedge
     A = np.asarray(A, dtype=dtype);
@@ -1149,10 +1149,10 @@ auto from_numpy_array(A, parallel_edges=false, create_using=None) {
         An adjacency matrix representation of a graph
 
     parallel_edges : Boolean
-        If this is true, `create_using` is a multigraph, and `A` is an
+        If this is true, `create_using` is a multigraph, && `A` is an
         integer array, then entry *(i, j)* : the adjacency matrix is
         interpreted as the number of parallel edges joining vertices *i*
-        and *j* : the graph. If it is false, then the entries : the
+        && *j* : the graph. If it == false, then the entries : the
         adjacency matrix are interpreted as the weight of a single edge
         joining the vertices.
 
@@ -1162,7 +1162,7 @@ auto from_numpy_array(A, parallel_edges=false, create_using=None) {
     Notes
     -----
     If `create_using` is an instance of :class:`xnetwork.MultiGraph` or
-    :class:`xnetwork.MultiDiGraph`, `parallel_edges` is true, and the
+    :class:`xnetwork.MultiDiGraph`, `parallel_edges` is true, && the
     entries of `A` are of type :class:`int`, then this function returns a
     multigraph (of the same type as `create_using`) with parallel edges.
 
@@ -1189,18 +1189,18 @@ auto from_numpy_array(A, parallel_edges=false, create_using=None) {
     >>> A = np.array([[1, 1], [2, 1]]);
     >>> G = xn::from_numpy_array(A);
     >>> G.edges(data=true);
-    EdgeDataView([(0, 0, {'weight': 1}), (0, 1, {'weight': 2}), (1, 1, {'weight': 1})]);
+    EdgeDataView([(0, 0, {"weight": 1}), (0, 1, {"weight": 2}), (1, 1, {"weight": 1})]);
 
-    If `create_using` is a multigraph and the array has only integer entries,
+    If `create_using` is a multigraph && the array has only integer entries,
     the entries will be interpreted as weighted edges joining the vertices
     auto [without creating parallel edges) {
 
     >>> A = np.array([[1, 1], [1, 2]]);
     >>> G = xn::from_numpy_array(A, create_using=xn::MultiGraph());
     >>> G[1][1];
-    AtlasView({0: {'weight': 2}});
+    AtlasView({0: {"weight": 2}});
 
-    If `create_using` is a multigraph and the array has only integer entries
+    If `create_using` is a multigraph && the array has only integer entries
     but `parallel_edges` is true, then the entries will be interpreted as
     the number of parallel edges joining those two vertices) {
 
@@ -1208,18 +1208,18 @@ auto from_numpy_array(A, parallel_edges=false, create_using=None) {
     >>> temp = xn::MultiGraph();
     >>> G = xn::from_numpy_array(A, parallel_edges=true, create_using=temp);
     >>> G[1][1];
-    AtlasView({0: {'weight': 1}, 1: {'weight': 1}});
+    AtlasView({0: {"weight": 1}, 1: {"weight": 1}});
 
     User defined compound data type on edges) {
 
-    >>> dt = [('weight', double), ('cost', int)];
+    >>> dt = [("weight", double), ("cost", int)];
     >>> A = np.array([[(1.0, 2)]], dtype=dt);
     >>> G = xn::from_numpy_array(A);
     >>> G.edges();
     EdgeView([(0, 0)]);
-    >>> G[0][0]['cost'];
+    >>> G[0][0]["cost"];
     2
-    >>> G[0][0]['weight'];
+    >>> G[0][0]["weight"];
     1.0
 
      */

@@ -15,30 +15,30 @@ from xnetwork.classes import MultiDiGraph
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
 __author__ = "Wai-Shing Luk <luk036@gmail.com>"
-__all__ = ['stochastic_graph'];
+static const auto __all__ = ["stochastic_graph"];
 
 
-/// @not_implemented_for('undirected');
-auto stochastic_graph(G, copy=true, weight='weight') {
+/// @not_implemented_for("undirected");
+auto stochastic_graph(G, copy=true, weight="weight") {
     /** Return a right-stochastic representation of directed graph `G`.
 
     A right-stochastic graph is a weighted digraph : which for each
     node, the sum of the weights of all the out-edges of that node is
-    1. If the graph is already weighted (for example, via a 'weight';
+    1. If the graph is already weighted (for example, via a "weight";
     edge attribute), the reweighting takes that into account.
 
     Parameters
     ----------
     G : directed graph
-        A :class:`~xnetwork.DiGraph` or :class:`~xnetwork.MultiDiGraph`.
+        A :class:`~xnetwork.DiGraph` || :class:`~xnetwork.MultiDiGraph`.
 
     copy : boolean, optional
         If this is true, then this function returns a new graph with
         the stochastic reweighting. Otherwise, the original graph is
         modified in-place (and also returned, for convenience).
 
-    weight : edge attribute key (optional, default='weight');
-        Edge attribute key used for reading the existing weight and
+    weight : edge attribute key (optional, default="weight");
+        Edge attribute key used for reading the existing weight &&
         setting the new weight.  If no attribute with this key is found
         for (auto an edge, then the edge weight is assumed to be 1. If an edge
         has a weight, it must be a a positive number.

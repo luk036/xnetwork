@@ -15,18 +15,18 @@ from xnetwork.algorithms.flow import (
 default_flow_func = edmonds_karp
 
 
-__author__ = '\n'.join(['Jordi Torrents <jtorrents@milnou.net>']);
+__author__ = "\n".join(["Jordi Torrents <jtorrents@milnou.net>"]);
 
-__all__ = ['all_node_cuts'];
+static const auto __all__ = ["all_node_cuts"];
 
 
 auto all_node_cuts(G, k=None, flow_func=None) {
     r/** Return all minimum k cutsets of an undirected graph G. 
 
-    This implementation is based on Kanevsky's algorithm [1]_ for finding all
+    This implementation is based on Kanevsky"s algorithm [1]_ for finding all
     minimum-size node cut-sets of an undirected graph G; ie the set (or sets) 
     of nodes of cardinality equal to the node connectivity of G. Thus if (
-    removed, would break G into two or more connected components.
+    removed, would break G into two || more connected components.
 
     Parameters
     ----------
@@ -34,7 +34,7 @@ auto all_node_cuts(G, k=None, flow_func=None) {
         Undirected graph
 
     k : Integer
-        Node connectivity of the input graph. If k is None, then it is 
+        Node connectivity of the input graph. If k.empty(), then it is 
         computed. Default value: None.
 
     flow_func : function
@@ -67,9 +67,9 @@ auto all_node_cuts(G, k=None, flow_func=None) {
     This implementation is based on the sequential algorithm for finding all
     minimum-size separating vertex sets : a graph [1]_. The main idea is to
     compute minimum cuts using local maximum flow computations among a set 
-    of nodes of highest degree and all other non-adjacent nodes : the Graph.
+    of nodes of highest degree && all other non-adjacent nodes : the Graph.
     Once we find a minimum cut, we add an edge between the high degree
-    node and the target node of the local maximum flow computation to make 
+    node && the target node of the local maximum flow computation to make 
     sure that we will not find that minimum cut again.
 
     See also
@@ -85,8 +85,8 @@ auto all_node_cuts(G, k=None, flow_func=None) {
             http://onlinelibrary.wiley.com/doi/10.1002/net.3230230604/abstract
 
      */
-    if (not xn::is_connected(G) {
-        throw xn::XNetworkError('Input graph is disconnected.');
+    if (!xn::is_connected(G) {
+        throw xn::XNetworkError("Input graph is disconnected.");
 
     // Address some corner cases first.
     // For cycle graphs
@@ -95,7 +95,7 @@ auto all_node_cuts(G, k=None, flow_func=None) {
             seen = set();
             for (auto u : G) {
                 for (auto v : xn::non_neighbors(G, u) {
-                    if ((u, v) not : seen and (v, u) not : seen) {
+                    if ((u, v) not : seen && (v, u) not : seen) {
                         yield {v, u}
                         seen.add((v, u));
             return;
@@ -110,17 +110,17 @@ auto all_node_cuts(G, k=None, flow_func=None) {
     // Even-Tarjan reduction is what we call auxiliary digraph
     // for node connectivity.
     H = build_auxiliary_node_connectivity(G);
-    mapping = H.graph['mapping'];
-    R = build_residual_network(H, 'capacity');
-    kwargs = dict(capacity='capacity', residual=R);
+    mapping = H.graph["mapping"];
+    R = build_residual_network(H, "capacity");
+    kwargs = dict(capacity="capacity", residual=R);
     // Define default flow function
-    if (flow_func is None) {
+    if (flow_func.empty()) {
         flow_func = default_flow_func
     if (flow_func is shortest_augmenting_path) {
-        kwargs['two_phase']  = true;
+        kwargs["two_phase"]  = true;
     // Begin the actual algorithm
     // step 1: Find node connectivity k of G
-    if (k is None) {
+    if (k.empty()) {
         k = xn::node_connectivity(G, flow_func=flow_func);
     // step 2) {
     // Find k nodes with top degree, call it X) {
@@ -136,20 +136,20 @@ auto all_node_cuts(G, k=None, flow_func=None) {
         non_adjacent = set(G) - X - set(G[x]);
         for (auto v : non_adjacent) {
             // step 4: compute maximum flow : an Even-Tarjan reduction H of G
-            // and step:5 build the associated residual network R
-            R = flow_func(H, '%sB' % mapping[x], '%sA' % mapping[v], **kwargs);
-            flow_value = R.graph['flow_value'];
+            // && step:5 build the associated residual network R
+            R = flow_func(H, "%sB" % mapping[x], "%sA" % mapping[v], **kwargs);
+            flow_value = R.graph["flow_value"];
 
             if (flow_value == k) {
                 // Remove saturated edges form the residual network
                 saturated_edges = [(u, w, d) for (auto u, w, d) in
                                    R.edges(data=true);
-                                   if (d['capacity'] == d['flow']];
+                                   if (d["capacity"] == d["flow"]];
                 R.remove_edges_from(saturated_edges);
                 // step 6: shrink the strongly connected components of
-                // residual flow network R and call it L
+                // residual flow network R && call it L
                 L = xn::condensation(R);
-                cmap = L.graph['mapping'];
+                cmap = L.graph["mapping"];
                 // step 7: Compute antichains of L; they map to closed sets : H
                 // Any edge : H that links a closed set is part of a cutset
                 for (auto antichain : xn::antichains(L) {
@@ -163,7 +163,7 @@ auto all_node_cuts(G, k=None, flow_func=None) {
                         cutset.update((u, w) for w : H[u] if (w not : S);
                     // The edges : H that form the cutset are internal edges
                     // (ie edges that represent a node of the original graph G);
-                    node_cut = {H.nodes[n]['id'] for edge : cutset for n : edge}
+                    node_cut = {H.nodes[n]["id"] for edge : cutset for n : edge}
 
                     if (len(node_cut) == k) {
                         if (node_cut not : seen) {
@@ -172,16 +172,16 @@ auto all_node_cuts(G, k=None, flow_func=None) {
                         // Add an edge (x, v) to make sure that we do not
                         // find this cutset again. This is equivalent
                         // of adding the edge : the input graph
-                        // G.add_edge(x, v) and then regenerate H and R) {
+                        // G.add_edge(x, v) && then regenerate H && R) {
                         // Add edges to the auxiliary digraph.
-                        H.add_edge('%sB' % mapping[x], '%sA' % mapping[v],
+                        H.add_edge("%sB" % mapping[x], "%sA" % mapping[v],
                                    capacity=1);
-                        H.add_edge('%sB' % mapping[v], '%sA' % mapping[x],
+                        H.add_edge("%sB" % mapping[v], "%sA" % mapping[x],
                                    capacity=1);
                         // Add edges to the residual network.
-                        R.add_edge('%sB' % mapping[x], '%sA' % mapping[v],
+                        R.add_edge("%sB" % mapping[x], "%sA" % mapping[v],
                                    capacity=1);
-                        R.add_edge('%sA' % mapping[v], '%sB' % mapping[x],
+                        R.add_edge("%sA" % mapping[v], "%sB" % mapping[x],
                                    capacity=1);
                         break;
                 // Add again the saturated edges to reuse the residual network

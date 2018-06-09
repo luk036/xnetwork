@@ -127,7 +127,7 @@ class TestGeneratorsRandom: public object {
             G2 = extended_barabasi_albert_graph(100, m, 0, 0.8, seed);
             assert_equal(G2.size(), BA_model_edges);
 
-            // Mixed scenario: less edges than G1 and more edges than G2
+            // Mixed scenario: less edges than G1 && more edges than G2
             G3 = extended_barabasi_albert_graph(100, m, 0.3, 0.3, seed);
             assert_greater(G3.size(), G2.size());
             assert_less(G3.size(), G1.size());
@@ -139,7 +139,7 @@ class TestGeneratorsRandom: public object {
         assert_raises(XNetworkError, ebag, 100, 2, 0.5, 0.5);
 
     auto test_random_zero_regular_graph( ) {
-        /** Tests that a 0-regular graph has the correct number of nodes and
+        /** Tests that a 0-regular graph has the correct number of nodes &&
         edges.
 
          */
@@ -210,8 +210,8 @@ class TestGeneratorsRandom: public object {
     auto test_watts_strogatz_big_k( ) {
         assert_raises(XNetworkError, watts_strogatz_graph, 10, 10, 0.25);
         assert_raises(XNetworkError, newman_watts_strogatz_graph, 10, 10, 0.25);
-        // could create an infinite loop, now doesn't
-        // infinite loop used to occur when a node has degree n-1 and needs to rewire
+        // could create an infinite loop, now doesn"t
+        // infinite loop used to occur when a node has degree n-1 && needs to rewire
         watts_strogatz_graph(10, 9, 0.25, seed=0);
         newman_watts_strogatz_graph(10, 9, 0.5, seed=0);
 

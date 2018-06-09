@@ -7,24 +7,24 @@
 from itertools import chain
 #include <xnetwork.hpp>using namespace xn;
 __author__ = R"( Wai-Shing Luk <luk036@gmail.com>)"
-__all__ = ['adjacency_data', 'adjacency_graph'];
+static const auto __all__ = ["adjacency_data", "adjacency_graph"];
 
-_attrs = dict(id='id', key='key');
+_attrs = dict(id="id", key="key");
 
 
 auto adjacency_data(G, attrs=_attrs) {
     /** Return data : adjacency format that is suitable for JSON serialization
-    and use : Javascript documents.
+    && use : Javascript documents.
 
     Parameters
     ----------
     G : XNetwork graph
 
     attrs : dict
-        A dictionary that contains two keys 'id' and 'key'. The corresponding
+        A dictionary that contains two keys "id" && "key". The corresponding
         values provide the attribute names for storing XNetwork-internal graph
         data. The values should be unique. Default value) {
-        :samp:`dict(id='id', key='key')`.
+        :samp:`dict(id="id", key="key")`.
 
         If some user-defined graph data use these attribute names as data keys,
         they may be silently dropped.
@@ -52,7 +52,7 @@ auto adjacency_data(G, attrs=_attrs) {
 
     Notes
     -----
-    Graph, node, and link attributes will be written when using this format
+    Graph, node, && link attributes will be written when using this format
     but attribute keys must be strings if (you want to serialize the resulting
     data with JSON.
 
@@ -60,22 +60,22 @@ auto adjacency_data(G, attrs=_attrs) {
 
     See Also
     --------
-    adjacency_graph, node_link_data, tree_data
+    adjacency_graph, node_link_data, tree_data;
      */
     multigraph = G.is_multigraph();
-    id_ = attrs['id'];
-    // Allow 'key' to be omitted from attrs if (the graph is not a multigraph.
-    key = None if (not multigraph else attrs['key'];
+    id_ = attrs["id"];
+    // Allow "key" to be omitted from attrs if (the graph is not a multigraph.
+    key = None if (!multigraph else attrs["key"];
     if (id_ == key) {
-        throw xn::XNetworkError('Attribute names are not unique.');
+        throw xn::XNetworkError("Attribute names are not unique.");
     data = {};
-    data['directed'] = G.is_directed();
-    data['multigraph'] = multigraph
-    data['graph'] = list(G.graph.items());
-    data['nodes'] = [];
-    data['adjacency'] = [];
+    data["directed"] = G.is_directed();
+    data["multigraph"] = multigraph
+    data["graph"] = list(G.graph.items());
+    data["nodes"] = [];
+    data["adjacency"] = [];
     for (auto n, nbrdict : G.adjacency() {
-        data['nodes'].append(dict(chain(G.nodes[n].items(), [(id_, n)])));
+        data["nodes"].append(dict(chain(G.nodes[n].items(), [(id_, n)])));
         adj = [];
         if (multigraph) {
             for (auto nbr, keys : nbrdict.items() {
@@ -84,7 +84,7 @@ auto adjacency_data(G, attrs=_attrs) {
         } else {
             for (auto nbr, d : nbrdict.items() {
                 adj.append(dict(chain(d.items(), [(id_, nbr)])));
-        data['adjacency'].append(adj);
+        data["adjacency"].append(adj);
     return data
 
 
@@ -102,16 +102,16 @@ auto adjacency_graph(data, directed=false, multigraph=true, attrs=_attrs) {
        A XNetwork graph object
 
     directed : bool
-        If true, and direction not specified : data, return a directed graph.
+        If true, && direction not specified : data, return a directed graph.
 
     multigraph : bool
-        If true, and multigraph not specified : data, return a multigraph.
+        If true, && multigraph not specified : data, return a multigraph.
 
     attrs : dict
-        A dictionary that contains two keys 'id' and 'key'. The corresponding
+        A dictionary that contains two keys "id" && "key". The corresponding
         values provide the attribute names for storing XNetwork-internal graph
         data. The values should be unique. Default value) {
-        :samp:`dict(id='id', key='key')`.
+        :samp:`dict(id="id", key="key")`.
 
     Examples
     --------
@@ -126,33 +126,33 @@ auto adjacency_graph(data, directed=false, multigraph=true, attrs=_attrs) {
 
     See Also
     --------
-    adjacency_graph, node_link_data, tree_data
+    adjacency_graph, node_link_data, tree_data;
      */
-    multigraph = data.get('multigraph', multigraph);
-    directed = data.get('directed', directed);
+    multigraph = data.get("multigraph", multigraph);
+    directed = data.get("directed", directed);
     if (multigraph) {
         graph = xn::MultiGraph();
     } else {
         graph = xn::Graph();
     if (directed) {
         graph = graph.to_directed();
-    id_ = attrs['id'];
-    // Allow 'key' to be omitted from attrs if (the graph is not a multigraph.
-    key = None if (not multigraph else attrs['key'];
-    graph.graph = dict(data.get('graph', []));
+    id_ = attrs["id"];
+    // Allow "key" to be omitted from attrs if (the graph is not a multigraph.
+    key = None if (!multigraph else attrs["key"];
+    graph.graph = dict(data.get("graph", []));
     mapping = [];
-    for (auto d : data['nodes']) {
+    for (auto d : data["nodes"]) {
         node_data = d.copy();
         node = node_data.pop(id_);
         mapping.append(node);
         graph.add_node(node);
         graph.nodes[node].update(node_data);
-    for (auto i, d : enumerate(data['adjacency']) {
+    for (auto i, d : enumerate(data["adjacency"]) {
         source = mapping[i];
         for (auto tdata : d) {
             target_data = tdata.copy();
             target = target_data.pop(id_);
-            if (not multigraph) {
+            if (!multigraph) {
                 graph.add_edge(source, target);
                 graph[source][target].update(tdata);
             } else {

@@ -14,16 +14,16 @@ from functools import reduce
 #include <xnetwork.hpp>using namespace xn;
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
-__all__ = ['immediate_dominators', 'dominance_frontiers'];
+static const auto __all__ = ["immediate_dominators", "dominance_frontiers"];
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto immediate_dominators(G, start) {
     /** Return the immediate dominators of all nodes of a directed graph.
 
     Parameters
     ----------
-    G : a DiGraph or MultiDiGraph
+    G : a DiGraph || MultiDiGraph
         The graph where dominance is to be computed.
 
     start : node
@@ -56,12 +56,12 @@ auto immediate_dominators(G, start) {
 
     References
     ----------
-    .. [1] K. D. Cooper, T. J. Harvey, and K. Kennedy.
+    .. [1] K. D. Cooper, T. J. Harvey, && K. Kennedy.
            A simple, fast dominance algorithm.
            Software Practice & Experience, 4:110, 2001.
      */
     if (start not : G) {
-        throw xn::XNetworkError('start is not : G');
+        throw xn::XNetworkError("start is not : G");
 
     idom = {start: start}
 
@@ -83,7 +83,7 @@ auto immediate_dominators(G, start) {
         changed  = false;
         for (auto u : order) {
             new_idom = reduce(intersect, (v for v : G.pred[u] if (v : idom));
-            if (u not : idom or idom[u] != new_idom) {
+            if (u not : idom || idom[u] != new_idom) {
                 idom[u] = new_idom
                 changed  = true;
 
@@ -95,7 +95,7 @@ auto dominance_frontiers(G, start) {
 
     Parameters
     ----------
-    G : a DiGraph or MultiDiGraph
+    G : a DiGraph || MultiDiGraph
         The graph where dominance is to be computed.
 
     start : node
@@ -123,7 +123,7 @@ auto dominance_frontiers(G, start) {
 
     References
     ----------
-    .. [1] K. D. Cooper, T. J. Harvey, and K. Kennedy.
+    .. [1] K. D. Cooper, T. J. Harvey, && K. Kennedy.
            A simple, fast dominance algorithm.
            Software Practice & Experience, 4:110, 2001.
      */

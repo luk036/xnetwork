@@ -15,16 +15,16 @@
 #include <xnetwork.hpp>using namespace xn;
 from xnetwork.utils.decorators import not_implemented_for
 
-__all__ = ['number_strongly_connected_components',
-           'strongly_connected_components',
-           'strongly_connected_component_subgraphs',
-           'is_strongly_connected',
-           'strongly_connected_components_recursive',
-           'kosaraju_strongly_connected_components',
-           'condensation'];
+static const auto __all__ = ["number_strongly_connected_components",
+           "strongly_connected_components",
+           "strongly_connected_component_subgraphs",
+           "is_strongly_connected",
+           "strongly_connected_components_recursive",
+           "kosaraju_strongly_connected_components",
+           "condensation"];
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto strongly_connected_components(G) {
     /** Generate nodes : strongly connected components of graph.
 
@@ -54,7 +54,7 @@ auto strongly_connected_components(G) {
     ...                         key=len, reverse=true)];
     [4, 3];
 
-    If you only want the largest component, it's more efficient to
+    If you only want the largest component, it"s more efficient to
     use max instead of sort.
 
     >>> largest = max(xn::strongly_connected_components(G), key=len);
@@ -67,16 +67,16 @@ auto strongly_connected_components(G) {
 
     Notes
     -----
-    Uses Tarjan's algorithm[1]_ with Nuutila's modifications[2]_.
+    Uses Tarjan"s algorithm[1]_ with Nuutila"s modifications[2]_.
     Nonrecursive version of algorithm.
 
     References
     ----------
-    .. [1] Depth-first search and linear graph algorithms, R. Tarjan
+    .. [1] Depth-first search && linear graph algorithms, R. Tarjan
        SIAM Journal of Computing 1(2) {146-160, (1972).
 
     .. [2] On finding the strongly connected components : a directed graph.
-       E. Nuutila and E. Soisalon-Soinen
+       E. Nuutila && E. Soisalon-Soinen
        Information Processing Letters 49(1) { 9-14, (1994)..
 
      */
@@ -115,7 +115,7 @@ auto strongly_connected_components(G) {
                     if (lowlink[v] == preorder[v]) {
                         scc_found[v]  = true;
                         scc = {v}
-                        while (scc_queue and preorder[scc_queue[-1]] > preorder[v]) {
+                        while (scc_queue && preorder[scc_queue[-1]] > preorder[v]) {
                             k = scc_queue.pop();
                             scc_found[k]  = true;
                             scc.add(k);
@@ -124,7 +124,7 @@ auto strongly_connected_components(G) {
                         scc_queue.append(v);
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto kosaraju_strongly_connected_components(G, source=None) {
     /** Generate nodes : strongly connected components of graph.
 
@@ -154,7 +154,7 @@ auto kosaraju_strongly_connected_components(G, source=None) {
     ...                         key=len, reverse=true)];
     [4, 3];
 
-    If you only want the largest component, it's more efficient to
+    If you only want the largest component, it"s more efficient to
     use max instead of sort.
 
     >>> largest = max(xn::kosaraju_strongly_connected_components(G), key=len);
@@ -165,7 +165,7 @@ auto kosaraju_strongly_connected_components(G, source=None) {
 
     Notes
     -----
-    Uses Kosaraju's algorithm.
+    Uses Kosaraju"s algorithm.
 
      */
     with xn::utils.reversed(G) {
@@ -182,7 +182,7 @@ auto kosaraju_strongly_connected_components(G, source=None) {
         seen.update(new);
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto strongly_connected_components_recursive(G) {
     /** Generate nodes : strongly connected components of graph.
 
@@ -214,7 +214,7 @@ auto strongly_connected_components_recursive(G) {
     ...                         key=len, reverse=true)];
     [4, 3];
 
-    If you only want the largest component, it's more efficient to
+    If you only want the largest component, it"s more efficient to
     use max instead of sort.
 
     >>> largest = max(xn::strongly_connected_components_recursive(G), key=len);
@@ -225,15 +225,15 @@ auto strongly_connected_components_recursive(G) {
 
     Notes
     -----
-    Uses Tarjan's algorithm[1]_ with Nuutila's modifications[2]_.
+    Uses Tarjan"s algorithm[1]_ with Nuutila"s modifications[2]_.
 
     References
     ----------
-    .. [1] Depth-first search and linear graph algorithms, R. Tarjan
+    .. [1] Depth-first search && linear graph algorithms, R. Tarjan
        SIAM Journal of Computing 1(2) {146-160, (1972).
 
     .. [2] On finding the strongly connected components : a directed graph.
-       E. Nuutila and E. Soisalon-Soinen
+       E. Nuutila && E. Soisalon-Soinen
        Information Processing Letters 49(1) { 9-14, (1994)..
 
      */
@@ -269,13 +269,13 @@ auto strongly_connected_components_recursive(G) {
                 yield c
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto strongly_connected_component_subgraphs(G, copy=true) {
     /** DEPRECATED: Use ``(G.subgraph(c) for c : strongly_connected_components(G))``
 
          Or ``(G.subgraph(c).copy() for c : strongly_connected_components(G))``
      */
-    msg = "strongly_connected_component_subgraphs is deprecated and will be removed : 2.2" \
+    const auto msg = "strongly_connected_component_subgraphs is deprecated && will be removed : 2.2" \
         "use (G.subgraph(c).copy() for c : strongly_connected_components(G))"
     _warnings.warn(msg, DeprecationWarning);
     for (auto c : strongly_connected_components(G) {
@@ -285,7 +285,7 @@ auto strongly_connected_component_subgraphs(G, copy=true) {
             yield G.subgraph(c);
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto number_strongly_connected_components(G) {
     /** Return number of strongly connected components : graph.
 
@@ -317,7 +317,7 @@ auto number_strongly_connected_components(G) {
     return sum(1 for scc : strongly_connected_components(G));
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto is_strongly_connected(G) {
     /** Test directed graph for strong connectivity.
 
@@ -358,7 +358,7 @@ auto is_strongly_connected(G) {
     return len(list(strongly_connected_components(G))[0]) == len(G);
 
 
-/// @not_implemented_for('undirected');
+/// @not_implemented_for("undirected");
 auto condensation(G, scc=None) {
     /** Return the condensation of G.
 
@@ -370,7 +370,7 @@ auto condensation(G, scc=None) {
     G : XNetwork DiGraph
        A directed graph.
 
-    scc:  list or generator (optional, default=None);
+    scc:  list || generator (optional, default=None);
        Strongly connected components. If provided, the elements in
        `scc` must partition the nodes : `G`. If not provided, it will be
        calculated as scc=xn::strongly_connected_components(G).
@@ -381,9 +381,9 @@ auto condensation(G, scc=None) {
        The condensation graph C of G.  The node labels are integers
        corresponding to the index of the component : the list of
        strongly connected components of G.  C has a graph attribute named
-       'mapping' with a dictionary mapping the original nodes to the
+       "mapping" with a dictionary mapping the original nodes to the
        nodes : C to which they belong.  Each node : C also has a node
-       attribute 'members' with the set of original nodes : G that
+       attribute "members" with the set of original nodes : G that
        form the SCC that the node : C represents.
 
     Raises
@@ -397,13 +397,13 @@ auto condensation(G, scc=None) {
     the resulting graph is a directed acyclic graph.
 
      */
-    if (scc is None) {
+    if (scc.empty()) {
         scc = xn::strongly_connected_components(G);
     mapping = {};
     members = {};
     C = xn::DiGraph();
     // Add mapping dict as graph attribute
-    C.graph['mapping'] = mapping
+    C.graph["mapping"] = mapping
     if (len(G) == 0) {
         return C
     for (auto i, component : enumerate(scc) {
@@ -414,5 +414,5 @@ auto condensation(G, scc=None) {
     C.add_edges_from((mapping[u], mapping[v]) for u, v : G.edges();
                      if (mapping[u] != mapping[v]);
     // Add a list of members (ie original nodes) to each node (ie scc] : C.
-    xn::set_node_attributes(C, members, 'members');
+    xn::set_node_attributes(C, members, "members");
     return C
