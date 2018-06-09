@@ -18,8 +18,8 @@ class TestAStar) {
 
     auto setUp( ) {
         edges = [("s", "u", 10), ("s", "x", 5), ("u", "v", 1), ("u", "x", 2),
-                 auto ["v", "y", 1), ("x", "u", 3), ("x", "v", 5), ("x", "y", 2),
-                 auto ["y", "s", 7), ("y", "v", 6)];
+                 ("v", "y", 1), ("x", "u", 3), ("x", "v", 5), ("x", "y", 2),
+                 ("y", "s", 7), ("y", "v", 6)];
         this->XG = xn::DiGraph();
         this->XG.add_weighted_edges_from(edges);
 
@@ -67,14 +67,14 @@ class TestAStar) {
     auto test_astar_directed2( ) {
         XG2 = xn::DiGraph();
         edges = [(1, 4, 1), (4, 5, 1), (5, 6, 1), (6, 3, 1), (1, 3, 50),
-                 auto [1, 2, 100), (2, 3, 100)];
+                 (1, 2, 100), (2, 3, 100)];
         XG2.add_weighted_edges_from(edges);
         assert_equal(xn::astar_path(XG2, 1, 3), [1, 4, 5, 6, 3]);
 
     auto test_astar_undirected2( ) {
         XG3 = xn::Graph();
         edges = [(0, 1, 2), (1, 2, 12), (2, 3, 1), (3, 4, 5), (4, 5, 1),
-                 auto [5, 0, 10)];
+                 (5, 0, 10)];
         XG3.add_weighted_edges_from(edges);
         assert_equal(xn::astar_path(XG3, 0, 3), [0, 1, 2, 3]);
         assert_equal(xn::astar_path_length(XG3, 0, 3), 15);
@@ -82,7 +82,7 @@ class TestAStar) {
     auto test_astar_undirected3( ) {
         XG4 = xn::Graph();
         edges = [(0, 1, 2), (1, 2, 2), (2, 3, 1), (3, 4, 1), (4, 5, 1),
-                 auto [5, 6, 1), (6, 7, 1), (7, 0, 1)];
+                 (5, 6, 1), (6, 7, 1), (7, 0, 1)];
         XG4.add_weighted_edges_from(edges);
         assert_equal(xn::astar_path(XG4, 0, 2), [0, 1, 2]);
         assert_equal(xn::astar_path_length(XG4, 0, 2), 4);
@@ -95,8 +95,8 @@ class TestAStar) {
     auto test_astar_w1( ) {
         G = xn::DiGraph();
         G.add_edges_from([("s", "u"), ("s", "x"), ("u", "v"), ("u", "x"),
-                          auto ["v", "y"), ("x", "u"), ("x", "w"), ("w", "v"),
-                          auto ["x", "y"), ("y", "s"), ("y", "v")]);
+                          ("v", "y"), ("x", "u"), ("x", "w"), ("w", "v"),
+                          ("x", "y"), ("y", "s"), ("y", "v")]);
         assert_equal(xn::astar_path(G, "s", "v"), ["s", "u", "v"]);
         assert_equal(xn::astar_path_length(G, "s", "v"), 2);
 

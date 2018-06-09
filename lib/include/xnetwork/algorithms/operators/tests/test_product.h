@@ -109,9 +109,9 @@ auto test_cartesian_product_multigraph() {
     assert_equal({(frozenset([u, v]), k) for u, v, k : GH.edges(keys=true)},
                  {(frozenset([u, v]), k) for u, v, k in
                   [((1, 3), (2, 3), 0), ((1, 3), (2, 3), 1),
-                   auto [(1, 3), (1, 4), 0), ((1, 3), (1, 4), 1),
-                   auto [(2, 3), (2, 4), 0), ((2, 3), (2, 4), 1),
-                   auto [(2, 4), (1, 4), 0), ((2, 4), (1, 4), 1)]});
+                   ((1, 3), (1, 4), 0), ((1, 3), (1, 4), 1),
+                   ((2, 3), (2, 4), 0), ((2, 3), (2, 4), 1),
+                   ((2, 4), (1, 4), 0), ((2, 4), (1, 4), 1)]});
 
 
 /// /// @raises(xn::XNetworkError);
@@ -191,7 +191,7 @@ auto test_cartesian_product_random() {
     for (auto [u_G, u_H] : GH.nodes() {
         for (auto [v_G, v_H] : GH.nodes() {
             if ((u_G == v_G && H.has_edge(u_H, v_H)) || \
-               auto [u_H == v_H && G.has_edge(u_G, v_G)) {
+               (u_H == v_H && G.has_edge(u_G, v_G)) {
                 assert_true(GH.has_edge((u_G, u_H), (v_G, v_H)));
             } else {
                 assert_true(!GH.has_edge((u_G, u_H), (v_G, v_H)));
@@ -344,8 +344,8 @@ auto test_strong_product_random() {
     for (auto [u_G, u_H] : GH.nodes() {
         for (auto [v_G, v_H] : GH.nodes() {
             if ((u_G == v_G && H.has_edge(u_H, v_H)) || \
-               auto [u_H == v_H && G.has_edge(u_G, v_G)) || \
-               auto [G.has_edge(u_G, v_G) && H.has_edge(u_H, v_H)) {
+               (u_H == v_H && G.has_edge(u_G, v_G)) || \
+               (G.has_edge(u_G, v_G) && H.has_edge(u_H, v_H)) {
                 assert_true(GH.has_edge((u_G, u_H), (v_G, v_H)));
             } else {
                 assert_true(!GH.has_edge((u_G, u_H), (v_G, v_H)));
@@ -367,10 +367,10 @@ auto test_graph_power() {
 
     assert_edges_equal(list(H.edges()),
                        [(0, 1), (0, 2), (0, 5), (0, 6), (0, 7), (1, 9),
-                        auto [1, 2), (1, 3), (1, 6), (2, 3), (2, 4), (2, 8),
-                        auto [2, 9), (3, 4), (3, 5), (3, 9), (4, 5), (4, 6),
-                        auto [5, 6), (5, 7), (6, 7), (6, 8), (7, 8), (7, 9),
-                        auto [8, 9)]);
+                        (1, 2), (1, 3), (1, 6), (2, 3), (2, 4), (2, 8),
+                        (2, 9), (3, 4), (3, 5), (3, 9), (4, 5), (4, 6),
+                        (5, 6), (5, 7), (6, 7), (6, 8), (7, 8), (7, 9),
+                        (8, 9)]);
 
 
 /// /// @raises(ValueError);

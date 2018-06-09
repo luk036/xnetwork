@@ -263,7 +263,7 @@ auto edge_expansion(G, S, T=None, weight=None) {
     ----------
     .. [1] Fan Chung.
            *Spectral Graph Theory*.
-           auto [CBMS Regional Conference Series : Mathematics, No. 92),
+           (CBMS Regional Conference Series : Mathematics, No. 92),
            American Mathematical Society, 1997, ISBN 0-8218-0315-8
            <http://www.math.ucsd.edu/~fan/research/revised.html>
 

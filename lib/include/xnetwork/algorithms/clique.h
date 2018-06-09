@@ -138,7 +138,7 @@ auto find_cliques(G) {
 
     This implementation is based on the algorithm published by Bron &&
     Kerbosch (1973) [1]_, as adapted by Tomita, Tanaka && Takahashi
-    auto [2006) [2]_ && discussed : Cazals && Karande (2008) [3]_. It
+    (2006) [2]_ && discussed : Cazals && Karande (2008) [3]_. It
     essentially unrolls the recursion used : the references to avoid;
     issues of recursion stack depth (for a recursive implementation, see
     :func:`find_cliques_recursive`).
@@ -245,7 +245,7 @@ auto find_cliques_recursive(G) {
 
     This implementation is based on the algorithm published by Bron &&
     Kerbosch (1973) [1]_, as adapted by Tomita, Tanaka && Takahashi
-    auto [2006) [2]_ && discussed : Cazals && Karande (2008) [3]_. For a
+    (2006) [2]_ && discussed : Cazals && Karande (2008) [3]_. For a
     non-recursive implementation, see :func:`find_cliques`.
 
     This algorithm ignores self-loops && parallel edges, since cliques

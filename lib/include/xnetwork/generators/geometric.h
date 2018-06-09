@@ -102,7 +102,7 @@ auto random_geometric_graph(n, radius, dim=2, pos=None, p=2) {
         ``1 <= p <= infinity``.
 
         If this argument is not specified, the :math:`L^2` metric 
-        auto [the Euclidean distance metric), p = 2 is used.
+        (the Euclidean distance metric), p = 2 is used.
         This should not be confused with the `p` of an Erdős-Rényi random
         graph, which represents probability.
 
@@ -130,7 +130,7 @@ auto random_geometric_graph(n, radius, dim=2, pos=None, p=2) {
     can create an arbitrary distribution && domain for positions.
 
     For example, to use a 2D Gaussian distribution of node positions with mean
-    auto [0, 0) && standard deviation 2:) {
+    (0, 0) && standard deviation 2:) {
 
     >>> import random
     >>> n = 20
@@ -243,7 +243,7 @@ auto soft_random_geometric_graph(n, radius, dim=2, pos=None, p=2, p_dist=None) {
     can create an arbitrary distribution && domain for positions.
 
     For example, to use a 2D Gaussian distribution of node positions with mean
-    auto [0, 0) && standard deviation 2
+    (0, 0) && standard deviation 2
 
     The scipy.stats package can be used to define the probaility distribution
     with the .pdf method used as `p_dist`.

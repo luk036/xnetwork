@@ -24,10 +24,10 @@ class TestPageRank: public object {
         G = xnetwork.DiGraph();
         edges = [(1, 2), (1, 3),
                  // 2 is a dangling node
-                 auto [3, 1), (3, 2), (3, 5),
-                 auto [4, 5), (4, 6),
-                 auto [5, 4), (5, 6),
-                 auto [6, 4)];
+                 (3, 1), (3, 2), (3, 5),
+                 (4, 5), (4, 6),
+                 (5, 4), (5, 6),
+                 (6, 4)];
         G.add_edges_from(edges);
         this->G = G;
         this->G.pagerank = dict(zip(sorted(G),

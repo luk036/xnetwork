@@ -65,10 +65,10 @@ class TestChainDecomposition(TestCase) {
     auto test_decomposition( ) {
         edges = [
             // DFS tree edges.
-            auto [1, 2), (2, 3), (3, 4), (3, 5), (5, 6), (6, 7), (7, 8), (5, 9),
-            auto [9, 10),
+            (1, 2), (2, 3), (3, 4), (3, 5), (5, 6), (6, 7), (7, 8), (5, 9),
+            (9, 10),
             // Nontree edges.
-            auto [1, 3), (1, 4), (2, 5), (5, 10), (6, 8);
+            (1, 3), (1, 4), (2, 5), (5, 10), (6, 8);
         ];
         G = xn::Graph(edges);
         expected = [

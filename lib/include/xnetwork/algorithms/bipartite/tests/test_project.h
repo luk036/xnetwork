@@ -177,11 +177,11 @@ class TestBipartiteWeightedProjection) {
 
     auto test_project_weighted_shared( ) {
         edges = [("A", "B", 2),
-                 auto ["A", "C", 1),
-                 auto ["B", "C", 1),
-                 auto ["B", "D", 1),
-                 auto ["B", "E", 2),
-                 auto ["E", "F", 1)];
+                 ("A", "C", 1),
+                 ("B", "C", 1),
+                 ("B", "D", 1),
+                 ("B", "E", 2),
+                 ("E", "F", 1)];
         Panswer = xn::Graph();
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.weighted_projected_graph(this->G, "ABCDEF");
@@ -190,13 +190,13 @@ class TestBipartiteWeightedProjection) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
         edges = [("A", "B", 3),
-                 auto ["A", "E", 1),
-                 auto ["A", "C", 1),
-                 auto ["A", "D", 1),
-                 auto ["B", "E", 1),
-                 auto ["B", "C", 1),
-                 auto ["B", "D", 1),
-                 auto ["C", "D", 1)];
+                 ("A", "E", 1),
+                 ("A", "C", 1),
+                 ("A", "D", 1),
+                 ("B", "E", 1),
+                 ("B", "C", 1),
+                 ("B", "D", 1),
+                 ("C", "D", 1)];
         Panswer = xn::Graph();
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.weighted_projected_graph(this->N, "ABCDE");
@@ -206,11 +206,11 @@ class TestBipartiteWeightedProjection) {
 
     auto test_project_weighted_newman( ) {
         edges = [("A", "B", 1.5),
-                 auto ["A", "C", 0.5),
-                 auto ["B", "C", 0.5),
-                 auto ["B", "D", 1),
-                 auto ["B", "E", 2),
-                 auto ["E", "F", 1)];
+                 ("A", "C", 0.5),
+                 ("B", "C", 0.5),
+                 ("B", "D", 1),
+                 ("B", "E", 2),
+                 ("E", "F", 1)];
         Panswer = xn::Graph();
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.collaboration_weighted_projected_graph(this->G, "ABCDEF");
@@ -219,13 +219,13 @@ class TestBipartiteWeightedProjection) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
         edges = [("A", "B", 11 / 6.0),
-                 auto ["A", "E", 1 / 2.0),
-                 auto ["A", "C", 1 / 3.0),
-                 auto ["A", "D", 1 / 3.0),
-                 auto ["B", "E", 1 / 2.0),
-                 auto ["B", "C", 1 / 3.0),
-                 auto ["B", "D", 1 / 3.0),
-                 auto ["C", "D", 1 / 3.0)];
+                 ("A", "E", 1 / 2.0),
+                 ("A", "C", 1 / 3.0),
+                 ("A", "D", 1 / 3.0),
+                 ("B", "E", 1 / 2.0),
+                 ("B", "C", 1 / 3.0),
+                 ("B", "D", 1 / 3.0),
+                 ("C", "D", 1 / 3.0)];
         Panswer = xn::Graph();
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.collaboration_weighted_projected_graph(this->N, "ABCDE");
@@ -235,11 +235,11 @@ class TestBipartiteWeightedProjection) {
 
     auto test_project_weighted_ratio( ) {
         edges = [("A", "B", 2 / 6.0),
-                 auto ["A", "C", 1 / 6.0),
-                 auto ["B", "C", 1 / 6.0),
-                 auto ["B", "D", 1 / 6.0),
-                 auto ["B", "E", 2 / 6.0),
-                 auto ["E", "F", 1 / 6.0)];
+                 ("A", "C", 1 / 6.0),
+                 ("B", "C", 1 / 6.0),
+                 ("B", "D", 1 / 6.0),
+                 ("B", "E", 2 / 6.0),
+                 ("E", "F", 1 / 6.0)];
         Panswer = xn::Graph();
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.weighted_projected_graph(this->G, "ABCDEF", ratio=true);
@@ -248,13 +248,13 @@ class TestBipartiteWeightedProjection) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
         edges = [("A", "B", 3 / 3.0),
-                 auto ["A", "E", 1 / 3.0),
-                 auto ["A", "C", 1 / 3.0),
-                 auto ["A", "D", 1 / 3.0),
-                 auto ["B", "E", 1 / 3.0),
-                 auto ["B", "C", 1 / 3.0),
-                 auto ["B", "D", 1 / 3.0),
-                 auto ["C", "D", 1 / 3.0)];
+                 ("A", "E", 1 / 3.0),
+                 ("A", "C", 1 / 3.0),
+                 ("A", "D", 1 / 3.0),
+                 ("B", "E", 1 / 3.0),
+                 ("B", "C", 1 / 3.0),
+                 ("B", "D", 1 / 3.0),
+                 ("C", "D", 1 / 3.0)];
         Panswer = xn::Graph();
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.weighted_projected_graph(this->N, "ABCDE", ratio=true);
@@ -264,11 +264,11 @@ class TestBipartiteWeightedProjection) {
 
     auto test_project_weighted_overlap( ) {
         edges = [("A", "B", 2 / 2.0),
-                 auto ["A", "C", 1 / 1.0),
-                 auto ["B", "C", 1 / 1.0),
-                 auto ["B", "D", 1 / 1.0),
-                 auto ["B", "E", 2 / 3.0),
-                 auto ["E", "F", 1 / 1.0)];
+                 ("A", "C", 1 / 1.0),
+                 ("B", "C", 1 / 1.0),
+                 ("B", "D", 1 / 1.0),
+                 ("B", "E", 2 / 3.0),
+                 ("E", "F", 1 / 1.0)];
         Panswer = xn::Graph();
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.overlap_weighted_projected_graph(this->G, "ABCDEF", jaccard=false);
@@ -277,13 +277,13 @@ class TestBipartiteWeightedProjection) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
         edges = [("A", "B", 3 / 3.0),
-                 auto ["A", "E", 1 / 1.0),
-                 auto ["A", "C", 1 / 1.0),
-                 auto ["A", "D", 1 / 1.0),
-                 auto ["B", "E", 1 / 1.0),
-                 auto ["B", "C", 1 / 1.0),
-                 auto ["B", "D", 1 / 1.0),
-                 auto ["C", "D", 1 / 1.0)];
+                 ("A", "E", 1 / 1.0),
+                 ("A", "C", 1 / 1.0),
+                 ("A", "D", 1 / 1.0),
+                 ("B", "E", 1 / 1.0),
+                 ("B", "C", 1 / 1.0),
+                 ("B", "D", 1 / 1.0),
+                 ("C", "D", 1 / 1.0)];
         Panswer = xn::Graph();
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.overlap_weighted_projected_graph(this->N, "ABCDE", jaccard=false);
@@ -293,11 +293,11 @@ class TestBipartiteWeightedProjection) {
 
     auto test_project_weighted_jaccard( ) {
         edges = [("A", "B", 2 / 5.0),
-                 auto ["A", "C", 1 / 2.0),
-                 auto ["B", "C", 1 / 5.0),
-                 auto ["B", "D", 1 / 5.0),
-                 auto ["B", "E", 2 / 6.0),
-                 auto ["E", "F", 1 / 3.0)];
+                 ("A", "C", 1 / 2.0),
+                 ("B", "C", 1 / 5.0),
+                 ("B", "D", 1 / 5.0),
+                 ("B", "E", 2 / 6.0),
+                 ("E", "F", 1 / 3.0)];
         Panswer = xn::Graph();
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.overlap_weighted_projected_graph(this->G, "ABCDEF");
@@ -306,13 +306,13 @@ class TestBipartiteWeightedProjection) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
         edges = [("A", "B", 3 / 3.0),
-                 auto ["A", "E", 1 / 3.0),
-                 auto ["A", "C", 1 / 3.0),
-                 auto ["A", "D", 1 / 3.0),
-                 auto ["B", "E", 1 / 3.0),
-                 auto ["B", "C", 1 / 3.0),
-                 auto ["B", "D", 1 / 3.0),
-                 auto ["C", "D", 1 / 1.0)];
+                 ("A", "E", 1 / 3.0),
+                 ("A", "C", 1 / 3.0),
+                 ("A", "D", 1 / 3.0),
+                 ("B", "E", 1 / 3.0),
+                 ("B", "C", 1 / 3.0),
+                 ("B", "D", 1 / 3.0),
+                 ("C", "D", 1 / 1.0)];
         Panswer = xn::Graph();
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.overlap_weighted_projected_graph(this->N, "ABCDE");

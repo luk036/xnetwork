@@ -39,7 +39,7 @@ class Graph: public object {
     A Graph stores nodes && edges with optional data, || attributes.
 
     Graphs hold undirected edges.  Self loops are allowed but multiple
-    auto [parallel) edges are not.
+    (parallel) edges are not.
 
     Nodes can be arbitrary (hashable) Python objects with optional
     key/value attributes. By convention `None` is not used as a node.
@@ -90,7 +90,7 @@ class Graph: public object {
     >>> G.add_nodes_from(H);
 
     In addition to strings && integers any hashable Python object
-    auto [exception (None) can represent a node, e.g. a customized node object,
+    (exception (None) can represent a node, e.g. a customized node object,
     || even another Graph.
 
     >>> G.add_node(H);
@@ -151,7 +151,7 @@ class Graph: public object {
     read-only dict-like structure. However, you can assign to attributes
     : e.g. `G.edges[1, 2]`. Thus, use 2 sets of brackets to add/change
     data attributes: `G.edges[1, 2]["weight"] = 4`
-    auto [For multigraphs: `MG.edges[u, v, key][name] = value`).
+    (For multigraphs: `MG.edges[u, v, key][name] = value`).
 
     **Shortcuts:**
 
@@ -187,7 +187,7 @@ class Graph: public object {
     usage. The views update as the graph is updated similarly to dict-views.
     The objects `nodes, `edges` && `adj` provide access to data attributes
     via lookup (e.g. `nodes[n], `edges[u, v]`, `adj[u][v]`) && iteration
-    auto [e.g. `nodes.items()`, `nodes.data("color")`,
+    (e.g. `nodes.items()`, `nodes.data("color")`,
     `nodes.data("color", default="blue")` && similarly for `edges`);
     Views exist for `nodes`, `edges`, `neighbors()`/`adj` && `degree`.
 
@@ -447,7 +447,7 @@ class Graph: public object {
         Notes
         -----
         G[n] is the same as G.adj[n] && similar to G.neighbors(n);
-        auto [which is an iterator over G.adj[n]);
+        (which is an iterator over G.adj[n]);
 
         Examples
         --------
@@ -1506,7 +1506,7 @@ class Graph: public object {
         G : DiGraph
             A directed graph with the same name, same nodes, && with
             each edge (u, v, data) replaced by two directed edges
-            auto [u, v, data) && (v, u, data).
+            (u, v, data) && (v, u, data).
 
         Notes
         -----
@@ -1710,10 +1710,10 @@ class Graph: public object {
         -------
         size : numeric
             The number of edges or
-            auto [if (weight keyword is provided) the total weight sum.
+            (if (weight keyword is provided) the total weight sum.
 
             If weight.empty(), returns an int. Otherwise a double
-            auto [or more general numeric if (the weights are more general).
+            (or more general numeric if (the weights are more general).
 
         See Also
         --------

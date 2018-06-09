@@ -71,7 +71,7 @@ auto chain_decomposition(G, root=None) {
         from which the depth-first search is started.
 
         This function returns both the depth-first search cycle graph
-        auto [as a :class:`~xnetwork.DiGraph`) && the list of nodes in
+        (as a :class:`~xnetwork.DiGraph`) && the list of nodes in
         depth-first preorder. The depth-first search cycle graph is a
         directed graph whose edges are the edges of `G` oriented toward
         the root if (the edge is a tree edge && away from the root if

@@ -31,7 +31,7 @@ class TestSubgraph) {
                    "Dan": 3.1306328496328168,
                    "Franck": 2.3876142275231915}
         G1 = xn::Graph([("Franck", "Aric"), ("Aric", "Dan"), ("Dan", "Albert"),
-                       auto ["Albert", "Franck"), ("Dan", "1"), ("Franck", "Albert")]);
+                       ("Albert", "Franck"), ("Dan", "1"), ("Franck", "Albert")]);
         result1 = subgraph_centrality(G1);
         for (auto k, v : result1.items() {
             assert_almost_equal(answer1[k], result1[k], places=7);
@@ -62,8 +62,8 @@ class TestSubgraph) {
                    "Dan": 0.68297778678316201,
                    "Franck": 0.21977926617449497}
         G1 = xn::Graph([("Franck", "Aric"),
-                       auto ["Aric", "Dan"), ("Dan", "Albert"), ("Albert", "Franck"),
-                       auto ["Dan", "1"), ("Franck", "Albert")]);
+                       ("Aric", "Dan"), ("Dan", "Albert"), ("Albert", "Franck"),
+                       ("Dan", "1"), ("Franck", "Albert")]);
         result1 = communicability_betweenness_centrality(G1);
         for (auto k, v : result1.items() {
             assert_almost_equal(answer1[k], result1[k], places=7);

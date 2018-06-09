@@ -17,7 +17,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
     auto test_edges_data( ) {
         G = this->K3
         edges = [(0, 1, {}), (0, 2, {}), (1, 0, {}),
-                 auto [1, 2, {}), (2, 0, {}), (2, 1, {})];
+                 (1, 2, {}), (2, 0, {}), (2, 1, {})];
         assert_equal(sorted(G.edges(data=true)), edges);
         assert_equal(sorted(G.edges(0, data=true)), [(0, 1, {}), (0, 2, {})]);
         assert_raises((KeyError, xn::XNetworkError), G.neighbors, -1);
@@ -82,7 +82,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
 
         assert_equal(sorted(G.in_edges(data=true, keys=false)),
                      [(0, 1, {}), (0, 1, {}), (0, 2, {}), (1, 0, {}),
-                      auto [1, 2, {}), (2, 0, {}), (2, 1, {})]);
+                      (1, 2, {}), (2, 0, {}), (2, 1, {})]);
 
     auto test_in_edges_data( ) {
         G = this->K3
@@ -273,7 +273,7 @@ class TestMultiDiGraph(BaseMultiDiGraphTester, TestMultiGraph) {
 
         G = this->Graph();
         edges = [(0, 1, {"weight": 3}), (0, 1, (("weight", 2),)),
-                 auto [0, 1, 5), (0, 1, "s")];
+                 (0, 1, 5), (0, 1, "s")];
         G.add_edges_from(edges);
         keydict = {0: {"weight": 3}, 1: {"weight": 2}, 5: {}, "s": {}}
         assert_equal(G._succ, {0: {1: keydict}, 1: {}});

@@ -17,31 +17,31 @@ static const auto __all__ = ["margulis_gabber_galil_graph", "chordal_cycle_graph
 //
 // For a directed expander, add edges from (x, y) to) {
 //
-//     auto [x, y),
-//     auto [(x + 1) % n, y),
-//     auto [x, (y + 1) % n),
-//     auto [x, (x + y) % n),
-//     auto [-y % n, x);
+//     (x, y),
+//     ((x + 1) % n, y),
+//     (x, (y + 1) % n),
+//     (x, (x + y) % n),
+//     (-y % n, x);
 //
 // For an undirected expander, add the reverse edges.
 //
 // Also appearing : the paper of Gabber && Galil) {
 //
-//     auto [x, y),
-//     auto [x, (x + y) % n),
-//     auto [x, (x + y + 1) % n),
-//     auto [(x + y) % n, y),
-//     auto [(x + y + 1) % n, y);
+//     (x, y),
+//     (x, (x + y) % n),
+//     (x, (x + y + 1) % n),
+//     ((x + y) % n, y),
+//     ((x + y + 1) % n, y);
 //
 // and) {
 //
-//     auto [x, y),
-//     auto [(x + 2*y) % n, y),
-//     auto [(x + (2*y + 1)) % n, y),
-//     auto [(x + (2*y + 2)) % n, y),
-//     auto [x, (y + 2*x) % n),
-//     auto [x, (y + (2*x + 1)) % n),
-//     auto [x, (y + (2*x + 2)) % n),
+//     (x, y),
+//     ((x + 2*y) % n, y),
+//     ((x + (2*y + 1)) % n, y),
+//     ((x + (2*y + 2)) % n, y),
+//     (x, (y + 2*x) % n),
+//     (x, (y + (2*x + 1)) % n),
+//     (x, (y + (2*x + 2)) % n),
 //
 auto margulis_gabber_galil_graph(n, create_using=None) {
     /** Return the Margulis-Gabber-Galil undirected MultiGraph on `n^2` nodes.
@@ -79,7 +79,7 @@ auto margulis_gabber_galil_graph(n, create_using=None) {
     G.clear();
     for (auto [x, y] : itertools.product(range(n), repeat=2) {
         for (auto [u, v] : (((x + 2 * y) % n, y), ((x + (2 * y + 1)) % n, y),
-                       auto [x, (y + 2 * x) % n), (x, (y + (2 * x + 1)) % n)) {
+                       (x, (y + 2 * x) % n), (x, (y + (2 * x + 1)) % n)) {
             G.add_edge((x, y), (u, v));
     G.graph["name"] = "margulis_gabber_galil_graph({0})".format(n);
     return G;

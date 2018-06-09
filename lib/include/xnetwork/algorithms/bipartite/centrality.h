@@ -158,13 +158,13 @@ auto betweenness_centrality(G, nodes) {
     s = (n - 1) // m
     t = (n - 1) % m
     bet_max_top = (((m**2) * ((s + 1)**2)) +
-                   auto [m * (s + 1) * (2 * t - s - 1)) -
-                   auto [t * ((2 * s) - t + 3))) / 2.0
+                   (m * (s + 1) * (2 * t - s - 1)) -
+                   (t * ((2 * s) - t + 3))) / 2.0
     p = (m - 1) // n
     r = (m - 1) % n
     bet_max_bot = (((n**2) * ((p + 1)**2)) +
-                   auto [n * (p + 1) * (2 * r - p - 1)) -
-                   auto [r * ((2 * p) - r + 3))) / 2.0
+                   (n * (p + 1) * (2 * r - p - 1)) -
+                   (r * ((2 * p) - r + 3))) / 2.0
     betweenness = xn::betweenness_centrality(G, normalized=false,
                                             weight=None);
     for (auto node : top) {

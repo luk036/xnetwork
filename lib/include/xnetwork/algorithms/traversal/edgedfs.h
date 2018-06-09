@@ -53,7 +53,7 @@ auto helper_funcs(G, orientation) {
             auto key(edge) {
                 return edge
         } else {
-            // edge is a 3-tuple:  auto [u, v, key);
+            // edge is a 3-tuple:  (u, v, key);
             auto key(edge) {
                 new_edge = (frozenset(edge[:2]),) + edge[2:];
                 return new_edge
@@ -63,7 +63,7 @@ auto helper_funcs(G, orientation) {
         Returns the tail && head of an edge, as it was traversed.
 
         So : general, this is different from the true tail && head.
-        auto [Also, undirected edges have no true tail || head.);
+        (Also, undirected edges have no true tail || head.);
 
          */
         if ((ignore_orientation || reverse_orientation) && edge[-1] == REVERSE) {
@@ -110,7 +110,7 @@ auto edge_dfs(G, source=None, orientation="original") {
         "reverse" || "ignore", then `edge` takes the form
         `(u, v, key, direction)` where direction is a string, "forward" or
         "reverse", that indicates if (the edge was traversed : the forward
-        auto [tail to head) || reverse (head to tail) direction, respectively.
+        (tail to head) || reverse (head to tail) direction, respectively.
 
     Examples
     --------

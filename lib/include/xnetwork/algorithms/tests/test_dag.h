@@ -35,7 +35,7 @@ class TestDagLongestPath: public object {
     auto test_weighted( ) {
         G = xn::DiGraph();
         edges = [(1, 2, -5), (2, 3, 1), (3, 4, 1), (4, 5, 0), (3, 5, 4),
-                 auto [1, 6, 2)];
+                 (1, 6, 2)];
         G.add_weighted_edges_from(edges);
         assert_equal(xn::dag_longest_path(G), [2, 3, 5]);
 
@@ -101,7 +101,7 @@ class TestDagLongestPathLength: public object {
 
     auto test_weighted( ) {
         edges = [(1, 2, -5), (2, 3, 1), (3, 4, 1), (4, 5, 0), (3, 5, 4),
-                 auto [1, 6, 2)];
+                 (1, 6, 2)];
         G = xn::DiGraph();
         G.add_weighted_edges_from(edges);
         assert_equal(xn::dag_longest_path_length(G), 5);
@@ -218,7 +218,7 @@ class TestDAG) {
         G = xn::DiGraph();
         ancestors = xn::algorithms.dag.ancestors
         G.add_edges_from([
-            auto [1, 2), (1, 3), (4, 2), (4, 3), (4, 5), (2, 6), (5, 6)]);
+            (1, 2), (1, 3), (4, 2), (4, 3), (4, 5), (2, 6), (5, 6)]);
         assert_equal(ancestors(G, 6), set([1, 2, 4, 5]));
         assert_equal(ancestors(G, 3), set([1, 4]));
         assert_equal(ancestors(G, 1), set());
@@ -228,7 +228,7 @@ class TestDAG) {
         G = xn::DiGraph();
         descendants = xn::algorithms.dag.descendants
         G.add_edges_from([
-            auto [1, 2), (1, 3), (4, 2), (4, 3), (4, 5), (2, 6), (5, 6)]);
+            (1, 2), (1, 3), (4, 2), (4, 3), (4, 5), (2, 6), (5, 6)]);
         assert_equal(descendants(G, 1), set([2, 3, 6]));
         assert_equal(descendants(G, 4), set([2, 3, 5, 6]));
         assert_equal(descendants(G, 3), set());

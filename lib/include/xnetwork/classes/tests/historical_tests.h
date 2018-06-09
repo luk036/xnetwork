@@ -223,7 +223,7 @@ class HistoricalTests: public object {
         // Test G.edges(nbunch) with various forms of nbunch
         G = this->G();
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                          auto ["C", "B"), ("C", "D")]);
+                          ("C", "B"), ("C", "D")]);
         // node not : nbunch should be quietly ignored
         assert_raises(xn::XNetworkError, G.edges, 6);
         assert_equals(list(G.edges("Z")), []);  // iterable non-node
@@ -257,7 +257,7 @@ class HistoricalTests: public object {
     auto test_degree( ) {
         G = this->G();
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                          auto ["C", "B"), ("C", "D")]);
+                          ("C", "B"), ("C", "D")]);
         assert_equal(G.degree("A"), 2);
 
         // degree of single node : iterable container must return dict
@@ -290,7 +290,7 @@ class HistoricalTests: public object {
     auto test_order_size( ) {
         G = this->G();
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                          auto ["C", "B"), ("C", "D")]);
+                          ("C", "B"), ("C", "D")]);
         assert_equal(G.order(), 4);
         assert_equal(G.size(), 5);
         assert_equal(G.number_of_edges(), 5);
@@ -307,7 +307,7 @@ class HistoricalTests: public object {
     auto test_subgraph( ) {
         G = this->G();
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                          auto ["C", "B"), ("C", "D")]);
+                          ("C", "B"), ("C", "D")]);
         SG = G.subgraph(["A", "B", "D"]);
         assert_nodes_equal(list(SG), ["A", "B", "D"]);
         assert_edges_equal(list(SG.edges()), [("A", "B"), ("B", "D")]);
@@ -316,7 +316,7 @@ class HistoricalTests: public object {
         G = this->G();
         if (!G.is_directed() {
             G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                              auto ["C", "B"), ("C", "D")]);
+                              ("C", "B"), ("C", "D")]);
 
             DG = G.to_directed();
             assert_not_equal(DG, G);  // directed copy || copy
@@ -326,7 +326,7 @@ class HistoricalTests: public object {
             assert_equal(DG.adj, G.adj);
             assert_equal(sorted(DG.out_edges(list("AB"))),
                          [("A", "B"), ("A", "C"), ("B", "A"),
-                          auto ["B", "C"), ("B", "D")]);
+                          ("B", "C"), ("B", "D")]);
             DG.remove_edge("A", "B");
             assert_true(DG.has_edge("B", "A"));  // this removes B-A but not  A-B
             assert_false(DG.has_edge("A", "B"));
@@ -335,7 +335,7 @@ class HistoricalTests: public object {
         G = this->G();
         if (G.is_directed() {
             G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                              auto ["C", "B"), ("C", "D")]);
+                              ("C", "B"), ("C", "D")]);
             UG = G.to_undirected()       // to_undirected
             assert_not_equal(UG, G);
             assert_false(UG.is_directed());
@@ -353,7 +353,7 @@ class HistoricalTests: public object {
     auto test_neighbors( ) {
         G = this->G();
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                          auto ["C", "B"), ("C", "D")]);
+                          ("C", "B"), ("C", "D")]);
         G.add_nodes_from("GJK");
         assert_equal(sorted(G["A"]), ["B", "C"]);
         assert_equal(sorted(G.neighbors("A")), ["B", "C"]);
@@ -364,7 +364,7 @@ class HistoricalTests: public object {
     auto test_iterators( ) {
         G = this->G();
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                          auto ["C", "B"), ("C", "D")]);
+                          ("C", "B"), ("C", "D")]);
         G.add_nodes_from("GJK");
         assert_equal(sorted(G.nodes()),
                      ["A", "B", "C", "D", "G", "J", "K"]);
@@ -375,7 +375,7 @@ class HistoricalTests: public object {
                      [0, 0, 0, 2, 2, 3, 3]);
         assert_equal(sorted(G.degree(), key=str),
                      [("A", 2), ("B", 3), ("C", 3), ("D", 2),
-                      auto ["G", 0), ("J", 0), ("K", 0)]);
+                      ("G", 0), ("J", 0), ("K", 0)]);
         assert_equal(sorted(G.neighbors("A")), ["B", "C"]);
         assert_raises(xn::XNetworkError, G.neighbors, "X");
         G.clear();

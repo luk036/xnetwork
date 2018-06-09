@@ -380,7 +380,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
         G.add_edges_from([(1, 2, {"weight": 32}), (3, 4, {"weight": 64})], foo="foo");
         assert_edges_equal(G.edges(data=true),
                            [(1, 2, {"foo": "foo", "weight": 32}),
-                            auto [3, 4, {"foo": "foo", "weight": 64})]);
+                            (3, 4, {"foo": "foo", "weight": 64})]);
 
         G.remove_edges_from([(1, 2), (3, 4)]);
         G.add_edge(1, 2, data=7, spam="bar", bar="foo");

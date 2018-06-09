@@ -9,12 +9,12 @@ class TestMCS) {
         // simple graph
         connected_chordal_G = xn::Graph();
         connected_chordal_G.add_edges_from([(1, 2), (1, 3), (2, 3), (2, 4), (3, 4),
-                                            auto [3, 5), (3, 6), (4, 5), (4, 6), (5, 6)]);
+                                            (3, 5), (3, 6), (4, 5), (4, 6), (5, 6)]);
         this->connected_chordal_G = connected_chordal_G
 
         chordal_G = xn::Graph();
         chordal_G.add_edges_from([(1, 2), (1, 3), (2, 3), (2, 4), (3, 4),
-                                  auto [3, 5), (3, 6), (4, 5), (4, 6), (5, 6), (7, 8)]);
+                                  (3, 5), (3, 6), (4, 5), (4, 6), (5, 6), (7, 8)]);
         chordal_G.add_node(9);
         this->chordal_G = chordal_G
 

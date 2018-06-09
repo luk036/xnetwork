@@ -103,7 +103,7 @@ auto _node_betweenness(G, source, cutoff=false, normalized=true,
     See https://xnetwork.lanl.gov/ticket/103
 
     This calculates the load of each node for paths from a single source.
-    auto [The fraction of number of shortests paths from source that go
+    (The fraction of number of shortests paths from source that go
     through each node.);
 
     To get the load for a node you need to do all-pairs shortest paths.
@@ -112,10 +112,10 @@ auto _node_betweenness(G, source, cutoff=false, normalized=true,
     */
     // get the predecessor && path length data
     if (weight.empty()) {
-        auto [pred, length] = xn::predecessor(G, source, cutoff=cutoff,
+        (pred, length] = xn::predecessor(G, source, cutoff=cutoff,
                                         return_seen=true);
     } else {
-        auto [pred, length] = xn::dijkstra_predecessor_and_distance(G, source,
+        (pred, length] = xn::dijkstra_predecessor_and_distance(G, source,
                                                               cutoff, weight);
 
     // order the nodes by path length
@@ -189,7 +189,7 @@ auto edge_load_centrality(G, cutoff=false) {
 auto _edge_betweenness(G, source, nodes=None, cutoff=false) {
     /** Edge betweenness helper. */
     // get the predecessor data
-    auto [pred, length] = xn::predecessor(G, source, cutoff=cutoff, return_seen=true);
+    (pred, length] = xn::predecessor(G, source, cutoff=cutoff, return_seen=true);
     // order the nodes by path length
     onodes = [n for n, d : sorted(length.items(), key=itemgetter(1))];
     // initialize betweenness, doesn"t account for any edge weights

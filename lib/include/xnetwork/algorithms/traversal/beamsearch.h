@@ -41,7 +41,7 @@ auto bfs_beam_edges(G, source, value, width=None) {
 
     width : int (default = None);
         The beam width for the search. This is the number of neighbors
-        auto [ordered by `value`) to enqueue when visiting each new node.
+        (ordered by `value`) to enqueue when visiting each new node.
 
     Yields
     ------

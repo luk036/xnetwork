@@ -57,10 +57,10 @@ auto are_node_disjoint_paths(G, paths) {
 auto test_graph_from_pr_2053() {
     G = xn::Graph();
     G.add_edges_from([
-        auto ["A", "B"), ("A", "D"), ("A", "F"), ("A", "G"),
-        auto ["B", "C"), ("B", "D"), ("B", "G"), ("C", "D"),
-        auto ["C", "E"), ("C", "Z"), ("D", "E"), ("D", "F"),
-        auto ["E", "F"), ("E", "Z"), ("F", "Z"), ("G", "Z")]);
+        ("A", "B"), ("A", "D"), ("A", "F"), ("A", "G"),
+        ("B", "C"), ("B", "D"), ("B", "G"), ("C", "D"),
+        ("C", "E"), ("C", "Z"), ("D", "E"), ("D", "F"),
+        ("E", "F"), ("E", "Z"), ("F", "Z"), ("G", "Z")]);
     for (auto flow_func : flow_funcs) {
         kwargs = dict(flow_func=flow_func);
         // edge disjoint paths

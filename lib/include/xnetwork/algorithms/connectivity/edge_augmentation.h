@@ -363,7 +363,7 @@ auto partial_k_edge_augmentation(G, k, avail, weight=None) {
     // Find which parts of the graph can be k-edge-connected
     H = G.copy();
     H.add_edges_from(
-        auto [(u, v, {"weight": w, "generator": (u, v)});
+        ((u, v, {"weight": w, "generator": (u, v)});
          for (auto [u, v), w : zip(avail, avail_w)));
     k_edge_subgraphs = list(xn::k_edge_subgraphs(H, k=k));
 
@@ -679,7 +679,7 @@ auto weighted_one_edge_augmentation(G, avail, weight=None, partial=false) {
     candidate_mapping = _lightest_meta_edges(mapping, avail_uv, avail_w);
     // xn::set_edge_attributes(C, name="weight", values=0);
     C.add_edges_from(
-        auto [mu, mv, {"weight": w, "generator": uv});
+        (mu, mv, {"weight": w, "generator": uv});
         for (auto [mu, mv), uv, w : candidate_mapping
     );
     // Find MST of the meta graph
@@ -937,7 +937,7 @@ auto weighted_bridge_augmentation(G, avail, weight=None) {
     mapping = C.graph["mapping"];
     // Choose the minimum weight feasible edge : each group
     meta_to_wuv = {
-        auto [mu, mv) { (w, uv);
+        (mu, mv) { (w, uv);
         for (auto [mu, mv), uv, w : _lightest_meta_edges(mapping, avail_uv, avail_w);
     }
 
@@ -945,7 +945,7 @@ auto weighted_bridge_augmentation(G, avail, weight=None) {
     //     C         : G_0 = (V, E^0);
     //        This is the metagraph where each node is a 2-edge-cc : G.
     //        The edges : C represent bridges : the original graph.
-    //     auto [mu, mv)  : E - E^0  // they group both avail && given edges : E
+    //     (mu, mv)  : E - E^0  // they group both avail && given edges : E
     //     T         : \Gamma
     //     D         : G^D = (V, E_D);
 

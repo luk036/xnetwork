@@ -64,7 +64,7 @@ auto edge_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
         a source node, && a target node. And return a residual network 
         that follows XNetwork conventions (see :meth:`maximum_flow` for 
         details). If flow_func.empty(), the default maximum flow function 
-        auto [:meth:`edmonds_karp`) is used. The choice of the default function
+        (:meth:`edmonds_karp`) is used. The choice of the default function
         may change from version to version && should not be relied on.
         Default value: None.
 
@@ -266,7 +266,7 @@ auto node_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
         a source node, && a target node. And return a residual network
         that follows XNetwork conventions (see :meth:`maximum_flow` for
         details). If flow_func.empty(), the default maximum flow function
-        auto [:meth:`edmonds_karp`) is used. See below for details. The choice
+        (:meth:`edmonds_karp`) is used. See below for details. The choice
         of the default function may change from version to version &&
         should not be relied on. Default value: None.
 

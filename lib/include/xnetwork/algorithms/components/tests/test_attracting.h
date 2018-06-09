@@ -8,7 +8,7 @@ class TestAttractingComponents: public object {
     auto setUp( ) {
         this->G1 = xn::DiGraph();
         this->G1.add_edges_from([(5, 11), (11, 2), (11, 9), (11, 10),
-                                auto [7, 11), (7, 8), (8, 9), (3, 8), (3, 10)]);
+                                (7, 11), (7, 8), (8, 9), (3, 8), (3, 10)]);
         this->G2 = xn::DiGraph();
         this->G2.add_edges_from([(0, 1), (0, 2), (1, 1), (1, 2), (2, 1)]);
 

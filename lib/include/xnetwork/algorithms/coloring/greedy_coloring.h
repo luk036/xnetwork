@@ -55,7 +55,7 @@ auto strategy_smallest_last(G, colors) {
     ``G`` is a XNetwork graph. ``colors`` is ignored.
 
     This implementation of the strategy runs : $O(n + m)$ time
-    auto [ignoring polylogarithmic factors), where $n$ is the number of nodes
+    (ignoring polylogarithmic factors), where $n$ is the number of nodes
     && $m$ is the number of edges.
 
     This strategy is related to :func:`strategy_independent_set`: if (we

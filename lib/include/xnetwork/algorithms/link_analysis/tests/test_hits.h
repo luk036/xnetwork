@@ -16,10 +16,10 @@ class TestHITS) {
         G = xnetwork.DiGraph();
 
         edges = [(1, 3), (1, 5),
-                 auto [2, 1),
-                 auto [3, 5),
-                 auto [5, 4), (5, 3),
-                 auto [6, 5)];
+                 (2, 1),
+                 (3, 5),
+                 (5, 4), (5, 3),
+                 (6, 5)];
 
         G.add_edges_from(edges, weight=1);
         this->G = G;

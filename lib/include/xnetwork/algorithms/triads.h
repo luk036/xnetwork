@@ -46,7 +46,7 @@ auto _tricode(G, v, u, w) {
 
      */
     combos = ((v, u, 1), (u, v, 2), (v, w, 4), (w, v, 8), (u, w, 16),
-              auto [w, u, 32));
+              (w, u, 32));
     return sum(x for u, v, x : combos if (v : G[u]);
 
 

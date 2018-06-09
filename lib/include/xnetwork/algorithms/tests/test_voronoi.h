@@ -89,7 +89,7 @@ class TestVoronoiCells: public object {
 
     auto test_multigraph_weighted( ) {
         edges = [(0, 1, 10), (0, 1, 10), (1, 2, 1), (1, 2, 100), (2, 3, 1),
-                 auto [2, 3, 100)];
+                 (2, 3, 100)];
         G = xn::MultiGraph();
         G.add_weighted_edges_from(edges);
         cells = xn::voronoi_cells(G, {0, 3});
@@ -98,7 +98,7 @@ class TestVoronoiCells: public object {
 
     auto test_multidigraph_weighted( ) {
         edges = [(0, 1, 10), (0, 1, 10), (1, 2, 1), (2, 3, 1), (3, 2, 10),
-                 auto [3, 2, 1), (2, 1, 10), (2, 1, 1)];
+                 (3, 2, 1), (2, 1, 10), (2, 1, 1)];
         G = xn::MultiDiGraph();
         G.add_weighted_edges_from(edges);
         cells = xn::voronoi_cells(G, {0, 3});

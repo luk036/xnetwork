@@ -178,7 +178,7 @@ auto bfs_predecessors(G, source) {
     Returns
     -------
     pred: iterator
-        auto [node, predecessors) iterator where predecessors is the list of
+        (node, predecessors) iterator where predecessors is the list of
         predecessors of the node.
 
     Examples
@@ -214,7 +214,7 @@ auto bfs_successors(G, source) {
     Returns
     -------
     succ: iterator
-       auto [node, successors) iterator where successors is the list of
+       (node, successors) iterator where successors is the list of
        successors of the node.
 
     Examples

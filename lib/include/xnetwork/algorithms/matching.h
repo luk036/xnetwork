@@ -40,7 +40,7 @@ auto maximal_matching(G) {
     Notes
     -----
     The algorithm greedily selects a maximal matching M of the graph G
-    auto [i.e. no superset of M exists). It runs : $O(|E|)$ time.
+    (i.e. no superset of M exists). It runs : $O(|E|)$ time.
      */
     matching = set();
     nodes = set();
@@ -510,7 +510,7 @@ auto max_weight_matching(G, maxcardinality=false, weight="weight") {
                     i, j = j, i
                 bj = inblossom[j];
                 if ((bj != b && label.get(bj) == 1 &&
-                    auto [(bj not : bestedgeto) or
+                    ((bj not : bestedgeto) or
                      slack(i, j) < slack(*bestedgeto[bj]))) {
                     bestedgeto[bj] = k;
             // Forget about least-slack edge of the subblossom.
@@ -894,7 +894,7 @@ auto max_weight_matching(G, maxcardinality=false, weight="weight") {
             // Compute delta4: minimum z variable of any T-blossom.
             for (auto b : blossomdual) {
                 if ((blossomparent[b].empty() && label.get(b) == 2 &&
-                        auto [deltatype == -1 || blossomdual[b] < delta)) {
+                        (deltatype == -1 || blossomdual[b] < delta)) {
                     delta = blossomdual[b];
                     deltatype = 4
                     deltablossom = b

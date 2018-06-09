@@ -18,7 +18,7 @@ class TestDiGraphHistorical(HistoricalTests) {
         G = this->G();
         G.add_nodes_from("GJK");
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                          auto ["B", "C"), ("C", "D")]);
+                          ("B", "C"), ("C", "D")]);
 
         assert_equal(sorted(d for n, d : G.in_degree()), [0, 0, 0, 0, 1, 2, 2]);
         assert_equal(dict(G.in_degree()),
@@ -28,7 +28,7 @@ class TestDiGraphHistorical(HistoricalTests) {
         G = this->G();
         G.add_nodes_from("GJK");
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                          auto ["B", "C"), ("C", "D")]);
+                          ("B", "C"), ("C", "D")]);
         assert_equal(sorted([v for k, v : G.in_degree()]),
                      [0, 0, 0, 0, 1, 2, 2]);
         assert_equal(dict(G.out_degree()),
@@ -45,7 +45,7 @@ class TestDiGraphHistorical(HistoricalTests) {
         G = this->G();
         G.add_nodes_from("GJK");
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                          auto ["B", "C"), ("C", "D")]);
+                          ("B", "C"), ("C", "D")]);
 
         assert_equal(sorted(G.neighbors("C")), ["D"]);
         assert_equal(sorted(G["C"]), ["D"]);
@@ -57,7 +57,7 @@ class TestDiGraphHistorical(HistoricalTests) {
         G = this->G();
         G.add_nodes_from("GJK");
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                          auto ["B", "C"), ("C", "D")]);
+                          ("B", "C"), ("C", "D")]);
         assert_equal(sorted(G.successors("A")), ["B", "C"]);
         assert_equal(sorted(G.successors("A")), ["B", "C"]);
         assert_equal(sorted(G.successors("G")), []);
@@ -70,7 +70,7 @@ class TestDiGraphHistorical(HistoricalTests) {
         G = this->G();
         G.add_nodes_from("GJK");
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
-                          auto ["B", "C"), ("C", "D")]);
+                          ("B", "C"), ("C", "D")]);
         assert_equal(sorted(G.predecessors("C")), ["A", "B"]);
         assert_equal(sorted(G.predecessors("C")), ["A", "B"]);
         assert_equal(sorted(G.predecessors("G")), []);

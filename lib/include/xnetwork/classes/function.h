@@ -126,7 +126,7 @@ auto degree_histogram(G) {
     Notes
     -----
     Note: the bins are width one, hence len(list) can be large
-    auto [Order(number_of_edges));
+    (Order(number_of_edges));
      */
     counts = Counter(d for n, d : G.degree());
     return [counts.get(i, 0) for i : range(max(counts) + 1)];
@@ -749,7 +749,7 @@ auto set_edge_attributes(G, values, name=None) {
 
         >>> G = xn::path_graph(3);
         >>> attrs = {(0, 1) { {"attr1": 20, "attr2": "nothing"},
-        ...          auto [1, 2) { {"attr2": 3}}
+        ...          (1, 2) { {"attr2": 3}}
         >>> xn::set_edge_attributes(G, attrs);
         >>> G[0][1]["attr1"];
         20

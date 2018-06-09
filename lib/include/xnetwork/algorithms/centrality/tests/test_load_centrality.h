@@ -29,7 +29,7 @@ class TestLoadCentrality) {
         this->T = xn::balanced_tree(r=2, h=2);
         this->Gb = xn::Graph();
         this->Gb.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3),
-                                auto [2, 4), (4, 5), (3, 5)]);
+                                (2, 4), (4, 5), (3, 5)]);
         this->F = xn::florentine_families_graph();
         this->D = xn::cycle_graph(3, create_using=xn::DiGraph());
         this->D.add_edges_from([(3, 0), (4, 3)]);
@@ -205,8 +205,8 @@ class TestLoadCentrality) {
 
         // A = xn::Graph();
         // A.add_edges_from([(0,1), (1,2), (1,3), (2,4),
-        //                  auto [3,5), (4,6), (4,7), (4,8),
-        //                  auto [5,8), (6,9), (7,9), (8,9)]);
+        //                  (3,5), (4,6), (4,7), (4,8),
+        //                  (5,8), (6,9), (7,9), (8,9)]);
         B = xn::Graph();  // ladder_graph(3);
         B.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3), (2, 4), (4, 5), (3, 5)]);
         c = xn::load_centrality(B, normalized=false);
@@ -223,9 +223,9 @@ class TestLoadCentrality) {
         G = this->C4
         c = xn::edge_load_centrality(G);
         d = {(0, 1) { 6.000,
-             auto [0, 3) { 6.000,
-             auto [1, 2) { 6.000,
-             auto [2, 3) { 6.000}
+             (0, 3) { 6.000,
+             (1, 2) { 6.000,
+             (2, 3) { 6.000}
         for (auto n : G.edges() {
             assert_almost_equal(c[n], d[n], places=3);
 
@@ -233,8 +233,8 @@ class TestLoadCentrality) {
         G = this->P4
         c = xn::edge_load_centrality(G);
         d = {(0, 1) { 6.000,
-             auto [1, 2) { 8.000,
-             auto [2, 3) { 6.000}
+             (1, 2) { 8.000,
+             (2, 3) { 6.000}
         for (auto n : G.edges() {
             assert_almost_equal(c[n], d[n], places=3);
 
@@ -242,15 +242,15 @@ class TestLoadCentrality) {
         G = this->K5
         c = xn::edge_load_centrality(G);
         d = {(0, 1) { 5.000,
-             auto [0, 2) { 5.000,
-             auto [0, 3) { 5.000,
-             auto [0, 4) { 5.000,
-             auto [1, 2) { 5.000,
-             auto [1, 3) { 5.000,
-             auto [1, 4) { 5.000,
-             auto [2, 3) { 5.000,
-             auto [2, 4) { 5.000,
-             auto [3, 4) { 5.000}
+             (0, 2) { 5.000,
+             (0, 3) { 5.000,
+             (0, 4) { 5.000,
+             (1, 2) { 5.000,
+             (1, 3) { 5.000,
+             (1, 4) { 5.000,
+             (2, 3) { 5.000,
+             (2, 4) { 5.000,
+             (3, 4) { 5.000}
         for (auto n : G.edges() {
             assert_almost_equal(c[n], d[n], places=3);
 
@@ -258,10 +258,10 @@ class TestLoadCentrality) {
         G = this->T
         c = xn::edge_load_centrality(G);
         d = {(0, 1) { 24.000,
-             auto [0, 2) { 24.000,
-             auto [1, 3) { 12.000,
-             auto [1, 4) { 12.000,
-             auto [2, 5) { 12.000,
-             auto [2, 6) { 12.000}
+             (0, 2) { 24.000,
+             (1, 3) { 12.000,
+             (1, 4) { 12.000,
+             (2, 5) { 12.000,
+             (2, 6) { 12.000}
         for (auto n : G.edges() {
             assert_almost_equal(c[n], d[n], places=3);

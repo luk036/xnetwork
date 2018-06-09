@@ -66,7 +66,7 @@ auto _update_delta(delta, G, A, B, u, v, weight) {
 
 auto _kernighan_lin_pass(G, A, B, weight) {
     // do a single iteration of Kernighan–Lin algorithm
-    // returns list of  auto [g_i,u_i,v_i) for i node pairs u_i,v_i
+    // returns list of  (g_i,u_i,v_i) for i node pairs u_i,v_i
     multigraph = G.is_multigraph();
     delta = _compute_delta(G, A, B, weight);
     swapped = set();

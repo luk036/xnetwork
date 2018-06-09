@@ -51,7 +51,7 @@ auto random_reference(G, niter=1, connectivity=true) {
     Notes
     -----
     The implementation is adapted from the algorithm by Maslov && Sneppen
-    auto [2002) [1]_.
+    (2002) [1]_.
 
     References
     ----------
@@ -81,7 +81,7 @@ auto random_reference(G, niter=1, connectivity=true) {
         while (n < ntries) {
             // pick two random edges without creating edge list
             // choose source node indices from discrete distribution
-            auto [ai, ci] = xn::utils.discrete_sequence(2, cdistribution=cdf);
+            (ai, ci] = xn::utils.discrete_sequence(2, cdistribution=cdf);
             if (ai == ci) {
                 continue  // same source, skip
             a = keys[ai];  // convert index to label
@@ -188,7 +188,7 @@ auto lattice_reference(G, niter=1, D=None, connectivity=true) {
         while (n < ntries) {
             // pick two random edges without creating edge list
             // choose source node indices from discrete distribution
-            auto [ai, ci] = xn::utils.discrete_sequence(2, cdistribution=cdf);
+            (ai, ci] = xn::utils.discrete_sequence(2, cdistribution=cdf);
             if (ai == ci) {
                 continue  // same source, skip
             a = keys[ai];  // convert index to label

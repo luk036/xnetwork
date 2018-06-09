@@ -26,9 +26,9 @@ auto graph_example_1() {
     labels = {v: k for k, v : rlabels.items()}
 
     for (auto nodes : [(labels[(0, 0)], labels[(1, 0)]),
-                  auto [labels[(0, 4)], labels[(1, 4)]),
-                  auto [labels[(3, 0)], labels[(4, 0)]),
-                  auto [labels[(3, 4)], labels[(4, 4)])]) {
+                  (labels[(0, 4)], labels[(1, 4)]),
+                  (labels[(3, 0)], labels[(4, 0)]),
+                  (labels[(3, 4)], labels[(4, 4)])]) {
         new_node = G.order() + 1
         // Petersen graph is triconnected
         P = xn::petersen_graph();
@@ -60,7 +60,7 @@ auto torrents_and_ferraro_graph() {
     labels = {v: k for k, v : rlabels.items()}
 
     for (auto nodes : [(labels[(0, 4)], labels[(1, 4)]),
-                  auto [labels[(3, 4)], labels[(4, 4)])]) {
+                  (labels[(3, 4)], labels[(4, 4)])]) {
         new_node = G.order() + 1
         // Petersen graph is triconnected
         P = xn::petersen_graph();
@@ -86,7 +86,7 @@ auto torrents_and_ferraro_graph() {
         G.add_edge(new_node + 16, new_node + 8);
 
     for (auto nodes : [(labels[(0, 0)], labels[(1, 0)]),
-                  auto [labels[(3, 0)], labels[(4, 0)])]) {
+                  (labels[(3, 0)], labels[(4, 0)])]) {
         new_node = G.order() + 1
         // Petersen graph is triconnected
         P = xn::petersen_graph();

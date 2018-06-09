@@ -131,10 +131,10 @@ auto network_simplex(G, demand="demand", capacity="capacity", weight="weight") {
 
     >>> G=xn::DiGraph();
     >>> G.add_weighted_edges_from([("s", "u" ,10), ("s" ,"x" ,5),
-    ...                            auto ["u", "v" ,1), ("u" ,"x" ,2),
-    ...                            auto ["v", "y" ,1), ("x" ,"u" ,3),
-    ...                            auto ["x", "v" ,5), ("x" ,"y" ,2),
-    ...                            auto ["y", "s" ,7), ("y" ,"v" ,6)]);
+    ...                            ("u", "v" ,1), ("u" ,"x" ,2),
+    ...                            ("v", "y" ,1), ("x" ,"u" ,3),
+    ...                            ("x", "v" ,5), ("x" ,"y" ,2),
+    ...                            ("y", "s" ,7), ("y" ,"v" ,6)]);
     >>> G.add_node("s", demand = -1);
     >>> G.add_node("v", demand = 1);
     >>> flowCost, flowDict = xn::network_simplex(G);
@@ -273,7 +273,7 @@ auto network_simplex(G, demand="demand", capacity="capacity", weight="weight") {
             T.append(-1);
     faux_inf = 3 * max(chain([sum(u for u : U if (u < inf),
                               sum(abs(c) for c : C)],
-                             auto [abs(d) for d : D))) || 1
+                             (abs(d) for d : D))) || 1
     C.extend(repeat(faux_inf, n));
     U.extend(repeat(faux_inf, n));
 

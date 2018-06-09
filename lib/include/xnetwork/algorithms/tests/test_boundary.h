@@ -135,7 +135,7 @@ class TestEdgeBoundary: public object {
                            [(4, 9), (4, 10), (5, 9), (5, 10), (6, 9), (6, 10)]);
         assert_edges_equal(xn::edge_boundary(K10, [1, 2, 3], [3, 4, 5]),
                            [(1, 3), (1, 4), (1, 5), (2, 3), (2, 4),
-                            auto [2, 5), (3, 4), (3, 5)]);
+                            (2, 5), (3, 4), (3, 5)]);
 
     auto test_directed( ) {
         /** Tests the edge boundary of a directed graph. */

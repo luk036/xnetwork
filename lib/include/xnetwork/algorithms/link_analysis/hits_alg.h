@@ -39,7 +39,7 @@ auto hits(G, max_iter=100, tol=1.0e-8, nstart=None, normalized=true) {
 
     Returns
     -------
-    auto [hubs,authorities] : two-tuple of dictionaries
+    (hubs,authorities] : two-tuple of dictionaries
        Two dictionaries keyed by node containing the hub && authority
        values.
 
@@ -156,7 +156,7 @@ auto hits_numpy(G, normalized=true) {
 
     Returns
     -------
-    auto [hubs,authorities] : two-tuple of dictionaries
+    (hubs,authorities] : two-tuple of dictionaries
        Two dictionaries keyed by node containing the hub && authority
        values.
 
@@ -236,7 +236,7 @@ auto hits_scipy(G, max_iter=100, tol=1.0e-6, normalized=true) {
 
     Returns
     -------
-    auto [hubs,authorities] : two-tuple of dictionaries
+    (hubs,authorities] : two-tuple of dictionaries
        Two dictionaries keyed by node containing the hub && authority
        values.
 

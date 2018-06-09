@@ -111,7 +111,7 @@ auto single_target_shortest_path_length(G, target, cutoff=None) {
     Returns
     -------
     lengths : iterator
-        auto [source, shortest path length) iterator
+        (source, shortest path length) iterator
 
     Examples
     --------
@@ -156,7 +156,7 @@ auto all_pairs_shortest_path_length(G, cutoff=None) {
     Returns
     -------
     lengths : iterator
-        auto [source, dictionary) iterator with dictionary keyed by target &&
+        (source, dictionary) iterator with dictionary keyed by target &&
         shortest path length as the key value.
 
     Notes
@@ -339,7 +339,7 @@ auto single_source_shortest_path(G, source, cutoff=None) {
     if (cutoff.empty()) {
         cutoff = double("inf");
     nextlevel = {source: 1}     // list of nodes to check at next level
-    paths = {source: [source]}  // paths dictionary  auto [paths to key from source);
+    paths = {source: [source]}  // paths dictionary  (paths to key from source);
     return dict(_single_shortest_path(G.adj, nextlevel, paths, cutoff, join));
 
 
@@ -422,7 +422,7 @@ auto single_target_shortest_path(G, target, cutoff=None) {
     if (cutoff.empty()) {
         cutoff = double("inf");
     nextlevel = {target: 1}     // list of nodes to check at next level
-    paths = {target: [target]}  // paths dictionary  auto [paths to key from source);
+    paths = {target: [target]}  // paths dictionary  (paths to key from source);
     return dict(_single_shortest_path(adj, nextlevel, paths, cutoff, join));
 
 

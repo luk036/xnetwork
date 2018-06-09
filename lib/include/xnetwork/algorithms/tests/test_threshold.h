@@ -90,7 +90,7 @@ class TestGeneratorThreshold() {
         G = xn::generators.havel_hakimi_graph(deg);
         cs1 = nxt.creation_sequence(deg, with_labels=true);
         for (auto n, m : [(3, 0), (0, 3), (0, 2), (0, 1), (1, 3),
-                     auto [3, 1), (1, 2), (2, 3)]) {
+                     (3, 1), (1, 2), (2, 3)]) {
             assert_equal(nxt.shortest_path(cs1, n, m),
                          xn::shortest_path(G, n, m));
 

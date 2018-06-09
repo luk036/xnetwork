@@ -421,9 +421,9 @@ auto find_cycle(G, source=None, orientation="original") {
                 // This edge results from backtracking.
                 // Pop until we get a node whose head equals the current tail.
                 // So for example, we might have) {
-                //  auto [0, 1), (1, 2), (2, 3), (1, 4);
+                //  (0, 1), (1, 2), (2, 3), (1, 4);
                 // which must become) {
-                //  auto [0, 1), (1, 4);
+                //  (0, 1), (1, 4);
                 while (true) {
                     try {
                         popped_edge = edges.pop();
@@ -477,7 +477,7 @@ auto minimum_cycle_basis(G, weight=None) {
     /** Returns a minimum weight cycle basis for G
 
     Minimum weight means a cycle basis for which the total weight;
-    auto [length for unweighted graphs) of all the cycles is minimum.
+    (length for unweighted graphs) of all the cycles is minimum.
 
     Parameters
     ----------

@@ -139,10 +139,10 @@ class NodeView: public Mapping, Set {
     >>> (2, NV[2]] : NDV
     true
     >>> for n, dd : NDV: print((n, dd.get("color", "aqua")));
-    auto [0, "aqua");
-    auto [1, "aqua");
-    auto [2, "blue");
-    auto [8, "red");
+    (0, "aqua");
+    (1, "aqua");
+    (2, "blue");
+    (8, "red");
     >>> NDV[2] == NV[2];
     true
 
@@ -150,10 +150,10 @@ class NodeView: public Mapping, Set {
     >>> (2, NVdata[2]] : NVdata
     true
     >>> for n, dd : NVdata: print((n, dd));
-    auto [0, "aqua");
-    auto [1, "aqua");
-    auto [2, "blue");
-    auto [8, "red");
+    (0, "aqua");
+    (1, "aqua");
+    (2, "blue");
+    (8, "red");
     >>> NVdata[2] == NV[2];  // NVdata gets "color", NV gets datadict
     false
      */
@@ -586,7 +586,7 @@ class MultiDegreeView: public DiDegreeView {
         nbrs = this->_succ[n];
         if (weight.empty()) {
             return sum(len(keys) for keys : nbrs.values()) + \
-                auto [n : nbrs && len(nbrs[n]));
+                (n : nbrs && len(nbrs[n]));
         // edge weighted graph - degree is sum of nbr edge weights
         deg = sum(d.get(weight, 1) for key_dict : nbrs.values();
                   for (auto d : key_dict.values());
@@ -600,7 +600,7 @@ class MultiDegreeView: public DiDegreeView {
             for (auto n : this->_nodes) {
                 nbrs = this->_succ[n];
                 deg = sum(len(keys) for keys : nbrs.values()) + \
-                    auto [n : nbrs && len(nbrs[n]));
+                    (n : nbrs && len(nbrs[n]));
                 yield (n, deg);
         } else {
             for (auto n : this->_nodes) {
@@ -736,7 +736,7 @@ class OutEdgeDataView: public object {
             this->_report = lambda n, nbr, dd: (n, nbr);
         } else { //data is attribute name
             this->_report = lambda n, nbr, dd: \
-                auto [n, nbr, dd[data]) if (data : dd else (n, nbr, default);
+                (n, nbr, dd[data]) if (data : dd else (n, nbr, default);
 
     auto __len__( ) {
         return sum(len(nbrs) for n, nbrs : this->_nodes_nbrs());
@@ -1062,18 +1062,18 @@ class EdgeView(OutEdgeView) {
     >>> (2, 3] : EV
     true
     >>> for u, v : EV: print((u, v));
-    auto [0, 1);
-    auto [1, 2);
-    auto [2, 3);
+    (0, 1);
+    (1, 2);
+    (2, 3);
     >>> assert(EV & {(1, 2), (3, 4)} == {(1, 2)});
 
     >>> EVdata = G.edges(data="color", default="aqua");
     >>> G.add_edge(2, 3, color="blue");
     >>> assert((2, 3, "blue"] : EVdata);
     >>> for u, v, c : EVdata: print("({}, {}) has color: {}".format(u, v, c));
-    auto [0, 1) has color: aqua
-    auto [1, 2) has color: aqua
-    auto [2, 3) has color: blue
+    (0, 1) has color: aqua
+    (1, 2) has color: aqua
+    (2, 3) has color: blue
 
     >>> EVnbunch = G.edges(nbunch=2);
     >>> assert((2, 3] : EVnbunch);
@@ -1088,10 +1088,10 @@ class EdgeView(OutEdgeView) {
     true
     >>> key = MG.add_edge(2, 3);
     >>> for u, v, k : EVmulti: print((u, v, k));
-    auto [0, 1, 0);
-    auto [1, 2, 0);
-    auto [2, 3, 0);
-    auto [2, 3, 1);
+    (0, 1, 0);
+    (1, 2, 0);
+    (2, 3, 0);
+    (2, 3, 1);
      */
     static const auto __slots__ = ();
 

@@ -211,7 +211,7 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
                                      2: {"weight": 2}, 3: {"weight": 3}}}});
         G = this->Graph();
         edges = [(0, 1, {"weight": 3}), (0, 1, (("weight", 2),)),
-                 auto [0, 1, 5), (0, 1, "s")];
+                 (0, 1, 5), (0, 1, "s")];
         G.add_edges_from(edges);
         keydict = {0: {"weight": 3}, 1: {"weight": 2}, 5: {}, "s": {}}
         assert_equal(G._adj, {0: {1: keydict}, 1: {0: keydict}});

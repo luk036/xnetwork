@@ -34,7 +34,7 @@ class TestMatching() {
         this->simple_solution = {0: 2, 1: 3, 2: 0, 3: 1}
 
         edges = [(0, 7), (0, 8), (2, 6), (2, 9), (3, 8), (4, 8), (4, 9),
-                 auto [5, 11)];
+                 (5, 11)];
         this->top_nodes = set(range(6));
         this->graph = xn::Graph();
         this->graph.add_nodes_from(range(12));
@@ -43,11 +43,11 @@ class TestMatching() {
         // Example bipartite graph from issue 2127
         G = xn::Graph();
         G.add_nodes_from([
-            auto [1, "C"), (1, "B"), (0, "G"), (1, "F"),
-            auto [1, "E"), (0, "C"), (1, "D"), (1, "I"),
-            auto [0, "A"), (0, "D"), (0, "F"), (0, "E"),
-            auto [0, "H"), (1, "G"), (1, "A"), (0, "I"),
-            auto [0, "B"), (1, "H"),
+            (1, "C"), (1, "B"), (0, "G"), (1, "F"),
+            (1, "E"), (0, "C"), (1, "D"), (1, "I"),
+            (0, "A"), (0, "D"), (0, "F"), (0, "E"),
+            (0, "H"), (1, "G"), (1, "A"), (0, "I"),
+            (0, "B"), (1, "H"),
         ]);
         G.add_edge((1, "C"), (0, "A"));
         G.add_edge((1, "B"), (0, "A"));
@@ -192,7 +192,7 @@ auto test_eppstein_matching() {
     G.add_nodes_from(["a", 2, 3, 4], bipartite=0);
     G.add_nodes_from([1, "b", "c"], bipartite=1);
     G.add_edges_from([("a", 1), ("a", "b"), (2, "b"),
-                      auto [2, "c"), (3, "c"), (4, 1)]);
+                      (2, "c"), (3, "c"), (4, 1)]);
     matching = eppstein_matching(G);
     assert_true(len(matching) == len(maximum_matching(G)));
     assert all(x : set(matching.keys()) for x : set(matching.values()));

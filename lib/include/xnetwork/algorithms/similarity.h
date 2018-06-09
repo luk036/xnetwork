@@ -621,7 +621,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
         Returns) {
             list of (i, j) { indices of edge mappings g<->h
             localCe: local CostMatrix of edge mappings
-                auto [basically submatrix of Ce at cross of rows i, cols j);
+                (basically submatrix of Ce at cross of rows i, cols j);
          */
         M = len(pending_g);
         N = len(pending_h);
@@ -687,12 +687,12 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
 
         Returns) {
             sequence of
-                auto [i, j) { indices of vertex mapping u<->v
+                (i, j) { indices of vertex mapping u<->v
                 Cv_ij: reduced CostMatrix of pending vertex mappings
-                    auto [basically Cv with row i, col j removed);
+                    (basically Cv with row i, col j removed);
                 list of (x, y) { indices of edge mappings g<->h
                 Ce_xy: reduced CostMatrix of pending edge mappings
-                    auto [basically Ce with rows x, cols y removed);
+                    (basically Ce with rows x, cols y removed);
                 cost: total cost of edit operation
             NOTE: most promising ops first
          */

@@ -390,10 +390,10 @@ auto validate_length_path(G, s, t, soln_len, length, path) {
 auto test_bidirectional_dijksta_restricted() {
     XG = xn::DiGraph();
     XG.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
-                                auto ["u", "v", 1), ("u", "x", 2),
-                                auto ["v", "y", 1), ("x", "u", 3),
-                                auto ["x", "v", 5), ("x", "y", 2),
-                                auto ["y", "s", 7), ("y", "v", 6)]);
+                                ("u", "v", 1), ("u", "x", 2),
+                                ("v", "y", 1), ("x", "u", 3),
+                                ("x", "v", 5), ("x", "y", 2),
+                                ("y", "s", 7), ("y", "v", 6)]);
 
     XG3 = xn::Graph();
     XG3.add_weighted_edges_from([[0, 1, 2], [1, 2, 12],

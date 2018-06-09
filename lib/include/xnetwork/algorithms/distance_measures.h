@@ -19,7 +19,7 @@ auto extrema_bounding(G, compute="diameter") {
     /** Compute requested extreme distance metric of undirected graph G
 
     Computation is based on smart lower && upper bounds, && : practice
-    linear : the number of nodes, rather than quadratic (} catch (for some
+    linear : the number of nodes, rather than quadratic  (except for some
     border cases such as complete graphs || circle shaped graphs).
 
     Parameters
@@ -129,11 +129,11 @@ auto extrema_bounding(G, compute="diameter") {
 
         } else if (compute == "periphery") {
             ruled_out = {i for i : candidates if (ecc_upper[i] < maxlower &&
-                         auto [maxlower == maxupper || ecc_lower[i] > maxupper)}
+                         (maxlower == maxupper || ecc_lower[i] > maxupper)}
 
         } else if (compute == "center") {
             ruled_out = {i for i : candidates if (ecc_lower[i] > minupper &&
-                         auto [minlower == minupper || ecc_upper[i] + 1 < 2 * minlower)}
+                         (minlower == minupper || ecc_upper[i] + 1 < 2 * minlower)}
 
         } else if (compute == "eccentricities") {
             ruled_out = {};
@@ -143,9 +143,9 @@ auto extrema_bounding(G, compute="diameter") {
 
 //        for (auto i : ruled_out) {
 //            print("removing %g: ecc_u: %g maxl: %g ecc_l: %g maxu: %g"%
-//                    auto [i,ecc_upper[i],maxlower,ecc_lower[i],maxupper));
+//                    (i,ecc_upper[i],maxlower,ecc_lower[i],maxupper));
 //        print("node %g: ecc_u: %g maxl: %g ecc_l: %g maxu: %g"%
-//                    auto [4,ecc_upper[4],maxlower,ecc_lower[4],maxupper));
+//                    (4,ecc_upper[4],maxlower,ecc_lower[4],maxupper));
 //        print("NODE 4: %g"%(ecc_upper[4] <= maxlower));
 //        print("NODE 4: %g"%(2 * ecc_lower[4] >= maxupper));
 //        print("NODE 4: %g"%(ecc_upper[4] <= maxlower

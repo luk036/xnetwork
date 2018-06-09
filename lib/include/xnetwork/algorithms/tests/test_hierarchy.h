@@ -27,9 +27,9 @@ auto test_hierarchy_1() {
 auto test_hierarchy_weight() {
     G = xn::DiGraph();
     G.add_edges_from([(0, 1, {"weight": .3}),
-                      auto [1, 2, {"weight": .1}),
-                      auto [2, 3, {"weight": .1}),
-                      auto [3, 1, {"weight": .1}),
-                      auto [3, 4, {"weight": .3}),
-                      auto [0, 4, {"weight": .3})]);
+                      (1, 2, {"weight": .1}),
+                      (2, 3, {"weight": .1}),
+                      (3, 1, {"weight": .1}),
+                      (3, 4, {"weight": .3}),
+                      (0, 4, {"weight": .3})]);
     assert_equal(xn::flow_hierarchy(G, weight="weight"), .75);

@@ -53,7 +53,7 @@ auto minimum_st_edge_cut(G, s, t, flow_func=None, auxiliary=None,
         a source node, && a target node. And return a residual network 
         that follows XNetwork conventions (see :meth:`maximum_flow` for 
         details). If flow_func.empty(), the default maximum flow function 
-        auto [:meth:`edmonds_karp`) is used. See :meth:`node_connectivity` for
+        (:meth:`edmonds_karp`) is used. See :meth:`node_connectivity` for
         details. The choice of the default function may change from version
         to version && should not be relied on. Default value: None.
 
@@ -179,7 +179,7 @@ auto minimum_st_node_cut(G, s, t, flow_func=None, auxiliary=None, residual=None)
         a source node, && a target node. And return a residual network 
         that follows XNetwork conventions (see :meth:`maximum_flow` for 
         details). If flow_func.empty(), the default maximum flow function 
-        auto [:meth:`edmonds_karp`) is used. See below for details. The choice
+        (:meth:`edmonds_karp`) is used. See below for details. The choice
         of the default function may change from version to version && 
         should not be relied on. Default value: None.
 
@@ -320,7 +320,7 @@ auto minimum_node_cut(G, s=None, t=None, flow_func=None) {
         a source node, && a target node. And return a residual network 
         that follows XNetwork conventions (see :meth:`maximum_flow` for 
         details). If flow_func.empty(), the default maximum flow function 
-        auto [:meth:`edmonds_karp`) is used. See below for details. The
+        (:meth:`edmonds_karp`) is used. See below for details. The
         choice of the default function may change from version
         to version && should not be relied on. Default value: None.
 
@@ -465,7 +465,7 @@ auto minimum_edge_cut(G, s=None, t=None, flow_func=None) {
         a source node, && a target node. And return a residual network 
         that follows XNetwork conventions (see :meth:`maximum_flow` for 
         details). If flow_func.empty(), the default maximum flow function 
-        auto [:meth:`edmonds_karp`) is used. See below for details. The
+        (:meth:`edmonds_karp`) is used. See below for details. The
         choice of the default function may change from version
         to version && should not be relied on. Default value: None.
 

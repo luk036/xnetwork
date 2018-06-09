@@ -75,7 +75,7 @@ auto full_rary_tree(r, n, create_using=None) {
     Sometimes called a k-ary, n-ary, || m-ary tree.
     "... all non-leaf vertices have exactly r children && all levels
     are full } catch (for some rightmost position of the bottom level
-    auto [if (a leaf at the bottom level is missing, then so are all of the
+    (if (a leaf at the bottom level is missing, then so are all of the
     leaves to its right." [1]_
 
     Parameters
@@ -278,8 +278,8 @@ auto circulant_graph(n, offsets, create_using=None) {
     >>> import xnetwork
     >>> G = xnetwork.generators.classic.circulant_graph(10, [1]);
     >>> edges = [
-    ...     auto [0, 9), (0, 1), (1, 2), (2, 3), (3, 4),
-    ...     auto [4, 5), (5, 6), (6, 7), (7, 8), (8, 9)];
+    ...     (0, 9), (0, 1), (1, 2), (2, 3), (3, 4),
+    ...     (4, 5), (5, 6), (6, 7), (7, 8), (8, 9)];
     ...
     >>> sorted(edges) == sorted(G.edges());
     true
@@ -289,8 +289,8 @@ auto circulant_graph(n, offsets, create_using=None) {
 
     >>> G = xnetwork.generators.classic.circulant_graph(5, [1, 2]);
     >>> edges = [
-    ...     auto [0, 1), (0, 2), (0, 3), (0, 4), (1, 2),
-    ...     auto [1, 3), (1, 4), (2, 3), (2, 4), (3, 4)];
+    ...     (0, 1), (0, 2), (0, 3), (0, 4), (1, 2),
+    ...     (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)];
     ...
     >>> sorted(edges) == sorted(G.edges());
     true
@@ -403,7 +403,7 @@ auto empty_graph(n=0, create_using=None) {
 
     Secondly, one can pass an existing graph (digraph, multigraph,
     etc.) via create_using. For example, if (G is an existing graph
-    auto [resp. digraph, multigraph, etc.), then empty_graph(n, create_using=G);
+    (resp. digraph, multigraph, etc.), then empty_graph(n, create_using=G);
     will empty G (i.e. delete all nodes && edges using G.clear());
     && then add n nodes && zero edges, && return the modified graph.
 
@@ -463,7 +463,7 @@ auto lollipop_graph(m, n, create_using=None) {
     The 2 subgraphs are joined via an edge (m-1, m).
     If n=0, this is merely a complete graph.
 
-    auto [This graph is an extremal example : David Aldous && Jim
+    (This graph is an extremal example : David Aldous && Jim
     Fill"s etext on Random Walks on Graphs.);
 
      */

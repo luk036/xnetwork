@@ -227,8 +227,8 @@ class TestKatzCentralityDirected: public object {
     auto setUp( ) {
         G = xn::DiGraph();
         edges = [(1, 2), (1, 3), (2, 4), (3, 2), (3, 5), (4, 2), (4, 5),
-                 auto [4, 6), (5, 6), (5, 7), (5, 8), (6, 8), (7, 1), (7, 5),
-                 auto [7, 8), (8, 6), (8, 7)];
+                 (4, 6), (5, 6), (5, 7), (5, 8), (6, 8), (7, 1), (7, 5),
+                 (7, 8), (8, 6), (8, 7)];
         G.add_edges_from(edges, weight=2.0);
         this->G = G.reverse();
         this->G.alpha = 0.1

@@ -152,10 +152,10 @@ auto three_node_clique() {
 auto disconnected() {
     graph = xn::Graph();
     graph.add_edges_from([
-        auto [1, 2),
-        auto [2, 3),
-        auto [4, 5),
-        auto [5, 6);
+        (1, 2),
+        (2, 3),
+        (4, 5),
+        (5, 6);
     ]);
     return graph
 
@@ -164,9 +164,9 @@ auto rs_shc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4]);
     graph.add_edges_from([
-        auto [1, 2),
-        auto [2, 3),
-        auto [3, 4);
+        (1, 2),
+        (2, 3),
+        (3, 4);
     ]);
     return graph
 
@@ -175,16 +175,16 @@ auto slf_shc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5, 6, 7]);
     graph.add_edges_from([
-        auto [1, 2),
-        auto [1, 5),
-        auto [1, 6),
-        auto [2, 3),
-        auto [2, 7),
-        auto [3, 4),
-        auto [3, 7),
-        auto [4, 5),
-        auto [4, 6),
-        auto [5, 6);
+        (1, 2),
+        (1, 5),
+        (1, 6),
+        (2, 3),
+        (2, 7),
+        (3, 4),
+        (3, 7),
+        (4, 5),
+        (4, 6),
+        (5, 6);
     ]);
     return graph
 
@@ -193,18 +193,18 @@ auto slf_hc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8]);
     graph.add_edges_from([
-        auto [1, 2),
-        auto [1, 3),
-        auto [1, 4),
-        auto [1, 5),
-        auto [2, 3),
-        auto [2, 4),
-        auto [2, 6),
-        auto [5, 7),
-        auto [5, 8),
-        auto [6, 7),
-        auto [6, 8),
-        auto [7, 8);
+        (1, 2),
+        (1, 3),
+        (1, 4),
+        (1, 5),
+        (2, 3),
+        (2, 4),
+        (2, 6),
+        (5, 7),
+        (5, 8),
+        (6, 7),
+        (6, 8),
+        (7, 8);
     ]);
     return graph
 
@@ -213,11 +213,11 @@ auto lf_shc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5, 6]);
     graph.add_edges_from([
-        auto [6, 1),
-        auto [1, 4),
-        auto [4, 3),
-        auto [3, 2),
-        auto [2, 5);
+        (6, 1),
+        (1, 4),
+        (4, 3),
+        (3, 2),
+        (2, 5);
     ]);
     return graph
 
@@ -226,17 +226,17 @@ auto lf_hc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5, 6, 7]);
     graph.add_edges_from([
-        auto [1, 7),
-        auto [1, 6),
-        auto [1, 3),
-        auto [1, 4),
-        auto [7, 2),
-        auto [2, 6),
-        auto [2, 3),
-        auto [2, 5),
-        auto [5, 3),
-        auto [5, 4),
-        auto [4, 3);
+        (1, 7),
+        (1, 6),
+        (1, 3),
+        (1, 4),
+        (7, 2),
+        (2, 6),
+        (2, 3),
+        (2, 5),
+        (5, 3),
+        (5, 4),
+        (4, 3);
     ]);
     return graph
 
@@ -245,15 +245,15 @@ auto sl_shc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5, 6]);
     graph.add_edges_from([
-        auto [1, 2),
-        auto [1, 3),
-        auto [2, 3),
-        auto [1, 4),
-        auto [2, 5),
-        auto [3, 6),
-        auto [4, 5),
-        auto [4, 6),
-        auto [5, 6);
+        (1, 2),
+        (1, 3),
+        (2, 3),
+        (1, 4),
+        (2, 5),
+        (3, 6),
+        (4, 5),
+        (4, 6),
+        (5, 6);
     ]);
     return graph
 
@@ -262,22 +262,22 @@ auto sl_hc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8]);
     graph.add_edges_from([
-        auto [1, 2),
-        auto [1, 3),
-        auto [1, 5),
-        auto [1, 7),
-        auto [2, 3),
-        auto [2, 4),
-        auto [2, 8),
-        auto [8, 4),
-        auto [8, 6),
-        auto [8, 7),
-        auto [7, 5),
-        auto [7, 6),
-        auto [3, 4),
-        auto [4, 6),
-        auto [6, 5),
-        auto [5, 3);
+        (1, 2),
+        (1, 3),
+        (1, 5),
+        (1, 7),
+        (2, 3),
+        (2, 4),
+        (2, 8),
+        (8, 4),
+        (8, 6),
+        (8, 7),
+        (7, 5),
+        (7, 6),
+        (3, 4),
+        (4, 6),
+        (6, 5),
+        (5, 3);
     ]);
     return graph
 
@@ -286,9 +286,9 @@ auto gis_shc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4]);
     graph.add_edges_from([
-        auto [1, 2),
-        auto [2, 3),
-        auto [3, 4);
+        (1, 2),
+        (2, 3),
+        (3, 4);
     ]);
     return graph
 
@@ -297,11 +297,11 @@ auto gis_hc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5, 6]);
     graph.add_edges_from([
-        auto [1, 5),
-        auto [2, 5),
-        auto [3, 6),
-        auto [4, 6),
-        auto [5, 6);
+        (1, 5),
+        (2, 5),
+        (3, 6),
+        (4, 6),
+        (5, 6);
     ]);
     return graph
 
@@ -310,13 +310,13 @@ auto cs_shc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5]);
     graph.add_edges_from([
-        auto [1, 2),
-        auto [1, 5),
-        auto [2, 3),
-        auto [2, 4),
-        auto [2, 5),
-        auto [3, 4),
-        auto [4, 5);
+        (1, 2),
+        (1, 5),
+        (2, 3),
+        (2, 4),
+        (2, 5),
+        (3, 4),
+        (4, 5);
     ]);
     return graph
 
@@ -325,14 +325,14 @@ auto rsi_shc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5, 6]);
     graph.add_edges_from([
-        auto [1, 2),
-        auto [1, 5),
-        auto [1, 6),
-        auto [2, 3),
-        auto [3, 4),
-        auto [4, 5),
-        auto [4, 6),
-        auto [5, 6);
+        (1, 2),
+        (1, 5),
+        (1, 6),
+        (2, 3),
+        (3, 4),
+        (4, 5),
+        (4, 6),
+        (5, 6);
     ]);
     return graph
 
@@ -341,16 +341,16 @@ auto lfi_shc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5, 6, 7]);
     graph.add_edges_from([
-        auto [1, 2),
-        auto [1, 5),
-        auto [1, 6),
-        auto [2, 3),
-        auto [2, 7),
-        auto [3, 4),
-        auto [3, 7),
-        auto [4, 5),
-        auto [4, 6),
-        auto [5, 6);
+        (1, 2),
+        (1, 5),
+        (1, 6),
+        (2, 3),
+        (2, 7),
+        (3, 4),
+        (3, 7),
+        (4, 5),
+        (4, 6),
+        (5, 6);
     ]);
     return graph
 
@@ -359,20 +359,20 @@ auto lfi_hc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8, 9]);
     graph.add_edges_from([
-        auto [1, 2),
-        auto [1, 5),
-        auto [1, 6),
-        auto [1, 7),
-        auto [2, 3),
-        auto [2, 8),
-        auto [2, 9),
-        auto [3, 4),
-        auto [3, 8),
-        auto [3, 9),
-        auto [4, 5),
-        auto [4, 6),
-        auto [4, 7),
-        auto [5, 6);
+        (1, 2),
+        (1, 5),
+        (1, 6),
+        (1, 7),
+        (2, 3),
+        (2, 8),
+        (2, 9),
+        (3, 4),
+        (3, 8),
+        (3, 9),
+        (4, 5),
+        (4, 6),
+        (4, 7),
+        (5, 6);
     ]);
     return graph
 
@@ -381,17 +381,17 @@ auto sli_shc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5, 6, 7]);
     graph.add_edges_from([
-        auto [1, 2),
-        auto [1, 3),
-        auto [1, 5),
-        auto [1, 7),
-        auto [2, 3),
-        auto [2, 6),
-        auto [3, 4),
-        auto [4, 5),
-        auto [4, 6),
-        auto [5, 7),
-        auto [6, 7);
+        (1, 2),
+        (1, 3),
+        (1, 5),
+        (1, 7),
+        (2, 3),
+        (2, 6),
+        (3, 4),
+        (4, 5),
+        (4, 6),
+        (5, 7),
+        (6, 7);
     ]);
     return graph
 
@@ -400,28 +400,28 @@ auto sli_hc() {
     graph = xn::Graph();
     graph.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8, 9]);
     graph.add_edges_from([
-        auto [1, 2),
-        auto [1, 3),
-        auto [1, 4),
-        auto [1, 5),
-        auto [2, 3),
-        auto [2, 7),
-        auto [2, 8),
-        auto [2, 9),
-        auto [3, 6),
-        auto [3, 7),
-        auto [3, 9),
-        auto [4, 5),
-        auto [4, 6),
-        auto [4, 8),
-        auto [4, 9),
-        auto [5, 6),
-        auto [5, 7),
-        auto [5, 8),
-        auto [6, 7),
-        auto [6, 9),
-        auto [7, 8),
-        auto [8, 9);
+        (1, 2),
+        (1, 3),
+        (1, 4),
+        (1, 5),
+        (2, 3),
+        (2, 7),
+        (2, 8),
+        (2, 9),
+        (3, 6),
+        (3, 7),
+        (3, 9),
+        (4, 5),
+        (4, 6),
+        (4, 8),
+        (4, 9),
+        (5, 6),
+        (5, 7),
+        (5, 8),
+        (6, 7),
+        (6, 9),
+        (7, 8),
+        (8, 9);
     ]);
     return graph
 
@@ -441,32 +441,32 @@ BASIC_TEST_CASES = {empty_graph: 0,
 // (graph function, interchange, valid // of colors);
 SPECIAL_TEST_CASES = {
     "random_sequential": [
-        auto [rs_shc, false, (2, 3)),
-        auto [rs_shc, true, 2),
-        auto [rsi_shc, true, (3, 4))],
+        (rs_shc, false, (2, 3)),
+        (rs_shc, true, 2),
+        (rsi_shc, true, (3, 4))],
     "saturation_largest_first": [
-        auto [slf_shc, false, (3, 4)),
-        auto [slf_hc, false, 4)],
+        (slf_shc, false, (3, 4)),
+        (slf_hc, false, 4)],
     "largest_first": [
-        auto [lf_shc, false, (2, 3)),
-        auto [lf_hc, false, 4),
-        auto [lf_shc, true, 2),
-        auto [lf_hc, true, 3),
-        auto [lfi_shc, true, (3, 4)),
-        auto [lfi_hc, true, 4)],
+        (lf_shc, false, (2, 3)),
+        (lf_hc, false, 4),
+        (lf_shc, true, 2),
+        (lf_hc, true, 3),
+        (lfi_shc, true, (3, 4)),
+        (lfi_hc, true, 4)],
     "smallest_last": [
-        auto [sl_shc, false, (3, 4)),
-        auto [sl_hc, false, 5),
-        auto [sl_shc, true, 3),
-        auto [sl_hc, true, 4),
-        auto [sli_shc, true, (3, 4)),
-        auto [sli_hc, true, 5)],
+        (sl_shc, false, (3, 4)),
+        (sl_hc, false, 5),
+        (sl_shc, true, 3),
+        (sl_hc, true, 4),
+        (sli_shc, true, (3, 4)),
+        (sli_hc, true, 5)],
     "independent_set": [
-        auto [gis_shc, false, (2, 3)),
-        auto [gis_hc, false, 3)],
+        (gis_shc, false, (2, 3)),
+        (gis_hc, false, 3)],
     "connected_sequential": [
-        auto [cs_shc, false, (3, 4)),
-        auto [cs_shc, true, 3)],
+        (cs_shc, false, (3, 4)),
+        (cs_shc, true, 3)],
     "connected_sequential_dfs": [
-        auto [cs_shc, false, (3, 4))],
+        (cs_shc, false, (3, 4))],
 }

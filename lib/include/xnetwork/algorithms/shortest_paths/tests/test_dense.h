@@ -10,10 +10,10 @@ class TestFloyd) {
     auto test_floyd_warshall_predecessor_and_distance( ) {
         XG = xn::DiGraph();
         XG.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
-                                    auto ["u", "v", 1), ("u", "x", 2),
-                                    auto ["v", "y", 1), ("x", "u", 3),
-                                    auto ["x", "v", 5), ("x", "y", 2),
-                                    auto ["y", "s", 7), ("y", "v", 6)]);
+                                    ("u", "v", 1), ("u", "x", 2),
+                                    ("v", "y", 1), ("x", "u", 3),
+                                    ("x", "v", 5), ("x", "y", 2),
+                                    ("y", "s", 7), ("y", "v", 6)]);
         path, dist = xn::floyd_warshall_predecessor_and_distance(XG);
         assert_equal(dist["s"]["v"], 9);
         assert_equal(path["s"]["v"], "u");
@@ -35,10 +35,10 @@ class TestFloyd) {
 
         G = xn::DiGraph();  // no weights
         G.add_edges_from([("s", "u"), ("s", "x"),
-                          auto ["u", "v"), ("u", "x"),
-                          auto ["v", "y"), ("x", "u"),
-                          auto ["x", "v"), ("x", "y"),
-                          auto ["y", "s"), ("y", "v")]);
+                          ("u", "v"), ("u", "x"),
+                          ("v", "y"), ("x", "u"),
+                          ("x", "v"), ("x", "y"),
+                          ("y", "s"), ("y", "v")]);
         path, dist = xn::floyd_warshall_predecessor_and_distance(G);
         assert_equal(dist["s"]["v"], 2);
         // skip this test, could be alternate path s-u-v
@@ -52,10 +52,10 @@ class TestFloyd) {
     auto test_reconstruct_path( ) {
         XG = xn::DiGraph();
         XG.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
-                                    auto ["u", "v", 1), ("u", "x", 2),
-                                    auto ["v", "y", 1), ("x", "u", 3),
-                                    auto ["x", "v", 5), ("x", "y", 2),
-                                    auto ["y", "s", 7), ("y", "v", 6)]);
+                                    ("u", "v", 1), ("u", "x", 2),
+                                    ("v", "y", 1), ("x", "u", 3),
+                                    ("x", "v", 5), ("x", "y", 2),
+                                    ("y", "s", 7), ("y", "v", 6)]);
         predecessors, _ = xn::floyd_warshall_predecessor_and_distance(XG);
 
         path = xn::reconstruct_path("s", "v", predecessors);
@@ -94,9 +94,9 @@ class TestFloyd) {
     auto test_weight_parameter( ) {
         XG4 = xn::Graph();
         XG4.add_edges_from([(0, 1, {"heavy": 2}), (1, 2, {"heavy": 2}),
-                            auto [2, 3, {"heavy": 1}), (3, 4, {"heavy": 1}),
-                            auto [4, 5, {"heavy": 1}), (5, 6, {"heavy": 1}),
-                            auto [6, 7, {"heavy": 1}), (7, 0, {"heavy": 1})]);
+                            (2, 3, {"heavy": 1}), (3, 4, {"heavy": 1}),
+                            (4, 5, {"heavy": 1}), (5, 6, {"heavy": 1}),
+                            (6, 7, {"heavy": 1}), (7, 0, {"heavy": 1})]);
         path, dist = xn::floyd_warshall_predecessor_and_distance(XG4,
                                                                 weight="heavy");
         assert_equal(dist[0][2], 4);
@@ -105,10 +105,10 @@ class TestFloyd) {
     auto test_zero_distance( ) {
         XG = xn::DiGraph();
         XG.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
-                                    auto ["u", "v", 1), ("u", "x", 2),
-                                    auto ["v", "y", 1), ("x", "u", 3),
-                                    auto ["x", "v", 5), ("x", "y", 2),
-                                    auto ["y", "s", 7), ("y", "v", 6)]);
+                                    ("u", "v", 1), ("u", "x", 2),
+                                    ("v", "y", 1), ("x", "u", 3),
+                                    ("x", "v", 5), ("x", "y", 2),
+                                    ("y", "s", 7), ("y", "v", 6)]);
         path, dist = xn::floyd_warshall_predecessor_and_distance(XG);
 
         for (auto u : XG) {
@@ -126,7 +126,7 @@ class TestFloyd) {
     auto test_zero_weight( ) {
         G = xn::DiGraph();
         edges = [(1, 2, -2), (2, 3, -4), (1, 5, 1),
-                 auto [5, 4, 0), (4, 3, -5), (2, 5, -7)];
+                 (5, 4, 0), (4, 3, -5), (2, 5, -7)];
         G.add_weighted_edges_from(edges);
         dist = xn::floyd_warshall(G);
         assert_equal(dist[1][3], -14);

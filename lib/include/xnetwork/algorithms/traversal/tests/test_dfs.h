@@ -126,7 +126,7 @@ class TestDepthLimitedSearch) {
     auto test_dls_edges( ) {
         edges = xn::dfs_edges(this->G, source=9, depth_limit=4);
         assert_equal(list(edges), [(9, 8), (8, 7),
-                                   auto [7, 2), (2, 1), (2, 3), (9, 10)]);
+                                   (7, 2), (2, 1), (2, 3), (9, 10)]);
 
     auto test_dls_labeled_edges( ) {
         edges = list(xn::dfs_labeled_edges(this->G, source=5, depth_limit=1));

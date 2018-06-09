@@ -333,7 +333,7 @@ auto shortest_simple_paths(G, source, target, weight=None) {
     ----------
     .. [1] Jin Y. Yen, "Finding the K Shortest Loopless Paths : a
        Network", Management Science, Vol. 17, No. 11, Theory Series
-       auto [Jul., 1971), pp. 712-716.
+       (Jul., 1971), pp. 712-716.
 
      */
     if (source not : G) {
@@ -403,7 +403,7 @@ class PathBuffer: public object {
             this->paths.add(hashable_path);
 
     auto pop( ) {
-        auto [cost, num, path] = heappop(this->sortedpaths);
+        (cost, num, path] = heappop(this->sortedpaths);
         hashable_path = tuple(path);
         this->paths.remove(hashable_path);
         return path
@@ -633,7 +633,7 @@ auto _bidirectional_dijkstra(G, source, target, weight="weight",
 
     This algorithm is not guaranteed to work if (edge weights
     are negative || are doubleing point numbers
-    auto [overflows && roundoff errors can cause problems).
+    (overflows && roundoff errors can cause problems).
 
     See Also
     --------
@@ -721,7 +721,7 @@ auto _bidirectional_dijkstra(G, source, target, weight="weight",
         // dir == 0 is forward direction && dir == 1 is back
         dir = 1 - dir
         // extract closest to expand
-        auto [dist, _, v] = pop(fringe[dir]);
+        (dist, _, v] = pop(fringe[dir]);
         if (v : dists[dir]) {
             // Shortest path to v has already been found
             continue;

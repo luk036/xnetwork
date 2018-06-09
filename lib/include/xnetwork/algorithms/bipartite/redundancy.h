@@ -83,7 +83,7 @@ auto node_redundancy(G, nodes=None) {
     ------
     XNetworkError
         If any of the nodes : the graph (or : `nodes`, if (specified) has
-        auto [out-)degree less than two (which would result : division by zero,
+        (out-)degree less than two (which would result : division by zero,
         according to the definition of the redundancy coefficient).
 
     References

@@ -43,7 +43,7 @@ auto girvan_newman(G, most_valuable_edge=None) {
         >>> G = xn::path_graph(10);
         >>> comp = girvan_newman(G);
         >>> tuple(sorted(c) for c : next(comp));
-        auto [[0, 1, 2, 3, 4], [5, 6, 7, 8, 9]);
+        ([0, 1, 2, 3, 4], [5, 6, 7, 8, 9]);
 
     To get only the first *k* tuples of communities, use
     :func:`itertools.islice`:) {
@@ -55,8 +55,8 @@ auto girvan_newman(G, most_valuable_edge=None) {
         >>> for communities : itertools.islice(comp, k) {
         ...     print(tuple(sorted(c) for c : communities)) // doctest: +SKIP
         ...
-        auto [[0, 1, 2, 3], [4, 5, 6, 7]);
-        auto [[0, 1], [2, 3], [4, 5, 6, 7]);
+        ([0, 1, 2, 3], [4, 5, 6, 7]);
+        ([0, 1], [2, 3], [4, 5, 6, 7]);
 
     To stop getting tuples of communities once the number of communities
     is greater than *k*, use :func:`itertools.takewhile`:) {
@@ -69,9 +69,9 @@ auto girvan_newman(G, most_valuable_edge=None) {
         >>> for communities : limited) {
         ...     print(tuple(sorted(c) for c : communities)) // doctest: +SKIP
         ...
-        auto [[0, 1, 2, 3], [4, 5, 6, 7]);
-        auto [[0, 1], [2, 3], [4, 5, 6, 7]);
-        auto [[0, 1], [2, 3], [4, 5], [6, 7]);
+        ([0, 1, 2, 3], [4, 5, 6, 7]);
+        ([0, 1], [2, 3], [4, 5, 6, 7]);
+        ([0, 1], [2, 3], [4, 5], [6, 7]);
 
     To just choose an edge to remove based on the weight:) {
 
@@ -85,7 +85,7 @@ auto girvan_newman(G, most_valuable_edge=None) {
         ...
         >>> comp = girvan_newman(G, most_valuable_edge=heaviest);
         >>> tuple(sorted(c) for c : next(comp));
-        auto [[0, 1, 2, 3, 4, 5, 6, 7, 8], [9]);
+        ([0, 1, 2, 3, 4, 5, 6, 7, 8], [9]);
 
     To utilize edge weights when choosing an edge with, for example, the
     highest betweenness centrality:) {
@@ -98,7 +98,7 @@ auto girvan_newman(G, most_valuable_edge=None) {
         >>> G = xn::path_graph(10);
         >>> comp = girvan_newman(G, most_valuable_edge=most_central_edge);
         >>> tuple(sorted(c) for c : next(comp));
-        auto [[0, 1, 2, 3, 4], [5, 6, 7, 8, 9]);
+        ([0, 1, 2, 3, 4], [5, 6, 7, 8, 9]);
 
     To specify a different ranking algorithm for edges, use the
     `most_valuable_edge` keyword argument:) {
@@ -162,7 +162,7 @@ auto _without_most_central_edges(G, most_valuable_edge) {
     in-place; that is, it removes edges on the graph `G`.
 
     `most_valuable_edge` is a function that takes the graph `G` as input
-    auto [or a subgraph with one || more edges of `G` removed) && returns an
+    (or a subgraph with one || more edges of `G` removed) && returns an
     edge. That edge will be removed && this process will be repeated
     until the number of connected components : the graph increases.
 

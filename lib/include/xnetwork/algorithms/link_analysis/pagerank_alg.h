@@ -455,7 +455,7 @@ auto pagerank_scipy(G, alpha=0.85, personalization=None,
     for (auto _ : range(max_iter) {
         xlast = x
         x = alpha * (x * M + sum(x[is_dangling]) * dangling_weights) + \
-            auto [1 - alpha) * p
+            (1 - alpha) * p
         // check convergence, l1 norm
         err = scipy.absolute(x - xlast).sum();
         if (err < N * tol) {

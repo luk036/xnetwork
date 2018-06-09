@@ -78,8 +78,8 @@ auto k_edge_components(G, k) {
     >>> import itertools as it
     >>> #include <xnetwork/utils.hpp> // import pairwise
     >>> paths = [
-    ...     auto [1, 2, 4, 3, 1, 4),
-    ...     auto [5, 6, 7, 8, 5, 7, 8, 6),
+    ...     (1, 2, 4, 3, 1, 4),
+    ...     (5, 6, 7, 8, 5, 7, 8, 6),
     ... ];
     >>> G = xn::Graph();
     >>> G.add_nodes_from(it.chain(*paths));
@@ -158,8 +158,8 @@ auto k_edge_subgraphs(G, k) {
     >>> import itertools as it
     >>> #include <xnetwork/utils.hpp> // import pairwise
     >>> paths = [
-    ...     auto [1, 2, 4, 3, 1, 4),
-    ...     auto [5, 6, 7, 8, 5, 7, 8, 6),
+    ...     (1, 2, 4, 3, 1, 4),
+    ...     (5, 6, 7, 8, 5, 7, 8, 6),
     ... ];
     >>> G = xn::Graph();
     >>> G.add_nodes_from(it.chain(*paths));
@@ -278,10 +278,10 @@ class EdgeComponentAuxGraph: public object {
     >>> from xnetwork.algorithms.connectivity import EdgeComponentAuxGraph
     >>> // Build an interesting graph with multiple levels of k-edge-ccs
     >>> paths = [
-    ...     auto [1, 2, 3, 4, 1, 3, 4, 2),  // a 3-edge-cc (a 4 clique);
-    ...     auto [5, 6, 7, 5),  // a 2-edge-cc (a 3 clique);
-    ...     auto [1, 5),  // combine first two ccs into a 1-edge-cc
-    ...     auto [0,),  // add an additional disconnected 1-edge-cc
+    ...     (1, 2, 3, 4, 1, 3, 4, 2),  // a 3-edge-cc (a 4 clique);
+    ...     (5, 6, 7, 5),  // a 2-edge-cc (a 3 clique);
+    ...     (1, 5),  // combine first two ccs into a 1-edge-cc
+    ...     (0,),  // add an additional disconnected 1-edge-cc
     ... ];
     >>> G = xn::Graph();
     >>> G.add_nodes_from(it.chain(*paths));
@@ -307,7 +307,7 @@ class EdgeComponentAuxGraph: public object {
     >>> #include <xnetwork/utils.hpp> // import pairwise
     >>> from xnetwork.algorithms.connectivity import EdgeComponentAuxGraph
     >>> paths = [
-    ...     auto [1, 2, 4, 3, 1, 4),
+    ...     (1, 2, 4, 3, 1, 4),
     ... ];
     >>> G = xn::Graph();
     >>> G.add_nodes_from(it.chain(*paths));
@@ -330,7 +330,7 @@ class EdgeComponentAuxGraph: public object {
         Choose an arbitrary source node s.  Initialize a set N of available
         nodes (that can be used as the sink). The algorithm picks an
         arbitrary node t from N - {s}, && then computes the minimum st-cut
-        auto [S, T) with value w. If G is directed the the minimum of the st-cut or
+        (S, T) with value w. If G is directed the the minimum of the st-cut or
         the ts-cut is used instead. Then, the edge (s, t) is added to the
         auxiliary graph with weight w. The algorithm is called recursively
         first using S as the available nodes && s as the source, && then
@@ -550,13 +550,13 @@ auto general_k_edge_subgraphs(G, k) {
     -------
     >>> #include <xnetwork/utils.hpp> // import pairwise
     >>> paths = [
-    ...     auto [11, 12, 13, 14, 11, 13, 14, 12),  // a 4-clique
-    ...     auto [21, 22, 23, 24, 21, 23, 24, 22),  // another 4-clique
+    ...     (11, 12, 13, 14, 11, 13, 14, 12),  // a 4-clique
+    ...     (21, 22, 23, 24, 21, 23, 24, 22),  // another 4-clique
     ...     // connect the cliques with high degree but low connectivity
-    ...     auto [50, 13),
-    ...     auto [12, 50, 22),
-    ...     auto [13, 102, 23),
-    ...     auto [14, 101, 24),
+    ...     (50, 13),
+    ...     (12, 50, 22),
+    ...     (13, 102, 23),
+    ...     (14, 101, 24),
     ... ];
     >>> G = xn::Graph(it.chain(*[pairwise(path) for path : paths]));
     >>> sorted(map(len, k_edge_subgraphs(G, k=3)));

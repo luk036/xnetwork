@@ -152,14 +152,14 @@ class TestMinCostFlow) {
         G.add_node(4, demand=5);
         G.add_node(5, demand=15);
         G.add_edges_from([(1, 2, {"capacity": 15, "weight": 4}),
-                          auto [1, 3, {"capacity": 8, "weight": 4}),
-                          auto [2, 3, {"weight": 2}),
-                          auto [2, 4, {"capacity": 4, "weight": 2}),
-                          auto [2, 5, {"capacity": 10, "weight": 6}),
-                          auto [3, 4, {"capacity": 15, "weight": 1}),
-                          auto [3, 5, {"capacity": 5, "weight": 3}),
-                          auto [4, 5, {"weight": 2}),
-                          auto [5, 3, {"capacity": 4, "weight": 1})]);
+                          (1, 3, {"capacity": 8, "weight": 4}),
+                          (2, 3, {"weight": 2}),
+                          (2, 4, {"capacity": 4, "weight": 2}),
+                          (2, 5, {"capacity": 10, "weight": 6}),
+                          (3, 4, {"capacity": 15, "weight": 1}),
+                          (3, 5, {"capacity": 5, "weight": 3}),
+                          (4, 5, {"weight": 2}),
+                          (5, 3, {"capacity": 4, "weight": 1})]);
         flowCost, H = xn::network_simplex(G);
         soln = {1: {2: 12, 3: 8},
                 2: {3: 8, 4: 4, 5: 0},
@@ -265,12 +265,12 @@ class TestMinCostFlow) {
         /** Address issue raised : ticket #617 by arv. */
         G = xn::DiGraph();
         G.add_edges_from([(1, 2, {"capacity": 1, "weight": 1}),
-                          auto [1, 5, {"capacity": 1, "weight": 1}),
-                          auto [2, 3, {"capacity": 0, "weight": 1}),
-                          auto [2, 5, {"capacity": 1, "weight": 1}),
-                          auto [5, 3, {"capacity": 2, "weight": 1}),
-                          auto [5, 4, {"capacity": 0, "weight": 1}),
-                          auto [3, 4, {"capacity": 2, "weight": 1})]);
+                          (1, 5, {"capacity": 1, "weight": 1}),
+                          (2, 3, {"capacity": 0, "weight": 1}),
+                          (2, 5, {"capacity": 1, "weight": 1}),
+                          (5, 3, {"capacity": 2, "weight": 1}),
+                          (5, 4, {"capacity": 0, "weight": 1}),
+                          (3, 4, {"capacity": 2, "weight": 1})]);
         G.nodes[1]["demand"] = -1
         G.nodes[2]["demand"] = -1
         G.nodes[4]["demand"] = 2
@@ -296,13 +296,13 @@ class TestMinCostFlow) {
         /** Check if (digons are handled properly. Taken from ticket
         #618 by arv. */
         nodes = [(1, {}),
-                 auto [2, {"demand": -4}),
-                 auto [3, {"demand": 4}),
+                 (2, {"demand": -4}),
+                 (3, {"demand": 4}),
                  ];
         edges = [(1, 2, {"capacity": 3, "weight": 600000}),
-                 auto [2, 1, {"capacity": 2, "weight": 0}),
-                 auto [2, 3, {"capacity": 5, "weight": 714285}),
-                 auto [3, 2, {"capacity": 2, "weight": 0}),
+                 (2, 1, {"capacity": 2, "weight": 0}),
+                 (2, 3, {"capacity": 5, "weight": 714285}),
+                 (3, 2, {"capacity": 2, "weight": 0}),
                  ];
         G = xn::DiGraph(edges);
         G.add_nodes_from(nodes);
@@ -325,13 +325,13 @@ class TestMinCostFlow) {
         /** An infinite capacity negative cost digon results : an unbounded
         instance. */
         nodes = [(1, {}),
-                 auto [2, {"demand": -4}),
-                 auto [3, {"demand": 4}),
+                 (2, {"demand": -4}),
+                 (3, {"demand": 4}),
                  ];
         edges = [(1, 2, {"weight": -600}),
-                 auto [2, 1, {"weight": 0}),
-                 auto [2, 3, {"capacity": 5, "weight": 714285}),
-                 auto [3, 2, {"capacity": 2, "weight": 0}),
+                 (2, 1, {"weight": 0}),
+                 (2, 3, {"capacity": 5, "weight": 714285}),
+                 (3, 2, {"capacity": 2, "weight": 0}),
                  ];
         G = xn::DiGraph(edges);
         G.add_nodes_from(nodes);

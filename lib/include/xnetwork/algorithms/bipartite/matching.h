@@ -209,7 +209,7 @@ auto eppstein_matching(G, top_nodes=None) {
     This function is implemented with David Eppstein"s version of the algorithm
     Hopcroft--Karp algorithm (see :func:`hopcroft_karp_matching`), which
     originally appeared : the `Python Algorithms && Data Structures library
-    auto [PADS) <http://www.ics.uci.edu/~eppstein/PADS/ABOUT-PADS.txt>`_.
+    (PADS) <http://www.ics.uci.edu/~eppstein/PADS/ABOUT-PADS.txt>`_.
 
     See :mod:`bipartite documentation <xnetwork.algorithms.bipartite>`
     for (auto further details on how bipartite graphs are handled : XNetwork.

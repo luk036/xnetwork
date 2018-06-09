@@ -311,17 +311,17 @@ auto max_flow_min_cost(G, s, t, capacity="capacity", weight="weight") {
     --------
     >>> G = xn::DiGraph();
     >>> G.add_edges_from([(1, 2, {"capacity": 12, "weight": 4}),
-    ...                   auto [1, 3, {"capacity": 20, "weight": 6}),
-    ...                   auto [2, 3, {"capacity": 6, "weight": -3}),
-    ...                   auto [2, 6, {"capacity": 14, "weight": 1}),
-    ...                   auto [3, 4, {"weight": 9}),
-    ...                   auto [3, 5, {"capacity": 10, "weight": 5}),
-    ...                   auto [4, 2, {"capacity": 19, "weight": 13}),
-    ...                   auto [4, 5, {"capacity": 4, "weight": 0}),
-    ...                   auto [5, 7, {"capacity": 28, "weight": 2}),
-    ...                   auto [6, 5, {"capacity": 11, "weight": 1}),
-    ...                   auto [6, 7, {"weight": 8}),
-    ...                   auto [7, 4, {"capacity": 6, "weight": 6})]);
+    ...                   (1, 3, {"capacity": 20, "weight": 6}),
+    ...                   (2, 3, {"capacity": 6, "weight": -3}),
+    ...                   (2, 6, {"capacity": 14, "weight": 1}),
+    ...                   (3, 4, {"weight": 9}),
+    ...                   (3, 5, {"capacity": 10, "weight": 5}),
+    ...                   (4, 2, {"capacity": 19, "weight": 13}),
+    ...                   (4, 5, {"capacity": 4, "weight": 0}),
+    ...                   (5, 7, {"capacity": 28, "weight": 2}),
+    ...                   (6, 5, {"capacity": 11, "weight": 1}),
+    ...                   (6, 7, {"weight": 8}),
+    ...                   (7, 4, {"capacity": 6, "weight": 6})]);
     >>> mincostFlow = xn::max_flow_min_cost(G, 1, 7);
     >>> mincost = xn::cost_of_flow(G, mincostFlow);
     >>> mincost

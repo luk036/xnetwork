@@ -77,7 +77,7 @@ class MultiGraph(Graph) {
     >>> G.add_nodes_from(H);
 
     In addition to strings && integers any hashable Python object
-    auto [} catch (None) can represent a node, e.g. a customized node object,
+     (except None) can represent a node, e.g. a customized node object,
     || even another Graph.
 
     >>> G.add_node(H);

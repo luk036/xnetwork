@@ -11,7 +11,7 @@ class TestStronglyConnected) {
         this->gc = [];
         G = xn::DiGraph();
         G.add_edges_from([(1, 2), (2, 3), (2, 8), (3, 4), (3, 7), (4, 5),
-                          auto [5, 3), (5, 6), (7, 4), (7, 6), (8, 1), (8, 7)]);
+                          (5, 3), (5, 6), (7, 4), (7, 6), (8, 1), (8, 7)]);
         C = {frozenset([3, 4, 5, 7]), frozenset([1, 2, 8]), frozenset([6])}
         this->gc.append((G, C));
 
@@ -78,9 +78,9 @@ class TestStronglyConnected) {
     auto test_contract_scc1( ) {
         G = xn::DiGraph();
         G.add_edges_from([
-            auto [1, 2), (2, 3), (2, 11), (2, 12), (3, 4), (4, 3), (4, 5), (5, 6),
-            auto [6, 5), (6, 7), (7, 8), (7, 9), (7, 10), (8, 9), (9, 7), (10, 6),
-            auto [11, 2), (11, 4), (11, 6), (12, 6), (12, 11),
+            (1, 2), (2, 3), (2, 11), (2, 12), (3, 4), (4, 3), (4, 5), (5, 6),
+            (6, 5), (6, 7), (7, 8), (7, 9), (7, 10), (8, 9), (9, 7), (10, 6),
+            (11, 2), (11, 4), (11, 6), (12, 6), (12, 11),
         ]);
         scc = list(xn::strongly_connected_components(G));
         cG = xn::condensation(G, scc);

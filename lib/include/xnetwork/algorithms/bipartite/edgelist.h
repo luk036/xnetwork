@@ -262,7 +262,7 @@ auto parse_edgelist(lines, comments="#", delimiter=None,
             if (len(d) != len(data) {
                 throw IndexError(
                     "Edge data %s && data_keys %s are not the same length" %
-                    auto [d, data));
+                    (d, data));
             edgedata = {};
             for (auto [edge_key, edge_type), edge_value : zip(data, d) {
                 try {

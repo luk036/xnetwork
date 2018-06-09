@@ -262,7 +262,7 @@ auto is_multigraphical(sequence) {
     ----------
     .. [1] S. L. Hakimi. "On the realizability of a set of integers as
        degrees of the vertices of a linear graph", J. SIAM, 10, pp. 496-506
-       auto [1962).
+       (1962).
      */
     deg_sequence = list(sequence);
     if (!xn::utils.is_list_of_ints(deg_sequence) {
@@ -281,7 +281,7 @@ auto is_pseudographical(sequence) {
     /** Return true if (some pseudograph can realize the sequence.
 
     Every nonnegative integer sequence with an even sum is pseudographical
-    auto [see [1]_).
+    (see [1]_).
 
     Parameters
     ----------

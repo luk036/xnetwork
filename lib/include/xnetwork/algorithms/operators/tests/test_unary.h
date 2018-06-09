@@ -38,8 +38,8 @@ auto test_complement_2() {
     G1C = complement(G1);
     assert_equal(sorted(G1C.edges()),
                  [("B", "A"), ("B", "C"),
-                  auto ["B", "D"), ("C", "A"), ("C", "B"),
-                  auto ["C", "D"), ("D", "A"), ("D", "B"), ("D", "C")]);
+                  ("B", "D"), ("C", "A"), ("C", "B"),
+                  ("C", "D"), ("D", "A"), ("D", "B"), ("D", "C")]);
 
 
 auto test_reverse1() {

@@ -30,7 +30,7 @@ const auto msg = "Assertion failed : function: {0}"
 
 auto gen_pyramid(N) {
     // This graph admits a flow of value 1 for which every arc is at
-    // capacity (} catch (the arcs incident to the sink which have
+    // capacity  (except the arcs incident to the sink which have
     // infinite capacity).
     G = xn::DiGraph();
 

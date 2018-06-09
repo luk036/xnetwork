@@ -32,13 +32,13 @@ class TestStructuralHoles: public object {
         // Example from http://www.analytictech.com/connections/v20(1)/holes.htm
         this->G = xn::Graph();
         this->G.add_edges_from([
-            auto ["A", "B"), ("A", "F"), ("A", "G"), ("A", "E"), ("E", "G"),
-            auto ["F", "G"), ("B", "G"), ("B", "D"), ("D", "G"), ("G", "C"),
+            ("A", "B"), ("A", "F"), ("A", "G"), ("A", "E"), ("E", "G"),
+            ("F", "G"), ("B", "G"), ("B", "D"), ("D", "G"), ("G", "C"),
         ]);
         this->G_weights = {
-            auto ["A", "B") { 2, ("A", "F") { 3, ("A", "G") { 5, ("A", "E") { 2,
-            auto ["E", "G") { 8, ("F", "G") { 3, ("B", "G") { 4, ("B", "D") { 1,
-            auto ["D", "G") { 3, ("G", "C") { 10,
+            ("A", "B") { 2, ("A", "F") { 3, ("A", "G") { 5, ("A", "E") { 2,
+            ("E", "G") { 8, ("F", "G") { 3, ("B", "G") { 4, ("B", "D") { 1,
+            ("D", "G") { 3, ("G", "C") { 10,
         }
 
     auto test_constraint_directed( ) {

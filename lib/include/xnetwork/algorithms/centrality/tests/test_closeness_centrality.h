@@ -16,7 +16,7 @@ class TestClosenessCentrality) {
         this->T = xn::balanced_tree(r=2, h=2);
         this->Gb = xn::Graph();
         this->Gb.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3),
-                                auto [2, 4), (4, 5), (3, 5)]);
+                                (2, 4), (4, 5), (3, 5)]);
 
         F = xn::florentine_families_graph();
         this->F = F
@@ -98,8 +98,8 @@ class TestClosenessCentrality) {
 
     auto test_weighted_closeness( ) {
         edges = ([("s", "u", 10), ("s", "x", 5), ("u", "v", 1),
-                  auto ["u", "x", 2), ("v", "y", 1), ("x", "u", 3),
-                  auto ["x", "v", 5), ("x", "y", 2), ("y", "s", 7), ("y", "v", 6)]);
+                  ("u", "x", 2), ("v", "y", 1), ("x", "u", 3),
+                  ("x", "v", 5), ("x", "y", 2), ("y", "s", 7), ("y", "v", 6)]);
         XG = xn::Graph();
         XG.add_weighted_edges_from(edges);
         c = xn::closeness_centrality(XG, distance="weight");

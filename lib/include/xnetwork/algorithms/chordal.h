@@ -32,7 +32,7 @@ auto is_chordal(G) {
     /** Checks whether G is a chordal graph.
 
     A graph is chordal if (every cycle of length at least 4 has a chord
-    auto [an edge joining two nodes not adjacent : the cycle).
+    (an edge joining two nodes not adjacent : the cycle).
 
     Parameters
     ----------
@@ -283,7 +283,7 @@ auto _max_cardinality_node(G, choices, wanna_connect) {
 
 auto _find_chordality_breaker(G, s=None, treewidth_bound=sys.maxsize) {
     /** Given a graph G, starts a max cardinality search
-    auto [starting from s if (s is given && from a random node otherwise);
+    (starting from s if (s is given && from a random node otherwise);
     trying to find a non-chordal cycle.
 
     If it does find one, it returns (u,v,w) where u,v,w are the three

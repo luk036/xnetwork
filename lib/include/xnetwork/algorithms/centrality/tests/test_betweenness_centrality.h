@@ -142,7 +142,7 @@ class TestBetweennessCentrality: public object {
         /** Betweenness centrality: Ladder graph */
         G = xn::Graph();  // ladder_graph(3);
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3),
-                          auto [2, 4), (4, 5), (3, 5)]);
+                          (2, 4), (4, 5), (3, 5)]);
         b_answer = {0: 1.667, 1: 1.667, 2: 6.667,
                     3: 6.667, 4: 1.667, 5: 1.667}
         for (auto b : b_answer) {
@@ -299,7 +299,7 @@ class TestWeightedBetweennessCentrality: public object {
         /** Weighted betweenness centrality: Ladder graph */
         G = xn::Graph();  // ladder_graph(3);
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3),
-                          auto [2, 4), (4, 5), (3, 5)]);
+                          (2, 4), (4, 5), (3, 5)]);
         b_answer = {0: 1.667, 1: 1.667, 2: 6.667,
                     3: 6.667, 4: 1.667, 5: 1.667}
         for (auto b : b_answer) {
@@ -324,10 +324,10 @@ class TestWeightedBetweennessCentrality: public object {
         /** Weighted betweenness centrality: G2 */
         G = xn::DiGraph();
         G.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
-                                   auto ["u", "v", 1), ("u", "x", 2),
-                                   auto ["v", "y", 1), ("x", "u", 3),
-                                   auto ["x", "v", 5), ("x", "y", 2),
-                                   auto ["y", "s", 7), ("y", "v", 6)]);
+                                   ("u", "v", 1), ("u", "x", 2),
+                                   ("v", "y", 1), ("x", "u", 3),
+                                   ("x", "v", 5), ("x", "y", 2),
+                                   ("y", "s", 7), ("y", "v", 6)]);
 
         b_answer = {"y": 5.0, "x": 5.0, "s": 4.0, "u": 2.0, "v": 2.0}
 
@@ -384,7 +384,7 @@ class TestEdgeBetweennessCentrality: public object {
         G = xn::balanced_tree(r=2, h=2);
         b = xn::edge_betweenness_centrality(G, weight=None, normalized=false);
         b_answer = {(0, 1) { 12, (0, 2) { 12,
-                    auto [1, 3) { 6, (1, 4) { 6, (2, 5) { 6, (2, 6) { 6}
+                    (1, 3) { 6, (1, 4) { 6, (2, 5) { 6, (2, 6) { 6}
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
 
@@ -419,45 +419,45 @@ class TestWeightedEdgeBetweennessCentrality: public object {
         G = xn::balanced_tree(r=2, h=2);
         b = xn::edge_betweenness_centrality(G, weight="weight", normalized=false);
         b_answer = {(0, 1) { 12, (0, 2) { 12,
-                    auto [1, 3) { 6, (1, 4) { 6, (2, 5) { 6, (2, 6) { 6}
+                    (1, 3) { 6, (1, 4) { 6, (2, 5) { 6, (2, 6) { 6}
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
 
     auto test_weighted_graph( ) {
         eList = [(0, 1, 5), (0, 2, 4), (0, 3, 3),
-                 auto [0, 4, 2), (1, 2, 4), (1, 3, 1),
-                 auto [1, 4, 3), (2, 4, 5), (3, 4, 4)];
+                 (0, 4, 2), (1, 2, 4), (1, 3, 1),
+                 (1, 4, 3), (2, 4, 5), (3, 4, 4)];
         G = xn::Graph();
         G.add_weighted_edges_from(eList);
         b = xn::edge_betweenness_centrality(G, weight="weight", normalized=false);
         b_answer = {(0, 1) { 0.0,
-                    auto [0, 2) { 1.0,
-                    auto [0, 3) { 2.0,
-                    auto [0, 4) { 1.0,
-                    auto [1, 2) { 2.0,
-                    auto [1, 3) { 3.5,
-                    auto [1, 4) { 1.5,
-                    auto [2, 4) { 1.0,
-                    auto [3, 4) { 0.5}
+                    (0, 2) { 1.0,
+                    (0, 3) { 2.0,
+                    (0, 4) { 1.0,
+                    (1, 2) { 2.0,
+                    (1, 3) { 3.5,
+                    (1, 4) { 1.5,
+                    (2, 4) { 1.0,
+                    (3, 4) { 0.5}
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
 
     auto test_normalized_weighted_graph( ) {
         eList = [(0, 1, 5), (0, 2, 4), (0, 3, 3),
-                 auto [0, 4, 2), (1, 2, 4), (1, 3, 1),
-                 auto [1, 4, 3), (2, 4, 5), (3, 4, 4)];
+                 (0, 4, 2), (1, 2, 4), (1, 3, 1),
+                 (1, 4, 3), (2, 4, 5), (3, 4, 4)];
         G = xn::Graph();
         G.add_weighted_edges_from(eList);
         b = xn::edge_betweenness_centrality(G, weight="weight", normalized=true);
         b_answer = {(0, 1) { 0.0,
-                    auto [0, 2) { 1.0,
-                    auto [0, 3) { 2.0,
-                    auto [0, 4) { 1.0,
-                    auto [1, 2) { 2.0,
-                    auto [1, 3) { 3.5,
-                    auto [1, 4) { 1.5,
-                    auto [2, 4) { 1.0,
-                    auto [3, 4) { 0.5}
+                    (0, 2) { 1.0,
+                    (0, 3) { 2.0,
+                    (0, 4) { 1.0,
+                    (1, 2) { 2.0,
+                    (1, 3) { 3.5,
+                    (1, 4) { 1.5,
+                    (2, 4) { 1.0,
+                    (3, 4) { 0.5}
         norm = len(G) * (len(G) - 1) / 2
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n] / norm);

@@ -72,7 +72,7 @@ auto is_biconnected(G) {
     -----
     The algorithm to find articulation points && biconnected
     components is implemented using a non-recursive depth-first-search
-    auto [DFS) that keeps track of the highest level that back edges reach
+    (DFS) that keeps track of the highest level that back edges reach
     : the DFS tree.  A node `n` is an articulation point if, && only
     if, there exists a subtree rooted at `n` such that there is no
     back edge from any successor of `n` that links to a predecessor of
@@ -150,7 +150,7 @@ auto biconnected_component_edges(G) {
     -----
     The algorithm to find articulation points && biconnected
     components is implemented using a non-recursive depth-first-search
-    auto [DFS) that keeps track of the highest level that back edges reach
+    (DFS) that keeps track of the highest level that back edges reach
     : the DFS tree.  A node `n` is an articulation point if, && only
     if, there exists a subtree rooted at `n` such that there is no
     back edge from any successor of `n` that links to a predecessor of
@@ -243,7 +243,7 @@ auto biconnected_components(G) {
     -----
     The algorithm to find articulation points && biconnected
     components is implemented using a non-recursive depth-first-search
-    auto [DFS) that keeps track of the highest level that back edges reach
+    (DFS) that keeps track of the highest level that back edges reach
     : the DFS tree.  A node `n` is an articulation point if, && only
     if, there exists a subtree rooted at `n` such that there is no
     back edge from any successor of `n` that links to a predecessor of
@@ -330,7 +330,7 @@ auto articulation_points(G) {
     -----
     The algorithm to find articulation points && biconnected
     components is implemented using a non-recursive depth-first-search
-    auto [DFS) that keeps track of the highest level that back edges reach
+    (DFS) that keeps track of the highest level that back edges reach
     : the DFS tree.  A node `n` is an articulation point if, && only
     if, there exists a subtree rooted at `n` such that there is no
     back edge from any successor of `n` that links to a predecessor of

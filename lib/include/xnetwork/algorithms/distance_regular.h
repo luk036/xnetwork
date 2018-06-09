@@ -135,7 +135,7 @@ auto intersection_array(G) {
     --------
     >>> G=xn::icosahedral_graph();
     >>> xn::intersection_array(G);
-    auto [[5, 2, 1], [1, 2, 5]);
+    ([5, 2, 1], [1, 2, 5]);
 
     References
     ----------

@@ -19,7 +19,7 @@ class TestClosenessCentrality) {
 
         this->Gb = xn::DiGraph();
         this->Gb.add_edges_from([(0, 1), (0, 2), (0, 4), (2, 1),
-                                auto [2, 3), (4, 3)]);
+                                (2, 3), (4, 3)]);
 
     auto test_p3_harmonic( ) {
         c = harmonic_centrality(this->P3);
@@ -93,7 +93,7 @@ class TestClosenessCentrality) {
     auto test_weighted_harmonic( ) {
         XG = xn::DiGraph();
         XG.add_weighted_edges_from([("a", "b", 10), ("d", "c", 5), ("a", "c", 1),
-                                    auto ["e", "f", 2), ("f", "c", 1), ("a", "f", 3),
+                                    ("e", "f", 2), ("f", "c", 1), ("a", "f", 3),
                                     ]);
         c = harmonic_centrality(XG, distance="weight");
         d = {"a": 0,

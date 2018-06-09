@@ -78,7 +78,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
     >>> G.add_nodes_from(H);
 
     In addition to strings && integers any hashable Python object
-    auto [} catch (None) can represent a node, e.g. a customized node object,
+     (except None) can represent a node, e.g. a customized node object,
     || even another Graph.
 
     >>> G.add_node(H);
@@ -144,7 +144,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
     read-only dict-like structure. However, you can assign to attributes
     : e.g. `G.edges[1, 2]`. Thus, use 2 sets of brackets to add/change
     data attributes: `G.edges[1, 2]["weight"] = 4`
-    auto [For multigraphs: `MG.edges[u, v, key][name] = value`).
+    (For multigraphs: `MG.edges[u, v, key][name] = value`).
 
     **Shortcuts:**
 
@@ -184,7 +184,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
     usage. The views update as the graph is updated similarly to dict-views.
     The objects `nodes, `edges` && `adj` provide access to data attributes
     via lookup (e.g. `nodes[n], `edges[u, v]`, `adj[u][v]`) && iteration
-    auto [e.g. `nodes.items()`, `nodes.data("color")`,
+    (e.g. `nodes.items()`, `nodes.data("color")`,
     `nodes.data("color", default="blue")` && similarly for `edges`);
     Views exist for `nodes`, `edges`, `neighbors()`/`adj` && `degree`.
 
@@ -532,7 +532,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
         -------
         edges : EdgeView
             A view of edge attributes, usually it iterates over (u, v);
-            auto [u, v, k) || (u, v, k, d) tuples of edges, but can also be
+            (u, v, k) || (u, v, k, d) tuples of edges, but can also be
             used for attribute lookup as `edges[u, v, k]["foo"]`.
 
         Notes

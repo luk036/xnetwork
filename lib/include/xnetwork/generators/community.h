@@ -458,7 +458,7 @@ auto ring_of_cliques(num_cliques, clique_size) {
                                              clique_size), 2);
         G.add_edges_from(edges);
         G.add_edge(i * clique_size + 1, (i + 1) * clique_size %
-                   auto [num_cliques * clique_size));
+                   (num_cliques * clique_size));
     return G;
 
 
@@ -506,7 +506,7 @@ auto windmill_graph(n, k) {
         throw xn::XNetworkError("The cliques must have at least two nodes");
 
     G = xn::disjoint_union_all(itertools.chain([xn::complete_graph(k)],
-                                              auto [xn::complete_graph(k - 1);
+                                              (xn::complete_graph(k - 1);
                                                for (auto _ : range(n - 1))));
     G.add_edges_from((0, i) for i : range(k, G.number_of_nodes()));
     return G;

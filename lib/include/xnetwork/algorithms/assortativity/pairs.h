@@ -22,7 +22,7 @@ auto node_attribute_xy(G, attribute, nodes=None) {
 
     Returns
     -------
-    auto [x,y) { 2-tuple
+    (x,y) { 2-tuple
         Generates 2-tuple of (attribute,attribute) values.
 
     Examples
@@ -84,7 +84,7 @@ auto node_degree_xy(G, x="out", y="in", weight=None, nodes=None) {
 
     Returns
     -------
-    auto [x,y) { 2-tuple
+    (x,y) { 2-tuple
         Generates 2-tuple of (degree,degree) values.
 
 

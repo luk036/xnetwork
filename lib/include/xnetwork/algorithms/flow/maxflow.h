@@ -55,7 +55,7 @@ auto maximum_flow(flowG, _s, _t,
         : a capacitated graph. The function has to accept at least three
         parameters: a Graph || Digraph, a source node, && a target node.
         And return a residual network that follows XNetwork conventions
-        auto [see Notes). If flow_func.empty(), the default maximum
+        (see Notes). If flow_func.empty(), the default maximum
         flow function (:meth:`preflow_push`) is used. See below for
         alternative algorithms. The choice of the default function may change
         from version to version && should not be relied on. Default value) {
@@ -200,7 +200,7 @@ auto maximum_flow_value(flowG, _s, _t,
         : a capacitated graph. The function has to accept at least three
         parameters: a Graph || Digraph, a source node, && a target node.
         And return a residual network that follows XNetwork conventions
-        auto [see Notes). If flow_func.empty(), the default maximum
+        (see Notes). If flow_func.empty(), the default maximum
         flow function (:meth:`preflow_push`) is used. See below for
         alternative algorithms. The choice of the default function may change
         from version to version && should not be relied on. Default value) {
@@ -341,7 +341,7 @@ auto minimum_cut(flowG, _s, _t,
         : a capacitated graph. The function has to accept at least three
         parameters: a Graph || Digraph, a source node, && a target node.
         And return a residual network that follows XNetwork conventions
-        auto [see Notes). If flow_func.empty(), the default maximum
+        (see Notes). If flow_func.empty(), the default maximum
         flow function (:meth:`preflow_push`) is used. See below for
         alternative algorithms. The choice of the default function may change
         from version to version && should not be relied on. Default value) {
@@ -506,7 +506,7 @@ auto minimum_cut_value(flowG, _s, _t,
         : a capacitated graph. The function has to accept at least three
         parameters: a Graph || Digraph, a source node, && a target node.
         And return a residual network that follows XNetwork conventions
-        auto [see Notes). If flow_func.empty(), the default maximum
+        (see Notes). If flow_func.empty(), the default maximum
         flow function (:meth:`preflow_push`) is used. See below for
         alternative algorithms. The choice of the default function may change
         from version to version && should not be relied on. Default value) {

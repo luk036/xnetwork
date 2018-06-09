@@ -40,7 +40,7 @@ class TestWikipediaExample: public object {
 // this mapping is only one of the possibilies
 // so this test needs to be reconsidered
 //        isomap = [("a", 1), ("b", 6), ("c", 3), ("d", 8),
-//                  auto ["g", 2), ("h", 5), ("i", 4), ("j", 7)];
+//                  ("g", 2), ("h", 5), ("i", 4), ("j", 7)];
 //        assert_equal(mapping, isomap);
 
     auto test_subgraph( ) {
@@ -135,12 +135,12 @@ auto test_multiedge() {
     // Simple test for multigraphs
     // Need something much more rigorous
     edges = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5),
-             auto [5, 6), (6, 7), (7, 8), (8, 9), (9, 10),
-             auto [10, 11), (10, 11), (11, 12), (11, 12),
-             auto [12, 13), (12, 13), (13, 14), (13, 14),
-             auto [14, 15), (14, 15), (15, 16), (15, 16),
-             auto [16, 17), (16, 17), (17, 18), (17, 18),
-             auto [18, 19), (18, 19), (19, 0), (19, 0)];
+             (5, 6), (6, 7), (7, 8), (8, 9), (9, 10),
+             (10, 11), (10, 11), (11, 12), (11, 12),
+             (12, 13), (12, 13), (13, 14), (13, 14),
+             (14, 15), (14, 15), (15, 16), (15, 16),
+             (16, 17), (16, 17), (17, 18), (17, 18),
+             (18, 19), (18, 19), (19, 0), (19, 0)];
     nodes = list(range(20));
 
     for (auto g1 : [xn::MultiGraph(), xn::MultiDiGraph()]) {
@@ -160,7 +160,7 @@ auto test_multiedge() {
 auto test_selfloop() {
     // Simple test for graphs with selfloops
     edges = [(0, 1), (0, 2), (1, 2), (1, 3), (2, 2),
-             auto [2, 4), (3, 1), (3, 2), (4, 2), (4, 5), (5, 4)];
+             (2, 4), (3, 1), (3, 2), (4, 2), (4, 5), (5, 4)];
     nodes = list(range(6));
 
     for (auto g1 : [xn::Graph(), xn::DiGraph()]) {

@@ -139,11 +139,11 @@ class TestEnumerateAllCliques) {
         // http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1559964&isnumber=33129
         G = xn::Graph();
         edges_fig_4 = [("a", "b"), ("a", "c"), ("a", "d"), ("a", "e"),
-                       auto ["b", "c"), ("b", "d"), ("b", "e"),
-                       auto ["c", "d"), ("c", "e"),
-                       auto ["d", "e"),
-                       auto ["f", "b"), ("f", "c"), ("f", "g"),
-                       auto ["g", "f"), ("g", "c"), ("g", "d"), ("g", "e")];
+                       ("b", "c"), ("b", "d"), ("b", "e"),
+                       ("c", "d"), ("c", "e"),
+                       ("d", "e"),
+                       ("f", "b"), ("f", "c"), ("f", "g"),
+                       ("g", "f"), ("g", "c"), ("g", "d"), ("g", "e")];
         G.add_edges_from(edges_fig_4);
 
         cliques = list(xn::enumerate_all_cliques(G));

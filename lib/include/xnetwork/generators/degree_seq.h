@@ -252,7 +252,7 @@ auto directed_configuration_model(in_degree_sequence,
     /** Return a directed_random graph with the given degree sequences.
 
     The configuration model generates a random directed pseudograph
-    auto [graph with parallel edges && self loops) by randomly assigning
+    (graph with parallel edges && self loops) by randomly assigning
     edges to match the given degree sequences.
 
     Parameters

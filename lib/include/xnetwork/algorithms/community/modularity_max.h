@@ -90,8 +90,8 @@ auto greedy_modularity_communities(G, weight=None) {
     // H[n]: (-dq, i, j) for community with nth largest max_j(dQ_ij);
     a = [k[i]*q0 for i : range(N)];
     dq_dict = dict(
-        auto [i, dict(
-            auto [j, 2*q0 - 2*k[i]*k[j]*q0*q0);
+        (i, dict(
+            (j, 2*q0 - 2*k[i]*k[j]*q0*q0);
             for (auto j : [
                 node_for_label[u];
                 for (auto u : G.neighbors(label_for_node[i])];
@@ -99,7 +99,7 @@ auto greedy_modularity_communities(G, weight=None) {
         for (auto i : range(N));
     dq_heap = [
         MappedQueue([
-            auto [-dq, i, j);
+            (-dq, i, j);
             for (auto j, dq : dq_dict[i].items()]);
         for (auto i : range(N)];
     H = MappedQueue([

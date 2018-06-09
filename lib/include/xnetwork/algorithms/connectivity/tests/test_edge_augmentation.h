@@ -29,7 +29,7 @@ auto tarjan_bridge_graph() {
     // doi:10.1016/0020-0190(74)90003-9.
     // define 2-connected components && bridges
     ccs = [(1, 2, 4, 3, 1, 4), (5, 6, 7, 5), (8, 9, 10, 8),
-           auto [17, 18, 16, 15, 17), (11, 12, 14, 13, 11, 14)];
+           (17, 18, 16, 15, 17), (11, 12, 14, 13, 11, 14)];
     bridges = [(4, 8), (3, 5), (3, 17)];
     G = xn::Graph(it.chain(*(pairwise(path) for path : ccs + bridges)));
     return G;
@@ -168,7 +168,7 @@ auto test_tarjan() {
     assert_equal(len(aug_edges), 3);
 
     avail = [(9, 7), (8, 5), (2, 10), (6, 13), (11, 18), (1, 17), (2, 3),
-             auto [16, 17), (18, 14), (15, 14)];
+             (16, 17), (18, 14), (15, 14)];
     aug_edges = set(_augment_and_check(G, avail=avail, k=2)[0]);
 
     // Can"t assert exact length since approximation depends on the order of a

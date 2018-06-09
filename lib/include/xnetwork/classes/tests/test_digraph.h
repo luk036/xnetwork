@@ -86,7 +86,7 @@ class BaseDiGraphTester(BaseGraphTester) {
         assert_equal(dict(G.degree()), {0: 4, 1: 4, 2: 4});
         assert_equal(G.degree(0), 4);
         assert_equal(list(G.degree(iter([0]))), [
-                     auto [0, 4)]);  // run through iterator
+                     (0, 4)]);  // run through iterator
 
     auto test_in_degree( ) {
         G = this->K3

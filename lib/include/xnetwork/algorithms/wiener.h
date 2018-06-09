@@ -79,7 +79,7 @@ auto wiener_index(G, weight=None) {
      */
     is_directed = G.is_directed();
     if ((is_directed && !is_strongly_connected(G)) || \
-            auto [not is_directed && !is_connected(G)) {
+            (!is_directed && !is_connected(G)) {
         return double("inf");
     total = sum(chaini(p.values() for v, p : spl(G, weight=weight)));
     // Need to account for double counting pairs of nodes : undirected graphs.

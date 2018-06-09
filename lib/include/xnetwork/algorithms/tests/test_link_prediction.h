@@ -161,7 +161,7 @@ class TestAdamicAdarIndex() {
         G = xn::Graph();
         G.add_edges_from([(0, 1), (0, 2), (2, 3)]);
         this->test(G, None, [(0, 3, 1 / math.log(2)), (1, 2, 1 / math.log(2)),
-                            auto [1, 3, 0)]);
+                            (1, 3, 0)]);
 
 
 class TestPreferentialAttachment() {

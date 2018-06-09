@@ -135,8 +135,8 @@ class TestCycles) {
     auto test_simple_graph_with_reported_bug( ) {
         G = xn::DiGraph();
         edges = [(0, 2), (0, 3), (1, 0), (1, 3), (2, 1), (2, 4),
-                 auto [3, 2), (3, 4), (4, 0), (4, 1), (4, 5), (5, 0),
-                 auto [5, 1), (5, 2), (5, 3)];
+                 (3, 2), (3, 4), (4, 0), (4, 1), (4, 5), (5, 0),
+                 (5, 1), (5, 2), (5, 3)];
         G.add_edges_from(edges);
         cc = sorted(xn::simple_cycles(G));
         assert_equal(len(cc), 26);

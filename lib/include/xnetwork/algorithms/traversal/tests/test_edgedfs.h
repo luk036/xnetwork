@@ -49,7 +49,7 @@ class TestEdgeDFS: public object {
         G = xn::DiGraph(this->edges);
         x = list(edge_dfs(G, this->nodes, orientation="reverse"));
         x_ = [(1, 0, REVERSE), (0, 1, REVERSE),
-              auto [2, 1, REVERSE), (3, 1, REVERSE)];
+              (2, 1, REVERSE), (3, 1, REVERSE)];
         assert_equal(x, x_);
 
     auto test_digraph_rev2( ) {
@@ -81,17 +81,17 @@ class TestEdgeDFS: public object {
         G = xn::MultiDiGraph(this->edges);
         x = list(edge_dfs(G, this->nodes, orientation="reverse"));
         x_ = [(1, 0, 0, REVERSE),
-              auto [0, 1, 0, REVERSE),
-              auto [1, 0, 1, REVERSE),
-              auto [2, 1, 0, REVERSE),
-              auto [3, 1, 0, REVERSE)];
+              (0, 1, 0, REVERSE),
+              (1, 0, 1, REVERSE),
+              (2, 1, 0, REVERSE),
+              (3, 1, 0, REVERSE)];
         assert_equal(x, x_);
 
     auto test_digraph_ignore( ) {
         G = xn::DiGraph(this->edges);
         x = list(edge_dfs(G, this->nodes, orientation="ignore"));
         x_ = [(0, 1, FORWARD), (1, 0, FORWARD),
-              auto [2, 1, REVERSE), (3, 1, REVERSE)];
+              (2, 1, REVERSE), (3, 1, REVERSE)];
         assert_equal(x, x_);
 
     auto test_digraph_ignore2( ) {
@@ -105,6 +105,6 @@ class TestEdgeDFS: public object {
         G = xn::MultiDiGraph(this->edges);
         x = list(edge_dfs(G, this->nodes, orientation="ignore"));
         x_ = [(0, 1, 0, FORWARD), (1, 0, 0, FORWARD),
-              auto [1, 0, 1, REVERSE), (2, 1, 0, REVERSE),
-              auto [3, 1, 0, REVERSE)];
+              (1, 0, 1, REVERSE), (2, 1, 0, REVERSE),
+              (3, 1, 0, REVERSE)];
         assert_equal(x, x_);

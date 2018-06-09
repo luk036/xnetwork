@@ -23,20 +23,20 @@ class TestTreeLCA: public object {
         gold = dict([((n, n), n) for n : this->DG]);
         gold.update(dict(((0, i), 0) for i : range(1, 7)));
         gold.update({(1, 2) { 0,
-                     auto [1, 3) { 1,
-                     auto [1, 4) { 1,
-                     auto [1, 5) { 0,
-                     auto [1, 6) { 0,
-                     auto [2, 3) { 0,
-                     auto [2, 4) { 0,
-                     auto [2, 5) { 2,
-                     auto [2, 6) { 2,
-                     auto [3, 4) { 1,
-                     auto [3, 5) { 0,
-                     auto [3, 6) { 0,
-                     auto [4, 5) { 0,
-                     auto [4, 6) { 0,
-                     auto [5, 6) { 2});
+                     (1, 3) { 1,
+                     (1, 4) { 1,
+                     (1, 5) { 0,
+                     (1, 6) { 0,
+                     (2, 3) { 0,
+                     (2, 4) { 0,
+                     (2, 5) { 2,
+                     (2, 6) { 2,
+                     (3, 4) { 1,
+                     (3, 5) { 0,
+                     (3, 6) { 0,
+                     (4, 5) { 0,
+                     (4, 6) { 0,
+                     (5, 6) { 2});
 
         this->gold = gold
 
@@ -59,7 +59,7 @@ class TestTreeLCA: public object {
     auto test_tree_all_pairs_lowest_common_ancestor3( ) {
         /** Specifying no pairs same as specifying all. */
         all_pairs = chain(combinations(this->DG, 2),
-                          auto [(node, node) for node : this->DG));
+                          ((node, node) for node : this->DG));
 
         ans = dict(tree_all_pairs_lca(this->DG, 0, all_pairs));
         this->assert_has_same_pairs(ans, this->ans);
@@ -165,41 +165,41 @@ class TestDAGLCA) {
         this->root_distance = xn::shortest_path_length(this->DG, source=0);
 
         this->gold = {(1, 1) { 1,
-                     auto [1, 2) { 1,
-                     auto [1, 3) { 1,
-                     auto [1, 4) { 0,
-                     auto [1, 5) { 0,
-                     auto [1, 6) { 0,
-                     auto [1, 7) { 0,
-                     auto [1, 8) { 0,
-                     auto [2, 2) { 2,
-                     auto [2, 3) { 2,
-                     auto [2, 4) { 0,
-                     auto [2, 5) { 5,
-                     auto [2, 6) { 6,
-                     auto [2, 7) { 7,
-                     auto [2, 8) { 7,
-                     auto [3, 3) { 8,
-                     auto [3, 4) { 4,
-                     auto [3, 5) { 5,
-                     auto [3, 6) { 6,
-                     auto [3, 7) { 7,
-                     auto [3, 8) { 8,
-                     auto [4, 4) { 4,
-                     auto [4, 5) { 0,
-                     auto [4, 6) { 0,
-                     auto [4, 7) { 0,
-                     auto [4, 8) { 0,
-                     auto [5, 5) { 5,
-                     auto [5, 6) { 5,
-                     auto [5, 7) { 5,
-                     auto [5, 8) { 5,
-                     auto [6, 6) { 6,
-                     auto [6, 7) { 5,
-                     auto [6, 8) { 6,
-                     auto [7, 7) { 7,
-                     auto [7, 8) { 7,
-                     auto [8, 8) { 8}
+                     (1, 2) { 1,
+                     (1, 3) { 1,
+                     (1, 4) { 0,
+                     (1, 5) { 0,
+                     (1, 6) { 0,
+                     (1, 7) { 0,
+                     (1, 8) { 0,
+                     (2, 2) { 2,
+                     (2, 3) { 2,
+                     (2, 4) { 0,
+                     (2, 5) { 5,
+                     (2, 6) { 6,
+                     (2, 7) { 7,
+                     (2, 8) { 7,
+                     (3, 3) { 8,
+                     (3, 4) { 4,
+                     (3, 5) { 5,
+                     (3, 6) { 6,
+                     (3, 7) { 7,
+                     (3, 8) { 8,
+                     (4, 4) { 4,
+                     (4, 5) { 0,
+                     (4, 6) { 0,
+                     (4, 7) { 0,
+                     (4, 8) { 0,
+                     (5, 5) { 5,
+                     (5, 6) { 5,
+                     (5, 7) { 5,
+                     (5, 8) { 5,
+                     (6, 6) { 6,
+                     (6, 7) { 5,
+                     (6, 8) { 6,
+                     (7, 7) { 7,
+                     (7, 8) { 7,
+                     (8, 8) { 8}
         this->gold.update(((0, n), 0) for n : this->DG);
 
     auto assert_lca_dicts_same( d1, d2, G=None) {

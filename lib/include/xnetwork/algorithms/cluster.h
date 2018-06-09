@@ -127,7 +127,7 @@ auto _weighted_triangles_and_degree_iter(G, nodes=None, weight="weight") {
 /// @not_implemented_for("multigraph");
 auto _directed_triangles_and_degree_iter(G, nodes=None) {
     /** Return an iterator of
-    auto [node, total_degree, reciprocal_degree, directed_triangles).
+    (node, total_degree, reciprocal_degree, directed_triangles).
 
     Used for directed clustering.
 
@@ -144,9 +144,9 @@ auto _directed_triangles_and_degree_iter(G, nodes=None) {
             jsuccs = set(G._succ[j]) - {j}
             directed_triangles += sum((1 for k in
                                        chain((ipreds & jpreds),
-                                             auto [ipreds & jsuccs),
-                                             auto [isuccs & jpreds),
-                                             auto [isuccs & jsuccs))));
+                                             (ipreds & jsuccs),
+                                             (isuccs & jpreds),
+                                             (isuccs & jsuccs))));
         dtotal = len(ipreds) + len(isuccs);
         dbidirectional = len(ipreds & isuccs);
         yield (i, dtotal, dbidirectional, directed_triangles);
@@ -155,7 +155,7 @@ auto _directed_triangles_and_degree_iter(G, nodes=None) {
 /// @not_implemented_for("multigraph");
 auto _directed_weighted_triangles_and_degree_iter(G, nodes=None, weight = "weight") {
     /** Return an iterator of
-    auto [node, total_degree, reciprocal_degree, directed_weighted_triangles).
+    (node, total_degree, reciprocal_degree, directed_weighted_triangles).
 
     Used for directed weighted clustering.
 
@@ -373,7 +373,7 @@ auto transitivity(G) {
     present : G.
 
     Possible triangles are identified by the number of "triads"
-    auto [two edges with a shared vertex).
+    (two edges with a shared vertex).
 
     The transitivity is
 

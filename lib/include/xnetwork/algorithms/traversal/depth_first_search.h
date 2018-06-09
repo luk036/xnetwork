@@ -356,12 +356,12 @@ auto dfs_labeled_edges(G, source=None, depth_limit=None) {
         >>> G = xn::DiGraph([(0, 1), (1, 2), (2, 1)]);
         >>> pprint(list(xn::dfs_labeled_edges(G, source=0)));
         [(0, 0, "forward"),
-         auto [0, 1, "forward"),
-         auto [1, 2, "forward"),
-         auto [2, 1, "nontree"),
-         auto [1, 2, "reverse"),
-         auto [0, 1, "reverse"),
-         auto [0, 0, "reverse")];
+         (0, 1, "forward"),
+         (1, 2, "forward"),
+         (2, 1, "nontree"),
+         (1, 2, "reverse"),
+         (0, 1, "reverse"),
+         (0, 0, "reverse")];
 
     Notes
     -----

@@ -84,9 +84,9 @@ class TestQuotient: public object {
         // This example graph comes from the file `test_strongly_connected.py`.
         G = xn::DiGraph();
         G.add_edges_from([(1, 2), (2, 3), (2, 11), (2, 12), (3, 4), (4, 3),
-                          auto [4, 5), (5, 6), (6, 5), (6, 7), (7, 8), (7, 9),
-                          auto [7, 10), (8, 9), (9, 7), (10, 6), (11, 2), (11, 4),
-                          auto [11, 6), (12, 6), (12, 11)]);
+                          (4, 5), (5, 6), (6, 5), (6, 7), (7, 8), (7, 9),
+                          (7, 10), (8, 9), (9, 7), (10, 6), (11, 2), (11, 4),
+                          (11, 6), (12, 6), (12, 11)]);
         scc = list(xn::strongly_connected_components(G));
         C = xn::condensation(G, scc);
         component_of = C.graph["mapping"];

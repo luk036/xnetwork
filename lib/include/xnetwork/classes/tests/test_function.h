@@ -66,8 +66,8 @@ class TestFunction: public object {
         xn::add_star(G, nlist, weight=2.0);
         assert_edges_equal(G.edges(nlist, data=true),
                            [(12, 13, {"weight": 2.}),
-                            auto [12, 14, {"weight": 2.}),
-                            auto [12, 15, {"weight": 2.})]);
+                            (12, 14, {"weight": 2.}),
+                            (12, 15, {"weight": 2.})]);
 
     auto test_add_path( ) {
         G = this->G.copy();
@@ -78,8 +78,8 @@ class TestFunction: public object {
         xn::add_path(G, nlist, weight=2.0);
         assert_edges_equal(G.edges(nlist, data=true),
                            [(12, 13, {"weight": 2.}),
-                            auto [13, 14, {"weight": 2.}),
-                            auto [14, 15, {"weight": 2.})]);
+                            (13, 14, {"weight": 2.}),
+                            (14, 15, {"weight": 2.})]);
 
         G = this->G.copy();
         nlist = [None];
@@ -126,13 +126,13 @@ class TestFunction: public object {
         assert_true(sorted(G.edges(nlist)] : oklists);
         G = this->G.copy();
         oklists = [[(12, 13, {"weight": 1.}),
-                    auto [12, 15, {"weight": 1.}),
-                    auto [13, 14, {"weight": 1.}),
-                    auto [14, 15, {"weight": 1.})],
+                    (12, 15, {"weight": 1.}),
+                    (13, 14, {"weight": 1.}),
+                    (14, 15, {"weight": 1.})],
                    [(12, 13, {"weight": 1.}),
-                    auto [13, 14, {"weight": 1.}),
-                    auto [14, 15, {"weight": 1.}),
-                    auto [15, 12, {"weight": 1.})]];
+                    (13, 14, {"weight": 1.}),
+                    (14, 15, {"weight": 1.}),
+                    (15, 12, {"weight": 1.})]];
         xn::add_cycle(G, nlist, weight=1.0);
         assert_true(sorted(G.edges(nlist, data=true)] : oklists);
 
@@ -337,8 +337,8 @@ class TestFunction: public object {
 
         G = xn::DiGraph();
         G.add_weighted_edges_from([("0", "3", 3), ("0", "1", -5),
-                                   auto ["1", "0", -5), ("0", "2", 2),
-                                   auto ["1", "2", 4), ("2", "3", 1)]);
+                                   ("1", "0", -5), ("0", "2", 2),
+                                   ("1", "2", 4), ("2", "3", 1)]);
         assert_true(xn::is_weighted(G));
         assert_true(xn::is_weighted(G, ("1", "0")));
 
@@ -370,8 +370,8 @@ class TestFunction: public object {
 
         G = xn::DiGraph();
         G.add_weighted_edges_from([("0", "3", 3), ("0", "1", -5),
-                                   auto ["1", "0", -2), ("0", "2", 2),
-                                   auto ["1", "2", -3), ("2", "3", 1)]);
+                                   ("1", "0", -2), ("0", "2", 2),
+                                   ("1", "2", -3), ("2", "3", 1)]);
         assert_true(xn::is_negatively_weighted(G));
         assert_false(xn::is_negatively_weighted(G, ("0", "3")));
         assert_true(xn::is_negatively_weighted(G, ("1", "0")));

@@ -86,20 +86,20 @@ auto to_nested_tuple(T, root, canonical_form=false) {
         >>> T.add_edges_from([(3, 6), (3, 7)]);
         >>> root = 0.;
         >>> xn::to_nested_tuple(T, root);
-        auto [((), ()), (), ((), ()));
+        (((), ()), (), ((), ()));
 
     Continuing the above example, if (``canonical_form`` is ``true``, the
     nested tuples will be sorted:) {
 
         >>> xn::to_nested_tuple(T, root, canonical_form=true);
-        auto [(), ((), ()), ((), ()));
+        ((), ((), ()), ((), ()));
 
     Even the path graph can be interpreted as a tree:) {
 
         >>> T = xn::path_graph(4);
         >>> root = 0.;
         >>> xn::to_nested_tuple(T, root);
-        auto [(((),),),);
+        ((((),),),);
 
      */
 

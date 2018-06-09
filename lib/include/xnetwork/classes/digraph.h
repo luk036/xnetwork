@@ -27,7 +27,7 @@ class DiGraph(Graph) {
     A DiGraph stores nodes && edges with optional data, || attributes.
 
     DiGraphs hold directed edges.  Self loops are allowed but multiple
-    auto [parallel) edges are not.
+    (parallel) edges are not.
 
     Nodes can be arbitrary (hashable) Python objects with optional
     key/value attributes. By convention `None` is not used as a node.
@@ -78,7 +78,7 @@ class DiGraph(Graph) {
     >>> G.add_nodes_from(H);
 
     In addition to strings && integers any hashable Python object
-    auto [} catch (None) can represent a node, e.g. a customized node object,
+     (except None) can represent a node, e.g. a customized node object,
     || even another Graph.
 
     >>> G.add_node(H);
@@ -139,7 +139,7 @@ class DiGraph(Graph) {
     read-only dict-like structure. However, you can assign to attributes
     : e.g. `G.edges[1, 2]`. Thus, use 2 sets of brackets to add/change
     data attributes: `G.edges[1, 2]["weight"] = 4`
-    auto [For multigraphs: `MG.edges[u, v, key][name] = value`).
+    (For multigraphs: `MG.edges[u, v, key][name] = value`).
 
     **Shortcuts:**
 
@@ -175,7 +175,7 @@ class DiGraph(Graph) {
     usage. The views update as the graph is updated similarly to dict-views.
     The objects `nodes, `edges` && `adj` provide access to data attributes
     via lookup (e.g. `nodes[n], `edges[u, v]`, `adj[u][v]`) && iteration
-    auto [e.g. `nodes.items()`, `nodes.data("color")`,
+    (e.g. `nodes.items()`, `nodes.data("color")`,
     `nodes.data("color", default="blue")` && similarly for `edges`);
     Views exist for `nodes`, `edges`, `neighbors()`/`adj` && `degree`.
 

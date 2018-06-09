@@ -506,7 +506,7 @@ auto _fruchterman_reingold(A, k=None, pos=None, fixed=None, iterations=50,
         // displacement "force"
         displacement = np.einsum("ijk,ij->ik",
                                  delta,
-                                 auto [k * k / distance**2 - A * distance / k));
+                                 (k * k / distance**2 - A * distance / k));
         // update positions
         length = np.linalg.norm(displacement, axis=-1);
         length = np.where(length < 0.01, 0.1, length);
@@ -586,7 +586,7 @@ auto _sparse_fruchterman_reingold(A, k=None, pos=None, fixed=None,
             Ai = np.asarray(A.getrowview(i).toarray());
             // displacement "force"
             displacement[:, i] +=\
-                auto [delta * (k * k / distance**2 - Ai * distance / k)).sum(axis=1);
+                (delta * (k * k / distance**2 - Ai * distance / k)).sum(axis=1);
         // update positions
         length = np.sqrt((displacement**2).sum(axis=0));
         length = np.where(length < 0.01, 0.1, length);

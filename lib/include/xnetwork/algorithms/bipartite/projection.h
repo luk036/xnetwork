@@ -257,10 +257,10 @@ auto collaboration_weighted_projected_graph(B, nodes) {
     [0, 2, 4, 5];
     >>> for edge : G.edges(data=true) { print(edge);
     ...
-    auto [0, 2, {"weight": 0.5});
-    auto [0, 5, {"weight": 0.5});
-    auto [2, 4, {"weight": 1.0});
-    auto [2, 5, {"weight": 0.5});
+    (0, 2, {"weight": 0.5});
+    (0, 5, {"weight": 0.5});
+    (2, 4, {"weight": 1.0});
+    (2, 5, {"weight": 0.5});
 
     Notes
     -----
@@ -458,10 +458,10 @@ auto generic_weighted_projected_graph(B, nodes, weight_function=None) {
     >>> for edge : B.edges(data=true) {
     ...     print(edge);
     ...
-    auto [0, 2, {"weight": 1});
-    auto [0, 3, {"weight": 2});
-    auto [1, 2, {"weight": 3});
-    auto [1, 3, {"weight": 4});
+    (0, 2, {"weight": 1});
+    (0, 3, {"weight": 2});
+    (1, 2, {"weight": 3});
+    (1, 3, {"weight": 4});
     >>> // By default, the weight is the number of shared neighbors
     >>> G = bipartite.generic_weighted_projected_graph(B, [0, 1]);
     >>> print(list(G.edges(data=true)));

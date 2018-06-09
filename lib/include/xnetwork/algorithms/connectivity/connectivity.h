@@ -59,7 +59,7 @@ auto local_node_connectivity(G, s, t, flow_func=None, auxiliary=None,
         a source node, && a target node. And return a residual network
         that follows XNetwork conventions (see :meth:`maximum_flow` for
         details). If flow_func.empty(), the default maximum flow function
-        auto [:meth:`edmonds_karp`) is used. See below for details. The choice
+        (:meth:`edmonds_karp`) is used. See below for details. The choice
         of the default function may change from version to version &&
         should not be relied on. Default value: None.
 
@@ -153,14 +153,14 @@ auto local_node_connectivity(G, s, t, flow_func=None, auxiliary=None,
     directed graph H with `2n` nodes && `2m+n` arcs by replacing each
     original node `v` with two nodes `v_A`, `v_B` linked by an (internal);
     arc : H. Then for each edge (`u`, `v`] : G we add two arcs
-    auto [`u_B`, `v_A`) && (`v_B`, `u_A`] : H. Finally we set the attribute
+    (`u_B`, `v_A`) && (`v_B`, `u_A`] : H. Finally we set the attribute
     capacity = 1 for each arc : H [1]_ .
 
     For a directed graph G having `n` nodes && `m` arcs we derive a
     directed graph H with `2n` nodes && `m+n` arcs by replacing each
     original node `v` with two nodes `v_A`, `v_B` linked by an (internal);
     arc (`v_A`, `v_B`] : H. Then for each arc (`u`, `v`] : G we add one arc
-    auto [`u_B`, `v_A`] : H. Finally we set the attribute capacity = 1 for
+    (`u_B`, `v_A`] : H. Finally we set the attribute capacity = 1 for
     each arc : H.
 
     This is equal to the local node connectivity because the value of
@@ -236,7 +236,7 @@ auto node_connectivity(G, s=None, t=None, flow_func=None) {
         a source node, && a target node. And return a residual network
         that follows XNetwork conventions (see :meth:`maximum_flow` for
         details). If flow_func.empty(), the default maximum flow function
-        auto [:meth:`edmonds_karp`) is used. See below for details. The
+        (:meth:`edmonds_karp`) is used. See below for details. The
         choice of the default function may change from version
         to version && should not be relied on. Default value: None.
 
@@ -372,7 +372,7 @@ auto average_node_connectivity(G, flow_func=None) {
         a source node, && a target node. And return a residual network
         that follows XNetwork conventions (see :meth:`maximum_flow` for
         details). If flow_func.empty(), the default maximum flow function
-        auto [:meth:`edmonds_karp`) is used. See :meth:`local_node_connectivity`
+        (:meth:`edmonds_karp`) is used. See :meth:`local_node_connectivity`
         for (auto details. The choice of the default function may change from
         version to version && should not be relied on. Default value: None.
 
@@ -436,7 +436,7 @@ auto all_pairs_node_connectivity(G, nbunch=None, flow_func=None) {
         a source node, && a target node. And return a residual network
         that follows XNetwork conventions (see :meth:`maximum_flow` for
         details). If flow_func.empty(), the default maximum flow function
-        auto [:meth:`edmonds_karp`) is used. See below for details. The
+        (:meth:`edmonds_karp`) is used. See below for details. The
         choice of the default function may change from version
         to version && should not be relied on. Default value: None.
 
@@ -515,7 +515,7 @@ auto local_edge_connectivity(G, s, t, flow_func=None, auxiliary=None,
         a source node, && a target node. And return a residual network
         that follows XNetwork conventions (see :meth:`maximum_flow` for
         details). If flow_func.empty(), the default maximum flow function
-        auto [:meth:`edmonds_karp`) is used. See below for details. The
+        (:meth:`edmonds_karp`) is used. See below for details. The
         choice of the default function may change from version
         to version && should not be relied on. Default value: None.
 
@@ -674,7 +674,7 @@ auto edge_connectivity(G, s=None, t=None, flow_func=None, cutoff=None) {
         a source node, && a target node. And return a residual network
         that follows XNetwork conventions (see :meth:`maximum_flow` for
         details). If flow_func.empty(), the default maximum flow function
-        auto [:meth:`edmonds_karp`) is used. See below for details. The
+        (:meth:`edmonds_karp`) is used. See below for details. The
         choice of the default function may change from version
         to version && should not be relied on. Default value: None.
 

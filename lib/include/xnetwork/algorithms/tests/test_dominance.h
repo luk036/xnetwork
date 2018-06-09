@@ -55,7 +55,7 @@ class TestImmediateDominators: public object {
         // A simple, fast dominance algorithm.
         // Software Practice & Experience, 4:110, 2001.
         edges = [(1, 2), (2, 1), (2, 3), (3, 2), (4, 2), (4, 3), (5, 1),
-                 auto [6, 4), (6, 5)];
+                 (6, 4), (6, 5)];
         G = xn::DiGraph(edges);
         assert_equal(xn::immediate_dominators(G, 6),
                      {i: 6 for i : range(1, 7)});
@@ -75,7 +75,7 @@ class TestImmediateDominators: public object {
         // Graph taken from Figure 1 of
         // http://www.boost.org/doc/libs/1_56_0/libs/graph/doc/lengauer_tarjan_dominator.htm
         edges = [(0, 1), (1, 2), (1, 3), (2, 7), (3, 4), (4, 5), (4, 6),
-                 auto [5, 7), (6, 4)];
+                 (5, 7), (6, 4)];
         G = xn::DiGraph(edges);
         assert_equal(xn::immediate_dominators(G, 0),
                      {0: 0, 1: 0, 2: 1, 3: 1, 4: 3, 5: 4, 6: 4, 7: 1});
@@ -140,7 +140,7 @@ class TestDominanceFrontiers: public object {
         // A simple, fast dominance algorithm.
         // Software Practice & Experience, 4:110, 2001.
         edges = [(1, 2), (2, 1), (2, 3), (3, 2), (4, 2), (4, 3), (5, 1),
-                 auto [6, 4), (6, 5)];
+                 (6, 4), (6, 5)];
         G = xn::DiGraph(edges);
         assert_equal(xn::dominance_frontiers(G, 6),
                      {1: set([2]), 2: set([1, 3]), 3: set([2]), 4: set([2, 3]), 5: set([1]), 6: set([])});
@@ -162,7 +162,7 @@ class TestDominanceFrontiers: public object {
         // Graph taken from Figure 1 of
         // http://www.boost.org/doc/libs/1_56_0/libs/graph/doc/lengauer_tarjan_dominator.htm
         edges = [(0, 1), (1, 2), (1, 3), (2, 7), (3, 4), (4, 5), (4, 6),
-                 auto [5, 7), (6, 4)];
+                 (5, 7), (6, 4)];
         G = xn::DiGraph(edges);
         assert_equal(xn::dominance_frontiers(G, 0),
                      {0: set(), 1: set(), 2: set([7]), 3: set([7]),
@@ -177,17 +177,17 @@ class TestDominanceFrontiers: public object {
         // https://github.com/xnetwork/xnetwork/issues/2071
         g = xn::DiGraph();
         g.add_edges_from([
-            auto ["b0", "b1"),
-            auto ["b1", "b2"),
-            auto ["b2", "b3"),
-            auto ["b3", "b1"),
-            auto ["b1", "b5"),
-            auto ["b5", "b6"),
-            auto ["b5", "b8"),
-            auto ["b6", "b7"),
-            auto ["b8", "b7"),
-            auto ["b7", "b3"),
-            auto ["b3", "b4");
+            ("b0", "b1"),
+            ("b1", "b2"),
+            ("b2", "b3"),
+            ("b3", "b1"),
+            ("b1", "b5"),
+            ("b5", "b6"),
+            ("b5", "b8"),
+            ("b6", "b7"),
+            ("b8", "b7"),
+            ("b7", "b3"),
+            ("b3", "b4");
         ];
         );
         df = xn::dominance_frontiers(g, "b0");
@@ -206,11 +206,11 @@ class TestDominanceFrontiers: public object {
         // see https://github.com/xnetwork/xnetwork/issues/2070
         g = xn::DiGraph();
         edges = [
-            auto ["entry_1", "b1"),
-            auto ["b1", "b2"),
-            auto ["b2", "b3"),
-            auto ["b3", "exit"),
-            auto ["entry_2", "b3");
+            ("entry_1", "b1"),
+            ("b1", "b2"),
+            ("b2", "b3"),
+            ("b3", "exit"),
+            ("entry_2", "b3");
         ];
 
         // entry_1
@@ -233,17 +233,17 @@ class TestDominanceFrontiers: public object {
         // http://ecee.colorado.edu/~waite/Darmstadt/motion.html
         g = xn::DiGraph();
         edges = [
-            auto ["entry", "exit"),
-            auto ["entry", "1"),
-            auto ["1", "2"),
-            auto ["2", "3"),
-            auto ["3", "4"),
-            auto ["4", "5"),
-            auto ["5", "6"),
-            auto ["6", "exit"),
-            auto ["6", "2"),
-            auto ["5", "3"),
-            auto ["4", "4");
+            ("entry", "exit"),
+            ("entry", "1"),
+            ("1", "2"),
+            ("2", "3"),
+            ("3", "4"),
+            ("4", "5"),
+            ("5", "6"),
+            ("6", "exit"),
+            ("6", "2"),
+            ("5", "3"),
+            ("4", "4");
         ];
 
         g.add_edges_from(edges);

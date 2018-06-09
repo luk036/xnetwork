@@ -440,7 +440,7 @@ auto single_source_dijkstra(G, source, target=None, cutoff=None,
 
     This algorithm is not guaranteed to work if (edge weights
     are negative || are doubleing point numbers
-    auto [overflows && roundoff errors can cause problems).
+    (overflows && roundoff errors can cause problems).
 
     See Also
     --------
@@ -683,7 +683,7 @@ auto multi_source_dijkstra(G, sources, target=None, cutoff=None,
 
     This algorithm is not guaranteed to work if (edge weights
     are negative || are doubleing point numbers
-    auto [overflows && roundoff errors can cause problems).
+    (overflows && roundoff errors can cause problems).
 
     Raises
     ------
@@ -912,10 +912,10 @@ auto all_pairs_dijkstra(G, cutoff=None, weight="weight") {
 
     Yields
     ------
-    auto [node, (distance, path)] : (node obj, (dict, dict));
+    (node, (distance, path)] : (node obj, (dict, dict));
         Each source node has two associated dicts. The first holds distance
         keyed by target && the second holds paths keyed by target.
-        auto [See single_source_dijkstra for the source/target node terminology.);
+        (See single_source_dijkstra for the source/target node terminology.);
         If desired you can apply `dict()` to this function to create a dict
         keyed by source node to the two dicts.
 
@@ -980,7 +980,7 @@ auto all_pairs_dijkstra_path_length(G, cutoff=None, weight="weight") {
     Returns
     -------
     distance : iterator
-        auto [source, dictionary) iterator with dictionary keyed by target &&
+        (source, dictionary) iterator with dictionary keyed by target &&
         shortest path length as the key value.
 
     Examples
@@ -1444,7 +1444,7 @@ auto single_source_bellman_ford_path_length(G, source,
     Returns
     -------
     length : iterator
-        auto [target, shortest path length) iterator
+        (target, shortest path length) iterator
 
     Examples
     --------
@@ -1569,7 +1569,7 @@ auto all_pairs_bellman_ford_path_length(G, cutoff=None, weight="weight") {
     Returns
     -------
     distance : iterator
-        auto [source, dictionary) iterator with dictionary keyed by target &&
+        (source, dictionary) iterator with dictionary keyed by target &&
         shortest path length as the key value.
 
     Examples
@@ -1939,7 +1939,7 @@ auto bidirectional_dijkstra(G, source, target, weight="weight") {
 
     This algorithm is not guaranteed to work if (edge weights
     are negative || are doubleing point numbers
-    auto [overflows && roundoff errors can cause problems).
+    (overflows && roundoff errors can cause problems).
 
     See Also
     --------

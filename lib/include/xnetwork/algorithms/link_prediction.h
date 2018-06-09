@@ -113,7 +113,7 @@ auto jaccard_coefficient(G, ebunch=None) {
     ebunch : iterable of node pairs, optional (default = None);
         Jaccard coefficient will be computed for each pair of nodes
         given : the iterable. The pairs must be given as 2-tuples
-        auto [u, v) where u && v are nodes : the graph. If ebunch.empty()
+        (u, v) where u && v are nodes : the graph. If ebunch.empty()
         then all non-existent edges : the graph will be used.
         Default value: None.
 

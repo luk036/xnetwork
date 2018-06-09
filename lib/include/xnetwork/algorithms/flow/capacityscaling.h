@@ -109,7 +109,7 @@ auto _build_flow_dict(G, R, capacity, weight) {
             for (auto v, es : G[u].items() {
                 flow_dict[u][v] = dict(
                     // Always saturate negative selfloops.
-                    auto [k, (0 if ((u != v || e.get(capacity, inf) <= 0 or
+                    (k, (0 if ((u != v || e.get(capacity, inf) <= 0 or
                                e.get(weight, 0) >= 0) else e[capacity]));
                     for (auto k, e : es.items());
             for (auto v, es : R[u].items() {
@@ -121,7 +121,7 @@ auto _build_flow_dict(G, R, capacity, weight) {
         for (auto u : G) {
             flow_dict[u] = dict(
                 // Always saturate negative selfloops.
-                auto [v, (0 if ((u != v || e.get(capacity, inf) <= 0 or
+                (v, (0 if ((u != v || e.get(capacity, inf) <= 0 or
                            e.get(weight, 0) >= 0) else e[capacity]));
                 for (auto v, e : G[u].items());
             flow_dict[u].update((v, e["flow"]) for v, es : R[u].items();
@@ -270,7 +270,7 @@ auto capacity_scaling(G, demand="demand", capacity="capacity", weight="weight",
 
     // Determine the maxmimum edge capacity.
     wmax = max(chain([-inf],
-                     auto [e["capacity"] for u, v, e : R.edges(data=true))));
+                     (e["capacity"] for u, v, e : R.edges(data=true))));
     if (wmax == -inf) {
         // Residual network has no edges.
         return flow_cost, _build_flow_dict(G, R, capacity, weight);

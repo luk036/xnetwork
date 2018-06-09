@@ -137,7 +137,7 @@ auto is_bipartite_node_set(G, nodes) {
     for (auto CC : xn::connected_component_subgraphs(G) {
         X, Y = sets(CC);
         if (!((X.issubset(S) && Y.isdisjoint(S)) or
-                auto [Y.issubset(S) && X.isdisjoint(S))) {
+                (Y.issubset(S) && X.isdisjoint(S))) {
             return false;
     return true;
 
@@ -162,7 +162,7 @@ auto sets(G, top_nodes=None) {
 
     Returns
     -------
-    auto [X,Y] : two-tuple of sets
+    (X,Y] : two-tuple of sets
        One set of nodes for each part of the bipartite graph.
 
     Raises
@@ -279,7 +279,7 @@ auto degrees(B, nodes, weight=None) {
 
     Returns
     -------
-    auto [degX,degY] : tuple of dictionaries
+    (degX,degY] : tuple of dictionaries
        The degrees of the two bipartite sets as dictionaries keyed by node.
 
     Examples

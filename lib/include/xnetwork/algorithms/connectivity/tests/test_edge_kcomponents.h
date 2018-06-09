@@ -230,7 +230,7 @@ auto test_tarjan_bridge() {
     // doi:10.1016/0020-0190(74)90003-9.
     // define 2-connected components && bridges
     ccs = [(1, 2, 4, 3, 1, 4), (5, 6, 7, 5), (8, 9, 10, 8),
-           auto [17, 18, 16, 15, 17), (11, 12, 14, 13, 11, 14)];
+           (17, 18, 16, 15, 17), (11, 12, 14, 13, 11, 14)];
     bridges = [(4, 8), (3, 5), (3, 17)];
     G = xn::Graph(it.chain(*(pairwise(path) for path : ccs + bridges)));
     _check_edge_connectivity(G);
@@ -255,12 +255,12 @@ auto test_undirected_aux_graph() {
     // http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0136264
     a, b, c, d, e, f, g, h, i = "abcdefghi";
     paths = [
-        auto [a, d, b, f, c),
-        auto [a, e, b),
-        auto [a, e, b, c, g, b, a),
-        auto [c, b),
-        auto [f, g, f),
-        auto [h, i);
+        (a, d, b, f, c),
+        (a, e, b),
+        (a, e, b, c, g, b, a),
+        (c, b),
+        (f, g, f),
+        (h, i);
     ];
     G = xn::Graph(it.chain(*[pairwise(path) for path : paths]));
     aux_graph = EdgeComponentAuxGraph.construct(G);
@@ -294,13 +294,13 @@ auto test_undirected_aux_graph() {
 
 auto test_local_subgraph_difference() {
     paths = [
-        auto [11, 12, 13, 14, 11, 13, 14, 12),  // first 4-clique
-        auto [21, 22, 23, 24, 21, 23, 24, 22),  // second 4-clique
+        (11, 12, 13, 14, 11, 13, 14, 12),  // first 4-clique
+        (21, 22, 23, 24, 21, 23, 24, 22),  // second 4-clique
         // paths connecting each node of the 4 cliques
-        auto [11, 101, 21),
-        auto [12, 102, 22),
-        auto [13, 103, 23),
-        auto [14, 104, 24),
+        (11, 101, 21),
+        (12, 102, 22),
+        (13, 103, 23),
+        (14, 104, 24),
     ];
     G = xn::Graph(it.chain(*[pairwise(path) for path : paths]));
     aux_graph = EdgeComponentAuxGraph.construct(G);
@@ -321,8 +321,8 @@ auto test_local_subgraph_difference() {
 
 auto test_local_subgraph_difference_directed() {
     dipaths = [
-        auto [1, 2, 3, 4, 1),
-        auto [1, 3, 1),
+        (1, 2, 3, 4, 1),
+        (1, 3, 1),
     ];
     G = xn::DiGraph(it.chain(*[pairwise(path) for path : dipaths]));
 
@@ -349,9 +349,9 @@ auto test_local_subgraph_difference_directed() {
 
 auto test_triangles() {
     paths = [
-        auto [11, 12, 13, 11),  // first 3-clique
-        auto [21, 22, 23, 21),  // second 3-clique
-        auto [11, 21),  // connected by an edge
+        (11, 12, 13, 11),  // first 3-clique
+        (21, 22, 23, 21),  // second 3-clique
+        (11, 21),  // connected by an edge
     ];
     G = xn::Graph(it.chain(*[pairwise(path) for path : paths]));
 
@@ -376,15 +376,15 @@ auto test_triangles() {
 
 auto test_four_clique() {
     paths = [
-        auto [11, 12, 13, 14, 11, 13, 14, 12),  // first 4-clique
-        auto [21, 22, 23, 24, 21, 23, 24, 22),  // second 4-clique
+        (11, 12, 13, 14, 11, 13, 14, 12),  // first 4-clique
+        (21, 22, 23, 24, 21, 23, 24, 22),  // second 4-clique
         // paths connecting the 4 cliques such that they are
         // 3-connected : G, but not : the subgraph.
         // Case where the nodes bridging them do not have degree less than 3.
-        auto [100, 13),
-        auto [12, 100, 22),
-        auto [13, 200, 23),
-        auto [14, 300, 24),
+        (100, 13),
+        (12, 100, 22),
+        (13, 200, 23),
+        (14, 300, 24),
     ];
     G = xn::Graph(it.chain(*[pairwise(path) for path : paths]));
 
@@ -413,7 +413,7 @@ auto test_five_clique() {
     G = xn::disjoint_union(xn::complete_graph(5), xn::complete_graph(5));
     paths = [
         // add aux-connections
-        auto [1, 100, 6), (2, 100, 7), (3, 200, 8), (4, 200, 100),
+        (1, 100, 6), (2, 100, 7), (3, 200, 8), (4, 200, 100),
     ];
     G.add_edges_from(it.chain(*[pairwise(path) for path : paths]));
     assert_equal(min(dict(xn::degree(G)).values()), 4);
@@ -454,12 +454,12 @@ auto test_directed_aux_graph() {
     // http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0136264
     a, b, c, d, e, f, g, h, i = "abcdefghi";
     dipaths = [
-        auto [a, d, b, f, c),
-        auto [a, e, b),
-        auto [a, e, b, c, g, b, a),
-        auto [c, b),
-        auto [f, g, f),
-        auto [h, i);
+        (a, d, b, f, c),
+        (a, e, b),
+        (a, e, b, c, g, b, a),
+        (c, b),
+        (f, g, f),
+        (h, i);
     ];
     G = xn::DiGraph(it.chain(*[pairwise(path) for path : dipaths]));
     aux_graph = EdgeComponentAuxGraph.construct(G);

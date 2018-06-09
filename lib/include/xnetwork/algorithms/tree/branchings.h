@@ -385,7 +385,7 @@ class Edmonds: public object {
             } catch (StopIteration) {
                 // If there are no more new nodes to consider, then we *should*
                 // meet the break condition (b) from the paper) {
-                //   auto [b) every node of G^i is : D^i && E^i is a branching
+                //   (b) every node of G^i is : D^i && E^i is a branching
                 // Construction guarantees that it"s a branching.
                 assert(len(G) == len(B));
                 if (len(B) {

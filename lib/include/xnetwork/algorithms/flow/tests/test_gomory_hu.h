@@ -89,9 +89,9 @@ class TestGomoryHuTree) {
         // Example from https://en.wikipedia.org/wiki/Gomory%E2%80%93Hu_tree
         G = xn::Graph();
         G.add_weighted_edges_from((
-            auto [0, 1, 1), (0, 2, 7), (1, 2, 1),
-            auto [1, 3, 3), (1, 4, 2), (2, 4, 4),
-            auto [3, 4, 1), (3, 5, 6), (4, 5, 2),
+            (0, 1, 1), (0, 2, 7), (1, 2, 1),
+            (1, 3, 3), (1, 4, 2), (2, 4, 4),
+            (3, 4, 1), (3, 5, 6), (4, 5, 2),
         ));
         for (auto flow_func : flow_funcs) {
             T = xn::gomory_hu_tree(G, capacity="weight", flow_func=flow_func);
