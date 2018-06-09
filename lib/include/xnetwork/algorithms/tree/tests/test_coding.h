@@ -19,7 +19,7 @@ from xnetwork.testing import assert_nodes_equal
 from xnetwork.testing import assert_edges_equal
 
 
-class TestPruferSequence(object) {
+class TestPruferSequence: public object {
     /** Unit tests for the Prüfer sequence encoding and decoding
     functions.
 
@@ -84,7 +84,7 @@ class TestPruferSequence(object) {
             assert_equal(list(seq), seq2);
 
 
-class TestNestedTuple(object) {
+class TestNestedTuple: public object {
     /** Unit tests for the nested tuple encoding and decoding functions.
 
      */

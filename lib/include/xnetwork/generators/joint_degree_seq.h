@@ -130,7 +130,7 @@ auto _neighbor_switch(G, w, unsat, h_node_residual, avoid_node_id=None) {
                 break;
 
     // select switch_node, a neighbor of w, that is not connected to w_prime
-    w_prime_neighbs = G[w_prime]  // slightly faster declaring this variable
+    w_prime_neighbs = G[w_prime];  // slightly faster declaring this variable
     for (auto v : G[w]) {
         if ((v not : w_prime_neighbs) and (v != w_prime) {
             switch_node = v
@@ -289,4 +289,4 @@ auto joint_degree_graph(joint_degrees, seed=None) {
                             k_unsat.discard(v);
                         if (h_node_residual[w] == 0) {
                             l_unsat.discard(w);
-    return G
+    return G;

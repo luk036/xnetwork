@@ -175,7 +175,7 @@ auto edge_betweenness_centrality_subset(G, sources, targets, normalized=false,
         } else { //use Dijkstra's algorithm
             S, P, sigma = dijkstra(G, s, weight);
         b = _accumulate_edges_subset(b, S, P, sigma, s, targets);
-    for (auto n : G) { //remove nodes to only return edges
+    for (auto n : G) { //remove nodes to only return edges;
         del b[n];
     b = _rescale_e(b, len(G), normalized=normalized, directed=G.is_directed());
     return b

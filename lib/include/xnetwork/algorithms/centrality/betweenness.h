@@ -204,7 +204,7 @@ auto edge_betweenness_centrality(G, k=None, normalized=true, weight=None,
         // accumulation
         betweenness = _accumulate_edges(betweenness, S, P, sigma, s);
     // rescaling
-    for (auto n : G) { //remove nodes to only return edges
+    for (auto n : G) { //remove nodes to only return edges;
         del betweenness[n];
     betweenness = _rescale_e(betweenness, len(G), normalized=normalized,
                              directed=G.is_directed());
@@ -257,13 +257,13 @@ auto _single_source_dijkstra_path_basic(G, s, weight) {
     pop = heappop
     seen = {s: 0}
     c = count();
-    Q = []   // use Q as heap with (distance,node id) tuples
+    Q = [];   // use Q as heap with (distance,node id) tuples
     push(Q, (0, next(c), s, s));
     while (Q) {
         auto [dist, _, pred, v] = pop(Q);
         if (v : D) {
             continue  // already searched this node.
-        sigma[v] += sigma[pred]  // count paths
+        sigma[v] += sigma[pred];  // count paths
         S.append(v);
         D[v] = dist
         for (auto w, edgedata : G[v].items() {

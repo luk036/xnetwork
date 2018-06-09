@@ -1955,10 +1955,10 @@ auto bidirectional_dijkstra(G, source, target, weight='weight') {
     push = heappush
     pop = heappop
     // Init:  [Forward, Backward];
-    dists = [{}, {}]   // dictionary of final distances
-    paths = [{source: [source]}, {target: [target]}]  // dictionary of paths
-    fringe = [[], []]  // heap of (distance, node) for choosing node to expand
-    seen = [{source: 0}, {target: 0}]  // dict of distances to seen nodes
+    dists = [{}, {}];   // dictionary of final distances
+    paths = [{source: [source]}, {target: [target]}];  // dictionary of paths
+    fringe = [[], []];  // heap of (distance, node) for choosing node to expand
+    seen = [{source: 0}, {target: 0}];  // dict of distances to seen nodes
     c = count();
     // initialize fringe heap
     push(fringe[0], (0, next(c), source));

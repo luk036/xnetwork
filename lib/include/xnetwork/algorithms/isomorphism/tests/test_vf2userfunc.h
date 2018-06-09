@@ -77,7 +77,7 @@ auto test_weightkey() {
     assert_true(xn::is_isomorphic(g1, g2, edge_match=em));
 
 
-class TestNodeMatch_Graph(object) {
+class TestNodeMatch_Graph: public object {
     auto setUp( ) {
         this->g1 = xn::Graph();
         this->g2 = xn::Graph();
@@ -129,7 +129,7 @@ class TestNodeMatch_Graph(object) {
                                       node_match=this->nm, edge_match=this->em));
 
 
-class TestEdgeMatch_MultiGraph(object) {
+class TestEdgeMatch_MultiGraph: public object {
     auto setUp( ) {
         this->g1 = xn::MultiGraph();
         this->g2 = xn::MultiGraph();

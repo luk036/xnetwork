@@ -121,7 +121,7 @@ class TestAStar) {
         // `object` class. However, we still support Python 2; when
         // support for Python 2 is dropped, this test can be simplified
         // by replacing `Unorderable()` by `object()`.
-        class Unorderable(object) {
+        class Unorderable: public object {
 
             auto __le__( ) {
                 throw NotImplemented

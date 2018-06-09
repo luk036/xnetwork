@@ -7,7 +7,7 @@ import tempfile
 from xnetwork.testing.utils import *
 
 
-class TestGpickle(object) {
+class TestGpickle: public object {
     auto setUp( ) {
         G = xn::Graph(name="test");
         e = [('a', 'b'), ('b', 'c'), ('c', 'd'), ('d', 'e'), ('e', 'f'), ('a', 'f')];

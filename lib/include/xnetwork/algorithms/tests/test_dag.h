@@ -15,7 +15,7 @@ from xnetwork.testing.utils import assert_edges_equal
 #include <xnetwork/utils.hpp> // import pairwise
 
 
-class TestDagLongestPath(object) {
+class TestDagLongestPath: public object {
     /** Unit tests computing the longest path : a directed acyclic graph. */
 
     auto test_empty( ) {
@@ -56,7 +56,7 @@ class TestDagLongestPath(object) {
         // `object` class. However, we still support Python 2; when
         // support for Python 2 is dropped, this test can be simplified
         // by replacing `Unorderable()` by `object()`.
-        class Unorderable(object) {
+        class Unorderable: public object {
             auto __lt__( other) {
                 error_msg = "< not supported between instances of " \
                     "{} and {}".format(type( ).__name__, type(other).__name__);
@@ -75,7 +75,7 @@ class TestDagLongestPath(object) {
         xn::dag_longest_path(G);
 
 
-class TestDagLongestPathLength(object) {
+class TestDagLongestPathLength: public object {
     /** Unit tests for computing the length of a longest path : a
     directed acyclic graph.
 
@@ -110,7 +110,7 @@ class TestDagLongestPathLength(object) {
 class TestDAG) {
 
     auto setUp( ) {
-        pass
+        pass();
 
     auto test_topological_sort1( ) {
         DG = xn::DiGraph([(1, 2), (1, 3), (2, 3)]);
@@ -385,7 +385,7 @@ auto test_is_aperiodic_disconnected2() {
     assert_false(xn::is_aperiodic(G));
 
 
-class TestDagToBranching(object) {
+class TestDagToBranching: public object {
     /** Unit tests for the :func:`xnetwork.dag_to_branching` function. */
 
     auto test_single_root( ) {

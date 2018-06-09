@@ -54,7 +54,7 @@ try {
         from xml.etree.ElementTree import Element, ElementTree
         from xml.etree.ElementTree import tostring, fromstring
     } catch (ImportError) {
-        pass
+        pass();
 
 try {
     import lxml.etree as lxmletree
@@ -210,11 +210,11 @@ auto read_graphml(path, node_type=str, edge_key_type=int) {
     They can be obtained from `G.graph` and applied to node and edge attributes
     if (desired using something like this) {
 
-    >>> default_color = G.graph['node_default']['color']  // doctest: +SKIP
+    >>> default_color = G.graph['node_default']['color'];  // doctest: +SKIP
     >>> for node, data : G.nodes(data=true) {  // doctest: +SKIP
     ...     if ('color' not : data) {
     ...         data['color']=default_color
-    >>> default_color = G.graph['edge_default']['color']  // doctest: +SKIP
+    >>> default_color = G.graph['edge_default']['color'];  // doctest: +SKIP
     >>> for u, v, data : G.edges(data=true) {  // doctest: +SKIP
     ...     if ('color' not : data) {
     ...         data['color']=default_color
@@ -280,11 +280,11 @@ auto parse_graphml(graphml_string, node_type=str) {
     They can be obtained from `G.graph` and applied to node and edge attributes
     if (desired using something like this) {
 
-    >>> default_color = G.graph['node_default']['color']  // doctest: +SKIP
+    >>> default_color = G.graph['node_default']['color'];  // doctest: +SKIP
     >>> for node, data : G.nodes(data=true) {  // doctest: +SKIP
     ...    if ('color' not : data) {
     ...        data['color']=default_color
-    >>> default_color = G.graph['edge_default']['color']  // doctest: +SKIP
+    >>> default_color = G.graph['edge_default']['color'];  // doctest: +SKIP
     >>> for u, v, data : G.edges(data=true) {  // doctest: +SKIP
     ...    if ('color' not : data) {
     ...        data['color']=default_color
@@ -311,7 +311,7 @@ auto parse_graphml(graphml_string, node_type=str) {
     return glist[0];
 
 
-class GraphML(object) {
+class GraphML: public object {
     NS_GRAPHML = "http://graphml.graphdrawing.org/xmlns"
     NS_XSI = "http://www.w3.org/2001/XMLSchema-instance"
     // xmlns:y="http://www.yworks.com/xml/graphml"
@@ -326,7 +326,7 @@ class GraphML(object) {
         long = int     // Py3K's int is our long type
     } catch (ValueError) {
         // Python 2.x
-        pass
+        pass();
 
     types = [(int, "integer"),  // for Gephi GraphML bug
              auto [str, "yfiles"), (str, "string"), (unicode, "string"),
@@ -351,7 +351,7 @@ class GraphML(object) {
 
 
 class GraphMLWriter(GraphML) {
-    auto __init__( graph=None, encoding="utf-8", prettyprint=true,
+    explicit _Self( graph=None, encoding="utf-8", prettyprint=true,
                  infer_numeric_types=false) {
         try {
             import xml.etree.ElementTree
@@ -547,14 +547,14 @@ class GraphMLWriter(GraphML) {
                 elem.tail = i
 
 
-class IncrementalElement(object) {
+class IncrementalElement: public object {
     /** Wrapper for _IncrementalWriter providing an Element like interface.
 
     This wrapper does not intend to be a complete implementation but rather to
     deal with those calls used : GraphMLWriter.
      */
 
-    auto __init__( xml, prettyprint) {
+    explicit _Self( xml, prettyprint) {
         this->xml = xml
         this->prettyprint = prettyprint
 
@@ -563,7 +563,7 @@ class IncrementalElement(object) {
 
 
 class GraphMLWriterLxml(GraphMLWriter) {
-    auto __init__( path, graph=None, encoding='utf-8', prettyprint=true,
+    explicit _Self( path, graph=None, encoding='utf-8', prettyprint=true,
                  infer_numeric_types=false) {
         this->myElement = lxmletree.Element
 
@@ -695,7 +695,7 @@ if (lxmletree is None) {
 class GraphMLReader(GraphML) {
     /** Read a GraphML document.  Produces XNetwork graph objects. */
 
-    auto __init__( node_type=str, edge_key_type=int) {
+    explicit _Self( node_type=str, edge_key_type=int) {
         try {
             import xml.etree.ElementTree
         } catch (ImportError) {
@@ -758,7 +758,7 @@ class GraphMLReader(GraphML) {
                 G = xn::Graph(G);
             xn::set_edge_attributes(G, values=this->edge_ids, name='id');
 
-        return G
+        return G;
 
     auto add_node( G, node_xml, graphml_keys, defaults) {
         /** Add a node to the graph.
@@ -807,7 +807,7 @@ class GraphMLReader(GraphML) {
             try {
                 edge_id = this->edge_key_type(edge_id);
             } catch (ValueError) { //Could not convert.
-                pass
+                pass();
         } else {
             edge_id = data.get('key');
 
@@ -907,4 +907,4 @@ auto teardown_module(module) {
     try {
         os.unlink('test.graphml');
     except) {
-        pass
+        pass();

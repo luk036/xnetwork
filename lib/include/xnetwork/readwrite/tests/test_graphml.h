@@ -8,7 +8,7 @@ import tempfile
 import os
 
 
-class BaseGraphML(object) {
+class BaseGraphML: public object {
     auto setUp( ) {
         this->simple_directed_data = R"(<?xml version="1.0" encoding="UTF-8"?>
 <!-- This file was written by the JAVA GraphML Library.-->

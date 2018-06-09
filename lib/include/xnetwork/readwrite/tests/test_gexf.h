@@ -7,7 +7,7 @@ from nose.tools import *
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestGEXF(object) {
+class TestGEXF: public object {
     /// @classmethod
     auto setupClass(cls) {
         try {

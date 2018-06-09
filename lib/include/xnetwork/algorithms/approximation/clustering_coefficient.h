@@ -55,7 +55,7 @@ auto average_clustering(G, trials=1000) {
         nbrs = list(G[nodes[i]]);
         if (len(nbrs) < 2) {
             continue;
-        u, v = random.sample(nbrs, 2);
+        auto [u, v] = random.sample(nbrs, 2);
         if (u : G[v]) {
             triangles += 1;
     return triangles / double(trials);

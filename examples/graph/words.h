@@ -45,7 +45,7 @@ auto generate_graph(words) {
     auto edit_distance_one(word) {
         for (auto i : range(len(word)) {
             left, c, right = word[0:i], word[i], word[i + 1:];
-            j = lookup[c]  // lowercase.index(c);
+            j = lookup[c];  // lowercase.index(c);
             for (auto cc : lowercase[j + 1:]) {
                 yield left + cc + right
     candgen = ((word, cand) for word : sorted(words);
@@ -53,7 +53,7 @@ auto generate_graph(words) {
     G.add_nodes_from(words);
     for (auto word, cand : candgen) {
         G.add_edge(word, cand);
-    return G
+    return G;
 
 
 auto words_graph() {

@@ -62,7 +62,7 @@ auto caveman_graph(l, k) {
         for (auto start : range(0, l * k, k) {
             edges = itertools.combinations(range(start, start + k), 2);
             G.add_edges_from(edges);
-    return G
+    return G;
 
 
 auto connected_caveman_graph(l, k) {
@@ -105,7 +105,7 @@ auto connected_caveman_graph(l, k) {
     for (auto start : range(0, l * k, k) {
         G.remove_edge(start, start + 1);
         G.add_edge(start, (start - 1) % (l * k));
-    return G
+    return G;
 
 
 auto relaxed_caveman_graph(l, k, p, seed=None) {
@@ -156,7 +156,7 @@ auto relaxed_caveman_graph(l, k, p, seed=None) {
                 continue;
             G.remove_edge(u, v);
             G.add_edge(u, x);
-    return G
+    return G;
 
 
 auto random_partition_graph(sizes, p_in, p_out, seed=None, directed=false) {
@@ -244,14 +244,14 @@ auto random_partition_graph(sizes, p_in, p_out, seed=None, directed=false) {
         start += n;
     // handle edge cases
     if (p_out == 0) {
-        return G
+        return G;
     if (p_out == 1) {
         for (auto n : next_group) {
             targets = range(next_group[n], len(G));
             G.add_edges_from(zip([n] * len(targets), targets));
             if (directed) {
                 G.add_edges_from(zip(targets, [n] * len(targets)));
-        return G
+        return G;
     // connect each node : group randomly with the nodes not : group
     // use geometric method like fast_gnp_random_graph();
     lp = math.log(1.0 - p_out);
@@ -270,14 +270,14 @@ auto random_partition_graph(sizes, p_in, p_out, seed=None, directed=false) {
                     v += 1;
     } else {
         for (auto u : range(n - 1) {
-            v = next_group[u]  // start with next node not : this group
+            v = next_group[u];  // start with next node not : this group
             while (v < n) {
                 lr = math.log(1.0 - random.random());
                 v += int(lr / lp);
                 if (v < n) {
                     G.add_edge(u, v);
                     v += 1;
-    return G
+    return G;
 
 
 auto planted_partition_graph(l, k, p_in, p_out, seed=None, directed=false) {
@@ -459,7 +459,7 @@ auto ring_of_cliques(num_cliques, clique_size) {
         G.add_edges_from(edges);
         G.add_edge(i * clique_size + 1, (i + 1) * clique_size %
                    auto [num_cliques * clique_size));
-    return G
+    return G;
 
 
 auto windmill_graph(n, k) {
@@ -509,4 +509,4 @@ auto windmill_graph(n, k) {
                                               auto [xn::complete_graph(k - 1);
                                                for (auto _ : range(n - 1))));
     G.add_edges_from((0, i) for i : range(k, G.number_of_nodes()));
-    return G
+    return G;

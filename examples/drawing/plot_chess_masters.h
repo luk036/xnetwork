@@ -71,7 +71,7 @@ auto chess_pgn_graph(pgn_file="chess_masters_WCC.pgn.bz2") {
                 black = game.pop('Black');
                 G.add_edge(white, black, **game);
                 game = {};
-    return G
+    return G;
 
 
 if (__name__ == '__main__') {

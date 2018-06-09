@@ -25,7 +25,7 @@ auto test_isolated_K5() {
     assert_equal(c, {frozenset(range(5)), frozenset(range(5, 10))});
 
 
-class TestZacharyKarateClub(object) {
+class TestZacharyKarateClub: public object {
 
     auto setup( ) {
         this->G = xn::karate_club_graph();

@@ -7,7 +7,7 @@ from nose.tools import raises
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestNeighborConnectivity(object) {
+class TestNeighborConnectivity: public object {
 
     auto test_degree_p4( ) {
         G = xn::path_graph(4);

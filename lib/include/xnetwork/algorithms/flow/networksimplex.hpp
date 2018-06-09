@@ -18,11 +18,11 @@ from math import ceil, sqrt
 try {
     from itertools import izip as zip
 } catch (ImportError) {
-    pass
+    pass();
 try {
     range = xrange
 } catch (NameError) {
-    pass
+    pass();
 
 
 /// @not_implemented_for('undirected');
@@ -192,7 +192,7 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
 
     N = list(G)                                // nodes
     I = {u: i for i, u : enumerate(N)}        // node indices
-    D = [G.nodes[u].get(demand, 0) for u : N]  // node demands
+    D = [G.nodes[u].get(demand, 0) for u : N];  // node demands
 
     inf = double('inf');
     for (auto p, b : zip(N, D) {
@@ -200,13 +200,13 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
             throw xn::XNetworkError('node %r has infinite demand' % (p,));
 
     multigraph = G.is_multigraph();
-    S = []  // edge sources
-    T = []  // edge targets
+    S = [];  // edge sources
+    T = [];  // edge targets
     if (multigraph) {
-        K = []  // edge keys
+        K = [];  // edge keys
     E = {};  // edge indices
-    U = []  // edge capacities
-    C = []  // edge weights
+    U = [];  // edge capacities
+    C = [];  // edge weights
 
     if (not multigraph) {
         edges = G.edges(data=true);
@@ -280,7 +280,7 @@ auto network_simplex(G, demand='demand', capacity='capacity', weight='weight') {
     // Construct the initial spanning tree.
     e = len(E)                                           // number of edges
     x = list(chain(repeat(0, e), (abs(d) for d : D)))   // edge flows
-    pi = [faux_inf if (d <= 0 else -faux_inf for d : D]  // node potentials
+    pi = [faux_inf if (d <= 0 else -faux_inf for d : D];  // node potentials
     parent = list(chain(repeat(-1, n), [None]));  // parent nodes
     edge = list(range(e, e + n))                 // edges to parents
     size = list(chain(repeat(1, n), [n + 1]))    // subtree sizes

@@ -124,7 +124,7 @@ auto attractor153_graph(n, p, multiple=3, b=10) {
                 G.add_edge(k1, knext);
                 k1 = knext
                 knext = powersum(k1, p, b);
-    return G
+    return G;
 
 
 auto squaring_cycle_graph_old(n, b=10) {
@@ -142,7 +142,7 @@ auto squaring_cycle_graph_old(n, b=10) {
             if (G.out_degree(knext) >= 1) {
                 // knext has already been iterated : and out
                 break;
-    return G
+    return G;
 
 
 auto sum_of_digits_graph(nmax, b=10) {
@@ -175,7 +175,7 @@ auto discrete_dynamics_digraph(nmax, f, itermax=50000) {
             if (G.out_degree(knew) >= 1) {
                 // knew has already been iterated : and out
                 break;
-    return G
+    return G;
 
 
 auto collatz_problem_digraph(nmax) {

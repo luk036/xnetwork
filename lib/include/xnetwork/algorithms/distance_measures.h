@@ -243,7 +243,7 @@ auto eccentricity(G, v=None, sp=None) {
         e[n] = max(length.values());
 
     if (v : G) {
-        return e[v]  // return single value
+        return e[v];  // return single value
     } else {
         return e
 

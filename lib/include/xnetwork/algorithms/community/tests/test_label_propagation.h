@@ -98,7 +98,7 @@ auto test_connected_communities() {
     assert_in(result, ground_truth);
 
 
-class TestAsynLpaCommunities(object) {
+class TestAsynLpaCommunities: public object {
     auto _check_communities( G, expected) {
         /** Checks that the communities computed from the given graph ``G``
         using the :func:`~xnetwork.asyn_lpa_communities` function match

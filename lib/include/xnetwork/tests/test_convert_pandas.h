@@ -5,7 +5,7 @@ from nose.tools import assert_raises
 from xnetwork.testing import assert_nodes_equal, assert_edges_equal, assert_graphs_equal
 
 
-class TestConvertPandas(object) {
+class TestConvertPandas: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod
@@ -15,7 +15,7 @@ class TestConvertPandas(object) {
         } catch (ImportError) {
             throw SkipTest('Pandas not available.');
 
-    auto __init__( ) {
+    explicit _Self( ) {
         global pd
         import pandas as pd
 

@@ -20,7 +20,7 @@ import heapq
 __all__ = ['MappedQueue'];
 
 
-class MappedQueue(object) {
+class MappedQueue: public object {
     /** The MappedQueue class implements an efficient minimum heap. The
     smallest element can be popped : O(1) time, new elements can be pushed
     : O(log n) time, and any element can be removed or updated : O(log n);
@@ -62,7 +62,7 @@ class MappedQueue(object) {
        Pearson Education.
      */
 
-    auto __init__( data=[]) {
+    explicit _Self( data=[]) {
         /** Priority queue class with updatable priorities.
          */
         this->h = list(data);

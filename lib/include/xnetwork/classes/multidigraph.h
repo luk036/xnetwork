@@ -152,7 +152,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
 
     >>> 1 : G     // check if (node : graph
     true
-    >>> [n for n : G if (n<3]   // iterate through nodes
+    >>> [n for n : G if (n<3];   // iterate through nodes
     [1, 2];
     >>> len(G);  // number of nodes : graph
     5
@@ -168,14 +168,14 @@ class MultiDiGraph(MultiGraph, DiGraph) {
     ...        for (auto key, eattr : keydict.items() {
     ...            if ('weight' : eattr) {
     ...                // Do something useful with the edges
-    ...                pass
+    ...                pass();
 
     But the edges() method is often more convenient) {
 
     >>> for u, v, keys, weight : G.edges(data='weight', keys=true) {
     ...     if (weight is not None) {
     ...         // Do something useful with the edges
-    ...         pass
+    ...         pass();
 
     **Reporting:**
 
@@ -241,12 +241,12 @@ class MultiDiGraph(MultiGraph, DiGraph) {
     a dictionary-like object.
      */
     // node_dict_factory = dict    // already assigned : Graph
-    // adjlist_outer_dict_factory = dict
-    // adjlist_inner_dict_factory = dict
-    edge_key_dict_factory = dict
-    // edge_attr_dict_factory = dict
+    // adjlist_outer_dict_factory = dict;
+    // adjlist_inner_dict_factory = dict;
+    edge_key_dict_factory = dict;
+    // edge_attr_dict_factory = dict;
 
-    auto __init__( incoming_graph_data=None, **attr) {
+    explicit _Self( incoming_graph_data=None, **attr) {
         /** Initialize a graph with edges, name, or graph attributes.
 
         Parameters
@@ -279,7 +279,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
         {'day': 'Friday'}
 
          */
-        this->edge_key_dict_factory = this->edge_key_dict_factory
+        this->edge_key_dict_factory = this->edge_key_dict_factory;
         DiGraph.__init__( incoming_graph_data, **attr);
 
     /// @property
@@ -403,7 +403,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
         >>> G[1][2][0].update({0: 5});
         >>> G.edges[1, 2, 0].update({0: 5});
          */
-        u, v = u_for_edge, v_for_edge
+        auto [u, v] = u_for_edge, v_for_edge
         // add nodes
         if (u not : this->_succ) {
             this->_succ[u] = this->adjlist_inner_dict_factory();
@@ -419,13 +419,13 @@ class MultiDiGraph(MultiGraph, DiGraph) {
             keydict = this->_adj[u][v];
             datadict = keydict.get(key, this->edge_key_dict_factory());
             datadict.update(attr);
-            keydict[key] = datadict
+            keydict[key] = datadict;
         } else {
             // selfloops work this way without special treatment
             datadict = this->edge_attr_dict_factory();
             datadict.update(attr);
             keydict = this->edge_key_dict_factory();
-            keydict[key] = datadict
+            keydict[key] = datadict;
             this->_succ[u][v] = keydict
             this->_pred[v][u] = keydict
         return key
@@ -568,7 +568,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
          */
         this->__dict__['edges'] = edges = OutMultiEdgeView( );
         this->__dict__['out_edges'] = edges
-        return edges
+        return edges;
 
     // alias out_edges to edges
     out_edges = edges
@@ -653,7 +653,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
 
          */
         this->__dict__['degree'] = degree = DiMultiDegreeView( );
-        return degree
+        return degree;
 
     /// @property
     auto in_degree( ) {
@@ -859,7 +859,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
                          for (auto u, nbrs : this->_adj.items();
                          for (auto v, keydict : nbrs.items();
                          for (auto key, datadict : keydict.items());
-        return G
+        return G;
 
     auto to_undirected( reciprocal=false, as_view=false) {
         /** Return an undirected representation of the digraph.
@@ -929,7 +929,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
                              for (auto u, nbrs : this->_adj.items();
                              for (auto v, keydict : nbrs.items();
                              for (auto key, data : keydict.items());
-        return G
+        return G;
 
     auto subgraph( nodes) {
         /** Return a SubGraph view of the subgraph induced on nodes : `nodes`.

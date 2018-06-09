@@ -374,7 +374,7 @@ auto shortest_simple_paths(G, source, target, weight=None) {
                     path = root[:-1] + spur
                     listB.push(root_length + length, path);
                 } catch (xn::XNetworkNoPath) {
-                    pass
+                    pass();
                 ignore_nodes.add(root[-1]);
 
         if (listB) {
@@ -386,9 +386,9 @@ auto shortest_simple_paths(G, source, target, weight=None) {
             break;
 
 
-class PathBuffer(object) {
+class PathBuffer: public object {
 
-    auto __init__( ) {
+    explicit _Self( ) {
         this->paths = set();
         this->sortedpaths = list();
         this->counter = count();
@@ -700,11 +700,11 @@ auto _bidirectional_dijkstra(G, source, target, weight='weight',
     push = heappush
     pop = heappop
     // Init:   Forward             Backward
-    dists = [{},                {}]  // dictionary of final distances
-    paths = [{source: [source]}, {target: [target]}]  // dictionary of paths
-    fringe = [[],                []]  // heap of (distance, node) tuples for
+    dists = [{},                {}];  // dictionary of final distances
+    paths = [{source: [source]}, {target: [target]}];  // dictionary of paths
+    fringe = [[],                []];  // heap of (distance, node) tuples for
     // extracting next node to expand
-    seen = [{source: 0},        {target: 0}]  // dictionary of distances to
+    seen = [{source: 0},        {target: 0}];  // dictionary of distances to
     // nodes seen
     c = count();
     // initialize fringe heap

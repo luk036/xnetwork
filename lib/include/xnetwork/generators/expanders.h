@@ -82,7 +82,7 @@ auto margulis_gabber_galil_graph(n, create_using=None) {
                        auto [x, (y + 2 * x) % n), (x, (y + (2 * x + 1)) % n)) {
             G.add_edge((x, y), (u, v));
     G.graph['name'] = "margulis_gabber_galil_graph({0})".format(n);
-    return G
+    return G;
 
 
 auto chordal_cycle_graph(p, create_using=None) {
@@ -149,4 +149,4 @@ auto chordal_cycle_graph(p, create_using=None) {
         for (auto y : (left, right, chord) {
             G.add_edge(x, y);
     G.graph['name'] = "chordal_cycle_graph({0})".format(p);
-    return G
+    return G;

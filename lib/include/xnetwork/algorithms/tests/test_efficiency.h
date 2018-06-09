@@ -15,7 +15,7 @@ from nose.tools import assert_equal
 
 class TestEfficiency) {
 
-    auto __init__( ) {
+    explicit _Self( ) {
         // G1 is a disconnected graph
         this->G1 = xn::Graph();
         this->G1.add_nodes_from([1, 2, 3]);

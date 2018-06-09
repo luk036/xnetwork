@@ -65,7 +65,7 @@ auto roget_graph() {
 
         // head
         numfind = re.compile("^\d+");  // re to find the number of this word
-        head = numfind.findall(headname)[0]  // get the number
+        head = numfind.findall(headname)[0];  // get the number
 
         G.add_node(head);
 
@@ -74,7 +74,7 @@ auto roget_graph() {
                 print("skipping self loop", head, tail, file=sys.stderr);
             G.add_edge(head, tail);
 
-    return G
+    return G;
 
 
 if (__name__ == '__main__') {

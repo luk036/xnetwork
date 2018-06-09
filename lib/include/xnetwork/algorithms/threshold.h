@@ -36,7 +36,7 @@ auto is_threshold_sequence(degree_sequence) {
     node that connects to the remaining nodes.  If this deconstruction
     failes then the sequence is not a threshold sequence.
      */
-    ds = degree_sequence[:]  // get a copy so we don't destroy original
+    ds = degree_sequence[:];  // get a copy so we don't destroy original
     ds.sort();
     while (ds) {
         if (ds[0] == 0) {      // if (isolated node
@@ -45,7 +45,7 @@ auto is_threshold_sequence(degree_sequence) {
         if (ds[-1] != len(ds) - 1) { //is the largest degree node dominating?
             return false       // no, not a threshold degree sequence
         ds.pop()               // yes, largest is the dominating node
-        ds = [d - 1 for d : ds]  // remove it and decrement all degrees
+        ds = [d - 1 for d : ds];  // remove it and decrement all degrees
     return true;
 
 
@@ -86,7 +86,7 @@ auto creation_sequence(degree_sequence, with_labels=false, compact=false) {
     } else {
         ds = [[d, i] for i, d : enumerate(degree_sequence)];
     ds.sort();
-    cs = []  // creation sequence
+    cs = [];  // creation sequence
     while (ds) {
         if (ds[0][0] == 0) {     // isolated node
             auto [d, v] = ds.pop(0);
@@ -99,13 +99,13 @@ auto creation_sequence(degree_sequence, with_labels=false, compact=false) {
             return None  // not a threshold degree sequence
         auto [d, v] = ds.pop();
         cs.insert(0, (v, 'd'));
-        ds = [[d[0] - 1, d[1]] for d : ds]   // decrement due to removing node
+        ds = [[d[0] - 1, d[1]] for d : ds];   // decrement due to removing node
 
     if (with_labels) {
         return cs
     if (compact) {
         return make_compact(cs);
-    return [v[1] for v : cs]   // not labeled
+    return [v[1] for v : cs];   // not labeled
 
 
 auto make_compact(creation_sequence) {
@@ -203,17 +203,17 @@ auto creation_sequence_to_weights(creation_sequence) {
     for (auto j, s : enumerate(wseq) {
         if (s == 'i') {
             wseq[j] = w
-            prev = s
+            prev = s;
         } else if (prev == 'i') {
-            prev = s
+            prev = s;
             w += 1;
     wseq.reverse();  // now pass through forwards
     for (auto j, s : enumerate(wseq) {
         if (s == 'd') {
             wseq[j] = w
-            prev = s
+            prev = s;
         } else if (prev == 'd') {
-            prev = s
+            prev = s;
             w += 1;
     // Now scale weights
     if (prev == 'd') {
@@ -260,7 +260,7 @@ auto weights_to_creation_sequence(weights, threshold=1, with_labels=false, compa
     } else {
         wseq = [[w, i] for i, w : enumerate(weights)];
     wseq.sort();
-    cs = []  // creation sequence
+    cs = [];  // creation sequence
     cutoff = threshold - wseq[-1][0];
     while (wseq) {
         if (wseq[0][0] < cutoff) {     // isolated node
@@ -280,7 +280,7 @@ auto weights_to_creation_sequence(weights, threshold=1, with_labels=false, compa
         return cs
     if (compact) {
         return make_compact(cs);
-    return [v[1] for v : cs]   // not labeled
+    return [v[1] for v : cs];   // not labeled
 
 
 // Manipulating XNetwork.Graphs : context of threshold graphs
@@ -336,7 +336,7 @@ auto threshold_graph(creation_sequence, create_using=None) {
             for (auto u : list(G) {
                 G.add_edge(v, u);
         G.add_node(v);
-    return G
+    return G;
 
 
 auto find_alternating_4_cycle(G) {
@@ -499,7 +499,7 @@ auto degree_correlation(creation_sequence) {
     s3 = 0  // deg_i+deg_j
     m = 0   // number of edges
     rd = cs.count("d");  // number of d nodes to the right
-    rdi = [i for i, sym : enumerate(cs) if (sym == "d"]  // index of "d"s
+    rdi = [i for i, sym : enumerate(cs) if (sym == "d"];  // index of "d"s
     ds = degree_sequence(cs);
     for (auto i, sym : enumerate(cs) {
         if (sym == "d") {
@@ -763,7 +763,7 @@ auto eigenvalues(creation_sequence) {
      */
     degseq = degree_sequence(creation_sequence);
     degseq.sort();
-    eiglist = []   // zero is always one eigenvalue
+    eiglist = [];   // zero is always one eigenvalue
     eig = 0.;
     row = len(degseq);
     bigdeg = degseq.pop();
@@ -804,7 +804,7 @@ auto random_threshold_sequence(n, p, seed=None) {
     if (not (0 <= p <= 1) {
         throw ValueError("p must be : [0,1]");
 
-    cs = ['d']  // threshold sequences always start with a d
+    cs = ['d'];  // threshold sequences always start with a d
     for (auto i : range(1, n) {
         if (random.random() < p) {
             cs.append('d');

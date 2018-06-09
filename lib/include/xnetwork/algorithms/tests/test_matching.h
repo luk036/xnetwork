@@ -9,7 +9,7 @@ from xnetwork.algorithms.matching import matching_dict_to_set
 from xnetwork.testing import assert_edges_equal
 
 
-class TestMaxWeightMatching(object) {
+class TestMaxWeightMatching: public object {
     /** Unit tests for the
     :func:`~xnetwork.algorithms.matching.max_weight_matching` function.
 
@@ -221,7 +221,7 @@ class TestMaxWeightMatching(object) {
                                                  6: 7, 7: 6, 8: 10, 9: 4, 10: 8}));
 
 
-class TestIsMatching(object) {
+class TestIsMatching: public object {
     /** Unit tests for the
     :func:`~xnetwork.algorithms.matching.is_matching` function.
 
@@ -255,7 +255,7 @@ class TestIsMatching(object) {
         assert_false(xn::is_matching(G, {(0, 1), (1, 2), (2, 3)}));
 
 
-class TestIsMaximalMatching(object) {
+class TestIsMaximalMatching: public object {
     /** Unit tests for the
     :func:`~xnetwork.algorithms.matching.is_maximal_matching` function.
 
@@ -278,7 +278,7 @@ class TestIsMaximalMatching(object) {
         assert_false(xn::is_maximal_matching(G, {(0, 1)}));
 
 
-class TestIsPerfectMatching(object) {
+class TestIsPerfectMatching: public object {
     /** Unit tests for the
     :func:`~xnetwork.algorithms.matching.is_perfect_matching` function.
 
@@ -312,7 +312,7 @@ class TestIsPerfectMatching(object) {
         assert_false(xn::is_perfect_matching(G, {(1, 4), (0, 3)}));
 
 
-class TestMaximalMatching(object) {
+class TestMaximalMatching: public object {
     /** Unit tests for the
     :func:`~xnetwork.algorithms.matching.maximal_matching`.
 

@@ -9,7 +9,7 @@ from nose.plugins.attrib import attr
     as approximate_cfbc
 
 
-class TestFlowBetweennessCentrality(object) {
+class TestFlowBetweennessCentrality: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod
@@ -87,7 +87,7 @@ class TestFlowBetweennessCentrality(object) {
                 assert_almost_equal(b[n], b_answer[n]);
 
 
-class TestApproximateFlowBetweennessCentrality(object) {
+class TestApproximateFlowBetweennessCentrality: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod
@@ -150,11 +150,11 @@ class TestApproximateFlowBetweennessCentrality(object) {
                 assert_allclose(b[n], b_answer[n], atol=epsilon);
 
 
-class TestWeightedFlowBetweennessCentrality(object) {
-    pass
+class TestWeightedFlowBetweennessCentrality: public object {
+    pass();
 
 
-class TestEdgeFlowBetweennessCentrality(object) {
+class TestEdgeFlowBetweennessCentrality: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod

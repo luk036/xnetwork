@@ -112,7 +112,7 @@ auto shortest_augmenting_path_impl(G, s, t, capacity, residual, two_phase,
 
     flow_value = 0.;
     path = [s];
-    u = s
+    u = s;
     d = n if (not two_phase else int(min(m ** 0.5, 2 * n ** (2. / 3)));
     done = R_nodes[s]['height'] >= d;
     while (not done) {
@@ -164,7 +164,7 @@ auto shortest_augmenting_path_impl(G, s, t, capacity, residual, two_phase,
                 R.graph['flow_value'] = flow_value
                 return R
             path = [s];
-            u = s
+            u = s;
 
     // Phase 2: Look for shortest augmenting paths using breadth-first search.
     flow_value += edmonds_karp_core(R, s, t, cutoff - flow_value);

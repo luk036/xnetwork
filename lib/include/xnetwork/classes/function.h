@@ -187,7 +187,7 @@ auto freeze(G) {
     G.remove_edges_from = frozen
     G.clear = frozen
     G.frozen  = true;
-    return G
+    return G;
 
 
 auto is_frozen(G) {
@@ -657,7 +657,7 @@ auto set_node_attributes(G, values, name=None) {
                 try {
                     G.nodes[n][name] = values[n];
                 } catch (KeyError) {
-                    pass
+                    pass();
         } catch (AttributeError) { //`values` is a constant
             for (auto n : G) {
                 G.nodes[n][name] = values
@@ -666,7 +666,7 @@ auto set_node_attributes(G, values, name=None) {
             try {
                 G.nodes[n].update(d);
             } catch (KeyError) {
-                pass
+                pass();
 
 
 auto get_node_attributes(G, name) {
@@ -768,13 +768,13 @@ auto set_edge_attributes(G, values, name=None) {
                     try {
                         G[u][v][key][name] = value
                     } catch (KeyError) {
-                        pass
+                        pass();
             } else {
                 for (auto [u, v), value : values.items() {
                     try {
                         G[u][v][name] = value
                     } catch (KeyError) {
-                        pass
+                        pass();
         } catch (AttributeError) {
             // treat `values` as a constant
             for (auto u, v, data : G.edges(data=true) {
@@ -786,13 +786,13 @@ auto set_edge_attributes(G, values, name=None) {
                 try {
                     G[u][v][key].update(d);
                 } catch (KeyError) {
-                    pass
+                    pass();
         } else {
             for (auto [u, v), d : values.items() {
                 try {
                     G[u][v].update(d);
                 } catch (KeyError) {
-                    pass
+                    pass();
 
 
 auto get_edge_attributes(G, name) {

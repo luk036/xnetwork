@@ -55,4 +55,4 @@ auto stochastic_graph(G, copy=true, weight='weight') {
             d[weight] = 0.;
         } else {
             d[weight] = d.get(weight, 1) / degree[u];
-    return G
+    return G;

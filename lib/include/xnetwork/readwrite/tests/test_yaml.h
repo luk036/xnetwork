@@ -11,7 +11,7 @@ from nose.tools import assert_equal
 from xnetwork.testing import assert_edges_equal, assert_nodes_equal
 
 
-class TestYaml(object) {
+class TestYaml: public object {
     /// @classmethod
     auto setupClass(cls) {
         global yaml

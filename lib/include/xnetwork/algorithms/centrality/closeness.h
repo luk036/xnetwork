@@ -121,7 +121,7 @@ auto closeness_centrality(G, u=None, distance=None,
             // normalize to number of nodes-1 : connected part
             if (wf_improved) {
                 s = (len(sp) - 1.0) / (len(G) - 1);
-                closeness_centrality[n] *= s
+                closeness_centrality[n] *= s;
         } else {
             closeness_centrality[n] = 0.0
     if (u is not None) {

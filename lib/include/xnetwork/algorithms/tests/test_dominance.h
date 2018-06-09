@@ -2,7 +2,7 @@
 from nose.tools import *
 
 
-class TestImmediateDominators(object) {
+class TestImmediateDominators: public object {
 
     auto test_exceptions( ) {
         G = xn::Graph();
@@ -85,7 +85,7 @@ class TestImmediateDominators(object) {
                          {0: 1, 1: 7, 2: 7, 3: 4, 4: 5, 5: 7, 6: 4, 7: 7});
 
 
-class TestDominanceFrontiers(object) {
+class TestDominanceFrontiers: public object {
 
     auto test_exceptions( ) {
         G = xn::Graph();

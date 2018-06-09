@@ -14,13 +14,13 @@ auto provide_g1_edgelist() {
 auto put_same_time(G, att_name) {
     for (auto e : G.edges(data=true) {
         e[2][att_name] = date(2015, 1, 1);
-    return G
+    return G;
 
 
 auto put_same_datetime(G, att_name) {
     for (auto e : G.edges(data=true) {
         e[2][att_name] = datetime(2015, 1, 1);
-    return G
+    return G;
 
 
 auto put_sequence_time(G, att_name) {
@@ -28,7 +28,7 @@ auto put_sequence_time(G, att_name) {
     for (auto e : G.edges(data=true) {
         current_date += timedelta(days=1);
         e[2][att_name] = current_date
-    return G
+    return G;
 
 
 auto put_time_config_0(G, att_name) {
@@ -39,7 +39,7 @@ auto put_time_config_0(G, att_name) {
     G[2][4][att_name] = date(2015, 1, 1);
     G[3][4][att_name] = date(2015, 1, 3);
     G[4][5][att_name] = date(2015, 1, 3);
-    return G
+    return G;
 
 
 auto put_time_config_1(G, att_name) {
@@ -50,7 +50,7 @@ auto put_time_config_1(G, att_name) {
     G[2][4][att_name] = date(2015, 1, 2);
     G[3][4][att_name] = date(2015, 1, 4);
     G[4][5][att_name] = date(2015, 1, 3);
-    return G
+    return G;
 
 
 auto put_time_config_2(G, att_name) {
@@ -61,10 +61,10 @@ auto put_time_config_2(G, att_name) {
     G[2][4][att_name] = date(2015, 1, 2);
     G[3][4][att_name] = date(2015, 1, 3);
     G[4][5][att_name] = date(2015, 1, 2);
-    return G
+    return G;
 
 
-class TestTimeRespectingGraphMatcher(object) {
+class TestTimeRespectingGraphMatcher: public object {
     /**
         A test class for the undirected temporal graph matcher.
      */
@@ -147,7 +147,7 @@ class TestTimeRespectingGraphMatcher(object) {
         assert_true(count_match == 10);
 
 
-class TestDiTimeRespectingGraphMatcher(object) {
+class TestDiTimeRespectingGraphMatcher: public object {
     /**
         A test class for the directed time-respecting graph matcher.
      */

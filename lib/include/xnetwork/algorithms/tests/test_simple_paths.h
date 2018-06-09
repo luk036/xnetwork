@@ -13,7 +13,7 @@ from xnetwork.algorithms.simple_paths import _bidirectional_dijkstra
 #include <xnetwork/utils.hpp> // import arbitrary_element
 
 
-class TestIsSimplePath(object) {
+class TestIsSimplePath: public object {
     /** Unit tests for the
     :func:`xnetwork.algorithms.simple_paths.is_simple_path` function.
 

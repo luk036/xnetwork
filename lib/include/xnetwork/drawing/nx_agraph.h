@@ -93,7 +93,7 @@ auto from_agraph(A, create_using=None) {
 
     // add edges, assign edge data as dictionary of attributes
     for (auto e : A.edges() {
-        u, v = str(e[0]), str(e[1]);
+        auto [u, v] = str(e[0]), str(e[1]);
         attr = dict(e.attr);
         str_attr = {str(k) { v for k, v : attr.items()}
         if (not N.is_multigraph() {
@@ -410,7 +410,7 @@ auto view_pygraphviz(G, edgelabel=None, prog='dot', args='',
         path = tempfile.NamedTemporaryFile(suffix=suffix, delete=false);
     } else {
         // Assume the decorator worked and it is a file-object.
-        pass
+        pass();
 
     display_pygraphviz(A, path=path, prog=prog, args=args);
 

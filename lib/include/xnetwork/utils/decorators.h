@@ -46,11 +46,11 @@ auto not_implemented_for(*graph_types) {
 
        /// @not_implemnted_for('directed');
        auto sp_function(G) {
-           pass
+           pass();
 
        /// @not_implemnted_for('directed','multigraph');
        auto sp_np_function(G) {
-           pass
+           pass();
      */
     /// @decorator
     auto _not_implemented_for(not_implement_for_func, *args, **kwargs) {
@@ -115,20 +115,20 @@ auto open_file(path_arg, mode='r') {
 
        /// @open_file(0,'r');
        auto read_function(pathname) {
-           pass
+           pass();
 
        /// @open_file(1,'w');
        auto write_function(G,pathname) {
-           pass
+           pass();
 
        /// @open_file(1,'w');
        auto write_function(G, pathname='graph.dot');
-           pass
+           pass();
 
        /// @open_file('path', 'w+');
        auto another_function(arg, **kwargs) {
            path = kwargs['path'];
-           pass
+           pass();
      */
     // Note that this decorator solves the problem when a path argument is
     // specified as a string, but it does not handle the situation when the
@@ -254,18 +254,18 @@ auto nodes_or_number(which_args) {
     --------
     Decorate functions like this:) {
 
-       @nodes_or_number(0);
+       // @nodes_or_number(0);
        auto empty_graph(nodes) {
-           pass
+           pass();
 
-       @nodes_or_number([0,1]);
+       // @nodes_or_number([0,1]);
        auto grid_2d_graph(m1, m2, periodic=false) {
-           pass
+           pass();
 
-       @nodes_or_number(1);
+       // @nodes_or_number(1);
        auto full_rary_tree(r, n);
            // r is a number. n can be a number of a list of nodes
-           pass
+           pass();
      */
     /// @decorator
     auto _nodes_or_number(func_to_be_decorated, *args, **kw) {

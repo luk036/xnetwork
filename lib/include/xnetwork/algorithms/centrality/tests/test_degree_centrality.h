@@ -8,7 +8,7 @@ from nose.tools import *
 
 
 class TestDegreeCentrality) {
-    auto __init__( ) {
+    explicit _Self( ) {
 
         this->K = xn::krackhardt_kite_graph();
         this->P3 = xn::path_graph(3);

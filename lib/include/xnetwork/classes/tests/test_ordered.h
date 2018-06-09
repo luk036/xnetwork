@@ -2,7 +2,7 @@ from nose.tools import assert_equals
 #include <xnetwork.hpp>using namespace xn;
 
 
-class SmokeTestOrdered(object) {
+class SmokeTestOrdered: public object {
     // Just test instantiation.
     auto test_graph( ) {
         G = xn::OrderedGraph();
@@ -17,7 +17,7 @@ class SmokeTestOrdered(object) {
         G = xn::OrderedMultiDiGraph();
 
 
-class TestOrderedFeatures(object) {
+class TestOrderedFeatures: public object {
     auto setUp( ) {
         this->G = xn::OrderedDiGraph();
         this->G.add_nodes_from([1, 2, 3]);

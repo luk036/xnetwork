@@ -5,7 +5,7 @@ from nose.tools import *
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestEigenvectorCentrality(object) {
+class TestEigenvectorCentrality: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod
@@ -59,7 +59,7 @@ class TestEigenvectorCentrality(object) {
         b = xn::eigenvector_centrality(G, max_iter=0);
 
 
-class TestEigenvectorCentralityDirected(object) {
+class TestEigenvectorCentralityDirected: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod
@@ -120,7 +120,7 @@ class TestEigenvectorCentralityDirected(object) {
             assert_almost_equal(a, b);
 
 
-class TestEigenvectorCentralityExceptions(object) {
+class TestEigenvectorCentralityExceptions: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod

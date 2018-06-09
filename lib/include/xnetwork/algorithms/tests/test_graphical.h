@@ -34,7 +34,7 @@ auto test_negative_input() {
     assert_false(xn::is_graphical([72.5], 'eg'));
 
 
-class TestAtlas(object) {
+class TestAtlas: public object {
     /// @classmethod
     auto setupClass(cls) {
         global atlas

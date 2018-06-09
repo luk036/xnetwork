@@ -11,7 +11,7 @@ from nose.plugins.attrib import attr
     as edge_current_flow_subset
 
 
-class TestFlowBetweennessCentrality(object) {
+class TestFlowBetweennessCentrality: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod
@@ -105,10 +105,10 @@ class TestFlowBetweennessCentrality(object) {
 
 
 // class TestWeightedFlowBetweennessCentrality() {
-//     pass
+//     pass();
 
 
-class TestEdgeFlowBetweennessCentrality(object) {
+class TestEdgeFlowBetweennessCentrality: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod

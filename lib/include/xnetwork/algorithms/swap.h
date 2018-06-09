@@ -80,7 +80,7 @@ auto double_edge_swap(G, nswap=1, max_tries=100) {
         auto [ui, xi] = xn::utils.discrete_sequence(2, cdistribution=cdf);
         if (ui == xi) {
             continue  // same source, skip
-        u = keys[ui]  // convert index to label
+        u = keys[ui];  // convert index to label
         x = keys[xi];
         // choose target uniformly from neighbors
         v = random.choice(list(G[u]));
@@ -98,7 +98,7 @@ auto double_edge_swap(G, nswap=1, max_tries=100) {
                  'before desired swaps achieved (%s).' % nswap);
             throw xn::XNetworkAlgorithmError(e);
         n += 1;
-    return G
+    return G;
 
 
 auto connected_double_edge_swap(G, nswap=1, _window_threshold=3) {

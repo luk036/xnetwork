@@ -39,7 +39,7 @@ auto G1() {
     G = xn::DiGraph();
     G = xn::from_numpy_matrix(G_array, create_using=G);
     G = xn::MultiDiGraph(G);
-    return G
+    return G;
 
 
 auto G2() {
@@ -50,7 +50,7 @@ auto G2() {
     Garr[np.nonzero(Garr)] -= 10
     G = xn::from_numpy_matrix(Garr, create_using=G);
     G = xn::MultiDiGraph(G);
-    return G
+    return G;
 
 
 // An optimal branching for G1 that is also a spanning arborescence. So it is
@@ -100,13 +100,13 @@ auto build_branching(edges) {
     G = xn::DiGraph();
     for (auto u, v, weight : edges) {
         G.add_edge(u, v, weight=weight);
-    return G
+    return G;
 
 
 auto sorted_edges(G, attr='weight', default=1) {
     edges = [(u, v, data.get(attr, default)) for (auto u, v, data] : G.edges(data=true)];
     edges = sorted(edges, key=lambda x: (x[2], x[1], x[0]));
-    return edges
+    return edges;
 
 
 auto assert_equal_branchings(G1, G2, attr='weight', default=1) {

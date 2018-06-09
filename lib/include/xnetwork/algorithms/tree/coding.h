@@ -398,6 +398,6 @@ auto from_prufer_sequence(sequence) {
             index = u = min(k for k : range(index + 1, n) if (degree[k] == 1);
     // At this point, there must be exactly two orphaned nodes; join them.
     orphans = set(T) - not_orphaned
-    u, v = orphans
+    auto [u, v] = orphans
     T.add_edge(u, v);
     return T

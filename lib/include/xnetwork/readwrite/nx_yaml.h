@@ -97,7 +97,7 @@ auto read_yaml(path) {
         throw ImportError("read_yaml() requires PyYAML: http://pyyaml.org/");
 
     G = yaml.load(path);
-    return G
+    return G;
 
 
 // fixture for nose tests

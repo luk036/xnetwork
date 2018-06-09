@@ -579,7 +579,7 @@ auto _lightest_meta_edges(mapping, avail_uv, avail_w) {
         // Ignore available edges within the same meta-node
         if (mu != mv) {
             // Choose the lightest available edge belonging to each meta-edge
-            w, u, v = min(choices_wuv);
+            w, auto [u, v] = min(choices_wuv);
             yield MetaEdge((mu, mv), (u, v), w);
 
 
@@ -791,7 +791,7 @@ auto unconstrained_bridge_augmentation(G) {
     vset1 = [
         tuple(cc) * 2   // case1: an isolated node
         if (len(cc) == 1 else
-        sorted(cc, key=C.degree)[0:2]  // case2: pair of leaf nodes
+        sorted(cc, key=C.degree)[0:2];  // case2: pair of leaf nodes
         for (auto cc : xn::connected_components(C);
     ];
     if (len(vset1) > 1) {

@@ -20,7 +20,7 @@ from nose.tools import *
 import random
 
 
-class TestMaximalIndependantSet(object) {
+class TestMaximalIndependantSet: public object {
     auto setup( ) {
         this->florentine = xn::Graph();
         this->florentine.add_edge('Acciaiuoli', 'Medici');

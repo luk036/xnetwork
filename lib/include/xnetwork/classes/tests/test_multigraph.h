@@ -268,7 +268,7 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
         assert_raises((KeyError, xn::XNetworkError), G.remove_edge, -1, 0);
 
 
-class TestEdgeSubgraph(object) {
+class TestEdgeSubgraph: public object {
     /** Unit tests for the :meth:`MultiGraph.edge_subgraph` method. */
 
     auto setup( ) {

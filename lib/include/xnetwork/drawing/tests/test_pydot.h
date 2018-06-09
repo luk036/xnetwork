@@ -13,7 +13,7 @@ from nose.tools import assert_equal, assert_is_instance, assert_true
 from xnetwork.testing import assert_graphs_equal
 
 
-class TestPydot(object) {
+class TestPydot: public object {
     /// @classmethod
     auto setupClass(cls) {
         /** 

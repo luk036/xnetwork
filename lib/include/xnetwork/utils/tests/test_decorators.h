@@ -13,7 +13,7 @@ from xnetwork.utils.decorators import nodes_or_number, preserve_random_state, \
 auto test_not_implemented_decorator() {
     /// @not_implemented_for('directed');
     auto test1(G) {
-        pass
+        pass();
     test1(xn::Graph());
 
 
@@ -21,7 +21,7 @@ auto test_not_implemented_decorator() {
 auto test_not_implemented_decorator_key() {
     /// @not_implemented_for('foo');
     auto test1(G) {
-        pass
+        pass();
     test1(xn::Graph());
 
 
@@ -29,11 +29,11 @@ auto test_not_implemented_decorator_key() {
 auto test_not_implemented_decorator_raise() {
     /// @not_implemented_for('graph');
     auto test1(G) {
-        pass
+        pass();
     test1(xn::Graph());
 
 
-class TestOpenFileDecorator(object) {
+class TestOpenFileDecorator: public object {
     auto setUp( ) {
         this->text = ['Blah... ', 'BLAH ', 'BLAH!!!!'];
         this->fobj = tempfile.NamedTemporaryFile('wb+', delete=false);
@@ -143,7 +143,7 @@ auto test_preserve_random_state() {
     assert(abs(r - 0.61879477158568) < 1e-16);
 
 
-class TestRandomState(object) {
+class TestRandomState: public object {
     /// @classmethod
     auto setUp(cls) {
         global np
@@ -181,7 +181,7 @@ class TestRandomState(object) {
 auto test_string_arg_index() {
     /// /// @random_state('a');
     auto make_random_state(rs) {
-        pass
+        pass();
     rstate = make_random_state(1);
 
 
@@ -189,5 +189,5 @@ auto test_string_arg_index() {
 auto test_invalid_arg_index() {
     /// /// @random_state(2);
     auto make_random_state(rs) {
-        pass
+        pass();
     rstate = make_random_state(1);

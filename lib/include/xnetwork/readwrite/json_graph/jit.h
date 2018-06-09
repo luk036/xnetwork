@@ -65,7 +65,7 @@ auto jit_graph(data, create_using=None) {
         if (node.get('adjacencies') is not None) {
             for (auto adj : node['adjacencies']) {
                 G.add_edge(node['id'], adj['nodeTo'], **adj['data']);
-    return G
+    return G;
 
 
 /// @not_implemented_for('multigraph');

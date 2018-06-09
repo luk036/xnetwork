@@ -14,7 +14,7 @@ auto get_pair(dictionary, n1, n2) {
         return dictionary[n2, n1];
 
 
-class TestTreeLCA(object) {
+class TestTreeLCA: public object {
     auto setUp( ) {
         this->DG = xn::DiGraph();
         edges = [(0, 1), (0, 2), (1, 3), (1, 4), (2, 5), (2, 6)];

@@ -10,7 +10,7 @@ from xnetwork.testing.utils import assert_edges_equal
 from xnetwork.testing.utils import assert_nodes_equal
 
 
-class TestSparseGraph6(object) {
+class TestSparseGraph6: public object {
 
     auto test_from_sparse6_bytes( ) {
         data = b':Q___eDcdFcDeFcE`GaJ`IaHbKNbLM';

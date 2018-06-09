@@ -2,7 +2,7 @@ from nose.tools import *
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestReciprocity(object) {
+class TestReciprocity: public object {
 
     // test overall reicprocity by passing whole graph
     auto test_reciprocity_digraph( ) {

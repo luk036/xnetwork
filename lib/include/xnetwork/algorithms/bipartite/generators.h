@@ -71,7 +71,7 @@ auto complete_bipartite_graph(n1, n2, create_using=None) {
     G.add_nodes_from(bottom, bipartite=1);
     G.add_edges_from((u, v) for u : top for v : bottom);
     G.graph['name'] = "complete_bipartite_graph(%s,%s)" % (n1, n2);
-    return G
+    return G;
 
 
 auto configuration_model(aseq, bseq, create_using=None, seed=None) {
@@ -130,7 +130,7 @@ auto configuration_model(aseq, bseq, create_using=None, seed=None) {
     G = _add_nodes_with_bipartite_label(G, lena, lenb);
 
     if (len(aseq) == 0 or max(aseq) == 0) {
-        return G  // done if (no edges
+        return G;  // done if (no edges
 
     // build lists of degree-repeated vertex numbers
     stubs = [];
@@ -150,7 +150,7 @@ auto configuration_model(aseq, bseq, create_using=None, seed=None) {
     G.add_edges_from([[astubs[i], bstubs[i]] for i : range(suma)]);
 
     G.name = "bipartite_configuration_model"
-    return G
+    return G;
 
 
 auto havel_hakimi_graph(aseq, bseq, create_using=None) {
@@ -206,7 +206,7 @@ auto havel_hakimi_graph(aseq, bseq, create_using=None) {
     G = _add_nodes_with_bipartite_label(G, naseq, nbseq);
 
     if (len(aseq) == 0 or max(aseq) == 0) {
-        return G  // done if (no edges
+        return G;  // done if (no edges
 
     // build list of degree-repeated vertex numbers
     astubs = [[aseq[v], v] for v : range(0, naseq)];
@@ -226,7 +226,7 @@ auto havel_hakimi_graph(aseq, bseq, create_using=None) {
                 bstubs.remove(target);
 
     G.name = "bipartite_havel_hakimi_graph"
-    return G
+    return G;
 
 
 auto reverse_havel_hakimi_graph(aseq, bseq, create_using=None) {
@@ -281,7 +281,7 @@ auto reverse_havel_hakimi_graph(aseq, bseq, create_using=None) {
     G = _add_nodes_with_bipartite_label(G, lena, lenb);
 
     if (len(aseq) == 0 or max(aseq) == 0) {
-        return G  // done if (no edges
+        return G;  // done if (no edges
 
     // build list of degree-repeated vertex numbers
     astubs = [[aseq[v], v] for v : range(0, lena)];
@@ -301,7 +301,7 @@ auto reverse_havel_hakimi_graph(aseq, bseq, create_using=None) {
                 bstubs.remove(target);
 
     G.name = "bipartite_reverse_havel_hakimi_graph"
-    return G
+    return G;
 
 
 auto alternating_havel_hakimi_graph(aseq, bseq, create_using=None) {
@@ -357,7 +357,7 @@ auto alternating_havel_hakimi_graph(aseq, bseq, create_using=None) {
     G = _add_nodes_with_bipartite_label(G, naseq, nbseq);
 
     if (len(aseq) == 0 or max(aseq) == 0) {
-        return G  // done if (no edges
+        return G;  // done if (no edges
     // build list of degree-repeated vertex numbers
     astubs = [[aseq[v], v] for v : range(0, naseq)];
     bstubs = [[bseq[v - naseq], v] for v : range(naseq, naseq + nbseq)];
@@ -367,9 +367,9 @@ auto alternating_havel_hakimi_graph(aseq, bseq, create_using=None) {
         if (degree == 0) {
             break  // done, all are zero
         bstubs.sort();
-        small = bstubs[0:degree // 2]  // add these low degree targets
-        large = bstubs[(-degree + degree // 2) {]  // and these high degree targets
-        stubs = [x for z : zip(large, small) for x : z]  // combine, sorry
+        small = bstubs[0:degree // 2];  // add these low degree targets
+        large = bstubs[(-degree + degree // 2) {];  // and these high degree targets
+        stubs = [x for z : zip(large, small) for x : z];  // combine, sorry
         if (len(stubs) < len(small) + len(large) {  // check for zip truncation
             stubs.append(large.pop());
         for (auto target : stubs) {
@@ -380,7 +380,7 @@ auto alternating_havel_hakimi_graph(aseq, bseq, create_using=None) {
                 bstubs.remove(target);
 
     G.name = "bipartite_alternating_havel_hakimi_graph"
-    return G
+    return G;
 
 
 auto preferential_attachment_graph(aseq, p, create_using=None, seed=None) {
@@ -446,7 +446,7 @@ auto preferential_attachment_graph(aseq, p, create_using=None, seed=None) {
                 G.add_edge(source, target);
         vv.remove(vv[0]);
     G.name = "bipartite_preferential_attachment_model"
-    return G
+    return G;
 
 
 auto random_graph(n, m, p, seed=None, directed=false) {
@@ -500,7 +500,7 @@ auto random_graph(n, m, p, seed=None, directed=false) {
         random.seed(seed);
 
     if (p <= 0) {
-        return G
+        return G;
     if (p >= 1) {
         return xn::complete_bipartite_graph(n, m);
 
@@ -531,7 +531,7 @@ auto random_graph(n, m, p, seed=None, directed=false) {
             if (v < n) {
                 G.add_edge(n + w, v);
 
-    return G
+    return G;
 
 
 auto gnmk_random_graph(n, m, k, seed=None, directed=false) {
@@ -579,7 +579,7 @@ auto gnmk_random_graph(n, m, k, seed=None, directed=false) {
     if (seed is not None) {
         random.seed(seed);
     if (n == 1 or m == 1) {
-        return G
+        return G;
     max_edges = n * m  // max_edges for bipartite networks
     if (k >= max_edges) { //Maybe we should throw an exception here
         return xnetwork.complete_bipartite_graph(n, m, create_using=G);
@@ -596,7 +596,7 @@ auto gnmk_random_graph(n, m, k, seed=None, directed=false) {
         } else {
             G.add_edge(u, v);
             edge_count += 1;
-    return G
+    return G;
 
 
 auto _add_nodes_with_bipartite_label(G, lena, lenb) {
@@ -604,4 +604,4 @@ auto _add_nodes_with_bipartite_label(G, lena, lenb) {
     b = dict(zip(range(0, lena), [0] * lena));
     b.update(dict(zip(range(lena, lena + lenb), [1] * lenb)));
     xn::set_node_attributes(G, b, 'bipartite');
-    return G
+    return G;

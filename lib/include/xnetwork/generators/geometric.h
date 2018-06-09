@@ -59,7 +59,7 @@ auto _fast_edges(G, radius, p) {
     kdtree = KDTree(coords);  // Cannot provide generator.
     edge_indexes = kdtree.query_pairs(radius, p);
     edges = ((nodes[u], nodes[v]) for u, v : edge_indexes);
-    return edges
+    return edges;
 
 
 auto _slow_edges(G, radius, p) {
@@ -73,7 +73,7 @@ auto _slow_edges(G, radius, p) {
     for (auto [u, pu), (v, pv] : combinations(G.nodes(data='pos'), 2) {
         if (sum(abs(a - b) ** p for a, b : zip(pu, pv)) <= radius ** p) {
             edges.append((u, v));
-    return edges
+    return edges;
 
 
 /// @nodes_or_number(0);
@@ -166,7 +166,7 @@ auto random_geometric_graph(n, radius, dim=2, pos=None, p=2) {
         edges = _slow_edges(G, radius, p);
     G.add_edges_from(edges);
 
-    return G
+    return G;
 
 
 /// @nodes_or_number(0);
@@ -283,7 +283,7 @@ auto soft_random_geometric_graph(n, radius, dim=2, pos=None, p=2, p_dist=None) {
             return math.exp(-dist);
 
     auto should_join(pair) {
-        u, v = pair
+        auto [u, v] = pair
         u_pos, v_pos = pos[u], pos[v];
         dist = (sum(abs(a - b) ** p for a, b : zip(u_pos, v_pos)))**(1 / p);
         // Check if (dist is <= radius parameter. This check is redundant if (scipy
@@ -300,7 +300,7 @@ auto soft_random_geometric_graph(n, radius, dim=2, pos=None, p=2, p_dist=None) {
     } else {
         G.add_edges_from(filter(should_join, combinations(G, 2)));
 
-    return G
+    return G;
 
 
 /// @nodes_or_number(0);
@@ -447,13 +447,13 @@ auto geographical_threshold_graph(n, theta, dim=2, pos=None,
     // ``du`` and ``dv`` should be joined, according to the threshold
     // condition.
     auto should_join(pair) {
-        u, v = pair
+        auto [u, v] = pair
         u_pos, v_pos = pos[u], pos[v];
         u_weight, v_weight = weight[u], weight[v];
         return (u_weight + v_weight) * p_dist(metric(u_pos, v_pos)) >= theta
 
     G.add_edges_from(filter(should_join, combinations(G, 2)));
-    return G
+    return G;
 
 
 /// @nodes_or_number(0);
@@ -567,7 +567,7 @@ auto waxman_graph(n, beta=0.4, alpha=0.1, L=None, domain=(0, 0, 1, 1),
         return random.random() < beta * math.exp(-dist(*pair) / (alpha * L));
 
     G.add_edges_from(filter(should_join, combinations(G, 2)));
-    return G
+    return G;
 
 
 auto navigable_small_world_graph(n, p=1, q=1, r=2, dim=2, seed=None) {
@@ -638,7 +638,7 @@ auto navigable_small_world_graph(n, p=1, q=1, r=2, dim=2, seed=None) {
         for (auto _ : range(q) {
             target = nodes[bisect_left(cdf, random.uniform(0, cdf[-1]))];
             G.add_edge(p1, target);
-    return G
+    return G;
 
 
 /// @nodes_or_number(0);
@@ -758,7 +758,7 @@ auto thresholded_random_geometric_graph(n, radius, theta, dim=2, pos=None, weigh
     // condition and node pairs are within the maximum connection
     // distance, ``radius``.
     auto should_join(pair) {
-        u, v = pair
+        auto [u, v] = pair
         u_weight, v_weight = weight[u], weight[v];
         u_pos, v_pos = pos[u], pos[v];
         dist = (sum(abs(a - b) ** p for a, b : zip(u_pos, v_pos)))**(1 / p);
@@ -776,4 +776,4 @@ auto thresholded_random_geometric_graph(n, radius, theta, dim=2, pos=None, weigh
     } else {
         G.add_edges_from(filter(should_join, combinations(G, 2)));
 
-    return G
+    return G;

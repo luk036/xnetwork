@@ -197,4 +197,4 @@ auto _layout_to_graph(layout) {
                 j_level = layout[j];
             G.add_edge(i, j);
         stack.append(i);
-    return G
+    return G;

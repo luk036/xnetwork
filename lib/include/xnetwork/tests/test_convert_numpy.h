@@ -6,7 +6,7 @@ from xnetwork.generators.classic import barbell_graph, cycle_graph, path_graph
 from xnetwork.testing.utils import assert_graphs_equal
 
 
-class TestConvertNumpy(object) {
+class TestConvertNumpy: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod
@@ -19,7 +19,7 @@ class TestConvertNumpy(object) {
         } catch (ImportError) {
             throw SkipTest('NumPy not available.');
 
-    auto __init__( ) {
+    explicit _Self( ) {
         this->G1 = barbell_graph(10, 3);
         this->G2 = cycle_graph(10, create_using=xn::DiGraph());
 
@@ -34,7 +34,7 @@ class TestConvertNumpy(object) {
         g = cycle_graph(4);
         G.add_nodes_from(g);
         G.add_weighted_edges_from((u, v, 10 + u) for u, v : g.edges());
-        return G
+        return G;
 
     auto assert_equal( G1, G2) {
         assert_true(sorted(G1.nodes()) == sorted(G2.nodes()));
@@ -242,7 +242,7 @@ class TestConvertNumpy(object) {
         assert_equal(A.dtype, int);
 
 
-class TestConvertNumpyArray(object) {
+class TestConvertNumpyArray: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod
@@ -255,7 +255,7 @@ class TestConvertNumpyArray(object) {
         } catch (ImportError) {
             throw SkipTest('NumPy not available.');
 
-    auto __init__( ) {
+    explicit _Self( ) {
         this->G1 = barbell_graph(10, 3);
         this->G2 = cycle_graph(10, create_using=xn::DiGraph());
 
@@ -266,7 +266,7 @@ class TestConvertNumpyArray(object) {
         g = cycle_graph(4);
         G.add_nodes_from(g);
         G.add_weighted_edges_from((u, v, 10 + u) for u, v : g.edges());
-        return G
+        return G;
 
     auto assert_equal( G1, G2) {
         assert_true(sorted(G1.nodes()) == sorted(G2.nodes()));

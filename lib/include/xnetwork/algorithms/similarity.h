@@ -557,7 +557,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
     from scipy.optimize import linear_sum_assignment
 
     class CostMatrix) {
-        auto __init__( C, lsa_row_ind, lsa_col_ind, ls) {
+        explicit _Self( C, lsa_row_ind, lsa_col_ind, ls) {
             // assert C.shape[0] == len(lsa_row_ind);
             // assert C.shape[1] == len(lsa_col_ind);
             // assert len(lsa_row_ind) == len(lsa_col_ind);
@@ -708,7 +708,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
         Ce_xy = reduce_Ce(Ce, xy, len(pending_g), len(pending_h));
         // assert Ce.ls <= localCe.ls + Ce_xy.ls
         if (prune(matched_cost + Cv.ls + localCe.ls + Ce_xy.ls) {
-            pass
+            pass();
         } else {
             // // get reduced Cv efficiently
             Cv_ij = CostMatrix(reduce_C(Cv.C, (i,), (j,), m, n),
@@ -863,7 +863,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
                                 for (auto u : pending_u for v : pending_v]).reshape(m, n);
     } else {
         // all zeroes
-        pass
+        pass();
     // assert not min(m, n) or C[0:m, 0:n].min() > = 0.;
     if (node_del_cost) {
         del_costs = [node_del_cost(G1.nodes[u]) for u : pending_u];
@@ -899,7 +899,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
                                 for (auto g : pending_g for h : pending_h]).reshape(m, n);
     } else {
         // all zeroes
-        pass
+        pass();
     // assert not min(m, n) or C[0:m, 0:n].min() > = 0.;
     if (edge_del_cost) {
         del_costs = [edge_del_cost(G1.edges[g]) for g : pending_g];
@@ -922,7 +922,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
     // debug_print();
 
     class MaxCost) {
-        auto __init__( ) {
+        explicit _Self( ) {
             // initial upper-bound estimate
             // NOTE: should work for empty graph
             this->value = Cv.C.sum() + Ce.C.sum() + 1

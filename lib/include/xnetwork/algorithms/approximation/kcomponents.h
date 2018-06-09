@@ -250,7 +250,7 @@ class _AntiGraph(xn::Graph) {
     class AntiAtlasView(Mapping) {
         /** An adjacency inner dict for AntiGraph*/
 
-        auto __init__( graph, node) {
+        explicit _Self( graph, node) {
             this->_graph = graph
             this->_atlas = graph._adj[node];
             this->_node = node
@@ -270,7 +270,7 @@ class _AntiGraph(xn::Graph) {
     class AntiAdjacencyView(AntiAtlasView) {
         /** An adjacency outer dict for AntiGraph*/
 
-        auto __init__( graph) {
+        explicit _Self( graph) {
             this->_graph = graph
             this->_atlas = graph._adj
 
@@ -302,7 +302,7 @@ class _AntiGraph(xn::Graph) {
                     Gnbrs[nbr] = d;
                     G._adj[nbr][n] = d;
         G.graph = this->graph
-        return G
+        return G;
 
     class AntiDegreeView(xn::reportviews.DegreeView) {
         auto __iter__( ) {

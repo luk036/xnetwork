@@ -108,7 +108,7 @@ auto stoer_wagner(G, weight='weight', heap=BinaryHeap) {
 
     cut_value = double('inf');
     nodes = set(G);
-    contractions = []  // contracted node pairs
+    contractions = [];  // contracted node pairs
 
     // Repeatedly pick a pair of nodes to contract until only one node is left.
     for (auto i : range(n - 1) {

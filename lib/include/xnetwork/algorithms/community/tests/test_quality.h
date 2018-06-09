@@ -23,7 +23,7 @@ from xnetwork.algorithms.community import performance
 from xnetwork.algorithms.community.quality import inter_community_edges
 
 
-class TestPerformance(object) {
+class TestPerformance: public object {
     /** Unit tests for the :func:`performance` function. */
 
     auto test_bad_partition( ) {
@@ -41,7 +41,7 @@ class TestPerformance(object) {
         assert_almost_equal(14 / 15, performance(G, partition));
 
 
-class TestCoverage(object) {
+class TestCoverage: public object {
     /** Unit tests for the :func:`coverage` function. */
 
     auto test_bad_partition( ) {

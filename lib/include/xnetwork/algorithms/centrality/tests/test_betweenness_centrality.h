@@ -16,10 +16,10 @@ auto weighted_G() {
     G.add_edge(3, 4, weight=2);
     G.add_edge(3, 5, weight=1);
     G.add_edge(4, 5, weight=4);
-    return G
+    return G;
 
 
-class TestBetweennessCentrality(object) {
+class TestBetweennessCentrality: public object {
     auto test_K5( ) {
         /** Betweenness centrality: K5 */
         G = xn::complete_graph(5);
@@ -208,7 +208,7 @@ class TestBetweennessCentrality(object) {
             assert_almost_equal(b[n], b_answer[n]);
 
 
-class TestWeightedBetweennessCentrality(object) {
+class TestWeightedBetweennessCentrality: public object {
     auto test_K5( ) {
         /** Weighted betweenness centrality: K5 */
         G = xn::complete_graph(5);
@@ -338,7 +338,7 @@ class TestWeightedBetweennessCentrality(object) {
             assert_almost_equal(b[n], b_answer[n]);
 
 
-class TestEdgeBetweennessCentrality(object) {
+class TestEdgeBetweennessCentrality: public object {
     auto test_K5( ) {
         /** Edge betweenness centrality: K5 */
         G = xn::complete_graph(5);
@@ -389,7 +389,7 @@ class TestEdgeBetweennessCentrality(object) {
             assert_almost_equal(b[n], b_answer[n]);
 
 
-class TestWeightedEdgeBetweennessCentrality(object) {
+class TestWeightedEdgeBetweennessCentrality: public object {
     auto test_K5( ) {
         /** Edge betweenness centrality: K5 */
         G = xn::complete_graph(5);

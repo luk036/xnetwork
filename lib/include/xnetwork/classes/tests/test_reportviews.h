@@ -6,7 +6,7 @@ from nose.tools import assert_equal, assert_not_equal, \
 
 
 // Nodes
-class TestNodeView(object) {
+class TestNodeView: public object {
     auto setup( ) {
         this->G = xn::path_graph(9);
         this->nv = this->G.nodes   // NodeView(G);
@@ -62,7 +62,7 @@ class TestNodeView(object) {
         assert_is_not(nodes, nodes(data='weight'));
 
 
-class TestNodeDataView(object) {
+class TestNodeDataView: public object {
     auto setup( ) {
         this->G = xn::path_graph(9);
         this->nv = this->G.nodes.data()   // NodeDataView(G);
@@ -165,7 +165,7 @@ auto test_nodedataview_unhashable() {
     Gn | Gn
 
 
-class TestNodeViewSetOps(object) {
+class TestNodeViewSetOps: public object {
     auto setUp( ) {
         this->G = xn::path_graph(9);
         this->G.nodes[3]['foo'] = 'bar';
@@ -233,7 +233,7 @@ class TestNodeDataViewDefaultSetOps(TestNodeDataViewSetOps) {
 
 
 // Edges Data View
-class TestEdgeDataView(object) {
+class TestEdgeDataView: public object {
     auto setUp( ) {
         this->G = xn::path_graph(9);
         this->eview = xn::reportviews.EdgeView
@@ -268,11 +268,11 @@ class TestEdgeDataView(object) {
         ev_auto = evr(data='foo', default=1);
 
         for (auto u, v, d : ev) {
-            pass
+            pass();
         assert_equal(d, {});
 
         for (auto u, v, wt : ev_def) {
-            pass
+            pass();
         assert_equal(wt, 1);
 
         this->modify_edge(G, (2, 3), foo='bar');
@@ -298,7 +298,7 @@ class TestEdgeDataView(object) {
         evr = this->eview(this->G);
         ev = evr();
         for (auto u, v : ev) {
-            pass
+            pass();
         iev = iter(ev);
         assert_equal(next(iev), (0, 1));
         assert_not_equal(iter(ev), ev);
@@ -427,7 +427,7 @@ class TestInMultiEdgeDataView(TestOutMultiEdgeDataView) {
 
 
 // Edge Views
-class TestEdgeView(object) {
+class TestEdgeView: public object {
     auto setup( ) {
         this->G = xn::path_graph(9);
         this->eview = xn::reportviews.EdgeView
@@ -470,7 +470,7 @@ class TestEdgeView(object) {
     auto test_iter( ) {
         ev = this->eview(this->G);
         for (auto u, v : ev) {
-            pass
+            pass();
         iev = iter(ev);
         assert_equal(next(iev), (0, 1));
         assert_not_equal(iter(ev), ev);
@@ -617,7 +617,7 @@ class TestMultiEdgeView(TestEdgeView) {
     auto test_iter( ) {
         ev = this->eview(this->G);
         for (auto u, v, k : ev) {
-            pass
+            pass();
         iev = iter(ev);
         assert_equal(next(iev), (0, 1, 0));
         assert_not_equal(iter(ev), ev);
@@ -628,11 +628,11 @@ class TestMultiEdgeView(TestEdgeView) {
         evr = this->eview(G);
         ev = evr(keys=true);
         for (auto u, v, k : ev) {
-            pass
+            pass();
         assert_equal(k, 0);
         ev = evr(keys=true, data="foo", default=1);
         for (auto u, v, k, wt : ev) {
-            pass
+            pass();
         assert_equal(wt, 1);
 
         this->modify_edge(G, (2, 3, 0), foo='bar');
@@ -769,7 +769,7 @@ class TestInMultiEdgeView(TestMultiEdgeView) {
 
 
 // Degrees
-class TestDegreeView(object) {
+class TestDegreeView: public object {
     GRAPH = xn::Graph
     dview = xn::reportviews.DegreeView
 
@@ -799,7 +799,7 @@ class TestDegreeView(object) {
     auto test_iter( ) {
         dv = this->dview(this->G);
         for (auto n, d : dv) {
-            pass
+            pass();
         idv = iter(dv);
         assert_not_equal(iter(dv), dv);
         assert_equal(iter(idv), idv);
@@ -808,7 +808,7 @@ class TestDegreeView(object) {
         // weighted
         dv = this->dview(this->G, weight='foo');
         for (auto n, d : dv) {
-            pass
+            pass();
         idv = iter(dv);
         assert_not_equal(iter(dv), dv);
         assert_equal(iter(idv), idv);

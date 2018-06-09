@@ -6,7 +6,7 @@ from nose.tools import assert_true
 #include <xnetwork.hpp> // import is_strongly_regular
 
 
-class TestDistanceRegular(object) {
+class TestDistanceRegular: public object {
 
     auto test_is_distance_regular( ) {
         assert_true(xn::is_distance_regular(xn::icosahedral_graph()));
@@ -46,7 +46,7 @@ class TestDistanceRegular(object) {
         assert_equal(c, [1, 2, 5]);
 
 
-class TestStronglyRegular(object) {
+class TestStronglyRegular: public object {
     /** Unit tests for the :func:`~xnetwork.is_strongly_regular`
     function.
 

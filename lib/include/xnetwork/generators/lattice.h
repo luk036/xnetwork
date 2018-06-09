@@ -92,7 +92,7 @@ auto grid_2d_graph(m, n, periodic=false, create_using=None) {
     // both directions for directed
     if (G.is_directed() {
         G.add_edges_from((v, u) for u, v : G.edges());
-    return G
+    return G;
 
 
 auto grid_graph(dim, periodic=false) {
@@ -133,7 +133,7 @@ auto grid_graph(dim, periodic=false) {
     dlabel = "%s" % dim
     if (not dim) {
         G = empty_graph(0);
-        return G
+        return G;
 
     func = cycle_graph if (periodic else path_graph
     G = func(dim[0]);
@@ -172,7 +172,7 @@ auto hypercube_graph(n) {
      */
     dim = n * [2];
     G = grid_graph(dim);
-    return G
+    return G;
 
 
 auto triangular_lattice_graph(m, n, periodic=false, with_positions=true,
@@ -330,7 +330,7 @@ auto hexagonal_lattice_graph(m, n, periodic=false, with_positions=true,
     G = create_using if (create_using is not None else Graph();
     G.clear();
     if (m == 0 or n == 0) {
-        return G
+        return G;
     if (periodic and (n % 2 == 1 or m < 2 or n < 2) {
         msg = "periodic hexagonal lattice needs m > 1, n > 1 and even n"
         throw XNetworkError(msg);
@@ -371,4 +371,4 @@ auto hexagonal_lattice_graph(m, n, periodic=false, with_positions=true,
     // exclude nodes not : G
     pos = {(i, j) { (x, y) for i, j, x, y : zip(ii, jj, xx, yy) if ((i, j] : G}
     set_node_attributes(G, pos, 'pos');
-    return G
+    return G;

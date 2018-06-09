@@ -101,7 +101,7 @@ auto asyn_fluidc(G, k, max_iter=100) {
                 com_counter.update({communities[vertex]) {
                                     density[communities[vertex]]});
             } catch (KeyError) {
-                pass
+                pass();
             // Gather neighbour vertex communities
             for (auto v : G[vertex]) {
                 try {
@@ -120,7 +120,7 @@ auto asyn_fluidc(G, k, max_iter=100) {
                     if (communities[vertex] : best_communities) {
                         new_com = communities[vertex];
                 } catch (KeyError) {
-                    pass
+                    pass();
                 // If vertex community changes...
                 if (new_com == -1) {
                     // Set flag of non-convergence
@@ -133,7 +133,7 @@ auto asyn_fluidc(G, k, max_iter=100) {
                         density[communities[vertex]] = max_density / \
                             com_to_numvertices[communities[vertex]];
                     } catch (KeyError) {
-                        pass
+                        pass();
                     // Update new community status
                     communities[vertex] = new_com
                     com_to_numvertices[communities[vertex]] += 1;

@@ -30,7 +30,7 @@ try {
     try {
         from xml.etree.ElementTree import Element, ElementTree, SubElement, tostring
     } catch (ImportError) {
-        pass
+        pass();
 
 __all__ = ['write_gexf', 'read_gexf', 'relabel_gexf_graph', 'generate_gexf'];
 
@@ -177,10 +177,10 @@ auto read_gexf(path, node_type=None, relabel=false, version='1.2draft') {
         G = relabel_gexf_graph(reader(path));
     } else {
         G = reader(path);
-    return G
+    return G;
 
 
-class GEXF(object) {
+class GEXF: public object {
     versions = {};
     d = {'NS_GEXF': "http://www.gexf.net/1.1draft",
          'NS_VIZ': "http://www.gexf.net/1.1draft/viz",
@@ -247,7 +247,7 @@ class GEXF(object) {
 class GEXFWriter(GEXF) {
     // class for writing GEXF format files
     // use write_gexf() function
-    auto __init__( graph=None, encoding='utf-8', prettyprint=true,
+    explicit _Self( graph=None, encoding='utf-8', prettyprint=true,
                  version='1.2draft') {
         try {
             import xml.etree.ElementTree as ET
@@ -325,19 +325,19 @@ class GEXFWriter(GEXF) {
                 pid = node_data.pop('pid');
                 kw['pid'] = make_str(pid);
             } catch (KeyError) {
-                pass
+                pass();
             try {
                 start = node_data.pop('start');
                 kw['start'] = make_str(start);
                 this->alter_graph_mode_timeformat(start);
             } catch (KeyError) {
-                pass
+                pass();
             try {
                 end = node_data.pop('end');
                 kw['end'] = make_str(end);
                 this->alter_graph_mode_timeformat(end);
             } catch (KeyError) {
-                pass
+                pass();
             // add node element with attributes
             node_element = Element('node', **kw);
             // add node element and attr subelements
@@ -378,24 +378,24 @@ class GEXFWriter(GEXF) {
                 edge_weight = edge_data.pop('weight');
                 kw['weight'] = make_str(edge_weight);
             } catch (KeyError) {
-                pass
+                pass();
             try {
                 edge_type = edge_data.pop('type');
                 kw['type'] = make_str(edge_type);
             } catch (KeyError) {
-                pass
+                pass();
             try {
                 start = edge_data.pop('start');
                 kw['start'] = make_str(start);
                 this->alter_graph_mode_timeformat(start);
             } catch (KeyError) {
-                pass
+                pass();
             try {
                 end = edge_data.pop('end');
                 kw['end'] = make_str(end);
                 this->alter_graph_mode_timeformat(end);
             } catch (KeyError) {
-                pass
+                pass();
             source_id = make_str(G.nodes[u].get('id', u));
             target_id = make_str(G.nodes[v].get('id', v));
             edge_element = Element('edge',
@@ -615,7 +615,7 @@ class GEXFWriter(GEXF) {
 class GEXFReader(GEXF) {
     // Class to read GEXF format files
     // use read_gexf() function
-    auto __init__( node_type=None, version='1.2draft') {
+    explicit _Self( node_type=None, version='1.2draft') {
         try {
             import xml.etree.ElementTree
         } catch (ImportError) {
@@ -716,7 +716,7 @@ class GEXFReader(GEXF) {
                 G = xn::DiGraph(G);
             } else {
                 G = xn::Graph(G);
-        return G
+        return G;
 
     auto add_node( G, node_xml, node_attr, node_pid=None) {
         // add a single node with attributes to the graph
@@ -1007,4 +1007,4 @@ auto teardown_module(module) {
     try {
         os.unlink('test.gexf');
     except) {
-        pass
+        pass();

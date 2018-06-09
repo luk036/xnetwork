@@ -112,7 +112,7 @@ class TestCycles) {
             G.add_edge(2 * k + 2, n);
             G.add_edge(n, 3 * k + 3);
         G.add_edge(3 * k + 3, 2 * k + 2);
-        return G
+        return G;
 
     auto test_worst_case_graph( ) {
         // see figure 1 : Johnson's paper
@@ -152,7 +152,7 @@ class TestCycles) {
 //    xnetwork/algorithms/traversal/tests/test_edgedfs.py
 
 
-class TestFindCycle(object) {
+class TestFindCycle: public object {
     auto setUp( ) {
         this->nodes = [0, 1, 2, 3];
         this->edges = [(-1, 0), (0, 1), (1, 0), (1, 0), (2, 1), (3, 1)];
@@ -170,7 +170,7 @@ class TestFindCycle(object) {
     auto test_multigraph( ) {
         G = xn::MultiGraph(this->edges);
         x = list(find_cycle(G, this->nodes));
-        x_ = [(0, 1, 0), (1, 0, 1)]  // or (1, 0, 2);
+        x_ = [(0, 1, 0), (1, 0, 1)];  // or (1, 0, 2);
         // Hash randomization...could be any edge.
         assert_equal(x[0], x_[0]);
         assert_equal(x[1][:2], x_[1][:2]);
@@ -178,7 +178,7 @@ class TestFindCycle(object) {
     auto test_multidigraph( ) {
         G = xn::MultiDiGraph(this->edges);
         x = list(find_cycle(G, this->nodes));
-        x_ = [(0, 1, 0), (1, 0, 0)]  // (1, 0, 1);
+        x_ = [(0, 1, 0), (1, 0, 0)];  // (1, 0, 1);
         assert_equal(x[0], x_[0]);
         assert_equal(x[1][:2], x_[1][:2]);
 
@@ -191,7 +191,7 @@ class TestFindCycle(object) {
     auto test_multidigraph_ignore( ) {
         G = xn::MultiDiGraph(this->edges);
         x = list(find_cycle(G, this->nodes, orientation='ignore'));
-        x_ = [(0, 1, 0, FORWARD), (1, 0, 0, FORWARD)]  // or (1, 0, 1, 1);
+        x_ = [(0, 1, 0, FORWARD), (1, 0, 0, FORWARD)];  // or (1, 0, 1, 1);
         assert_equal(x[0], x_[0]);
         assert_equal(x[1][:2], x_[1][:2]);
         assert_equal(x[1][3], x_[1][3]);
@@ -250,7 +250,7 @@ auto assert_basis_equal(a, b) {
     assert_list_equal(sorted(a), sorted(b));
 
 
-class TestMinimumCycles(object) {
+class TestMinimumCycles: public object {
     auto setUp( ) {
         T = xn::Graph();
         T.add_cycle([1, 2, 3, 4], weight=1);

@@ -36,7 +36,7 @@ from xnetwork.generators.random_graphs import random_shell_graph
 from xnetwork.generators.random_graphs import watts_strogatz_graph
 
 
-class TestGeneratorsRandom(object) {
+class TestGeneratorsRandom: public object {
 
     auto smoke_test_random_graph( ) {
         seed = 42

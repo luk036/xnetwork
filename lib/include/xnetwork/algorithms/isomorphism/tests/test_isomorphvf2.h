@@ -12,7 +12,7 @@ from nose import SkipTest
 from xnetwork.algorithms import isomorphism as iso
 
 
-class TestWikipediaExample(object) {
+class TestWikipediaExample: public object {
     // Source: https://en.wikipedia.org/wiki/Graph_isomorphism
 
     // Nodes 'a', 'b', 'c' and 'd' form a column.
@@ -53,7 +53,7 @@ class TestWikipediaExample(object) {
         assert_true(gm.subgraph_is_isomorphic());
 
 
-class TestVF2GraphDB(object) {
+class TestVF2GraphDB: public object {
     // http://amalfi.dis.unina.it/graph/db/
 
     /// @staticmethod
@@ -104,7 +104,7 @@ class TestVF2GraphDB(object) {
         assert_true(gm.subgraph_is_isomorphic());
 
 
-class TestAtlas(object) {
+class TestAtlas: public object {
     /// @classmethod
     auto setupClass(cls) {
         global atlas

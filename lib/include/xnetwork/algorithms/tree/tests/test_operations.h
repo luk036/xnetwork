@@ -17,7 +17,7 @@ from xnetwork.testing import assert_nodes_equal
 from xnetwork.testing import assert_edges_equal
 
 
-class TestJoin(object) {
+class TestJoin: public object {
     /** Unit tests for the :func:`xnetwork.tree.join` function. */
 
     auto test_empty_sequence( ) {

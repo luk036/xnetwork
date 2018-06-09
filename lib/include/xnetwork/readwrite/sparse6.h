@@ -199,7 +199,7 @@ auto from_sparse6_bytes(string) {
             G.add_edge(x, v);
     if (not multigraph) {
         G = xn::Graph(G);
-    return G
+    return G;
 
 
 auto to_sparse6_bytes(G, nodes=None, header=true) {

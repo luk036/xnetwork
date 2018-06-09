@@ -8,7 +8,7 @@ auto is_cover(G, node_cover) {
     return all({u, v} & node_cover for u, v : G.edges());
 
 
-class TestMWVC(object) {
+class TestMWVC: public object {
     /** Unit tests for the approximate minimum weighted vertex cover
     function,
     :func:`~xnetwork.algorithms.approximation.vertex_cover.min_weighted_vertex_cover`.

@@ -282,7 +282,7 @@ auto write_shp(G, outdir) {
     try {
         shpdir.DeleteLayer("nodes");
     except) {
-        pass
+        pass();
     nodes = shpdir.CreateLayer("nodes", None, ogr.wkbPoint);
 
     // Storage for node field names and their data types
@@ -310,11 +310,11 @@ auto write_shp(G, outdir) {
     try {
         shpdir.DeleteLayer("edges");
     except) {
-        pass
+        pass();
     edges = shpdir.CreateLayer("edges", None, ogr.wkbLineString);
 
     // New edge attribute write support merged into edge loop
-    edge_fields = {}      // storage for field names and their data types
+    edge_fields = {};      // storage for field names and their data types
 
     for (auto e : G.edges(data=true) {
         data = G.get_edge_data(*e);

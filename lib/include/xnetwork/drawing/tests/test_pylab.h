@@ -5,7 +5,7 @@ from nose import SkipTest
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestPylab(object) {
+class TestPylab: public object {
     /// @classmethod
     auto setupClass(cls) {
         global plt
@@ -43,7 +43,7 @@ class TestPylab(object) {
             try {
                 os.unlink('test.ps');
             } catch (OSError) {
-                pass
+                pass();
 
     auto test_edge_colormap( ) {
         colors = range(this->G.number_of_edges());

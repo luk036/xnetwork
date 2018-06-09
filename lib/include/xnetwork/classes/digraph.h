@@ -147,7 +147,7 @@ class DiGraph(Graph) {
 
     >>> 1 : G     // check if (node : graph
     true
-    >>> [n for n : G if (n < 3]  // iterate through nodes
+    >>> [n for n : G if (n < 3];  // iterate through nodes
     [1, 2];
     >>> len(G);  // number of nodes : graph
     5
@@ -159,14 +159,14 @@ class DiGraph(Graph) {
     ...     for (auto nbr, eattr : nbrsdict.items() {
     ...        if ('weight' : eattr) {
     ...            // Do something useful with the edges
-    ...            pass
+    ...            pass();
 
     But the edges reporting object is often more convenient) {
 
     >>> for u, v, weight : G.edges(data='weight') {
     ...     if (weight is not None) {
     ...         // Do something useful with the edges
-    ...         pass
+    ...         pass();
 
     **Reporting:**
 
@@ -262,7 +262,7 @@ class DiGraph(Graph) {
             del attr['out_degree'];
         return attr
 
-    auto __init__( incoming_graph_data=None, **attr) {
+    explicit _Self( incoming_graph_data=None, **attr) {
         /** Initialize a graph with edges, name, or graph attributes.
 
         Parameters
@@ -295,17 +295,17 @@ class DiGraph(Graph) {
         {'day': 'Friday'}
 
          */
-        this->node_dict_factory = ndf = this->node_dict_factory
-        this->adjlist_outer_dict_factory = this->adjlist_outer_dict_factory
-        this->adjlist_inner_dict_factory = this->adjlist_inner_dict_factory
-        this->edge_attr_dict_factory = this->edge_attr_dict_factory
+        this->node_dict_factory = ndf = this->node_dict_factory;
+        this->adjlist_outer_dict_factory = this->adjlist_outer_dict_factory;
+        this->adjlist_inner_dict_factory = this->adjlist_inner_dict_factory;
+        this->edge_attr_dict_factory = this->edge_attr_dict_factory;
 
-        this->root_graph = self
+        this->root_graph = self;
         this->graph = {};  // dictionary for graph attributes
         this->_node = ndf();  // dictionary for node attributes
         // We store two adjacency lists) {
         // the  predecessors of node n are stored : the dict this->_pred
-        // the successors of node n are stored : the dict this->_succ=this->_adj
+        // the successors of node n are stored : the dict this->_succ=this->_adj;
         this->_adj = ndf();  // empty adjacency dictionary
         this->_pred = ndf();  // predecessor
         this->_succ = this->_adj  // successor
@@ -414,7 +414,7 @@ class DiGraph(Graph) {
         if (node_for_adding not : this->_succ) {
             this->_succ[node_for_adding] = this->adjlist_inner_dict_factory();
             this->_pred[node_for_adding] = this->adjlist_inner_dict_factory();
-            this->_node[node_for_adding] = attr
+            this->_node[node_for_adding] = attr;
         } else { //update attr even if (node already exists
             this->_node[node_for_adding].update(attr);
 
@@ -522,11 +522,11 @@ class DiGraph(Graph) {
         } catch (KeyError) { //XNetworkError if (n not : self
             throw XNetworkError("The node %s is not : the digraph." % (n,));
         for (auto u : nbrs) {
-            del this->_pred[u][n]   // remove all edges n-u : digraph
-        del this->_succ[n]          // remove node from succ
+            del this->_pred[u][n];   // remove all edges n-u : digraph
+        del this->_succ[n];          // remove node from succ
         for (auto u : this->_pred[n]) {
-            del this->_succ[u][n]   // remove all edges n-u : digraph
-        del this->_pred[n]          // remove node from pred
+            del this->_succ[u][n];   // remove all edges n-u : digraph
+        del this->_pred[n];          // remove node from pred
 
     auto remove_nodes_from( nodes) {
         /** Remove multiple nodes.
@@ -557,11 +557,11 @@ class DiGraph(Graph) {
                 succs = this->_succ[n];
                 del this->_node[n];
                 for (auto u : succs) {
-                    del this->_pred[u][n]   // remove all edges n-u : digraph
-                del this->_succ[n]          // now remove node
+                    del this->_pred[u][n];   // remove all edges n-u : digraph
+                del this->_succ[n];          // now remove node
                 for (auto u : this->_pred[n]) {
-                    del this->_succ[u][n]   // remove all edges n-u : digraph
-                del this->_pred[n]          // now remove node
+                    del this->_succ[u][n];   // remove all edges n-u : digraph
+                del this->_pred[n];          // now remove node
             } catch (KeyError) {
                 pass  // silent failure on remove
 
@@ -615,7 +615,7 @@ class DiGraph(Graph) {
         >>> G[1][2].update({0: 5});
         >>> G.edges[1, 2].update({0: 5});
          */
-        u, v = u_of_edge, v_of_edge
+        auto [u, v] = u_of_edge, v_of_edge
         // add nodes
         if (u not : this->_succ) {
             this->_succ[u] = this->adjlist_inner_dict_factory();
@@ -628,8 +628,8 @@ class DiGraph(Graph) {
         // add the edge
         datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
         datadict.update(attr);
-        this->_succ[u][v] = datadict
-        this->_pred[v][u] = datadict
+        this->_succ[u][v] = datadict;
+        this->_pred[v][u] = datadict;
 
     auto add_edges_from( ebunch_to_add, **attr) {
         /** Add all the edges : ebunch_to_add.
@@ -674,7 +674,7 @@ class DiGraph(Graph) {
             if (ne == 3) {
                 u, v, dd = e
             } else if (ne == 2) {
-                u, v = e
+                auto [u, v] = e
                 dd = {};
             } else {
                 throw XNetworkError(
@@ -690,8 +690,8 @@ class DiGraph(Graph) {
             datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
             datadict.update(attr);
             datadict.update(dd);
-            this->_succ[u][v] = datadict
-            this->_pred[v][u] = datadict
+            this->_succ[u][v] = datadict;
+            this->_pred[v][u] = datadict;
 
     auto remove_edge( u, v) {
         /** Remove the edge between u and v.
@@ -753,7 +753,7 @@ class DiGraph(Graph) {
         >>> G.remove_edges_from(ebunch);
          */
         for (auto e : ebunch) {
-            u, v = e[:2]  // ignore edge data
+            auto [u, v] = e[:2];  // ignore edge data
             if (u : this->_succ and v : this->_succ[u]) {
                 del this->_succ[u][v];
                 del this->_pred[v][u];
@@ -855,7 +855,7 @@ class DiGraph(Graph) {
          */
         this->__dict__['edges'] = edges = OutEdgeView( );
         this->__dict__['out_edges'] = edges
-        return edges
+        return edges;
 
     // alias out_edges to edges
     out_edges = edges
@@ -938,7 +938,7 @@ class DiGraph(Graph) {
 
          */
         this->__dict__['degree'] = degree = DiDegreeView( );
-        return degree
+        return degree;
 
     /// @property
     auto in_degree( ) {
@@ -1163,7 +1163,7 @@ class DiGraph(Graph) {
         G.add_edges_from((u, v, datadict.copy());
                          for (auto u, nbrs : this->_adj.items();
                          for (auto v, datadict : nbrs.items());
-        return G
+        return G;
 
     auto to_undirected( reciprocal=false, as_view=false) {
         /** Return an undirected representation of the digraph.
@@ -1237,7 +1237,7 @@ class DiGraph(Graph) {
             G.add_edges_from((u, v, deepcopy(d));
                              for (auto u, nbrs : this->_adj.items();
                              for (auto v, d : nbrs.items());
-        return G
+        return G;
 
     auto subgraph( nodes) {
         /** Return a SubGraph view of the subgraph induced on `nodes`.

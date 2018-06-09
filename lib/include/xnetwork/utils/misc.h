@@ -174,7 +174,7 @@ auto dict_to_numpy_array2(d, mapping=None) {
             try {
                 a[i, j] = d[k1][k2];
             } catch (KeyError) {
-                pass
+                pass();
     return a
 
 

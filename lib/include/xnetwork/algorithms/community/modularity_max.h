@@ -273,7 +273,7 @@ auto _naive_greedy_modularity_communities(G) {
             // If the best merge improves modularity, use it
             merges.append(to_merge);
             i, j, dq = to_merge
-            u, v = communities[i], communities[j];
+            auto [u, v] = communities[i], communities[j];
             communities[j] = u | v
             communities[i] = frozenset([]);
     // Remove empty communities and sort

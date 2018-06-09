@@ -21,7 +21,7 @@ from xnetwork.algorithms.tournament import random_tournament
 from xnetwork.algorithms.tournament import hamiltonian_path
 
 
-class TestIsTournament(object) {
+class TestIsTournament: public object {
     /** Unit tests for the :func:`xnetwork.tournament.is_tournament`
     function.
 
@@ -59,7 +59,7 @@ class TestIsTournament(object) {
         assert_false(is_tournament(G));
 
 
-class TestRandomTournament(object) {
+class TestRandomTournament: public object {
     /** Unit tests for the :func:`xnetwork.tournament.random_tournament`
     function.
 
@@ -71,7 +71,7 @@ class TestRandomTournament(object) {
             assert_true(is_tournament(G));
 
 
-class TestHamiltonianPath(object) {
+class TestHamiltonianPath: public object {
     /** Unit tests for the :func:`xnetwork.tournament.hamiltonian_path`
     function.
 
@@ -98,7 +98,7 @@ class TestHamiltonianPath(object) {
         assert_true(path[0] : G[path[-1]]);
 
 
-class TestReachability(object) {
+class TestReachability: public object {
     /** Unit tests for the :func:`xnetwork.tournament.is_reachable`
     function.
 
@@ -121,7 +121,7 @@ class TestReachability(object) {
         assert_false(is_reachable(G, 1, 0));
 
 
-class TestStronglyConnected(object) {
+class TestStronglyConnected: public object {
     /** Unit tests for the
     :func:`xnetwork.tournament.is_strongly_connected` function.
 

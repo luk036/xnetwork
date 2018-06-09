@@ -128,7 +128,7 @@ auto average_degree_connectivity(G, source="in+out", target="in+out",
             } else {
                 s = sum(G[n][nbr].get(weight, 1) * d for nbr, d : nbrdeg);
         dnorm[k] += source_degree(n, weight=weight);
-        dsum[k] += s
+        dsum[k] += s;
 
     // normalize
     dc = {};

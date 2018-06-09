@@ -414,12 +414,12 @@ auto power(G, k) {
     H.add_nodes_from(G);
     // update BFS code to ignore self loops.
     for (auto n : G) {
-        seen = {}                  // level (number of hops) when seen : BFS
+        seen = {};                  // level (number of hops) when seen : BFS
         level = 1                  // the current level
         nextlevel = G[n];
         while (nextlevel) {
             thislevel = nextlevel  // advance to next level
-            nextlevel = {}         // and start a new list (fringe);
+            nextlevel = {};         // and start a new list (fringe);
             for (auto v : thislevel) {
                 if (v == n:         // avoid self loop
                     continue;

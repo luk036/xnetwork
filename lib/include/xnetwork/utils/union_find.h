@@ -35,7 +35,7 @@ class UnionFind) {
 
     */
 
-    auto __init__( elements=None) {
+    explicit _Self( elements=None) {
         /** Create a new empty union-find structure.
 
         If *elements* is an iterable, this structure will be initialized

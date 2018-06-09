@@ -3,7 +3,7 @@ from itertools import chain
 from nose.tools import *
 
 
-class TestIsSemiconnected(object) {
+class TestIsSemiconnected: public object {
 
     auto test_undirected( ) {
         assert_raises(xn::XNetworkNotImplemented, xn::is_semiconnected,

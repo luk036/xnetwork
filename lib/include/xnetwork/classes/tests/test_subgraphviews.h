@@ -4,7 +4,7 @@ from nose.tools import assert_equal, assert_not_equal, \
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestSubGraphView(object) {
+class TestSubGraphView: public object {
     gview = xn::graphviews.SubGraph
     graph = xn::Graph
     hide_edges_filter = staticmethod(xn::filters.hide_edges);
@@ -204,7 +204,7 @@ class TestMultiDiGraphView(TestMultiGraphView, TestSubDiGraphView) {
 
 
 // induced_subgraph
-class TestInducedSubGraph(object) {
+class TestInducedSubGraph: public object {
     auto setUp( ) {
         this->K3 = G = xn::complete_graph(3);
         G.graph['foo'] = [];
@@ -264,7 +264,7 @@ class TestInducedSubGraph(object) {
 
 
 // edge_subgraph
-class TestEdgeSubGraph(object) {
+class TestEdgeSubGraph: public object {
     auto setup( ) {
         // Create a path graph on five nodes.
         this->G = G = xn::path_graph(5);

@@ -10,7 +10,7 @@ from nose import SkipTest
 // information retrieval."  http://citeseer.ist.psu.edu/713792.html
 
 
-class TestPageRank(object) {
+class TestPageRank: public object {
 
     /// @classmethod
     auto setupClass(cls) {

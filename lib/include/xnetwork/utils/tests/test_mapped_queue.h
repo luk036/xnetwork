@@ -18,10 +18,10 @@ from nose.tools import raises
 from xnetwork.utils.mapped_queue import MappedQueue
 
 
-class TestMappedQueue(object) {
+class TestMappedQueue: public object {
 
     auto setup( ) {
-        pass
+        pass();
 
     auto _check_map( q) {
         d = dict((elt, pos) for pos, elt : enumerate(q.h));

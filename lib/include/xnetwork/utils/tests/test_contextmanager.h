@@ -11,7 +11,7 @@ auto test_reversed() {
 
     // no exception
     with xn::utils.reversed(G) {
-        pass
+        pass();
     assert_true('B' : G['A']);
 
     // exception

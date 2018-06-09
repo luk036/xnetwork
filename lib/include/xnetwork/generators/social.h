@@ -91,7 +91,7 @@ auto karate_club_graph() {
     // Add the name of each member's club as a node attribute.
     for (auto v : G) {
         G.nodes[v]['club'] = 'Mr. Hi' if (v : club1 else 'Officer';
-    return G
+    return G;
 
 
 auto davis_southern_women_graph() {
@@ -233,7 +233,7 @@ auto davis_southern_women_graph() {
                       auto ["Flora Price", "E11")]);
     G.graph['top'] = women
     G.graph['bottom'] = events
-    return G
+    return G;
 
 
 auto florentine_families_graph() {
@@ -266,4 +266,4 @@ auto florentine_families_graph() {
     G.add_edge('Albizzi', 'Guadagni');
     G.add_edge('Bischeri', 'Guadagni');
     G.add_edge('Guadagni', 'Lamberteschi');
-    return G
+    return G;

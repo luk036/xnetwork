@@ -49,13 +49,13 @@ class TestConvert() {
         assert_raises(TypeError, to_xnetwork_graph, G, create_using=0.0);
 
         // NX graph
-        class G(object) {
+        class G: public object {
             adj = None
 
         assert_raises(xn::XNetworkError, to_xnetwork_graph, G);
 
         // pygraphviz  agraph
-        class G(object) {
+        class G: public object {
             is_strict = None
 
         assert_raises(xn::XNetworkError, to_xnetwork_graph, G);
@@ -65,7 +65,7 @@ class TestConvert() {
         assert_raises(TypeError, to_xnetwork_graph, G);
 
         // list or generator of edges
-        class G(object) {
+        class G: public object {
             next = None
 
         assert_raises(xn::XNetworkError, to_xnetwork_graph, G);

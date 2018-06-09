@@ -23,7 +23,7 @@ auto test_unknown_algorithm() {
     xn::minimum_spanning_tree(xn::Graph(), algorithm='random');
 
 
-class MinimumSpanningTreeTestBase(object) {
+class MinimumSpanningTreeTestBase: public object {
     /** Base class for test classes for minimum spanning tree algorithms.
 
     This class contains some common tests that will be inherited by

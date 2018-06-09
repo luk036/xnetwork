@@ -12,7 +12,7 @@ from nose.tools import assert_equal
 #include <xnetwork/utils.hpp> // import pairwise
 
 
-class TestVoronoiCells(object) {
+class TestVoronoiCells: public object {
     /** Unit tests for the Voronoi cells function. */
 
     auto test_isolates( ) {

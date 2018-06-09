@@ -51,8 +51,8 @@ auto hide_multiedges(edges) {
 
 
 // write show_nodes as a class to make SubGraph pickleable
-class show_nodes(object) {
-    auto __init__( nodes) {
+class show_nodes: public object {
+    explicit _Self( nodes) {
         this->nodes = set(nodes);
 
     auto __call__( node) {

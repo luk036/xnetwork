@@ -3,7 +3,7 @@ from nose.tools import *
 from xnetwork.algorithms import bipartite
 
 
-class TestBipartiteCentrality(object) {
+class TestBipartiteCentrality: public object {
 
     auto setUp( ) {
         this->P4 = xn::path_graph(4);

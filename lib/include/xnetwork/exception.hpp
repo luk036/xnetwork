@@ -131,7 +131,7 @@ class PowerIterationFailedConvergence(ExceededMaxIterations) {
 
      */
 
-    auto __init__( num_iterations, *args, **kw) {
+    explicit _Self( num_iterations, *args, **kw) {
         msg = 'power iteration failed to converge within {} iterations';
         exception_message = msg.format(num_iterations);
         superinit = super(PowerIterationFailedConvergence, self).__init__

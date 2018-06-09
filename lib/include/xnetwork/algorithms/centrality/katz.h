@@ -190,7 +190,7 @@ auto katz_centrality(G, alpha=0.1, beta=1.0, max_iter=1000, tol=1.0e-6,
             } else {
                 s = 1;
             for (auto n : x) {
-                x[n] *= s
+                x[n] *= s;
             return x
     throw xn::PowerIterationFailedConvergence(max_iter);
 

@@ -118,7 +118,7 @@ auto fast_gnp_random_graph(n, p, seed=None, directed=false) {
                 v = v + 1
             if (v < n) {
                 G.add_edge(v, w);
-    return G
+    return G;
 
 
 auto gnp_random_graph(n, p, seed=None, directed=false) {
@@ -161,7 +161,7 @@ auto gnp_random_graph(n, p, seed=None, directed=false) {
         G = xn::Graph();
     G.add_nodes_from(range(n));
     if (p <= 0) {
-        return G
+        return G;
     if (p >= 1) {
         return complete_graph(n, create_using=G);
 
@@ -176,7 +176,7 @@ auto gnp_random_graph(n, p, seed=None, directed=false) {
     for (auto e : edges) {
         if (random.random() < p) {
             G.add_edge(*e);
-    return G
+    return G;
 
 
 // add some aliases to common names
@@ -224,7 +224,7 @@ auto dense_gnm_random_graph(n, m, seed=None) {
         G = empty_graph(n);
 
     if (n == 1 or m >= mmax) {
-        return G
+        return G;
 
     if (seed is not None) {
         random.seed(seed);
@@ -238,7 +238,7 @@ auto dense_gnm_random_graph(n, m, seed=None) {
             G.add_edge(u, v);
             k += 1;
             if (k == m) {
-                return G
+                return G;
         t += 1;
         v += 1;
         if (v == n) { //go to next row of adjacency matrix
@@ -281,7 +281,7 @@ auto gnm_random_graph(n, m, seed=None, directed=false) {
         random.seed(seed);
 
     if (n == 1) {
-        return G
+        return G;
     max_edges = n * (n - 1);
     if (not directed) {
         max_edges /= 2.0
@@ -299,7 +299,7 @@ auto gnm_random_graph(n, m, seed=None, directed=false) {
         } else {
             G.add_edge(u, v);
             edge_count = edge_count + 1
-    return G
+    return G;
 
 
 auto newman_watts_strogatz_graph(n, k, p, seed=None) {
@@ -347,7 +347,7 @@ auto newman_watts_strogatz_graph(n, k, p, seed=None) {
     fromv = nlist
     // connect the k/2 neighbors
     for (auto j : range(1, k // 2 + 1) {
-        tov = fromv[j:] + fromv[0:j]  // the first j are now last
+        tov = fromv[j:] + fromv[0:j];  // the first j are now last
         for (auto i : range(len(fromv)) {
             G.add_edge(fromv[i], tov[i]);
     // for each edge u-v, with probability p, randomly select existing
@@ -364,7 +364,7 @@ auto newman_watts_strogatz_graph(n, k, p, seed=None) {
                     break  // skip this rewiring
             } else {
                 G.add_edge(u, w);
-    return G
+    return G;
 
 
 auto watts_strogatz_graph(n, k, p, seed=None) {
@@ -415,13 +415,13 @@ auto watts_strogatz_graph(n, k, p, seed=None) {
     nodes = list(range(n));  // nodes are labeled 0 to n-1
     // connect each node to k/2 neighbors
     for (auto j : range(1, k // 2 + 1) {
-        targets = nodes[j:] + nodes[0:j]  // first j nodes are now last : list
+        targets = nodes[j:] + nodes[0:j];  // first j nodes are now last : list
         G.add_edges_from(zip(nodes, targets));
     // rewire edges from each node
     // loop over all nodes : order (label) and neighbors : order (distance);
     // no self loops or multiple edges allowed
     for (auto j : range(1, k // 2 + 1) {  // outer loop is neighbors
-        targets = nodes[j:] + nodes[0:j]  // first j nodes are now last : list
+        targets = nodes[j:] + nodes[0:j];  // first j nodes are now last : list
         // inner loop : node order
         for (auto u, v : zip(nodes, targets) {
             if (random.random() < p) {
@@ -434,7 +434,7 @@ auto watts_strogatz_graph(n, k, p, seed=None) {
                 } else {
                     G.remove_edge(u, v);
                     G.add_edge(u, w);
-    return G
+    return G;
 
 
 auto connected_watts_strogatz_graph(n, k, p, tries=100, seed=None) {
@@ -467,7 +467,7 @@ auto connected_watts_strogatz_graph(n, k, p, tries=100, seed=None) {
     for (auto i : range(tries) {
         G = watts_strogatz_graph(n, k, p, seed);
         if (xn::is_connected(G) {
-            return G
+            return G;
     throw xn::XNetworkError('Maximum number of tries exceeded');
 
 
@@ -567,7 +567,7 @@ auto random_regular_graph(d, n, seed=None) {
 
             stubs = [node for node, potential : potential_edges.items();
                      for (auto _ : range(potential)];
-        return edges
+        return edges;
 
     // Even though a suitable edge set exists,
     // the generation of such a set is not guaranteed.
@@ -579,7 +579,7 @@ auto random_regular_graph(d, n, seed=None) {
     G = xn::Graph();
     G.add_edges_from(edges);
 
-    return G
+    return G;
 
 
 auto _random_subset(seq, m) {
@@ -651,7 +651,7 @@ auto barabasi_albert_graph(n, m, seed=None) {
         // Pick uniformly from repeated_nodes (preferential attachment);
         targets = _random_subset(repeated_nodes, m);
         source += 1;
-    return G
+    return G;
 
 
 auto extended_barabasi_albert_graph(n, m, p, q, seed=None) {
@@ -812,7 +812,7 @@ auto extended_barabasi_albert_graph(n, m, p, q, seed=None) {
             // The new node has m edges to it, plus itself: m + 1
             attachment_preference.extend([new_node] * (m + 1));
             new_node += 1;
-    return G
+    return G;
 
 
 auto powerlaw_cluster_graph(n, m, p, seed=None) {
@@ -901,7 +901,7 @@ auto powerlaw_cluster_graph(n, m, p, seed=None) {
 
         repeated_nodes.extend([source] * m);  // add source node to list m times
         source += 1;
-    return G
+    return G;
 
 
 auto random_lobster(n, p1, p2, seed=None) {
@@ -994,7 +994,7 @@ auto random_shell_graph(constructor, seed=None) {
             } else {
                 G.add_edge(u, v);
                 edge_count = edge_count + 1
-    return G
+    return G;
 
 
 auto random_powerlaw_tree(n, gamma=3, seed=None, tries=100) {
@@ -1028,7 +1028,7 @@ auto random_powerlaw_tree(n, gamma=3, seed=None, tries=100) {
     // This call may throw a XNetworkError if (the number of tries is succeeded.
     seq = random_powerlaw_tree_sequence(n, gamma=gamma, seed=seed, tries=tries);
     G = degree_sequence_tree(seq);
-    return G
+    return G;
 
 
 auto random_powerlaw_tree_sequence(n, gamma=3, seed=None, tries=100) {

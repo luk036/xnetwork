@@ -246,7 +246,7 @@ auto bridge_components(G) {
         yield cc
 
 
-class EdgeComponentAuxGraph(object) {
+class EdgeComponentAuxGraph: public object {
     r/** A simple algorithm to find all k-edge-connected components : a graph.
 
     Constructing the AuxillaryGraph (which may take some time) allows for the

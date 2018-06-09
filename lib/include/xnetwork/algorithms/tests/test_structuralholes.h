@@ -13,7 +13,7 @@ import math
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestStructuralHoles(object) {
+class TestStructuralHoles: public object {
     /** Unit tests for computing measures of structural holes.
 
     The expected values for these functions were originally computed using the

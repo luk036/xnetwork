@@ -6,7 +6,7 @@ from nose.tools import raises
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestConfigurationModel(object) {
+class TestConfigurationModel: public object {
     /** Unit tests for the :func:`~xnetwork.configuration_model`
     function.
 

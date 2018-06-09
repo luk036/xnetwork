@@ -156,7 +156,7 @@ auto lowest_common_ancestor(G, node1, node2, default=None) {
         assert len(ans) == 1;
         return ans[0][1];
     } else {
-        return default
+        return default;
 
 
 /// @not_implemented_for("undirected");
@@ -352,7 +352,7 @@ auto all_pairs_lowest_common_ancestor(G, pairs=None) {
         // algorithm needs then generating them : a single pass.
         tree_lca = defaultdict(int);
         for (auto _ : _compute_dag_lca_from_tree_values(tree_lca, true) {
-            pass
+            pass();
 
         // Replace the bogus default tree values with the real ones.
         for (auto [pair, lca] : tree_all_pairs_lowest_common_ancestor(spanning_tree,

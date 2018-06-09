@@ -41,7 +41,7 @@ auto atlas6() {
         Attempt to check for isomorphisms and remove.
     */
 
-    Atlas = graph_atlas_g()[0:208]  // 208
+    Atlas = graph_atlas_g()[0:208];  // 208
     // remove isolated nodes, only connected graphs are left
     U = xn::Graph();  // graph for union of all graphs : atlas
     for (auto G : Atlas) {
@@ -55,7 +55,7 @@ auto atlas6() {
 
     UU = xn::Graph();
     // do quick isomorphic-like check, not a true isomorphism checker
-    nlist = []  // list of nonisomorphic graphs
+    nlist = [];  // list of nonisomorphic graphs
     for (auto G : C) {
         // check against all nonisomorphic graphs so far
         if (not iso(G, nlist) {

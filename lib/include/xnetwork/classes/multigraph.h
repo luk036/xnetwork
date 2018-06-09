@@ -151,7 +151,7 @@ class MultiGraph(Graph) {
 
     >>> 1 : G     // check if (node : graph
     true
-    >>> [n for n : G if (n<3]   // iterate through nodes
+    >>> [n for n : G if (n<3];   // iterate through nodes
     [1, 2];
     >>> len(G);  // number of nodes : graph
     5
@@ -166,14 +166,14 @@ class MultiGraph(Graph) {
     ...        for (auto key, eattr : keydict.items() {
     ...            if ('weight' : eattr) {
     ...                // Do something useful with the edges
-    ...                pass
+    ...                pass();
 
     But the edges() method is often more convenient) {
 
     >>> for u, v, keys, weight : G.edges(data='weight', keys=true) {
     ...     if (weight is not None) {
     ...         // Do something useful with the edges
-    ...         pass
+    ...         pass();
 
     **Reporting:**
 
@@ -239,12 +239,12 @@ class MultiGraph(Graph) {
     a dictionary-like object.
      */
     // node_dict_factory = dict    // already assigned : Graph
-    // adjlist_outer_dict_factory = dict
-    // adjlist_inner_dict_factory = dict
-    edge_key_dict_factory = dict
-    // edge_attr_dict_factory = dict
+    // adjlist_outer_dict_factory = dict;
+    // adjlist_inner_dict_factory = dict;
+    edge_key_dict_factory = dict;
+    // edge_attr_dict_factory = dict;
 
-    auto __init__( incoming_graph_data=None, **attr) {
+    explicit _Self( incoming_graph_data=None, **attr) {
         /** Initialize a graph with edges, name, or graph attributes.
 
         Parameters
@@ -277,7 +277,7 @@ class MultiGraph(Graph) {
         {'day': 'Friday'}
 
          */
-        this->edge_key_dict_factory = this->edge_key_dict_factory
+        this->edge_key_dict_factory = this->edge_key_dict_factory;
         Graph.__init__( incoming_graph_data, **attr);
 
     /// @property
@@ -394,7 +394,7 @@ class MultiGraph(Graph) {
         >>> G[1][2][0].update({0: 5});
         >>> G.edges[1, 2, 0].update({0: 5});
          */
-        u, v = u_for_edge, v_for_edge
+        auto [u, v] = u_for_edge, v_for_edge
         // add nodes
         if (u not : this->_adj) {
             this->_adj[u] = this->adjlist_inner_dict_factory();
@@ -408,13 +408,13 @@ class MultiGraph(Graph) {
             keydict = this->_adj[u][v];
             datadict = keydict.get(key, this->edge_attr_dict_factory());
             datadict.update(attr);
-            keydict[key] = datadict
+            keydict[key] = datadict;
         } else {
             // selfloops work this way without special treatment
             datadict = this->edge_attr_dict_factory();
             datadict.update(attr);
             keydict = this->edge_key_dict_factory();
-            keydict[key] = datadict
+            keydict[key] = datadict;
             this->_adj[u][v] = keydict
             this->_adj[v][u] = keydict
         return key
@@ -479,7 +479,7 @@ class MultiGraph(Graph) {
                 u, v, dd = e
                 key = None
             } else if (ne == 2) {
-                u, v = e
+                auto [u, v] = e
                 dd = {};
                 key = None
             } else {
@@ -606,7 +606,7 @@ class MultiGraph(Graph) {
             try {
                 this->remove_edge(*e[:3]);
             } catch (XNetworkError) {
-                pass
+                pass();
 
     auto has_edge( u, v, key=None) {
         /** Return true if (the graph has an edge between nodes u and v.
@@ -652,7 +652,7 @@ class MultiGraph(Graph) {
 
         >>> G.has_edge(0, 1);
         true
-        >>> 1 : G[0]  // though this gives :exc:`KeyError` if (0 not : G
+        >>> 1 : G[0];  // though this gives :exc:`KeyError` if (0 not : G
         true
 
          */
@@ -731,7 +731,7 @@ class MultiGraph(Graph) {
         MultiEdgeDataView([(0, 1)]);
          */
         this->__dict__['edges'] = edges = MultiEdgeView( );
-        return edges
+        return edges;
 
     auto get_edge_data( u, v, key=None, default=None) {
         /** Return the attribute dictionary associated with edge (u, v).
@@ -758,9 +758,9 @@ class MultiGraph(Graph) {
         --------
         >>> G = xn::MultiGraph() // or MultiDiGraph
         >>> key = G.add_edge(0, 1, key='a', weight=7);
-        >>> G[0][1]['a']  // key='a';
+        >>> G[0][1]['a'];  // key='a';
         {'weight': 7}
-        >>> G.edges[0, 1, 'a']  // key='a';
+        >>> G.edges[0, 1, 'a'];  // key='a';
         {'weight': 7}
 
         Warning: we protect the graph data structure by making
@@ -793,7 +793,7 @@ class MultiGraph(Graph) {
             } else {
                 return this->_adj[u][v][key];
         } catch (KeyError) {
-            return default
+            return default;
 
     /// @property
     auto degree( ) {
@@ -837,7 +837,7 @@ class MultiGraph(Graph) {
 
          */
         this->__dict__['degree'] = degree = MultiDegreeView( );
-        return degree
+        return degree;
 
     auto is_multigraph( ) {
         /** Return true if (graph is a multigraph, false otherwise. */
@@ -948,7 +948,7 @@ class MultiGraph(Graph) {
                          for (auto u, nbrs : this->_adj.items();
                          for (auto v, keydict : nbrs.items();
                          for (auto key, datadict : keydict.items());
-        return G
+        return G;
 
     auto to_directed( as_view=false) {
         /** Return a directed representation of the graph.
@@ -1003,7 +1003,7 @@ class MultiGraph(Graph) {
                          for (auto u, nbrs : this->adj.items();
                          for (auto v, keydict : nbrs.items();
                          for (auto key, datadict : keydict.items());
-        return G
+        return G;
 
     auto to_undirected( as_view=false) {
         /** Return an undirected copy of the graph.
@@ -1053,7 +1053,7 @@ class MultiGraph(Graph) {
                          for (auto u, nbrs : this->_adj.items();
                          for (auto v, keydict : nbrs.items();
                          for (auto key, datadict : keydict.items());
-        return G
+        return G;
 
     auto subgraph( nodes) {
         /** Return a SubGraph view of the subgraph induced on nodes : `nodes`.

@@ -77,7 +77,7 @@ __all__ = ['TimeRespectingGraphMatcher',
 
 class TimeRespectingGraphMatcher(GraphMatcher) {
 
-    auto __init__( G1, G2, temporal_attribute_name, delta) {
+    explicit _Self( G1, G2, temporal_attribute_name, delta) {
         /** Initialize TimeRespectingGraphMatcher.
 
         G1 and G2 should be xn::Graph or xn::MultiGraph instances.
@@ -139,7 +139,7 @@ class TimeRespectingGraphMatcher(GraphMatcher) {
 
 class TimeRespectingDiGraphMatcher(DiGraphMatcher) {
 
-    auto __init__( G1, G2, temporal_attribute_name, delta) {
+    explicit _Self( G1, G2, temporal_attribute_name, delta) {
         /** Initialize TimeRespectingDiGraphMatcher.
 
         G1 and G2 should be xn::DiGraph or xn::MultiDiGraph instances.

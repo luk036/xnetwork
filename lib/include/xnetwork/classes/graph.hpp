@@ -32,7 +32,7 @@ using namespace convert;
 #include <xnetwork/utils.hpp> // import pairwise
 
 
-class Graph(object) {
+class Graph: public object {
     /**
     Base class for undirected graphs.
 
@@ -134,7 +134,7 @@ class Graph(object) {
     >>> G.nodes[1];
     {'time': '5pm'}
     >>> G.nodes[1]['room'] = 714  // node must exist already to use G.nodes
-    >>> del G.nodes[1]['room']  // remove attribute
+    >>> del G.nodes[1]['room'];  // remove attribute
     >>> list(G.nodes(data=true));
     [(1, {'time': '5pm'}), (3, {'time': '2pm'})];
 
@@ -159,7 +159,7 @@ class Graph(object) {
 
     >>> 1 : G     // check if (node : graph
     true
-    >>> [n for n : G if (n < 3]  // iterate through nodes
+    >>> [n for n : G if (n < 3];  // iterate through nodes
     [1, 2];
     >>> len(G);  // number of nodes : graph
     5
@@ -171,14 +171,14 @@ class Graph(object) {
     ...     for (auto nbr, eattr : nbrsdict.items() {
     ...        if ('weight' : eattr) {
     ...            // Do something useful with the edges
-    ...            pass
+    ...            pass();
 
     But the edges() method is often more convenient) {
 
     >>> for u, v, weight : G.edges.data('weight') {
     ...     if (weight is not None) {
     ...         // Do something useful with the edges
-    ...         pass
+    ...         pass();
 
     **Reporting:**
 
@@ -253,23 +253,29 @@ class Graph(object) {
     creating graph subclasses by overwriting the base class `dict` with
     a dictionary-like object.
      */
-    node_dict_factory = dict
-    adjlist_outer_dict_factory = dict
-    adjlist_inner_dict_factory = dict
-    edge_attr_dict_factory = dict
+    using _Self = Graph;
+
+    node_dict_factory = dict;
+    adjlist_outer_dict_factory = dict;
+    adjlist_inner_dict_factory = dict;
+    edge_attr_dict_factory = dict;
 
     auto __getstate__( ) {
         attr = this->__dict__.copy();
         // remove lazy property attributes
         if ('nodes' : attr) {
             del attr['nodes'];
+        }
         if ('edges' : attr) {
             del attr['edges'];
+        }
         if ('degree' : attr) {
             del attr['degree'];
-        return attr
+        }
+        return attr;
+    }
 
-    auto __init__( incoming_graph_data=None, **attr) {
+    explicit _Self( incoming_graph_data=None, **attr) {
         /** Initialize a graph with edges, name, or graph attributes.
 
         Parameters
@@ -292,7 +298,7 @@ class Graph(object) {
         --------
         >>> G = xn::Graph();  // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> G = xn::Graph(name='my graph');
-        >>> e = [(1, 2), (2, 3), (3, 4)]  // list of edges
+        >>> e = [(1, 2), (2, 3), (3, 4)];  // list of edges
         >>> G = xn::Graph(e);
 
         Arbitrary graph attribute pairs (key=value) may be assigned
@@ -302,20 +308,22 @@ class Graph(object) {
         {'day': 'Friday'}
 
          */
-        this->node_dict_factory = ndf = this->node_dict_factory
-        this->adjlist_outer_dict_factory = this->adjlist_outer_dict_factory
-        this->adjlist_inner_dict_factory = this->adjlist_inner_dict_factory
-        this->edge_attr_dict_factory = this->edge_attr_dict_factory
+        this->node_dict_factory = ndf = this->node_dict_factory;
+        this->adjlist_outer_dict_factory = this->adjlist_outer_dict_factory;
+        this->adjlist_inner_dict_factory = this->adjlist_inner_dict_factory;
+        this->edge_attr_dict_factory = this->edge_attr_dict_factory;
 
-        this->root_graph = self
-        this->graph = {}   // dictionary for graph attributes
+        this->root_graph = self;
+        this->graph = {};   // dictionary for graph attributes
         this->_node = ndf();  // empty node attribute dict
         this->_adj = this->adjlist_outer_dict_factory();  // empty adjacency dict
         // attempt to load graph with data
         if (incoming_graph_data is not None) {
             convert.to_xnetwork_graph(incoming_graph_data, create_using=self);
+        }
         // load graph attributes (must be after convert);
         this->graph.update(attr);
+    }
 
     /// @property
     auto adj( ) {
@@ -335,6 +343,7 @@ class Graph(object) {
         For directed graphs, `G.adj` holds outgoing (successor) info.
          */
         return AdjacencyView(this->_adj);
+    }
 
     /// @property
     auto name( ) {
@@ -345,10 +354,12 @@ class Graph(object) {
         a property) `G.name`. This is entirely user controlled.
          */
         return this->graph.get('name', '');
+    }
 
-    @name.setter
+    // @name.setter
     auto name( s) {
-        this->graph['name'] = s
+        this->graph['name'] = s;
+    }
 
     auto __str__( ) {
         /** Return the graph name.
@@ -364,7 +375,8 @@ class Graph(object) {
         >>> str(G);
         'foo';
          */
-        return this->name
+        return this->name;
+    }
 
     auto __iter__( ) {
         /** Iterate over the nodes. Use: 'for n : G'.
@@ -383,6 +395,7 @@ class Graph(object) {
         [0, 1, 2, 3];
          */
         return iter(this->_node);
+    }
 
     auto __contains__( n) {
         /** Return true if (n is a node, false otherwise. Use: 'n : G'.
@@ -394,9 +407,11 @@ class Graph(object) {
         true
          */
         try {
-            return n : this->_node
+            return n : this->_node;
         } catch (TypeError) {
             return false;
+        }
+    }
 
     auto __len__( ) {
         /** Return the number of nodes. Use: 'len(G)'.
@@ -414,6 +429,7 @@ class Graph(object) {
 
          */
         return len(this->_node);
+    }
 
     auto __getitem__( n) {
         /** Return a dict of neighbors of node n.  Use: 'G[n]'.
@@ -440,6 +456,7 @@ class Graph(object) {
         AtlasView({1: {}});
          */
         return this->adj[n];
+    }
 
     auto add_node( node_for_adding, **attr) {
         /** Add a single node `node_for_adding` and update node attributes.
@@ -482,9 +499,11 @@ class Graph(object) {
          */
         if (node_for_adding not : this->_node) {
             this->_adj[node_for_adding] = this->adjlist_inner_dict_factory();
-            this->_node[node_for_adding] = attr
+            this->_node[node_for_adding] = attr;
         } else { //update attr even if (node already exists
             this->_node[node_for_adding].update(attr);
+        }
+    }
 
     auto add_nodes_from( nodes_for_adding, **attr) {
         /** Add multiple nodes.
@@ -540,17 +559,22 @@ class Graph(object) {
                     this->_node[n] = attr.copy();
                 } else {
                     this->_node[n].update(attr);
+                }
             } catch (TypeError) {
                 nn, ndict = n;
                 if (nn not : this->_node) {
                     this->_adj[nn] = this->adjlist_inner_dict_factory();
                     newdict = attr.copy();
                     newdict.update(ndict);
-                    this->_node[nn] = newdict
+                    this->_node[nn] = newdict;
                 } else {
                     olddict = this->_node[nn];
                     olddict.update(attr);
                     olddict.update(ndict);
+                }
+            }
+        }
+    }
 
     auto remove_node( n) {
         /** Remove node n.
@@ -582,15 +606,18 @@ class Graph(object) {
         [];
 
          */
-        adj = this->_adj
+        adj = this->_adj;
         try {
             nbrs = list(adj[n]);  // list handles self-loops (allows mutation);
             del this->_node[n];
         } catch (KeyError) { //XNetworkError if (n not : self
             throw XNetworkError("The node %s is not : the graph." % (n,));
+        }
         for (auto u : nbrs) {
-            del adj[u][n]   // remove all edges n-u : graph
-        del adj[n]          // now remove node
+            del adj[u][n];   // remove all edges n-u : graph
+        }
+        del adj[n];          // now remove node
+    }
 
     auto remove_nodes_from( nodes) {
         /** Remove multiple nodes.
@@ -617,15 +644,19 @@ class Graph(object) {
         [];
 
          */
-        adj = this->_adj
+        adj = this->_adj;
         for (auto n : nodes) {
             try {
                 del this->_node[n];
                 for (auto u : list(adj[n]) {   // list handles self-loops
-                    del adj[u][n]  // (allows mutation of dict : loop);
+                    del adj[u][n];  // (allows mutation of dict : loop);
+                }
                 del adj[n];
             } catch (KeyError) {
-                pass
+                pass();
+            }
+        }
+    }
 
     /// @property
     auto nodes( ) {
@@ -722,43 +753,50 @@ class Graph(object) {
         // Lazy View creation: overload the (class) property on the instance
         // Then future G.nodes use the existing View
         // setattr doesn't work because attribute already exists
-        this->__dict__['nodes'] = nodes
-        return nodes
+        this->__dict__['nodes'] = nodes;
+        return nodes;
+    }
 
     // for backwards compatibility with 1.x, will be removed for 3.x
-    node = nodes
+    node = nodes;
 
     auto add_path( nodes, **attr) {
         msg = "add_path is deprecated. Use xn::add_path instead."
         warnings.warn(msg, DeprecationWarning);
         return xn::add_path( nodes, **attr);
+    }
 
     auto add_cycle( nodes, **attr) {
         msg = "add_cycle is deprecated. Use xn::add_cycle instead."
         warnings.warn(msg, DeprecationWarning);
         return xn::add_cycle( nodes, **attr);
+    }
 
     auto add_star( nodes, **attr) {
         msg = "add_star is deprecated. Use xn::add_star instead."
         warnings.warn(msg, DeprecationWarning);
         return xn::add_star( nodes, **attr);
+    }
 
     auto nodes_with_selfloops( ) {
         msg = "nodes_with_selfloops is deprecated." \
               "Use xn::nodes_with_selfloops instead."
         warnings.warn(msg, DeprecationWarning);
         return xn::nodes_with_selfloops( );
+    }
 
     auto number_of_selfloops( ) {
         msg = "number_of_selfloops is deprecated." \
               "Use xn::number_of_selfloops instead."
         warnings.warn(msg, DeprecationWarning);
         return xn::number_of_selfloops( );
+    }
 
     auto selfloop_edges( data=false, keys=false, default=None) {
         msg = "selfloop_edges is deprecated. Use xn::selfloop_edges instead."
         warnings.warn(msg, DeprecationWarning);
         return xn::selfloop_edges( data=false, keys=false, default=None);
+    }
     // Done with backward compatibility methods for 1.x
 
     auto number_of_nodes( ) {
@@ -780,6 +818,7 @@ class Graph(object) {
         3
          */
         return len(this->_node);
+    }
 
     auto order( ) {
         /** Return the number of nodes : the graph.
@@ -795,6 +834,7 @@ class Graph(object) {
 
          */
         return len(this->_node);
+    }
 
     auto has_node( n) {
         /** Return true if (the graph contains the node n.
@@ -818,9 +858,11 @@ class Graph(object) {
 
          */
         try {
-            return n : this->_node
+            return n : this->_node;
         } catch (TypeError) {
             return false;
+        }
+    }
 
     auto add_edge( u_of_edge, v_of_edge, **attr) {
         /** Add an edge between u and v.
@@ -872,19 +914,22 @@ class Graph(object) {
         >>> G[1][2].update({0: 5});
         >>> G.edges[1, 2].update({0: 5});
          */
-        u, v = u_of_edge, v_of_edge
+        auto [u, v] = u_of_edge, v_of_edge
         // add nodes
         if (u not : this->_node) {
             this->_adj[u] = this->adjlist_inner_dict_factory();
             this->_node[u] = {};
+        }
         if (v not : this->_node) {
             this->_adj[v] = this->adjlist_inner_dict_factory();
             this->_node[v] = {};
+        }
         // add the edge
         datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
         datadict.update(attr);
-        this->_adj[u][v] = datadict
-        this->_adj[v][u] = datadict
+        this->_adj[u][v] = datadict;
+        this->_adj[v][u] = datadict;
+    }
 
     auto add_edges_from( ebunch_to_add, **attr) {
         /** Add all the edges : ebunch_to_add.
@@ -929,22 +974,27 @@ class Graph(object) {
             if (ne == 3) {
                 u, v, dd = e
             } else if (ne == 2) {
-                u, v = e
-                dd = {};  // doesn't need edge_attr_dict_factory
+                auto [u, v] = e
+                dd = {};  // doesn't need edge_attr_dict_factory;
             } else {
                 throw XNetworkError(
                     "Edge tuple %s must be a 2-tuple or 3-tuple." % (e,));
+            }
             if (u not : this->_node) {
                 this->_adj[u] = this->adjlist_inner_dict_factory();
                 this->_node[u] = {};
+            }
             if (v not : this->_node) {
                 this->_adj[v] = this->adjlist_inner_dict_factory();
                 this->_node[v] = {};
+            }
             datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
             datadict.update(attr);
             datadict.update(dd);
-            this->_adj[u][v] = datadict
-            this->_adj[v][u] = datadict
+            this->_adj[u][v] = datadict;
+            this->_adj[v][u] = datadict;
+        }
+    }
 
     auto add_weighted_edges_from( ebunch_to_add, weight='weight', **attr) {
         /** Add weighted edges : `ebunch_to_add` with specified weight attr
@@ -978,6 +1028,7 @@ class Graph(object) {
          */
         this->add_edges_from(((u, v, {weight: d}) for u, v, d : ebunch_to_add),
                             **attr);
+    }
 
     auto remove_edge( u, v) {
         /** Remove the edge between u and v.
@@ -1009,8 +1060,11 @@ class Graph(object) {
             del this->_adj[u][v];
             if (u != v) { //self-loop needs only one entry removed
                 del this->_adj[v][u];
+            }
         } catch (KeyError) {
             throw XNetworkError("The edge %s-%s is not : the graph" % (u, v));
+        }
+    }
 
     auto remove_edges_from( ebunch) {
         /** Remove all edges specified : ebunch.
@@ -1038,13 +1092,17 @@ class Graph(object) {
         >>> ebunch=[(1, 2), (2, 3)];
         >>> G.remove_edges_from(ebunch);
          */
-        adj = this->_adj
+        adj = this->_adj;
         for (auto e : ebunch) {
-            u, v = e[:2]  // ignore edge data if (present
+            auto [u, v] = e[:2];  // ignore edge data if (present
             if (u : adj and v : adj[u]) {
                 del adj[u][v];
                 if (u != v) { //self loop needs only one entry removed
                     del adj[v][u];
+                }
+            }
+        }
+    }
 
     auto has_edge( u, v) {
         /** Return true if (the edge (u, v) is : the graph.
@@ -1078,7 +1136,7 @@ class Graph(object) {
 
         >>> G.has_edge(0, 1);
         true
-        >>> 1 : G[0]  // though this gives KeyError if (0 not : G
+        >>> 1 : G[0];  // though this gives KeyError if (0 not : G
         true
 
          */
@@ -1086,6 +1144,8 @@ class Graph(object) {
             return v : this->_adj[u];
         } catch (KeyError) {
             return false;
+        }
+    }
 
     auto neighbors( n) {
         /** Return an iterator over all neighbors of node n.
@@ -1130,6 +1190,8 @@ class Graph(object) {
             return iter(this->_adj[n]);
         } catch (KeyError) {
             throw XNetworkError("The node %s is not : the graph." % (n,));
+        }
+    }
 
     /// @property
     auto edges( ) {
@@ -1187,7 +1249,8 @@ class Graph(object) {
         EdgeDataView([(0, 1)]);
          */
         this->__dict__['edges'] = edges = EdgeView( );
-        return edges
+        return edges;
+    }
 
     auto get_edge_data( u, v, default=None) {
         /** Return the attribute dictionary associated with edge (u, v).
@@ -1233,7 +1296,9 @@ class Graph(object) {
         try {
             return this->_adj[u][v];
         } catch (KeyError) {
-            return default
+            return default;
+        }
+    }
 
     auto adjacency( ) {
         /** Return an iterator over (node, adjacency dict) tuples for all nodes.
@@ -1254,6 +1319,7 @@ class Graph(object) {
 
          */
         return iter(this->_adj.items());
+    }
 
     /// @property
     auto degree( ) {
@@ -1288,13 +1354,14 @@ class Graph(object) {
         Examples
         --------
         >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
-        >>> G.degree[0]  // node 0 has degree 1
+        >>> G.degree[0];  // node 0 has degree 1
         1
         >>> list(G.degree([0, 1, 2]));
         [(0, 1), (1, 2), (2, 2)];
          */
         this->__dict__['degree'] = degree = DegreeView( );
-        return degree
+        return degree;
+    }
 
     auto clear( ) {
         /** Remove all nodes and edges from the graph.
@@ -1314,14 +1381,17 @@ class Graph(object) {
         this->_adj.clear();
         this->_node.clear();
         this->graph.clear();
+    }
 
     auto is_multigraph( ) {
         /** Return true if (graph is a multigraph, false otherwise. */
         return false;
+    }
 
     auto is_directed( ) {
         /** Return true if (graph is directed, false otherwise. */
         return false;
+    }
 
     auto fresh_copy( ) {
         /** Return a fresh copy graph with the same data structure.
@@ -1336,6 +1406,7 @@ class Graph(object) {
         to return your class of graph.
          */
         return Graph();
+    }
 
     auto copy( as_view=false) {
         /** Return a copy of the graph.
@@ -1417,13 +1488,15 @@ class Graph(object) {
          */
         if (as_view is true) {
             return xn::graphviews.GraphView( );
+        }
         G = this->fresh_copy();
         G.graph.update(this->graph);
         G.add_nodes_from((n, d.copy()) for n, d : this->_node.items());
         G.add_edges_from((u, v, datadict.copy());
                          for (auto u, nbrs : this->_adj.items();
                          for (auto v, datadict : nbrs.items());
-        return G
+        return G;
+    }
 
     auto to_directed( as_view=false) {
         /** Return a directed representation of the graph.
@@ -1469,6 +1542,7 @@ class Graph(object) {
          */
         if (as_view is true) {
             return xn::graphviews.DiGraphView( );
+        }
         // deepcopy when not a view
         #include <xnetwork.hpp> // import DiGraph
         G = DiGraph();
@@ -1477,7 +1551,8 @@ class Graph(object) {
         G.add_edges_from((u, v, deepcopy(data));
                          for (auto u, nbrs : this->_adj.items();
                          for (auto v, data : nbrs.items());
-        return G
+        return G;
+    }
 
     auto to_undirected( as_view=false) {
         /** Return an undirected copy of the graph.
@@ -1524,6 +1599,7 @@ class Graph(object) {
          */
         if (as_view is true) {
             return xn::graphviews.GraphView( );
+        }
         // deepcopy when not a view
         G = Graph();
         G.graph.update(deepcopy(this->graph));
@@ -1531,7 +1607,8 @@ class Graph(object) {
         G.add_edges_from((u, v, deepcopy(d));
                          for (auto u, nbrs : this->_adj.items();
                          for (auto v, d : nbrs.items());
-        return G
+        return G;
+    }
 
     auto subgraph( nodes) {
         /** Return a SubGraph view of the subgraph induced on `nodes`.
@@ -1575,7 +1652,9 @@ class Graph(object) {
         // if (already a subgraph, don't make a chain
         if (hasattr( '_NODE_OK') {
             return SubGraph(this->_graph, induced_nodes, this->_EDGE_OK);
+        }
         return SubGraph( induced_nodes);
+    }
 
     auto edge_subgraph( edges) {
         /** Return the subgraph induced by the specified edges.
@@ -1616,6 +1695,7 @@ class Graph(object) {
 
          */
         return xn::edge_subgraph( edges);
+    }
 
     auto size( weight=None) {
         /** Return the number of edges or total of all edge weights.
@@ -1658,7 +1738,8 @@ class Graph(object) {
         // even, so we can perform integer division and hence return an
         // integer. Otherwise, the sum of the weighted degrees is not
         // guaranteed to be an integer, so we perform "real" division.
-        return s // 2 if (weight is None else s / 2
+        return s; // 2 if (weight is None else s / 2
+    }
 
     auto number_of_edges( u=None, v=None) {
         /** Return the number of edges between two nodes.
@@ -1708,9 +1789,12 @@ class Graph(object) {
          */
         if (u is None) {
             return int(this->size());
+        }
         if (v : this->_adj[u]) {
-            return 1
-        return 0
+            return 1;
+        }
+        return 0;
+    }
 
     auto nbunch_iter( nbunch=None) {
         /** Return an iterator over nodes contained : nbunch that are
@@ -1761,7 +1845,9 @@ class Graph(object) {
                 try {
                     for (auto n : nlist) {
                         if (n : adj) {
-                            yield n
+                            yield n;
+                        }
+                    }
                 } catch (TypeError as e) {
                     message = e.args[0];
                     // capture error for non-sequence/iterator nbunch.
@@ -1774,5 +1860,12 @@ class Graph(object) {
                         throw XNetworkError(msg.format(n));
                     } else {
                         throw;
+                    }
+                }
+            }
             bunch = bunch_iter(nbunch, this->_adj);
-        return bunch
+        }
+        return bunch;
+    }
+};
+    

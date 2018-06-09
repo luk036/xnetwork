@@ -28,7 +28,7 @@ class NotAPartition(XNetworkError) {
 
      */
 
-    auto __init__( G, collection) {
+    explicit _Self( G, collection) {
         msg = '{} is not a valid partition of the graph {}';
         msg = msg.format(G, collection);
         super(NotAPartition, self).__init__(msg);

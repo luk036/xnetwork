@@ -20,7 +20,7 @@ from itertools import islice
 try {
     from itertools import ifilter as filter
 } catch (ImportError) {
-    pass
+    pass();
 import xnetwork
 #include <xnetwork/utils.hpp> // import not_implemented_for
 __author__ = R"( Dan Schult (dschult@colgate.edu) )";
@@ -204,7 +204,7 @@ auto find_cliques(G) {
                 Q.pop();
                 subg, cand, ext_u = stack.pop();
     } catch (IndexError) {
-        pass
+        pass();
 
 
 // TODO Should this also be not implemented for directed graphs?
@@ -482,7 +482,7 @@ auto node_clique_number(G, nodes=None, cliques=None) {
         nodes = list(G.nodes())   // none, get entire graph
 
     if (not isinstance(nodes, list) {   // check for a list
-        v = nodes
+        v = nodes;
         // assume it is a single value
         d = max([len(c) for c : cliques if (v : c]);
     } else {
@@ -520,7 +520,7 @@ auto number_of_cliques(G, nodes=None, cliques=None) {
         nodes = list(G.nodes())   // none, get entire graph
 
     if (not isinstance(nodes, list) {   // check for a list
-        v = nodes
+        v = nodes;
         // assume it is a single value
         numcliq = len([1 for c : cliques if (v : c]);
     } else {
@@ -543,7 +543,7 @@ auto cliques_containing_node(G, nodes=None, cliques=None) {
         nodes = list(G.nodes())   // none, get entire graph
 
     if (not isinstance(nodes, list) {   // check for a list
-        v = nodes
+        v = nodes;
         // assume it is a single value
         vcliques = [c for c : cliques if (v : c];
     } else {

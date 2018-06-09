@@ -80,7 +80,7 @@ class TestGomoryHuTree) {
         xn::set_edge_attributes(G, 1, 'capacity');
         T = xn::gomory_hu_tree(G);
         assert_true(xn::is_tree(T));
-        u, v = 0, 33
+        auto [u, v] = 0, 33
         cut_value, edge = this->minimum_edge_weight(T, u, v);
         cutset = this->compute_cutset(G, T, edge);
         assert_equal(cut_value, len(cutset));

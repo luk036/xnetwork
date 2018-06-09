@@ -72,7 +72,7 @@ auto torrents_and_ferraro_graph() {
         G.remove_node(new_node + 9);
         for (auto nbr : nbrs2) {
             G.add_edge(new_node + 18, nbr);
-    return G
+    return G;
 
 
 /// /// @raises(xn::XNetworkNotImplemented);

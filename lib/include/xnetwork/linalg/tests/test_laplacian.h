@@ -4,7 +4,7 @@ from nose import SkipTest
 from xnetwork.generators.degree_seq import havel_hakimi_graph
 
 
-class TestLaplacian(object) {
+class TestLaplacian: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod

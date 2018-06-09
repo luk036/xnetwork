@@ -1,7 +1,7 @@
 #include <xnetwork.hpp>using namespace xn;
 
 
-class BaseTestAttributeMixing(object) {
+class BaseTestAttributeMixing: public object {
 
     auto setUp( ) {
         G = xn::Graph();
@@ -38,7 +38,7 @@ class BaseTestAttributeMixing(object) {
         this->S = S
 
 
-class BaseTestDegreeMixing(object) {
+class BaseTestDegreeMixing: public object {
 
     auto setUp( ) {
         this->P4 = xn::path_graph(4);

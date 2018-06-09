@@ -294,7 +294,7 @@ auto parse_multiline_adjlist(lines, comments='#', delimiter=None,
                     edgedata = {};
             G.add_edge(u, v, **edgedata);
 
-    return G
+    return G;
 
 
 /// @open_file(0, mode='rb');

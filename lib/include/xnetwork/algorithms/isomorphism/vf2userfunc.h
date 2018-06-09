@@ -78,7 +78,7 @@ class GraphMatcher(vf2.GraphMatcher) {
     /** VF2 isomorphism checker for undirected graphs.
      */
 
-    auto __init__( G1, G2, node_match=None, edge_match=None) {
+    explicit _Self( G1, G2, node_match=None, edge_match=None) {
         /** Initialize graph matcher.
 
         Parameters
@@ -126,7 +126,7 @@ class DiGraphMatcher(vf2.DiGraphMatcher) {
     /** VF2 isomorphism checker for directed graphs.
      */
 
-    auto __init__( G1, G2, node_match=None, edge_match=None) {
+    explicit _Self( G1, G2, node_match=None, edge_match=None) {
         /** Initialize graph matcher.
 
         Parameters
@@ -191,9 +191,9 @@ class DiGraphMatcher(vf2.DiGraphMatcher) {
 
 class MultiGraphMatcher(GraphMatcher) {
     /** VF2 isomorphism checker for undirected multigraphs.  */
-    pass
+    pass();
 
 
 class MultiDiGraphMatcher(DiGraphMatcher) {
     /** VF2 isomorphism checker for directed multigraphs.  */
-    pass
+    pass();

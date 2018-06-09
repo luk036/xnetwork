@@ -96,7 +96,7 @@ auto partial_duplication_graph(N, n, p, q, seed=None) {
             // Add the neighbor to v with probability p.
             if (random.random() < p) {
                 G.add_edge(new_node, neighbor_node);
-    return G
+    return G;
 
 
 auto duplication_divergence_graph(n, p, seed=None) {
@@ -171,4 +171,4 @@ auto duplication_divergence_graph(n, p, seed=None) {
         } else {
             // Successful duplication.
             i += 1;
-    return G
+    return G;

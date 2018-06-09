@@ -114,7 +114,7 @@ auto _configuration_model(deg_sequence, create_using, directed=false,
     G = xn::empty_graph(n, create_using=create_using);
     // If empty, return the null graph immediately.
     if (n == 0) {
-        return G
+        return G;
     // Build a list of available degree-repeated nodes.  For example,
     // for degree sequence [3, 2, 1, 1, 1], the "stub list" is
     // initially [1, 1, 1, 2, 2, 3, 4, 5], that is, node 1 has degree
@@ -142,7 +142,7 @@ auto _configuration_model(deg_sequence, create_using, directed=false,
         random.shuffle(stublist);
         out_stublist, in_stublist = stublist[:half], stublist[half:];
     G.add_edges_from(zip(out_stublist, in_stublist));
-    return G
+    return G;
 
 
 auto configuration_model(deg_sequence, create_using=None, seed=None) {
@@ -243,7 +243,7 @@ auto configuration_model(deg_sequence, create_using=None, seed=None) {
 
     G = _configuration_model(deg_sequence, create_using, seed=seed);
 
-    return G
+    return G;
 
 
 auto directed_configuration_model(in_degree_sequence,
@@ -338,7 +338,7 @@ auto directed_configuration_model(in_degree_sequence,
                              in_deg_sequence=in_degree_sequence, seed=seed);
 
     name = "directed configuration_model {} nodes {} edges"
-    return G
+    return G;
 
 
 auto expected_degree_graph(w, seed=None, selfloops=true) {
@@ -417,7 +417,7 @@ auto expected_degree_graph(w, seed=None, selfloops=true) {
 
     // If there are no nodes are no edges : the graph, return the empty graph.
     if (n == 0 or max(w) == 0) {
-        return G
+        return G;
 
     if (seed is not None) {
         random.seed(seed);
@@ -447,7 +447,7 @@ auto expected_degree_graph(w, seed=None, selfloops=true) {
                     G.add_edge(mapping[u], mapping[v]);
                 v += 1;
                 p = q
-    return G
+    return G;
 
 
 auto havel_hakimi_graph(deg_sequence, create_using=None) {
@@ -505,7 +505,7 @@ auto havel_hakimi_graph(deg_sequence, create_using=None) {
             dmax, dsum, n = max(dmax, d), dsum + d, n + 1
     // Return graph if (no edges
     if (n == 0) {
-        return G
+        return G;
 
     modstubs = [(0, 0)] * (dmax + 1);
     // Successively reduce degree sequence by removing the maximum degree
@@ -539,7 +539,7 @@ auto havel_hakimi_graph(deg_sequence, create_using=None) {
             num_degs[stubval].append(stubtarget);
             n += 1;
 
-    return G
+    return G;
 
 
 auto directed_havel_hakimi_graph(in_deg_sequence,
@@ -595,7 +595,7 @@ auto directed_havel_hakimi_graph(in_deg_sequence,
     maxn = max(nin, nout);
     G = xn::empty_graph(maxn, create_using);
     if (maxn == 0) {
-        return G
+        return G;
     maxin = 0.;
     stubheap, zeroheap = [], [];
     for (auto n : range(maxn) {
@@ -653,7 +653,7 @@ auto directed_havel_hakimi_graph(in_deg_sequence,
         if (freeout < 0) {
             heapq.heappush(zeroheap, (freeout, target));
 
-    return G
+    return G;
 
 
 auto degree_sequence_tree(deg_sequence, create_using=None) {
@@ -695,7 +695,7 @@ auto degree_sequence_tree(deg_sequence, create_using=None) {
     // : case we added one too many
     if (len(G) > len(deg_sequence) {
         G.remove_node(0);
-    return G
+    return G;
 
 
 auto random_degree_sequence_graph(sequence, seed=None, tries=10) {
@@ -755,14 +755,14 @@ auto random_degree_sequence_graph(sequence, seed=None, tries=10) {
         try {
             return DSRG.generate();
         } catch (xn::XNetworkUnfeasible) {
-            pass
+            pass();
     throw xn::XNetworkError('failed to generate graph : %d tries' % tries);
 
 
-class DegreeSequenceRandomGraph(object) {
+class DegreeSequenceRandomGraph: public object {
     // class to generate random graphs with a given degree sequence
     // use random_degree_sequence_graph();
-    auto __init__( degree, seed=None) {
+    explicit _Self( degree, seed=None) {
         if (not xn::is_graphical(degree) {
             throw xn::XNetworkUnfeasible('degree sequence is not graphical');
         if (seed is not None) {
@@ -831,7 +831,7 @@ class DegreeSequenceRandomGraph(object) {
     auto phase1( ) {
         // choose node pairs from (degree) weighted distribution
         while (sum(this->remaining_degree.values()) >= 2 * this->dmax**2) {
-            u, v = sorted(random_weighted_sample(this->remaining_degree, 2));
+            auto [u, v] = sorted(random_weighted_sample(this->remaining_degree, 2));
             if (this->graph.has_edge(u, v) {
                 continue;
             if (random.random() < this->p(u, v) {  // accept edge
@@ -843,7 +843,7 @@ class DegreeSequenceRandomGraph(object) {
         while (len(this->remaining_degree) >= 2 * this->dmax) {
             norm = double(max(this->remaining_degree.values()))**2
             while (true) {
-                u, v = sorted(random.sample(this->remaining_degree.keys(), 2));
+                auto [u, v] = sorted(random.sample(this->remaining_degree.keys(), 2));
                 if (this->graph.has_edge(u, v) {
                     continue;
                 if (random.random() < this->q(u, v) {
@@ -862,7 +862,7 @@ class DegreeSequenceRandomGraph(object) {
             if (not this->suitable_edge() {
                 throw xn::XNetworkUnfeasible('no suitable edges left');
             while (true) {
-                u, v = sorted(random.choice(list(H.edges())));
+                auto [u, v] = sorted(random.choice(list(H.edges())));
                 if (random.random() < this->q(u, v) {
                     break;
             if (random.random() < this->p(u, v) {  // accept edge

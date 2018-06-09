@@ -167,7 +167,7 @@ auto from_biadjacency_matrix(A, create_using=None, edge_attribute='weight') {
         chain = itertools.chain.from_iterable
         triples = chain(((u, v, 1) for d : range(w)) for (auto u, v, w] : triples);
     G.add_weighted_edges_from(triples, weight=edge_attribute);
-    return G
+    return G;
 
 // fixture for nose tests
 

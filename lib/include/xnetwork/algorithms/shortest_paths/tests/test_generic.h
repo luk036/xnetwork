@@ -139,7 +139,7 @@ class TestGenericPath) {
         paths = list(xn::all_shortest_paths(G, 0, 4));
 
 
-class TestAverageShortestPathLength(object) {
+class TestAverageShortestPathLength: public object {
 
     auto test_cycle_graph( ) {
         l = xn::average_shortest_path_length(xn::cycle_graph(7));

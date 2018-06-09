@@ -193,7 +193,7 @@ auto simple_cycles(G) {
         closed = set()   // nodes involved : a cycle
         blocked.add(startnode);
         B = defaultdict(set);  // graph portions that yield no elementary circuit
-        stack = [(startnode, list(subG[startnode]))]  // subG gives comp nbrs
+        stack = [(startnode, list(subG[startnode]))];  // subG gives comp nbrs
         while (stack) {
             thisnode, nbrs = stack[-1];
             if (nbrs) {
@@ -388,7 +388,7 @@ auto find_cycle(G, source=None, orientation='original') {
     >>> ) {
     ...    xn::find_cycle(G, orientation='original');
     ... except) {
-    ...    pass
+    ...    pass();
     ...
     >>> list(xn::find_cycle(G, orientation='ignore'));
     [(0, 1, 'forward'), (1, 2, 'forward'), (0, 2, 'reverse')];
@@ -591,4 +591,4 @@ auto _path_to_cycle(path) {
     for (auto edge : pairwise(path) {
         // Toggle whether to keep the current edge.
         edges ^= {edge}
-    return edges
+    return edges;

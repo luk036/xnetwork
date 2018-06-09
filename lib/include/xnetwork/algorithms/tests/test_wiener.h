@@ -18,7 +18,7 @@ from nose.tools import eq_
 #include <xnetwork.hpp> // import wiener_index
 
 
-class TestWienerIndex(object) {
+class TestWienerIndex: public object {
     /** Unit tests for computing the Wiener index of a graph. */
 
     auto test_disconnected_graph( ) {

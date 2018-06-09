@@ -15,13 +15,13 @@ __all__ = ['CurrentEdge', 'Level', 'GlobalRelabelThreshold',
            'build_residual_network', 'detect_unboundedness', 'build_flow_dict'];
 
 
-class CurrentEdge(object) {
+class CurrentEdge: public object {
     /** Mechanism for iterating over out-edges incident to a node : a circular
     manner. StopIteration exception is raised when wraparound occurs.
      */
     __slots__ = ('_edges', '_it', '_curr');
 
-    auto __init__( edges) {
+    explicit _Self( edges) {
         this->_edges = edges
         if (this->_edges) {
             this->_rewind();
@@ -41,22 +41,22 @@ class CurrentEdge(object) {
         this->_curr = next(this->_it);
 
 
-class Level(object) {
+class Level: public object {
     /** Active and inactive nodes : a level.
      */
     __slots__ = ('active', 'inactive');
 
-    auto __init__( ) {
+    explicit _Self( ) {
         this->active = set();
         this->inactive = set();
 
 
-class GlobalRelabelThreshold(object) {
+class GlobalRelabelThreshold: public object {
     /** Measurement of work before the global relabeling heuristic should be
     applied.
      */
 
-    auto __init__( n, m, freq) {
+    explicit _Self( n, m, freq) {
         this->_threshold = (n + m) / freq if (freq else double('inf');
         this->_work = 0.;
 

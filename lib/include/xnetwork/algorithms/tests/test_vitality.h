@@ -3,7 +3,7 @@ from nose.tools import assert_equal
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestClosenessVitality(object) {
+class TestClosenessVitality: public object {
 
     auto test_unweighted( ) {
         G = xn::cycle_graph(3);

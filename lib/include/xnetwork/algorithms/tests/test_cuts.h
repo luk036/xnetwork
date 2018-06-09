@@ -14,7 +14,7 @@ from nose.tools import assert_equal
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestCutSize(object) {
+class TestCutSize: public object {
     /** Unit tests for the :func:`~xnetwork.cut_size` function. */
 
     auto test_symmetric( ) {
@@ -55,7 +55,7 @@ class TestCutSize(object) {
         assert_equal(xn::cut_size(G, {'a'}, {'b'}), 2);
 
 
-class TestVolume(object) {
+class TestVolume: public object {
     /** Unit tests for the :func:`~xnetwork.volume` function. */
 
     auto test_graph( ) {
@@ -77,7 +77,7 @@ class TestVolume(object) {
         assert_equal(xn::volume(G, {0, 1}), 4);
 
 
-class TestNormalizedCutSize(object) {
+class TestNormalizedCutSize: public object {
     /** Unit tests for the :func:`~xnetwork.normalized_cut_size`
     function.
 
@@ -102,7 +102,7 @@ class TestNormalizedCutSize(object) {
         assert_equal(expected, size);
 
 
-class TestConductance(object) {
+class TestConductance: public object {
     /** Unit tests for the :func:`~xnetwork.conductance` function. */
 
     auto test_graph( ) {
@@ -116,7 +116,7 @@ class TestConductance(object) {
         assert_equal(expected, conductance);
 
 
-class TestEdgeExpansion(object) {
+class TestEdgeExpansion: public object {
     /** Unit tests for the :func:`~xnetwork.edge_expansion` function. */
 
     auto test_graph( ) {
@@ -128,7 +128,7 @@ class TestEdgeExpansion(object) {
         assert_equal(expected, expansion);
 
 
-class TestNodeExpansion(object) {
+class TestNodeExpansion: public object {
     /** Unit tests for the :func:`~xnetwork.node_expansion` function.
 
      */
@@ -143,7 +143,7 @@ class TestNodeExpansion(object) {
         assert_equal(expected, expansion);
 
 
-class TestBoundaryExpansion(object) {
+class TestBoundaryExpansion: public object {
     /** Unit tests for the :func:`~xnetwork.boundary_expansion` function.
 
      */
@@ -158,7 +158,7 @@ class TestBoundaryExpansion(object) {
         assert_equal(expected, expansion);
 
 
-class TestMixingExpansion(object) {
+class TestMixingExpansion: public object {
     /** Unit tests for the :func:`~xnetwork.mixing_expansion` function.
 
      */

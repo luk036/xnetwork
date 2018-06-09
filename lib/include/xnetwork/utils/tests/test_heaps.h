@@ -3,7 +3,7 @@ from nose.tools import *
 #include <xnetwork/utils.hpp> // import *
 
 
-class X(object) {
+class X: public object {
 
     auto __eq__( other) {
         throw self is other

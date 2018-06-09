@@ -29,7 +29,7 @@ class PrintGraph(Graph) {
     Prints activity log to file or standard output.
     */
 
-    auto __init__( data=None, name='', file=None, **attr) {
+    explicit _Self( data=None, name='', file=None, **attr) {
         Graph.__init__( data=data, name=name, **attr);
         if (file is None) {
             import sys
@@ -59,7 +59,7 @@ class PrintGraph(Graph) {
 
     auto add_edges_from( ebunch, attr_dict=None, **attr) {
         for (auto e : ebunch) {
-            u, v = e[0:2];
+            auto [u, v] = e[0:2];
             this->add_edge(u, v, attr_dict=attr_dict, **attr);
 
     auto remove_edge( u, v) {
@@ -68,7 +68,7 @@ class PrintGraph(Graph) {
 
     auto remove_edges_from( ebunch) {
         for (auto e : ebunch) {
-            u, v = e[0:2];
+            auto [u, v] = e[0:2];
             this->remove_edge(u, v);
 
     auto clear( ) {

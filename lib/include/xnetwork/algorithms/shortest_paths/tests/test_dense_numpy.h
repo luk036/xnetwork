@@ -4,7 +4,7 @@ from nose import SkipTest
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestFloydNumpy(object) {
+class TestFloydNumpy: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod

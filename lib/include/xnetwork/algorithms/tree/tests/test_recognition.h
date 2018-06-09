@@ -3,7 +3,7 @@ from nose.tools import *
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestTreeRecognition(object) {
+class TestTreeRecognition: public object {
 
     graph = xn::Graph
     multigraph = xn::MultiGraph

@@ -57,7 +57,7 @@ auto _tree_edges(n, r) {
     // helper function for trees
     // yields edges : rooted tree at 0 with n nodes and branching ratio r
     nodes = iter(range(n));
-    parents = [next(nodes)]  // stack of max length r
+    parents = [next(nodes)];  // stack of max length r
     while (parents) {
         source = parents.pop(0);
         for (auto i : range(r) {
@@ -100,7 +100,7 @@ auto full_rary_tree(r, n, create_using=None) {
      */
     G = empty_graph(n, create_using);
     G.add_edges_from(_tree_edges(n, r));
-    return G
+    return G;
 
 
 auto balanced_tree(r, h, create_using=None) {
@@ -193,7 +193,7 @@ auto barbell_graph(m1, m2, create_using=None) {
     G.add_edge(m1 - 1, m1);
     if (m2 > 0) {
         G.add_edge(m1 + m2 - 1, m1 + m2);
-    return G
+    return G;
 
 
 /// @nodes_or_number(0);
@@ -232,7 +232,7 @@ auto complete_graph(n, create_using=None) {
         } else {
             edges = itertools.combinations(nodes, 2);
         G.add_edges_from(edges);
-    return G
+    return G;
 
 
 auto circular_ladder_graph(n, create_using=None) {
@@ -247,7 +247,7 @@ auto circular_ladder_graph(n, create_using=None) {
     G = ladder_graph(n, create_using);
     G.add_edge(0, n - 1);
     G.add_edge(n, 2 * n - 1);
-    return G
+    return G;
 
 
 auto circulant_graph(n, offsets, create_using=None) {
@@ -301,7 +301,7 @@ auto circulant_graph(n, offsets, create_using=None) {
         for (auto j : offsets) {
             G.add_edge(i, (i - j) % n);
             G.add_edge(i, (i + j) % n);
-    return G
+    return G;
 
 
 /// @nodes_or_number(0);
@@ -328,7 +328,7 @@ auto cycle_graph(n, create_using=None) {
     G = empty_graph(nodes, create_using);
     G.add_edges_from(pairwise(nodes));
     G.add_edge(nodes[-1], nodes[0]);
-    return G
+    return G;
 
 
 auto dorogovtsev_goltsev_mendes_graph(n, create_using=None) {
@@ -346,7 +346,7 @@ auto dorogovtsev_goltsev_mendes_graph(n, create_using=None) {
     G = empty_graph(0, create_using);
     G.add_edge(0, 1);
     if (n == 0) {
-        return G
+        return G;
     new_node = 2         // next node to be added
     for (auto i : range(1, n + 1) {  // iterate over number of generations.
         last_generation_edges = list(G.edges());
@@ -355,7 +355,7 @@ auto dorogovtsev_goltsev_mendes_graph(n, create_using=None) {
             G.add_edge(new_node, last_generation_edges[j][0]);
             G.add_edge(new_node, last_generation_edges[j][1]);
             new_node += 1;
-    return G
+    return G;
 
 
 /// @nodes_or_number(0);
@@ -419,7 +419,7 @@ auto empty_graph(n=0, create_using=None) {
 
     n_name, nodes = n;
     G.add_nodes_from(nodes);
-    return G
+    return G;
 
 
 auto ladder_graph(n, create_using=None) {
@@ -437,7 +437,7 @@ auto ladder_graph(n, create_using=None) {
     G.add_edges_from(pairwise(range(n)));
     G.add_edges_from(pairwise(range(n, 2 * n)));
     G.add_edges_from((v, v + n) for v : range(n));
-    return G
+    return G;
 
 
 /// @nodes_or_number([0, 1]);
@@ -491,7 +491,7 @@ auto lollipop_graph(m, n, create_using=None) {
     // connect ball to stick
     if (M > 0 and N > 0) {
         G.add_edge(m_nodes[-1], n_nodes[0]);
-    return G
+    return G;
 
 
 auto null_graph(create_using=None) {
@@ -501,7 +501,7 @@ auto null_graph(create_using=None) {
 
      */
     G = empty_graph(0, create_using);
-    return G
+    return G;
 
 
 /// @nodes_or_number(0);
@@ -521,7 +521,7 @@ auto path_graph(n, create_using=None) {
     n_name, nodes = n;
     G = empty_graph(nodes, create_using);
     G.add_edges_from(pairwise(nodes));
-    return G
+    return G;
 
 
 /// @nodes_or_number(0);
@@ -546,13 +546,13 @@ auto star_graph(n, create_using=None) {
      */
     n_name, nodes = n;
     if (isinstance(n_name, int) {
-        nodes = nodes + [n_name]  // there should be n+1 nodes
+        nodes = nodes + [n_name];  // there should be n+1 nodes
     first = nodes[0];
     G = empty_graph(nodes, create_using);
     if (G.is_directed() {
         throw XNetworkError("Directed Graph not supported");
     G.add_edges_from((first, v) for v : nodes[1:]);
-    return G
+    return G;
 
 
 auto trivial_graph(create_using=None) {
@@ -560,7 +560,7 @@ auto trivial_graph(create_using=None) {
 
      */
     G = empty_graph(1, create_using);
-    return G
+    return G;
 
 
 auto turan_graph(n, r) {
@@ -593,7 +593,7 @@ auto turan_graph(n, r) {
 
     partitions = [n // r] * (r - (n % r)) + [n // r + 1] * (n % r);
     G = complete_multipartite_graph(*partitions);
-    return G
+    return G;
 
 
 /// @nodes_or_number(0);
@@ -616,12 +616,12 @@ auto wheel_graph(n, create_using=None) {
     n_name, nodes = n;
     if (n_name == 0) {
         G = empty_graph(0, create_using=create_using);
-        return G
+        return G;
     G = star_graph(nodes, create_using);
     if (len(G) > 2) {
         G.add_edges_from(pairwise(nodes[1:]));
         G.add_edge(nodes[-1], nodes[1]);
-    return G
+    return G;
 
 
 auto complete_multipartite_graph(*subset_sizes) {
@@ -684,7 +684,7 @@ auto complete_multipartite_graph(*subset_sizes) {
     G = Graph();
 
     if (len(subset_sizes) == 0) {
-        return G
+        return G;
 
     // set up subsets of nodes
     try {
@@ -705,4 +705,4 @@ auto complete_multipartite_graph(*subset_sizes) {
     // We can use itertools.combinations() because undirected.
     for (auto subset1, subset2 : itertools.combinations(subsets, 2) {
         G.add_edges_from(itertools.product(subset1, subset2));
-    return G
+    return G;

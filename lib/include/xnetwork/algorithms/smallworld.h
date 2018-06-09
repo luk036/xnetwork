@@ -84,7 +84,7 @@ auto random_reference(G, niter=1, connectivity=true) {
             auto [ai, ci] = xn::utils.discrete_sequence(2, cdistribution=cdf);
             if (ai == ci) {
                 continue  // same source, skip
-            a = keys[ai]  // convert index to label
+            a = keys[ai];  // convert index to label
             c = keys[ci];
             // choose target uniformly from neighbors
             b = random.choice(list(G.neighbors(a)));
@@ -112,7 +112,7 @@ auto random_reference(G, niter=1, connectivity=true) {
                     swapcount += 1;
                     break;
             n += 1;
-    return G
+    return G;
 
 
 /// @not_implemented_for('directed');
@@ -191,7 +191,7 @@ auto lattice_reference(G, niter=1, D=None, connectivity=true) {
             auto [ai, ci] = xn::utils.discrete_sequence(2, cdistribution=cdf);
             if (ai == ci) {
                 continue  // same source, skip
-            a = keys[ai]  // convert index to label
+            a = keys[ai];  // convert index to label
             c = keys[ci];
             // choose target uniformly from neighbors
             b = random.choice(list(G.neighbors(a)));
@@ -223,7 +223,7 @@ auto lattice_reference(G, niter=1, D=None, connectivity=true) {
                         break;
             n += 1;
 
-    return G
+    return G;
 
 
 /// @not_implemented_for('directed');

@@ -21,7 +21,7 @@ from xnetwork.generators.degree_seq import expected_degree_graph
 // make a random graph of 500 nodes with expected degrees of 50
 n = 500  // n nodes
 p = 0.1
-w = [p * n for i : range(n)]  // w = p*n for all nodes
+w = [p * n for i : range(n)];  // w = p*n for all nodes
 G = expected_degree_graph(w);  // configuration model
 print("Degree histogram");
 print("degree (#nodes) ****");

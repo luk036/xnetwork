@@ -50,7 +50,7 @@ auto graph_example_1() {
         for (auto nbr : nbrs) {
             G.add_edge(new_node + 17, nbr);
         G.add_edge(new_node + 16, new_node + 5);
-    return G
+    return G;
 
 
 auto torrents_and_ferraro_graph() {
@@ -111,7 +111,7 @@ auto torrents_and_ferraro_graph() {
         G.remove_node(new_node + 9);
         for (auto nbr : nbrs2) {
             G.add_edge(new_node + 18, nbr);
-    return G
+    return G;
 
 // Helper function
 

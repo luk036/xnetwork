@@ -108,7 +108,7 @@ auto make_small_graph(graph_description, create_using=None) {
             } else {
                 G.add_edge(v1, v2);
     G.name = name
-    return G
+    return G;
 
 
 auto LCF_graph(n, shift_list, repeats, create_using=None) {
@@ -162,14 +162,14 @@ auto LCF_graph(n, shift_list, repeats, create_using=None) {
     // edges are added n_extra_edges times
     // (not all of these need be new);
     if (n_extra_edges < 1) {
-        return G
+        return G;
 
     for (auto i : range(n_extra_edges) {
-        shift = shift_list[i % len(shift_list)]  // cycle through shift_list
+        shift = shift_list[i % len(shift_list)];  // cycle through shift_list
         v1 = nodes[i % n]                    // cycle repeatedly through nodes
         v2 = nodes[(i + shift) % n];
         G.add_edge(v1, v2);
-    return G
+    return G;
 
 
 //-------------------------------------------------------------------------------
@@ -185,7 +185,7 @@ auto bull_graph(create_using=None) {
         [[2, 3], [1, 3, 4], [1, 2, 5], [2], [3]];
     ];
     G = make_small_undirected_graph(description, create_using);
-    return G
+    return G;
 
 
 auto chvatal_graph(create_using=None) {
@@ -199,7 +199,7 @@ auto chvatal_graph(create_using=None) {
          [11], [11, 12], [], []];
     ];
     G = make_small_undirected_graph(description, create_using);
-    return G
+    return G;
 
 
 auto cubical_graph(create_using=None) {
@@ -212,14 +212,14 @@ auto cubical_graph(create_using=None) {
          [1, 6, 8], [4, 5, 7], [3, 6, 8], [2, 5, 7]];
     ];
     G = make_small_undirected_graph(description, create_using);
-    return G
+    return G;
 
 
 auto desargues_graph(create_using=None) {
     /** Return the Desargues graph. */
     G = LCF_graph(20, [5, -5, 9, -9], 5, create_using);
     G.name = "Desargues Graph"
-    return G
+    return G;
 
 
 auto diamond_graph(create_using=None) {
@@ -231,14 +231,14 @@ auto diamond_graph(create_using=None) {
         [[2, 3], [1, 3, 4], [1, 2, 4], [2, 3]];
     ];
     G = make_small_undirected_graph(description, create_using);
-    return G
+    return G;
 
 
 auto dodecahedral_graph(create_using=None) {
     /** Return the Platonic Dodecahedral graph.  */
     G = LCF_graph(20, [10, 7, 4, -4, -7, 10, -4, 7, -7, 4], 2, create_using);
     G.name = "Dodecahedral Graph"
-    return G
+    return G;
 
 
 auto frucht_graph(create_using=None) {
@@ -253,14 +253,14 @@ auto frucht_graph(create_using=None) {
                       [7, 11], [8, 11], [8, 9], [10, 11]]);
 
     G.name = "Frucht Graph"
-    return G
+    return G;
 
 
 auto heawood_graph(create_using=None) {
     /** Return the Heawood graph, a (3,6) cage.  */
     G = LCF_graph(14, [5, -5], 7, create_using);
     G.name = "Heawood Graph"
-    return G
+    return G;
 
 
 auto hoffman_singleton_graph() {
@@ -277,7 +277,7 @@ auto hoffman_singleton_graph() {
                            auto ['pentagram', k, (i * k + j) % 5));
     G = xn::convert_node_labels_to_integers(G);
     G.name = 'Hoffman-Singleton Graph';
-    return G
+    return G;
 
 
 auto house_graph(create_using=None) {
@@ -289,7 +289,7 @@ auto house_graph(create_using=None) {
         [[2, 3], [1, 4], [1, 4, 5], [2, 3, 5], [3, 4]];
     ];
     G = make_small_undirected_graph(description, create_using);
-    return G
+    return G;
 
 
 auto house_x_graph(create_using=None) {
@@ -301,7 +301,7 @@ auto house_x_graph(create_using=None) {
         [[2, 3, 4], [1, 3, 4], [1, 2, 4, 5], [1, 2, 3, 5], [3, 4]];
     ];
     G = make_small_undirected_graph(description, create_using);
-    return G
+    return G;
 
 
 auto icosahedral_graph(create_using=None) {
@@ -315,7 +315,7 @@ auto icosahedral_graph(create_using=None) {
          [10], [11], [12], []];
     ];
     G = make_small_undirected_graph(description, create_using);
-    return G
+    return G;
 
 
 auto krackhardt_kite_graph(create_using=None) {
@@ -337,14 +337,14 @@ auto krackhardt_kite_graph(create_using=None) {
          [1, 3, 4, 7, 8], [2, 4, 5, 6, 8], [6, 7, 9], [8, 10], [9]];
     ];
     G = make_small_undirected_graph(description, create_using);
-    return G
+    return G;
 
 
 auto moebius_kantor_graph(create_using=None) {
     /** Return the Moebius-Kantor graph. */
     G = LCF_graph(16, [5, -5], 8, create_using);
     G.name = "Moebius-Kantor Graph"
-    return G
+    return G;
 
 
 auto octahedral_graph(create_using=None) {
@@ -356,14 +356,14 @@ auto octahedral_graph(create_using=None) {
         [[2, 3, 4, 5], [3, 4, 6], [5, 6], [5, 6], [6], []];
     ];
     G = make_small_undirected_graph(description, create_using);
-    return G
+    return G;
 
 
 auto pappus_graph() {
     /** Return the Pappus graph. */
     G = LCF_graph(18, [5, 7, -7, 7, -7, -5], 3);
     G.name = "Pappus Graph"
-    return G
+    return G;
 
 
 auto petersen_graph(create_using=None) {
@@ -376,7 +376,7 @@ auto petersen_graph(create_using=None) {
          [3, 6, 10], [4, 6, 7], [5, 7, 8]];
     ];
     G = make_small_undirected_graph(description, create_using);
-    return G
+    return G;
 
 
 auto sedgewick_maze_graph(create_using=None) {
@@ -394,14 +394,14 @@ auto sedgewick_maze_graph(create_using=None) {
     G.add_edges_from([[3, 4], [3, 5]]);
     G.add_edges_from([[4, 5], [4, 7], [4, 6]]);
     G.name = "Sedgewick Maze"
-    return G
+    return G;
 
 
 auto tetrahedral_graph(create_using=None) {
     /** Return the 3-regular Platonic Tetrahedral graph. */
     G = complete_graph(4, create_using);
     G.name = "Platonic Tetrahedral graph"
-    return G
+    return G;
 
 
 auto truncated_cube_graph(create_using=None) {
@@ -418,7 +418,7 @@ auto truncated_cube_graph(create_using=None) {
          [22], [23], [24], []];
     ];
     G = make_small_undirected_graph(description, create_using);
-    return G
+    return G;
 
 
 auto truncated_tetrahedron_graph(create_using=None) {
@@ -427,7 +427,7 @@ auto truncated_tetrahedron_graph(create_using=None) {
 //    G.add_edges_from([(1,3),(1,10),(2,7),(4,12),(5,12),(6,8),(9,11)]);
     G.add_edges_from([(0, 2), (0, 9), (1, 6), (3, 11), (4, 11), (5, 7), (8, 10)]);
     G.name = "Truncated Tetrahedron Graph"
-    return G
+    return G;
 
 
 auto tutte_graph(create_using=None) {
@@ -447,4 +447,4 @@ auto tutte_graph(create_using=None) {
          [42, 45], [43], [44, 46], [45], [], []];
     ];
     G = make_small_undirected_graph(description, create_using);
-    return G
+    return G;

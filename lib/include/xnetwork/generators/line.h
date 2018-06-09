@@ -313,7 +313,7 @@ auto inverse_line_graph(G) {
 
 auto _triangles(G, e) {
     /** Return list of all triangles containing edge e */
-    u, v = e
+    auto [u, v] = e
     if (u not : G) {
         throw xn::XNetworkError("Vertex %s not : graph" % u);
     if (v not : G.neighbors(u) {
@@ -386,7 +386,7 @@ auto _find_partition(G, starting_cell) {
         If a cell is not a complete subgraph then G is not a line graph
      */
     G_partition = G.copy();
-    P = [starting_cell]  // partition set
+    P = [starting_cell];  // partition set
     G_partition.remove_edges_from(list(combinations(starting_cell, 2)));
     // keep list of partitioned nodes which might have an edge : G_partition
     partitioned_vertices = list(starting_cell);

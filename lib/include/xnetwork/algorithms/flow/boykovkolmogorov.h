@@ -356,7 +356,7 @@ auto boykov_kolmogorov_impl(G, s, t, capacity, residual, cutoff) {
     dist = {s: 0, t: 0}
     while (flow_value < cutoff) {
         // Growth stage
-        u, v = grow();
+        auto [u, v] = grow();
         if (u is None) {
             break;
         time += 1;

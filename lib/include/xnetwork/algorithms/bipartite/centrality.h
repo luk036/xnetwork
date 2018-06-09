@@ -258,7 +258,7 @@ auto closeness_centrality(G, nodes, normalized=true) {
             closeness[node] = (m + 2 * (n - 1)) / totsp
             if (normalized) {
                 s = (len(sp) - 1.0) / (len(G) - 1);
-                closeness[node] *= s
+                closeness[node] *= s;
         } else {
             closeness[n] = 0.0
     for (auto node : bottom) {
@@ -268,7 +268,7 @@ auto closeness_centrality(G, nodes, normalized=true) {
             closeness[node] = (n + 2 * (m - 1)) / totsp
             if (normalized) {
                 s = (len(sp) - 1.0) / (len(G) - 1);
-                closeness[node] *= s
+                closeness[node] *= s;
         } else {
             closeness[n] = 0.0
     return closeness

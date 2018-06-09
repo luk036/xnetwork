@@ -147,7 +147,7 @@ auto _relabel_inplace(G, mapping) {
                               for (auto [source, _, data] : G.in_edges(old, data=true)];
         G.remove_node(old);
         G.add_edges_from(new_edges);
-    return G
+    return G;
 
 
 auto _relabel_copy(G, mapping) {

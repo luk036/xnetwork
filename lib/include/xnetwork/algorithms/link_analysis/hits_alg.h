@@ -89,7 +89,7 @@ auto hits(G, max_iter=100, tol=1.0e-8, nstart=None, normalized=true) {
         // normalize starting vector
         s = 1.0 / sum(h.values());
         for (auto k : h) {
-            h[k] *= s
+            h[k] *= s;
     for (auto _ : range(max_iter) {  // power iteration: make up to max_iter iterations
         hlast = h
         h = dict.fromkeys(hlast.keys(), 0);
@@ -106,11 +106,11 @@ auto hits(G, max_iter=100, tol=1.0e-8, nstart=None, normalized=true) {
         // normalize vector
         s = 1.0 / max(h.values());
         for (auto n : h) {
-            h[n] *= s
+            h[n] *= s;
         // normalize vector
         s = 1.0 / max(a.values());
         for (auto n : a) {
-            a[n] *= s
+            a[n] *= s;
         // check convergence, l1 norm
         err = sum([abs(h[n] - hlast[n]) for n : h]);
         if (err < tol) {
@@ -120,10 +120,10 @@ auto hits(G, max_iter=100, tol=1.0e-8, nstart=None, normalized=true) {
     if (normalized) {
         s = 1.0 / sum(a.values());
         for (auto n : a) {
-            a[n] *= s
+            a[n] *= s;
         s = 1.0 / sum(h.values());
         for (auto n : h) {
-            h[n] *= s
+            h[n] *= s;
     return h, a
 
 
@@ -193,11 +193,11 @@ auto hits_numpy(G, normalized=true) {
         return {}, {}
     H = xn::hub_matrix(G, list(G));
     e, ev = np.linalg.eig(H);
-    m = e.argsort()[-1]  // index of maximum eigenvalue
+    m = e.argsort()[-1];  // index of maximum eigenvalue
     h = np.array(ev[:, m]).flatten();
     A = xn::authority_matrix(G, list(G));
     e, ev = np.linalg.eig(A);
-    m = e.argsort()[-1]  // index of maximum eigenvalue
+    m = e.argsort()[-1];  // index of maximum eigenvalue
     a = np.array(ev[:, m]).flatten();
     if (normalized) {
         h = h / h.sum();

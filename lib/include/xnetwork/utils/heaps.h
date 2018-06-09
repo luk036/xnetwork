@@ -14,7 +14,7 @@ from itertools import count
 __all__ = ['MinHeap', 'PairingHeap', 'BinaryHeap'];
 
 
-class MinHeap(object) {
+class MinHeap: public object {
     /** Base class for min-heaps.
 
     A MinHeap stores a collection of key-value pairs ordered by their values.
@@ -22,19 +22,19 @@ class MinHeap(object) {
     value : an existing pair and deleting the minimum pair.
      */
 
-    class _Item(object) {
+    class _Item: public object {
         /** Used by subclassess to represent a key-value pair.
          */
         __slots__ = ('key', 'value');
 
-        auto __init__( key, value) {
+        explicit _Self( key, value) {
             this->key = key
             this->value = value
 
         auto __repr__( ) {
             return repr((this->key, this->value));
 
-    auto __init__( ) {
+    explicit _Self( ) {
         /** Initialize a new min-heap.
          */
         this->_dict = {};
@@ -158,7 +158,7 @@ class PairingHeap(MinHeap) {
          */
         __slots__ = ('left', 'next', 'prev', 'parent');
 
-        auto __init__( key, value) {
+        explicit _Self( key, value) {
             super(PairingHeap._Node, self).__init__(key, value);
             // The leftmost child.
             this->left = None
@@ -169,19 +169,19 @@ class PairingHeap(MinHeap) {
             // The parent.
             this->parent = None
 
-    auto __init__( ) {
+    explicit _Self( ) {
         /** Initialize a pairing heap.
          */
         super(PairingHeap, self).__init__();
         this->_root = None
 
-    @_inherit_doc(MinHeap);
+    // @_inherit_doc(MinHeap);
     auto min( ) {
         if (this->_root is None) {
             throw xn::XNetworkError('heap is empty.');
         return (this->_root.key, this->_root.value);
 
-    @_inherit_doc(MinHeap);
+    // @_inherit_doc(MinHeap);
     auto pop( ) {
         if (this->_root is None) {
             throw xn::XNetworkError('heap is empty.');
@@ -190,12 +190,12 @@ class PairingHeap(MinHeap) {
         del this->_dict[min_node.key];
         return (min_node.key, min_node.value);
 
-    @_inherit_doc(MinHeap);
+    // @_inherit_doc(MinHeap);
     auto get( key, default=None) {
         node = this->_dict.get(key);
         return node.value if (node is not None else default
 
-    @_inherit_doc(MinHeap);
+    // @_inherit_doc(MinHeap);
     auto insert( key, value, allow_increase=false) {
         node = this->_dict.get(key);
         root = this->_root
@@ -305,14 +305,14 @@ class BinaryHeap(MinHeap) {
     /** A binary heap.
      */
 
-    auto __init__( ) {
+    explicit _Self( ) {
         /** Initialize a binary heap.
          */
         super(BinaryHeap, self).__init__();
         this->_heap = [];
         this->_count = count();
 
-    @_inherit_doc(MinHeap);
+    // @_inherit_doc(MinHeap);
     auto min( ) {
         dict = this->_dict
         if (not dict) {
@@ -328,7 +328,7 @@ class BinaryHeap(MinHeap) {
             pop(heap);
         return (key, value);
 
-    @_inherit_doc(MinHeap);
+    // @_inherit_doc(MinHeap);
     auto pop( ) {
         dict = this->_dict
         if (not dict) {
@@ -345,11 +345,11 @@ class BinaryHeap(MinHeap) {
         del dict[key];
         return (key, value);
 
-    @_inherit_doc(MinHeap);
+    // @_inherit_doc(MinHeap);
     auto get( key, default=None) {
         return this->_dict.get(key, default);
 
-    @_inherit_doc(MinHeap);
+    // @_inherit_doc(MinHeap);
     auto insert( key, value, allow_increase=false) {
         dict = this->_dict
         if (key : dict) {

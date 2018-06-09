@@ -81,10 +81,10 @@ auto gn_graph(n, kernel=None, create_using=None, seed=None) {
     G = empty_graph(1, create_using);
 
     if (n == 1) {
-        return G
+        return G;
 
     G.add_edge(1, 0);  // get started
-    ds = [1, 1]  // degree sequence
+    ds = [1, 1];  // degree sequence
 
     for (auto source : range(2, n) {
         // compute distribution from kernel and degree
@@ -94,7 +94,7 @@ auto gn_graph(n, kernel=None, create_using=None, seed=None) {
         G.add_edge(source, target);
         ds.append(1);  // the source has only one link (degree one);
         ds[target] += 1  // add one to the target link degree
-    return G
+    return G;
 
 
 auto gnr_graph(n, p, create_using=None, seed=None) {
@@ -144,7 +144,7 @@ auto gnr_graph(n, p, create_using=None, seed=None) {
     G = empty_graph(1, create_using);
 
     if (n == 1) {
-        return G
+        return G;
 
     for (auto source : range(1, n) {
         target = random.randrange(0, source);
@@ -152,7 +152,7 @@ auto gnr_graph(n, p, create_using=None, seed=None) {
             target = next(G.successors(target));
         G.add_edge(source, target);
 
-    return G
+    return G;
 
 
 auto gnc_graph(n, create_using=None, seed=None) {
@@ -188,7 +188,7 @@ auto gnc_graph(n, create_using=None, seed=None) {
     G = empty_graph(1, create_using);
 
     if (n == 1) {
-        return G
+        return G;
 
     for (auto source : range(1, n) {
         target = random.randrange(0, source);
@@ -196,7 +196,7 @@ auto gnc_graph(n, create_using=None, seed=None) {
             G.add_edge(source, succ);
         G.add_edge(source, target);
 
-    return G
+    return G;
 
 
 auto scale_free_graph(n, alpha=0.41, beta=0.54, gamma=0.05, delta_in=0.2,
@@ -304,7 +304,7 @@ auto scale_free_graph(n, alpha=0.41, beta=0.54, gamma=0.05, delta_in=0.2,
         G.add_edge(v, w);
         number_of_edges += 1;
 
-    return G
+    return G;
 
 
 auto random_uniform_k_out_graph(n, k, self_loops=true, with_replacement=true,
@@ -386,7 +386,7 @@ auto random_uniform_k_out_graph(n, k, self_loops=true, with_replacement=true,
     nodes = set(G);
     for (auto u : G) {
         G.add_edges_from((u, v) for v : sample(u, nodes));
-    return G
+    return G;
 
 
 auto random_k_out_graph(n, k, alpha, self_loops=true, seed=None) {
@@ -472,4 +472,4 @@ auto random_k_out_graph(n, k, alpha, self_loops=true, seed=None) {
         v = weighted_choice(weights - adjustment);
         G.add_edge(u, v);
         weights[v] += 1;
-    return G
+    return G;

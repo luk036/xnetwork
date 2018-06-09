@@ -172,7 +172,7 @@ class MultiDiGraph_EdgeKey(xn::MultiDiGraph) {
 
      */
 
-    auto __init__( incoming_graph_data=None, **attr) {
+    explicit _Self( incoming_graph_data=None, **attr) {
         cls = super(MultiDiGraph_EdgeKey, self);
         cls.__init__(incoming_graph_data=incoming_graph_data, **attr);
 
@@ -253,13 +253,13 @@ auto get_path(G, u, v) {
     return nodes, edges
 
 
-class Edmonds(object) {
+class Edmonds: public object {
     /**
     Edmonds algorithm for finding optimal branchings and spanning arborescences.
 
      */
 
-    auto __init__( G, seed=None) {
+    explicit _Self( G, seed=None) {
         this->G_original = G
 
         // Need to fix this. We need the whole tree.
@@ -277,7 +277,7 @@ class Edmonds(object) {
             throw xn::XNetworkException("Unknown value for `kind`.");
 
         // Store inputs.
-        this->attr = attr
+        this->attr = attr;
         this->default = default
         this->kind = kind
         this->style = style
@@ -293,7 +293,7 @@ class Edmonds(object) {
             attr = random_string();
 
         // This is the actual attribute used by the algorithm.
-        this->_attr = attr
+        this->_attr = attr;
 
         // The object we manipulate at each step is a multidigraph.
         this->G = G = MultiDiGraph_EdgeKey();
@@ -313,7 +313,7 @@ class Edmonds(object) {
         this->B = MultiDiGraph_EdgeKey();
         this->B.edge_index = {};
         this->graphs = []        // G^i
-        this->branchings = []    // B^i
+        this->branchings = [];    // B^i
         this->uf = xn::utils.UnionFind();
 
         // A list of lists of edge indexes. Each list is a circuit for graph G^i.

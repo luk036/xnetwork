@@ -6,7 +6,7 @@ import os
 import tempfile
 
 
-class TestLEDA(object) {
+class TestLEDA: public object {
 
     auto test_parse_leda( ) {
         data = R"(#header section	  \nLEDA.GRAPH \nstring\nint\n-1\n#nodes section\n5 \n|{v1}| \n|{v2}| \n|{v3}| \n|{v4}| \n|{v5}| \n\n#edges section\n7 \n1 2 0 |{4}| \n1 3 0 |{3}| \n2 3 0 |{2}| \n3 4 0 |{3}| \n3 5 0 |{7}| \n4 5 0 |{6}| \n5 1 0 |{foo}| )";

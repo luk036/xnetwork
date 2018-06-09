@@ -19,7 +19,7 @@ from xnetwork.testing.utils import *
 #include <xnetwork.hpp> // import convert_node_labels_to_integers as cnlti
 
 
-class TestNodeBoundary(object) {
+class TestNodeBoundary: public object {
     /** Unit tests for the :func:`~xnetwork.node_boundary` function. */
 
     auto test_null_graph( ) {
@@ -96,7 +96,7 @@ class TestNodeBoundary(object) {
         assert_equal(boundary, expected);
 
 
-class TestEdgeBoundary(object) {
+class TestEdgeBoundary: public object {
     /** Unit tests for the :func:`~xnetwork.edge_boundary` function. */
 
     auto test_null_graph( ) {

@@ -79,13 +79,13 @@ auto _single_shortest_path_length(adj, firstlevel, cutoff) {
         cutoff : int or double
             level at which we stop the process
      */
-    seen = {}                  // level (number of hops) when seen : BFS
+    seen = {};                  // level (number of hops) when seen : BFS
     level = 0                  // the current level
     nextlevel = firstlevel     // dict of nodes to check at next level
 
     while (nextlevel and cutoff >= level) {
         thislevel = nextlevel  // advance to next level
-        nextlevel = {}         // and start a new list (fringe);
+        nextlevel = {};         // and start a new list (fringe);
         for (auto v : thislevel) {
             if (v not : seen) {
                 seen[v] = level  // set the level of vertex v
@@ -521,7 +521,7 @@ auto predecessor(G, source, target=None, cutoff=None, return_seen=None) {
             return (pred[target], seen[target]);
         } else {
             if (target not : pred) {
-                return []  // No predecessor
+                return [];  // No predecessor
             return pred[target];
     } else {
         if (return_seen) {

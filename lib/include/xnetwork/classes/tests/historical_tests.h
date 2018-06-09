@@ -6,7 +6,7 @@ from nose.tools import *
 from xnetwork.testing import *
 
 
-class HistoricalTests(object) {
+class HistoricalTests: public object {
 
     auto setUp( ) {
         this->null = xn::null_graph();

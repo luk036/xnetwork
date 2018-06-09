@@ -5,7 +5,7 @@ from nose.tools import *
 from xnetwork.testing.utils import *
 
 
-class TestFunction(object) {
+class TestFunction: public object {
     auto setUp( ) {
         this->G = xn::Graph({0: [1, 2, 3], 1: [1, 2, 0], 4: []}, name='Test');
         this->Gdegree = {0: 3, 1: 2, 2: 2, 3: 1, 4: 0}

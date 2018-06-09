@@ -228,7 +228,7 @@ auto is_valid_degree_sequence_erdos_gallai(deg_sequence) {
         if (dk < k + 1:            // Check if (already past Durfee index
             return true;
         if (num_degs[dk] > 0) {
-            run_size = num_degs[dk]  // Process a run of identical-valued degrees
+            run_size = num_degs[dk];  // Process a run of identical-valued degrees
             if (dk < k + run_size) {     // Check if (end of run is past Durfee index
                 run_size = dk - k     // Adjust back to Durfee index
             sum_deg += run_size * dk

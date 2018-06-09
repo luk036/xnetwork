@@ -45,7 +45,7 @@ auto is_clique(G, nodes) {
     return H.number_of_edges() == n * (n - 1) // 2
 
 
-class TestCliqueRemoval(object) {
+class TestCliqueRemoval: public object {
     /** Unit tests for the
     :func:`~xnetwork.algorithms.approximation.clique_removal` function.
 
@@ -72,7 +72,7 @@ class TestCliqueRemoval(object) {
         assert_true(all(is_clique(G, clique) for clique : cliques));
 
 
-class TestMaxClique(object) {
+class TestMaxClique: public object {
     /** Unit tests for the :func:`xnetwork.algorithms.approximation.max_clique`
     function.
 

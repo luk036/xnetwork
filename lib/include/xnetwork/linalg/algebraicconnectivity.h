@@ -37,7 +37,7 @@ try {
             return y
 
 
-class _PCGSolver(object) {
+class _PCGSolver: public object {
     /** Preconditioned conjugate gradient method.
 
     To solve Ax = b) {
@@ -53,7 +53,7 @@ class _PCGSolver(object) {
     Warning: There is no limit on number of iterations.
      */
 
-    auto __init__( A, M) {
+    explicit _Self( A, M) {
         this->_A = A
         this->_M = M or (lambda x: x.copy());
 
@@ -88,7 +88,7 @@ class _PCGSolver(object) {
             p = daxpy(p, z, a=beta);
 
 
-class _CholeskySolver(object) {
+class _CholeskySolver: public object {
     /** Cholesky factorization.
 
     To solve Ax = b) {
@@ -99,7 +99,7 @@ class _CholeskySolver(object) {
     to match _PCGsolver API.
      */
 
-    auto __init__( A) {
+    explicit _Self( A) {
         if (not this->_cholesky) {
             throw xn::XNetworkError('Cholesky solver unavailable.');
         this->_chol = this->_cholesky(A);
@@ -114,7 +114,7 @@ class _CholeskySolver(object) {
         _cholesky = None
 
 
-class _LUSolver(object) {
+class _LUSolver: public object {
     /** LU factorization.
 
     To solve Ax = b) {
@@ -125,7 +125,7 @@ class _LUSolver(object) {
     to match _PCGsolver API.
      */
 
-    auto __init__( A) {
+    explicit _Self( A) {
         if (not this->_splu) {
             throw xn::XNetworkError('LU solver unavailable.');
         this->_LU = this->_splu(A);

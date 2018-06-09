@@ -13,7 +13,7 @@ from xnetwork.testing.utils import assert_graphs_equal
 from xnetwork.testing.utils import assert_nodes_equal
 
 
-class TestGraph6Utils(object) {
+class TestGraph6Utils: public object {
 
     auto test_n_data_n_conversion( ) {
         for (auto i : [0, 1, 42, 62, 63, 64, 258047, 258048, 7744773, 68719476735]) {

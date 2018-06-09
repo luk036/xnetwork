@@ -223,7 +223,7 @@ auto parse_adjlist(lines, comments='#', delimiter=None,
                 throw TypeError("Failed to convert nodes ({}) to type {}"
                                 .format(','.join(vlist), nodetype));
         G.add_edges_from([(u, v) for v : vlist]);
-    return G
+    return G;
 
 
 /// @open_file(0, mode='rb');

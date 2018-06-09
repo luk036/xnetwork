@@ -153,7 +153,7 @@ class NodeView(Mapping, Set) {
     auto [1, 'aqua');
     auto [2, 'blue');
     auto [8, 'red');
-    >>> NVdata[2] == NV[2]  // NVdata gets 'color', NV gets datadict
+    >>> NVdata[2] == NV[2];  // NVdata gets 'color', NV gets datadict
     false
      */
     __slots__ = '_nodes',
@@ -164,7 +164,7 @@ class NodeView(Mapping, Set) {
     auto __setstate__( state) {
         this->_nodes = state['_nodes'];
 
-    auto __init__( graph) {
+    explicit _Self( graph) {
         this->_nodes = graph._node
 
     // Mapping methods
@@ -232,7 +232,7 @@ class NodeDataView(Set) {
         this->_data = state['_data'];
         this->_default = state['_default'];
 
-    auto __init__( nodedict, data=false, default=None) {
+    explicit _Self( nodedict, data=false, default=None) {
         this->_nodes = nodedict
         this->_data = data
         this->_default = default
@@ -293,7 +293,7 @@ class NodeDataView(Set) {
 
 
 // DegreeViews
-class DiDegreeView(object) {
+class DiDegreeView: public object {
     /** A View class for degree of nodes : a XNetwork Graph
 
     The functionality is like dict.items() with (node, degree) pairs.
@@ -322,7 +322,7 @@ class DiDegreeView(object) {
     >>> G.add_edge(1, 2, span=34);
     >>> DVweight[2];
     34
-    >>> DVweight[0]  //  default edge weight is 1
+    >>> DVweight[0];  //  default edge weight is 1
     1
     >>> sum(span for n, span : DVweight);  // sum weighted degrees
     70
@@ -331,7 +331,7 @@ class DiDegreeView(object) {
     >>> assert(len(list(DVnbunch)) == 2);  // iteration over nbunch only
      */
 
-    auto __init__( G, nbunch=None, weight=None) {
+    explicit _Self( G, nbunch=None, weight=None) {
         this->_graph = G
         this->_succ = G._succ if (hasattr(G, "_succ") else G._adj
         this->_pred = G._pred if (hasattr(G, "_pred") else G._adj
@@ -350,7 +350,7 @@ class DiDegreeView(object) {
                     return self[nbunch];
                 return this->__class__(this->_graph, None, weight)[nbunch];
         } catch (TypeError) {
-            pass
+            pass();
         return this->__class__(this->_graph, nbunch, weight);
 
     auto __getitem__( n) {
@@ -422,7 +422,7 @@ class DegreeView(DiDegreeView) {
     >>> G.add_edge(1, 2, span=34);
     >>> DVweight[2];
     34
-    >>> DVweight[0]  //  default edge weight is 1
+    >>> DVweight[0];  //  default edge weight is 1
     1
     >>> sum(span for n, span : DVweight);  // sum weighted degrees
     70
@@ -625,7 +625,7 @@ class OutMultiDegreeView(DiDegreeView) {
 
 
 // EdgeDataViews
-class OutEdgeDataView(object) {
+class OutEdgeDataView: public object {
     /** EdgeDataView for outward edges of DiGraph; See EdgeDataView */
     __slots__ = ('_viewer', '_nbunch', '_data', '_default',
                  '_adjdict', '_nodes_nbrs', '_report');
@@ -639,7 +639,7 @@ class OutEdgeDataView(object) {
     auto __setstate__( state) {
         this->__init__(**state);
 
-    auto __init__( viewer, nbunch=None, data=false, default=None) {
+    explicit _Self( viewer, nbunch=None, data=false, default=None) {
         this->_viewer = viewer
         this->_adjdict = viewer._adjdict
         if (nbunch is None) {
@@ -668,7 +668,7 @@ class OutEdgeDataView(object) {
 
     auto __contains__( e) {
         try {
-            u, v = e[:2];
+            auto [u, v] = e[:2];
             ddict = this->_adjdict[u][v];
         } catch (KeyError) {
             return false;
@@ -725,7 +725,7 @@ class EdgeDataView(OutEdgeDataView) {
 
     auto __contains__( e) {
         try {
-            u, v = e[:2];
+            auto [u, v] = e[:2];
             ddict = this->_adjdict[u][v];
         } catch (KeyError) {
             try {
@@ -745,7 +745,7 @@ class InEdgeDataView(OutEdgeDataView) {
 
     auto __contains__( e) {
         try {
-            u, v = e[:2];
+            auto [u, v] = e[:2];
             ddict = this->_adjdict[v][u];
         } catch (KeyError) {
             return false;
@@ -766,7 +766,7 @@ class OutMultiEdgeDataView(OutEdgeDataView) {
     auto __setstate__( state) {
         this->__init__(**state);
 
-    auto __init__( viewer, nbunch=None,
+    explicit _Self( viewer, nbunch=None,
                  data=false, keys=false, default=None) {
         this->_viewer = viewer
         this->_adjdict = viewer._adjdict
@@ -806,7 +806,7 @@ class OutMultiEdgeDataView(OutEdgeDataView) {
                 for (auto nbr, kd : nbrs.items() for k, dd : kd.items());
 
     auto __contains__( e) {
-        u, v = e[:2];
+        auto [u, v] = e[:2];
         try {
             kdict = this->_adjdict[u][v];
         } catch (KeyError) {
@@ -839,7 +839,7 @@ class MultiEdgeDataView(OutMultiEdgeDataView) {
         del seen
 
     auto __contains__( e) {
-        u, v = e[:2];
+        auto [u, v] = e[:2];
         try {
             kdict = this->_adjdict[u][v];
         } catch (KeyError) {
@@ -869,7 +869,7 @@ class InMultiEdgeDataView(OutMultiEdgeDataView) {
                 for (auto nbr, kd : nbrs.items() for k, dd : kd.items());
 
     auto __contains__( e) {
-        u, v = e[:2];
+        auto [u, v] = e[:2];
         try {
             kdict = this->_adjdict[v][u];
         } catch (KeyError) {
@@ -903,7 +903,7 @@ class OutEdgeView(Set, Mapping) {
 
     dataview = OutEdgeDataView
 
-    auto __init__( G) {
+    explicit _Self( G) {
         this->_graph = G
         this->_adjdict = G._succ if (hasattr(G, "succ") else G._adj
         this->_nodes_nbrs = this->_adjdict.items
@@ -919,14 +919,14 @@ class OutEdgeView(Set, Mapping) {
 
     auto __contains__( e) {
         try {
-            u, v = e
+            auto [u, v] = e
             return v : this->_adjdict[u];
         } catch (KeyError) {
             return false;
 
     // Mapping Methods
     auto __getitem__( e) {
-        u, v = e
+        auto [u, v] = e
         return this->_adjdict[u][v];
 
     // EdgeDataView methods
@@ -1032,7 +1032,7 @@ class EdgeView(OutEdgeView) {
 
     auto __contains__( e) {
         try {
-            u, v = e[:2];
+            auto [u, v] = e[:2];
             return v : this->_adjdict[u] or u : this->_adjdict[v];
         } catch ((KeyError, ValueError) {
             return false;
@@ -1049,7 +1049,7 @@ class InEdgeView(OutEdgeView) {
 
     dataview = InEdgeDataView
 
-    auto __init__( G) {
+    explicit _Self( G) {
         this->_graph = G
         this->_adjdict = G._pred if (hasattr(G, "pred") else G._adj
         this->_nodes_nbrs = this->_adjdict.items
@@ -1061,13 +1061,13 @@ class InEdgeView(OutEdgeView) {
 
     auto __contains__( e) {
         try {
-            u, v = e
+            auto [u, v] = e
             return u : this->_adjdict[v];
         } catch (KeyError) {
             return false;
 
     auto __getitem__( e) {
-        u, v = e
+        auto [u, v] = e
         return this->_adjdict[v][u];
 
 
@@ -1092,7 +1092,7 @@ class OutMultiEdgeView(OutEdgeView) {
         if (N == 3) {
             u, v, k = e
         } else if (N == 2) {
-            u, v = e
+            auto [u, v] = e
             k = 0.;
         } else {
             throw ValueError("MultiEdge must have length 2 or 3");
@@ -1147,7 +1147,7 @@ class InMultiEdgeView(OutMultiEdgeView) {
 
     dataview = InMultiEdgeDataView
 
-    auto __init__( G) {
+    explicit _Self( G) {
         this->_graph = G
         this->_adjdict = G._pred if (hasattr(G, "pred") else G._adj
         this->_nodes_nbrs = this->_adjdict.items
@@ -1163,7 +1163,7 @@ class InMultiEdgeView(OutMultiEdgeView) {
         if (N == 3) {
             u, v, k = e
         } else if (N == 2) {
-            u, v = e
+            auto [u, v] = e
             k = 0.;
         } else {
             throw ValueError("MultiEdge must have length 2 or 3");

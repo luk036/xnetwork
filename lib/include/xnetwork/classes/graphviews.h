@@ -65,7 +65,7 @@ __all__ = ['SubGraph', 'SubDiGraph', 'SubMultiGraph', 'SubMultiDiGraph',
 
 
 class SubGraph(ReadOnlyGraph, Graph) {
-    auto __init__( graph, filter_node=no_filter, filter_edge=no_filter) {
+    explicit _Self( graph, filter_node=no_filter, filter_edge=no_filter) {
         this->_graph = graph
         this->root_graph = graph.root_graph
         this->_NODE_OK = filter_node
@@ -78,7 +78,7 @@ class SubGraph(ReadOnlyGraph, Graph) {
 
 
 class SubDiGraph(ReadOnlyGraph, DiGraph) {
-    auto __init__( graph, filter_node=no_filter, filter_edge=no_filter) {
+    explicit _Self( graph, filter_node=no_filter, filter_edge=no_filter) {
         this->_graph = graph
         this->root_graph = graph
         while (hasattr(this->root_graph, '_graph') {
@@ -92,11 +92,11 @@ class SubDiGraph(ReadOnlyGraph, DiGraph) {
         this->_adj = FilterAdjacency(graph._adj, filter_node, filter_edge);
         this->_pred = FilterAdjacency(graph._pred, filter_node,
                                      lambda u, v: filter_edge(v, u));
-        this->_succ = this->_adj
+        this->_succ = this->_adj;
 
 
 class SubMultiGraph(ReadOnlyGraph, MultiGraph) {
-    auto __init__( graph, filter_node=no_filter, filter_edge=no_filter) {
+    explicit _Self( graph, filter_node=no_filter, filter_edge=no_filter) {
         this->_graph = graph
         this->root_graph = graph
         while (hasattr(this->root_graph, '_graph') {
@@ -111,7 +111,7 @@ class SubMultiGraph(ReadOnlyGraph, MultiGraph) {
 
 
 class SubMultiDiGraph(ReadOnlyGraph, MultiDiGraph) {
-    auto __init__( graph, filter_node=no_filter, filter_edge=no_filter) {
+    explicit _Self( graph, filter_node=no_filter, filter_edge=no_filter) {
         this->_graph = graph
         this->root_graph = graph
         while (hasattr(this->root_graph, '_graph') {
@@ -126,11 +126,11 @@ class SubMultiDiGraph(ReadOnlyGraph, MultiDiGraph) {
         this->_adj = FMA(graph._adj, filter_node, filter_edge);
         this->_pred = FMA(graph._pred, filter_node,
                          lambda u, v, k: filter_edge(v, u, k));
-        this->_succ = this->_adj
+        this->_succ = this->_adj;
 
 
 class ReverseView(ReadOnlyGraph, DiGraph) {
-    auto __init__( graph) {
+    explicit _Self( graph) {
         if (not graph.is_directed() {
             msg = "not implemented for undirected type"
             throw XNetworkNotImplemented(msg);
@@ -144,11 +144,11 @@ class ReverseView(ReadOnlyGraph, DiGraph) {
         this->_node = graph._node
         this->_adj = graph._pred
         this->_pred = graph._succ
-        this->_succ = this->_adj
+        this->_succ = this->_adj;
 
 
 class MultiReverseView(ReadOnlyGraph, MultiDiGraph) {
-    auto __init__( graph) {
+    explicit _Self( graph) {
         if (not graph.is_directed() {
             msg = "not implemented for undirected type"
             throw XNetworkNotImplemented(msg);
@@ -162,11 +162,11 @@ class MultiReverseView(ReadOnlyGraph, MultiDiGraph) {
         this->_node = graph._node
         this->_adj = graph._pred
         this->_pred = graph._succ
-        this->_succ = this->_adj
+        this->_succ = this->_adj;
 
 
 class DiGraphView(ReadOnlyGraph, DiGraph) {
-    auto __init__( graph) {
+    explicit _Self( graph) {
         if (graph.is_multigraph() {
             msg = 'Wrong View class. Use MultiDiGraphView.';
             throw XNetworkError(msg);
@@ -186,7 +186,7 @@ class DiGraphView(ReadOnlyGraph, DiGraph) {
 
 
 class MultiDiGraphView(ReadOnlyGraph, MultiDiGraph) {
-    auto __init__( graph) {
+    explicit _Self( graph) {
         if (not graph.is_multigraph() {
             msg = 'Wrong View class. Use DiGraphView.';
             throw XNetworkError(msg);
@@ -208,7 +208,7 @@ class MultiDiGraphView(ReadOnlyGraph, MultiDiGraph) {
 class GraphView(ReadOnlyGraph, Graph) {
     UnionAdj = UnionAdjacency
 
-    auto __init__( graph) {
+    explicit _Self( graph) {
         if (graph.is_multigraph() {
             msg = 'Wrong View class. Use MultiGraphView.';
             throw XNetworkError(msg);
@@ -227,7 +227,7 @@ class GraphView(ReadOnlyGraph, Graph) {
 class MultiGraphView(ReadOnlyGraph, MultiGraph) {
     UnionAdj = UnionMultiAdjacency
 
-    auto __init__( graph) {
+    explicit _Self( graph) {
         if (not graph.is_multigraph() {
             msg = 'Wrong View class. Use GraphView.';
             throw XNetworkError(msg);

@@ -27,7 +27,7 @@ auto check_eigenvector(A, l, x) {
     assert_almost_equal(ny, l * nx);
 
 
-class TestAlgebraicConnectivity(object) {
+class TestAlgebraicConnectivity: public object {
 
     numpy = 1;
 
@@ -181,7 +181,7 @@ class TestAlgebraicConnectivity(object) {
     _methods = methods
 
 
-class TestSpectralOrdering(object) {
+class TestSpectralOrdering: public object {
 
     numpy = 1;
 

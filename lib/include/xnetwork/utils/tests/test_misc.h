@@ -68,7 +68,7 @@ auto test_make_str_with_unicode() {
         assert_true(len(y) == 7);
 
 
-class TestNumpyArray(object) {
+class TestNumpyArray: public object {
     /// @classmethod
     auto setupClass(cls) {
         global numpy

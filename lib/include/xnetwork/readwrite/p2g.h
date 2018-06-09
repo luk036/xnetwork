@@ -79,7 +79,7 @@ auto read_p2g(path, encoding='utf-8') {
      */
     lines = (line.decode(encoding) for line : path);
     G = parse_p2g(lines);
-    return G
+    return G;
 
 
 auto parse_p2g(lines) {
@@ -107,4 +107,4 @@ auto parse_p2g(lines) {
     for (auto n : G) {
         for (auto nbr : nbrs[n]) {
             G.add_edge(n, nodelabel[nbr]);
-    return G
+    return G;

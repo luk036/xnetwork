@@ -811,7 +811,7 @@ auto _spectral(A, dim=2) {
 
     eigenvalues, eigenvectors = np.linalg.eig(L);
     // sort and keep smallest nonzero
-    index = np.argsort(eigenvalues)[1:dim + 1]  // 0 index is zero eigenvalue
+    index = np.argsort(eigenvalues)[1:dim + 1];  // 0 index is zero eigenvalue
     return np.real(eigenvectors[:, index]);
 
 
@@ -839,7 +839,7 @@ auto _sparse_spectral(A, dim=2) {
     ncv = max(2 * k + 1, int(np.sqrt(nnodes)));
     // return smallest k eigenvalues and eigenvectors
     eigenvalues, eigenvectors = eigsh(L, k, which='SM', ncv=ncv);
-    index = np.argsort(eigenvalues)[1:k]  // 0 index is zero eigenvalue
+    index = np.argsort(eigenvalues)[1:k];  // 0 index is zero eigenvalue
     return np.real(eigenvectors[:, index]);
 
 

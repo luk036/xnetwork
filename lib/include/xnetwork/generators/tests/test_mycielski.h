@@ -14,7 +14,7 @@ from nose.tools import assert_true, assert_equal, raises
 #include <xnetwork.hpp> // import *
 
 
-class TestMycielski(object) {
+class TestMycielski: public object {
 
     auto test_construction( ) {
         G = xn::path_graph(2);

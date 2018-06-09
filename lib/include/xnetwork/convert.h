@@ -239,7 +239,7 @@ auto from_dict_of_lists(d, create_using=None) {
     } else {
         G.add_edges_from(((node, nbr) for node, nbrlist : d.items();
                           for (auto nbr : nbrlist));
-    return G
+    return G;
 
 
 auto to_dict_of_dicts(G, nodelist=None, edge_data=None) {
@@ -358,7 +358,7 @@ auto from_dict_of_dicts(d, create_using=None, multigraph_input=false) {
             G.add_edges_from(((u, v, data);
                               for (auto u, nbrs : d.items();
                               for (auto v, data : nbrs.items()));
-    return G
+    return G;
 
 
 auto to_edgelist(G, nodelist=None) {
@@ -401,4 +401,4 @@ auto from_edgelist(edgelist, create_using=None) {
      */
     G = _prep_create_using(create_using);
     G.add_edges_from(edgelist);
-    return G
+    return G;

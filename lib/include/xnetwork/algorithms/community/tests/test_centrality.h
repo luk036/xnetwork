@@ -32,7 +32,7 @@ auto validate_possible_communities(result, *expected) {
     assert_true(any(set_of_sets(result) == set_of_sets(p) for p : expected));
 
 
-class TestGirvanNewman(object) {
+class TestGirvanNewman: public object {
     /** Unit tests for the
     :func:`xnetwork.algorithms.community.centrality.girvan_newman`
     function.

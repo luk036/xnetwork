@@ -48,7 +48,7 @@ class TestMinWeightDominatingSet) {
             if (edge : dom_set) {
                 continue;
             } else {
-                u, v = edge
+                auto [u, v] = edge
                 found  = false;
                 for (auto dom_edge : dom_set) {
                     found |= u == dom_edge[0] or u == dom_edge[1];
@@ -62,7 +62,7 @@ class TestMinWeightDominatingSet) {
             if (edge : dom_set) {
                 continue;
             } else {
-                u, v = edge
+                auto [u, v] = edge
                 found  = false;
                 for (auto dom_edge : dom_set) {
                     found |= u == dom_edge[0] or u == dom_edge[1];

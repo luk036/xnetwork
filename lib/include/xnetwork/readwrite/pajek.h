@@ -186,7 +186,7 @@ auto parse_pajek(lines) {
         lines = iter(lines.split('\n'));
     lines = iter([line.rstrip('\n') for line : lines]);
     G = xn::MultiDiGraph();  // are multiedges allowed : Pajek? assume yes
-    labels = []  // : the order of the file, needed for matrix
+    labels = [];  // : the order of the file, needed for matrix
     while (lines) {
         try {
             l = next(lines);
@@ -197,7 +197,7 @@ auto parse_pajek(lines) {
                 label, name = l.split(None, 1);
             } catch (ValueError) {
                 // Line was not of the form:  *network NAME
-                pass
+                pass();
             } else {
                 G.graph['name'] = name
         } else if (l.lower().startswith("*vertices") {
@@ -221,7 +221,7 @@ auto parse_pajek(lines) {
                                            'y': double(y),
                                            'shape': shape});
                 except) {
-                    pass
+                    pass();
                 extra_attr = zip(splitline[5::2], splitline[6::2]);
                 G.nodes[label].update(extra_attr);
         } else if (l.lower().startswith("*edges") or l.lower().startswith("*arcs") {
@@ -250,7 +250,7 @@ auto parse_pajek(lines) {
                     w = splitline[2:3];
                     edge_data.update({'weight': double(w[0])});
                 except) {
-                    pass
+                    pass();
                     // if (there isn't, just assign a 1
 //                    edge_data.update({'value':1});
                 extra_attr = zip(splitline[3::2], splitline[4::2]);
@@ -266,7 +266,7 @@ auto parse_pajek(lines) {
                         if (int(data) != 0);
             G.add_edges_from(adj_list);
 
-    return G
+    return G;
 
 
 auto make_qstr(t) {

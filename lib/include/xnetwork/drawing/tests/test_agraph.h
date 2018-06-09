@@ -8,7 +8,7 @@ from xnetwork.testing import assert_edges_equal, assert_nodes_equal
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestAGraph(object) {
+class TestAGraph: public object {
     /// @classmethod
     auto setupClass(cls) {
         global pygraphviz
@@ -22,7 +22,7 @@ class TestAGraph(object) {
         G.add_edges_from(edges);
         G.add_node('E');
         G.graph['metal'] = 'bronze';
-        return G
+        return G;
 
     auto assert_equal( G1, G2) {
         assert_nodes_equal(G1.nodes(), G2.nodes());

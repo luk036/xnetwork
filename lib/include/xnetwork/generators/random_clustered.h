@@ -127,4 +127,4 @@ auto random_clustered_graph(joint_degree_sequence, create_using=None,
         n2 = tlist.pop();
         n3 = tlist.pop();
         G.add_edges_from([(n1, n2), (n1, n3), (n2, n3)]);
-    return G
+    return G;

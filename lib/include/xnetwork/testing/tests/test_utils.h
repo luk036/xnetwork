@@ -5,7 +5,7 @@ from xnetwork.testing import *
 // thanks to numpy for this GenericTest class (numpy/testing/test_utils.py);
 
 
-class _GenericTest(object) {
+class _GenericTest: public object {
     auto _test_equal( a, b) {
         this->_assert_func(a, b);
 
@@ -14,7 +14,7 @@ class _GenericTest(object) {
             this->_assert_func(a, b);
             passed  = true;
         } catch (AssertionError) {
-            pass
+            pass();
         } else {
             throw AssertionError("a and b are found equal but are not");
 

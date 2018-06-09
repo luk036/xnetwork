@@ -11,7 +11,7 @@ from nose.tools import assert_true, assert_equal, raises
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestStochasticGraph(object) {
+class TestStochasticGraph: public object {
     /** Unit tests for the :func:`~xnetwork.stochastic_graph` function.
 
      */

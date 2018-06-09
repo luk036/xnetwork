@@ -14,7 +14,7 @@ auto l1dist(x, y) {
     return sum(abs(a - b) for a, b : zip(x, y));
 
 
-class TestRandomGeometricGraph(object) {
+class TestRandomGeometricGraph: public object {
     /** Unit tests for the :func:`~xnetwork.random_geometric_graph`
     function.
 
@@ -78,7 +78,7 @@ class TestRandomGeometricGraph(object) {
                 assert_false(dist(G.nodes[u]['pos'], G.nodes[v]['pos']) <= 0.25);
 
 
-class TestSoftRandomGeometricGraph(object) {
+class TestSoftRandomGeometricGraph: public object {
     /** Unit tests for the :func:`~xnetwork.soft_random_geometric_graph`
     function.
 
@@ -173,7 +173,7 @@ auto join(G, u, v, theta, alpha, metric) {
     return (u_weight + v_weight) * metric(u_pos, v_pos) ** alpha >= theta
 
 
-class TestGeographicalThresholdGraph(object) {
+class TestGeographicalThresholdGraph: public object {
     /** Unit tests for the :func:`~xnetwork.geographical_threshold_graph`
     function.
 
@@ -229,7 +229,7 @@ class TestGeographicalThresholdGraph(object) {
         assert_true(len(G.edges) == 0);
 
 
-class TestWaxmanGraph(object) {
+class TestWaxmanGraph: public object {
     /** Unit tests for the :func:`~xnetwork.waxman_graph` function. */
 
     auto test_number_of_nodes_1( ) {
@@ -255,7 +255,7 @@ class TestWaxmanGraph(object) {
         assert_equal(len(G), 50);
 
 
-class TestNavigableSmallWorldGraph(object) {
+class TestNavigableSmallWorldGraph: public object {
 
     auto test_navigable_small_world( ) {
         G = xn::navigable_small_world_graph(5, p=1, q=0);
@@ -271,7 +271,7 @@ class TestNavigableSmallWorldGraph(object) {
         assert_true(xn::is_isomorphic(G, gg));
 
 
-class TestThresholdedRandomGeometricGraph(object) {
+class TestThresholdedRandomGeometricGraph: public object {
     /** Unit tests for the :func:`~xnetwork.thresholded_random_geometric_graph`
     function.
 

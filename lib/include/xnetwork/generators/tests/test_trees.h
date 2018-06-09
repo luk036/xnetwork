@@ -5,7 +5,7 @@ from xnetwork.generators.trees import NIL
 #include <xnetwork/utils.hpp> // import arbitrary_element
 
 
-class TestPrefixTree(object) {
+class TestPrefixTree: public object {
     /** Unit tests for the prefix tree generator function. */
 
     auto test_basic( ) {

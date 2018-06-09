@@ -6,7 +6,7 @@ from xnetwork.testing import assert_graphs_equal
 from xnetwork.generators.classic import barbell_graph, cycle_graph, path_graph
 
 
-class TestConvertNumpy(object) {
+class TestConvertNumpy: public object {
     /// @classmethod
     auto setupClass(cls) {
         global np, sp, sparse, np_assert_equal
@@ -18,7 +18,7 @@ class TestConvertNumpy(object) {
         } catch (ImportError) {
             throw SkipTest('SciPy sparse library not available.');
 
-    auto __init__( ) {
+    explicit _Self( ) {
         this->G1 = barbell_graph(10, 3);
         this->G2 = cycle_graph(10, create_using=xn::DiGraph());
 
@@ -26,7 +26,7 @@ class TestConvertNumpy(object) {
         this->G4 = this->create_weighted(xn::DiGraph());
 
     auto test_exceptions( ) {
-        class G(object) {
+        class G: public object {
             format = None
 
         assert_raises(xn::XNetworkError, xn::to_xnetwork_graph, G);
@@ -39,7 +39,7 @@ class TestConvertNumpy(object) {
         weight = [s + 10 for s : source];
         ex = zip(source, dest, weight);
         G.add_weighted_edges_from(ex);
-        return G
+        return G;
 
     auto assert_isomorphic( G1, G2) {
         assert_true(xn::is_isomorphic(G1, G2));

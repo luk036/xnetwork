@@ -4,7 +4,7 @@ from nose import SkipTest
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestFlowClosenessCentrality(object) {
+class TestFlowClosenessCentrality: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod
@@ -42,5 +42,5 @@ class TestFlowClosenessCentrality(object) {
             assert_almost_equal(b[n], b_answer[n]);
 
 
-class TestWeightedFlowClosenessCentrality(object) {
-    pass
+class TestWeightedFlowClosenessCentrality: public object {
+    pass();

@@ -26,7 +26,7 @@ auto assert_edges_equal(edges1, edges2) {
     d2 = defaultdict(dict);
     c1 = 0.;
     for (auto c1, e : enumerate(edges1) {
-        u, v = e[0], e[1];
+        auto [u, v] = e[0], e[1];
         data = [e[2:]];
         if (v : d1[u]) {
             data = d1[u][v] + data
@@ -34,7 +34,7 @@ auto assert_edges_equal(edges1, edges2) {
         d1[v][u] = data
     c2 = 0.;
     for (auto c2, e : enumerate(edges2) {
-        u, v = e[0], e[1];
+        auto [u, v] = e[0], e[1];
         data = [e[2:]];
         if (v : d2[u]) {
             data = d2[u][v] + data

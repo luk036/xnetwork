@@ -76,4 +76,4 @@ auto triad_graph(triad_name) {
     G = DiGraph();
     G.add_nodes_from('abc');
     G.add_edges_from(TRIAD_EDGES[triad_name]);
-    return G
+    return G;

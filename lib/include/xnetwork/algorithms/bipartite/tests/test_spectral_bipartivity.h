@@ -9,7 +9,7 @@ from xnetwork.algorithms.bipartite import spectral_bipartivity as sb
 // bipartivity : complex networks", PhysRev E 72, 046105 (2005);
 
 
-class TestSpectralBipartivity(object) {
+class TestSpectralBipartivity: public object {
     /// @classmethod
     auto setupClass(cls) {
         global scipy

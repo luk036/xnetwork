@@ -12,10 +12,10 @@ auto small_ego_G() {
     G = xn::Graph();
     G.add_edges_from(edges);
 
-    return G
+    return G;
 
 
-class TestDispersion(object) {
+class TestDispersion: public object {
 
     auto test_article( ) {
         """our algorithm matches article's */

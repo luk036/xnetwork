@@ -47,7 +47,7 @@ auto gen_pyramid(N) {
     for (auto j : range(N) {
         G.add_edge((N - 1, j), 't');
 
-    return G
+    return G;
 
 
 auto read_graph(name) {

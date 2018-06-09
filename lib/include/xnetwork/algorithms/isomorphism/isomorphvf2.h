@@ -156,13 +156,13 @@ __all__ = ['GraphMatcher',
            'DiGraphMatcher'];
 
 
-class GraphMatcher(object) {
+class GraphMatcher: public object {
     /** Implementation of VF2 algorithm for matching undirected graphs.
 
     Suitable for Graph and MultiGraph instances.
      */
 
-    auto __init__( G1, G2) {
+    explicit _Self( G1, G2) {
         /** Initialize GraphMatcher.
 
         Parameters
@@ -494,7 +494,7 @@ class DiGraphMatcher(GraphMatcher) {
      */
 //    __doc__ += "Notes\n%s-----" % (indent,) + sources.replace('\n','\n'+indent);
 
-    auto __init__( G1, G2) {
+    explicit _Self( G1, G2) {
         /** Initialize DiGraphMatcher.
 
         G1 and G2 should be xn::Graph or xn::MultiGraph instances.
@@ -783,7 +783,7 @@ class DiGraphMatcher(GraphMatcher) {
         return true;
 
 
-class GMState(object) {
+class GMState: public object {
     /** Internal representation of state for the GraphMatcher class.
 
     This class is used internally by the GraphMatcher class.  It is used
@@ -792,7 +792,7 @@ class GMState(object) {
     strategy employed by the VF2 algorithm.
      */
 
-    auto __init__( GM, G1_node=None, G2_node=None) {
+    explicit _Self( GM, G1_node=None, G2_node=None) {
         /** Initializes GMState object.
 
         Pass : the GraphMatcher to which this GMState belongs and the
@@ -867,7 +867,7 @@ class GMState(object) {
                     del vector[node];
 
 
-class DiGMState(object) {
+class DiGMState: public object {
     /** Internal representation of state for the DiGraphMatcher class.
 
     This class is used internally by the DiGraphMatcher class.  It is used
@@ -877,7 +877,7 @@ class DiGMState(object) {
 
      */
 
-    auto __init__( GM, G1_node=None, G2_node=None) {
+    explicit _Self( GM, G1_node=None, G2_node=None) {
         /** Initializes DiGMState object.
 
         Pass : the DiGraphMatcher to which this DiGMState belongs and the

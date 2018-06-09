@@ -16,7 +16,7 @@ from xnetwork.testing.utils import *
 #include <xnetwork/utils.hpp> // import arbitrary_element
 
 
-class TestQuotient(object) {
+class TestQuotient: public object {
     /** Unit tests for computing quotient graphs. */
 
     auto test_quotient_graph_complete_multipartite( ) {
@@ -226,7 +226,7 @@ class TestQuotient(object) {
         assert_edges_equal(H.edges(), [(0, 1)]);
 
 
-class TestContraction(object) {
+class TestContraction: public object {
     /** Unit tests for node and edge contraction functions. */
 
     auto test_undirected_node_contraction( ) {

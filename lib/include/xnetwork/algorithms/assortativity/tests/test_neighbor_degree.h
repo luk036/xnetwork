@@ -3,7 +3,7 @@ from nose.tools import *
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestAverageNeighbor(object) {
+class TestAverageNeighbor: public object {
 
     auto test_degree_p4( ) {
         G = xn::path_graph(4);

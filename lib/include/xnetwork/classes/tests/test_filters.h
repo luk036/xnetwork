@@ -2,7 +2,7 @@ from nose.tools import assert_true, assert_false, assert_raises
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestFilterFactory(object) {
+class TestFilterFactory: public object {
     auto test_no_filter( ) {
         nf = xn::filters.no_filter
         assert_true(nf());

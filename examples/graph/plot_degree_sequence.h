@@ -25,7 +25,7 @@ print(xn::is_graphical(z));
 
 print("Configuration model");
 G = xn::configuration_model(z);  // configuration model
-degree_sequence = [d for n, d : G.degree()]  // degree sequence
+degree_sequence = [d for n, d : G.degree()];  // degree sequence
 print("Degree sequence %s" % degree_sequence);
 print("Degree histogram");
 hist = {};

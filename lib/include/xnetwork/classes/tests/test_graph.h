@@ -31,7 +31,7 @@ auto test_deprecated() {
     assert_equal(list(G.selfloop_edges()), [(0, 0)]);
 
 
-class BaseGraphTester(object) {
+class BaseGraphTester: public object {
     /** Tests for data-structure independent graph class features. */
 
     auto test_contains( ) {
@@ -609,7 +609,7 @@ class TestGraph(BaseAttrGraphTester) {
         assert_equal(G.get_edge_data(-1, 0, default=1), 1);
 
 
-class TestEdgeSubgraph(object) {
+class TestEdgeSubgraph: public object {
     /** Unit tests for the :meth:`Graph.edge_subgraph` method. */
 
     auto setup( ) {

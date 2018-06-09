@@ -406,4 +406,4 @@ auto LFR_benchmark_graph(n, tau1, tau2, mu, average_degree=None,
                 if (v not : c) {
                     G.add_edge(u, v);
             G.nodes[u]['community'] = c
-    return G
+    return G;

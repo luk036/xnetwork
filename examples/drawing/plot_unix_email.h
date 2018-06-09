@@ -63,7 +63,7 @@ auto mbox_graph() {
         for (auto [target_name, target_addr] : all_recipients) {
             G.add_edge(source_addr, target_addr, message=msg);
 
-    return G
+    return G;
 
 
 if (__name__ == '__main__') {

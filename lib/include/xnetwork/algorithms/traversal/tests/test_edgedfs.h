@@ -16,7 +16,7 @@ REVERSE = xn::algorithms.edgedfs.REVERSE
 // this can fail, see TestEdgeDFS.test_multigraph.
 
 
-class TestEdgeDFS(object) {
+class TestEdgeDFS: public object {
     auto setUp( ) {
         this->nodes = [0, 1, 2, 3];
         this->edges = [(0, 1), (1, 0), (1, 0), (2, 1), (3, 1)];

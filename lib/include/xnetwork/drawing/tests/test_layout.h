@@ -5,7 +5,7 @@ from nose.tools import assert_almost_equal, assert_equal, \
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestLayout(object) {
+class TestLayout: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
     scipy = None
 

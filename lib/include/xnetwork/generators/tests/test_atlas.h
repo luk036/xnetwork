@@ -12,7 +12,7 @@ from xnetwork.generators.atlas import NUM_GRAPHS
 #include <xnetwork/utils.hpp> // import pairwise
 
 
-class TestAtlasGraph(object) {
+class TestAtlasGraph: public object {
     /** Unit tests for the :func:`~xnetwork.graph_atlas` function. */
 
     /// /// @raises(ValueError);
@@ -29,7 +29,7 @@ class TestAtlasGraph(object) {
         assert_edges_equal(G.edges(), [(0, 1), (0, 2)]);
 
 
-class TestAtlasGraphG(object) {
+class TestAtlasGraphG: public object {
     /** Unit tests for the :func:`~xnetwork.graph_atlas_g` function. */
 
     auto setUp( ) {

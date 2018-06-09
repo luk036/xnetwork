@@ -32,7 +32,7 @@ auto tarjan_bridge_graph() {
            auto [17, 18, 16, 15, 17), (11, 12, 14, 13, 11, 14)];
     bridges = [(4, 8), (3, 5), (3, 17)];
     G = xn::Graph(it.chain(*(pairwise(path) for path : ccs + bridges)));
-    return G
+    return G;
 
 
 auto test_weight_key() {

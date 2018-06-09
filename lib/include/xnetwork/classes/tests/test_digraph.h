@@ -152,8 +152,8 @@ class BaseDiGraphTester(BaseGraphTester) {
         assert_raises(xn::XNetworkError, R.remove_edge, 1, 0);
 
     auto test_reverse_hashable( ) {
-        class Foo(object) {
-            pass
+        class Foo: public object {
+            pass();
         x = Foo();
         y = Foo();
         G = xn::DiGraph();
@@ -163,7 +163,7 @@ class BaseDiGraphTester(BaseGraphTester) {
 
 
 class BaseAttrDiGraphTester(BaseDiGraphTester, BaseAttrGraphTester) {
-    pass
+    pass();
 
 
 class TestDiGraph(BaseAttrDiGraphTester, TestGraph) {

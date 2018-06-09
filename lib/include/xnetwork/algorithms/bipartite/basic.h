@@ -72,7 +72,7 @@ auto color(G) {
         color[n] = 1  // nodes seen with color (1 or 0);
         while (queue) {
             v = queue.pop();
-            c = 1 - color[v]  // opposite color of node v
+            c = 1 - color[v];  // opposite color of node v
             for (auto w : neighbors(v) {
                 if (w : color) {
                     if (color[w] == color[v]) {

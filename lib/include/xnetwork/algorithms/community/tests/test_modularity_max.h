@@ -9,7 +9,7 @@ from xnetwork.algorithms.community import (
     _naive_greedy_modularity_communities);
 
 
-class TestCNM(object) {
+class TestCNM: public object {
 
     auto setup( ) {
         this->G = xn::karate_club_graph();
@@ -26,7 +26,7 @@ class TestCNM(object) {
         this->_check_communities({john_a, overlap, mr_hi});
 
 
-class TestNaive(object) {
+class TestNaive: public object {
 
     auto setup( ) {
         this->G = xn::karate_club_graph();

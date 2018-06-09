@@ -216,11 +216,11 @@ auto to_pydot(N) {
     try {
         P.set_node_defaults(**N.graph['node']);
     } catch (KeyError) {
-        pass
+        pass();
     try {
         P.set_edge_defaults(**N.graph['edge']);
     } catch (KeyError) {
-        pass
+        pass();
 
     for (auto n, nodedata : N.nodes(data=true) {
         str_nodedata = dict((k, make_str(v)) for k, v : nodedata.items());
@@ -321,7 +321,7 @@ auto pydot_layout(G, prog='neato', root=None, **kwds) {
 
         if (isinstance(node, list) {
             node = node[0];
-        pos = node.get_pos()[1:-1]  // strip leading and trailing double quotes
+        pos = node.get_pos()[1:-1];  // strip leading and trailing double quotes
         if (pos is not None) {
             xx, yy = pos.split(",");
             node_pos[n] = (double(xx), double(yy));

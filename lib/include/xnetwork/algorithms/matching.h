@@ -253,7 +253,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
 
     class NoNode) {
         /** Dummy value which is different from any node. */
-        pass
+        pass();
 
     class Blossom) {
         /** Representation of a non-trivial blossom or sub-blossom. */
@@ -537,9 +537,9 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                     expandBlossom(s, endstage);
                 } else {
                     for (auto v : s.leaves() {
-                        inblossom[v] = s
+                        inblossom[v] = s;
             } else {
-                inblossom[s] = s
+                inblossom[s] = s;
         // If we expand a T-blossom during a stage, its sub-blossoms must be
         // relabeled.
         if ((not endstage) and label.get(b) == 2) {
@@ -698,7 +698,7 @@ auto max_weight_matching(G, maxcardinality=false, weight='weight') {
                 if (isinstance(bt, Blossom) {
                     augmentBlossom(bt, j);
                 // Update mate[j];
-                mate[j] = s
+                mate[j] = s;
 
     // Verify that the optimum solution has been reached.
     auto verifyOptimum() {

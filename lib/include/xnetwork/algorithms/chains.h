@@ -117,7 +117,7 @@ auto chain_decomposition(G, root=None) {
             } else {
                 // Do nothing on 'reverse' edges; we only care about
                 // forward and nontree edges.
-                pass
+                pass();
         return H, nodes
 
     auto _build_chain(G, u, v, visited) {
@@ -139,7 +139,7 @@ auto chain_decomposition(G, root=None) {
         while (v not : visited) {
             yield u, v
             visited.add(v);
-            u, v = v, G.nodes[v]['parent'];
+            auto [u, v] = v, G.nodes[v]['parent'];
         yield u, v
 
     // Create a directed version of H that has the DFS edges directed

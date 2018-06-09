@@ -72,7 +72,7 @@ auto miles_graph() {
             // assign position - flip x axis for matplotlib, shift origin
             G.position[city] = (-int(x) + 7500, int(y) - 3000);
             G.population[city] = double(pop) / 1000.0
-    return G
+    return G;
 
 
 if (__name__ == '__main__') {

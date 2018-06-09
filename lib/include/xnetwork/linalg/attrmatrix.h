@@ -194,7 +194,7 @@ auto attr_matrix(G, edge_attr=None, node_attr=None, normalized=false,
     ...    import numpy as np
     ...    np.set_printoptions(legacy="1.13");
     ... } catch (TypeError) {
-    ...    pass
+    ...    pass();
     >>> G = xn::Graph();
     >>> G.add_edge(0, 1, thickness=1, weight=3);
     >>> G.add_edge(0, 2, thickness=2);

@@ -5,7 +5,7 @@ from nose.tools import *
 
 class TestFloyd) {
     auto setUp( ) {
-        pass
+        pass();
 
     auto test_floyd_warshall_predecessor_and_distance( ) {
         XG = xn::DiGraph();

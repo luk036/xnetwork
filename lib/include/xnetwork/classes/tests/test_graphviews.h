@@ -8,7 +8,7 @@ from xnetwork.testing import assert_edges_equal, assert_nodes_equal
 // Note: SubGraph views are not tested here. They have their own testing file
 
 
-class TestReverseView(object) {
+class TestReverseView: public object {
     auto setup( ) {
         this->G = xn::path_graph(9, create_using=xn::DiGraph());
         this->rv = xn::reverse_view(this->G);
@@ -36,7 +36,7 @@ class TestReverseView(object) {
         assert_raises(xn::XNetworkNotImplemented, nxg.ReverseView, xn::Graph());
 
 
-class TestMultiReverseView(object) {
+class TestMultiReverseView: public object {
     auto setup( ) {
         this->G = xn::path_graph(9, create_using=xn::MultiDiGraph());
         this->G.add_edge(4, 5);
@@ -68,7 +68,7 @@ class TestMultiReverseView(object) {
         assert_raises(xn::XNetworkNotImplemented, nxg.MultiReverseView, MG);
 
 
-class TestToDirected(object) {
+class TestToDirected: public object {
     auto setup( ) {
         this->G = xn::path_graph(9);
         this->dv = xn::to_directed(this->G);
@@ -111,7 +111,7 @@ class TestToDirected(object) {
         assert_raises(xn::XNetworkError, nxg.MultiDiGraphView, this->G);
 
 
-class TestToUndirected(object) {
+class TestToUndirected: public object {
     auto setup( ) {
         this->DG = xn::path_graph(9, create_using=xn::DiGraph());
         this->uv = xn::to_undirected(this->DG);
@@ -153,7 +153,7 @@ class TestToUndirected(object) {
         assert_raises(xn::XNetworkError, nxg.MultiGraphView, this->DG);
 
 
-class TestChainsOfViews(object) {
+class TestChainsOfViews: public object {
     auto setUp( ) {
         this->G = xn::path_graph(9);
         this->DG = xn::path_graph(9, create_using=xn::DiGraph());

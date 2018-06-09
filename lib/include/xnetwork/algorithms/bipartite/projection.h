@@ -120,7 +120,7 @@ auto projected_graph(B, nodes, multigraph=false) {
                         G.add_edge(u, n, key=l);
         } else {
             G.add_edges_from((u, n) for n : nbrs2);
-    return G
+    return G;
 
 
 /// @not_implemented_for('multigraph');
@@ -209,7 +209,7 @@ auto weighted_projected_graph(B, nodes, ratio=false) {
             } else {
                 weight = len(common) / n_top
             G.add_edge(u, v, weight=weight);
-    return G
+    return G;
 
 
 /// @not_implemented_for('multigraph');
@@ -302,7 +302,7 @@ auto collaboration_weighted_projected_graph(B, nodes) {
             common_degree = (len(B[n]) for n : unbrs & vnbrs);
             weight = sum(1.0 / (deg - 1) for deg : common_degree if (deg > 1);
             G.add_edge(u, v, weight=weight);
-    return G
+    return G;
 
 
 /// @not_implemented_for('multigraph');
@@ -401,7 +401,7 @@ auto overlap_weighted_projected_graph(B, nodes, jaccard=true) {
             } else {
                 wt = double(len(unbrs & vnbrs)) / min(len(unbrs), len(vnbrs));
             G.add_edge(u, v, weight=wt);
-    return G
+    return G;
 
 
 /// @not_implemented_for('multigraph');
@@ -510,7 +510,7 @@ auto generic_weighted_projected_graph(B, nodes, weight_function=None) {
         for (auto v : nbrs2) {
             weight = weight_function(B, u, v);
             G.add_edge(u, v, weight=weight);
-    return G
+    return G;
 
 
 auto project(B, nodes, create_using=None) {

@@ -132,7 +132,7 @@ class TestGeneratorInverseLine() {
         alternative_solution = xn::Graph();
         alternative_solution.add_edges_from([[0, 1], [0, 2], [0, 3]]);
         // there are two alternative inverse line graphs for this case
-        // so long as we get one of them the test should pass
+        // so long as we get one of them the test should pass();
         assert_true(xn::is_isomorphic(H, G) or
                     xn::is_isomorphic(H, alternative_solution));
 

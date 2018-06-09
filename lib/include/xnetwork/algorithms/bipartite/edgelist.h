@@ -238,7 +238,7 @@ auto parse_edgelist(lines, comments='#', delimiter=None,
             continue;
         u = s.pop(0);
         v = s.pop(0);
-        d = s
+        d = s;
         if (nodetype is not None) {
             try {
                 u = nodetype(u);
@@ -275,7 +275,7 @@ auto parse_edgelist(lines, comments='#', delimiter=None,
         G.add_node(u, bipartite=0);
         G.add_node(v, bipartite=1);
         G.add_edge(u, v, **edgedata);
-    return G
+    return G;
 
 
 /// @open_file(0, mode='rb');

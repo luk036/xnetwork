@@ -88,7 +88,7 @@ auto gomory_hu_tree(G, capacity='capacity', flow_func=None) {
     ... auto minimum_edge_weight_in_shortest_path(T, u, v) {
     ...     path = xn::shortest_path(T, u, v, weight='weight');
     ...     return min((T[u][v]['weight'], (u,v)) for (auto u, v] : zip(path, path[1:]));
-    >>> u, v = 0, 33
+    >>> auto [u, v] = 0, 33
     >>> cut_value, edge = minimum_edge_weight_in_shortest_path(T, u, v);
     >>> cut_value
     10

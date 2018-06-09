@@ -21,7 +21,7 @@ try {
     unichr = chr
 
 
-class TestGraph(object) {
+class TestGraph: public object {
 
     auto setUp( ) {
         this->simple_data = R"( Creator "me"
@@ -245,7 +245,7 @@ graph
         G = xn::path_graph(1);
         G.name = "path_graph(1)"
         attr = 'This is "quoted" and this is a copyright: ' + unichr(169);
-        G.nodes[0]['demo'] = attr
+        G.nodes[0]['demo'] = attr;
         fobj = tempfile.NamedTemporaryFile();
         xn::write_gml(G, fobj);
         fobj.seek(0);

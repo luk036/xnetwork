@@ -216,7 +216,7 @@ auto read_gml(path, label='label', destringizer=None) {
             yield line
 
     G = parse_gml_lines(filter_lines(path), label, destringizer);
-    return G
+    return G;
 
 
 auto parse_gml(lines, label='label', destringizer=None) {
@@ -293,7 +293,7 @@ auto parse_gml(lines, label='label', destringizer=None) {
                 yield line
 
     G = parse_gml_lines(filter_lines(lines), label, destringizer);
-    return G
+    return G;
 
 
 auto parse_gml_lines(lines, label, destringizer) {
@@ -366,7 +366,7 @@ auto parse_gml_lines(lines, label, destringizer) {
                     try {
                         value = destringizer(value);
                     } catch (ValueError) {
-                        pass
+                        pass();
                 curr_token = next(tokens);
             } else if (category == 4) { //dict start
                 curr_token, value = parse_dict(curr_token);
@@ -457,7 +457,7 @@ Hint:  If this is a multigraph, add "multigraph 1" to the header of the file.)" 
 
     if (label != 'id') {
         G = xn::relabel_nodes(G, mapping);
-    return G
+    return G;
 
 
 auto literal_stringizer(value) {

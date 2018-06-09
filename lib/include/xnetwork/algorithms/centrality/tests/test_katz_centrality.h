@@ -6,7 +6,7 @@ from nose import SkipTest
 from nose.tools import assert_almost_equal, assert_equal, raises
 
 
-class TestKatzCentrality(object) {
+class TestKatzCentrality: public object {
 
     auto test_K5( ) {
         /** Katz centrality: K5*/
@@ -103,7 +103,7 @@ class TestKatzCentrality(object) {
         e = xn::katz_centrality(G, 0.1, beta='foo');
 
 
-class TestKatzCentralityNumpy(object) {
+class TestKatzCentralityNumpy: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod
@@ -223,7 +223,7 @@ class TestKatzCentralityNumpy(object) {
             assert_almost_equal(b[n], b_answer[n], places=4);
 
 
-class TestKatzCentralityDirected(object) {
+class TestKatzCentralityDirected: public object {
     auto setUp( ) {
         G = xn::DiGraph();
         edges = [(1, 2), (1, 3), (2, 4), (3, 2), (3, 5), (4, 2), (4, 5),
@@ -299,7 +299,7 @@ class TestKatzCentralityDirectedNumpy(TestKatzCentralityDirected) {
             assert_almost_equal(a, b);
 
 
-class TestKatzEigenvectorVKatz(object) {
+class TestKatzEigenvectorVKatz: public object {
     numpy = 1  // nosetests attribute, use nosetests -a 'not numpy' to skip test
 
     /// @classmethod

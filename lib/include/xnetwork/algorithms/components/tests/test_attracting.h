@@ -4,7 +4,7 @@ from nose.tools import *
 #include <xnetwork.hpp> // import XNetworkNotImplemented
 
 
-class TestAttractingComponents(object) {
+class TestAttractingComponents: public object {
     auto setUp( ) {
         this->G1 = xn::DiGraph();
         this->G1.add_edges_from([(5, 11), (11, 2), (11, 9), (11, 10),

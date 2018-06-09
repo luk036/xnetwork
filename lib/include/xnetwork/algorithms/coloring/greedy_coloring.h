@@ -42,7 +42,7 @@ auto strategy_random_sequential(G, colors) {
      */
     nodes = list(G);
     random.shuffle(nodes);
-    return nodes
+    return nodes;
 
 
 auto strategy_smallest_last(G, colors) {
@@ -138,7 +138,7 @@ auto strategy_independent_set(G, colors) {
     remaining_nodes = set(G);
     while (len(remaining_nodes) > 0) {
         nodes = _maximal_independent_set(G.subgraph(remaining_nodes));
-        remaining_nodes -= nodes
+        remaining_nodes -= nodes;
         for (auto v : nodes) {
             yield v
 

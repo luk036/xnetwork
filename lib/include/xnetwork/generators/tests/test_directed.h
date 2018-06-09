@@ -17,7 +17,7 @@ from xnetwork.generators.directed import random_uniform_k_out_graph
 from xnetwork.generators.directed import scale_free_graph
 
 
-class TestGeneratorsDirected(object) {
+class TestGeneratorsDirected: public object {
     auto test_smoke_test_random_graphs( ) {
         gn_graph(100);
         gnr_graph(100, 0.5);
@@ -44,7 +44,7 @@ class TestGeneratorsDirected(object) {
         assert_equal(sorted(G.edges()), sorted(MG.edges()));
 
 
-class TestRandomKOutGraph(object) {
+class TestRandomKOutGraph: public object {
     /** Unit tests for the
     :func:`~xnetwork.generators.directed.random_k_out_graph` function.
 
@@ -67,7 +67,7 @@ class TestRandomKOutGraph(object) {
         assert_equal(xn::number_of_selfloops(G), 0);
 
 
-class TestUniformRandomKOutGraph(object) {
+class TestUniformRandomKOutGraph: public object {
     /** Unit tests for the
     :func:`~xnetwork.generators.directed.random_uniform_k_out_graph`
     function.

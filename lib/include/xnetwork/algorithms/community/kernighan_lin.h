@@ -26,7 +26,7 @@ __all__ = ['kernighan_lin_bisection'];
 
 
 auto _compute_delta(G, A, B, weight) {
-    // helper to compute initial swap deltas for a pass
+    // helper to compute initial swap deltas for a pass();
     delta = defaultdict(double);
     for (auto u, v, d : G.edges(data=true) {
         w = d.get(weight, 1);
@@ -48,7 +48,7 @@ auto _compute_delta(G, A, B, weight) {
 
 
 auto _update_delta(delta, G, A, B, u, v, weight) {
-    // helper to update swap deltas during single pass
+    // helper to update swap deltas during single pass();
     for (auto _, nbr, d : G.edges(u, data=true) {
         w = d.get(weight, 1);
         if (nbr : A) {
@@ -85,7 +85,7 @@ auto _kernighan_lin_pass(G, A, B, weight) {
                 gain.append((delta[u] + delta[v] - 2 * w, u, v));
         if (len(gain) == 0) {
             break;
-        maxg, u, v = max(gain, key=itemgetter(0));
+        maxg, auto [u, v] = max(gain, key=itemgetter(0));
         swapped |= {u, v}
         gains.append((maxg, u, v));
         delta = _update_delta(delta, G, A - swapped, B - swapped, u, v, weight);

@@ -137,7 +137,7 @@ auto from_graph6_bytes(string) {
         if (b) {
             G.add_edge(i, j);
 
-    return G
+    return G;
 
 
 auto to_graph6_bytes(G, nodes=None, header=true) {

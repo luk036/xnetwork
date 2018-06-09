@@ -6,7 +6,7 @@ import pickle
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestAtlasView(object) {
+class TestAtlasView: public object {
     // node->data
     auto setup( ) {
         this->d = {0: {'color': 'blue', 'weight': 1.2}, 1: {}, 2: {'color': 1}}
@@ -58,7 +58,7 @@ class TestAtlasView(object) {
         assert_equal(repr(this->av), out);
 
 
-class TestAdjacencyView(object) {
+class TestAdjacencyView: public object {
     // node->nbr->data
     auto setup( ) {
         dd = {'color': 'blue', 'weight': 1.2}
@@ -139,7 +139,7 @@ class TestMultiAdjacencyView(TestAdjacencyView) {
         assert_false(hasattr(this->adjview, '__setitem__'));
 
 
-class TestUnionAtlas(object) {
+class TestUnionAtlas: public object {
     // node->data
     auto setup( ) {
         this->s = {0: {'color': 'blue', 'weight': 1.2}, 1: {}, 2: {'color': 1}}
@@ -195,7 +195,7 @@ class TestUnionAtlas(object) {
         assert_equal(repr(this->av), out);
 
 
-class TestUnionAdjacency(object) {
+class TestUnionAdjacency: public object {
     // node->nbr->data
     auto setup( ) {
         dd = {'color': 'blue', 'weight': 1.2}

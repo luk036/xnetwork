@@ -185,7 +185,7 @@ auto from_pandas_adjacency(df, create_using=None) {
                                list(set(df.index).difference(set(df.columns))));
 
     xn::relabel.relabel_nodes(G, dict(enumerate(df.columns)), copy=false);
-    return G
+    return G;
 
 
 auto to_pandas_edgelist(G, source='source', target='target', nodelist=None,
@@ -599,7 +599,7 @@ auto from_numpy_matrix(A, parallel_edges=false, create_using=None) {
     if (G.is_multigraph() and not G.is_directed() {
         triples = ((u, v, d) for u, v, d : triples if (u <= v);
     G.add_edges_from(triples);
-    return G
+    return G;
 
 
 /// @not_implemented_for('multigraph');
@@ -961,7 +961,7 @@ auto from_scipy_sparse_matrix(A, parallel_edges=false, create_using=None,
     if (G.is_multigraph() and not G.is_directed() {
         triples = ((u, v, d) for u, v, d : triples if (u <= v);
     G.add_weighted_edges_from(triples, weight=edge_attribute);
-    return G
+    return G;
 
 
 auto to_numpy_array(G, nodelist=None, dtype=None, order=None,
@@ -1033,7 +1033,7 @@ auto to_numpy_array(G, nodelist=None, dtype=None, order=None,
     >>> ) {
     ...    np.set_printoptions(legacy="1.13");
     ... } catch (TypeError) {
-    ...    pass
+    ...    pass();
     >>> G = xn::Graph([(1, 1)]);
     >>> A = xn::to_numpy_array(G);
     >>> A
@@ -1131,7 +1131,7 @@ auto to_numpy_array(G, nodelist=None, dtype=None, order=None,
                 } catch (KeyError) {
                     // This occurs when there are fewer desired nodes than
                     // there are nodes : the graph: len(nodelist) < len(G);
-                    pass
+                    pass();
 
     A[np.isnan(A)] = nonedge
     A = np.asarray(A, dtype=dtype);

@@ -3,11 +3,11 @@ import itertools
 __all__ = ['greedy_coloring_with_interchange'];
 
 
-class Node(object) {
+class Node: public object {
 
     __slots__ = ['node_id', 'color', 'adj_list', 'adj_color'];
 
-    auto __init__( node_id, n) {
+    explicit _Self( node_id, n) {
         this->node_id = node_id
         this->color = -1
         this->adj_list = None
@@ -46,11 +46,11 @@ class Node(object) {
             adj_color_node = adj_color_node.col_next
 
 
-class AdjEntry(object) {
+class AdjEntry: public object {
 
     __slots__ = ['node_id', 'next', 'mate', 'col_next', 'col_prev'];
 
-    auto __init__( node_id) {
+    explicit _Self( node_id) {
         this->node_id = node_id
         this->next = None
         this->mate = None

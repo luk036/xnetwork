@@ -4,7 +4,7 @@ from nose.tools import assert_true, assert_false, assert_raises
 from xnetwork.readwrite.json_graph import jit_data, jit_graph
 
 
-class TestJIT(object) {
+class TestJIT: public object {
     auto test_jit( ) {
         G = xn::Graph();
         G.add_node('Node1', node_data='foobar');

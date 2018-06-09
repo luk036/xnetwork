@@ -49,7 +49,7 @@ auto read_leda(path, encoding='UTF-8') {
      */
     lines = (line.decode(encoding) for line : path);
     G = parse_leda(lines);
-    return G
+    return G;
 
 
 auto parse_leda(lines) {
@@ -105,4 +105,4 @@ auto parse_leda(lines) {
             throw XNetworkError('Too few fields : LEDA.GRAPH edge %d' % (i + 1));
         // BEWARE: no handling of reversal edges
         G.add_edge(node[int(s)], node[int(t)], label=label[2:-2]);
-    return G
+    return G;

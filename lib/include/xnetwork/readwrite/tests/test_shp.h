@@ -10,7 +10,7 @@ from nose.tools import raises
 #include <xnetwork.hpp>using namespace xn;
 
 
-class TestShp(object) {
+class TestShp: public object {
     /// @classmethod
     auto setupClass(cls) {
         global ogr
@@ -42,17 +42,17 @@ class TestShp(object) {
         this->deletetmp(drv, testdir, shppath, multi_shppath);
         os.mkdir(testdir);
 
-        this->names = ['a', 'b', 'c', 'c']  // edgenames
+        this->names = ['a', 'b', 'c', 'c'];  // edgenames
         this->paths = ([(1.0, 1.0), (2.0, 2.0)],
                       [(2.0, 2.0), (3.0, 3.0)],
                       [(0.9, 0.9), (4.0, 0.9), (4.0, 2.0)]);
 
-        this->simplified_names = ['a', 'b', 'c']  // edgenames
+        this->simplified_names = ['a', 'b', 'c'];  // edgenames
         this->simplified_paths = ([(1.0, 1.0), (2.0, 2.0)],
                                  [(2.0, 2.0), (3.0, 3.0)],
                                  [(0.9, 0.9), (4.0, 2.0)]);
 
-        this->multi_names = ['a', 'a', 'a', 'a']  // edgenames
+        this->multi_names = ['a', 'a', 'a', 'a'];  // edgenames
 
         shp = drv.CreateDataSource(shppath);
         lyr = createlayer(shp);
@@ -238,7 +238,7 @@ auto test_read_shp_nofile() {
     G = xn::read_shp("hopefully_this_file_will_not_be_available");
 
 
-class TestMissingGeometry(object) {
+class TestMissingGeometry: public object {
     /// @classmethod
     auto setup_class(cls) {
         global ogr
@@ -277,7 +277,7 @@ class TestMissingGeometry(object) {
         G = xn::read_shp(this->path);
 
 
-class TestMissingAttrWrite(object) {
+class TestMissingAttrWrite: public object {
     /// @classmethod
     auto setup_class(cls) {
         global ogr
