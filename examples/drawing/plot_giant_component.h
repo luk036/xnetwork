@@ -17,7 +17,7 @@ giant connected component : a binomial random graph.
 import math
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 try {
     import pygraphviz

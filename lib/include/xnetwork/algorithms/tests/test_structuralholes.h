@@ -10,7 +10,7 @@
 from nose.tools import assert_almost_equal, assert_true
 
 import math
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestStructuralHoles: public object {

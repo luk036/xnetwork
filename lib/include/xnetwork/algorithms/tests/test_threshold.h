@@ -7,7 +7,7 @@ Threshold Graphs
 from nose.tools import assert_true, assert_false, assert_equal, assert_almost_equal, assert_raises
 from nose import SkipTest
 from nose.plugins.attrib import attr
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 import xnetwork.algorithms.threshold as nxt
 from xnetwork.algorithms.isomorphism.isomorph import graph_could_be_isomorphic
 

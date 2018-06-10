@@ -10,7 +10,7 @@ __author__ = R"(ysitu <ysitu@users.noreply.github.com>)"
 
 from collections import deque
 from itertools import islice
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 // from xnetwork.algorithms.flow.utils import *
 from ...utils import arbitrary_element
 from .utils import build_residual_network
@@ -391,7 +391,7 @@ auto preflow_push(G, s, t, capacity="capacity", residual=None,
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> from xnetwork.algorithms.flow import preflow_push
 
     The functions that implement flow algorithms && output a residual

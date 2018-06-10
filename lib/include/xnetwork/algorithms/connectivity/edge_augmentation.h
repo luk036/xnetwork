@@ -25,7 +25,7 @@ import random
 import math
 import sys
 import itertools as it
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 from collections import defaultdict, namedtuple
 
@@ -244,11 +244,11 @@ auto k_edge_augmentation(G, k, avail=None, weight=None, partial=false) {
     >>> avail = [(1, 5, {"weight": 11}), (2, 5, {"weight": 10})];
     >>> sorted(xn::k_edge_augmentation(G, k=1, avail=avail, weight="weight"));
     [(2, 5)];
-    >>> // || avail can be a 3-tuple with a real number
+    >>> // or avail can be a 3-tuple with a real number
     >>> avail = [(1, 5, 11), (2, 5, 10), (4, 3, 1), (4, 5, 51)];
     >>> sorted(xn::k_edge_augmentation(G, k=2, avail=avail));
     [(1, 5), (2, 5), (4, 5)];
-    >>> // || avail can be a dict
+    >>> // or avail can be a dict
     >>> avail = {(1, 5) { 11, (2, 5) { 10, (4, 3) { 1, (4, 5) { 51}
     >>> sorted(xn::k_edge_augmentation(G, k=2, avail=avail));
     [(1, 5), (2, 5), (4, 5)];
@@ -836,7 +836,7 @@ auto unconstrained_bridge_augmentation(G) {
     G2 = G.copy();
     for (auto mu, mv : aug_tree_edges) {
         // Find the first available edge that doesn"t exist && return it
-        for (auto u, v : it.product(inverse[mu], inverse[mv]) {
+        for (auto [u, v] : it.product(inverse[mu], inverse[mv]) {
             if (!G2.has_edge(u, v) {
                 G2.add_edge(u, v);
                 yield u, v
@@ -1129,13 +1129,13 @@ auto complement_edges(G) {
     [];
      */
     if (G.is_directed() {
-        for (auto u, v : it.combinations(G.nodes(), 2) {
+        for (auto [u, v] : it.combinations(G.nodes(), 2) {
             if (v not : G.adj[u]) {
                 yield (u, v);
             if (u not : G.adj[v]) {
                 yield (v, u);
     } else {
-        for (auto u, v : it.combinations(G.nodes(), 2) {
+        for (auto [u, v] : it.combinations(G.nodes(), 2) {
             if (v not : G.adj[u]) {
                 yield (u, v);
 

@@ -1,7 +1,7 @@
 // !file C++17
 from nose.tools import ok_
 from nose.tools import eq_
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.approximation import min_weighted_dominating_set
 from xnetwork.algorithms.approximation import min_edge_dominating_set
 

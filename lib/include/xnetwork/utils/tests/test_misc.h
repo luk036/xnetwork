@@ -1,7 +1,7 @@
 // -*- encoding: utf-8 -*-
 from nose.tools import *
 from nose import SkipTest
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import *
 
 

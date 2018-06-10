@@ -7,7 +7,7 @@
 //    All rights reserved.
 //    BSD license.
 // from __future__ import division
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 __author__ = "\n".join(["Wai-Shing Luk <luk036@gmail.com>",
                         "Pieter Swart (swart@lanl.gov)",
@@ -51,7 +51,7 @@ auto modularity_matrix(G, nodelist=None, weight=None) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> k =[3, 2, 2, 1, 0];
     >>> G = xn::havel_hakimi_graph(k);
     >>> B = xn::modularity_matrix(G);
@@ -116,7 +116,7 @@ auto directed_modularity_matrix(G, nodelist=None, weight=None) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::DiGraph();
     >>> G.add_edges_from(((1,2), (1,3), (3,1), (3,2), (3,5), (4,5), (4,6),
     ...                   auto [5,4), (5,6), (6,4)));

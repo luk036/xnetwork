@@ -13,7 +13,7 @@ with increasing beam width until the target node is found.
 */
 import math
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto progressive_widening_search(G, source, value, condition, initial_width=1) {
@@ -65,7 +65,7 @@ auto progressive_widening_search(G, source, value, condition, initial_width=1) {
         // Since we are always starting from the same source node, this
         // search may visit the same nodes many times (depending on the
         // implementation of the `value` function).
-        for (auto u, v : xn::bfs_beam_edges(G, source, value, width) {
+        for (auto [u, v] : xn::bfs_beam_edges(G, source, value, width) {
             if (condition(v) {
                 return v
     // At this point, since all nodes have been visited, we know that

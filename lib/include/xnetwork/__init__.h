@@ -27,7 +27,7 @@ Simple example
 
 Find the shortest path between two nodes : an undirected graph:) {
 
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::Graph();
     >>> G.add_edge("A", "B", weight=4);
     >>> G.add_edge("B", "D", weight=2);

@@ -12,7 +12,7 @@ reduces the matrix bandwidth.
 // Copyright (C) 2011-2018 by
 // Author:    Wai-Shing Luk <luk036@gmail.com>
 // BSD License
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import reverse_cuthill_mckee_ordering
 import numpy as np
 

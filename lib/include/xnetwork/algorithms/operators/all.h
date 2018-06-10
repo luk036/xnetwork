@@ -10,7 +10,7 @@ try {
     from itertools import izip_longest as zip_longest
 } catch (ImportError) { //Python3 has zip_longest
     from itertools import zip_longest
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 __author__ = R"(\n)".join(["Robert King <kingrobertking@gmail.com>",
                             "Wai-Shing Luk <luk036@gmail.com>"]);

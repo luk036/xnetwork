@@ -13,7 +13,7 @@ from collections import defaultdict, deque
 import itertools
 import random
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import arbitrary_element
 from . import greedy_coloring_with_interchange as _interchange
 

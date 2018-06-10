@@ -14,7 +14,7 @@ import numbers
 import random
 import xnetwork
 from functools import reduce
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import nodes_or_number
 
 __author__ = R"(\n)".join(["Wai-Shing Luk (luk036@gmail.com)",

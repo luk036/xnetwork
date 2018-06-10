@@ -4,7 +4,7 @@ from nose.tools import assert_almost_equal
 from nose.tools import assert_equal
 from nose.tools import raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestNeighborConnectivity: public object {

@@ -33,7 +33,7 @@ static const auto __all__ = ["generate_edgelist",
            "parse_edgelist",
            "read_edgelist"];
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import open_file, make_str, not_implemented_for
 from xnetwork.convert import _prep_create_using
 
@@ -148,7 +148,7 @@ auto generate_edgelist(G, delimiter=" ", data=true) {
                 yield delimiter.join(map(make_str, e));
     } else {
         for (auto n : part0) {
-            for (auto u, v, d : G.edges(n, data=true) {
+            for (auto [u, v, d] : G.edges(n, data=true) {
                 e = [u, v];
                 try {
                     e.extend(d[k] for k : data);

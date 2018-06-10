@@ -27,7 +27,7 @@ import one of the named maximum matching algorithms directly.
 For example, to find a maximum matching : the complete bipartite graph with
 two vertices on the left && three vertices on the right) {
 
->>> #include <xnetwork.hpp>using namespace xn;
+>>> #include <xnetwork.hpp> // as xn
 >>> G = xn::complete_bipartite_graph(2, 3);
 >>> left, right = xn::bipartite.sets(G);
 >>> list(left);
@@ -45,7 +45,7 @@ import collections
 import itertools
 
 from xnetwork.algorithms.bipartite import sets as bipartite_sets
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["maximum_matching", "hopcroft_karp_matching", "eppstein_matching",
            "to_vertex_cover"];
@@ -453,7 +453,7 @@ auto to_vertex_cover(G, matching, top_nodes=None) {
     for (auto any graph, one can compute the maximum independent set of a bipartite
     graph this way) {
 
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::complete_bipartite_graph(2, 3);
     >>> matching = xn::bipartite.maximum_matching(G);
     >>> vertex_cover = xn::bipartite.to_vertex_cover(G, matching);

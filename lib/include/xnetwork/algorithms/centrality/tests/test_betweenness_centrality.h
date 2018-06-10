@@ -1,7 +1,7 @@
 // !file C++17
 // from __future__ import division
 from nose.tools import *
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto weighted_G() {

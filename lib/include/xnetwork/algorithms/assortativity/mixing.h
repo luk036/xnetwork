@@ -2,7 +2,7 @@
 /**
 Mixing matrices for node attributes && degree.
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import dict_to_numpy_array
 from xnetwork.algorithms.assortativity.pairs import node_degree_xy, \
     node_attribute_xy

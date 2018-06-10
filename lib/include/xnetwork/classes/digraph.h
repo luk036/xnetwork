@@ -11,13 +11,13 @@
 /** Base class for directed graphs. */
 // from copy import deepcopy
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.classes.graph import Graph
 #include <xnetwork/classes/coreviews.hpp> // import AdjacencyView
 #include <xnetwork/classes/reportviews.hpp> // import OutEdgeView, InEdgeView, \
     DiDegreeView, InDegreeView, OutDegreeView
 #include <xnetwork/exception.hpp> // import XNetworkError
-#include <xnetwork/convert.hpp>using namespace convert;
+#include <xnetwork/convert.hpp> // as convert;
 
 
 class DiGraph(Graph) {
@@ -283,7 +283,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> G = xn::Graph(name="my graph");
         >>> e = [(1, 2), (2, 3), (3, 4)] // list of edges
         >>> G = xn::Graph(e);
@@ -388,7 +388,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> G.add_node(1);
         >>> G.add_node("Hello");
         >>> K3 = xn::Graph([(0, 1), (1, 2), (2, 0)]);
@@ -439,7 +439,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> G.add_nodes_from("Hello");
         >>> K3 = xn::Graph([(0, 1), (1, 2), (2, 0)]);
         >>> G.add_nodes_from(K3);
@@ -508,7 +508,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(3);  // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::path_graph(3);  // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> list(G.edges);
         [(0, 1), (1, 2)];
         >>> G.remove_node(1);
@@ -543,7 +543,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(3);  // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::path_graph(3);  // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> e = list(G.nodes);
         >>> e
         [0, 1, 2];
@@ -598,7 +598,7 @@ class DiGraph(Graph) {
         --------
         The following all add the edge e=(1, 2) to graph G) {
 
-        >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> e = (1, 2);
         >>> G.add_edge(1, 2)           // explicit two-node form
         >>> G.add_edge(*e)             // single edge as tuple of two nodes
@@ -659,7 +659,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> G.add_edges_from([(0, 1), (1, 2)]) // using a list of edge tuples
         >>> e = zip(range(0, 3), range(1, 4));
         >>> G.add_edges_from(e) // Add the path graph 0-1-2-3
@@ -712,7 +712,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::Graph()   // || DiGraph, etc
+        >>> G = xn::Graph()   // or DiGraph, etc
         >>> xn::add_path(G, [0, 1, 2, 3]);
         >>> G.remove_edge(0, 1);
         >>> e = (1, 2);
@@ -748,7 +748,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(4);  // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> ebunch = [(1, 2), (2, 3)];
         >>> G.remove_edges_from(ebunch);
          */
@@ -838,7 +838,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::DiGraph()   // || MultiDiGraph, etc
+        >>> G = xn::DiGraph()   // or MultiDiGraph, etc
         >>> xn::add_path(G, [0, 1, 2]);
         >>> G.add_edge(2, 3, weight=5);
         >>> [e for e : G.edges];
@@ -929,7 +929,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::DiGraph()   // || MultiDiGraph
+        >>> G = xn::DiGraph()   // or MultiDiGraph
         >>> xn::add_path(G, [0, 1, 2, 3]);
         >>> G.degree(0) // node 0 with degree 1
         1
@@ -1043,7 +1043,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(4);  // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> G.clear();
         >>> list(G.nodes);
         [];
@@ -1151,7 +1151,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(4);  // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> H = G.copy();
 
          */
@@ -1214,7 +1214,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(2)   // || MultiGraph, etc
+        >>> G = xn::path_graph(2)   // or MultiGraph, etc
         >>> H = G.to_directed();
         >>> list(H.edges);
         [(0, 1), (1, 0)];
@@ -1271,7 +1271,7 @@ class DiGraph(Graph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(4);  // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> H = G.subgraph([0, 1, 2]);
         >>> list(H.edges);
         [(0, 1), (1, 2)];

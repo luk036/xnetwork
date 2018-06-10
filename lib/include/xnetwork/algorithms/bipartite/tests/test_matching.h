@@ -9,7 +9,7 @@
 /** Unit tests for the :mod:`xnetwork.algorithms.bipartite.matching` module. */
 import itertools
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 from nose.tools import assert_true, assert_equal, raises
 
@@ -157,7 +157,7 @@ class TestMatching() {
             btc.add_node((0, v));
             btc.add_node((1, v));
 
-        for (auto u, v : tc.edges() {
+        for (auto [u, v] : tc.edges() {
             btc.add_edge((0, u), (1, v));
 
         top_nodes = {n for n : btc if (n[0] == 0.;
@@ -170,7 +170,7 @@ class TestMatching() {
         G = xn::Graph([(0, 3), (1, 3), (1, 4), (2, 3)]);
         matching = maximum_matching(G);
         vertex_cover = to_vertex_cover(G, matching);
-        for (auto u, v : G.edges() {
+        for (auto [u, v] : G.edges() {
             assert_true(u : vertex_cover || v : vertex_cover);
 
     auto test_unorderable_nodes( ) {
@@ -182,7 +182,7 @@ class TestMatching() {
         G = xn::Graph([(a, d), (b, d), (b, e), (c, d)]);
         matching = maximum_matching(G);
         vertex_cover = to_vertex_cover(G, matching);
-        for (auto u, v : G.edges() {
+        for (auto [u, v] : G.edges() {
             assert_true(u : vertex_cover || v : vertex_cover);
 
 

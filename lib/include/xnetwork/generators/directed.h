@@ -19,7 +19,7 @@ scale-free graphs.
 from collections import Counter
 import random
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.generators.classic import empty_graph
 #include <xnetwork/utils.hpp> // import discrete_sequence
 #include <xnetwork/utils.hpp> // import weighted_choice

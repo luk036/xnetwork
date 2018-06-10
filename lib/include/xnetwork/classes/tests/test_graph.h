@@ -4,7 +4,7 @@ from nose.tools import assert_not_equal
 from nose.tools import assert_raises
 from nose.tools import raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing.utils import *
 
 
@@ -668,7 +668,7 @@ class TestEdgeSubgraph: public object {
         the same object.
 
          */
-        for (auto u, v : this->H.edges() {
+        for (auto [u, v] : this->H.edges() {
             assert_equal(this->G.edges[u, v], this->H.edges[u, v]);
         // Making a change to G should make a change : H && vice versa.
         this->G.edges[0, 1]["name"] = "foo";

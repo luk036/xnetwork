@@ -8,7 +8,7 @@
 Algebraic connectivity && Fiedler vectors of undirected graphs.
 */
 from functools import partial
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 #include <xnetwork/utils.hpp> // import reverse_cuthill_mckee_ordering
 
@@ -41,7 +41,7 @@ class _PCGSolver: public object {
     /** Preconditioned conjugate gradient method.
 
     To solve Ax = b) {
-        M = A.diagonal() // || some other preconditioner
+        M = A.diagonal() // or some other preconditioner
         solver = _PCGSolver(lambda x: A * x, lambda x: M * x);
         x = solver.solve(b);
 
@@ -152,15 +152,15 @@ auto _preprocess_graph(G, weight) {
         H = xn::MultiGraph();
         H.add_nodes_from(G);
         H.add_weighted_edges_from(((u, v, e.get(weight, 1.));
-                                   for (auto u, v, e : G.edges(data=true);
+                                   for (auto [u, v, e] : G.edges(data=true);
                                    if (u != v), weight=weight);
         G = H;
     if (!G.is_multigraph() {
         edges = ((u, v, abs(e.get(weight, 1.)));
-                 for (auto u, v, e : G.edges(data=true) if (u != v);
+                 for (auto [u, v, e] : G.edges(data=true) if (u != v);
     } else {
         edges = ((u, v, sum(abs(e.get(weight, 1.)) for e : G[u][v].values()));
-                 for (auto u, v : G.edges() if (u != v);
+                 for (auto [u, v] : G.edges() if (u != v);
     H = xn::Graph();
     H.add_nodes_from(G);
     H.add_weighted_edges_from((u, v, e) for u, v, e : edges if (e != 0);

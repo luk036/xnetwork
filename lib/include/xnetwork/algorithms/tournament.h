@@ -18,7 +18,7 @@ graph.
 To access the functions : this module, you must access them through the
 :mod:`xnetwork.algorithms.tournament` module:) {
 
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> from xnetwork.algorithms import tournament
     >>> G = xn::DiGraph([(0, 1), (1, 2), (2, 0)]);
     >>> tournament.is_tournament(G);
@@ -30,7 +30,7 @@ To access the functions : this module, you must access them through the
 from itertools import combinations
 import random
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.simple_paths import is_simple_path as is_path
 #include <xnetwork/utils.hpp> // import arbitrary_element
 #include <xnetwork/utils.hpp> // import not_implemented_for

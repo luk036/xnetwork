@@ -16,7 +16,7 @@ Journal of Anthropological Research, 33, 452-473.
 */
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 G = xn::karate_club_graph();
 print("Node Degree");

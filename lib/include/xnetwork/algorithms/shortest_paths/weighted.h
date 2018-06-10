@@ -17,7 +17,7 @@ Shortest path algorithms for weighed graphs.
 from collections import deque
 from heapq import heappush, heappop
 from itertools import count
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import generate_unique_node
 
 
@@ -867,7 +867,7 @@ auto dijkstra_predecessor_and_distance(G, source, cutoff=None, weight="weight") 
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::path_graph(5, create_using = xn::DiGraph());
     >>> pred, dist = xn::dijkstra_predecessor_and_distance(G, 0);
     >>> sorted(pred.items());
@@ -1111,7 +1111,7 @@ auto bellman_ford_predecessor_and_distance(G, source, target=None,
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::path_graph(5, create_using = xn::DiGraph());
     >>> pred, dist = xn::bellman_ford_predecessor_and_distance(G, 0);
     >>> sorted(pred.items());
@@ -1687,7 +1687,7 @@ auto goldberg_radzik(G, source, weight="weight") {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::path_graph(5, create_using = xn::DiGraph());
     >>> pred, dist = xn::goldberg_radzik(G, 0);
     >>> sorted(pred.items());
@@ -1846,7 +1846,7 @@ auto negative_edge_cycle(G, weight="weight") {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::cycle_graph(5, create_using = xn::DiGraph());
     >>> print(xn::negative_edge_cycle(G));
     false
@@ -2060,7 +2060,7 @@ auto johnson(G, weight="weight") {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> graph = xn::DiGraph();
     >>> graph.add_weighted_edges_from([("0", "3", 3), ("0", "1", -5),
     ... ("0", "2", 2), ("1", "2", 4), ("2", "3", 1)]);

@@ -14,7 +14,7 @@ static const auto __all__ = ["min_cost_flow_cost",
            "cost_of_flow",
            "max_flow_min_cost"];
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto min_cost_flow_cost(G, demand="demand", capacity="capacity",
@@ -93,7 +93,7 @@ auto min_cost_flow_cost(G, demand="demand", capacity="capacity",
     --------
     A simple example of a min cost flow problem.
 
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::DiGraph();
     >>> G.add_node("a", demand = -5);
     >>> G.add_node("d", demand = 5);
@@ -186,7 +186,7 @@ auto min_cost_flow(G, demand="demand", capacity="capacity",
     --------
     A simple example of a min cost flow problem.
 
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::DiGraph();
     >>> G.add_node("a", demand = -5);
     >>> G.add_node("d", demand = 5);
@@ -242,7 +242,7 @@ auto cost_of_flow(G, flowDict, weight="weight") {
     constant factor (eg 100).
      */
     return sum((flowDict[u][v] * d.get(weight, 0);
-                for (auto u, v, d : G.edges(data=true)));
+                for (auto [u, v, d] : G.edges(data=true)));
 
 
 auto max_flow_min_cost(G, s, t, capacity="capacity", weight="weight") {

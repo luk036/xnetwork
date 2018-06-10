@@ -1,5 +1,5 @@
 // -*- coding: utf-8 -*-
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 import itertools as it
 from nose.tools import (assert_equal, assert_not_equal, assert_greater_equal,
                         assert_raises, assert_in);
@@ -50,7 +50,7 @@ auto _memo_connectivity(G, u, v, memo) {
 
 auto _all_pairs_connectivity(G, cc, k, memo) {
     // Brute force check
-    for (auto u, v : it.combinations(cc, 2) {
+    for (auto [u, v] : it.combinations(cc, 2) {
         // Use a memoization dict to save on computation
         connectivity = _memo_connectivity(G, u, v, memo);
         if (G.is_directed() {

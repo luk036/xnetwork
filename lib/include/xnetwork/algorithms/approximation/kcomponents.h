@@ -7,7 +7,7 @@
 import itertools
 from collections import defaultdict, Mapping
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/exception.hpp> // import XNetworkError
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
@@ -145,7 +145,7 @@ auto k_components(G, min_density=0.95) {
             // Build auxiliary graph
             H = _AntiGraph();
             H.add_nodes_from(SG.nodes());
-            for (auto u, v : combinations(SG, 2) {
+            for (auto [u, v] : combinations(SG, 2) {
                 K = node_connectivity(SG, u, v, cutoff=k);
                 if (k > K) {
                     H.add_edge(u, v);

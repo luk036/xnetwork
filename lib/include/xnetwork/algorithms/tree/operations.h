@@ -10,7 +10,7 @@
 from functools import partial
 from itertools import chain
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import accumulate
 
 static const auto __all__ = ["join"];

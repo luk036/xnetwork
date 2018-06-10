@@ -20,7 +20,7 @@ This uses Graphviz for layout so you need PyGraphviz || pydot.
 
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 try {
     import pygraphviz
     from xnetwork.drawing.nx_agraph import graphviz_layout

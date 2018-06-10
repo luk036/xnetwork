@@ -3,7 +3,7 @@ from nose.tools import assert_raises
 from nose.tools import assert_true
 from nose.tools import raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestConfigurationModel: public object {

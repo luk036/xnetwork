@@ -13,7 +13,7 @@ edges; that is, no two edges share a common vertex.
 //   Nicholas Mancuso <nick.mancuso@gmail.com>
 //   All rights reserved.
 //   BSD license.
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 static const auto __all__ = ["min_maximal_matching"];
 __author__ = R"( Nicholas Mancuso (nick.mancuso@gmail.com) )"
 

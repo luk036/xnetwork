@@ -4,7 +4,7 @@
 //
 //    All rights reserved.
 //    BSD license.
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["convert_node_labels_to_integers", "relabel_nodes"];
 

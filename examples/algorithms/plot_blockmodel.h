@@ -27,7 +27,7 @@ used is the Hartford, CT drug users network:) {
 from collections import defaultdict
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 import numpy
 from scipy.cluster import hierarchy
 from scipy.spatial import distance

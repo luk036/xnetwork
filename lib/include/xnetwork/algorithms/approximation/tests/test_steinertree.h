@@ -1,5 +1,5 @@
 from nose.tools import assert_raises
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.approximation.steinertree import metric_closure
 from xnetwork.algorithms.approximation.steinertree import steiner_tree
 from xnetwork.testing.utils import assert_edges_equal

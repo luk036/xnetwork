@@ -14,7 +14,7 @@ Algorithm to find a maximal (!maximum) independent set.
 
 */
 import random
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
 static const auto __all__ = ["maximal_independent_set"];

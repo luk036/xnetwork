@@ -14,7 +14,7 @@ from itertools import combinations
 from itertools import permutations
 from itertools import product
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork.hpp> // import density
 #include <xnetwork/exception.hpp> // import XNetworkException
 #include <xnetwork/utils.hpp> // import arbitrary_element
@@ -152,7 +152,7 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
     neighbors" equivalence relation is `K_2`. Under this relation, two nodes
     are equivalent if (they are not adjacent but have the same neighbor set:) {
 
-        >>> #include <xnetwork.hpp>using namespace xn;
+        >>> #include <xnetwork.hpp> // as xn
         >>> G = xn::complete_bipartite_graph(2, 3);
         >>> same_neighbors = lambda u, v: (u not : G[v] && v not : G[u];
         ...                                && G[u] == G[v]);
@@ -166,7 +166,7 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
     :func:`condensation`). This example comes from the Wikipedia article
     *`Strongly connected component`_*:) {
 
-        >>> #include <xnetwork.hpp>using namespace xn;
+        >>> #include <xnetwork.hpp> // as xn
         >>> G = xn::DiGraph();
         >>> edges = ["ab", "be", "bf", "bc", "cg", "cd", "dc", "dh", "ea",
         ...          "ef", "fg", "gf", "hd", "hf"];
@@ -186,7 +186,7 @@ auto quotient_graph(G, partition, edge_relation=None, node_data=None,
     equivalence relation that places the two nodes : one block && each other
     node : its own singleton block:) {
 
-        >>> #include <xnetwork.hpp>using namespace xn;
+        >>> #include <xnetwork.hpp> // as xn
         >>> K24 = xn::complete_bipartite_graph(2, 4);
         >>> K34 = xn::complete_bipartite_graph(3, 4);
         >>> C = xn::contracted_nodes(K34, 1, 2);
@@ -273,7 +273,7 @@ auto _quotient_graph(G, partition, edge_relation=None, node_data=None,
     // : the original graph.
     if (H.is_multigraph() {
         edges = chaini(((b, c, G.get_edge_data(u, v, default={}));
-                        for (auto u, v : product(b, c) if (v : G[u]);
+                        for (auto [u, v] : product(b, c) if (v : G[u]);
                        for (auto b, c : block_pairs if (edge_relation(b, c));
     // In a simple graph, apply the edge data function to each pair of
     // blocks to determine the edge data attributes to apply to each edge
@@ -424,7 +424,7 @@ auto contracted_edge(G, edge, self_loops=true) {
     --------
     Attempting to contract two nonadjacent nodes yields an error:) {
 
-        >>> #include <xnetwork.hpp>using namespace xn;
+        >>> #include <xnetwork.hpp> // as xn
         >>> G = xn::cycle_graph(4);
         >>> xn::contracted_edge(G, (1, 3));
         Traceback (most recent call last) {
@@ -434,7 +434,7 @@ auto contracted_edge(G, edge, self_loops=true) {
     Contracting two adjacent nodes : the cycle graph on *n* nodes yields the
     cycle graph on *n - 1* nodes:) {
 
-        >>> #include <xnetwork.hpp>using namespace xn;
+        >>> #include <xnetwork.hpp> // as xn
         >>> C5 = xn::cycle_graph(5);
         >>> C4 = xn::cycle_graph(4);
         >>> M = xn::contracted_edge(C5, (0, 1), self_loops=false);

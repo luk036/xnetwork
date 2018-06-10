@@ -2,7 +2,7 @@
 import os
 import itertools
 from nose import SkipTest
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestPylab: public object {

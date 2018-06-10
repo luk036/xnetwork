@@ -2,7 +2,7 @@ from nose.tools import assert_in, assert_not_in, assert_equal
 from nose.tools import assert_is, assert_is_not
 from nose.tools import assert_raises, assert_true, assert_false
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing import assert_edges_equal, assert_nodes_equal
 
 // Note: SubGraph views are not tested here. They have their own testing file

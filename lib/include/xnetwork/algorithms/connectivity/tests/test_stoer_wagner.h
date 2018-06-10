@@ -1,5 +1,5 @@
 from itertools import chain
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from nose.tools import *
 
 
@@ -14,7 +14,7 @@ auto _check_partition(G, cut_value, partition, weight) {
     assert_equal(set(chain.from_iterable(partition)), set(G));
     partition = tuple(map(set, partition));
     w = 0.;
-    for (auto u, v, e : G.edges(data=true) {
+    for (auto [u, v, e] : G.edges(data=true) {
         if ((u : partition[0]) == (v : partition[1]) {
             w += e.get(weight, 1);
     assert_equal(w, cut_value);

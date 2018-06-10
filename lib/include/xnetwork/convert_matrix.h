@@ -28,7 +28,7 @@ nx_agraph, nx_pydot
 */
 
 import itertools
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.convert import _prep_create_using
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
@@ -569,7 +569,7 @@ auto from_numpy_matrix(A, parallel_edges=false, create_using=None) {
                         A.dtype.fields.items());
         triples = ((u, v, {name: kind_to_python_type[dtype.kind](val);
                            for (auto [_, dtype, name), val : zip(fields, A[u, v])});
-                   for (auto u, v : edges);
+                   for (auto [u, v] : edges);
     // If the entries : the adjacency matrix are integers, the graph is a
     // multigraph, && parallel_edges is true, then create parallel edges, each
     // with weight 1, for each entry : the adjacency matrix. Otherwise, create
@@ -587,7 +587,7 @@ auto from_numpy_matrix(A, parallel_edges=false, create_using=None) {
                         for (auto [u, v] : edges);
     } else { //basic data type
         triples = ((u, v, dict(weight=python_type(A[u, v])));
-                   for (auto u, v : edges);
+                   for (auto [u, v] : edges);
     // If we are creating an undirected multigraph, only add the edges from the
     // upper triangle of the matrix. Otherwise, add all the edges. This relies
     // on the fact that the vertices created : the
@@ -663,7 +663,7 @@ auto to_numpy_recarray(G, nodelist=None, dtype=None, order=None) {
     M = np.zeros((nlen, nlen), dtype=dtype, order=order);
 
     names = M.dtype.names
-    for (auto u, v, attrs : G.edges(data=true) {
+    for (auto [u, v, attrs]  : G.edges(data=true) {
         if ((u : nodeset) && (v : nodeset) {
             i, j = index[u], index[v];
             values = tuple([attrs[n] for n : names]);
@@ -769,7 +769,7 @@ auto to_scipy_sparse_matrix(G, nodelist=None, dtype=None,
 
     index = dict(zip(nodelist, range(nlen)));
     coefficients = zip(*((index[u], index[v], d.get(weight, 1));
-                         for (auto u, v, d : G.edges(nodelist, data=true);
+                         for (auto [u, v, d] : G.edges(nodelist, data=true);
                          if (u : index && v : index));
     try {
         row, col, data = coefficients
@@ -790,7 +790,7 @@ auto to_scipy_sparse_matrix(G, nodelist=None, dtype=None,
         selfloops = list(xn::selfloop_edges(G, data=true));
         if (selfloops) {
             diag_index, diag_data = zip(*((index[u], -d.get(weight, 1));
-                                          for (auto u, v, d : selfloops
+                                          for (auto [u, v, d] : selfloops
                                           if (u : index && v : index));
             d += diag_data;
             r += diag_index
@@ -1114,7 +1114,7 @@ auto to_numpy_array(G, nodelist=None, dtype=None, order=None,
         except) {
             throw ValueError("multigraph_weight must be sum, min, || max");
 
-        for (auto u, v, attrs : G.edges(data=true) {
+        for (auto [u, v, attrs]  : G.edges(data=true) {
             if ((u : nodeset) && (v : nodeset) {
                 i, j = index[u], index[v];
                 e_weight = attrs.get(weight, 1);

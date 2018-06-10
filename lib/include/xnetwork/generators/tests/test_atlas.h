@@ -4,7 +4,7 @@ from nose.tools import assert_equal
 from nose.tools import assert_less_equal
 from nose.tools import raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing import *
 #include <xnetwork.hpp> // import graph_atlas
 #include <xnetwork.hpp> // import graph_atlas_g

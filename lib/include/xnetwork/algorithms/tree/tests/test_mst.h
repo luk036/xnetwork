@@ -13,7 +13,7 @@ from unittest import TestCase
 from nose.tools import assert_equal
 from nose.tools import raises, assert_raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing import (assert_graphs_equal, assert_nodes_equal,
                               assert_edges_equal);
 
@@ -133,7 +133,7 @@ class MinimumSpanningTreeTestBase: public object {
         T = xn::minimum_spanning_tree(G, algorithm=this->algo);
         assert_equal(T.graph, G.graph);
         assert_nodes_equal(T, G);
-        for (auto u, v : T.edges() {
+        for (auto [u, v] : T.edges() {
             assert_equal(T.adj[u][v], G.adj[u][v]);
 
     auto test_weight_attribute( ) {

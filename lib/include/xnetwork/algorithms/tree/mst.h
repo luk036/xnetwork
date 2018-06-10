@@ -15,7 +15,7 @@ from operator import itemgetter
 from itertools import count
 from math import isnan
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import UnionFind, not_implemented_for
 
 static const auto __all__ = [
@@ -111,7 +111,7 @@ auto boruvka_mst_edges(G, minimum=true, weight="weight",
         //
         // TODO This loop can be parallelized, to an extent (the union
         // operation must be atomic).
-        for (auto u, v, d : best_edges) {
+        for (auto [u, v, d] : best_edges) {
             if (forest[u] != forest[v]) {
                 if (data) {
                     yield u, v, d
@@ -168,7 +168,7 @@ auto kruskal_mst_edges(G, minimum, weight="weight",
 
         auto filter_nan_edges(edges=edges, weight=weight) {
             sign = 1 if (minimum else -1
-            for (auto u, v, d : edges) {
+            for (auto [u, v, d] : edges) {
                 wt = d.get(weight, 1) * sign
                 if (isnan(wt) {
                     if (ignore_nan) {

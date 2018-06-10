@@ -8,7 +8,7 @@ Random graph from given degree sequence.
 Draw degree rank plot && graph with matplotlib.
 */
 // Author: Wai-Shing Luk <luk036@gmail.com>
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 import matplotlib.pyplot as plt
 
 G = xn::gnp_random_graph(100, 0.02);

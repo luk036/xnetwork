@@ -1,6 +1,6 @@
 from nose.tools import assert_equals
 from nose.tools import ok_
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.approximation import min_weighted_vertex_cover
 
 

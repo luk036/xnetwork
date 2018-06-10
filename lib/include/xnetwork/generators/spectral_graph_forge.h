@@ -6,7 +6,7 @@
 /** Generates graphs with a given eigenvector structure */
 
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["spectral_graph_forge"];
 
@@ -151,7 +151,7 @@ auto spectral_graph_forge(G, alpha, transformation="identity", seed=None) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::karate_club_graph();
     >>> H = xn::spectral_graph_forge(G, 0.3);
     >>>

@@ -2,7 +2,7 @@
 import itertools
 import math
 import random
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 //    Copyright(C) 2011, 2015 by
 //    Ben Edwards <bedwards@cs.unm.edu>
 //    Wai-Shing Luk <luk036@gmail.com>
@@ -235,7 +235,7 @@ auto random_partition_graph(sizes, p_in, p_out, seed=None, directed=false) {
     group = 0.;
     for (auto n : sizes) {
         edges = ((u + start, v + start);
-                 for (auto u, v in
+                 for (auto [u, v] in
                  xn::fast_gnp_random_graph(n, p_in, directed=directed).edges());
         G.add_edges_from(edges);
         next_group.update(dict.fromkeys(range(start, start + n), start + n));

@@ -6,7 +6,7 @@ from nose.tools import assert_true
 from nose.tools import assert_raises
 
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing import assert_nodes_equal
 from test_graph import BaseGraphTester, BaseAttrGraphTester, TestGraph
 from test_graph import TestEdgeSubgraph as TestGraphEdgeSubgraph

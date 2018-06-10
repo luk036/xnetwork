@@ -12,7 +12,7 @@
 from nose.tools import assert_equal
 from nose.tools import assert_true
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing import assert_nodes_equal
 from xnetwork.testing import assert_edges_equal
 

@@ -14,7 +14,7 @@ graphs.
 
 */
 import copy
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["kl_connected_subgraph", "is_kl_connected"];
 

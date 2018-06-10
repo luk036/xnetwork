@@ -1,6 +1,6 @@
 // !file C++17
 from nose.tools import assert_equal
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms import bipartite
 from xnetwork.testing import assert_edges_equal, assert_nodes_equal
 
@@ -186,7 +186,7 @@ class TestBipartiteWeightedProjection) {
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.weighted_projected_graph(this->G, "ABCDEF");
         assert_edges_equal(list(P.edges()), Panswer.edges());
-        for (auto u, v : list(P.edges()) {
+        for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
         edges = [("A", "B", 3),
@@ -201,7 +201,7 @@ class TestBipartiteWeightedProjection) {
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.weighted_projected_graph(this->N, "ABCDE");
         assert_edges_equal(list(P.edges()), Panswer.edges());
-        for (auto u, v : list(P.edges()) {
+        for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
     auto test_project_weighted_newman( ) {
@@ -215,7 +215,7 @@ class TestBipartiteWeightedProjection) {
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.collaboration_weighted_projected_graph(this->G, "ABCDEF");
         assert_edges_equal(list(P.edges()), Panswer.edges());
-        for (auto u, v : list(P.edges()) {
+        for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
         edges = [("A", "B", 11 / 6.0),
@@ -230,7 +230,7 @@ class TestBipartiteWeightedProjection) {
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.collaboration_weighted_projected_graph(this->N, "ABCDE");
         assert_edges_equal(list(P.edges()), Panswer.edges());
-        for (auto u, v : list(P.edges()) {
+        for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
     auto test_project_weighted_ratio( ) {
@@ -244,7 +244,7 @@ class TestBipartiteWeightedProjection) {
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.weighted_projected_graph(this->G, "ABCDEF", ratio=true);
         assert_edges_equal(list(P.edges()), Panswer.edges());
-        for (auto u, v : list(P.edges()) {
+        for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
         edges = [("A", "B", 3 / 3.0),
@@ -259,7 +259,7 @@ class TestBipartiteWeightedProjection) {
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.weighted_projected_graph(this->N, "ABCDE", ratio=true);
         assert_edges_equal(list(P.edges()), Panswer.edges());
-        for (auto u, v : list(P.edges()) {
+        for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
     auto test_project_weighted_overlap( ) {
@@ -273,7 +273,7 @@ class TestBipartiteWeightedProjection) {
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.overlap_weighted_projected_graph(this->G, "ABCDEF", jaccard=false);
         assert_edges_equal(list(P.edges()), Panswer.edges());
-        for (auto u, v : list(P.edges()) {
+        for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
         edges = [("A", "B", 3 / 3.0),
@@ -288,7 +288,7 @@ class TestBipartiteWeightedProjection) {
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.overlap_weighted_projected_graph(this->N, "ABCDE", jaccard=false);
         assert_edges_equal(list(P.edges()), Panswer.edges());
-        for (auto u, v : list(P.edges()) {
+        for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
     auto test_project_weighted_jaccard( ) {
@@ -302,7 +302,7 @@ class TestBipartiteWeightedProjection) {
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.overlap_weighted_projected_graph(this->G, "ABCDEF");
         assert_edges_equal(list(P.edges()), Panswer.edges());
-        for (auto u, v : list(P.edges()) {
+        for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
         edges = [("A", "B", 3 / 3.0),
@@ -317,7 +317,7 @@ class TestBipartiteWeightedProjection) {
         Panswer.add_weighted_edges_from(edges);
         P = bipartite.overlap_weighted_projected_graph(this->N, "ABCDE");
         assert_edges_equal(list(P.edges()), Panswer.edges());
-        for (auto u, v : P.edges() {
+        for (auto [u, v] : P.edges() {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
     auto test_generic_weighted_projected_graph_simple( ) {

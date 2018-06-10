@@ -24,7 +24,7 @@ for (auto format information.
 
 // import warnings
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import is_string_like, open_file, make_str
 
 static const auto __all__ = ["read_pajek", "parse_pajek", "generate_pajek", "write_pajek"];

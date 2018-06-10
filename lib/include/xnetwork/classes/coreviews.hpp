@@ -12,7 +12,7 @@
 */
 // from collections import Mapping
 #include <xnetwork.hpp>
-using namespace xn;
+as xn
 
 static const auto __all__ = {"AtlasView", "AdjacencyView", "MultiAdjacencyView",
            "UnionAtlas", "UnionAdjacency",

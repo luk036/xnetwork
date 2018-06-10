@@ -6,7 +6,7 @@ Ramsey numbers.
 //   Nicholas Mancuso <nick.mancuso@gmail.com>
 //   All rights reserved.
 //   BSD license.
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from ...utils import arbitrary_element
 
 static const auto __all__ = ["ramsey_R2"];

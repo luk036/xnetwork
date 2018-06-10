@@ -29,7 +29,7 @@ import io
 import zipfile
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 url = "http://www-personal.umich.edu/~mejn/netdata/football.zip"
 

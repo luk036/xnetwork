@@ -4,7 +4,7 @@ from itertools import combinations
 from nose.tools import *
 from nose.tools import assert_equal, assert_in
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.community import label_propagation_communities
 from xnetwork.algorithms.community import asyn_lpa_communities
 

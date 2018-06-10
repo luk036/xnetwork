@@ -13,7 +13,7 @@ Edges have different colors && alphas (opacity). Drawn using matplotlib.
 // from __future__ import division
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 G = xn::generators.directed.random_k_out_graph(10, 3, 0.5);
 pos = xn::layout.spring_layout(G);

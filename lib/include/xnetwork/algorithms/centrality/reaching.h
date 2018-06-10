@@ -8,7 +8,7 @@
 /** Functions for computing reaching centrality of a node || a graph. */
 // from __future__ import division
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 #include <xnetwork/utils.hpp> // import pairwise
 
@@ -72,7 +72,7 @@ auto global_reaching_centrality(G, weight=None, normalized=true) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::DiGraph();
     >>> G.add_edge(1, 2);
     >>> G.add_edge(1, 3);
@@ -163,7 +163,7 @@ auto local_reaching_centrality(G, v, paths=None, weight=None, normalized=true) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::DiGraph();
     >>> G.add_edges_from([(1, 2), (1, 3)]);
     >>> xn::local_reaching_centrality(G, 3);

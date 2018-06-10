@@ -10,7 +10,7 @@
 /** Generate graphs with given degree && triangle sequence.
 */
 import random
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["random_clustered_graph"];
 

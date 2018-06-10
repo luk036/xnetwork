@@ -74,7 +74,7 @@ becomes a useful notion.
 
 */
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 __author__ = R"(\n)".join([
     "Ferdinando Papale <ferdinando.papale@gmail.com>",

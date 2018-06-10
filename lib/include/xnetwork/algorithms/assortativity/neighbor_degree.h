@@ -4,7 +4,7 @@
 //    Wai-Shing Luk <luk036@gmail.com>
 //    All rights reserved.
 //    BSD license.
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 __author__ = R"(\n)".join(["Jordi Torrents <jtorrents@milnou.net>",
                             "Wai-Shing Luk (luk036@gmail.com)"]);
 static const auto __all__ = ["average_neighbor_degree"];

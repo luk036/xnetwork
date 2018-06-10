@@ -1,5 +1,5 @@
 from nose.tools import assert_true, assert_false, assert_raises
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestFilterFactory: public object {

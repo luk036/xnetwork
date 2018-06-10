@@ -8,7 +8,7 @@
 // information.
 /** Unit tests for the :mod:`xnetwork.generators.stochastic` module. */
 from nose.tools import assert_true, assert_equal, raises
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestStochasticGraph: public object {

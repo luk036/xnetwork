@@ -6,7 +6,7 @@ from unittest import TestCase
 
 from nose.tools import assert_equal
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 import xnetwork.readwrite.graph6 as g6
 from xnetwork.testing.utils import assert_edges_equal
 from xnetwork.testing.utils import assert_graphs_equal

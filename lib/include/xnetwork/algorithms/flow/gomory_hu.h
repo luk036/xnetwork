@@ -12,7 +12,7 @@
 /**
 Gomory-Hu tree of undirected Graphs.
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
 from .edmondskarp import edmonds_karp

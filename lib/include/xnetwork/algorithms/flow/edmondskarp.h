@@ -8,7 +8,7 @@ __author__ = R"(ysitu <ysitu@users.noreply.github.com>)"
 // All rights reserved.
 // BSD license.
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.flow.utils import *
 
 static const auto __all__ = ["edmonds_karp"];
@@ -221,7 +221,7 @@ auto edmonds_karp(G, s, t, capacity="capacity", residual=None, value_only=false,
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> from xnetwork.algorithms.flow import edmonds_karp
 
     The functions that implement flow algorithms && output a residual

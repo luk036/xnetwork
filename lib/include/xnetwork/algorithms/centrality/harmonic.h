@@ -9,7 +9,7 @@
 // from __future__ import division
 from functools import partial
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["harmonic_centrality"];
 

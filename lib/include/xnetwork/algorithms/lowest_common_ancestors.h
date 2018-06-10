@@ -13,7 +13,7 @@
 from collections import defaultdict, Mapping, Set
 from itertools import chain, count
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import arbitrary_element, not_implemented_for, \
     UnionFind, generate_unique_node
 
@@ -71,7 +71,7 @@ auto tree_all_pairs_lowest_common_ancestor(G, root=None, pairs=None) {
         // See note on all_pairs_lowest_common_ancestor.
         if (!isinstance(pairs, (Mapping, Set)) {
             pairs = set(pairs);
-        for (auto u, v : pairs) {
+        for (auto [u, v] : pairs) {
             for (auto n : (u, v) {
                 if (n not : G) {
                     const auto msg = "The node %s is not : the digraph." % str(n);

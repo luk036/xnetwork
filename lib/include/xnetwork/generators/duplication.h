@@ -19,7 +19,7 @@ generally inspired by biological networks.
 /**
 import random
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/exception.hpp> // import XNetworkError
 
 static const auto __all__ = ["partial_duplication_graph", "duplication_divergence_graph"];

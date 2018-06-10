@@ -12,7 +12,7 @@
 /** Functions for computing large cliques. */
 from operator import itemgetter
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 from xnetwork.algorithms.approximation import ramsey
 

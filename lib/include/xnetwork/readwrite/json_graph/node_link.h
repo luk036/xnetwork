@@ -8,7 +8,7 @@
 //    All rights reserved.
 //    BSD license.
 from itertools import chain, count
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import make_str, to_tuple
 static const auto __all__ = ["node_link_data", "node_link_graph"];
 
@@ -97,7 +97,7 @@ auto node_link_data(G, attrs=None) {
         data[links] = [
             dict(chain(d.items(),
                        [(source, u), (target, v)]));
-            for (auto u, v, d : G.edges(data=true)];
+            for (auto [u, v, d] : G.edges(data=true)];
     return data
 
 

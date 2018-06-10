@@ -33,7 +33,7 @@ import re
 import sys
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto miles_graph() {

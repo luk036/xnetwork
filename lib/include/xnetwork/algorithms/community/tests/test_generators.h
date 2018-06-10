@@ -16,7 +16,7 @@ from nose.tools import assert_equal
 from nose.tools import assert_true
 from nose.tools import raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.community import LFR_benchmark_graph
 from xnetwork.algorithms.community.community_utils import is_partition
 

@@ -11,7 +11,7 @@
 //          Christopher Ellison
 /** Connected components. */
 // import warnings as _warnings
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.utils.decorators import not_implemented_for
 from ...utils import arbitrary_element
 

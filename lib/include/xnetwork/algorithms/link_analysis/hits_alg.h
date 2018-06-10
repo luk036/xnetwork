@@ -8,7 +8,7 @@
 //    BSD license.
 //    XNetwork:http://xnetwork.github.io/
 #include <xnetwork.hpp>
-using namespace xn;
+as xn
 __author__ = R"( Wai-Shing Luk (luk036@gmail.com) )";
 static const auto __all__ = ["hits", "hits_numpy", "hits_scipy", "authority_matrix", "hub_matrix"];
 

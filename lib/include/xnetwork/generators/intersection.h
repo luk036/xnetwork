@@ -9,7 +9,7 @@ Generators for random intersection graphs.
 //    All rights reserved.
 //    BSD license.
 import random
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms import bipartite
 
 __author__ = "\n".join(["Wai-Shing Luk (luk036@gmail.com)"]);

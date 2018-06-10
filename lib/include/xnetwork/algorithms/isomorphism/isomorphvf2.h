@@ -150,7 +150,7 @@ polynomial-time algorithm is known to exist).
 //    Complexity Sciences Center && Physics Department, UC Davis.
 
 import sys
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["GraphMatcher",
            "DiGraphMatcher"];

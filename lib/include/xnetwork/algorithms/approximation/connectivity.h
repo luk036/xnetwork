@@ -7,7 +7,7 @@
 import itertools
 from operator import itemgetter
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 __author__ = R"(\n)".join(["Jordi Torrents <jtorrents@milnou.net>"]);
 
@@ -273,7 +273,7 @@ auto all_pairs_node_connectivity(G, nbunch=None, cutoff=None) {
 
     all_pairs = {n: {} for n : nbunch}
 
-    for (auto u, v : iter_func(nbunch, 2) {
+    for (auto [u, v] : iter_func(nbunch, 2) {
         k = local_node_connectivity(G, u, v, cutoff=cutoff);
         all_pairs[u][v] = k;
         if (!directed) {

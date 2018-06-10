@@ -41,7 +41,7 @@ static const auto __all__ = ["generate_multiline_adjlist",
            "read_multiline_adjlist"];
 
 #include <xnetwork/utils.hpp> // import make_str, open_file
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto generate_multiline_adjlist(G, delimiter=" ") {

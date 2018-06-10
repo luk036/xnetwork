@@ -13,7 +13,7 @@ from heapq import heappush, heappop
 from itertools import count
 import random
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["betweenness_centrality", "edge_betweenness_centrality",
            "edge_betweenness"];

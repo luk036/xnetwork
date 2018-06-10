@@ -13,7 +13,7 @@ Biadjacency matrices
 import itertools
 from xnetwork.convert import _prep_create_using
 from xnetwork.convert_matrix import _generate_weighted_edges
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 __author__ = R"(\n)".join(["Jordi Torrents <jtorrents@milnou.net>",
                             "Wai-Shing Luk <luk036@gmail.com>"]);
 static const auto __all__ = ["biadjacency_matrix", "from_biadjacency_matrix"];
@@ -102,7 +102,7 @@ auto biadjacency_matrix(G, row_order, column_order=None,
         row, col, data = [], [], [];
     } else {
         row, col, data = zip(*((row_index[u], col_index[v], d.get(weight, 1));
-                               for (auto u, v, d : G.edges(row_order, data=true);
+                               for (auto [u, v, d] : G.edges(row_order, data=true);
                                if (u : row_index && v : col_index));
     M = sparse.coo_matrix((data, (row, col)),
                           shape=(nlen, mlen), dtype=dtype);

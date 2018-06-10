@@ -14,7 +14,7 @@ Vitality measures.
 */
 from functools import partial
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["closeness_vitality"];
 

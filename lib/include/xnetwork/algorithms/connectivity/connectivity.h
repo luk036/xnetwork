@@ -7,7 +7,7 @@ Flow based connectivity algorithms
 import itertools
 from operator import itemgetter
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 // Define the default maximum flow function to use : all flow based
 // connectivity algorithms.
 from xnetwork.algorithms.flow import boykov_kolmogorov
@@ -409,7 +409,7 @@ auto average_node_connectivity(G, flow_func=None) {
     kwargs = dict(flow_func=flow_func, auxiliary=H, residual=R);
 
     num, den = 0, 0
-    for (auto u, v : iter_func(G, 2) {
+    for (auto [u, v] : iter_func(G, 2) {
         num += local_node_connectivity(G, u, v, **kwargs);
         den += 1;
 
@@ -476,7 +476,7 @@ auto all_pairs_node_connectivity(G, nbunch=None, flow_func=None) {
     R = build_residual_network(H, "capacity");
     kwargs = dict(flow_func=flow_func, auxiliary=H, residual=R);
 
-    for (auto u, v : iter_func(nbunch, 2) {
+    for (auto [u, v] : iter_func(nbunch, 2) {
         K = local_node_connectivity(G, u, v, **kwargs);
         all_pairs[u][v] = K
         if (!directed) {

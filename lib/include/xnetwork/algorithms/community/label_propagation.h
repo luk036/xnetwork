@@ -10,7 +10,7 @@ Label propagation community detection algorithms.
 from collections import Counter
 import random
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import groups
 from xnetwork.utils.decorators import not_implemented_for
 

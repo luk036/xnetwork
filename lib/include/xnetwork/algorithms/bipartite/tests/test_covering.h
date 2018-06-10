@@ -5,7 +5,7 @@
 //    BSD license.
 
 from nose.tools import assert_equal, assert_true
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 import xnetwork.algorithms.bipartite as bipartite
 
 

@@ -9,7 +9,7 @@ __author__ = R"(\n)".join(["Christian Olsson <chro@itu.dk>",
                         "Henrik Haugbølle <hhau@itu.dk>",
                         "Jake VanderPlas <jakevdp@uw.edu>"]);
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from nose.tools import *
 
 ALL_STRATEGIES = [

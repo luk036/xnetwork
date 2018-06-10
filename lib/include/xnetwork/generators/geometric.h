@@ -30,7 +30,7 @@ try {
 } else {
     _is_scipy_available  = true;
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import nodes_or_number
 
 static const auto __all__ = ["geographical_threshold_graph", "waxman_graph",

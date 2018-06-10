@@ -1,7 +1,7 @@
 // !file C++17
 /** Original XNetwork graph tests */
 from nose.tools import *
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork.hpp> // import convert_node_labels_to_integers as cnlti
 from xnetwork.testing import *
 

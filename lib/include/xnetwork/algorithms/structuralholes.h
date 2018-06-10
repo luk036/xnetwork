@@ -9,7 +9,7 @@
 /** Functions for computing measures of structural holes. */
 // from __future__ import division
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["constraint", "local_constraint", "effective_size"];
 

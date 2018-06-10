@@ -6,7 +6,7 @@ to use an spatial analogy referring to the two node sets as top && bottom nodes.
 The bipartite algorithms are not imported into the xnetwork namespace
 at the top level so the easiest way to use them is with) {
 
->>> #include <xnetwork.hpp>using namespace xn;
+>>> #include <xnetwork.hpp> // as xn
 >>> from xnetwork.algorithms import bipartite
 
 XNetwork does not have a custom bipartite graph class but the Graph();

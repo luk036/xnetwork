@@ -11,7 +11,7 @@ from nose.tools import assert_equal
 from nose.tools import assert_true
 from nose.tools import raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing.utils import *
 #include <xnetwork/utils.hpp> // import arbitrary_element
 

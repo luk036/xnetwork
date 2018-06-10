@@ -9,7 +9,7 @@
 // Authors: Wai-Shing Luk <luk036@gmail.com>
 //          Jordi Torrents <jtorrents@milnou.net>
 /** One-mode (unipartite) projections of bipartite graphs. */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
 static const auto __all__ = ["project",

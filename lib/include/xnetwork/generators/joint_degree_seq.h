@@ -8,7 +8,7 @@
 
 import random
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["is_valid_joint_degree",
            "joint_degree_graph"];
@@ -192,7 +192,7 @@ auto joint_degree_graph(joint_degrees, seed=None) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> joint_degrees = {1: {4: 1},
     ...                      2: {2: 2, 3: 2, 4: 2},
     ...                      3: {2: 2, 4: 1},

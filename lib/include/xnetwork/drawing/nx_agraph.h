@@ -25,7 +25,7 @@ Pygraphviz: http://pygraphviz.github.io/
 */
 import os
 import tempfile
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["from_agraph", "to_agraph",
            "write_dot", "read_dot",

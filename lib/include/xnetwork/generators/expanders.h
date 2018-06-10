@@ -6,7 +6,7 @@
 
 */
 import itertools
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["margulis_gabber_galil_graph", "chordal_cycle_graph"];
 

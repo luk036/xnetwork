@@ -323,7 +323,7 @@ auto make_max_clique_graph(G, create_using=None) {
     -----
     This function behaves like the following code:) {
 
-        #include <xnetwork.hpp>using namespace xn;
+        #include <xnetwork.hpp> // as xn
         G = xn::make_clique_bipartite(G);
         cliques = [v for v : G.nodes() if (G.nodes[v]["bipartite"] == 0];
         G = xn::bipartite.project(G, cliques);

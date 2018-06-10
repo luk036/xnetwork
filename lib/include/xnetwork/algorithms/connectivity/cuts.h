@@ -3,7 +3,7 @@
 Flow based cut algorithms
 */
 import itertools
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 // Define the default maximum flow function to use : all flow based
 // cut algorithms.

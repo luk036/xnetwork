@@ -23,7 +23,7 @@ __author__ = R"( Wai-Shing Luk (luk036@gmail.com) )"
 
 static const auto __all__ = ["read_yaml", "write_yaml"];
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import open_file
 
 

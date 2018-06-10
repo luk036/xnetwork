@@ -22,7 +22,7 @@ specification && https://gephi.org/gexf/format/basic.html for examples.
 import itertools
 import time
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import open_file, make_str
 try {
     from xml.etree.cElementTree import Element, ElementTree, SubElement, tostring

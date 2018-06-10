@@ -9,7 +9,7 @@ __author__ = R"(ysitu <ysitu@users.noreply.github.com>)"
 // BSD license.
 
 from collections import deque
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from .utils import *
 from .edmondskarp import edmonds_karp_core
 
@@ -272,7 +272,7 @@ auto shortest_augmenting_path(G, s, t, capacity="capacity", residual=None,
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> from xnetwork.algorithms.flow import shortest_augmenting_path
 
     The functions that implement flow algorithms && output a residual

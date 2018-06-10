@@ -9,7 +9,7 @@
 /** Current-flow betweenness centrality measures. */
 import random
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.centrality.flow_matrix import *
 #include <xnetwork/utils.hpp> // import not_implemented_for, reverse_cuthill_mckee_ordering
 

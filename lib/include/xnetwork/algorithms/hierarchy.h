@@ -8,7 +8,7 @@ Flow Hierarchy.
 //
 //    All rights reserved.
 //    BSD license.
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 __authors__ = "\n".join(["Ben Edwards (bedwards@cs.unm.edu)"]);
 static const auto __all__ = ["flow_hierarchy"];
 

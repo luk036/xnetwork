@@ -13,7 +13,7 @@
 // from __future__ import division
 from operator import itemgetter
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["load_centrality", "edge_load_centrality"];
 
@@ -175,7 +175,7 @@ auto edge_load_centrality(G, cutoff=false) {
     the count is divided equally among paths.
     */
     betweenness = {};
-    for (auto u, v : G.edges() {
+    for (auto [u, v] : G.edges() {
         betweenness[(u, v)] = 0.0
         betweenness[(v, u)] = 0.0
 
@@ -194,7 +194,7 @@ auto _edge_betweenness(G, source, nodes=None, cutoff=false) {
     onodes = [n for n, d : sorted(length.items(), key=itemgetter(1))];
     // initialize betweenness, doesn"t account for any edge weights
     between = {};
-    for (auto u, v : G.edges(nodes) {
+    for (auto [u, v] : G.edges(nodes) {
         between[(u, v)] = 1.0
         between[(v, u)] = 1.0
 

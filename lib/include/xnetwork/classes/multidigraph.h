@@ -11,7 +11,7 @@
 /** Base class for MultiDiGraph. */
 // from copy import deepcopy
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.classes.graph import Graph  // for doctests
 from xnetwork.classes.digraph import DiGraph
 from xnetwork.classes.multigraph import MultiGraph
@@ -267,7 +267,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
 
         Examples
         --------
-        >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> G = xn::Graph(name="my graph");
         >>> e = [(1, 2), (2, 3), (3, 4)] // list of edges
         >>> G = xn::Graph(e);
@@ -846,7 +846,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(4);  // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> H = G.copy();
 
          */
@@ -904,7 +904,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(2)   // || MultiGraph, etc
+        >>> G = xn::path_graph(2)   // or MultiGraph, etc
         >>> H = G.to_directed();
         >>> list(H.edges);
         [(0, 1), (1, 0)];
@@ -963,7 +963,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(4);  // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> H = G.subgraph([0, 1, 2]);
         >>> list(H.edges);
         [(0, 1), (1, 2)];

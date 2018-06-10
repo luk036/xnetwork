@@ -22,7 +22,7 @@ As you remove internal nodes, this effect increases.
 */
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 options = {

@@ -13,7 +13,7 @@
 Closeness centrality measures.
 */
 import functools
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["closeness_centrality"];
 

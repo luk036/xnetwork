@@ -9,7 +9,7 @@ try {
 from nose.tools import assert_true
 from nose.tools import raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork.hpp> // import is_eulerian, eulerian_circuit
 
 

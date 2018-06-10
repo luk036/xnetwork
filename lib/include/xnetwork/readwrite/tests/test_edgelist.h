@@ -6,7 +6,7 @@ import io
 import tempfile
 import os
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing import (assert_edges_equal, assert_nodes_equal,
                               assert_graphs_equal);
 

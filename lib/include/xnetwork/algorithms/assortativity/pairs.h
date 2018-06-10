@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
 /** Generators of  x-y pairs of node data. */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 __author__ = " ".join(["Wai-Shing Luk <luk036@gmail.com>"]);
 static const auto __all__ = ["node_attribute_xy",
            "node_degree_xy"];

@@ -1,6 +1,6 @@
 // Helpers for current-flow betweenness && current-flow closness
 // Lazy computations for inverse Laplacian && flow-matrix rows.
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto flow_matrix_row(G, weight=None, dtype=double, solver="lu") {
@@ -17,7 +17,7 @@ auto flow_matrix_row(G, weight=None, dtype=double, solver="lu") {
     C = solvername[solver](L, dtype=dtype);  // initialize solver
     w = C.w  // w is the Laplacian matrix width
     // row-by-row flow matrix
-    for (auto u, v : sorted(sorted((u, v)) for u, v : G.edges()) {
+    for (auto [u, v] : sorted(sorted((u, v)) for u, v : G.edges()) {
         B = np.zeros(w, dtype=dtype);
         c = G[u][v].get(weight, 1.0);
         B[u % w] = c

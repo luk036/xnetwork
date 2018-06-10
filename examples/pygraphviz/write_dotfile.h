@@ -22,7 +22,7 @@ for (auto more info.
 //    All rights reserved.
 //    BSD license.
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 // && the following code block is not needed
 // but we want to see which module is used &&

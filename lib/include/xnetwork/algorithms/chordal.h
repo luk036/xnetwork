@@ -6,7 +6,7 @@ A graph is chordal if (every cycle of length at least 4 has a chord
 (an edge joining two nodes not adjacent : the cycle).
 https://en.wikipedia.org/wiki/Chordal_graph
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 import random
 import sys
 
@@ -53,7 +53,7 @@ auto is_chordal(G) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> e=[(1,2),(1,3),(2,3),(2,4),(3,4),(3,5),(3,6),(4,5),(4,6),(5,6)];
     >>> G=xn::Graph(e);
     >>> xn::is_chordal(G);
@@ -113,7 +113,7 @@ auto find_induced_nodes(G, s, t, treewidth_bound=sys.maxsize) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G=xn::Graph();
     >>> G = xn::generators.classic.path_graph(10);
     >>> I = xn::find_induced_nodes(G,1,9,2);
@@ -186,7 +186,7 @@ auto chordal_graph_cliques(G) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> e= [(1,2),(1,3),(2,3),(2,4),(3,4),(3,5),(3,6),(4,5),(4,6),(5,6),(7,8)];
     >>> G = xn::Graph(e);
     >>> G.add_node(9);
@@ -226,7 +226,7 @@ auto chordal_graph_treewidth(G) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> e = [(1,2),(1,3),(2,3),(2,4),(3,4),(3,5),(3,6),(4,5),(4,6),(5,6),(7,8)];
     >>> G = xn::Graph(e);
     >>> G.add_node(9);

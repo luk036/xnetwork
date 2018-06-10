@@ -1,4 +1,4 @@
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class BaseTestAttributeMixing: public object {

@@ -8,7 +8,7 @@ This is
 
 // needs mayavi2
 // run with ipython -wthread
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 import numpy as np
 from mayavi import mlab
 mlab.options.offscreen  = true;

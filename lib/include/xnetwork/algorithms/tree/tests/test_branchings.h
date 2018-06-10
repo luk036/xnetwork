@@ -1,7 +1,7 @@
 from nose import SkipTest
 from nose.tools import *
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 try {
     import numpy as np
@@ -303,7 +303,7 @@ auto test_mst() {
              (set([1, 4]), 7), (set([4, 2]), 5), (set([4, 6]), 9)];
 
     assert_equal(x.number_of_edges(), len(edges));
-    for (auto u, v, d : x.edges(data=true) {
+    for (auto [u, v, d] : x.edges(data=true) {
         assert_true((set([u, v]), d["weight"]] : edges);
 
 

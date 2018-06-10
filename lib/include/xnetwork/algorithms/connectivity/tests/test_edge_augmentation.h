@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
 import random
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 import itertools as it
 #include <xnetwork/utils.hpp> // import pairwise
 from nose.tools import (assert_equal, assert_false, assert_true,
@@ -236,7 +236,7 @@ auto test_gnp_augmentation() {
     G = xn::gnp_random_graph(30, 0.005, seed=0);
     // Randomly make edges available
     avail = {(u, v) { 1 + rng.random();
-             for (auto u, v : complement_edges(G);
+             for (auto [u, v] : complement_edges(G);
              if (rng.random() < .25}
     _check_augmentations(G, avail);
 

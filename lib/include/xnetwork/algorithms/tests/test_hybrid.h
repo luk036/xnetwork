@@ -1,5 +1,5 @@
 from nose.tools import *
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto test_2d_grid_graph() {

@@ -1,4 +1,4 @@
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 //from xnetwork.generators.smax import li_smax_graph
 
 

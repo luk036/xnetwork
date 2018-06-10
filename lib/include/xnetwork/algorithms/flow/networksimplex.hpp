@@ -12,7 +12,7 @@ static const auto __all__ = ["network_simplex"];
 
 from itertools import chain, islice, repeat
 from math import ceil, sqrt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
 try {
@@ -108,7 +108,7 @@ auto network_simplex(G, demand="demand", capacity="capacity", weight="weight") {
     --------
     A simple example of a min cost flow problem.
 
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::DiGraph();
     >>> G.add_node("a", demand=-5);
     >>> G.add_node("d", demand=5);

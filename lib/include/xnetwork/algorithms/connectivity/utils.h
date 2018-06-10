@@ -2,7 +2,7 @@
 /**
 Utilities for connectivity package
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 __author__ = "\n".join(["Jordi Torrents <jtorrents@milnou.net>"]);
 

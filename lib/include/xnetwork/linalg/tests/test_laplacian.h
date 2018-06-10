@@ -1,6 +1,6 @@
 from nose import SkipTest
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.generators.degree_seq import havel_hakimi_graph
 
 

@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from nose.tools import assert_equal, assert_raises
 import os
 

@@ -67,7 +67,7 @@ Handles directed && undirected graphs && graphs with parallel edges.
 */
 
 from __future__ import absolute_import
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from datetime import datetime, timedelta
 from .isomorphvf2 import GraphMatcher, DiGraphMatcher
 

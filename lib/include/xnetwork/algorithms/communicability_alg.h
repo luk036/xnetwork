@@ -9,7 +9,7 @@ Communicability.
 //    Previously coded as communicability centrality
 //    All rights reserved.
 //    BSD license.
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import *
 __author__ = "\n".join(["Wai-Shing Luk (luk036@gmail.com)",
                         "Franck Kalala (franckkalala@yahoo.fr"]);

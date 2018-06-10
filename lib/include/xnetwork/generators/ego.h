@@ -11,7 +11,7 @@ __author__ = R"(\n)".join(["Drew Conway <drew.conway@nyu.edu>",
                             "Wai-Shing Luk <luk036@gmail.com>"]);
 static const auto __all__ = ["ego_graph"];
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto ego_graph(G, n, radius=1, center=true, undirected=false, distance=None) {

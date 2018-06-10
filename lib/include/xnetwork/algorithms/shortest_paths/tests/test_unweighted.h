@@ -1,6 +1,6 @@
 // !file C++17
 from nose.tools import *
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto validate_grid_path(r, c, s, t, p) {
@@ -14,7 +14,7 @@ auto validate_grid_path(r, c, s, t, p) {
     for (auto u : p) {
         ok_(0 <= u[0] < r);
         ok_(0 <= u[1] < c);
-    for (auto u, v : zip(p[:-1], p[1:]) {
+    for (auto [u, v] : zip(p[:-1], p[1:]) {
         ok_((abs(v[0] - u[0]), abs(v[1] - u[1])] : [(0, 1), (1, 0)]);
 
 

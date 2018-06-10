@@ -18,7 +18,7 @@ Cycle finding algorithms
 from collections import defaultdict
 from itertools import tee
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for, pairwise
 from xnetwork.algorithms.traversal.edgedfs import helper_funcs
 
@@ -383,7 +383,7 @@ auto find_cycle(G, source=None, orientation="original") {
     This means that this DAG structure does not form a directed tree (which
     is also known as a polytree).
 
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::DiGraph([(0, 1), (0, 2), (1, 2)]);
     >>> ) {
     ...    xn::find_cycle(G, orientation="original");

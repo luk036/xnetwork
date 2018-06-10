@@ -3,7 +3,7 @@ from itertools import combinations
 from nose.tools import assert_equal
 from nose.tools import raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.community import (
     greedy_modularity_communities,
     _naive_greedy_modularity_communities);

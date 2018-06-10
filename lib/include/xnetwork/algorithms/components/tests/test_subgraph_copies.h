@@ -2,7 +2,7 @@
 */
 // from copy import deepcopy
 from nose.tools import assert_equal
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 // deprecated : 2.1 for removal : 2.2
 

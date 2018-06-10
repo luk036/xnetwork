@@ -6,7 +6,7 @@ Eigenvalues
 Create an G{n,m} random graph && compute the eigenvalues.
 */
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 import numpy.linalg
 
 n = 1000  // 1000 nodes

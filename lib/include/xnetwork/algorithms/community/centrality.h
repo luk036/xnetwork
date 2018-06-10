@@ -9,7 +9,7 @@
 // information.
 /** Functions for computing communities based on centrality notions. */
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["girvan_newman"];
 

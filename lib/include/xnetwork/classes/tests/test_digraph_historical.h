@@ -2,7 +2,7 @@
 /** Original XNetwork graph tests */
 from nose.tools import *
 import xnetwork
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing.utils import *
 
 from historical_tests import HistoricalTests

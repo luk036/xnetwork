@@ -25,7 +25,7 @@ from itertools import chain
 import math
 import sys
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/exception.hpp> // import XNetworkError
 #include <xnetwork/utils.hpp> // import open_file, not_implemented_for
 from xnetwork.readwrite.graph6 import data_to_n, n_to_data;

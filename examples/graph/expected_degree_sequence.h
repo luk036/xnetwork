@@ -15,7 +15,7 @@ Random graph from given degree sequence.
 //    All rights reserved.
 //    BSD license.
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.generators.degree_seq import expected_degree_graph
 
 // make a random graph of 500 nodes with expected degrees of 50

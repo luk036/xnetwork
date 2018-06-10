@@ -1,7 +1,7 @@
 from collections import defaultdict
 from nose.tools import *
 from nose import SkipTest
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.communicability_alg import *
 
 

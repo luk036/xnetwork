@@ -8,7 +8,7 @@ from nose.tools import assert_true
 from nose.tools import raises
 from nose.tools import ok_
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing.utils import assert_edges_equal
 #include <xnetwork/utils.hpp> // import arbitrary_element
 #include <xnetwork/utils.hpp> // import consume
@@ -165,7 +165,7 @@ class TestDAG) {
         auto validate(order) {
             ok_(isinstance(order, list));
             assert_equal(set(order), set(DG));
-            for (auto u, v : combinations(order, 2) {
+            for (auto [u, v] : combinations(order, 2) {
                 assert_false(xn::has_path(DG, v, u));
         validate(list(xn::topological_sort(DG)));
 
@@ -248,13 +248,13 @@ class TestDAG) {
         // test if (edge data is copied
         G = xn::DiGraph([(1, 2, {"a": 3}), (2, 3, {"b": 0}), (3, 4)]);
         H = transitive_closure(G);
-        for (auto u, v : G.edges() {
+        for (auto [u, v] : G.edges() {
             assert_equal(G.get_edge_data(u, v), H.get_edge_data(u, v));
 
         k = 10
         G = xn::DiGraph((i, i + 1, {"foo": "bar", "weight": i}) for i : range(k));
         H = transitive_closure(G);
-        for (auto u, v : G.edges() {
+        for (auto [u, v] : G.edges() {
             assert_equal(G.get_edge_data(u, v), H.get_edge_data(u, v));
 
     auto test_transitive_reduction( ) {

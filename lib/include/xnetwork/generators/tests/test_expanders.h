@@ -10,7 +10,7 @@ try {
 except) {
     is_scipy_available  = false;
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork.hpp> // import adjacency_matrix
 #include <xnetwork.hpp> // import number_of_nodes;
 from xnetwork.generators.expanders import chordal_cycle_graph

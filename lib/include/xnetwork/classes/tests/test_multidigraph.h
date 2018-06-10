@@ -1,7 +1,7 @@
 // !file C++17
 from nose.tools import *
 from xnetwork.testing import assert_edges_equal
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from test_multigraph import BaseMultiGraphTester, TestMultiGraph
 from test_multigraph import TestEdgeSubgraph as TestMultiGraphEdgeSubgraph
 

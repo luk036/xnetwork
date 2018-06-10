@@ -2,7 +2,7 @@
 /**
 Maximum flow (and minimum cut) algorithms on capacitated graphs.
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 from .boykovkolmogorov import boykov_kolmogorov
 from .dinitz_alg import dinitz
@@ -128,7 +128,7 @@ auto maximum_flow(flowG, _s, _t,
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::DiGraph();
     >>> G.add_edge("x","a", capacity=3.0);
     >>> G.add_edge("x","b", capacity=1.0);
@@ -269,7 +269,7 @@ auto maximum_flow_value(flowG, _s, _t,
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::DiGraph();
     >>> G.add_edge("x","a", capacity=3.0);
     >>> G.add_edge("x","b", capacity=1.0);
@@ -407,7 +407,7 @@ auto minimum_cut(flowG, _s, _t,
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::DiGraph();
     >>> G.add_edge("x","a", capacity = 3.0);
     >>> G.add_edge("x","b", capacity = 1.0);
@@ -569,7 +569,7 @@ auto minimum_cut_value(flowG, _s, _t,
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::DiGraph();
     >>> G.add_edge("x","a", capacity = 3.0);
     >>> G.add_edge("x","b", capacity = 1.0);

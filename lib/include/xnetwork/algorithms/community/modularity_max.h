@@ -17,7 +17,7 @@
 */
 // from __future__ import division
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.community.quality import modularity
 
 from xnetwork.utils.mapped_queue import MappedQueue

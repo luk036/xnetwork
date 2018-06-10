@@ -1,6 +1,6 @@
 from nose.tools import *
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 edge_dfs = xn::algorithms.edge_dfs
 FORWARD = xn::algorithms.edgedfs.FORWARD
 REVERSE = xn::algorithms.edgedfs.REVERSE

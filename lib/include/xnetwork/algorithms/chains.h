@@ -9,7 +9,7 @@
 // information.
 /** Functions for finding chains : a graph. */
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
 
@@ -97,7 +97,7 @@ auto chain_decomposition(G, root=None) {
         // search : the `nodes` list.
         H = xn::DiGraph();
         nodes = [];
-        for (auto u, v, d : xn::dfs_labeled_edges(G, source=root) {
+        for (auto [u, v, d] : xn::dfs_labeled_edges(G, source=root) {
             if (d == "forward") {
                 // `dfs_labeled_edges()` yields (root, root, "forward");
                 // if (it is beginning the search on a new connected
@@ -161,7 +161,7 @@ auto chain_decomposition(G, root=None) {
         visited.add(u);
         // For each nontree edge going out of node u...
         edges = ((u, v) for u, v, d : H.out_edges(u, data="nontree") if (d);
-        for (auto u, v : edges) {
+        for (auto [u, v] : edges) {
             // Create the cycle || cycle prefix starting with the
             // nontree edge.
             chain = list(_build_chain(H, u, v, visited));

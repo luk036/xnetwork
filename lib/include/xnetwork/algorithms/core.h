@@ -31,7 +31,7 @@ D-cores: Measuring Collaboration of Directed Graphs Based on Degeneracy
 Christos Giatsidis, Dimitrios M. Thilikos, Michalis Vazirgiannis, ICDM 2011.
 http://www.graphdegeneracy.org/dcores_ICDM_2011.pdf
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/exception.hpp> // import XNetworkError
 #include <xnetwork/utils.hpp> // import not_implemented_for
 

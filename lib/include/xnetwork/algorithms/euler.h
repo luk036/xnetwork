@@ -13,7 +13,7 @@
 /**
 Eulerian circuits && graphs.
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 from ..utils import arbitrary_element
 
@@ -173,11 +173,11 @@ auto eulerian_circuit(G, source=None, keys=false) {
     if (source.empty()) {
         source = arbitrary_element(G);
     if (G.is_multigraph() {
-        for (auto u, v, k : _multigraph_eulerian_circuit(G, source) {
+        for (auto [u, v, k] : _multigraph_eulerian_circuit(G, source) {
             if (keys) {
                 yield u, v, k
             } else {
                 yield u, v
     } else {
-        for (auto u, v : _simplegraph_eulerian_circuit(G, source) {
+        for (auto [u, v] : _simplegraph_eulerian_circuit(G, source) {
             yield u, v

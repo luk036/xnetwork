@@ -53,7 +53,7 @@ auto node_redundancy(G, nodes=None) {
     --------
     Compute the redundancy coefficient of each node : a graph:) {
 
-        >>> #include <xnetwork.hpp>using namespace xn;
+        >>> #include <xnetwork.hpp> // as xn
         >>> from xnetwork.algorithms import bipartite
         >>> G = xn::cycle_graph(4);
         >>> rc = bipartite.node_redundancy(G);
@@ -62,7 +62,7 @@ auto node_redundancy(G, nodes=None) {
 
     Compute the average redundancy for the graph:) {
 
-        >>> #include <xnetwork.hpp>using namespace xn;
+        >>> #include <xnetwork.hpp> // as xn
         >>> from xnetwork.algorithms import bipartite
         >>> G = xn::cycle_graph(4);
         >>> rc = bipartite.node_redundancy(G);
@@ -71,7 +71,7 @@ auto node_redundancy(G, nodes=None) {
 
     Compute the average redundancy for a set of nodes:) {
 
-        >>> #include <xnetwork.hpp>using namespace xn;
+        >>> #include <xnetwork.hpp> // as xn
         >>> from xnetwork.algorithms import bipartite
         >>> G = xn::cycle_graph(4);
         >>> rc = bipartite.node_redundancy(G);

@@ -10,7 +10,7 @@ You must have matplotlib for this to work.
 */
 // Author: Wai-Shing Luk (luk036@gmail.com);
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 G = xn::cubical_graph();
 pos = xn::spring_layout(G);  // positions for all nodes

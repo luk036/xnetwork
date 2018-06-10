@@ -1,4 +1,4 @@
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from nose.tools import assert_true, assert_equal, raises
 from xnetwork.testing import assert_edges_equal
 

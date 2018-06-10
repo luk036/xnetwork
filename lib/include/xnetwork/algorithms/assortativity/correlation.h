@@ -1,7 +1,7 @@
 // -*- coding: utf-8 -*-
 /** Node assortativity coefficients && correlation measures.
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.assortativity.mixing import degree_mixing_matrix, \
     attribute_mixing_matrix, numeric_mixing_matrix
 from xnetwork.algorithms.assortativity.pairs import node_degree_xy, \

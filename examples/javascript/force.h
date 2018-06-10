@@ -16,7 +16,7 @@ Example of writing JSON format graph data && using the D3 Javascript library to 
 import json
 
 import flask
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.readwrite import json_graph
 
 G = xn::barbell_graph(6, 3);

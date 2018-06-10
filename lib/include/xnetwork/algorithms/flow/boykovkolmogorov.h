@@ -14,7 +14,7 @@ Boykov-Kolmogorov algorithm for maximum flow problems.
 from collections import deque
 from operator import itemgetter
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.flow.utils import build_residual_network
 
 static const auto __all__ = ["boykov_kolmogorov"];
@@ -114,7 +114,7 @@ auto boykov_kolmogorov(G, s, t, capacity="capacity", residual=None,
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> from xnetwork.algorithms.flow import boykov_kolmogorov
 
     The functions that implement flow algorithms && output a residual

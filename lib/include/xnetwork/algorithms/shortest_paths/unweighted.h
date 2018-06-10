@@ -10,7 +10,7 @@
 /**
 Shortest path algorithms for unweighted graphs.
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["bidirectional_shortest_path",
            "single_source_shortest_path",

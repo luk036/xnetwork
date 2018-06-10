@@ -23,7 +23,7 @@ For more information, see the `graph6`_ homepage.
 from itertools import islice
 import sys
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/exception.hpp> // import XNetworkError
 #include <xnetwork/utils.hpp> // import open_file, not_implemented_for
 

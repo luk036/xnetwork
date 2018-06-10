@@ -15,7 +15,7 @@ module.
 from nose.tools import assert_equal
 from nose.tools import assert_almost_equal
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork.hpp> // import barbell_graph
 from xnetwork.algorithms.community import coverage
 from xnetwork.algorithms.community import modularity

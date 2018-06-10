@@ -6,7 +6,7 @@ import io
 from nose.tools import assert_equal, assert_raises, assert_not_equal
 import os
 import tempfile
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing import (assert_nodes_equal, assert_edges_equal,
                               assert_graphs_equal);
 

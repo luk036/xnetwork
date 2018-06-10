@@ -36,7 +36,7 @@ static const auto __all__ = ["make_small_graph",
            "truncated_tetrahedron_graph",
            "tutte_graph"];
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.generators.classic import empty_graph, cycle_graph, path_graph, complete_graph
 #include <xnetwork/exception.hpp> // import XNetworkError
 

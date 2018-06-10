@@ -82,7 +82,7 @@ for (auto its solution.
 keywords: "3n+1", "3x+1", "Collatz problem", "Thwaite"s conjecture"
 */
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 nmax = 10000
 p = 3

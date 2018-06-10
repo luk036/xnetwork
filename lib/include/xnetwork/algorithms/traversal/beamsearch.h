@@ -8,7 +8,7 @@
 // information.
 /** Basic algorithms for breadth-first searching the nodes of a graph. */
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from .breadth_first_search import generic_bfs_edges
 
 static const auto __all__ = ["bfs_beam_edges"];

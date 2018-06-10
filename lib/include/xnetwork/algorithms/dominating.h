@@ -2,7 +2,7 @@
 /** Functions for computing dominating sets : a graph. */
 from itertools import chain
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import arbitrary_element
 
 __author__ = "\n".join(["Jordi Torrents <jtorrents@milnou.net>"]);

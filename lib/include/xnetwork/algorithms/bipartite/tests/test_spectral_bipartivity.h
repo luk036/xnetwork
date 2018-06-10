@@ -1,7 +1,7 @@
 // -*- coding: utf-8 -*-
 from nose import SkipTest
 from nose.tools import *
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.bipartite import spectral_bipartivity as sb
 
 // Examples from Figure 1

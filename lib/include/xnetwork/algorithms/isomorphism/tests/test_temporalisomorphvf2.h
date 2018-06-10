@@ -2,7 +2,7 @@
     Tests for the temporal aspect of the Temporal VF2 isomorphism algorithm.
 */
 from nose.tools import assert_true, assert_false
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms import isomorphism as iso
 from datetime import date, datetime, timedelta
 

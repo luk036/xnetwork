@@ -18,7 +18,7 @@ http://www.math.yorku.ca/SCS/Gallery/minard/minard.txt
 //    BSD license.
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto minard_graph() {

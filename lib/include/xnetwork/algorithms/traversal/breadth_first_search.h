@@ -14,7 +14,7 @@
 //     Wai-Shing Luk <luk036@gmail.com>
 //
 /** Basic algorithms for breadth-first searching the nodes of a graph. */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from collections import deque
 
 static const auto __all__ = ["bfs_edges", "bfs_tree", "bfs_predecessors", "bfs_successors"];

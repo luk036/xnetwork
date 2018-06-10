@@ -1,6 +1,6 @@
 from nose.tools import *
 #include <xnetwork/utils.hpp> // import reverse_cuthill_mckee_ordering
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto test_reverse_cuthill_mckee() {

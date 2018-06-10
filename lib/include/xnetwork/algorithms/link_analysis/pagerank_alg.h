@@ -6,7 +6,7 @@
 //    All rights reserved.
 //    BSD license.
 //    XNetwork:http://xnetwork.github.io/
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 __author__ = R"(\n)".join(["Wai-Shing Luk <luk036@gmail.com>",
                             "Brandon Liu <brandon.k.liu@gmail.com"]);

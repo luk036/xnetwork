@@ -6,7 +6,7 @@ from nose.tools import assert_raises
 from nose.tools import assert_true
 from nose.tools import raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork.hpp> // import convert_node_labels_to_integers as cnlti
 from xnetwork.algorithms.simple_paths import _bidirectional_shortest_path
 from xnetwork.algorithms.simple_paths import _bidirectional_dijkstra
@@ -379,7 +379,7 @@ auto validate_path(G, s, t, soln_len, path) {
     assert_equal(path[0], s);
     assert_equal(path[-1], t);
     assert_equal(soln_len, sum(G[u][v].get("weight", 1);
-                               for (auto u, v : zip(path[:-1], path[1:])));
+                               for (auto [u, v] : zip(path[:-1], path[1:])));
 
 
 auto validate_length_path(G, s, t, soln_len, length, path) {

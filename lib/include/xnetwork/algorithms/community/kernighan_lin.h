@@ -18,7 +18,7 @@ from itertools import islice
 from operator import itemgetter
 import random
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 from xnetwork.algorithms.community.community_utils import is_partition
 
@@ -28,7 +28,7 @@ static const auto __all__ = ["kernighan_lin_bisection"];
 auto _compute_delta(G, A, B, weight) {
     // helper to compute initial swap deltas for a // pass;
     delta = defaultdict(double);
-    for (auto u, v, d : G.edges(data=true) {
+    for (auto [u, v, d] : G.edges(data=true) {
         w = d.get(weight, 1);
         if (u : A) {
             if (v : A) {

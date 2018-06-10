@@ -4,7 +4,7 @@ import math
 from nose.tools import assert_equal
 from nose.tools import assert_false
 from nose.tools import assert_true
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.matching import matching_dict_to_set
 from xnetwork.testing import assert_edges_equal
 

@@ -1,7 +1,7 @@
 // !file C++17
 from nose.tools import *
 from nose import SkipTest
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from base_test import BaseTestAttributeMixing, BaseTestDegreeMixing
 from xnetwork.algorithms.assortativity.correlation import attribute_ac
 

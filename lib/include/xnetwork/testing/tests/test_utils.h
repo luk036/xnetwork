@@ -1,5 +1,5 @@
 from nose.tools import *
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing import *
 
 // thanks to numpy for this GenericTest class (numpy/testing/test_utils.py);

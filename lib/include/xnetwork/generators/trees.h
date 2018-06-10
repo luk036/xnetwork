@@ -10,7 +10,7 @@
 import random
 from collections import defaultdict
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import generate_unique_node
 
 static const auto __all__ = ["prefix_tree", "random_tree"];

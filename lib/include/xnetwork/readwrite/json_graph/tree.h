@@ -5,7 +5,7 @@
 //    All rights reserved.
 //    BSD license.
 from itertools import chain
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import make_str
 __author__ = R"( Wai-Shing Luk (luk036@gmail.com)) */
 static const auto __all__ = ["tree_data", "tree_graph"];

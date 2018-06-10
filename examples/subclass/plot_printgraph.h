@@ -19,7 +19,7 @@ __docformat__ = "restructuredtext en"
 // from copy import deepcopy
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork.hpp> // import Graph
 
 class PrintGraph(Graph) {

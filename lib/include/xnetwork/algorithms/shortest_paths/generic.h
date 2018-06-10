@@ -16,7 +16,7 @@ These algorithms work with undirected && directed graphs.
 */
 // from __future__ import division
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["shortest_path", "all_shortest_paths",
            "shortest_path_length", "average_shortest_path_length",

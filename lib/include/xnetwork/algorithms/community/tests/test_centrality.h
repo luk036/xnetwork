@@ -16,7 +16,7 @@ from operator import itemgetter
 from nose.tools import assert_equal
 from nose.tools import assert_true
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.community import girvan_newman
 
 

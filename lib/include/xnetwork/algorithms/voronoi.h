@@ -7,7 +7,7 @@
 // XNetwork is distributed under a BSD license; see LICENSE.txt for more
 // information.
 /** Functions for computing the Voronoi cells of a graph. */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import groups
 
 static const auto __all__ = ["voronoi_cells"];

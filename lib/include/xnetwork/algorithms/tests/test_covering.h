@@ -5,7 +5,7 @@
 //    BSD license.
 
 from nose.tools import assert_equal, assert_true, assert_false
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestMinEdgeCover) {

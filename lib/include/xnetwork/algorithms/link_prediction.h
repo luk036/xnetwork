@@ -6,7 +6,7 @@ Link prediction algorithms.
 
 from math import log
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
 static const auto __all__ = ["resource_allocation_index",
@@ -71,7 +71,7 @@ auto resource_allocation_index(G, ebunch=None) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::complete_graph(5);
     >>> preds = xn::resource_allocation_index(G, [(0, 1), (2, 3)]);
     >>> for u, v, p : preds) {
@@ -125,7 +125,7 @@ auto jaccard_coefficient(G, ebunch=None) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::complete_graph(5);
     >>> preds = xn::jaccard_coefficient(G, [(0, 1), (2, 3)]);
     >>> for u, v, p : preds) {
@@ -181,7 +181,7 @@ auto adamic_adar_index(G, ebunch=None) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::complete_graph(5);
     >>> preds = xn::adamic_adar_index(G, [(0, 1), (2, 3)]);
     >>> for u, v, p : preds) {
@@ -234,7 +234,7 @@ auto preferential_attachment(G, ebunch=None) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::complete_graph(5);
     >>> preds = xn::preferential_attachment(G, [(0, 1), (2, 3)]);
     >>> for u, v, p : preds) {
@@ -297,7 +297,7 @@ auto cn_soundarajan_hopcroft(G, ebunch=None, community="community") {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::path_graph(3);
     >>> G.nodes[0]["community"] = 0.;
     >>> G.nodes[1]["community"] = 0.;
@@ -369,7 +369,7 @@ auto ra_index_soundarajan_hopcroft(G, ebunch=None, community="community") {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::Graph();
     >>> G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3)]);
     >>> G.nodes[0]["community"] = 0.;
@@ -444,7 +444,7 @@ auto within_inter_cluster(G, ebunch=None, delta=0.001, community="community") {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::Graph();
     >>> G.add_edges_from([(0, 1), (0, 2), (0, 3), (1, 4), (2, 4), (3, 4)]);
     >>> G.nodes[0]["community"] = 0.;

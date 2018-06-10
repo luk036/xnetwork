@@ -6,7 +6,7 @@
 //
 //    All rights reserved.
 //    BSD license.
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 __author__ = "\n".join(["Wai-Shing Luk <luk036@gmail.com>",
                         "Pieter Swart (swart@lanl.gov)",

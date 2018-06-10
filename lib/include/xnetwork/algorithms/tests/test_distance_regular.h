@@ -2,7 +2,7 @@ from nose.tools import assert_equal
 from nose.tools import assert_false
 from nose.tools import assert_true
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork.hpp> // import is_strongly_regular
 
 

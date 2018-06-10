@@ -3,7 +3,7 @@ from nose.tools import assert_equal
 import os
 import tempfile
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing.utils import *
 
 

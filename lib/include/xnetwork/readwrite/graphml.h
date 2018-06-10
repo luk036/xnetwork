@@ -61,7 +61,7 @@ try {
 } catch (ImportError) {
     lxmletree = None;
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import open_file, make_str
 
 static const auto __all__ = ["write_graphml", "read_graphml", "generate_graphml",
@@ -649,7 +649,7 @@ class GraphMLWriterLxml(GraphMLWriter) {
                 this->get_key(make_str(k), T, "edge", edge_default.get(k));
         } else {
             attributes = {};
-            for (auto u, v, d : G.edges(data=true) {
+            for (auto [u, v, d] : G.edges(data=true) {
                 for (auto k, v : d.items() {
                     this->attribute_types[(make_str(k), "edge")].add(type(v));
                     if (k not : attributes) {

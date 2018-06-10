@@ -6,7 +6,7 @@
 
 /** Functions related to graph covers. */
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for, arbitrary_element
 from functools import partial
 from itertools import chain

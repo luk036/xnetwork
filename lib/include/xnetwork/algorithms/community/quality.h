@@ -15,7 +15,7 @@ communities).
 from functools import wraps
 from itertools import product
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork.hpp> // import XNetworkError
 #include <xnetwork/utils.hpp> // import not_implemented_for
 from xnetwork.algorithms.community.community_utils import is_partition

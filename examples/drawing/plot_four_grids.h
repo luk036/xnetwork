@@ -17,7 +17,7 @@ You must have matplotlib for this to work.
 //    BSD license.
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 G = xn::grid_2d_graph(4, 4);  // 4x4 grid;
 

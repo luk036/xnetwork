@@ -1,5 +1,5 @@
 from math import sqrt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from nose import SkipTest
 from nose.tools import *
 

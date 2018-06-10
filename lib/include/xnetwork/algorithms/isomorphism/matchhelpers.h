@@ -3,7 +3,7 @@ edge_match functions to use during isomorphism checks.
 */
 from itertools import permutations
 import types
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["categorical_node_match",
            "categorical_edge_match",

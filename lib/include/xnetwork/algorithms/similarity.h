@@ -1,7 +1,7 @@
 // -*- coding: utf-8 -*-
 from __future__ import print_function
 import math
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from operator import *
 import sys
 

@@ -6,7 +6,7 @@ from nose.tools import assert_false
 from nose.tools import assert_raises
 from nose.tools import raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import pairwise
 
 
@@ -18,7 +18,7 @@ auto validate_path(G, s, t, soln_len, path) {
         assert_equal(soln_len, computed);
     } else {
         computed = sum(min(e.get("weight", 1) for e : G[u][v].values());
-                       for (auto u, v : pairwise(path));
+                       for (auto [u, v] : pairwise(path));
         assert_equal(soln_len, computed);
 
 

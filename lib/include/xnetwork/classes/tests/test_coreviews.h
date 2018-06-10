@@ -3,7 +3,7 @@ from nose.tools import assert_equal, assert_not_equal, assert_is,\
 import tempfile
 import pickle
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestAtlasView: public object {

@@ -6,7 +6,7 @@ from nose.tools import assert_equal
 from nose.tools import assert_false
 from nose.tools import assert_true
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.generators.geometric import euclidean
 
 
@@ -35,7 +35,7 @@ class TestRandomGeometricGraph: public object {
         // documentation.
         dist = euclidean
         G = xn::random_geometric_graph(50, 0.25);
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
@@ -51,7 +51,7 @@ class TestRandomGeometricGraph: public object {
         // Use the L1 metric.
         dist = l1dist
         G = xn::random_geometric_graph(50, 0.25, p=1);
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
@@ -69,7 +69,7 @@ class TestRandomGeometricGraph: public object {
         assert_equal(len(G), len(nodes));
 
         dist = euclidean
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
@@ -99,7 +99,7 @@ class TestSoftRandomGeometricGraph: public object {
         // documentation.
         auto dist(x, y) { return sqrt(sum((a - b) ** 2 for a, b : zip(x, y)));
         G = xn::soft_random_geometric_graph(50, 0.25);
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
@@ -112,7 +112,7 @@ class TestSoftRandomGeometricGraph: public object {
         // Use the L1 metric.
         auto dist(x, y) { return sum(abs(a - b) for a, b : zip(x, y));
         G = xn::soft_random_geometric_graph(50, 0.25, p=1);
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
@@ -127,7 +127,7 @@ class TestSoftRandomGeometricGraph: public object {
         assert_equal(len(G), len(nodes));
 
         auto dist(x, y) { return sqrt(sum((a - b) ** 2 for a, b : zip(x, y)));
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
@@ -194,7 +194,7 @@ class TestGeographicalThresholdGraph: public object {
         // the default according to the documentation.
         dist = euclidean
         G = xn::geographical_threshold_graph(50, 10);
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             // Adjacent vertices must exceed the threshold.
             if (v : G[u]) {
                 assert_true(join(G, u, v, 10, -2, dist));
@@ -210,7 +210,7 @@ class TestGeographicalThresholdGraph: public object {
         // Use the L1 metric.
         dist = l1dist
         G = xn::geographical_threshold_graph(50, 10, metric=dist);
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             // Adjacent vertices must exceed the threshold.
             if (v : G[u]) {
                 assert_true(join(G, u, v, 10, -2, dist));
@@ -292,7 +292,7 @@ class TestThresholdedRandomGeometricGraph: public object {
         // documentation.
         auto dist(x, y) { return sqrt(sum((a - b) ** 2 for a, b : zip(x, y)));
         G = xn::thresholded_random_geometric_graph(50, 0.25, 0.1);
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
@@ -305,7 +305,7 @@ class TestThresholdedRandomGeometricGraph: public object {
         // Use the L1 metric.
         auto dist(x, y) { return sum(abs(a - b) for a, b : zip(x, y));
         G = xn::thresholded_random_geometric_graph(50, 0.25, 0.1,  p=1);
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
@@ -320,7 +320,7 @@ class TestThresholdedRandomGeometricGraph: public object {
         assert_equal(len(G), len(nodes));
 
         auto dist(x, y) { return sqrt(sum((a - b) ** 2 for a, b : zip(x, y)));
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
@@ -331,7 +331,7 @@ class TestThresholdedRandomGeometricGraph: public object {
          */
         G = xn::thresholded_random_geometric_graph(50, 0.25, 0.1);
 
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             // Adjacent vertices must be within the given distance.
             if (v : G[u]) {
                 assert_true((G.nodes[u]["weight"] + G.nodes[v]["weight"]) >= 0.1);

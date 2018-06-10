@@ -1,7 +1,7 @@
 from nose import SkipTest
 from nose.tools import assert_raises, assert_true, raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing import assert_graphs_equal
 from xnetwork.generators.classic import barbell_graph, cycle_graph, path_graph
 

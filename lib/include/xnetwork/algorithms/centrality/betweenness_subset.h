@@ -7,7 +7,7 @@
 // 
 // Author: Wai-Shing Luk (luk036@gmail.com);
 /** Betweenness centrality measures for subsets of nodes. */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 from xnetwork.algorithms.centrality.betweenness import\
     _single_source_dijkstra_path_basic as dijkstra

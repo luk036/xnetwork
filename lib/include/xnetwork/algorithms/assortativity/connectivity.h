@@ -13,7 +13,7 @@
 
 from collections import defaultdict
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["average_degree_connectivity",
            "k_nearest_neighbors"];

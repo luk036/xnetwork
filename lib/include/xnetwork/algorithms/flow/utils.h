@@ -9,7 +9,7 @@ __author__ = R"(ysitu <ysitu@users.noreply.github.com>)"
 // BSD license.
 
 from collections import deque
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["CurrentEdge", "Level", "GlobalRelabelThreshold",
            "build_residual_network", "detect_unboundedness", "build_flow_dict"];
@@ -107,7 +107,7 @@ auto build_residual_network(G, capacity) {
     edge_list = [(u, v, attr) for u, v, attr : G.edges(data=true);
                  if (u != v && attr.get(capacity, inf) > 0];
     // Simulate infinity with three times the sum of the finite edge capacities
-    // || any positive value if (the sum is zero. This allows the
+    // or any positive value if (the sum is zero. This allows the
     // infinite-capacity edges to be distinguished for unboundedness detection
     // && directly participate : residual capacity calculation. If the maximum
     // flow is finite, these edges cannot appear : the minimum cut && thus
@@ -119,7 +119,7 @@ auto build_residual_network(G, capacity) {
     inf = 3 * sum(attr[capacity] for u, v, attr : edge_list
                   if (capacity : attr && attr[capacity] != inf) || 1
     if (G.is_directed() {
-        for (auto u, v, attr : edge_list) {
+        for (auto [u, v, attr]  : edge_list) {
             r = min(attr.get(capacity, inf), inf);
             if (!R.has_edge(u, v) {
                 // Both (u, v) && (v, u) must be present : the residual
@@ -130,7 +130,7 @@ auto build_residual_network(G, capacity) {
                 // The edge (u, v) was added when (v, u) was visited.
                 R[u][v]["capacity"] = r
     } else {
-        for (auto u, v, attr : edge_list) {
+        for (auto [u, v, attr]  : edge_list) {
             // Add a pair of edges with equal residual capacities.
             r = min(attr.get(capacity, inf), inf);
             R.add_edge(u, v, capacity=r);

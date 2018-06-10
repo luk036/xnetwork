@@ -75,7 +75,7 @@ auto min_weighted_vertex_cover(G, weight=None) {
     cost = dict(G.nodes(data=weight, default=1));
     // While there are uncovered edges, choose an uncovered && update
     // the cost of the remaining edges.
-    for (auto u, v : G.edges()) {
+    for (auto [u, v] : G.edges()) {
         min_cost = min(cost[u], cost[v]);
         cost[u] -= min_cost
         cost[v] -= min_cost

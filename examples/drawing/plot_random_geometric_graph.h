@@ -7,7 +7,7 @@ Example
 */
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 G = xn::random_geometric_graph(200, 0.125);
 // position is stored as node attribute data for random_geometric_graph

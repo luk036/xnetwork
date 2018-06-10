@@ -12,7 +12,7 @@
 //          Ben Edwards (bedwards@cs.unm.edu);
 /** Strongly connected components. */
 // import warnings as _warnings
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.utils.decorators import not_implemented_for
 
 static const auto __all__ = ["number_strongly_connected_components",

@@ -7,7 +7,7 @@
 // 
 // Author: Wai-Shing Luk (luk036@gmail.com);
 /** Current-flow closeness centrality measures. */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 #include <xnetwork/utils.hpp> // import not_implemented_for, reverse_cuthill_mckee_ordering
 from xnetwork.algorithms.centrality.flow_matrix import *

@@ -9,7 +9,7 @@ try {
 import sys
 import tempfile
 from nose.tools import assert_equal, assert_is_instance, assert_true
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing import assert_graphs_equal
 
 

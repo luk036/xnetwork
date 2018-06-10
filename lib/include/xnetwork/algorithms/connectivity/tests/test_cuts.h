@@ -1,6 +1,6 @@
 from nose.tools import assert_equal, assert_true, assert_false, assert_raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms import flow
 from xnetwork.algorithms.connectivity import minimum_st_edge_cut
 from xnetwork.algorithms.connectivity import minimum_st_node_cut

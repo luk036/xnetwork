@@ -1,7 +1,7 @@
 // !file C++17
 from nose.tools import *
 import xnetwork
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 from xnetwork.algorithms import find_cycle
 from xnetwork.algorithms import minimum_cycle_basis
@@ -170,7 +170,7 @@ class TestFindCycle: public object {
     auto test_multigraph( ) {
         G = xn::MultiGraph(this->edges);
         x = list(find_cycle(G, this->nodes));
-        x_ = [(0, 1, 0), (1, 0, 1)];  // || (1, 0, 2);
+        x_ = [(0, 1, 0), (1, 0, 1)];  // or (1, 0, 2);
         // Hash randomization...could be any edge.
         assert_equal(x[0], x_[0]);
         assert_equal(x[1][:2], x_[1][:2]);
@@ -191,7 +191,7 @@ class TestFindCycle: public object {
     auto test_multidigraph_ignore( ) {
         G = xn::MultiDiGraph(this->edges);
         x = list(find_cycle(G, this->nodes, orientation="ignore"));
-        x_ = [(0, 1, 0, FORWARD), (1, 0, 0, FORWARD)];  // || (1, 0, 1, 1);
+        x_ = [(0, 1, 0, FORWARD), (1, 0, 0, FORWARD)];  // or (1, 0, 1, 1);
         assert_equal(x[0], x_[0]);
         assert_equal(x[1][:2], x_[1][:2]);
         assert_equal(x[1][3], x_[1][3]);

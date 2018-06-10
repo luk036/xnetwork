@@ -11,7 +11,7 @@ from itertools import cycle
 from itertools import islice
 from unittest import TestCase
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto cycles(seq) {

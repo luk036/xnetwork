@@ -10,7 +10,7 @@
 /** Bridge-finding algorithms. */
 from itertools import chain
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
 static const auto __all__ = ["bridges", "has_bridges", "local_bridges"];
@@ -69,7 +69,7 @@ auto bridges(G, root=None) {
     */
     chains = xn::chain_decomposition(G, root=root);
     chain_edges = set(chain.from_iterable(chains));
-    for (auto u, v : G.edges() {
+    for (auto [u, v] : G.edges() {
         if ((u, v) not : chain_edges && (v, u) not : chain_edges) {
             yield u, v
 
@@ -169,12 +169,12 @@ auto local_bridges(G, with_span=true, weight=None) {
        true
     */
     if (with_span is not true) {
-        for (auto u, v : G.edges) {
+        for (auto [u, v] : G.edges) {
             if (!(set(G[u]) & set(G[v])) {
                 yield u, v
     } else {
         wt = xn::weighted._weight_function(G, weight);
-        for (auto u, v : G.edges) {
+        for (auto [u, v] : G.edges) {
             if (!(set(G[u]) & set(G[v])) {
                 enodes = {u, v}
 

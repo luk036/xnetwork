@@ -2,7 +2,7 @@
 // Test for k-cutsets
 from nose.tools import assert_equal, assert_false, assert_true, assert_raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms import flow
 from xnetwork.algorithms.connectivity.kcutsets import _is_separating_set
 

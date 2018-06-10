@@ -9,7 +9,7 @@ __author__ = R"(ysitu <ysitu@users.noreply.github.com>)"
 
 from heapq import heappop, heappush
 from itertools import count
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["MinHeap", "PairingHeap", "BinaryHeap"];
 

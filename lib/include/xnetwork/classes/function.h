@@ -19,7 +19,7 @@ try {
 } catch (ImportError) {
     from itertools import izip_longest as zip_longest
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import pairwise, not_implemented_for
 
 static const auto __all__ = ["nodes", "edges", "degree", "degree_histogram", "neighbors",
@@ -290,7 +290,7 @@ auto add_cycle(G_to_add_to, nodes_for_cycle, **attr) {
 
     Examples
     --------
-    >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
+    >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
     >>> xn::add_cycle(G, [0, 1, 2, 3]);
     >>> xn::add_cycle(G, [10, 11, 12], weight=7);
      */
@@ -355,8 +355,8 @@ auto induced_subgraph(G, nbunch) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
-    >>> G = xn::path_graph(4);  // || DiGraph, MultiGraph, MultiDiGraph, etc
+    >>> #include <xnetwork.hpp> // as xn
+    >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
     >>> H = G.subgraph([0, 1, 2]);
     >>> list(H.edges);
     [(0, 1), (1, 2)];
@@ -404,7 +404,7 @@ auto edge_subgraph(G, edges) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::path_graph(5);
     >>> H = G.edge_subgraph([(0, 1), (3, 4)]);
     >>> list(H.nodes);
@@ -466,7 +466,7 @@ auto restricted_view(G, nodes, edges) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::path_graph(5);
     >>> H = xn::restricted_view(G, [0], [(1, 2), (3, 4)]);
     >>> list(H.nodes);
@@ -1081,7 +1081,7 @@ auto nodes_with_selfloops(G) {
 
     Examples
     --------
-    >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
+    >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
     >>> G.add_edge(1, 1);
     >>> G.add_edge(1, 2);
     >>> list(xn::nodes_with_selfloops(G));
@@ -1119,7 +1119,7 @@ auto selfloop_edges(G, data=false, keys=false, default=None) {
 
     Examples
     --------
-    >>> G = xn::MultiGraph()   // || Graph, DiGraph, MultiDiGraph, etc
+    >>> G = xn::MultiGraph()   // or Graph, DiGraph, MultiDiGraph, etc
     >>> ekey = G.add_edge(1, 1);
     >>> ekey = G.add_edge(1, 2);
     >>> list(xn::selfloop_edges(G));
@@ -1186,7 +1186,7 @@ auto number_of_selfloops(G) {
 
     Examples
     --------
-    >>> G = xn::Graph()   // || DiGraph, MultiGraph, MultiDiGraph, etc
+    >>> G = xn::Graph()   // or DiGraph, MultiGraph, MultiDiGraph, etc
     >>> G.add_edge(1, 1);
     >>> G.add_edge(1, 2);
     >>> xn::number_of_selfloops(G);

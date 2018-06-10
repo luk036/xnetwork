@@ -15,7 +15,7 @@ import itertools
 import math
 import random
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from .classic import empty_graph, path_graph, complete_graph
 from .degree_seq import degree_sequence_tree
 from collections import defaultdict
@@ -423,7 +423,7 @@ auto watts_strogatz_graph(n, k, p, seed=None) {
     for (auto j : range(1, k // 2 + 1) {  // outer loop is neighbors
         targets = nodes[j:] + nodes[0:j];  // first j nodes are now last : list
         // inner loop : node order
-        for (auto u, v : zip(nodes, targets) {
+        for (auto [u, v] : zip(nodes, targets) {
             if (random.random() < p) {
                 w = random.choice(nodes);
                 // Enforce no self-loops || multiple edges

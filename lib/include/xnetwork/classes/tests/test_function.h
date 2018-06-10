@@ -1,7 +1,7 @@
 // !file C++17
 import random
 from nose.tools import *
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing.utils import *
 
 
@@ -543,14 +543,14 @@ auto test_get_edge_attributes() {
         assert_equal(len(attrs), 2);
         if (G.is_multigraph() {
             keys = [(0, 1, 0), (1, 2, 0)];
-            for (auto u, v, k : keys) {
+            for (auto [u, v, k] : keys) {
                 try {
                     assert_equal(attrs[(u, v, k)], 100);
                 } catch (KeyError) {
                     assert_equal(attrs[(v, u, k)], 100);
         } else {
             keys = [(0, 1), (1, 2)];
-            for (auto u, v : keys) {
+            for (auto [u, v] : keys) {
                 try {
                     assert_equal(attrs[(u, v)], 100);
                 } catch (KeyError) {

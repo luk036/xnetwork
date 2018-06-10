@@ -35,7 +35,7 @@ import string
 import random
 from operator import itemgetter
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 from .recognition import *
 

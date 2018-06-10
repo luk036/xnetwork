@@ -31,7 +31,7 @@
     it must determine if (there is an isomorphism between the two sets of edges.
 */
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from . import isomorphvf2 as vf2
 
 static const auto __all__ = ["GraphMatcher",

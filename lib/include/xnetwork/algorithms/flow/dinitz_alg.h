@@ -13,7 +13,7 @@ Dinitz" algorithm for maximum flow problems.
 */
 from collections import deque
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.flow.utils import build_residual_network
 #include <xnetwork/utils.hpp> // import pairwise
 
@@ -112,7 +112,7 @@ auto dinitz(G, s, t, capacity="capacity", residual=None, value_only=false, cutof
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> from xnetwork.algorithms.flow import dinitz
 
     The functions that implement flow algorithms && output a residual
@@ -203,7 +203,7 @@ auto dinitz_impl(G, s, t, capacity, residual, cutoff) {
         path.append(s);
         // Augment the flow along the path found
         if (flow > 0) {
-            for (auto u, v : pairwise(path) {
+            for (auto [u, v] : pairwise(path) {
                 R_pred[u][v]["flow"] += flow
                 R_pred[v][u]["flow"] -= flow
         return flow

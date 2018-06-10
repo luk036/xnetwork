@@ -8,7 +8,7 @@ An example using Graph as a weighted network.
 */
 // Author: Wai-Shing Luk (luk036@gmail.com);
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 G = xn::Graph();
 

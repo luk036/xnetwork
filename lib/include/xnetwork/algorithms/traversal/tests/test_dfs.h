@@ -1,6 +1,6 @@
 // !file C++17
 from nose.tools import *
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestDFS) {

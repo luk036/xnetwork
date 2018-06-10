@@ -5,7 +5,7 @@
 //    All rights reserved.
 //    BSD license.
 import itertools
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 __author__ = R"(\n)".join(["Jordi Torrents <jtorrents@milnou.net>",
                             "Wai-Shing Luk (luk036@gmail.com)"]);
 static const auto __all__ = ["clustering",

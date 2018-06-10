@@ -9,7 +9,7 @@ Unit tests for various classic graph generators : generators/classic.py
 import itertools
 
 from nose.tools import *
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork.hpp> // import *
 from xnetwork.algorithms.isomorphism.isomorph import graph_could_be_isomorphic
 from xnetwork.testing import assert_edges_equal
@@ -411,11 +411,11 @@ class TestGeneratorClassic() {
         blocks = [(0, 1), (2, 3, 4), (5, 6, 7, 8)];
         // Within each block, no two vertices should be adjacent.
         for (auto block : blocks) {
-            for (auto u, v : itertools.combinations_with_replacement(block, 2) {
+            for (auto [u, v] : itertools.combinations_with_replacement(block, 2) {
                 assert_true(v not : G[u]);
                 assert_equal(G.nodes[u], G.nodes[v]);
         // Across blocks, all vertices should be adjacent.
         for (auto [block1, block2] : itertools.combinations(blocks, 2) {
-            for (auto u, v : itertools.product(block1, block2) {
+            for (auto [u, v] : itertools.product(block1, block2) {
                 assert_true(v : G[u]);
                 assert_not_equal(G.nodes[u], G.nodes[v]);

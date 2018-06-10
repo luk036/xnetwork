@@ -10,7 +10,7 @@ You must have matplotlib>=87.7 for this to work.
 // Author: Wai-Shing Luk (luk036@gmail.com);
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 G = xn::star_graph(20);
 pos = xn::spring_layout(G);

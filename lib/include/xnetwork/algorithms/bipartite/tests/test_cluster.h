@@ -1,4 +1,4 @@
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from nose.tools import *
 from xnetwork.algorithms.bipartite.cluster import cc_dot, cc_min, cc_max
 import xnetwork.algorithms.bipartite as bipartite

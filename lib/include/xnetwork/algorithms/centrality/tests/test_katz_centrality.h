@@ -1,7 +1,7 @@
 // -*- coding: utf-8 -*-
 import math
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from nose import SkipTest
 from nose.tools import assert_almost_equal, assert_equal, raises
 

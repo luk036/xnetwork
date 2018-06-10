@@ -13,7 +13,7 @@ the largest hub : a Barabási-Albert network.
 from operator import itemgetter
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 if (__name__ == "__main__") {
     // Create a BA model graph

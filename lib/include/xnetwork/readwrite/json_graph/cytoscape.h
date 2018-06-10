@@ -1,6 +1,6 @@
 //    BSD license.
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["cytoscape_data", "cytoscape_graph"];
 

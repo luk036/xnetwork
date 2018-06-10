@@ -17,7 +17,7 @@ Gn.dot where n=0,19.
 //    All rights reserved.
 //    BSD license.
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.generators.atlas import graph_atlas_g
 
 atlas = graph_atlas_g()[0:20];

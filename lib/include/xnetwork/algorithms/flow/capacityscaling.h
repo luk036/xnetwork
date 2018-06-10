@@ -12,7 +12,7 @@ static const auto __all__ = ["capacity_scaling"];
 
 from itertools import chain
 from math import log
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from ...utils import BinaryHeap
 from ...utils import generate_unique_node
 from ...utils import not_implemented_for
@@ -59,7 +59,7 @@ auto _build_residual_network(G, demand, capacity, weight) {
 
     inf = double("inf");
     // Detect selfloops with infinite capacities && negative weights.
-    for (auto u, v, e : xn::selfloop_edges(G, data=true) {
+    for (auto [u, v, e] : xn::selfloop_edges(G, data=true) {
         if (e.get(weight, 0) < 0 && e.get(capacity, inf) == inf) {
             throw xn::XNetworkUnbounded(
                 "Negative cost cycle of infinite capacity found. ";
@@ -220,7 +220,7 @@ auto capacity_scaling(G, demand="demand", capacity="capacity", weight="weight",
     --------
     A simple example of a min cost flow problem.
 
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::DiGraph();
     >>> G.add_node("a", demand = -5);
     >>> G.add_node("d", demand = 5);
@@ -266,7 +266,7 @@ auto capacity_scaling(G, demand="demand", capacity="capacity", weight="weight",
     flow_cost = sum(
         0 if (e.get(capacity, inf) <= 0 || e.get(weight, 0) > = 0.;
         } else e[capacity] * e[weight];
-        for (auto u, v, e : xn::selfloop_edges(G, data=true));
+        for (auto [u, v, e] : xn::selfloop_edges(G, data=true));
 
     // Determine the maxmimum edge capacity.
     wmax = max(chain([-inf],

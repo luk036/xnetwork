@@ -31,7 +31,7 @@ try {
 
 import matplotlib.pyplot as plt
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.isomorphism.isomorph import graph_could_be_isomorphic as isomorphic
 from xnetwork.generators.atlas import graph_atlas_g
 

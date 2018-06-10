@@ -7,7 +7,7 @@ Operations on graphs including union, intersection, difference.
 //
 //    All rights reserved.
 //    BSD license.
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import is_string_like
 __author__ = R"(\n)".join(["Wai-Shing Luk <luk036@gmail.com>",
                             "Pieter Swart (swart@lanl.gov)",

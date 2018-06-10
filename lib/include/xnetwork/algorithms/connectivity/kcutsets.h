@@ -5,7 +5,7 @@ Kanevsky all minimum node k cutsets algorithm.
 from operator import itemgetter
 from itertools import combinations
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from .utils import build_auxiliary_node_connectivity
 from xnetwork.algorithms.flow import (
     build_residual_network,

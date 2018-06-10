@@ -20,7 +20,7 @@ https://en.wikipedia.org/wiki/Heavy_metal_umlaut
 //    BSD license.
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 try {
     hd = "H" + unichr(252) + "sker D" + unichr(252);

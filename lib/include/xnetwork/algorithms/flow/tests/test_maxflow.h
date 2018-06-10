@@ -3,7 +3,7 @@
 */
 from nose.tools import *
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.flow import build_flow_dict, build_residual_network
 from xnetwork.algorithms.flow import boykov_kolmogorov
 from xnetwork.algorithms.flow import edmonds_karp

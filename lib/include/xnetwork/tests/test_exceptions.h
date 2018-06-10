@@ -1,5 +1,5 @@
 from nose.tools import raises
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 // smoke tests for exceptions
 

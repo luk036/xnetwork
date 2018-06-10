@@ -12,7 +12,7 @@
 /** Biconnected components && articulation points. */
 // import warnings as _warnings
 from itertools import chain
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.utils.decorators import not_implemented_for
 
 static const auto __all__ = [

@@ -10,7 +10,7 @@
 // 
 // Authors: Wai-Shing Luk <luk036@gmail.com>
 //
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["floyd_warshall",
            "floyd_warshall_predecessor_and_distance",
@@ -115,7 +115,7 @@ auto floyd_warshall_predecessor_and_distance(G, weight="weight") {
     // initialize path distance dictionary to be the adjacency matrix
     // also set the distance to self to 0 (zero diagonal);
     undirected = not G.is_directed();
-    for (auto u, v, d : G.edges(data=true) {
+    for (auto [u, v, d] : G.edges(data=true) {
         e_weight = d.get(weight, 1.0);
         dist[u][v] = min(e_weight, dist[u][v]);
         pred[u][v] = u

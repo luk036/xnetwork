@@ -9,7 +9,7 @@
 /**
 Functions for identifying isolate (degree zero) nodes.
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 __author__ = R"(\n)".join(["Drew Conway <drew.conway@nyu.edu>",
                             "Wai-Shing Luk <luk036@gmail.com>"]);

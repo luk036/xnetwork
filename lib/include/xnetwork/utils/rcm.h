@@ -8,7 +8,7 @@ Cuthill-McKee ordering of graph nodes to produce sparse matrices
 from collections import deque
 from operator import itemgetter
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from ..utils import arbitrary_element
 
 __author__ = R"(\n)".join(["Wai-Shing Luk <luk036@gmail.com>"]);

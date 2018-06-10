@@ -32,7 +32,7 @@ import mailbox
 import sys
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 // unix mailbox recipe
 // see https://docs.python.org/2/library/mailbox.html

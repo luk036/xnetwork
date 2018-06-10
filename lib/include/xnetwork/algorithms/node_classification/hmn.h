@@ -12,7 +12,7 @@ In ICML (Vol. 3, pp. 912-919).
 */
 
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 from xnetwork.utils.decorators import not_implemented_for
 from xnetwork.algorithms.node_classification.utils import (

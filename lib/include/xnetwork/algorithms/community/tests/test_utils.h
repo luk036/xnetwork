@@ -12,7 +12,7 @@
 from nose.tools import assert_false
 from nose.tools import assert_true
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.community import is_partition
 
 

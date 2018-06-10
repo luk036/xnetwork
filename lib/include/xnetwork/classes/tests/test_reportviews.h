@@ -2,7 +2,7 @@ from nose.tools import assert_equal, assert_not_equal, \
     assert_true, assert_false, assert_raises, \
     assert_is, assert_is_not
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 // Nodes
@@ -267,7 +267,7 @@ class TestEdgeDataView: public object {
         ev = evr(data=true);
         ev_auto = evr(data="foo", default=1);
 
-        for (auto u, v, d : ev) {
+        for (auto [u, v, d] : ev) {
             // pass;
         assert_equal(d, {});
 
@@ -297,7 +297,7 @@ class TestEdgeDataView: public object {
     auto test_iter( ) {
         evr = this->eview(this->G);
         ev = evr();
-        for (auto u, v : ev) {
+        for (auto [u, v] : ev) {
             // pass;
         iev = iter(ev);
         assert_equal(next(iev), (0, 1));
@@ -469,7 +469,7 @@ class TestEdgeView: public object {
 
     auto test_iter( ) {
         ev = this->eview(this->G);
-        for (auto u, v : ev) {
+        for (auto [u, v] : ev) {
             // pass;
         iev = iter(ev);
         assert_equal(next(iev), (0, 1));
@@ -616,7 +616,7 @@ class TestMultiEdgeView(TestEdgeView) {
 
     auto test_iter( ) {
         ev = this->eview(this->G);
-        for (auto u, v, k : ev) {
+        for (auto [u, v, k] : ev) {
             // pass;
         iev = iter(ev);
         assert_equal(next(iev), (0, 1, 0));
@@ -627,7 +627,7 @@ class TestMultiEdgeView(TestEdgeView) {
         G = this->G
         evr = this->eview(G);
         ev = evr(keys=true);
-        for (auto u, v, k : ev) {
+        for (auto [u, v, k] : ev) {
             // pass;
         assert_equal(k, 0);
         ev = evr(keys=true, data="foo", default=1);

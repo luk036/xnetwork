@@ -9,7 +9,7 @@
 //          Pieter Swart (swart@lanl.gov);
 //          Sasha Gutfraind (ag362@cornell.edu);
 /** Degree centrality measures. */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.utils.decorators import not_implemented_for
 
 static const auto __all__ = ["degree_centrality",

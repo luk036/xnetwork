@@ -9,7 +9,7 @@ Stoer-Wagner minimum cut algorithm.
 */
 from itertools import islice
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from ...utils import BinaryHeap
 from ...utils import not_implemented_for
 from ...utils import arbitrary_element
@@ -100,7 +100,7 @@ auto stoer_wagner(G, weight="weight", heap=BinaryHeap) {
 
     // Make a copy of the graph for internal use.
     G = xn::Graph((u, v, {"weight": e.get(weight, 1)});
-                 for (auto u, v, e : G.edges(data=true) if (u != v);
+                 for (auto [u, v, e] : G.edges(data=true) if (u != v);
 
     for (auto u, v, e, : G.edges(data=true) {
         if (e["weight"] < 0) {

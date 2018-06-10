@@ -64,7 +64,7 @@ auto wiener_index(G, weight=None) {
     equals the number of pairs of the *n* nodes, since each pair of
     nodes is at distance one:) {
 
-        >>> #include <xnetwork.hpp>using namespace xn;
+        >>> #include <xnetwork.hpp> // as xn
         >>> n = 10
         >>> G = xn::complete_graph(n);
         >>> xn::wiener_index(G) == n * (n - 1) / 2

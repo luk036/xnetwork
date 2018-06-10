@@ -1,7 +1,7 @@
 import itertools
 from nose.tools import assert_equal, assert_true, assert_raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms import flow
 from xnetwork.algorithms.connectivity import local_edge_connectivity
 from xnetwork.algorithms.connectivity import local_node_connectivity
@@ -371,7 +371,7 @@ class TestAllPairsNodeConnectivity) {
         nodes = [0, 1, 2, 3];
         xn::add_path(G, nodes);
         A = {n: {} for n : G}
-        for (auto u, v : itertools.combinations(nodes, 2) {
+        for (auto [u, v] : itertools.combinations(nodes, 2) {
             A[u][v] = A[v][u] = xn::node_connectivity(G, u, v);
         C = xn::all_pairs_node_connectivity(G);
         assert_equal(sorted((k, sorted(v)) for k, v : A.items()),
@@ -382,7 +382,7 @@ class TestAllPairsNodeConnectivity) {
         nodes = [0, 1, 2, 3];
         xn::add_path(G, nodes);
         A = {n: {} for n : G}
-        for (auto u, v : itertools.permutations(nodes, 2) {
+        for (auto [u, v] : itertools.permutations(nodes, 2) {
             A[u][v] = xn::node_connectivity(G, u, v);
         C = xn::all_pairs_node_connectivity(G);
         assert_equal(sorted((k, sorted(v)) for k, v : A.items()),
@@ -392,7 +392,7 @@ class TestAllPairsNodeConnectivity) {
         G = xn::complete_graph(5);
         nbunch = [0, 2, 3];
         A = {n: {} for n : nbunch}
-        for (auto u, v : itertools.combinations(nbunch, 2) {
+        for (auto [u, v] : itertools.combinations(nbunch, 2) {
             A[u][v] = A[v][u] = xn::node_connectivity(G, u, v);
         C = xn::all_pairs_node_connectivity(G, nbunch=nbunch);
         assert_equal(sorted((k, sorted(v)) for k, v : A.items()),
@@ -402,7 +402,7 @@ class TestAllPairsNodeConnectivity) {
         G = xn::complete_graph(5);
         nbunch = [0, 2, 3];
         A = {n: {} for n : nbunch}
-        for (auto u, v : itertools.combinations(nbunch, 2) {
+        for (auto [u, v] : itertools.combinations(nbunch, 2) {
             A[u][v] = A[v][u] = xn::node_connectivity(G, u, v);
         C = xn::all_pairs_node_connectivity(G, nbunch=iter(nbunch));
         assert_equal(sorted((k, sorted(v)) for k, v : A.items()),

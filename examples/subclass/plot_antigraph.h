@@ -21,7 +21,7 @@ algorithms.
 //    Jordi Torrents <jtorrents@milnou.net>
 //    All rights reserved.
 //    BSD license.
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/exception.hpp> // import XNetworkError
 import matplotlib.pyplot as plt
 
@@ -101,7 +101,7 @@ class AntiGraph(xn::Graph) {
 
         Examples
         --------
-        >>> G = xn::path_graph(4);  // || DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
         >>> list(G.degree(0));  // node 0 with degree 1
         [(0, 1)];
         >>> list(G.degree([0, 1]));

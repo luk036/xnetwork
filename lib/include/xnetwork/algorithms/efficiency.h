@@ -11,7 +11,7 @@
 
 from itertools import permutations
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/exception.hpp> // import XNetworkNoPath
 from ..utils import not_implemented_for
 

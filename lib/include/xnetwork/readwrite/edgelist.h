@@ -42,7 +42,7 @@ static const auto __all__ = ["generate_edgelist",
            "write_weighted_edgelist"];
 
 #include <xnetwork/utils.hpp> // import open_file, make_str
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto generate_edgelist(G, delimiter=" ", data=true) {
@@ -111,15 +111,15 @@ auto generate_edgelist(G, delimiter=" ", data=true) {
     write_adjlist, read_adjlist
      */
     if (data == true) {
-        for (auto u, v, d : G.edges(data=true) {
+        for (auto [u, v, d] : G.edges(data=true) {
             e = u, v, dict(d);
             yield delimiter.join(map(make_str, e));
     } else if (data == false) {
-        for (auto u, v : G.edges(data=false) {
+        for (auto [u, v] : G.edges(data=false) {
             e = u, v
             yield delimiter.join(map(make_str, e));
     } else {
-        for (auto u, v, d : G.edges(data=true) {
+        for (auto [u, v, d] : G.edges(data=true) {
             e = [u, v];
             try {
                 e.extend(d[k] for k : data);

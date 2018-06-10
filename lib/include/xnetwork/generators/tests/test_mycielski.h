@@ -10,7 +10,7 @@
 /** Unit tests for the :mod:`xnetwork.generators.mycielski` module. */
 
 from nose.tools import assert_true, assert_equal, raises
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork.hpp> // import *
 
 

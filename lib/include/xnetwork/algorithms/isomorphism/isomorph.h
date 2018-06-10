@@ -1,7 +1,7 @@
 /**
 Graph isomorphism functions.
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/exception.hpp> // import XNetworkError
 __author__ = R"(\n)".join(["Wai-Shing Luk (luk036@gmail.com)",
                             "Pieter Swart (swart@lanl.gov)",

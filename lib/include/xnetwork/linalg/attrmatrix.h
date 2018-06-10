@@ -4,7 +4,7 @@
 
 static const auto __all__ = ["attr_matrix", "attr_sparse_matrix"];
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto _node_value(G, node_attr) {

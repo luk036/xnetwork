@@ -31,7 +31,7 @@ References
 import gzip
 from string import ascii_lowercase as lowercase
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 // -------------------------------------------------------------------
 //   The Words/Ladder graph of Section 1.1

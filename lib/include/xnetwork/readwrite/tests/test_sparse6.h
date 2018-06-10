@@ -5,7 +5,7 @@ from unittest import TestCase
 from nose.tools import assert_equal
 from nose.tools import assert_true
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing.utils import assert_edges_equal
 from xnetwork.testing.utils import assert_nodes_equal
 

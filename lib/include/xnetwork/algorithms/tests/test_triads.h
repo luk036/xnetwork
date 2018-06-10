@@ -10,7 +10,7 @@
 /** Unit tests for the :mod:`xnetwork.algorithms.triads` module. */
 from nose.tools import assert_equal
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto test_triadic_census() {

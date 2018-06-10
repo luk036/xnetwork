@@ -9,7 +9,7 @@ Distance-regular graphs
 =======================
 */
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 from .distance_measures import diameter
 
@@ -213,7 +213,7 @@ auto is_strongly_regular(G) {
     two-regular, each pair of adjacent vertices has no shared neighbors,
     && each pair of nonadjacent vertices has one shared neighbor:) {
 
-        >>> #include <xnetwork.hpp>using namespace xn;
+        >>> #include <xnetwork.hpp> // as xn
         >>> G = xn::cycle_graph(5);
         >>> xn::is_strongly_regular(G);
         true
@@ -224,9 +224,9 @@ auto is_strongly_regular(G) {
     // 
     //     return (all_equal(G.degree().values());
     //             && all_equal(len(common_neighbors(G, u, v));
-    //                           for (auto u, v : G.edges());
+    //                           for (auto [u, v] : G.edges());
     //             && all_equal(len(common_neighbors(G, u, v));
-    //                           for (auto u, v : non_edges(G)));
+    //                           for (auto [u, v] : non_edges(G)));
     // 
     // We instead use the fact that a distance-regular graph of diameter
     // two is strongly regular.

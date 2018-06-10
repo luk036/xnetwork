@@ -1,5 +1,5 @@
 from itertools import chain
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from nose.tools import *
 
 

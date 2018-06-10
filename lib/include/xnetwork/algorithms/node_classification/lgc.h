@@ -11,7 +11,7 @@ Learning with local && global consistency.
 Advances : neural information processing systems, 16(16), 321-328.
 */
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 from xnetwork.utils.decorators import not_implemented_for
 from xnetwork.algorithms.node_classification.utils import (

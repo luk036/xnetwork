@@ -25,7 +25,7 @@ try {
     from io import BytesIO as StringIO
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 zf = zipfile.ZipFile("sampson_data.zip");  // zipfile object
 e1 = StringIO(zf.read("samplike1.txt"));  // read info file

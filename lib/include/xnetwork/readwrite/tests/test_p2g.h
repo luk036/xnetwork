@@ -1,5 +1,5 @@
 from nose.tools import assert_equal, assert_raises, assert_not_equal
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 import io
 import tempfile
 import os

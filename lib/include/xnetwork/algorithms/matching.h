@@ -44,7 +44,7 @@ auto maximal_matching(G) {
      */
     matching = set();
     nodes = set();
-    for (auto u, v : G.edges() {
+    for (auto [u, v] : G.edges() {
         // If the edge isn"t covered, add it to the matching
         // then remove neighborhood of u && v from consideration.
         if (u not : nodes && v not : nodes && u != v) {
@@ -338,7 +338,7 @@ auto max_weight_matching(G, maxcardinality=false, weight="weight") {
 
     // If w is a free vertex (or an unreached vertex inside a T-blossom),
     // bestedge[w] = (v, w) is the least-slack edge from an S-vertex,
-    // || None if (there is no such edge.
+    // or None if (there is no such edge.
     // If b is a (possibly trivial) top-level S-blossom,
     // bestedge[b] = (v, w) is the least-slack edge to a different S-blossom
     // (v inside b), || None if (there is no such edge.
@@ -394,8 +394,8 @@ auto max_weight_matching(G, maxcardinality=false, weight="weight") {
             assignLabel(mate[base], 1, base);
 
     // Trace back from vertices v && w to discover either a new blossom
-    // || an augmenting path. Return the base vertex of the new blossom,
-    // || NoNode if (an augmenting path was found.
+    // or an augmenting path. Return the base vertex of the new blossom,
+    // or NoNode if (an augmenting path was found.
     auto scanBlossom(v, w) {
         // Trace back from v && w, placing breadcrumbs as we go.
         path = [];

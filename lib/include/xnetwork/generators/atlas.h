@@ -15,7 +15,7 @@ from itertools import islice
 import os
 import os.path
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["graph_atlas", "graph_atlas_g"];
 

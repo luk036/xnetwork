@@ -16,7 +16,7 @@ from nose.tools import assert_greater
 from nose.tools import assert_true
 from nose.tools import assert_equal
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.approximation import max_clique
 from xnetwork.algorithms.approximation import clique_removal
 from xnetwork.algorithms.approximation import large_clique_size

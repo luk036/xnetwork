@@ -28,7 +28,7 @@ import math
 from operator import itemgetter
 import random
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import random_weighted_sample
 
 static const auto __all__ = ["configuration_model",

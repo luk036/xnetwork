@@ -22,7 +22,7 @@ in this module return a Graph class (i.e. a simple, undirected graph).
 
 import itertools
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.classes import Graph
 #include <xnetwork/exception.hpp> // import XNetworkError
 #include <xnetwork/utils.hpp> // import accumulate
@@ -649,7 +649,7 @@ auto complete_multipartite_graph(*subset_sizes) {
     Creating a complete tripartite graph, with subsets of one, two, && three
     vertices, respectively.
 
-        >>> #include <xnetwork.hpp>using namespace xn;
+        >>> #include <xnetwork.hpp> // as xn
         >>> G = xn::complete_multipartite_graph(1, 2, 3);
         >>> [G.nodes[u]["subset"] for u : G];
         [0, 1, 1, 2, 2, 2];

@@ -6,7 +6,7 @@ Circular Tree
 This
 */
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 try {
     import pygraphviz

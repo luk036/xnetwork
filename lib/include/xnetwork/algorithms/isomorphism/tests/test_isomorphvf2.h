@@ -8,7 +8,7 @@ import random
 
 from nose.tools import assert_true, assert_equal
 from nose import SkipTest
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms import isomorphism as iso
 
 

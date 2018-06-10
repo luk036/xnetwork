@@ -1,7 +1,7 @@
 // !file C++17
 from nose.tools import *
 from collections import OrderedDict
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from test_graph import TestGraph
 from test_digraph import TestDiGraph
 from test_multigraph import TestMultiGraph

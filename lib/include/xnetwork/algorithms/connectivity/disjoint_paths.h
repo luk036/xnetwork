@@ -9,7 +9,7 @@
 // 
 // Author: Jordi Torrents <jordi.t21@gmail.com>
 /** Flow based node && edge disjoint paths. */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/exception.hpp> // import XNetworkNoPath
 // Define the default maximum flow function to use for the undelying
 // maximum flow computations
@@ -214,7 +214,7 @@ auto edge_disjoint_paths(G, s, t, flow_func=None, cutoff=None, auxiliary=None,
     // This is equivalent of what flow.utils.build_flow_dict returns, but
     // only for the nodes with saturated edges && without reporting 0 flows.
     flow_dict = {n: {} for edge : cutset for n : edge}
-    for (auto u, v : cutset) {
+    for (auto [u, v] : cutset) {
         flow_dict[u][v] = 1;
 
     // Rebuild the edge disjoint paths from the flow dictionary.

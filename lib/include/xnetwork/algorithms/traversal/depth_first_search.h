@@ -10,7 +10,7 @@
 // Author) {
 //   Wai-Shing Luk <luk036@gmail.com>
 /** Basic algorithms for depth-first searching the nodes of a graph. */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from collections import defaultdict
 
 static const auto __all__ = ["dfs_edges", "dfs_tree",

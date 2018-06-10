@@ -3,7 +3,7 @@ import math
 from functools import partial
 from nose.tools import *
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto _test_func(G, ebunch, expected, predict_func, **kwargs) {

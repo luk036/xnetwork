@@ -5,7 +5,7 @@ from nose.tools import raises
 from math import sqrt
 from random import random, choice
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import pairwise
 
 

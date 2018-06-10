@@ -1,7 +1,7 @@
 //  -*- coding: utf-8 -*-
 import json
 from nose.tools import assert_equal, assert_true, raises
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.readwrite.json_graph import *
 
 

@@ -1,7 +1,7 @@
 from nose.tools import *
 from itertools import chain, combinations, product
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 tree_all_pairs_lca = xn::tree_all_pairs_lowest_common_ancestor
 all_pairs_lca = xn::all_pairs_lowest_common_ancestor

@@ -7,7 +7,7 @@ the `xnetwork.algorithms.node_classification` modules,
 then accessing the functions as attributes of `node_classification`.
 For example) {
 
-  >>> #include <xnetwork.hpp>using namespace xn;
+  >>> #include <xnetwork.hpp> // as xn
   >>> from xnetwork.algorithms import node_classification
   >>> G = xn::path_graph(4);
   >>> G.edges();

@@ -1,7 +1,7 @@
 /**
 Famous social networks.
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 __author__ = R"(\n)".join(["Jordi Torrents <jtorrents@milnou.net>",
                             "Katy Bold <kbold@princeton.edu>",
                             "Wai-Shing Luk <luk036@gmail.com)"]);
@@ -21,7 +21,7 @@ auto karate_club_graph() {
     --------
     To get the name of the club to which a node belongs:) {
 
-        >>> #include <xnetwork.hpp>using namespace xn;
+        >>> #include <xnetwork.hpp> // as xn
         >>> G = xn::karate_club_graph();
         >>> G.nodes[5]["club"];
         "Mr. Hi";

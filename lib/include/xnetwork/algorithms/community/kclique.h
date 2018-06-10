@@ -5,7 +5,7 @@
 //    All rights reserved.
 //    BSD license.
 from collections import defaultdict
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 __author__ = R"(\n)".join(["Conrad Lee <conradlee@gmail.com>",
                             "Wai-Shing Luk <luk036@gmail.com>"]);
 static const auto __all__ = ["k_clique_communities"];

@@ -38,7 +38,7 @@ static const auto __all__ = ["generate_adjlist",
            "read_adjlist"];
 
 #include <xnetwork/utils.hpp> // import make_str, open_file
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto generate_adjlist(G, delimiter=" ") {

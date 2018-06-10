@@ -11,7 +11,7 @@
 /** Functions for computing rich-club coefficients. */
 // from __future__ import division
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import accumulate
 #include <xnetwork/utils.hpp> // import not_implemented_for
 

@@ -10,7 +10,7 @@ of graphs.
 
 */
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
 static const auto __all__ = ["mycielskian", "mycielski_graph"];

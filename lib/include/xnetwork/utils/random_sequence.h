@@ -15,7 +15,7 @@ random selections.
 
 import random
 import sys
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 // The same helpers for choosing random sequences from distributions

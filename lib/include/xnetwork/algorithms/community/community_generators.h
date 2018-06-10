@@ -41,7 +41,7 @@ try {
             k += 1;
         return z
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["LFR_benchmark_graph"];
 

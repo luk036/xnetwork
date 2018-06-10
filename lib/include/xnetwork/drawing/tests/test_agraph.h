@@ -5,7 +5,7 @@ from nose import SkipTest
 from nose.tools import assert_true, assert_equal, assert_raises
 from xnetwork.testing import assert_edges_equal, assert_nodes_equal
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestAGraph: public object {

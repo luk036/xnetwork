@@ -1,7 +1,7 @@
 // !file C++17
 import time
 from nose.tools import *
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork.hpp> // import XNetworkNotImplemented
 
 

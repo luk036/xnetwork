@@ -22,7 +22,7 @@ nx_agraph, nx_pydot
 //    All rights reserved.
 //    BSD license.
 // import warnings
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 __author__ = R"(\n)".join(["Wai-Shing Luk <luk036@gmail.com>",
                             "Pieter Swart (swart@lanl.gov)",
                             "Dan Schult(dschult@colgate.edu)"]);
@@ -346,7 +346,7 @@ auto from_dict_of_dicts(d, create_using=None, multigraph_input=false) {
         if (G.is_multigraph() && !G.is_directed() {
             // d can have both representations u-v, v-u : dict.  Only add one.
             // We don"t need this check for digraphs since we add both directions,
-            // || for Graph() since it is done implicitly (parallel edges not allowed);
+            // or for Graph() since it is done implicitly (parallel edges not allowed);
             seen = set();
             for (auto u, nbrs : d.items() {
                 for (auto v, data : nbrs.items() {

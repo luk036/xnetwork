@@ -27,7 +27,7 @@ from itertools import product
 from itertools import starmap
 import heapq
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.generators.trees import NIL
 #include <xnetwork/utils.hpp> // import arbitrary_element
 #include <xnetwork/utils.hpp> // import consume

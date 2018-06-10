@@ -1,6 +1,6 @@
 // Test for Moody && White k-components algorithm
 from nose.tools import assert_equal, assert_true, raises, assert_greater_equal
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.connectivity.kcomponents import (
     build_k_number_dict,
     _consolidate,

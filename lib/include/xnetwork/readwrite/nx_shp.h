@@ -18,7 +18,7 @@ See https://en.wikipedia.org/wiki/Shapefile for additional information.
 //
 //    All rights reserved.
 //    BSD license.
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 __author__ = R"( Ben Reilly (benwreilly@gmail.com) )"
 static const auto __all__ = ["read_shp", "write_shp"];
 

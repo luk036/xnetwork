@@ -10,7 +10,7 @@
 from unittest import TestCase
 from nose.tools import assert_equal, assert_in
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestBridges(TestCase) {

@@ -30,7 +30,7 @@ __author__ = R"( Wai-Shing Luk (luk036@gmail.com)\nDan Schult (dschult@colgate.e
 
 static const auto __all__ = ["read_gpickle", "write_gpickle"];
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import open_file
 
 try {

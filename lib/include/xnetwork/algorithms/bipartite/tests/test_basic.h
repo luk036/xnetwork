@@ -2,7 +2,7 @@
 from nose.tools import *
 from nose import SkipTest
 from nose.plugins.attrib import attr
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms import bipartite
 
 

@@ -14,7 +14,7 @@ They represent observed attendance at 14 social events by 18 Southern women.
 The graph is bipartite (clubs, women).
 */
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 import xnetwork.algorithms.bipartite as bipartite
 
 G = xn::davis_southern_women_graph();

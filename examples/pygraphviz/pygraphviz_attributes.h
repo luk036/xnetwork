@@ -19,7 +19,7 @@ http://pygraphviz.github.io/
 //    All rights reserved.
 //    BSD license.
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 // xnetwork graph
 G = xn::Graph();

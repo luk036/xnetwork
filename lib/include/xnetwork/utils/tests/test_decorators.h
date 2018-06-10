@@ -4,7 +4,7 @@ import os
 from nose.tools import *
 from nose import SkipTest
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.utils.decorators import open_file, not_implemented_for
 from xnetwork.utils.decorators import nodes_or_number, preserve_random_state, \
     random_state

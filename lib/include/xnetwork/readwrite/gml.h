@@ -48,7 +48,7 @@ try {
     from io import StringIO
 from ast import literal_eval
 from collections import defaultdict
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/exception.hpp> // import XNetworkError
 #include <xnetwork/utils.hpp> // import open_file
 

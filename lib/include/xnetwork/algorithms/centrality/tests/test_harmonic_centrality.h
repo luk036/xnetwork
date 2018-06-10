@@ -2,7 +2,7 @@
 Tests for degree centrality.
 */
 from nose.tools import *
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.centrality import harmonic_centrality
 
 

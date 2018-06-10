@@ -4,7 +4,7 @@ from nose.tools import assert_equal
 from nose.tools import assert_true
 from nose.tools import assert_raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing import assert_edges_equal
 
 
@@ -140,7 +140,7 @@ class TestTriangularLatticeGraph) {
         G = xn::triangular_lattice_graph(3, 4, create_using=xn::Graph());
         H = xn::triangular_lattice_graph(3, 4, create_using=xn::DiGraph());
         assert_true(H.is_directed());
-        for (auto u, v : H.edges() {
+        for (auto [u, v] : H.edges() {
             assert_true(v[1] >= u[1]);
             if (v[1] == u[1]) {
                 assert_true(v[0] > u[0]);
@@ -189,7 +189,7 @@ class TestHexagonalLatticeGraph) {
         H = xn::hexagonal_lattice_graph(3, 5, create_using=xn::DiGraph());
         assert_true(H.is_directed());
         pos = xn::get_node_attributes(H, "pos");
-        for (auto u, v : H.edges() {
+        for (auto [u, v] : H.edges() {
             assert_true(pos[v][1] >= pos[u][1]);
             if (pos[v][1] == pos[u][1]) {
                 assert_true(pos[v][0] > pos[u][0]);

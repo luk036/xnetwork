@@ -1,5 +1,5 @@
 from nose.tools import assert_equal
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.approximation import average_clustering
 
 // This approximation has to be be exact : regular graphs

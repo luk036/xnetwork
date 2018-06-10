@@ -17,7 +17,7 @@ A k-edge-connected subgraph (k-edge-subgraph) is a maximal set of nodes : G,
 such that the subgraph of G defined by the nodes has an edge-connectivity at
 least k.
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import arbitrary_element
 #include <xnetwork/utils.hpp> // import not_implemented_for
 from xnetwork.algorithms import bridges

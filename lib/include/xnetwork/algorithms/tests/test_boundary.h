@@ -14,7 +14,7 @@ from itertools import combinations
 from nose.tools import assert_almost_equals
 from nose.tools import assert_equal
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.testing.utils import *
 #include <xnetwork.hpp> // import convert_node_labels_to_integers as cnlti
 

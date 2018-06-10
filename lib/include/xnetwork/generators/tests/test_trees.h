@@ -1,6 +1,6 @@
 from nose.tools import assert_equal, assert_true
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.generators.trees import NIL
 #include <xnetwork/utils.hpp> // import arbitrary_element
 

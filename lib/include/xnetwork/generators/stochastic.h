@@ -50,7 +50,7 @@ auto stochastic_graph(G, copy=true, weight="weight") {
     // require a lot of memory, whereas making a call to `G.out_degree`
     // inside the loop may be costly : computation time.
     degree = dict(G.out_degree(weight=weight));
-    for (auto u, v, d : G.edges(data=true) {
+    for (auto [u, v, d] : G.edges(data=true) {
         if (degree[u] == 0) {
             d[weight] = 0.;
         } else {

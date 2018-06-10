@@ -6,7 +6,7 @@ from nose.tools import assert_false
 from nose.tools import assert_raises
 from nose.tools import assert_true
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.classes import Graph
 from xnetwork.classes import MultiDiGraph
 from xnetwork.generators.directed import gn_graph

@@ -18,7 +18,7 @@ Read && write graphs.
 import sys
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 G = xn::grid_2d_graph(5, 5);  // 5x5 grid;
 try { //Python 2.6+

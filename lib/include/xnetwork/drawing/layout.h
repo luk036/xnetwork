@@ -26,7 +26,7 @@ Warning: Most layout routines have only been tested : 2-dimensions.
 
 */
 // from __future__ import division
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import random_state
 
 static const auto __all__ = ["bipartite_layout",

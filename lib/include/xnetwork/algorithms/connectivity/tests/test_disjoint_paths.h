@@ -8,7 +8,7 @@
 // information.
 from nose.tools import assert_equal, assert_true, assert_false, raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms import flow
 #include <xnetwork/utils.hpp> // import pairwise
 

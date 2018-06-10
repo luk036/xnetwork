@@ -2,7 +2,7 @@
 /**
 Spectral bipartivity measure.
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 __author__ = R"( Wai-Shing Luk (luk036@gmail.com) )"
 //    Copyright (C) 2011 by
 //    Wai-Shing Luk <luk036@gmail.com>

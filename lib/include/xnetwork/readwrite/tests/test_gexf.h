@@ -4,7 +4,7 @@ import time
 from nose import SkipTest
 from nose.tools import *
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestGEXF: public object {

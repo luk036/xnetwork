@@ -5,7 +5,7 @@ The functions : this class are not imported into the top-level
 the :mod:`xnetwork.algorithms.community` module, then accessing the
 functions as attributes of ``community``. For example:) {
 
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> from xnetwork.algorithms import community
     >>> G = xn::barbell_graph(5, 1);
     >>> communities_generator = community.girvan_newman(G);

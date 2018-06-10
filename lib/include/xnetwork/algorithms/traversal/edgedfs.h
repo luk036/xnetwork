@@ -114,7 +114,7 @@ auto edge_dfs(G, source=None, orientation="original") {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> nodes = [0, 1, 2, 3];
     >>> edges = [(0, 1), (1, 0), (1, 0), (2, 1), (3, 1)];
 

@@ -6,7 +6,7 @@ from collections import defaultdict
 from itertools import combinations
 from operator import itemgetter
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 // Define the default maximum flow function.
 from xnetwork.algorithms.flow import edmonds_karp

@@ -9,7 +9,7 @@ Random graph shown as inset
 */
 import collections
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 G = xn::gnp_random_graph(100, 0.02);
 

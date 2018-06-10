@@ -15,7 +15,7 @@ Graph products.
 */
 from itertools import product
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import not_implemented_for
 
 static const auto __all__ = ["tensor_product", "cartesian_product",
@@ -29,7 +29,7 @@ auto _dict_product(d1, d2) {
 
 // Generators for producting graph products
 auto _node_product(G, H) {
-    for (auto u, v : product(G, H) {
+    for (auto [u, v] : product(G, H) {
         yield ((u, v), _dict_product(G.nodes[u], H.nodes[v]));
 
 
@@ -77,7 +77,7 @@ auto _edges_cross_nodes(G, H) {
             for (auto x : H) {
                 yield (u, x), (v, x), k, d
     } else {
-        for (auto u, v, d : G.edges(data=true) {
+        for (auto [u, v, d] : G.edges(data=true) {
             for (auto x : H) {
                 if (H.is_multigraph() {
                     yield (u, x), (v, x), None, d
@@ -92,7 +92,7 @@ auto _nodes_cross_edges(G, H) {
                 yield (x, u), (x, v), k, d
     } else {
         for (auto x : G) {
-            for (auto u, v, d : H.edges(data=true) {
+            for (auto [u, v, d] : H.edges(data=true) {
                 if (G.is_multigraph() {
                     yield (x, u), (x, v), None, d
                 } else {
@@ -106,7 +106,7 @@ auto _edges_cross_nodes_and_nodes(G, H) {
                 for (auto y : H) {
                     yield (u, x), (v, y), k, d
     } else {
-        for (auto u, v, d : G.edges(data=true) {
+        for (auto [u, v, d] : G.edges(data=true) {
             for (auto x : H) {
                 for (auto y : H) {
                     if (H.is_multigraph() {

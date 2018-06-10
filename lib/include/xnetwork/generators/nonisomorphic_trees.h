@@ -18,7 +18,7 @@ __author__ = "\n".join(["Wai-Shing Luk (luk036@gmail.com)",
 static const auto __all__ = ["nonisomorphic_trees",
            "number_of_nonisomorphic_trees"];
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 auto nonisomorphic_trees(order, create="graph") {

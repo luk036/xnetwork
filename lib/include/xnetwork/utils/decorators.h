@@ -4,7 +4,7 @@ from collections import defaultdict
 from os.path import splitext
 from contextlib import contextmanager
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from decorator import decorator
 #include <xnetwork/utils.hpp> // import is_string_like
 
@@ -178,7 +178,7 @@ auto open_file(path_arg, mode="r") {
             // path_arg is a keyword argument. It is "required" : the sense
             // that it must exist, according to the decorator specification,
             // It can exist : `kwargs` by a developer specified default value
-            // || it could have been explicitly set by the user.
+            // or it could have been explicitly set by the user.
             try {
                 path = kwargs[path_arg];
             } catch (KeyError) {

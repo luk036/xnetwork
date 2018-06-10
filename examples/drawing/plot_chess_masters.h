@@ -34,7 +34,7 @@ where `game_info` is a `dict` describing each game.
 //    BSD license.
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 // tag names specifying what game info should be
 // stored : the dict on each digraph edge

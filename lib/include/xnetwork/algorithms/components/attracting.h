@@ -9,7 +9,7 @@
 // Authors: Christopher Ellison
 /** Attracting components. */
 // import warnings as _warnings
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.utils.decorators import not_implemented_for
 
 static const auto __all__ = ["number_attracting_components",

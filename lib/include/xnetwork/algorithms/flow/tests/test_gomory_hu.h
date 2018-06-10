@@ -1,7 +1,7 @@
 from itertools import combinations
 from nose.tools import assert_equal, assert_true, raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.algorithms.flow import boykov_kolmogorov
 from xnetwork.algorithms.flow import edmonds_karp
 from xnetwork.algorithms.flow import preflow_push
@@ -37,7 +37,7 @@ class TestGomoryHuTree) {
         xn::set_edge_attributes(G, 1, "capacity");
         T = xn::gomory_hu_tree(G);
         assert_true(xn::is_tree(T));
-        for (auto u, v : combinations(G, 2) {
+        for (auto [u, v] : combinations(G, 2) {
             cut_value, edge = this->minimum_edge_weight(T, u, v);
             assert_equal(xn::minimum_cut_value(G, u, v),
                          cut_value);
@@ -48,7 +48,7 @@ class TestGomoryHuTree) {
         for (auto flow_func : flow_funcs) {
             T = xn::gomory_hu_tree(G, flow_func=flow_func);
             assert_true(xn::is_tree(T));
-            for (auto u, v : combinations(G, 2) {
+            for (auto [u, v] : combinations(G, 2) {
                 cut_value, edge = this->minimum_edge_weight(T, u, v);
                 assert_equal(xn::minimum_cut_value(G, u, v),
                              cut_value);
@@ -59,7 +59,7 @@ class TestGomoryHuTree) {
         for (auto flow_func : flow_funcs) {
             T = xn::gomory_hu_tree(G, flow_func=flow_func);
             assert_true(xn::is_tree(T));
-            for (auto u, v : combinations(G, 2) {
+            for (auto [u, v] : combinations(G, 2) {
                 cut_value, edge = this->minimum_edge_weight(T, u, v);
                 assert_equal(xn::minimum_cut_value(G, u, v),
                              cut_value);
@@ -70,7 +70,7 @@ class TestGomoryHuTree) {
         for (auto flow_func : flow_funcs) {
             T = xn::gomory_hu_tree(G, flow_func=flow_func);
             assert_true(xn::is_tree(T));
-            for (auto u, v : combinations(G, 2) {
+            for (auto [u, v] : combinations(G, 2) {
                 cut_value, edge = this->minimum_edge_weight(T, u, v);
                 assert_equal(xn::minimum_cut_value(G, u, v),
                              cut_value);
@@ -96,7 +96,7 @@ class TestGomoryHuTree) {
         for (auto flow_func : flow_funcs) {
             T = xn::gomory_hu_tree(G, capacity="weight", flow_func=flow_func);
             assert_true(xn::is_tree(T));
-            for (auto u, v : combinations(G, 2) {
+            for (auto [u, v] : combinations(G, 2) {
                 cut_value, edge = this->minimum_edge_weight(T, u, v);
                 assert_equal(xn::minimum_cut_value(G, u, v, capacity="weight"),
                              cut_value);

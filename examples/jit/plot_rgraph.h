@@ -15,7 +15,7 @@ __author__ = R"( Ollie Glass (ollieglaskovik@gmail.com) */
 import json
 
 import matplotlib.pyplot as plt
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from xnetwork.readwrite.json_graph import jit_data, jit_graph
 
 // add some nodes to a graph

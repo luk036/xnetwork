@@ -1,5 +1,5 @@
 // !file C++17
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 from nose.tools import assert_almost_equal
 from nose import SkipTest
 from nose.plugins.attrib import attr

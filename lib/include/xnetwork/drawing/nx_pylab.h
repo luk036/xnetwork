@@ -21,7 +21,7 @@ matplotlib:     http://matplotlib.org/
 pygraphviz:     http://pygraphviz.github.io/
 
 */
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import is_string_like
 from xnetwork.drawing.layout import shell_layout, \
     circular_layout, kamada_kawai_layout, spectral_layout, \
@@ -92,7 +92,7 @@ auto draw(G, pos=None, ax=None, **kwds) {
     With pyplot use
 
     >>> import matplotlib.pyplot as plt
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::dodecahedral_graph();
     >>> xn::draw(G);  // xnetwork draw();
     >>> plt.draw();  // pyplot draw();

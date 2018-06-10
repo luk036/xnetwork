@@ -94,7 +94,7 @@ EdgeDataView
 */
 // from collections import Mapping, Set, Iterable
 #include <xnetwork.hpp>
-using namespace xn;
+as xn
 
 static const auto __all__ = {"NodeView", "NodeDataView",
            "EdgeView", "OutEdgeView", "InEdgeView",

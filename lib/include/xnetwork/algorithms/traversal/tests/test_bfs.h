@@ -1,5 +1,5 @@
 from nose.tools import assert_equal
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestBFS) {

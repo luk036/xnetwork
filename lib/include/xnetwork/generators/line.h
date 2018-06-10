@@ -14,7 +14,7 @@
 from itertools import combinations
 from collections import defaultdict
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 #include <xnetwork/utils.hpp> // import arbitrary_element
 from xnetwork.utils.decorators import *
 
@@ -47,7 +47,7 @@ auto line_graph(G, create_using=None) {
 
     Examples
     --------
-    >>> #include <xnetwork.hpp>using namespace xn;
+    >>> #include <xnetwork.hpp> // as xn
     >>> G = xn::star_graph(3);
     >>> L = xn::line_graph(G);
     >>> print(sorted(map(sorted, L.edges())));  // makes a 3-clique, K3

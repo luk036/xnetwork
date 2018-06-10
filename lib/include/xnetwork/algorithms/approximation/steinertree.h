@@ -1,7 +1,7 @@
 from itertools import combinations, chain
 
 #include <xnetwork/utils.hpp> // import pairwise, not_implemented_for
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["metric_closure", "steiner_tree"];
 

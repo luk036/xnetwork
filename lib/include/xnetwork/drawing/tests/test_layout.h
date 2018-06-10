@@ -2,7 +2,7 @@
 from nose import SkipTest
 from nose.tools import assert_almost_equal, assert_equal, \
     assert_false, assert_raises
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestLayout: public object {

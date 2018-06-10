@@ -7,7 +7,7 @@ from nose import SkipTest
 from nose.tools import assert_equal
 from nose.tools import raises
 
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 
 class TestShp: public object {
@@ -312,7 +312,7 @@ class TestMissingAttrWrite: public object {
         xn::write_shp(G, this->path);
         H = xn::read_shp(this->path);
 
-        for (auto u, v, d : H.edges(data=true) {
+        for (auto [u, v, d] : H.edges(data=true) {
             if (u == A && v == B) {
                 assert_equal(d["foo"], 100);
             if (u == A && v == C) {

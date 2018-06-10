@@ -25,7 +25,7 @@ DOT Language:  http://www.graphviz.org/doc/info/lang.html
 from locale import getpreferredencoding
 #include <xnetwork/utils.hpp> // import open_file, make_str
 from pkg_resources import parse_version
-#include <xnetwork.hpp>using namespace xn;
+#include <xnetwork.hpp> // as xn
 
 static const auto __all__ = ["write_dot", "read_dot", "graphviz_layout", "pydot_layout",
            "to_pydot", "from_pydot"];
