@@ -220,7 +220,7 @@ class _AntiGraph(xn::Graph) {
         return this->all_edge_dict
     edge_attr_dict_factory = single_edge_dict
 
-    auto __getitem__( n) {
+    auto operator[]( n) {
         /** Return a dict of neighbors of node n : the dense graph.
 
         Parameters
@@ -261,7 +261,7 @@ class _AntiGraph(xn::Graph) {
         auto __iter__( ) {
             return (n for n : this->_graph if (n not : this->_atlas && n != this->_node);
 
-        auto __getitem__( nbr) {
+        auto operator[]( nbr) {
             nbrs = set(this->_graph._adj) - set(this->_atlas) - set([this->_node]);
             if (nbr : nbrs) {
                 return this->_graph.all_edge_dict
@@ -280,7 +280,7 @@ class _AntiGraph(xn::Graph) {
         auto __iter__( ) {
             return iter(this->_graph);
 
-        auto __getitem__( node) {
+        auto operator[]( node) {
             if (node not : this->_graph) {
                 throw KeyError(node);
             return this->_graph.AntiAtlasView(this->_graph, node);
@@ -311,7 +311,7 @@ class _AntiGraph(xn::Graph) {
                 nbrs = all_nodes - set(this->_succ[n]) - set([n]);
                 yield (n, len(nbrs));
 
-        auto __getitem__( n) {
+        auto operator[]( n) {
             nbrs = set(this->_succ) - set(this->_succ[n]) - set([n]);
             // AntiGraph is a ThinGraph so all edges have weight 1
             return len(nbrs) + (n : nbrs);

@@ -71,7 +71,7 @@ if (sys.version_info[:2] < (2, 7) {
 del sys
 
 // Release data
-#include <xnetwork.hpp> // import release
+// #include <xnetwork.hpp> // import release
 
 __author__ = "%s <%s>\n%s <%s>\n%s <%s>" % \
     auto [release.authors["Hagberg"] + release.authors["Schult"] +
@@ -91,7 +91,7 @@ booktitle = {Proceedings of the 7th Python : Science Conference (SciPy2008)},
 editors = {G\"{a}el Varoquaux, Travis Vaught, && Jarrod Millman},
 address = {Pasadena, CA USA},
 pages = {11--15}
-}"
+})";
 
 // These are import orderwise
 #include <xnetwork/exception.hpp> // import *

@@ -26,8 +26,39 @@ For directed graphs see DiGraph && MultiDiGraph.
 #include <xnetwork/classes/coreviews.hpp> // import AtlasView, AdjacencyView
 #include <xnetwork/classes/reportviews.hpp> // import NodeView, EdgeView, DegreeView
 #include <xnetwork/exception.hpp> // import XNetworkError
-#include <xnetwork/convert.hpp> // as convert
-#include <xnetwork/utils.hpp> // import pairwise
+// #include <xnetwork/convert.hpp> // as convert
+// #include <xnetwork/utils.hpp> // import pairwise
+#include <unordered_map>
+#include <string>
+#include <any>
+#include <memory> // for unique_ptr
+
+struct Node;
+
+struct Edge {
+    Node* source;
+    Node* target;
+};
+
+class object;
+
+template <typename Key, typename Value>
+struct dict : std::unordered_map<Key, Value>
+{
+    bool contains(const Key& key) const {
+        return this->find(key) != this->end();
+    }
+
+    Value get(const Key& key, const Vaule& default) {
+        if (!contains(key)) return default;
+        return (*this)[key];
+    }
+};
+
+template <typename Key, typename Value>
+size_t len(const dict& m) {
+    return m.size();
+}
 
 
 class Graph: public object {
@@ -251,29 +282,38 @@ class Graph: public object {
     creating graph subclasses by overwriting the base class `dict` with
     a dictionary-like object.
      */
-    using _Self = Graph;
+  private:
+    using edge_attr_dict_factory = dict<std::string, std::any>;
+    using adjlist_outer_dict_factory = dict<Node*, edge_attr_dict_factory>;
+    using adjlist_inner_dict_factory = dict<Node*, edge_attr_dict_factory>;
+    using node_dict_factory = dict<Node*, adjlist_outer_dict_factory>;
+    using ndf = node_dict_factory;
 
-    node_dict_factory = dict;
-    adjlist_outer_dict_factory = dict;
-    adjlist_inner_dict_factory = dict;
-    edge_attr_dict_factory = dict;
+  private:
+    std::vector<std::unique_ptr<Node> > _Nodes{};
 
-    auto __getstate__( ) {
-        attr = this->__dict__.copy();
-        // remove lazy property attributes
-        if ("nodes" : attr) {
-            del attr["nodes"];
-        }
-        if ("edges" : attr) {
-            del attr["edges"];
-        }
-        if ("degree" : attr) {
-            del attr["degree"];
-        }
-        return attr;
-    }
+    Graph&  root_graph{*this};
+    ndf _node{};  // empty node attribute dict
+    edge_attr_dict_factory graph{};   // dictionary for graph attributes
+    adjlist_outer_dict_factory _adj{};  // empty adjacency dict
 
-    explicit _Self( incoming_graph_data=None, **attr) {
+    // auto __getstate__( ) {
+    //     attr = this->__dict__.copy();
+    //     // remove lazy property attributes
+    //     if ("nodes" : attr) {
+    //         del attr["nodes"];
+    //     }
+    //     if ("edges" : attr) {
+    //         del attr["edges"];
+    //     }
+    //     if ("degree" : attr) {
+    //         del attr["degree"];
+    //     }
+    //     return attr;
+    // }
+
+    // explicit _Self( incoming_graph_data=None, **attr) {
+    explicit Graph( ) {
         /** Initialize a graph with edges, name, || graph attributes.
 
         Parameters
@@ -306,21 +346,12 @@ class Graph: public object {
         {"day": "Friday"}
 
          */
-        this->node_dict_factory = ndf = this->node_dict_factory;
-        this->adjlist_outer_dict_factory = this->adjlist_outer_dict_factory;
-        this->adjlist_inner_dict_factory = this->adjlist_inner_dict_factory;
-        this->edge_attr_dict_factory = this->edge_attr_dict_factory;
-
-        this->root_graph = self;
-        this->graph = {};   // dictionary for graph attributes
-        this->_node = ndf();  // empty node attribute dict
-        this->_adj = this->adjlist_outer_dict_factory();  // empty adjacency dict
         // attempt to load graph with data
-        if (incoming_graph_data is not None) {
-            convert.to_xnetwork_graph(incoming_graph_data, create_using=*this);
-        }
+        // if (incoming_graph_data is not None) {
+        //     convert.to_xnetwork_graph(incoming_graph_data, create_using=*this);
+        // }
         // load graph attributes (must be after convert);
-        this->graph.update(attr);
+        // this->graph.update(attr);
     }
 
     /// @property
@@ -344,37 +375,23 @@ class Graph: public object {
     }
 
     /// @property
-    auto name( ) {
+    auto get_name( ) {
         /** String identifier of the graph.
 
         This graph attribute appears : the attribute dict G.graph
         keyed by the string `"name"`. as well as an attribute (technically
         a property) `G.name`. This is entirely user controlled.
          */
-        return this->graph.get("name", "");
+        if (!this->graph.contains("name")) return std::string("");
+        return std::any_cast<std::string>(this->graph["name"]);
     }
 
     // @name.setter
-    auto name( s) {
-        this->graph["name"] = s;
+    auto set_name(std::string s) {
+        this->graph["name"] = std::any(s);
     }
 
-    auto __str__( ) {
-        /** Return the graph name.
-
-        Returns
-        -------
-        name : string
-            The name of the graph.
-
-        Examples
-        --------
-        >>> G = xn::Graph(name="foo");
-        >>> str(G);
-        "foo";
-         */
-        return this->name;
-    }
+    friend std::string str(Graph&);
 
     auto __iter__( ) {
         /** Iterate over the nodes. Use: "for n : G".
@@ -395,7 +412,7 @@ class Graph: public object {
         return iter(this->_node);
     }
 
-    auto __contains__( n) {
+    bool contains(const Node *n) {
         /** Return true if (n is a node, false otherwise. Use: "n : G".
 
         Examples
@@ -404,32 +421,12 @@ class Graph: public object {
         >>> 1 : G
         true
          */
-        try {
-            return n : this->_node;
-        } catch (TypeError) {
-            return false;
-        }
+        return this->_node.find(n) != this->_node.end();
     }
 
-    auto __len__( ) {
-        /** Return the number of nodes. Use: "len(G)".
+    friend std::size_t len(Graph&);
 
-        Returns
-        -------
-        nnodes : int
-            The number of nodes : the graph.
-
-        Examples
-        --------
-        >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
-        >>> len(G);
-        4
-
-         */
-        return len(this->_node);
-    }
-
-    auto __getitem__( n) {
+    auto operator[](const Node* n) {
         /** Return a dict of neighbors of node n.  Use: "G[n]".
 
         Parameters
@@ -456,7 +453,8 @@ class Graph: public object {
         return this->adj[n];
     }
 
-    auto add_node( node_for_adding, **attr) {
+    // auto add_node(std::any node_for_adding, **attr) {
+    auto add_node(std::any node_for_adding) {
         /** Add a single node `node_for_adding` && update node attributes.
 
         Parameters
@@ -609,7 +607,7 @@ class Graph: public object {
             nbrs = list(adj[n]);  // list handles self-loops (allows mutation);
             del this->_node[n];
         } catch (KeyError) { //XNetworkError if (n not : self
-            throw XNetworkError("The node %s is not : the graph." % (n,));
+            throw XNetworkError("The node %s is not in the graph." % (n,));
         }
         for (auto u : nbrs) {
             del adj[u][n];   // remove all edges n-u : graph
@@ -1866,4 +1864,39 @@ class Graph: public object {
         return bunch;
     }
 };
-    
+
+// Non-member functions   
+    std::string str(const Graph& G) {
+        /** Return the graph name.
+
+        Returns
+        -------
+        name : string
+            The name of the graph.
+
+        Examples
+        --------
+        >>> G = xn::Graph(name="foo");
+        >>> str(G);
+        "foo";
+         */
+        return G.get_name();
+    }
+
+    std::size_t len(const Graph& G) {
+        /** Return the number of nodes. Use: "len(G)".
+
+        Returns
+        -------
+        nnodes : int
+            The number of nodes : the graph.
+
+        Examples
+        --------
+        >>> G = xn::path_graph(4);  // or DiGraph, MultiGraph, MultiDiGraph, etc
+        >>> len(G);
+        4
+
+         */
+        return G._node.size();
+    }

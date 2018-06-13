@@ -84,7 +84,7 @@ auto enumerate_all_cliques(G) {
         // Neighbors of u that appear after u : the iteration order of G.
         nbrs[u] = {v for v : G[u] if (v not : index}
 
-    queue = deque(([u], sorted(nbrs[u], key=index.__getitem__)) for u : G);
+    queue = deque(([u], sorted(nbrs[u], key=index.operator[])) for u : G);
     // Loop invariants) {
     // 1. len(base) is nondecreasing.
     // 2. (base + cnbrs) is sorted with respect to the iteration order of G.

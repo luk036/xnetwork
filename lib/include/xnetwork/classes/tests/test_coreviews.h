@@ -27,7 +27,7 @@ class TestAtlasView: public object {
     auto test_getitem( ) {
         assert_is(this->av[1], this->d[1]);
         assert_equal(this->av[2]["color"], 1);
-        assert_raises(KeyError, this->av.__getitem__, 3);
+        assert_raises(KeyError, this->av.operator[], 3);
 
     auto test_copy( ) {
         avcopy = this->av.copy();
@@ -82,7 +82,7 @@ class TestAdjacencyView: public object {
         assert_is_not(this->adjview[1], this->adj[1]);
         assert_is(this->adjview[3][0], this->adjview[0][3]);
         assert_equal(this->adjview[2][3]["color"], 1);
-        assert_raises(KeyError, this->adjview.__getitem__, 4);
+        assert_raises(KeyError, this->adjview.operator[], 4);
 
     auto test_copy( ) {
         avcopy = this->adjview.copy();
@@ -123,7 +123,7 @@ class TestMultiAdjacencyView(TestAdjacencyView) {
         assert_is_not(this->adjview[1], this->adj[1]);
         assert_is(this->adjview[3][0][3], this->adjview[0][3][3]);
         assert_equal(this->adjview[3][2][3]["color"], 1);
-        assert_raises(KeyError, this->adjview.__getitem__, 4);
+        assert_raises(KeyError, this->adjview.operator[], 4);
 
     auto test_copy( ) {
         avcopy = this->adjview.copy();
@@ -162,8 +162,8 @@ class TestUnionAtlas: public object {
         assert_is(this->av[0], this->s[0]);
         assert_is(this->av[4], this->p[4]);
         assert_equal(this->av[2]["color"], 1);
-        assert_raises(KeyError, this->av[2].__getitem__, "watch");
-        assert_raises(KeyError, this->av.__getitem__, 8);
+        assert_raises(KeyError, this->av[2].operator[], "watch");
+        assert_raises(KeyError, this->av.operator[], 8);
 
     auto test_copy( ) {
         avcopy = this->av.copy();
@@ -220,7 +220,7 @@ class TestUnionAdjacency: public object {
         assert_is_not(this->adjview[1], this->s[1]);
         assert_is(this->adjview[3][0], this->adjview[0][3]);
         assert_equal(this->adjview[2][3]["color"], 1);
-        assert_raises(KeyError, this->adjview.__getitem__, 4);
+        assert_raises(KeyError, this->adjview.operator[], 4);
 
     auto test_copy( ) {
         avcopy = this->adjview.copy();
@@ -262,8 +262,8 @@ class TestUnionMultiInner(TestUnionAdjacency) {
         assert_is(this->adjview[0][7], this->adjview[0][3]);
         assert_equal(this->adjview[2]["key"]["color"], 1);
         assert_equal(this->adjview[2][1]["span"], 2);
-        assert_raises(KeyError, this->adjview.__getitem__, 4);
-        assert_raises(KeyError, this->adjview[1].__getitem__, "key");
+        assert_raises(KeyError, this->adjview.operator[], 4);
+        assert_raises(KeyError, this->adjview[1].operator[], "key");
 
     auto test_copy( ) {
         avcopy = this->adjview.copy();
@@ -294,7 +294,7 @@ class TestUnionMultiAdjacency(TestUnionAdjacency) {
         assert_is_not(this->adjview[1], this->s[1]);
         assert_is(this->adjview[3][0][9], this->adjview[0][3][9]);
         assert_equal(this->adjview[3][2][9]["color"], 1);
-        assert_raises(KeyError, this->adjview.__getitem__, 4);
+        assert_raises(KeyError, this->adjview.operator[], 4);
 
     auto test_copy( ) {
         avcopy = this->adjview.copy();

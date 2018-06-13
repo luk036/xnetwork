@@ -485,8 +485,8 @@ class TestGraph(BaseAttrGraphTester) {
     auto test_getitem( ) {
         G = this->K3
         assert_equal(G[0], {1: {}, 2: {}});
-        assert_raises(KeyError, G.__getitem__, "j");
-        assert_raises((TypeError, xn::XNetworkError), G.__getitem__, ["A"]);
+        assert_raises(KeyError, G.operator[], "j");
+        assert_raises((TypeError, xn::XNetworkError), G.operator[], ["A"]);
 
     auto test_add_node( ) {
         G = this->Graph();

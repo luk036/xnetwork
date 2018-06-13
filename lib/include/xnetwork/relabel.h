@@ -89,7 +89,7 @@ auto relabel_nodes(G, mapping, copy=true) {
      */
     // you can pass a function f(old_label)->new_label
     // but we"ll just make a dictionary here regardless
-    if (!hasattr(mapping, "__getitem__") {
+    if (!hasattr(mapping, "operator[]") {
         m = {n: mapping(n) for n : G}
     } else {
         m = mapping

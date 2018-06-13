@@ -12,7 +12,7 @@ Union-find data structure.
 #include <xnetwork/utils.hpp> // import groups
 
 
-class UnionFind) {
+class UnionFind {
     /** Union-find data structure.
 
     Each unionFind instance X maintains a family of disjoint sets of
@@ -50,7 +50,7 @@ class UnionFind) {
             this->weights[x] = 1;
             this->parents[x] = x
 
-    auto __getitem__( object) {
+    auto operator[]( object) {
         /** Find && return the name of the set containing the object. */
 
         // check for previously unknown object

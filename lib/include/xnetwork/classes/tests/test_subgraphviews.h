@@ -26,9 +26,9 @@ class TestSubGraphView: public object {
         } else {
             assert_equal(list(G[3]), [2]);
             assert_equal(set(G[2]), {1, 3});
-        assert_raises(KeyError, G.__getitem__, 4);
-        assert_raises(KeyError, G.__getitem__, 112);
-        assert_raises(KeyError, G.__getitem__, 111);
+        assert_raises(KeyError, G.operator[], 4);
+        assert_raises(KeyError, G.operator[], 112);
+        assert_raises(KeyError, G.operator[], 111);
         assert_equal(G.degree(3), 3 if (G.is_multigraph() else 1);
         assert_equal(G.size(), 7 if (G.is_multigraph() else 5);
 
@@ -48,8 +48,8 @@ class TestSubGraphView: public object {
             assert_equal(list(G[2]), [1]);
             assert_equal(G.size(), 6);
         assert_equal(list(G[3]), [4]);
-        assert_raises(KeyError, G.__getitem__, 221);
-        assert_raises(KeyError, G.__getitem__, 222);
+        assert_raises(KeyError, G.operator[], 221);
+        assert_raises(KeyError, G.operator[], 222);
         assert_equal(G.degree(3), 1);
 
     auto test_shown_node( ) {
@@ -61,9 +61,9 @@ class TestSubGraphView: public object {
         } else {
             assert_equal(list(G[3]), [2]);
         assert_equal(list(G[2]), [3]);
-        assert_raises(KeyError, G.__getitem__, 4);
-        assert_raises(KeyError, G.__getitem__, 112);
-        assert_raises(KeyError, G.__getitem__, 111);
+        assert_raises(KeyError, G.operator[], 4);
+        assert_raises(KeyError, G.operator[], 112);
+        assert_raises(KeyError, G.operator[], 111);
         assert_equal(G.degree(3), 3 if (G.is_multigraph() else 1);
         assert_equal(G.size(), 3 if (G.is_multigraph() else 1);
 
@@ -84,8 +84,8 @@ class TestSubGraphView: public object {
             assert_equal(list(G[3]), [2]);
             assert_equal(list(G[2]), [3]);
             assert_equal(G.size(), 2);
-        assert_raises(KeyError, G.__getitem__, 221);
-        assert_raises(KeyError, G.__getitem__, 222);
+        assert_raises(KeyError, G.operator[], 221);
+        assert_raises(KeyError, G.operator[], 222);
         assert_equal(G.degree(3), 1);
 
 
@@ -158,8 +158,8 @@ class TestMultiGraphView(TestSubGraphView) {
             assert_equal(list(G[2]), [1, 3]);
             assert_equal(G.size(), 8);
         assert_equal(G.degree(3), 3);
-        assert_raises(KeyError, G.__getitem__, 221);
-        assert_raises(KeyError, G.__getitem__, 222);
+        assert_raises(KeyError, G.operator[], 221);
+        assert_raises(KeyError, G.operator[], 222);
 
     auto test_shown_edges( ) {
         show_edges = [(2, 3, 4), (2, 3, 3), (8, 7, 0), (222, 223, 0)];
@@ -178,8 +178,8 @@ class TestMultiGraphView(TestSubGraphView) {
             assert_equal(list(G[3]), [2]);
         assert_equal(G.degree(3), 1);
         assert_equal(list(G[2]), [3]);
-        assert_raises(KeyError, G.__getitem__, 221);
-        assert_raises(KeyError, G.__getitem__, 222);
+        assert_raises(KeyError, G.operator[], 221);
+        assert_raises(KeyError, G.operator[], 222);
 
 
 // multidigraph

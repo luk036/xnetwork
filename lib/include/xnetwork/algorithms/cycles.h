@@ -321,7 +321,7 @@ auto recursive_simple_cycles(G) {
         component = G.subgraph(mincomp);
         if (component) {
             // smallest node : the component according to the ordering
-            startnode = min(component, key=ordering.__getitem__);
+            startnode = min(component, key=ordering.operator[]);
             for (auto node : component) {
                 blocked[node]  = false;
                 B[node][:] = [];

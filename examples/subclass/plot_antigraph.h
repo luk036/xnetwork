@@ -47,7 +47,7 @@ class AntiGraph(xn::Graph) {
         return this->all_edge_dict
     edge_attr_dict_factory = single_edge_dict
 
-    auto __getitem__( n) {
+    auto operator[]( n) {
         /** Return a dict of neighbors of node n : the dense graph.
 
         Parameters

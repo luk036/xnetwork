@@ -172,8 +172,8 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
     auto test_getitem( ) {
         G = this->K3
         assert_equal(G[0], {1: {0: {}}, 2: {0: {}}});
-        assert_raises(KeyError, G.__getitem__, "j");
-        assert_raises((TypeError, xn::XNetworkError), G.__getitem__, ["A"]);
+        assert_raises(KeyError, G.operator[], "j");
+        assert_raises((TypeError, xn::XNetworkError), G.operator[], ["A"]);
 
     auto test_remove_node( ) {
         G = this->K3

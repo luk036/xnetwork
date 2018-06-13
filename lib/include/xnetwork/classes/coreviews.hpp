@@ -57,7 +57,7 @@ class AtlasView : public Mapping {
         return iter(this->_atlas);
     }
 
-    auto __getitem__( key) {
+    auto operator[]( key) {
         return this->_atlas[key];
     }
 
@@ -89,7 +89,7 @@ class AdjacencyView(AtlasView) {
      */
     static const auto __slots__ = ();   // Still uses AtlasView slots names _atlas
 
-    auto __getitem__( name) {
+    auto operator[]( name) {
         return AtlasView(this->_atlas[name]);
     }
 
@@ -113,7 +113,7 @@ class MultiAdjacencyView(AdjacencyView) {
      */
     static const auto __slots__ = ();   // Still uses AtlasView slots names _atlas
 
-    auto __getitem__( name) {
+    auto operator[]( name) {
         return AdjacencyView(this->_atlas[name]);
     }
 
@@ -161,7 +161,7 @@ class UnionAtlas : public Mapping {
         return iter(set(this->_succ.keys()) | set(this->_pred.keys()));
     }
 
-    auto __getitem__( key) {
+    auto operator[]( key) {
         try {
             return this->_succ[key];
         } catch (KeyError) {
@@ -234,7 +234,7 @@ class UnionAdjacency : public Mapping {
         return iter(this->_succ);
     }
 
-    auto __getitem__( nbr) {
+    auto operator[]( nbr) {
         return UnionAtlas(this->_succ[nbr], this->_pred[nbr]);
     }
 
@@ -267,7 +267,7 @@ class UnionMultiInner(UnionAtlas) {
      */
     static const auto __slots__ = ()   // Still uses UnionAtlas slots names _succ, _pred;
 
-    auto __getitem__( node) {
+    auto operator[]( node) {
         in_succ = node : this->_succ;
         in_pred = node : this->_pred;
         if (in_succ) {
@@ -299,7 +299,7 @@ class UnionMultiAdjacency(UnionAdjacency) {
      */
     static const auto __slots__ = ();   // Still uses UnionAdjacency slots names _succ, _pred;
 
-    auto __getitem__( node) {
+    auto operator[]( node) {
         return UnionMultiInner(this->_succ[node], this->_pred[node]);
     }
 
@@ -346,7 +346,7 @@ class FilterAtlas : public Mapping {  // nodedict, nbrdict, keydict
         return (n for n : this->_atlas if (this->NODE_OK(n));
     }
 
-    auto __getitem__( key) {
+    auto operator[]( key) {
         if (key : this->_atlas && this->NODE_OK(key) {
             return this->_atlas[key];
         }
@@ -392,7 +392,7 @@ class FilterAdjacency : public Mapping {   // edgedict
         return (n for n : this->_atlas if (this->NODE_OK(n));
     }
 
-    auto __getitem__( node) {
+    auto operator[]( node) {
         if (node : this->_atlas && this->NODE_OK(node) {
             auto new_node_ok(nbr) {
                 return this->NODE_OK(nbr) && this->EDGE_OK(node, nbr);
@@ -446,7 +446,7 @@ class FilterMultiInner(FilterAdjacency) {  // muliedge_seconddict
         }
     }
 
-    auto __getitem__( nbr) {
+    auto operator[]( nbr) {
         if (nbr : this->_atlas && this->NODE_OK(nbr) {
             auto new_node_ok(key) {
                 return this->EDGE_OK(nbr, key);
@@ -469,7 +469,7 @@ class FilterMultiInner(FilterAdjacency) {  // muliedge_seconddict
 
 
 class FilterMultiAdjacency(FilterAdjacency) {  // multiedgedict
-    auto __getitem__( node) {
+    auto operator[]( node) {
         if (node : this->_atlas && this->NODE_OK(node) {
             auto edge_ok(nbr, key) {
                 return this->NODE_OK(nbr) && this->EDGE_OK(node, nbr, key);

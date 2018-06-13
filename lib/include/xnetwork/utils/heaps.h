@@ -126,7 +126,7 @@ class MinHeap: public object {
          */
         return len(this->_dict);
 
-    auto __contains__( key) {
+    bool contains( key) {
         /** Return whether a key exists : the heap.
 
         Parameters

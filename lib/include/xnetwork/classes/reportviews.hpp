@@ -182,12 +182,12 @@ class NodeView: public Mapping, Set {
         return iter(this->_nodes);
     }
 
-    auto __getitem__( n) {
+    auto operator[]( n) {
         return this->_nodes[n];
     }
 
     // Set methods
-    auto __contains__( n) {
+    bool contains( n) {
         return n : this->_nodes;
     }
 
@@ -289,7 +289,7 @@ class NodeDataView: public Set {
                 for (auto n, dd : this->_nodes.items());
     }
 
-    auto __contains__( n) {
+    bool contains( n) {
         try {
             node_in = n : this->_nodes;
         } catch (TypeError) {
@@ -307,7 +307,7 @@ class NodeDataView: public Set {
         return n : this->_nodes && self[n] == d;
     }
 
-    auto __getitem__( n) {
+    auto operator[]( n) {
         ddict = this->_nodes[n];
         data = this->_data;
         if (data == false || data == true) {
@@ -402,7 +402,7 @@ class DiDegreeView: public object {
         return this->__class__(this->_graph, nbunch, weight);
     }
 
-    auto __getitem__( n) {
+    auto operator[]( n) {
         weight = this->_weight;
         succs = this->_succ[n];
         preds = this->_pred[n];
@@ -490,7 +490,7 @@ class DegreeView: public DiDegreeView {
     >>> assert(len(list(DVnbunch)) == 2);  // iteration over nbunch only
      */
 
-    auto __getitem__( n) {
+    auto operator[]( n) {
         weight = this->_weight;
         nbrs = this->_succ[n];
         if (weight.empty()) {
@@ -522,7 +522,7 @@ class DegreeView: public DiDegreeView {
 class OutDegreeView: public DiDegreeView {
     /** A DegreeView class to report out_degree for a DiGraph; See DegreeView */
 
-    auto __getitem__( n) {
+    auto operator[]( n) {
         weight = this->_weight;
         nbrs = this->_succ[n];
         if (this->_weight.empty()) {
@@ -552,7 +552,7 @@ class OutDegreeView: public DiDegreeView {
 class InDegreeView: public DiDegreeView {
     /** A DegreeView class to report in_degree for a DiGraph; See DegreeView */
 
-    auto __getitem__( n) {
+    auto operator[]( n) {
         weight = this->_weight;
         nbrs = this->_pred[n];
         if (weight.empty()) {
@@ -581,7 +581,7 @@ class InDegreeView: public DiDegreeView {
 class MultiDegreeView: public DiDegreeView {
     /** A DegreeView class for undirected multigraphs; See DegreeView */
 
-    auto __getitem__( n) {
+    auto operator[]( n) {
         weight = this->_weight;
         nbrs = this->_succ[n];
         if (weight.empty()) {
@@ -615,7 +615,7 @@ class MultiDegreeView: public DiDegreeView {
 class DiMultiDegreeView: public DiDegreeView {
     /** A DegreeView class for MultiDiGraph; See DegreeView */
 
-    auto __getitem__( n) {
+    auto operator[]( n) {
         weight = this->_weight;
         succs = this->_succ[n];
         preds = this->_pred[n];
@@ -652,7 +652,7 @@ class DiMultiDegreeView: public DiDegreeView {
 class InMultiDegreeView: public DiDegreeView {
     /** A DegreeView class for inward degree of MultiDiGraph; See DegreeView */
 
-    auto __getitem__( n) {
+    auto operator[]( n) {
         weight = this->_weight;
         nbrs = this->_pred[n];
         if (weight.empty()) {
@@ -679,7 +679,7 @@ class InMultiDegreeView: public DiDegreeView {
 class OutMultiDegreeView: public DiDegreeView {
     /** A DegreeView class for outward degree of MultiDiGraph; See DegreeView */
 
-    auto __getitem__( n) {
+    auto operator[]( n) {
         weight = this->_weight;
         nbrs = this->_succ[n];
         if (weight.empty()) {
@@ -745,7 +745,7 @@ class OutEdgeDataView: public object {
         return (this->_report(n, nbr, dd) for n, nbrs : this->_nodes_nbrs();
                 for (auto nbr, dd : nbrs.items());
 
-    auto __contains__( e) {
+    bool contains( e) {
         try {
             auto [u, v] = e[:2];
             ddict = this->_adjdict[u][v];
@@ -802,7 +802,7 @@ class EdgeDataView(OutEdgeDataView) {
             seen[n] = 1;
         del seen
 
-    auto __contains__( e) {
+    bool contains( e) {
         try {
             auto [u, v] = e[:2];
             ddict = this->_adjdict[u][v];
@@ -822,7 +822,7 @@ class InEdgeDataView(OutEdgeDataView) {
         return (this->_report(nbr, n, dd) for n, nbrs : this->_nodes_nbrs();
                 for (auto nbr, dd : nbrs.items());
 
-    auto __contains__( e) {
+    bool contains( e) {
         try {
             auto [u, v] = e[:2];
             ddict = this->_adjdict[v][u];
@@ -884,7 +884,7 @@ class OutMultiEdgeDataView(OutEdgeDataView) {
         return (this->_report(n, nbr, k, dd) for n, nbrs : this->_nodes_nbrs();
                 for (auto nbr, kd : nbrs.items() for k, dd : kd.items());
 
-    auto __contains__( e) {
+    bool contains( e) {
         auto [u, v] = e[:2];
         try {
             kdict = this->_adjdict[u][v];
@@ -917,7 +917,7 @@ class MultiEdgeDataView(OutMultiEdgeDataView) {
             seen[n] = 1;
         del seen
 
-    auto __contains__( e) {
+    bool contains( e) {
         auto [u, v] = e[:2];
         try {
             kdict = this->_adjdict[u][v];
@@ -947,7 +947,7 @@ class InMultiEdgeDataView(OutMultiEdgeDataView) {
         return (this->_report(nbr, n, k, dd) for n, nbrs : this->_nodes_nbrs();
                 for (auto nbr, kd : nbrs.items() for k, dd : kd.items());
 
-    auto __contains__( e) {
+    bool contains( e) {
         auto [u, v] = e[:2];
         try {
             kdict = this->_adjdict[v][u];
@@ -996,7 +996,7 @@ class OutEdgeView(Set, Mapping) {
             for (auto nbr : nbrs) {
                 yield (n, nbr);
 
-    auto __contains__( e) {
+    bool contains( e) {
         try {
             auto [u, v] = e;
             return v : this->_adjdict[u];
@@ -1004,7 +1004,7 @@ class OutEdgeView(Set, Mapping) {
             return false;
 
     // Mapping Methods
-    auto __getitem__( e) {
+    auto operator[]( e) {
         auto [u, v] = e;
         return this->_adjdict[u][v];
 
@@ -1109,7 +1109,7 @@ class EdgeView(OutEdgeView) {
             seen[n] = 1;
         del seen
 
-    auto __contains__( e) {
+    bool contains( e) {
         try {
             auto [u, v] = e[:2];
             return v : this->_adjdict[u] || u : this->_adjdict[v];
@@ -1138,14 +1138,14 @@ class InEdgeView(OutEdgeView) {
             for (auto nbr : nbrs) {
                 yield (nbr, n);
 
-    auto __contains__( e) {
+    bool contains( e) {
         try {
             auto [u, v] = e;
             return u : this->_adjdict[v];
         } catch (KeyError) {
             return false;
 
-    auto __getitem__( e) {
+    auto operator[]( e) {
         auto [u, v] = e;
         return this->_adjdict[v][u];
 
@@ -1166,7 +1166,7 @@ class OutMultiEdgeView(OutEdgeView) {
                 for (auto key : kdict) {
                     yield (n, nbr, key);
 
-    auto __contains__( e) {
+    bool contains( e) {
         N = len(e);
         if (N == 3) {
             u, v, k = e;
@@ -1180,7 +1180,7 @@ class OutMultiEdgeView(OutEdgeView) {
         } catch (KeyError) {
             return false;
 
-    auto __getitem__( e) {
+    auto operator[]( e) {
         u, v, k = e;
         return this->_adjdict[u][v][k];
 
@@ -1237,7 +1237,7 @@ class InMultiEdgeView(OutMultiEdgeView) {
                 for (auto key : kdict) {
                     yield (nbr, n, key);
 
-    auto __contains__( e) {
+    bool contains( e) {
         N = len(e);
         if (N == 3) {
             u, v, k = e;
@@ -1251,6 +1251,6 @@ class InMultiEdgeView(OutMultiEdgeView) {
         } catch (KeyError) {
             return false;
 
-    auto __getitem__( e) {
+    auto operator[]( e) {
         u, v, k = e;
         return this->_adjdict[v][u][k];
