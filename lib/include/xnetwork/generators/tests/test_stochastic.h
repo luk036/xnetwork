@@ -16,7 +16,7 @@ class TestStochasticGraph: public object {
 
      */
 
-    auto test_default_weights( ) {
+    auto test_default_weights() {
         G = xn::DiGraph();
         G.add_edge(0, 1);
         G.add_edge(0, 2);
@@ -25,7 +25,7 @@ class TestStochasticGraph: public object {
         assert_equal(sorted(S.edges(data=true)),
                      [(0, 1, {"weight": 0.5}), (0, 2, {"weight": 0.5})]);
 
-    auto test_in_place( ) {
+    auto test_in_place() {
         /** Tests for an in-place reweighting of the edges of the graph.
 
          */
@@ -36,7 +36,7 @@ class TestStochasticGraph: public object {
         assert_equal(sorted(G.edges(data=true)),
                      [(0, 1, {"weight": 0.5}), (0, 2, {"weight": 0.5})]);
 
-    auto test_arbitrary_weights( ) {
+    auto test_arbitrary_weights() {
         G = xn::DiGraph();
         G.add_edge(0, 1, weight=1);
         G.add_edge(0, 2, weight=1);
@@ -44,7 +44,7 @@ class TestStochasticGraph: public object {
         assert_equal(sorted(S.edges(data=true)),
                      [(0, 1, {"weight": 0.5}), (0, 2, {"weight": 0.5})]);
 
-    auto test_multidigraph( ) {
+    auto test_multidigraph() {
         G = xn::MultiDiGraph();
         G.add_edges_from([(0, 1), (0, 1), (0, 2), (0, 2)]);
         S = xn::stochastic_graph(G);
@@ -53,9 +53,9 @@ class TestStochasticGraph: public object {
                      [(0, 1, d), (0, 1, d), (0, 2, d), (0, 2, d)]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_graph_disallowed( ) {
+    auto test_graph_disallowed() {
         xn::stochastic_graph(xn::Graph());
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_multigraph_disallowed( ) {
+    auto test_multigraph_disallowed() {
         xn::stochastic_graph(xn::MultiGraph());

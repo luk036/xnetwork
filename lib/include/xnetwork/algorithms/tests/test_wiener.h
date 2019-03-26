@@ -21,14 +21,14 @@ from nose.tools import eq_
 class TestWienerIndex: public object {
     /** Unit tests for computing the Wiener index of a graph. */
 
-    auto test_disconnected_graph( ) {
+    auto test_disconnected_graph() {
         /** Tests that the Wiener index of a disconnected graph is
         positive infinity.
 
          */
         eq_(wiener_index(empty_graph(2)), double("inf"));
 
-    auto test_directed( ) {
+    auto test_directed() {
         /** Tests that each pair of nodes : the directed graph is
         counted once when computing the Wiener index.
 
@@ -37,7 +37,7 @@ class TestWienerIndex: public object {
         H = DiGraph(G);
         eq_(2 * wiener_index(G), wiener_index(H));
 
-    auto test_complete_graph( ) {
+    auto test_complete_graph() {
         /** Tests that the Wiener index of the complete graph is simply
         the number of edges.
 
@@ -46,7 +46,7 @@ class TestWienerIndex: public object {
         G = complete_graph(n);
         eq_(wiener_index(G), n * (n - 1) / 2);
 
-    auto test_path_graph( ) {
+    auto test_path_graph() {
         /** Tests that the Wiener index of the path graph is correctly
         computed.
 

@@ -311,7 +311,7 @@ auto test_edge_connectivity_flow_vs_stoer_wagner() {
 
 class TestAllPairsNodeConnectivity) {
 
-    auto setUp( ) {
+    auto setUp() {
         this->path = xn::path_graph(7);
         this->directed_path = xn::path_graph(7, create_using=xn::DiGraph());
         this->cycle = xn::cycle_graph(7);
@@ -325,7 +325,7 @@ class TestAllPairsNodeConnectivity) {
                        this->directed_cycle, this->gnp, this->directed_gnp, this->K10,
                        this->K5, this->K20];
 
-    auto test_cycles( ) {
+    auto test_cycles() {
         K_undir = xn::all_pairs_node_connectivity(this->cycle);
         for (auto source : K_undir) {
             for (auto target, k : K_undir[source].items() {
@@ -335,14 +335,14 @@ class TestAllPairsNodeConnectivity) {
             for (auto target, k : K_dir[source].items() {
                 assert_true(k == 1);
 
-    auto test_complete( ) {
+    auto test_complete() {
         for (auto G : [this->K10, this->K5, this->K20]) {
             K = xn::all_pairs_node_connectivity(G);
             for (auto source : K) {
                 for (auto target, k : K[source].items() {
                     assert_true(k == len(G) - 1);
 
-    auto test_paths( ) {
+    auto test_paths() {
         K_undir = xn::all_pairs_node_connectivity(this->path);
         for (auto source : K_undir) {
             for (auto target, k : K_undir[source].items() {
@@ -355,18 +355,18 @@ class TestAllPairsNodeConnectivity) {
                 } else {
                     assert_true(k == 0);
 
-    auto test_all_pairs_connectivity_nbunch( ) {
+    auto test_all_pairs_connectivity_nbunch() {
         G = xn::complete_graph(5);
         nbunch = [0, 2, 3];
         C = xn::all_pairs_node_connectivity(G, nbunch=nbunch);
         assert_equal(len(C), len(nbunch));
 
-    auto test_all_pairs_connectivity_icosahedral( ) {
+    auto test_all_pairs_connectivity_icosahedral() {
         G = xn::icosahedral_graph();
         C = xn::all_pairs_node_connectivity(G);
         assert_true(all(5 == C[u][v] for u, v : itertools.combinations(G, 2)));
 
-    auto test_all_pairs_connectivity( ) {
+    auto test_all_pairs_connectivity() {
         G = xn::Graph();
         nodes = [0, 1, 2, 3];
         xn::add_path(G, nodes);
@@ -377,7 +377,7 @@ class TestAllPairsNodeConnectivity) {
         assert_equal(sorted((k, sorted(v)) for k, v : A.items()),
                      sorted((k, sorted(v)) for k, v : C.items()));
 
-    auto test_all_pairs_connectivity_directed( ) {
+    auto test_all_pairs_connectivity_directed() {
         G = xn::DiGraph();
         nodes = [0, 1, 2, 3];
         xn::add_path(G, nodes);
@@ -388,7 +388,7 @@ class TestAllPairsNodeConnectivity) {
         assert_equal(sorted((k, sorted(v)) for k, v : A.items()),
                      sorted((k, sorted(v)) for k, v : C.items()));
 
-    auto test_all_pairs_connectivity_nbunch_combinations( ) {
+    auto test_all_pairs_connectivity_nbunch_combinations() {
         G = xn::complete_graph(5);
         nbunch = [0, 2, 3];
         A = {n: {} for n : nbunch}
@@ -398,7 +398,7 @@ class TestAllPairsNodeConnectivity) {
         assert_equal(sorted((k, sorted(v)) for k, v : A.items()),
                      sorted((k, sorted(v)) for k, v : C.items()));
 
-    auto test_all_pairs_connectivity_nbunch_iter( ) {
+    auto test_all_pairs_connectivity_nbunch_iter() {
         G = xn::complete_graph(5);
         nbunch = [0, 2, 3];
         A = {n: {} for n : nbunch}

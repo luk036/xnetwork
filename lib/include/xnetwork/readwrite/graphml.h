@@ -374,7 +374,7 @@ class GraphMLWriter(GraphML) {
         if (graph is not None) {
             this->add_graph_element(graph);
 
-    auto __str__( ) {
+    auto __str__() {
         if (this->prettyprint) {
             this->indent(this->xml);
         s = tostring(this->xml).decode(this->encoding);
@@ -677,10 +677,10 @@ class GraphMLWriterLxml(GraphMLWriter) {
                                          make_str(v), scope, default.get(k));
             xml_obj.append(data_element);
 
-    auto __str__( ) {
+    auto __str__() {
         return object.__str__( );
 
-    auto dump( ) {
+    auto dump() {
         this->_graphml.__exit__(None, None, None);
         this->_xml_base.__exit__(None, None, None);
 

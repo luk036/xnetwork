@@ -16,7 +16,7 @@ class TestFlowClosenessCentrality: public object {
         } catch (ImportError) {
             throw SkipTest("NumPy not available.");
 
-    auto test_K4( ) {
+    auto test_K4() {
         /** Closeness centrality: K4*/
         G = xn::complete_graph(4);
         b = xn::current_flow_closeness_centrality(G);
@@ -24,7 +24,7 @@ class TestFlowClosenessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_P4( ) {
+    auto test_P4() {
         /** Closeness centrality: P4*/
         G = xn::path_graph(4);
         b = xn::current_flow_closeness_centrality(G);
@@ -32,7 +32,7 @@ class TestFlowClosenessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_star( ) {
+    auto test_star() {
         /** Closeness centrality: star */
         G = xn::Graph();
         xn::add_star(G, ["a", "b", "c", "d"]);

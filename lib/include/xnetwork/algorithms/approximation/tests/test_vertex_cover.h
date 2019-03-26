@@ -15,7 +15,7 @@ class TestMWVC: public object {
 
     */
 
-    auto test_unweighted_directed( ) {
+    auto test_unweighted_directed() {
         // Create a star graph : which half the nodes are directed in
         // && half are directed out.
         G = xn::DiGraph();
@@ -25,7 +25,7 @@ class TestMWVC: public object {
         assert_equals(2, len(cover));
         ok_(is_cover(G, cover));
 
-    auto test_unweighted_undirected( ) {
+    auto test_unweighted_undirected() {
         // create a simple star graph
         size = 50
         sg = xn::star_graph(size);
@@ -33,7 +33,7 @@ class TestMWVC: public object {
         assert_equals(2, len(cover));
         ok_(is_cover(sg, cover));
 
-    auto test_weighted( ) {
+    auto test_weighted() {
         wg = xn::Graph();
         wg.add_node(0, weight=10);
         wg.add_node(1, weight=1);

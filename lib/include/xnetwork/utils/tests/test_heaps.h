@@ -23,7 +23,7 @@ class X: public object {
     auto __gt__( other) {
         throw TypeError("cannot compare");
 
-    auto __hash__( ) {
+    auto __hash__() {
         return hash(id( ));
 
 

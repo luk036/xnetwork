@@ -17,7 +17,7 @@ class TestEigenvectorCentrality: public object {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto test_K5( ) {
+    auto test_K5() {
         /** Eigenvector centrality: K5*/
         G = xn::complete_graph(5);
         b = xn::eigenvector_centrality(G);
@@ -34,7 +34,7 @@ class TestEigenvectorCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
 
-    auto test_P3( ) {
+    auto test_P3() {
         /** Eigenvector centrality: P3*/
         G = xn::path_graph(3);
         b_answer = {0: 0.5, 1: 0.7071, 2: 0.5}
@@ -45,7 +45,7 @@ class TestEigenvectorCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=4);
 
-    auto test_P3_unweighted( ) {
+    auto test_P3_unweighted() {
         /** Eigenvector centrality: P3*/
         G = xn::path_graph(3);
         b_answer = {0: 0.5, 1: 0.7071, 2: 0.5}
@@ -54,7 +54,7 @@ class TestEigenvectorCentrality: public object {
             assert_almost_equal(b[n], b_answer[n], places=4);
 
     /// /// @raises(xn::PowerIterationFailedConvergence);
-    auto test_maxiter( ) {
+    auto test_maxiter() {
         G = xn::path_graph(3);
         b = xn::eigenvector_centrality(G, max_iter=0);
 
@@ -71,7 +71,7 @@ class TestEigenvectorCentralityDirected: public object {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto setUp( ) {
+    auto setUp() {
 
         G = xn::DiGraph();
 
@@ -95,25 +95,25 @@ class TestEigenvectorCentralityDirected: public object {
         this->H.evc = [0.25368793,  0.19576478,  0.32817092,  0.40430835,
                       0.48199885, 0.15724483,  0.51346196,  0.32475403];
 
-    auto test_eigenvector_centrality_weighted( ) {
+    auto test_eigenvector_centrality_weighted() {
         G = this->G
         p = xn::eigenvector_centrality(G);
         for (auto [a, b] : zip(list(p.values()), this->G.evc) {
             assert_almost_equal(a, b, places=4);
 
-    auto test_eigenvector_centrality_weighted_numpy( ) {
+    auto test_eigenvector_centrality_weighted_numpy() {
         G = this->G
         p = xn::eigenvector_centrality_numpy(G);
         for (auto [a, b] : zip(list(p.values()), this->G.evc) {
             assert_almost_equal(a, b);
 
-    auto test_eigenvector_centrality_unweighted( ) {
+    auto test_eigenvector_centrality_unweighted() {
         G = this->H
         p = xn::eigenvector_centrality(G);
         for (auto [a, b] : zip(list(p.values()), this->G.evc) {
             assert_almost_equal(a, b, places=4);
 
-    auto test_eigenvector_centrality_unweighted_numpy( ) {
+    auto test_eigenvector_centrality_unweighted_numpy() {
         G = this->H
         p = xn::eigenvector_centrality_numpy(G);
         for (auto [a, b] : zip(list(p.values()), this->G.evc) {
@@ -133,17 +133,17 @@ class TestEigenvectorCentralityExceptions: public object {
             throw SkipTest("SciPy not available.");
 
     /// /// @raises(xn::XNetworkException);
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         e = xn::eigenvector_centrality(xn::MultiGraph());
 
     /// /// @raises(xn::XNetworkException);
-    auto test_multigraph_numpy( ) {
+    auto test_multigraph_numpy() {
         e = xn::eigenvector_centrality_numpy(xn::MultiGraph());
 
     /// /// @raises(xn::XNetworkException);
-    auto test_empty( ) {
+    auto test_empty() {
         e = xn::eigenvector_centrality(xn::Graph());
 
     /// /// @raises(xn::XNetworkException);
-    auto test_empty_numpy( ) {
+    auto test_empty_numpy() {
         e = xn::eigenvector_centrality_numpy(xn::Graph());

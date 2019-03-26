@@ -33,7 +33,7 @@ INTERCHANGE_INVALID = [
 
 
 class TestColoring) {
-    auto test_basic_cases( ) {
+    auto test_basic_cases() {
         auto check_basic_case(graph_func, n_nodes, strategy, interchange) {
             graph = graph_func();
             coloring = xn::coloring.greedy_color(graph,
@@ -50,7 +50,7 @@ class TestColoring) {
                     yield (check_basic_case, graph_func,
                            n_nodes, strategy, interchange);
 
-    auto test_special_cases( ) {
+    auto test_special_cases() {
         auto check_special_case(strategy, graph_func, interchange, colors) {
             graph = graph_func();
             coloring = xn::coloring.greedy_color(graph,
@@ -66,7 +66,7 @@ class TestColoring) {
             for (auto args : arglist) {
                 yield (check_special_case, strategy, args[0], args[1], args[2]);
 
-    auto test_interchange_invalid( ) {
+    auto test_interchange_invalid() {
         graph = one_node_graph();
 
         auto check_raises(strategy) {
@@ -77,12 +77,12 @@ class TestColoring) {
         for (auto strategy : INTERCHANGE_INVALID) {
             yield check_raises, strategy
 
-    auto test_bad_inputs( ) {
+    auto test_bad_inputs() {
         graph = one_node_graph();
         assert_raises(xn::XNetworkError, xn::coloring.greedy_color,
                       graph, strategy="invalid strategy");
 
-    auto test_strategy_as_function( ) {
+    auto test_strategy_as_function() {
         graph = lf_shc();
         colors_1 = xn::coloring.greedy_color(graph,
                                             "largest_first");

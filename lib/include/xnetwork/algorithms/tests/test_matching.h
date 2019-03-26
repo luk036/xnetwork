@@ -15,25 +15,25 @@ class TestMaxWeightMatching: public object {
 
      */
 
-    auto test_trivial1( ) {
+    auto test_trivial1() {
         /** Empty graph */
         G = xn::Graph();
         assert_equal(xn::max_weight_matching(G), set());
 
-    auto test_trivial2( ) {
+    auto test_trivial2() {
         /** Self loop */
         G = xn::Graph();
         G.add_edge(0, 0, weight=100);
         assert_equal(xn::max_weight_matching(G), set());
 
-    auto test_trivial3( ) {
+    auto test_trivial3() {
         /** Single edge */
         G = xn::Graph();
         G.add_edge(0, 1);
         assert_edges_equal(xn::max_weight_matching(G),
                            matching_dict_to_set({0: 1, 1: 0}));
 
-    auto test_trivial4( ) {
+    auto test_trivial4() {
         /** Small graph */
         G = xn::Graph();
         G.add_edge("one", "two", weight=10);
@@ -41,7 +41,7 @@ class TestMaxWeightMatching: public object {
         assert_edges_equal(xn::max_weight_matching(G),
                            matching_dict_to_set({"three": "two", "two": "three"}));
 
-    auto test_trivial5( ) {
+    auto test_trivial5() {
         /** Path */
         G = xn::Graph();
         G.add_edge(1, 2, weight=5);
@@ -52,7 +52,7 @@ class TestMaxWeightMatching: public object {
         assert_edges_equal(xn::max_weight_matching(G, 1),
                            matching_dict_to_set({1: 2, 2: 1, 3: 4, 4: 3}));
 
-    auto test_trivial6( ) {
+    auto test_trivial6() {
         /** Small graph with arbitrary weight attribute */
         G = xn::Graph();
         G.add_edge("one", "two", weight=10, abcd=11);
@@ -60,7 +60,7 @@ class TestMaxWeightMatching: public object {
         assert_edges_equal(xn::max_weight_matching(G, weight="abcd"),
                            matching_dict_to_set({"one": "two", "two": "one"}));
 
-    auto test_doubleing_point_weights( ) {
+    auto test_doubleing_point_weights() {
         /** Floating point weights */
         G = xn::Graph();
         G.add_edge(1, 2, weight=math.pi);
@@ -70,7 +70,7 @@ class TestMaxWeightMatching: public object {
         assert_edges_equal(xn::max_weight_matching(G),
                            matching_dict_to_set({1: 4, 2: 3, 3: 2, 4: 1}));
 
-    auto test_negative_weights( ) {
+    auto test_negative_weights() {
         /** Negative weights */
         G = xn::Graph();
         G.add_edge(1, 2, weight=2);
@@ -83,7 +83,7 @@ class TestMaxWeightMatching: public object {
         assert_edges_equal(xn::max_weight_matching(G, 1),
                            matching_dict_to_set({1: 3, 2: 4, 3: 1, 4: 2}));
 
-    auto test_s_blossom( ) {
+    auto test_s_blossom() {
         /** Create S-blossom && use it for augmentation: */
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 8), (1, 3, 9),
@@ -95,7 +95,7 @@ class TestMaxWeightMatching: public object {
         assert_edges_equal(xn::max_weight_matching(G),
                            matching_dict_to_set({1: 6, 2: 3, 3: 2, 4: 5, 5: 4, 6: 1}));
 
-    auto test_s_t_blossom( ) {
+    auto test_s_t_blossom() {
         /** Create S-blossom, relabel as T-blossom, use for augmentation: */
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 9), (1, 3, 8), (2, 3, 10),
@@ -111,7 +111,7 @@ class TestMaxWeightMatching: public object {
         assert_edges_equal(xn::max_weight_matching(G),
                            matching_dict_to_set({1: 2, 2: 1, 3: 6, 4: 5, 5: 4, 6: 3}));
 
-    auto test_nested_s_blossom( ) {
+    auto test_nested_s_blossom() {
         /** Create nested S-blossom, use for augmentation: */
 
         G = xn::Graph();
@@ -121,7 +121,7 @@ class TestMaxWeightMatching: public object {
         assert_equal(xn::max_weight_matching(G),
                      matching_dict_to_set({1: 3, 2: 4, 3: 1, 4: 2, 5: 6, 6: 5}));
 
-    auto test_nested_s_blossom_relabel( ) {
+    auto test_nested_s_blossom_relabel() {
         /** Create S-blossom, relabel as S, include : nested S-blossom: */
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 10), (1, 7, 10), (2, 3, 12),
@@ -130,7 +130,7 @@ class TestMaxWeightMatching: public object {
         assert_edges_equal(xn::max_weight_matching(G),
                            matching_dict_to_set({1: 2, 2: 1, 3: 4, 4: 3, 5: 6, 6: 5, 7: 8, 8: 7}));
 
-    auto test_nested_s_blossom_expand( ) {
+    auto test_nested_s_blossom_expand() {
         /** Create nested S-blossom, augment, expand recursively: */
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 8), (1, 3, 8), (2, 3, 10),
@@ -140,7 +140,7 @@ class TestMaxWeightMatching: public object {
         assert_edges_equal(xn::max_weight_matching(G),
                            matching_dict_to_set({1: 2, 2: 1, 3: 5, 4: 6, 5: 3, 6: 4, 7: 8, 8: 7}));
 
-    auto test_s_blossom_relabel_expand( ) {
+    auto test_s_blossom_relabel_expand() {
         /** Create S-blossom, relabel as T, expand: */
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 23), (1, 5, 22), (1, 6, 15),
@@ -149,7 +149,7 @@ class TestMaxWeightMatching: public object {
         assert_edges_equal(xn::max_weight_matching(G),
                            matching_dict_to_set({1: 6, 2: 3, 3: 2, 4: 8, 5: 7, 6: 1, 7: 5, 8: 4}));
 
-    auto test_nested_s_blossom_relabel_expand( ) {
+    auto test_nested_s_blossom_relabel_expand() {
         /** Create nested S-blossom, relabel as T, expand: */
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 19), (1, 3, 20), (1, 8, 8),
@@ -158,7 +158,7 @@ class TestMaxWeightMatching: public object {
         assert_edges_equal(xn::max_weight_matching(G),
                            matching_dict_to_set({1: 8, 2: 3, 3: 2, 4: 7, 5: 6, 6: 5, 7: 4, 8: 1}));
 
-    auto test_nasty_blossom1( ) {
+    auto test_nasty_blossom1() {
         /** Create blossom, relabel as T : more than one way, expand,
         augment) {
          */
@@ -171,7 +171,7 @@ class TestMaxWeightMatching: public object {
                            matching_dict_to_set({1: 6, 2: 3, 3: 2, 4: 8, 5: 7,
                                                  6: 1, 7: 5, 8: 4, 9: 10, 10: 9}));
 
-    auto test_nasty_blossom2( ) {
+    auto test_nasty_blossom2() {
         /** Again but slightly different: */
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 45), (1, 5, 45), (2, 3, 50),
@@ -182,7 +182,7 @@ class TestMaxWeightMatching: public object {
                            matching_dict_to_set({1: 6, 2: 3, 3: 2, 4: 8, 5: 7,
                                                  6: 1, 7: 5, 8: 4, 9: 10, 10: 9}));
 
-    auto test_nasty_blossom_least_slack( ) {
+    auto test_nasty_blossom_least_slack() {
         /** Create blossom, relabel as T, expand such that a new
         least-slack S-to-free dge is produced, augment) {
          */
@@ -195,7 +195,7 @@ class TestMaxWeightMatching: public object {
                            matching_dict_to_set({1: 6, 2: 3, 3: 2, 4: 8, 5: 7,
                                                  6: 1, 7: 5, 8: 4, 9: 10, 10: 9}));
 
-    auto test_nasty_blossom_augmenting( ) {
+    auto test_nasty_blossom_augmenting() {
         /** Create nested blossom, relabel as T : more than one way */
         // expand outer blossom such that inner blossom ends up on an
         // augmenting path) {
@@ -209,7 +209,7 @@ class TestMaxWeightMatching: public object {
                            matching_dict_to_set({1: 8, 2: 3, 3: 2, 4: 6, 5: 9, 6: 4,
                                                  7: 10, 8: 1, 9: 5, 10: 7, 11: 12, 12: 11}));
 
-    auto test_nasty_blossom_expand_recursively( ) {
+    auto test_nasty_blossom_expand_recursively() {
         /** Create nested S-blossom, relabel as S, expand recursively: */
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 40), (1, 3, 40), (2, 3, 60),
@@ -227,30 +227,30 @@ class TestIsMatching: public object {
 
      */
 
-    auto test_dict( ) {
+    auto test_dict() {
         G = xn::path_graph(4);
         assert_true(xn::is_matching(G, {0: 1, 1: 0, 2: 3, 3: 2}));
 
-    auto test_empty_matching( ) {
+    auto test_empty_matching() {
         G = xn::path_graph(4);
         assert_true(xn::is_matching(G, set()));
 
-    auto test_single_edge( ) {
+    auto test_single_edge() {
         G = xn::path_graph(4);
         assert_true(xn::is_matching(G, {(1, 2)}));
 
-    auto test_edge_order( ) {
+    auto test_edge_order() {
         G = xn::path_graph(4);
         assert_true(xn::is_matching(G, {(0, 1), (2, 3)}));
         assert_true(xn::is_matching(G, {(1, 0), (2, 3)}));
         assert_true(xn::is_matching(G, {(0, 1), (3, 2)}));
         assert_true(xn::is_matching(G, {(1, 0), (3, 2)}));
 
-    auto test_valid( ) {
+    auto test_valid() {
         G = xn::path_graph(4);
         assert_true(xn::is_matching(G, {(0, 1), (2, 3)}));
 
-    auto test_invalid( ) {
+    auto test_invalid() {
         G = xn::path_graph(4);
         assert_false(xn::is_matching(G, {(0, 1), (1, 2), (2, 3)}));
 
@@ -261,19 +261,19 @@ class TestIsMaximalMatching: public object {
 
      */
 
-    auto test_dict( ) {
+    auto test_dict() {
         G = xn::path_graph(4);
         assert_true(xn::is_maximal_matching(G, {0: 1, 1: 0, 2: 3, 3: 2}));
 
-    auto test_valid( ) {
+    auto test_valid() {
         G = xn::path_graph(4);
         assert_true(xn::is_maximal_matching(G, {(0, 1), (2, 3)}));
 
-    auto test_not_matching( ) {
+    auto test_not_matching() {
         G = xn::path_graph(4);
         assert_false(xn::is_maximal_matching(G, {(0, 1), (1, 2), (2, 3)}));
 
-    auto test_not_maximal( ) {
+    auto test_not_maximal() {
         G = xn::path_graph(4);
         assert_false(xn::is_maximal_matching(G, {(0, 1)}));
 
@@ -284,15 +284,15 @@ class TestIsPerfectMatching: public object {
 
      */
 
-    auto test_dict( ) {
+    auto test_dict() {
         G = xn::path_graph(4);
         assert_true(xn::is_perfect_matching(G, {0: 1, 1: 0, 2: 3, 3: 2}));
 
-    auto test_valid( ) {
+    auto test_valid() {
         G = xn::path_graph(4);
         assert_true(xn::is_perfect_matching(G, {(0, 1), (2, 3)}));
 
-    auto test_valid_not_path( ) {
+    auto test_valid_not_path() {
         G = xn::cycle_graph(4);
         G.add_edge(0, 4);
         G.add_edge(1, 4);
@@ -300,11 +300,11 @@ class TestIsPerfectMatching: public object {
 
         assert_true(xn::is_perfect_matching(G, {(1, 4), (0, 3), (5, 2)}));
 
-    auto test_not_matching( ) {
+    auto test_not_matching() {
         G = xn::path_graph(4);
         assert_false(xn::is_perfect_matching(G, {(0, 1), (1, 2), (2, 3)}));
 
-    auto test_maximal_but_not_perfect( ) {
+    auto test_maximal_but_not_perfect() {
         G = xn::cycle_graph(4);
         G.add_edge(0, 4);
         G.add_edge(1, 4);
@@ -318,20 +318,20 @@ class TestMaximalMatching: public object {
 
      */
 
-    auto test_valid_matching( ) {
+    auto test_valid_matching() {
         edges = [(1, 2), (1, 5), (2, 3), (2, 5), (3, 4), (3, 6), (5, 6)];
         G = xn::Graph(edges);
         matching = xn::maximal_matching(G);
         assert_true(xn::is_maximal_matching(G, matching));
 
-    auto test_single_edge_matching( ) {
+    auto test_single_edge_matching() {
         // In the star graph, any maximal matching has just one edge.
         G = xn::star_graph(5);
         matching = xn::maximal_matching(G);
         assert_equal(1, len(matching));
         assert_true(xn::is_maximal_matching(G, matching));
 
-    auto test_self_loops( ) {
+    auto test_self_loops() {
         // Create the path graph with two self-loops.
         G = xn::path_graph(3);
         G.add_edges_from([(0, 0), (1, 1)]);
@@ -341,7 +341,7 @@ class TestMaximalMatching: public object {
         assert_false(any(u == v for u, v : matching));
         assert_true(xn::is_maximal_matching(G, matching));
 
-    auto test_ordering( ) {
+    auto test_ordering() {
         /** Tests that a maximal matching is computed correctly
         regardless of the order : which nodes are added to the graph.
 

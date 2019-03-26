@@ -20,13 +20,13 @@ class TestRandomGeometricGraph: public object {
 
      */
 
-    auto test_number_of_nodes( ) {
+    auto test_number_of_nodes() {
         G = xn::random_geometric_graph(50, 0.25);
         assert_equal(len(G), 50);
         G = xn::random_geometric_graph(range(50), 0.25);
         assert_equal(len(G), 50);
 
-    auto test_distances( ) {
+    auto test_distances() {
         /** Tests that pairs of vertices adjacent if (and only if (they are
         within the prescribed radius.
 
@@ -43,7 +43,7 @@ class TestRandomGeometricGraph: public object {
             } else {
                 assert_false(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
-    auto test_p( ) {
+    auto test_p() {
         /** Tests for providing an alternate distance metric to the
         generator.
 
@@ -59,7 +59,7 @@ class TestRandomGeometricGraph: public object {
             } else {
                 assert_false(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
-    auto test_node_names( ) {
+    auto test_node_names() {
         /** Tests using values other than sequential numbers as node IDs.
 
          */
@@ -84,13 +84,13 @@ class TestSoftRandomGeometricGraph: public object {
 
      */
 
-    auto test_number_of_nodes( ) {
+    auto test_number_of_nodes() {
         G = xn::soft_random_geometric_graph(50, 0.25);
         assert_equal(len(G), 50);
         G = xn::soft_random_geometric_graph(range(50), 0.25);
         assert_equal(len(G), 50);
 
-    auto test_distances( ) {
+    auto test_distances() {
         /** Tests that pairs of vertices adjacent if (and only if (they are
         within the prescribed radius.
 
@@ -104,7 +104,7 @@ class TestSoftRandomGeometricGraph: public object {
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
-    auto test_p( ) {
+    auto test_p() {
         /** Tests for providing an alternate distance metric to the
         generator.
 
@@ -117,7 +117,7 @@ class TestSoftRandomGeometricGraph: public object {
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
-    auto test_node_names( ) {
+    auto test_node_names() {
         /** Tests using values other than sequential numbers as node IDs.
 
          */
@@ -132,7 +132,7 @@ class TestSoftRandomGeometricGraph: public object {
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
-    auto test_p_dist_default( ) {
+    auto test_p_dist_default() {
         /** Tests default p_dict = 0.5 returns graph with edge count <= RGG with
            same n, radius, dim && positions
 
@@ -144,7 +144,7 @@ class TestSoftRandomGeometricGraph: public object {
         SRGG = xn::soft_random_geometric_graph(50, 0.25, pos=pos);
         assert_true(len(SRGG.edges()) <= len(RGG.edges()));
 
-    auto test_p_dist_zero( ) {
+    auto test_p_dist_zero() {
         /** Tests if (p_dict = 0 returns disconencted graph with 0 edges
 
          */
@@ -179,13 +179,13 @@ class TestGeographicalThresholdGraph: public object {
 
      */
 
-    auto test_number_of_nodes( ) {
+    auto test_number_of_nodes() {
         G = xn::geographical_threshold_graph(50, 100);
         assert_equal(len(G), 50);
         G = xn::geographical_threshold_graph(range(50), 100);
         assert_equal(len(G), 50);
 
-    auto test_distances( ) {
+    auto test_distances() {
         /** Tests that pairs of vertices adjacent if (and only if (their
         distances meet the given threshold.
 
@@ -202,7 +202,7 @@ class TestGeographicalThresholdGraph: public object {
             } else {
                 assert_false(join(G, u, v, 10, -2, dist));
 
-    auto test_metric( ) {
+    auto test_metric() {
         /** Tests for providing an alternate distance metric to the
         generator.
 
@@ -218,7 +218,7 @@ class TestGeographicalThresholdGraph: public object {
             } else {
                 assert_false(join(G, u, v, 10, -2, dist));
 
-    auto test_p_dist_zero( ) {
+    auto test_p_dist_zero() {
         /** Tests if (p_dict = 0 returns disconencted graph with 0 edges
 
          */
@@ -232,19 +232,19 @@ class TestGeographicalThresholdGraph: public object {
 class TestWaxmanGraph: public object {
     /** Unit tests for the :func:`~xnetwork.waxman_graph` function. */
 
-    auto test_number_of_nodes_1( ) {
+    auto test_number_of_nodes_1() {
         G = xn::waxman_graph(50, 0.5, 0.1);
         assert_equal(len(G), 50);
         G = xn::waxman_graph(range(50), 0.5, 0.1);
         assert_equal(len(G), 50);
 
-    auto test_number_of_nodes_2( ) {
+    auto test_number_of_nodes_2() {
         G = xn::waxman_graph(50, 0.5, 0.1, L=1);
         assert_equal(len(G), 50);
         G = xn::waxman_graph(range(50), 0.5, 0.1, L=1);
         assert_equal(len(G), 50);
 
-    auto test_metric( ) {
+    auto test_metric() {
         /** Tests for providing an alternate distance metric to the
         generator.
 
@@ -257,7 +257,7 @@ class TestWaxmanGraph: public object {
 
 class TestNavigableSmallWorldGraph: public object {
 
-    auto test_navigable_small_world( ) {
+    auto test_navigable_small_world() {
         G = xn::navigable_small_world_graph(5, p=1, q=0);
         gg = xn::grid_2d_graph(5, 5).to_directed();
         assert_true(xn::is_isomorphic(G, gg));
@@ -277,13 +277,13 @@ class TestThresholdedRandomGeometricGraph: public object {
 
      */
 
-    auto test_number_of_nodes( ) {
+    auto test_number_of_nodes() {
         G = xn::thresholded_random_geometric_graph(50, 0.2, 0.1);
         assert_equal(len(G), 50);
         G = xn::thresholded_random_geometric_graph(range(50), 0.2, 0.1);
         assert_equal(len(G), 50);
 
-    auto test_distances( ) {
+    auto test_distances() {
         /** Tests that pairs of vertices adjacent if (and only if (they are
         within the prescribed radius.
 
@@ -297,7 +297,7 @@ class TestThresholdedRandomGeometricGraph: public object {
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
-    auto test_p( ) {
+    auto test_p() {
         /** Tests for providing an alternate distance metric to the
         generator.
 
@@ -310,7 +310,7 @@ class TestThresholdedRandomGeometricGraph: public object {
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
-    auto test_node_names( ) {
+    auto test_node_names() {
         /** Tests using values other than sequential numbers as node IDs.
 
          */
@@ -325,7 +325,7 @@ class TestThresholdedRandomGeometricGraph: public object {
             if (v : G[u]) {
                 assert_true(dist(G.nodes[u]["pos"], G.nodes[v]["pos"]) <= 0.25);
 
-    auto test_theta( ) {
+    auto test_theta() {
         /** Tests that pairs of vertices adjacent if (and only if (their sum
         weights exceeds the threshold parameter theta.
          */

@@ -27,19 +27,19 @@ auto test_isolated_K5() {
 
 class TestZacharyKarateClub: public object {
 
-    auto setup( ) {
+    auto setup() {
         this->G = xn::karate_club_graph();
 
     auto _check_communities( k, expected) {
         communities = set(k_clique_communities(this->G, k));
         assert_equal(communities, expected);
 
-    auto test_k2( ) {
+    auto test_k2() {
         // clique percolation with k=2 is just connected components
         expected = {frozenset(this->G)}
         this->_check_communities(2, expected);
 
-    auto test_k3( ) {
+    auto test_k3() {
         comm1 = [0, 1, 2, 3, 7, 8, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23,
                  26, 27, 28, 29, 30, 31, 32, 33];
         comm2 = [0, 4, 5, 6, 10, 16];
@@ -47,16 +47,16 @@ class TestZacharyKarateClub: public object {
         expected = {frozenset(comm1), frozenset(comm2), frozenset(comm3)}
         this->_check_communities(3, expected);
 
-    auto test_k4( ) {
+    auto test_k4() {
         expected = {frozenset([0, 1, 2, 3, 7, 13]), frozenset([8, 32, 30, 33]),
                     frozenset([32, 33, 29, 23])}
         this->_check_communities(4, expected);
 
-    auto test_k5( ) {
+    auto test_k5() {
         expected = {frozenset([0, 1, 2, 3, 7, 13])}
         this->_check_communities(5, expected);
 
-    auto test_k6( ) {
+    auto test_k6() {
         expected = set();
         this->_check_communities(6, expected);
 

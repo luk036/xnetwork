@@ -18,7 +18,7 @@ class TestBiadjacencyMatrix) {
         } catch (ImportError) {
             throw SkipTest('SciPy sparse library not available.');
 
-    auto test_biadjacency_matrix_weight( ) {
+    auto test_biadjacency_matrix_weight() {
         G = xn::path_graph(5);
         G.add_edge(0, 1, weight=2, other=4);
         X = [1, 3];
@@ -28,7 +28,7 @@ class TestBiadjacencyMatrix) {
         M = bipartite.biadjacency_matrix(G, X, weight='other');
         assert_equal(M[0, 0], 4);
 
-    auto test_biadjacency_matrix( ) {
+    auto test_biadjacency_matrix() {
         tops = [2, 5, 10];
         bots = [5, 10, 15];
         for (auto i : range(len(tops)) {
@@ -38,7 +38,7 @@ class TestBiadjacencyMatrix) {
             assert_equal(M.shape[0], tops[i]);
             assert_equal(M.shape[1], bots[i]);
 
-    auto test_biadjacency_matrix_order( ) {
+    auto test_biadjacency_matrix_order() {
         G = xn::path_graph(5);
         G.add_edge(0, 1, weight=2);
         X = [3, 1];
@@ -47,36 +47,36 @@ class TestBiadjacencyMatrix) {
         assert_equal(M[1, 2], 2);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_null_graph( ) {
+    auto test_null_graph() {
         bipartite.biadjacency_matrix(xn::Graph(), []);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_empty_graph( ) {
+    auto test_empty_graph() {
         bipartite.biadjacency_matrix(xn::Graph([(1, 0)]), []);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_duplicate_row( ) {
+    auto test_duplicate_row() {
         bipartite.biadjacency_matrix(xn::Graph([(1, 0)]), [1, 1]);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_duplicate_col( ) {
+    auto test_duplicate_col() {
         bipartite.biadjacency_matrix(xn::Graph([(1, 0)]), [0], [1, 1]);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_duplicate_col( ) {
+    auto test_duplicate_col() {
         bipartite.biadjacency_matrix(xn::Graph([(1, 0)]), [0], [1, 1]);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_format_keyword( ) {
+    auto test_format_keyword() {
         bipartite.biadjacency_matrix(xn::Graph([(1, 0)]), [0], format='foo');
 
-    auto test_from_biadjacency_roundtrip( ) {
+    auto test_from_biadjacency_roundtrip() {
         B1 = xn::path_graph(5);
         M = bipartite.biadjacency_matrix(B1, [0, 2, 4]);
         B2 = bipartite.from_biadjacency_matrix(M);
         assert_true(xn::is_isomorphic(B1, B2));
 
-    auto test_from_biadjacency_weight( ) {
+    auto test_from_biadjacency_weight() {
         M = sparse.csc_matrix([[1, 2], [0, 3]]);
         B = bipartite.from_biadjacency_matrix(M);
         assert_edges_equal(B.edges(), [(0, 2), (0, 3), (1, 3)]);
@@ -84,7 +84,7 @@ class TestBiadjacencyMatrix) {
         e = [(0, 2, {'weight': 1}), (0, 3, {'weight': 2}), (1, 3, {'weight': 3})];
         assert_edges_equal(B.edges(data=true), e);
 
-    auto test_from_biadjacency_multigraph( ) {
+    auto test_from_biadjacency_multigraph() {
         M = sparse.csc_matrix([[1, 2], [0, 3]]);
         B = bipartite.from_biadjacency_matrix(M, create_using=xn::MultiGraph());
         assert_edges_equal(B.edges(), [(0, 2), (0, 3), (0, 3), (1, 3), (1, 3), (1, 3)]);

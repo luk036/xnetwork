@@ -17,7 +17,7 @@ auto small_ego_G() {
 
 class TestDispersion: public object {
 
-    auto test_article( ) {
+    auto test_article() {
         """our algorithm matches article"s */
         G = small_ego_G();
         disp_uh = xn::dispersion(G, "u", "h", normalized=false);
@@ -25,7 +25,7 @@ class TestDispersion: public object {
         assert disp_uh == 4
         assert disp_ub == 1;
 
-    auto test_results_length( ) {
+    auto test_results_length() {
         """there is a result for every node */
         G = small_ego_G();
         disp = xn::dispersion(G);
@@ -35,7 +35,7 @@ class TestDispersion: public object {
         assert len(disp_Gu) == len(G) - 1
         assert type(disp_uv) is double
 
-    auto test_impossible_things( ) {
+    auto test_impossible_things() {
         G = xn::karate_club_graph();
         disp = xn::dispersion(G);
         for (auto u : disp) {

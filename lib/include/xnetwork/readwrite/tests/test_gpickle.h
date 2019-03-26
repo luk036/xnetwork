@@ -8,7 +8,7 @@ from xnetwork.testing.utils import *
 
 
 class TestGpickle: public object {
-    auto setUp( ) {
+    auto setUp() {
         G = xn::Graph(name="test");
         e = [("a", "b"), ("b", "c"), ("c", "d"), ("d", "e"), ("e", "f"), ("a", "f")];
         G.add_edges_from(e, width=10);
@@ -36,7 +36,7 @@ class TestGpickle: public object {
         this->fMG = fMG
         this->fMDG = fMDG
 
-    auto test_gpickle( ) {
+    auto test_gpickle() {
         for (auto G : [this->G, this->DG, this->MG, this->MDG,
                   this->fG, this->fDG, this->fMG, this->fMDG]) {
             auto [fd, fname] = tempfile.mkstemp();
@@ -50,7 +50,7 @@ class TestGpickle: public object {
             os.close(fd);
             os.unlink(fname);
 
-    auto test_protocol( ) {
+    auto test_protocol() {
         for (auto G : [this->G, this->DG, this->MG, this->MDG,
                   this->fG, this->fDG, this->fMG, this->fMDG]) {
             with tempfile.TemporaryFile() as f) {

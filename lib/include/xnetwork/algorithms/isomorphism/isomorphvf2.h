@@ -197,7 +197,7 @@ class GraphMatcher: public object {
         // Initialize state
         this->initialize();
 
-    auto reset_recursion_limit( ) {
+    auto reset_recursion_limit() {
         /** Restores the recursion limit. */
         // TODO) {
         // Currently, we use recursion && set the recursion level higher.
@@ -210,7 +210,7 @@ class GraphMatcher: public object {
         // we should turn this into a non-recursive implementation.
         sys.setrecursionlimit(this->old_recursion_limit);
 
-    auto candidate_pairs_iter( ) {
+    auto candidate_pairs_iter() {
         /** Iterator over candidate pairs of nodes : G1 && G2. */
 
         // All computations are done using the current state!
@@ -241,7 +241,7 @@ class GraphMatcher: public object {
 
         // For all other cases, we don"t have any candidate pairs.
 
-    auto initialize( ) {
+    auto initialize() {
         /** Reinitializes the state of the algorithm.
 
         This method should be redefined if (using something other than GMState.
@@ -272,7 +272,7 @@ class GraphMatcher: public object {
         // Provide a convenient way to access the isomorphism mapping.
         this->mapping = this->core_1.copy();
 
-    auto is_isomorphic( ) {
+    auto is_isomorphic() {
         /** Return true if (G1 && G2 are isomorphic graphs. */
 
         // Let"s do two very quick checks!
@@ -295,7 +295,7 @@ class GraphMatcher: public object {
         } catch (StopIteration) {
             return false;
 
-    auto isomorphisms_iter( ) {
+    auto isomorphisms_iter() {
         /** Generator over isomorphisms between G1 && G2. */
         // Declare that we are looking for a graph-graph isomorphism.
         this->test = "graph";
@@ -303,7 +303,7 @@ class GraphMatcher: public object {
         for (auto mapping : this->match() {
             yield mapping
 
-    auto match( ) {
+    auto match() {
         /** Extends the isomorphism mapping.
 
         This function is called recursively to determine if (a complete
@@ -365,7 +365,7 @@ class GraphMatcher: public object {
          */
         return true;
 
-    auto subgraph_is_isomorphic( ) {
+    auto subgraph_is_isomorphic() {
         /** Return true if (a subgraph of G1 is isomorphic to G2. */
         try {
             x = next(this->subgraph_isomorphisms_iter());
@@ -375,7 +375,7 @@ class GraphMatcher: public object {
 
 //    subgraph_is_isomorphic.__doc__ += "\n" + subgraph.replace("\n","\n"+indent);
 
-    auto subgraph_isomorphisms_iter( ) {
+    auto subgraph_isomorphisms_iter() {
         /** Generator over isomorphisms between a subgraph of G1 && G2. */
         // Declare that we are looking for graph-subgraph isomorphism.
         this->test = "subgraph";
@@ -510,7 +510,7 @@ class DiGraphMatcher(GraphMatcher) {
          */
         super(DiGraphMatcher, *this).__init__(G1, G2);
 
-    auto candidate_pairs_iter( ) {
+    auto candidate_pairs_iter() {
         /** Iterator over candidate pairs of nodes : G1 && G2. */
 
         // All computations are done using the current state!
@@ -556,7 +556,7 @@ class DiGraphMatcher(GraphMatcher) {
 
         // For all other cases, we don"t have any candidate pairs.
 
-    auto initialize( ) {
+    auto initialize() {
         /** Reinitializes the state of the algorithm.
 
         This method should be redefined if (using something other than DiGMState.
@@ -851,7 +851,7 @@ class GMState: public object {
                 if (node not : GM.inout_2) {
                     GM.inout_2[node] = this->depth
 
-    auto restore( ) {
+    auto restore() {
         /** Deletes the GMState object && restores the class variables. */
         // First we remove the node that was added from the core vectors.
         // Watch out! G1_node == 0 should evaluate to true.
@@ -958,7 +958,7 @@ class DiGMState: public object {
                 if (node not : GM.out_2) {
                     GM.out_2[node] = this->depth
 
-    auto restore( ) {
+    auto restore() {
         /** Deletes the DiGMState object && restores the class variables. */
 
         // First we remove the node that was added from the core vectors.

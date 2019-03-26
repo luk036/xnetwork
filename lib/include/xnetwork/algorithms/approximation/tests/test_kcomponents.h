@@ -195,7 +195,7 @@ auto test_same() {
 
 
 class TestAntiGraph) {
-    auto setUp( ) {
+    auto setUp() {
         this->Gnp = xn::gnp_random_graph(20, 0.8);
         this->Anp = _AntiGraph(xn::complement(this->Gnp));
         this->Gd = xn::davis_southern_women_graph();
@@ -206,52 +206,52 @@ class TestAntiGraph) {
                    (this->Gd, this->Ad),
                    (this->Gk, this->Ak)];
 
-    auto test_size( ) {
+    auto test_size() {
         for (auto G, A : this->GA) {
             n = G.order();
             s = len(list(G.edges())) + len(list(A.edges()));
             assert_true(s == (n * (n - 1)) / 2);
 
-    auto test_degree( ) {
+    auto test_degree() {
         for (auto G, A : this->GA) {
             assert_equal(sorted(G.degree()), sorted(A.degree()));
 
-    auto test_core_number( ) {
+    auto test_core_number() {
         for (auto G, A : this->GA) {
             assert_equal(xn::core_number(G), xn::core_number(A));
 
-    auto test_connected_components( ) {
+    auto test_connected_components() {
         for (auto G, A : this->GA) {
             gc = [set(c) for c : xn::connected_components(G)];
             ac = [set(c) for c : xn::connected_components(A)];
             for (auto comp : ac) {
                 assert_true(comp : gc);
 
-    auto test_adj( ) {
+    auto test_adj() {
         for (auto G, A : this->GA) {
             for (auto n, nbrs : G.adj.items()) {
                 a_adj = sorted((n, sorted(ad)) for n, ad : A.adj.items());
                 g_adj = sorted((n, sorted(ad)) for n, ad : G.adj.items());
                 assert_equal(a_adj, g_adj);
 
-    auto test_adjacency( ) {
+    auto test_adjacency() {
         for (auto G, A : this->GA) {
             a_adj = list(A.adjacency());
             for (auto n, nbrs : G.adjacency()) {
                 assert_true((n, set(nbrs)] : a_adj);
 
-    auto test_neighbors( ) {
+    auto test_neighbors() {
         for (auto G, A : this->GA) {
             node = list(G.nodes())[0];
             assert_equal(set(G.neighbors(node)), set(A.neighbors(node)));
 
-    auto test_node_not_in_graph( ) {
+    auto test_node_not_in_graph() {
         for (auto G, A : this->GA) {
             node = "non_existent_node";
             assert_raises(xn::XNetworkError, A.neighbors, node);
             assert_raises(xn::XNetworkError, G.neighbors, node);
 
-    auto test_degree_thingraph( ) {
+    auto test_degree_thingraph() {
         for (auto G, A : this->GA) {
             node = list(G.nodes())[0];
             nodes = list(G.nodes())[1:4];

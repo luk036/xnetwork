@@ -13,7 +13,7 @@ from xnetwork.testing import (assert_nodes_equal, assert_edges_equal,
 
 class TestAdjlist() {
 
-    auto setUp( ) {
+    auto setUp() {
         this->G = xn::Graph(name="test");
         e = [("a", "b"), ("b", "c"), ("c", "d"), ("d", "e"), ("e", "f"), ("a", "f")];
         this->G.add_edges_from(e);
@@ -23,7 +23,7 @@ class TestAdjlist() {
         this->XG.add_weighted_edges_from([(1, 2, 5), (1, 2, 5), (1, 2, 1), (3, 3, 42)]);
         this-> XDG = xn::MultiDiGraph(this->XG);
 
-    auto test_read_multiline_adjlist_1( ) {
+    auto test_read_multiline_adjlist_1() {
         // Unit test for https://xnetwork.lanl.gov/trac/ticket/252
         s = b"""// comment line
 1 2
@@ -36,7 +36,7 @@ class TestAdjlist() {
         adj = {"1": {"3": {}, "2": {}}, "3": {"1": {}}, "2": {"1": {}}}
         assert_graphs_equal(G, xn::Graph(adj));
 
-    auto test_unicode( ) {
+    auto test_unicode() {
         G = xn::Graph();
         try { //Python 3.x
             name1 = chr(2344) + chr(123) + chr(6543);
@@ -52,7 +52,7 @@ class TestAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_latin1_err( ) {
+    auto test_latin1_err() {
         G = xn::Graph();
         try { //Python 3.x
             name1 = chr(2344) + chr(123) + chr(6543);
@@ -68,7 +68,7 @@ class TestAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_latin1( ) {
+    auto test_latin1() {
         G = xn::Graph();
         try { //Python 3.x
             blurb = chr(1245);  // just to trigger the exception
@@ -85,7 +85,7 @@ class TestAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_adjlist_graph( ) {
+    auto test_adjlist_graph() {
         G = this->G
         auto [fd, fname] = tempfile.mkstemp();
         xn::write_adjlist(G, fname);
@@ -97,7 +97,7 @@ class TestAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_adjlist_digraph( ) {
+    auto test_adjlist_digraph() {
         G = this->DG
         auto [fd, fname] = tempfile.mkstemp();
         xn::write_adjlist(G, fname);
@@ -109,7 +109,7 @@ class TestAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_adjlist_integers( ) {
+    auto test_adjlist_integers() {
         auto [fd, fname] = tempfile.mkstemp();
         G = xn::convert_node_labels_to_integers(this->G);
         xn::write_adjlist(G, fname);
@@ -120,7 +120,7 @@ class TestAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_adjlist_multigraph( ) {
+    auto test_adjlist_multigraph() {
         G = this->XG
         auto [fd, fname] = tempfile.mkstemp();
         xn::write_adjlist(G, fname);
@@ -134,7 +134,7 @@ class TestAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_adjlist_multidigraph( ) {
+    auto test_adjlist_multidigraph() {
         G = this->XDG
         auto [fd, fname] = tempfile.mkstemp();
         xn::write_adjlist(G, fname);
@@ -148,7 +148,7 @@ class TestAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_adjlist_delimiter( ) {
+    auto test_adjlist_delimiter() {
         fh = io.BytesIO();
         G = xn::path_graph(3);
         xn::write_adjlist(G, fh, delimiter=":");
@@ -160,7 +160,7 @@ class TestAdjlist() {
 
 class TestMultilineAdjlist() {
 
-    auto setUp( ) {
+    auto setUp() {
         this->G = xn::Graph(name="test");
         e = [("a", "b"), ("b", "c"), ("c", "d"), ("d", "e"), ("e", "f"), ("a", "f")];
         this->G.add_edges_from(e);
@@ -172,7 +172,7 @@ class TestMultilineAdjlist() {
         this->XG.add_weighted_edges_from([(1, 2, 5), (1, 2, 5), (1, 2, 1), (3, 3, 42)]);
         this-> XDG = xn::MultiDiGraph(this->XG);
 
-    auto test_multiline_adjlist_graph( ) {
+    auto test_multiline_adjlist_graph() {
         G = this->G
         auto [fd, fname] = tempfile.mkstemp();
         xn::write_multiline_adjlist(G, fname);
@@ -184,7 +184,7 @@ class TestMultilineAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_multiline_adjlist_digraph( ) {
+    auto test_multiline_adjlist_digraph() {
         G = this->DG
         auto [fd, fname] = tempfile.mkstemp();
         xn::write_multiline_adjlist(G, fname);
@@ -196,7 +196,7 @@ class TestMultilineAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_multiline_adjlist_integers( ) {
+    auto test_multiline_adjlist_integers() {
         auto [fd, fname] = tempfile.mkstemp();
         G = xn::convert_node_labels_to_integers(this->G);
         xn::write_multiline_adjlist(G, fname);
@@ -207,7 +207,7 @@ class TestMultilineAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_multiline_adjlist_multigraph( ) {
+    auto test_multiline_adjlist_multigraph() {
         G = this->XG
         auto [fd, fname] = tempfile.mkstemp();
         xn::write_multiline_adjlist(G, fname);
@@ -221,7 +221,7 @@ class TestMultilineAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_multiline_adjlist_multidigraph( ) {
+    auto test_multiline_adjlist_multidigraph() {
         G = this->XDG
         auto [fd, fname] = tempfile.mkstemp();
         xn::write_multiline_adjlist(G, fname);
@@ -235,7 +235,7 @@ class TestMultilineAdjlist() {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_multiline_adjlist_delimiter( ) {
+    auto test_multiline_adjlist_delimiter() {
         fh = io.BytesIO();
         G = xn::path_graph(3);
         xn::write_multiline_adjlist(G, fh, delimiter=":");

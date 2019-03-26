@@ -6,7 +6,7 @@ from xnetwork.readwrite.json_graph import *
 
 class TestTree) {
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::DiGraph();
         G.add_nodes_from([1, 2, 3], color='red');
         G.add_edge(1, 2, foo=7);
@@ -15,7 +15,7 @@ class TestTree) {
         H = tree_graph(tree_data(G, 1));
         xn::is_isomorphic(G, H);
 
-    auto test_graph_attributes( ) {
+    auto test_graph_attributes() {
         G = xn::DiGraph();
         G.add_nodes_from([1, 2, 3], color='red');
         G.add_edge(1, 2, foo=7);
@@ -29,7 +29,7 @@ class TestTree) {
         assert_equal(H.nodes[1]['color'], 'red');
 
     /// /// @raises(xn::XNetworkError);
-    auto test_exception( ) {
+    auto test_exception() {
         G = xn::MultiDiGraph();
         G.add_node(0);
         attrs = dict(id='node', children='node');

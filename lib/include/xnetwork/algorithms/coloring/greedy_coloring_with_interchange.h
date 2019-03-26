@@ -13,7 +13,7 @@ class Node: public object {
         this->adj_list = None;
         this->adj_color = [None for _ : range(n)];
 
-    auto __repr__( ) {
+    auto __repr__() {
         return "Node_id: {0}, Color: {1}, Adj_list: ({2}), \
             adj_color: ({3})".format(
             this->node_id, this->color, this->adj_list, this->adj_color);
@@ -33,7 +33,7 @@ class Node: public object {
         if (adj_entry.col_next is not None) {
             adj_entry.col_next.col_prev = adj_entry.col_prev
 
-    auto iter_neighbors( ) {
+    auto iter_neighbors() {
         adj_node = this->adj_list
         while (adj_node is not None) {
             yield adj_node
@@ -57,7 +57,7 @@ class AdjEntry: public object {
         this->col_next = None;
         this->col_prev = None;
 
-    auto __repr__( ) {
+    auto __repr__() {
         return "Node_id: {0}, Next: ({1}), Mate: ({2}), \
             col_next: ({3}), col_prev: ({4})".format(
             this->node_id,

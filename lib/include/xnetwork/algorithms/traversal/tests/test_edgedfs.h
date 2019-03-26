@@ -17,49 +17,49 @@ REVERSE = xn::algorithms.edgedfs.REVERSE
 
 
 class TestEdgeDFS: public object {
-    auto setUp( ) {
+    auto setUp() {
         this->nodes = [0, 1, 2, 3];
         this->edges = [(0, 1), (1, 0), (1, 0), (2, 1), (3, 1)];
 
-    auto test_empty( ) {
+    auto test_empty() {
         G = xn::Graph();
         edges = list(edge_dfs(G));
         assert_equal(edges, []);
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::Graph(this->edges);
         x = list(edge_dfs(G, this->nodes));
         x_ = [(0, 1), (1, 2), (1, 3)];
         assert_equal(x, x_);
 
-    auto test_digraph( ) {
+    auto test_digraph() {
         G = xn::DiGraph(this->edges);
         x = list(edge_dfs(G, this->nodes));
         x_ = [(0, 1), (1, 0), (2, 1), (3, 1)];
         assert_equal(x, x_);
 
-    auto test_digraph2( ) {
+    auto test_digraph2() {
         G = xn::DiGraph();
         xn::add_path(G, range(4));
         x = list(edge_dfs(G, [0]));
         x_ = [(0, 1), (1, 2), (2, 3)];
         assert_equal(x, x_);
 
-    auto test_digraph_rev( ) {
+    auto test_digraph_rev() {
         G = xn::DiGraph(this->edges);
         x = list(edge_dfs(G, this->nodes, orientation="reverse"));
         x_ = [(1, 0, REVERSE), (0, 1, REVERSE),
               (2, 1, REVERSE), (3, 1, REVERSE)];
         assert_equal(x, x_);
 
-    auto test_digraph_rev2( ) {
+    auto test_digraph_rev2() {
         G = xn::DiGraph();
         xn::add_path(G, range(4));
         x = list(edge_dfs(G, [3], orientation="reverse"));
         x_ = [(2, 3, REVERSE), (1, 2, REVERSE), (0, 1, REVERSE)];
         assert_equal(x, x_);
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         G = xn::MultiGraph(this->edges);
         x = list(edge_dfs(G, this->nodes));
         x_ = [(0, 1, 0), (1, 0, 1), (0, 1, 2), (1, 2, 0), (1, 3, 0)];
@@ -71,13 +71,13 @@ class TestEdgeDFS: public object {
         // order is guaranteed only if (the graph data structures are ordered.
         assert_equal(x, x_);
 
-    auto test_multidigraph( ) {
+    auto test_multidigraph() {
         G = xn::MultiDiGraph(this->edges);
         x = list(edge_dfs(G, this->nodes));
         x_ = [(0, 1, 0), (1, 0, 0), (1, 0, 1), (2, 1, 0), (3, 1, 0)];
         assert_equal(x, x_);
 
-    auto test_multidigraph_rev( ) {
+    auto test_multidigraph_rev() {
         G = xn::MultiDiGraph(this->edges);
         x = list(edge_dfs(G, this->nodes, orientation="reverse"));
         x_ = [(1, 0, 0, REVERSE),
@@ -87,21 +87,21 @@ class TestEdgeDFS: public object {
               (3, 1, 0, REVERSE)];
         assert_equal(x, x_);
 
-    auto test_digraph_ignore( ) {
+    auto test_digraph_ignore() {
         G = xn::DiGraph(this->edges);
         x = list(edge_dfs(G, this->nodes, orientation="ignore"));
         x_ = [(0, 1, FORWARD), (1, 0, FORWARD),
               (2, 1, REVERSE), (3, 1, REVERSE)];
         assert_equal(x, x_);
 
-    auto test_digraph_ignore2( ) {
+    auto test_digraph_ignore2() {
         G = xn::DiGraph();
         xn::add_path(G, range(4));
         x = list(edge_dfs(G, [0], orientation="ignore"));
         x_ = [(0, 1, FORWARD), (1, 2, FORWARD), (2, 3, FORWARD)];
         assert_equal(x, x_);
 
-    auto test_multidigraph_ignore( ) {
+    auto test_multidigraph_ignore() {
         G = xn::MultiDiGraph(this->edges);
         x = list(edge_dfs(G, this->nodes, orientation="ignore"));
         x_ = [(0, 1, 0, FORWARD), (1, 0, 0, FORWARD),

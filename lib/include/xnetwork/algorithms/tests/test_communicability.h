@@ -19,7 +19,7 @@ class TestCommunicability) {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto test_communicability( ) {
+    auto test_communicability() {
         answer = {0: {0: 1.5430806348152435,
                       1: 1.1752011936438012
                       },
@@ -37,7 +37,7 @@ class TestCommunicability) {
             for (auto k2 : val) {
                 assert_almost_equal(answer[k1][k2], result[k1][k2], places=7);
 
-    auto test_communicability2( ) {
+    auto test_communicability2() {
 
         answer_orig = {("1", "1") { 1.6445956054135658,
                        ("1", "Albert") { 0.7430186221096251,

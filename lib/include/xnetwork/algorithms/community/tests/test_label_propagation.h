@@ -112,23 +112,23 @@ class TestAsynLpaCommunities: public object {
         result = {frozenset(c) for c : communities}
         assert_equal(result, expected);
 
-    auto test_null_graph( ) {
+    auto test_null_graph() {
         G = xn::null_graph();
         ground_truth = set();
         this->_check_communities(G, ground_truth);
 
-    auto test_single_node( ) {
+    auto test_single_node() {
         G = xn::empty_graph(1);
         ground_truth = {frozenset([0])}
         this->_check_communities(G, ground_truth);
 
-    auto test_simple_communities( ) {
+    auto test_simple_communities() {
         // This graph is the disjoint union of two triangles.
         G = xn::Graph(["ab", "ac", "bc", "de", "df", "fe"]);
         ground_truth = {frozenset("abc"), frozenset("def")}
         this->_check_communities(G, ground_truth);
 
-    auto test_several_communities( ) {
+    auto test_several_communities() {
         // This graph is the disjoint union of five triangles.
         ground_truth = {frozenset(range(3 * i, 3 * (i + 1))) for i : range(5)}
         edges = chain.from_iterable(combinations(c, 2) for c : ground_truth);

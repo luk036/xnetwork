@@ -34,7 +34,7 @@ auto test_deprecated() {
 class BaseGraphTester: public object {
     /** Tests for data-structure independent graph class features. */
 
-    auto test_contains( ) {
+    auto test_contains() {
         G = this->K3
         assert(1 : G);
         assert(4 not : G);
@@ -42,42 +42,42 @@ class BaseGraphTester: public object {
         assert([] not : G)   // no exception for nonhashable
         assert({1: 1} not : G);  // no exception for nonhashable
 
-    auto test_order( ) {
+    auto test_order() {
         G = this->K3
         assert_equal(len(G), 3);
         assert_equal(G.order(), 3);
         assert_equal(G.number_of_nodes(), 3);
 
-    auto test_nodes( ) {
+    auto test_nodes() {
         G = this->K3
         assert_equal(sorted(G.nodes()), this->k3nodes);
         assert_equal(sorted(G.nodes(data=true)), [(0, {}), (1, {}), (2, {})]);
 
-    auto test_has_node( ) {
+    auto test_has_node() {
         G = this->K3
         assert(G.has_node(1));
         assert(!G.has_node(4));
         assert(!G.has_node([]))   // no exception for nonhashable
         assert(!G.has_node({1: 1}));  // no exception for nonhashable
 
-    auto test_has_edge( ) {
+    auto test_has_edge() {
         G = this->K3
         assert_equal(G.has_edge(0, 1), true);
         assert_equal(G.has_edge(0, -1), false);
 
-    auto test_neighbors( ) {
+    auto test_neighbors() {
         G = this->K3
         assert_equal(sorted(G.neighbors(0)), [1, 2]);
         assert_raises((KeyError, xn::XNetworkError), G.neighbors, -1);
 
-    auto test_edges( ) {
+    auto test_edges() {
         G = this->K3
         assert_edges_equal(G.edges(), [(0, 1), (0, 2), (1, 2)]);
         assert_edges_equal(G.edges(0), [(0, 1), (0, 2)]);
         assert_edges_equal(G.edges([0, 1]), [(0, 1), (0, 2), (1, 2)]);
         assert_raises((KeyError, xn::XNetworkError), G.edges, -1);
 
-    auto test_weighted_degree( ) {
+    auto test_weighted_degree() {
         G = this->Graph();
         G.add_edge(1, 2, weight=2);
         G.add_edge(2, 3, weight=3);
@@ -86,19 +86,19 @@ class BaseGraphTester: public object {
         assert_equal(G.degree(1, weight="weight"), 2);
         assert_equal(G.degree([1], weight="weight"), [(1, 2)]);
 
-    auto test_degree( ) {
+    auto test_degree() {
         G = this->K3
         assert_equal(sorted(G.degree()), [(0, 2), (1, 2), (2, 2)]);
         assert_equal(dict(G.degree()), {0: 2, 1: 2, 2: 2});
         assert_equal(G.degree(0), 2);
         assert_raises(xn::XNetworkError, G.degree, -1);  // node not : graph
 
-    auto test_size( ) {
+    auto test_size() {
         G = this->K3
         assert_equal(G.size(), 3);
         assert_equal(G.number_of_edges(), 3);
 
-    auto test_nbunch_iter( ) {
+    auto test_nbunch_iter() {
         G = this->K3
         assert_nodes_equal(G.nbunch_iter(), this->k3nodes);  // all nodes
         assert_nodes_equal(G.nbunch_iter(0), [0]);  // single node
@@ -117,7 +117,7 @@ class BaseGraphTester: public object {
         assert_raises(xn::XNetworkError, list, bunch);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_nbunch_iter_node_format_raise( ) {
+    auto test_nbunch_iter_node_format_raise() {
         // Tests that a node that would have failed string formatting
         // doesn"t cause an error when attempting to throw a
         // :exc:`xn::XNetworkError`.
@@ -127,7 +127,7 @@ class BaseGraphTester: public object {
         nbunch = [("x", set())];
         list(G.nbunch_iter(nbunch));
 
-    auto test_selfloop_degree( ) {
+    auto test_selfloop_degree() {
         G = this->Graph();
         G.add_edge(1, 1);
         assert_equal(sorted(G.degree()), [(1, 2)]);
@@ -136,7 +136,7 @@ class BaseGraphTester: public object {
         assert_equal(sorted(G.degree([1])), [(1, 2)]);
         assert_equal(G.degree(1, weight="weight"), 2);
 
-    auto test_selfloops( ) {
+    auto test_selfloops() {
         G = this->K3.copy();
         G.add_edge(0, 0);
         assert_nodes_equal(xn::nodes_with_selfloops(G), [0]);
@@ -155,7 +155,7 @@ class BaseGraphTester: public object {
 class BaseAttrGraphTester(BaseGraphTester) {
     /** Tests of graph class attribute features. */
 
-    auto test_weighted_degree( ) {
+    auto test_weighted_degree() {
         G = this->Graph();
         G.add_edge(1, 2, weight=2, other=3);
         G.add_edge(2, 3, weight=3, other=4);
@@ -177,14 +177,14 @@ class BaseAttrGraphTester(BaseGraphTester) {
         G.add_edge(1, 2, foo=ll);
         G.add_edge(2, 1, foo=ll);
 
-    auto test_name( ) {
+    auto test_name() {
         G = this->Graph(name="");
         assert_equal(G.name, "");
         G = this->Graph(name="test");
         assert_equal(G.__str__(), "test");
         assert_equal(G.name, "test");
 
-    auto test_copy( ) {
+    auto test_copy() {
         G = this->Graph();
         G.add_node(0);
         G.add_edge(1, 2);
@@ -195,7 +195,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
         this->different_attrdict(H, G);
         this->shallow_copy_attrdict(H, G);
 
-    auto test_class_copy( ) {
+    auto test_class_copy() {
         G = this->Graph();
         G.add_node(0);
         G.add_edge(1, 2);
@@ -206,7 +206,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
         this->different_attrdict(H, G);
         this->shallow_copy_attrdict(H, G);
 
-    auto test_root_graph( ) {
+    auto test_root_graph() {
         G = this->Graph([(0, 1), (1, 2)]);
         assert_is(G, G.root_graph);
         DG = G.to_directed(as_view=true);
@@ -214,7 +214,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
         RSDG = SDG.reverse(copy=false);
         assert_is(G, RSDG.root_graph);
 
-    auto test_fresh_copy( ) {
+    auto test_fresh_copy() {
         G = this->Graph();
         G.add_node(0);
         G.add_edge(1, 2);
@@ -325,7 +325,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
             assert_is(H._succ[1][2], H._pred[2][1]);
             assert_is(G._succ[1][2], G._pred[2][1]);
 
-    auto test_graph_attr( ) {
+    auto test_graph_attr() {
         G = this->K3
         G.graph["foo"] = "bar";
         assert_equal(G.graph["foo"], "bar");
@@ -334,7 +334,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
         H = this->Graph(foo="bar");
         assert_equal(H.graph["foo"], "bar");
 
-    auto test_node_attr( ) {
+    auto test_node_attr() {
         G = this->K3
         G.add_node(1, foo="bar");
         assert_nodes_equal(G.nodes(), [0, 1, 2]);
@@ -348,7 +348,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
         assert_nodes_equal(G.nodes(data="foo", default="bar"),
                            [(0, "bar"), (1, "baz"), (2, "bar")]);
 
-    auto test_node_attr2( ) {
+    auto test_node_attr2() {
         G = this->K3
         a = {"foo": "bar"}
         G.add_node(3, **a);
@@ -356,18 +356,18 @@ class BaseAttrGraphTester(BaseGraphTester) {
         assert_nodes_equal(G.nodes(data=true),
                            [(0, {}), (1, {}), (2, {}), (3, {"foo": "bar"})]);
 
-    auto test_edge_lookup( ) {
+    auto test_edge_lookup() {
         G = this->Graph();
         G.add_edge(1, 2, foo="bar");
         assert_edges_equal(G.edges[1, 2], {"foo": "bar"});
 
-    auto test_edge_attr( ) {
+    auto test_edge_attr() {
         G = this->Graph();
         G.add_edge(1, 2, foo="bar");
         assert_edges_equal(G.edges(data=true), [(1, 2, {"foo": "bar"})]);
         assert_edges_equal(G.edges(data="foo"), [(1, 2, "bar")]);
 
-    auto test_edge_attr2( ) {
+    auto test_edge_attr2() {
         G = this->Graph();
         G.add_edges_from([(1, 2), (3, 4)], foo="foo");
         assert_edges_equal(G.edges(data=true),
@@ -375,7 +375,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
         assert_edges_equal(G.edges(data="foo"),
                            [(1, 2, "foo"), (3, 4, "foo")]);
 
-    auto test_edge_attr3( ) {
+    auto test_edge_attr3() {
         G = this->Graph();
         G.add_edges_from([(1, 2, {"weight": 32}), (3, 4, {"weight": 64})], foo="foo");
         assert_edges_equal(G.edges(data=true),
@@ -387,7 +387,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
         assert_edges_equal(G.edges(data=true),
                            [(1, 2, {"data": 7, "spam": "bar", "bar": "foo"})]);
 
-    auto test_edge_attr4( ) {
+    auto test_edge_attr4() {
         G = this->Graph();
         G.add_edge(1, 2, data=7, spam="bar", bar="foo");
         assert_edges_equal(G.edges(data=true),
@@ -408,7 +408,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
                            [(1, 2, {"data": 21, "spam": "bar",
                                     "bar": "foo", "listdata": [20, 200], "weight":20})]);
 
-    auto test_to_undirected( ) {
+    auto test_to_undirected() {
         G = this->K3
         this->add_attributes(G);
         H = xn::Graph(G);
@@ -417,7 +417,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
         H = G.to_undirected();
         this->is_deepcopy(H, G);
 
-    auto test_to_directed( ) {
+    auto test_to_directed() {
         G = this->K3
         this->add_attributes(G);
         H = xn::DiGraph(G);
@@ -426,7 +426,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
         H = G.to_directed();
         this->is_deepcopy(H, G);
 
-    auto test_subgraph( ) {
+    auto test_subgraph() {
         G = this->K3
         this->add_attributes(G);
         H = G.subgraph([0, 1, 2, 5]);
@@ -440,7 +440,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
         assert_equal(H.adj, {});
         assert_not_equal(G.adj, {});
 
-    auto test_selfloops_attr( ) {
+    auto test_selfloops_attr() {
         G = this->K3.copy();
         G.add_edge(0, 0);
         G.add_edge(1, 1, weight=2);
@@ -453,7 +453,7 @@ class BaseAttrGraphTester(BaseGraphTester) {
 class TestGraph(BaseAttrGraphTester) {
     /** Tests specific to dict-of-dict-of-dict graph data structure */
 
-    auto setUp( ) {
+    auto setUp() {
         this->Graph = xn::Graph
         // build dict-of-dict-of-dict K3
         ed1, ed2, ed3 = ({}, {}, {});
@@ -469,7 +469,7 @@ class TestGraph(BaseAttrGraphTester) {
         this->K3._node[1] = {};
         this->K3._node[2] = {};
 
-    auto test_data_input( ) {
+    auto test_data_input() {
         G = this->Graph({1: [2], 2: [1]}, name="test");
         assert_equal(G.name, "test");
         assert_equal(sorted(G.adj.items()), [(1, {2: {}}), (2, {1: {}})]);
@@ -477,18 +477,18 @@ class TestGraph(BaseAttrGraphTester) {
         assert_equal(G.name, "test");
         assert_equal(sorted(G.adj.items()), [(1, {2: {}}), (2, {1: {}})]);
 
-    auto test_adjacency( ) {
+    auto test_adjacency() {
         G = this->K3
         assert_equal(dict(G.adjacency()),
                      {0: {1: {}, 2: {}}, 1: {0: {}, 2: {}}, 2: {0: {}, 1: {}}});
 
-    auto test_getitem( ) {
+    auto test_getitem() {
         G = this->K3
         assert_equal(G[0], {1: {}, 2: {}});
         assert_raises(KeyError, G.operator[], "j");
         assert_raises((TypeError, xn::XNetworkError), G.operator[], ["A"]);
 
-    auto test_add_node( ) {
+    auto test_add_node() {
         G = this->Graph();
         G.add_node(0);
         assert_equal(G.adj, {0: {}});
@@ -507,7 +507,7 @@ class TestGraph(BaseAttrGraphTester) {
         assert_equal(G.nodes[2]["c"], "red");
         assert_equal(G.nodes[3]["c"], "blue");
 
-    auto test_add_nodes_from( ) {
+    auto test_add_nodes_from() {
         G = this->Graph();
         G.add_nodes_from([0, 1, 2]);
         assert_equal(G.adj, {0: {}, 1: {}, 2: {}});
@@ -535,20 +535,20 @@ class TestGraph(BaseAttrGraphTester) {
         assert_equal(H.nodes[2]["c"], "blue");
         assert_equal(H.nodes[3]["c"], "cyan");
 
-    auto test_remove_node( ) {
+    auto test_remove_node() {
         G = this->K3
         G.remove_node(0);
         assert_equal(G.adj, {1: {2: {}}, 2: {1: {}}});
         assert_raises((KeyError, xn::XNetworkError), G.remove_node, -1);
 
         // generator here to implement list,set,string...
-    auto test_remove_nodes_from( ) {
+    auto test_remove_nodes_from() {
         G = this->K3
         G.remove_nodes_from([0, 1]);
         assert_equal(G.adj, {2: {}});
         G.remove_nodes_from([-1]);  // silent fail
 
-    auto test_add_edge( ) {
+    auto test_add_edge() {
         G = this->Graph();
         G.add_edge(0, 1);
         assert_equal(G.adj, {0: {1: {}}, 1: {0: {}}});
@@ -556,7 +556,7 @@ class TestGraph(BaseAttrGraphTester) {
         G.add_edge(*(0, 1));
         assert_equal(G.adj, {0: {1: {}}, 1: {0: {}}});
 
-    auto test_add_edges_from( ) {
+    auto test_add_edges_from() {
         G = this->Graph();
         G.add_edges_from([(0, 1), (0, 2, {"weight": 3})]);
         assert_equal(G.adj, {0: {1: {}, 2: {"weight": 3}}, 1: {0: {}},
@@ -575,24 +575,24 @@ class TestGraph(BaseAttrGraphTester) {
                       G.add_edges_from, [(0, 1, 2, 3)]);  // too many : tuple
         assert_raises(TypeError, G.add_edges_from, [0]);  // not a tuple
 
-    auto test_remove_edge( ) {
+    auto test_remove_edge() {
         G = this->K3
         G.remove_edge(0, 1);
         assert_equal(G.adj, {0: {2: {}}, 1: {2: {}}, 2: {0: {}, 1: {}}});
         assert_raises((KeyError, xn::XNetworkError), G.remove_edge, -1, 0);
 
-    auto test_remove_edges_from( ) {
+    auto test_remove_edges_from() {
         G = this->K3
         G.remove_edges_from([(0, 1)]);
         assert_equal(G.adj, {0: {2: {}}, 1: {2: {}}, 2: {0: {}, 1: {}}});
         G.remove_edges_from([(0, 0)]);  // silent fail
 
-    auto test_clear( ) {
+    auto test_clear() {
         G = this->K3
         G.clear();
         assert_equal(G.adj, {});
 
-    auto test_edges_data( ) {
+    auto test_edges_data() {
         G = this->K3
         all_edges = [(0, 1, {}), (0, 2, {}), (1, 2, {})];
         assert_edges_equal(G.edges(data=true), all_edges);
@@ -600,7 +600,7 @@ class TestGraph(BaseAttrGraphTester) {
         assert_edges_equal(G.edges([0, 1], data=true), all_edges);
         assert_raises((KeyError, xn::XNetworkError), G.edges, -1, true);
 
-    auto test_get_edge_data( ) {
+    auto test_get_edge_data() {
         G = this->K3
         assert_equal(G.get_edge_data(0, 1), {});
         assert_equal(G[0][1], {});
@@ -612,7 +612,7 @@ class TestGraph(BaseAttrGraphTester) {
 class TestEdgeSubgraph: public object {
     /** Unit tests for the :meth:`Graph.edge_subgraph` method. */
 
-    auto setup( ) {
+    auto setup() {
         // Create a path graph on five nodes.
         G = xn::path_graph(5);
         // Add some node, edge, && graph attributes.
@@ -625,16 +625,16 @@ class TestEdgeSubgraph: public object {
         this->G = G;
         this->H = G.edge_subgraph([(0, 1), (3, 4)]);
 
-    auto test_correct_nodes( ) {
+    auto test_correct_nodes() {
         /** Tests that the subgraph has the correct nodes. */
         assert_equal([0, 1, 3, 4], sorted(this->H.nodes()));
 
-    auto test_correct_edges( ) {
+    auto test_correct_edges() {
         /** Tests that the subgraph has the correct edges. */
         assert_equal([(0, 1, "edge01"), (3, 4, "edge34")],
                      sorted(this->H.edges(data="name")));
 
-    auto test_add_node( ) {
+    auto test_add_node() {
         /** Tests that adding a node to the original graph does not
         affect the nodes of the subgraph.
 
@@ -642,7 +642,7 @@ class TestEdgeSubgraph: public object {
         this->G.add_node(5);
         assert_equal([0, 1, 3, 4], sorted(this->H.nodes()));
 
-    auto test_remove_node( ) {
+    auto test_remove_node() {
         /** Tests that removing a node : the original graph does
         affect the nodes of the subgraph.
 
@@ -650,7 +650,7 @@ class TestEdgeSubgraph: public object {
         this->G.remove_node(0);
         assert_equal([1, 3, 4], sorted(this->H.nodes()));
 
-    auto test_node_attr_dict( ) {
+    auto test_node_attr_dict() {
         /** Tests that the node attribute dictionary of the two graphs is
         the same object.
 
@@ -663,7 +663,7 @@ class TestEdgeSubgraph: public object {
         this->H.nodes[1]["name"] = "bar";
         assert_equal(this->G.nodes[1], this->H.nodes[1]);
 
-    auto test_edge_attr_dict( ) {
+    auto test_edge_attr_dict() {
         /** Tests that the edge attribute dictionary of the two graphs is
         the same object.
 
@@ -678,7 +678,7 @@ class TestEdgeSubgraph: public object {
         assert_equal(this->G.edges[3, 4]["name"],
                      this->H.edges[3, 4]["name"]);
 
-    auto test_graph_attr_dict( ) {
+    auto test_graph_attr_dict() {
         /** Tests that the graph attribute dictionary of the two graphs
         is the same object.
 

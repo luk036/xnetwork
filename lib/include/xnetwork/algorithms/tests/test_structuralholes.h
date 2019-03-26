@@ -25,7 +25,7 @@ class TestStructuralHoles: public object {
 
      */
 
-    auto setup( ) {
+    auto setup() {
         this->D = xn::DiGraph();
         this->D.add_edges_from([(0, 1), (0, 2), (1, 0), (2, 1)]);
         this->D_weights = {(0, 1) { 2, (0, 2) { 2, (1, 0) { 1, (2, 1) { 1}
@@ -41,19 +41,19 @@ class TestStructuralHoles: public object {
             ("D", "G") { 3, ("G", "C") { 10,
         }
 
-    auto test_constraint_directed( ) {
+    auto test_constraint_directed() {
         constraint = xn::constraint(this->D);
         assert_almost_equal(round(constraint[0], 3), 1.003);
         assert_almost_equal(round(constraint[1], 3), 1.003);
         assert_almost_equal(round(constraint[2], 3), 1.389);
 
-    auto test_effective_size_directed( ) {
+    auto test_effective_size_directed() {
         effective_size = xn::effective_size(this->D);
         assert_almost_equal(round(effective_size[0], 3), 1.167);
         assert_almost_equal(round(effective_size[1], 3), 1.167);
         assert_almost_equal(round(effective_size[2], 3), 1);
 
-    auto test_constraint_weighted_directed( ) {
+    auto test_constraint_weighted_directed() {
         D = this->D.copy();
         xn::set_edge_attributes(D, this->D_weights, "weight");
         constraint = xn::constraint(D, weight="weight");
@@ -61,7 +61,7 @@ class TestStructuralHoles: public object {
         assert_almost_equal(round(constraint[1], 3), 1.143);
         assert_almost_equal(round(constraint[2], 3), 1.378);
 
-    auto test_effective_size_weighted_directed( ) {
+    auto test_effective_size_weighted_directed() {
         D = this->D.copy();
         xn::set_edge_attributes(D, this->D_weights, "weight");
         effective_size = xn::effective_size(D, weight="weight");
@@ -69,19 +69,19 @@ class TestStructuralHoles: public object {
         assert_almost_equal(round(effective_size[1], 3), 1.083);
         assert_almost_equal(round(effective_size[2], 3), 1);
 
-    auto test_constraint_undirected( ) {
+    auto test_constraint_undirected() {
         constraint = xn::constraint(this->G);
         assert_almost_equal(round(constraint["G"], 3), 0.400);
         assert_almost_equal(round(constraint["A"], 3), 0.595);
         assert_almost_equal(round(constraint["C"], 3), 1);
 
-    auto test_effective_size_undirected_borgatti( ) {
+    auto test_effective_size_undirected_borgatti() {
         effective_size = xn::effective_size(this->G);
         assert_almost_equal(round(effective_size["G"], 2), 4.67);
         assert_almost_equal(round(effective_size["A"], 2), 2.50);
         assert_almost_equal(round(effective_size["C"], 2), 1);
 
-    auto test_effective_size_undirected( ) {
+    auto test_effective_size_undirected() {
         G = this->G.copy();
         xn::set_edge_attributes(G, 1, "weight");
         effective_size = xn::effective_size(G, weight="weight");
@@ -89,7 +89,7 @@ class TestStructuralHoles: public object {
         assert_almost_equal(round(effective_size["A"], 2), 2.50);
         assert_almost_equal(round(effective_size["C"], 2), 1);
 
-    auto test_constraint_weighted_undirected( ) {
+    auto test_constraint_weighted_undirected() {
         G = this->G.copy();
         xn::set_edge_attributes(G, this->G_weights, "weight");
         constraint = xn::constraint(G, weight="weight");
@@ -97,7 +97,7 @@ class TestStructuralHoles: public object {
         assert_almost_equal(round(constraint["A"], 3), 0.795);
         assert_almost_equal(round(constraint["C"], 3), 1);
 
-    auto test_effective_size_weighted_undirected( ) {
+    auto test_effective_size_weighted_undirected() {
         G = this->G.copy();
         xn::set_edge_attributes(G, this->G_weights, "weight");
         effective_size = xn::effective_size(G, weight="weight");
@@ -105,20 +105,20 @@ class TestStructuralHoles: public object {
         assert_almost_equal(round(effective_size["A"], 2), 2.47);
         assert_almost_equal(round(effective_size["C"], 2), 1);
 
-    auto test_constraint_isolated( ) {
+    auto test_constraint_isolated() {
         G = this->G.copy();
         G.add_node(1);
         constraint = xn::constraint(G);
         assert_true(math.isnan(constraint[1]));
 
-    auto test_effective_size_isolated( ) {
+    auto test_effective_size_isolated() {
         G = this->G.copy();
         G.add_node(1);
         xn::set_edge_attributes(G, this->G_weights, "weight");
         effective_size = xn::effective_size(G, weight="weight");
         assert_true(math.isnan(effective_size[1]));
 
-    auto test_effective_size_borgatti_isolated( ) {
+    auto test_effective_size_borgatti_isolated() {
         G = this->G.copy();
         G.add_node(1);
         effective_size = xn::effective_size(G);

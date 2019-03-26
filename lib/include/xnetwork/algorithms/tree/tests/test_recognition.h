@@ -8,7 +8,7 @@ class TestTreeRecognition: public object {
     graph = xn::Graph
     multigraph = xn::MultiGraph
 
-    auto setUp( ) {
+    auto setUp() {
 
         this->T1 = this->graph();
 
@@ -45,33 +45,33 @@ class TestTreeRecognition: public object {
         this->NF1 = xn::compose(this->T6, this->N6);
 
     /// /// @raises(xn::XNetworkPointlessConcept);
-    auto test_null_tree( ) {
+    auto test_null_tree() {
         xn::is_tree(this->graph());
         xn::is_tree(this->multigraph());
 
     /// /// @raises(xn::XNetworkPointlessConcept);
-    auto test_null_forest( ) {
+    auto test_null_forest() {
         xn::is_forest(this->graph());
         xn::is_forest(this->multigraph());
 
-    auto test_is_tree( ) {
+    auto test_is_tree() {
         assert_true(xn::is_tree(this->T2));
         assert_true(xn::is_tree(this->T3));
         assert_true(xn::is_tree(this->T5));
 
-    auto test_is_not_tree( ) {
+    auto test_is_not_tree() {
         assert_false(xn::is_tree(this->N4));
         assert_false(xn::is_tree(this->N5));
         assert_false(xn::is_tree(this->N6));
 
-    auto test_is_forest( ) {
+    auto test_is_forest() {
         assert_true(xn::is_forest(this->T2));
         assert_true(xn::is_forest(this->T3));
         assert_true(xn::is_forest(this->T5));
         assert_true(xn::is_forest(this->F1));
         assert_true(xn::is_forest(this->N5));
 
-    auto test_is_not_forest( ) {
+    auto test_is_not_forest() {
         assert_false(xn::is_forest(this->N4));
         assert_false(xn::is_forest(this->N6));
         assert_false(xn::is_forest(this->NF1));

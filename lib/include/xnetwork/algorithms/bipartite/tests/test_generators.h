@@ -10,7 +10,7 @@ from xnetwork.algorithms.bipartite.generators import *
 
 
 class TestGeneratorsBipartite() {
-    auto test_complete_bipartite_graph( ) {
+    auto test_complete_bipartite_graph() {
         G = complete_bipartite_graph(0, 0);
         assert_true(is_isomorphic(G, null_graph()));
 
@@ -49,7 +49,7 @@ class TestGeneratorsBipartite() {
         assert_true(has_edges);
         assert_equal(G.size(), 4);
 
-    auto test_configuration_model( ) {
+    auto test_configuration_model() {
         aseq = [];
         bseq = [];
         G = configuration_model(aseq, bseq);
@@ -94,7 +94,7 @@ class TestGeneratorsBipartite() {
                       configuration_model, aseq, bseq,
                       create_using=DiGraph());
 
-    auto test_havel_hakimi_graph( ) {
+    auto test_havel_hakimi_graph() {
         aseq = [];
         bseq = [];
         G = havel_hakimi_graph(aseq, bseq);
@@ -131,7 +131,7 @@ class TestGeneratorsBipartite() {
                       havel_hakimi_graph, aseq, bseq,
                       create_using=DiGraph());
 
-    auto test_reverse_havel_hakimi_graph( ) {
+    auto test_reverse_havel_hakimi_graph() {
         aseq = [];
         bseq = [];
         G = reverse_havel_hakimi_graph(aseq, bseq);
@@ -174,7 +174,7 @@ class TestGeneratorsBipartite() {
                       reverse_havel_hakimi_graph, aseq, bseq,
                       create_using=DiGraph());
 
-    auto test_alternating_havel_hakimi_graph( ) {
+    auto test_alternating_havel_hakimi_graph() {
         aseq = [];
         bseq = [];
         G = alternating_havel_hakimi_graph(aseq, bseq);
@@ -218,14 +218,14 @@ class TestGeneratorsBipartite() {
                       alternating_havel_hakimi_graph, aseq, bseq,
                       create_using=DiGraph());
 
-    auto test_preferential_attachment( ) {
+    auto test_preferential_attachment() {
         aseq = [3, 2, 1, 1];
         G = preferential_attachment_graph(aseq, 0.5);
         assert_raises(xnetwork.exception.XNetworkError,
                       preferential_attachment_graph, aseq, 0.5,
                       create_using=DiGraph());
 
-    auto test_random_graph( ) {
+    auto test_random_graph() {
         n = 10
         m = 20
         G = random_graph(n, m, 0.9);
@@ -235,7 +235,7 @@ class TestGeneratorsBipartite() {
         assert_equal(set(range(n)), X);
         assert_equal(set(range(n, n + m)), Y);
 
-    auto test_random_digraph( ) {
+    auto test_random_digraph() {
         n = 10
         m = 20
         G = random_graph(n, m, 0.9, directed=true);
@@ -245,7 +245,7 @@ class TestGeneratorsBipartite() {
         assert_equal(set(range(n)), X);
         assert_equal(set(range(n, n + m)), Y);
 
-    auto test_gnmk_random_graph( ) {
+    auto test_gnmk_random_graph() {
         n = 10
         m = 20
         edges = 100
@@ -258,7 +258,7 @@ class TestGeneratorsBipartite() {
         assert_equal(set(range(n, n + m)), Y);
         assert_equal(edges, len(list(G.edges())));
 
-    auto test_gnmk_random_graph_complete( ) {
+    auto test_gnmk_random_graph_complete() {
         n = 10
         m = 20
         edges = 200

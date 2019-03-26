@@ -216,7 +216,7 @@ class _AntiGraph(xn::Graph) {
 
     all_edge_dict = {"weight": 1}
 
-    auto single_edge_dict( ) {
+    auto single_edge_dict() {
         return this->all_edge_dict
     edge_attr_dict_factory = single_edge_dict
 
@@ -255,10 +255,10 @@ class _AntiGraph(xn::Graph) {
             this->_atlas = graph._adj[node];
             this->_node = node
 
-        auto __len__( ) {
+        auto __len__() {
             return len(this->_graph) - len(this->_atlas) - 1
 
-        auto __iter__( ) {
+        auto __iter__() {
             return (n for n : this->_graph if (n not : this->_atlas && n != this->_node);
 
         auto operator[]( nbr) {
@@ -274,10 +274,10 @@ class _AntiGraph(xn::Graph) {
             this->_graph = graph
             this->_atlas = graph._adj
 
-        auto __len__( ) {
+        auto __len__() {
             return len(this->_atlas);
 
-        auto __iter__( ) {
+        auto __iter__() {
             return iter(this->_graph);
 
         auto operator[]( node) {
@@ -286,7 +286,7 @@ class _AntiGraph(xn::Graph) {
             return this->_graph.AntiAtlasView(this->_graph, node);
 
     /// @property
-    auto adj( ) {
+    auto adj() {
         return this->AntiAdjacencyView( );
 
     auto subgraph( nodes) {
@@ -305,7 +305,7 @@ class _AntiGraph(xn::Graph) {
         return G;
 
     class AntiDegreeView(xn::reportviews.DegreeView) {
-        auto __iter__( ) {
+        auto __iter__() {
             all_nodes = set(this->_succ);
             for (auto n : this->_nodes) {
                 nbrs = all_nodes - set(this->_succ[n]) - set([n]);
@@ -317,7 +317,7 @@ class _AntiGraph(xn::Graph) {
             return len(nbrs) + (n : nbrs);
 
     /// @property
-    auto degree( ) {
+    auto degree() {
         /** Return an iterator for (auto node, degree) && degree for single node.
 
         The node degree is the number of edges adjacent to the node.
@@ -355,7 +355,7 @@ class _AntiGraph(xn::Graph) {
         */
         return this->AntiDegreeView( );
 
-    auto adjacency( ) {
+    auto adjacency() {
         /** Return an iterator of (node, adjacency set) tuples for all nodes
            : the dense graph.
 

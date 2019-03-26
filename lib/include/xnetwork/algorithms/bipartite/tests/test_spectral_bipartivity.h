@@ -20,7 +20,7 @@ class TestSpectralBipartivity: public object {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto test_star_like( ) {
+    auto test_star_like() {
         // star-like
 
         G = xn::star_graph(2);
@@ -35,7 +35,7 @@ class TestSpectralBipartivity: public object {
         G.add_edge(1, 2);
         assert_almost_equal(sb(G), 0.890, places=3);
 
-    auto k23_like( ) {
+    auto k23_like() {
         // K2,3-like
         G = xn::complete_bipartite_graph(2, 3);
         G.add_edge(0, 1);
@@ -74,7 +74,7 @@ class TestSpectralBipartivity: public object {
         G.add_edge(0, 1);
         assert_almost_equal(sb(G), 0.597, places=3);
 
-    auto test_single_nodes( ) {
+    auto test_single_nodes() {
 
         // single nodes
         G = xn::complete_bipartite_graph(2, 3);

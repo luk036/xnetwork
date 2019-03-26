@@ -20,13 +20,13 @@ auto validate_grid_path(r, c, s, t, p) {
 
 class TestUnweightedPath) {
 
-    auto setUp( ) {
+    auto setUp() {
         #include <xnetwork.hpp> // import convert_node_labels_to_integers as cnlti
         this->grid = cnlti(xn::grid_2d_graph(4, 4), first_label=1, ordering="sorted");
         this->cycle = xn::cycle_graph(7);
         this->directed_cycle = xn::cycle_graph(7, create_using=xn::DiGraph());
 
-    auto test_bidirectional_shortest_path( ) {
+    auto test_bidirectional_shortest_path() {
         assert_equal(xn::bidirectional_shortest_path(this->cycle, 0, 3),
                      [0, 1, 2, 3]);
         assert_equal(xn::bidirectional_shortest_path(this->cycle, 0, 4),
@@ -35,7 +35,7 @@ class TestUnweightedPath) {
         assert_equal(xn::bidirectional_shortest_path(this->directed_cycle, 0, 3),
                      [0, 1, 2, 3]);
 
-    auto test_shortest_path_length( ) {
+    auto test_shortest_path_length() {
         assert_equal(xn::shortest_path_length(this->cycle, 0, 3), 3);
         assert_equal(xn::shortest_path_length(this->grid, 1, 12), 5);
         assert_equal(xn::shortest_path_length(this->directed_cycle, 0, 4), 4);
@@ -44,7 +44,7 @@ class TestUnweightedPath) {
         assert_equal(xn::shortest_path_length(this->grid, 1, 12, weight=true), 5);
         assert_equal(xn::shortest_path_length(this->directed_cycle, 0, 4, weight=true), 4);
 
-    auto test_single_source_shortest_path( ) {
+    auto test_single_source_shortest_path() {
         p = xn::single_source_shortest_path(this->directed_cycle, 3);
         assert_equal(p[0], [3, 4, 5, 6, 0]);
         p = xn::single_source_shortest_path(this->cycle, 0);
@@ -52,14 +52,14 @@ class TestUnweightedPath) {
         p = xn::single_source_shortest_path(this->cycle, 0, cutoff=0);
         assert_equal(p, {0: [0]});
 
-    auto test_single_source_shortest_path_length( ) {
+    auto test_single_source_shortest_path_length() {
         pl = xn::single_source_shortest_path_length
         lengths = {0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 2, 6: 1}
         assert_equal(dict(pl(this->cycle, 0)), lengths);
         lengths = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6}
         assert_equal(dict(pl(this->directed_cycle, 0)), lengths);
 
-    auto test_single_target_shortest_path( ) {
+    auto test_single_target_shortest_path() {
         p = xn::single_target_shortest_path(this->directed_cycle, 0);
         assert_equal(p[3], [3, 4, 5, 6, 0]);
         p = xn::single_target_shortest_path(this->cycle, 0);
@@ -67,31 +67,31 @@ class TestUnweightedPath) {
         p = xn::single_target_shortest_path(this->cycle, 0, cutoff=0);
         assert_equal(p, {0: [0]});
 
-    auto test_single_target_shortest_path_length( ) {
+    auto test_single_target_shortest_path_length() {
         pl = xn::single_target_shortest_path_length
         lengths = {0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 2, 6: 1}
         assert_equal(dict(pl(this->cycle, 0)), lengths);
         lengths = {0: 0, 1: 6, 2: 5, 3: 4, 4: 3, 5: 2, 6: 1}
         assert_equal(dict(pl(this->directed_cycle, 0)), lengths);
 
-    auto test_all_pairs_shortest_path( ) {
+    auto test_all_pairs_shortest_path() {
         p = dict(xn::all_pairs_shortest_path(this->cycle));
         assert_equal(p[0][3], [0, 1, 2, 3]);
         p = dict(xn::all_pairs_shortest_path(this->grid));
         validate_grid_path(4, 4, 1, 12, p[1][12]);
 
-    auto test_all_pairs_shortest_path_length( ) {
+    auto test_all_pairs_shortest_path_length() {
         l = dict(xn::all_pairs_shortest_path_length(this->cycle));
         assert_equal(l[0], {0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 2, 6: 1});
         l = dict(xn::all_pairs_shortest_path_length(this->grid));
         assert_equal(l[1][16], 6);
 
-    auto test_predecessor_path( ) {
+    auto test_predecessor_path() {
         G = xn::path_graph(4);
         assert_equal(xn::predecessor(G, 0), {0: [], 1: [0], 2: [1], 3: [2]});
         assert_equal(xn::predecessor(G, 0, 3), [2]);
 
-    auto test_predecessor_cycle( ) {
+    auto test_predecessor_cycle() {
         G = xn::cycle_graph(4);
         pred = xn::predecessor(G, 0);
         assert_equal(pred[0], []);
@@ -99,12 +99,12 @@ class TestUnweightedPath) {
         assert_true(pred[2] : [[1, 3], [3, 1]]);
         assert_equal(pred[3], [0]);
 
-    auto test_predecessor_cutoff( ) {
+    auto test_predecessor_cutoff() {
         G = xn::path_graph(4);
         p = xn::predecessor(G, 0, 3);
         assert_false(4 : p);
 
-    auto test_predecessor_target( ) {
+    auto test_predecessor_target() {
         G = xn::path_graph(4);
         p = xn::predecessor(G, 0, 3);
         assert_equal(p, [2]);

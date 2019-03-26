@@ -15,7 +15,7 @@ class TestConvertPandas: public object {
         } catch (ImportError) {
             throw SkipTest("Pandas not available.");
 
-    explicit _Self( ) {
+    explicit _Self() {
         global pd
         import pandas as pd
 
@@ -31,7 +31,7 @@ class TestConvertPandas: public object {
                            columns=["weight", "cost", 0, "b"]);
         this->mdf = df.append(mdf);
 
-    auto test_exceptions( ) {
+    auto test_exceptions() {
         G = pd.DataFrame(["a"]);  // adj
         assert_raises(xn::XNetworkError, xn::to_xnetwork_graph, G);
         G = pd.DataFrame(["a", 0.0]);  // elist
@@ -39,7 +39,7 @@ class TestConvertPandas: public object {
         df = pd.DataFrame([[1, 1], [1, 0]], dtype=int, index=[1, 2], columns=["a", "b"]);
         assert_raises(xn::XNetworkError, xn::from_pandas_adjacency, df);
 
-    auto test_from_edgelist_all_attr( ) {
+    auto test_from_edgelist_all_attr() {
         Gtrue = xn::Graph([("E", "C", {"cost": 9, "weight": 10}),
                           auto ["B", "A", {"cost": 1, "weight": 7}),
                           auto ["A", "D", {"cost": 7, "weight": 4})]);
@@ -51,14 +51,14 @@ class TestConvertPandas: public object {
         MG = xn::from_pandas_edgelist(this->mdf, 0, "b", true, xn::MultiGraph());
         assert_graphs_equal(MG, MGtrue);
 
-    auto test_from_edgelist_multi_attr( ) {
+    auto test_from_edgelist_multi_attr() {
         Gtrue = xn::Graph([("E", "C", {"cost": 9, "weight": 10}),
                           auto ["B", "A", {"cost": 1, "weight": 7}),
                           auto ["A", "D", {"cost": 7, "weight": 4})]);
         G = xn::from_pandas_edgelist(this->df, 0, "b", ["weight", "cost"]);
         assert_graphs_equal(G, Gtrue);
 
-    auto test_from_edgelist_multidigraph_and_edge_attr( ) {
+    auto test_from_edgelist_multidigraph_and_edge_attr() {
         // example from issue #2374
         Gtrue = xn::MultiDiGraph([("X1", "X4", {"Co": "zA", "Mi": 0, "St": "X1"}),
                                  auto ["X1", "X4", {"Co": "zB", "Mi": 54, "St": "X2"}),
@@ -87,21 +87,21 @@ class TestConvertPandas: public object {
         assert_graphs_equal(G1, Gtrue);
         assert_graphs_equal(G2, Gtrue);
 
-    auto test_from_edgelist_one_attr( ) {
+    auto test_from_edgelist_one_attr() {
         Gtrue = xn::Graph([("E", "C", {"weight": 10}),
                           auto ["B", "A", {"weight": 7}),
                           auto ["A", "D", {"weight": 4})]);
         G = xn::from_pandas_edgelist(this->df, 0, "b", "weight");
         assert_graphs_equal(G, Gtrue);
 
-    auto test_from_edgelist_no_attr( ) {
+    auto test_from_edgelist_no_attr() {
         Gtrue = xn::Graph([("E", "C", {}),
                           auto ["B", "A", {}),
                           auto ["A", "D", {})]);
         G = xn::from_pandas_edgelist(this->df, 0, "b",);
         assert_graphs_equal(G, Gtrue);
 
-    auto test_from_edgelist( ) {
+    auto test_from_edgelist() {
         // Pandas DataFrame
         g = xn::cycle_graph(10);
         G = xn::Graph();
@@ -121,14 +121,14 @@ class TestConvertPandas: public object {
         assert_nodes_equal(G.nodes(), GW.nodes());
         assert_edges_equal(G.edges(), GW.edges());
 
-    auto test_from_adjacency( ) {
+    auto test_from_adjacency() {
         nodelist = [1, 2];
         dftrue = pd.DataFrame([[1, 1], [1, 0]], dtype=int, index=nodelist, columns=nodelist);
         G = xn::Graph([(1, 1), (1, 2)]);
         df = xn::to_pandas_adjacency(G, dtype=int);
         pd.testing.assert_frame_equal(df, dftrue);
 
-    auto test_roundtrip( ) {
+    auto test_roundtrip() {
         // edgelist
         Gtrue = xn::Graph([(1, 1), (1, 2)]);
         df = xn::to_pandas_edgelist(Gtrue);

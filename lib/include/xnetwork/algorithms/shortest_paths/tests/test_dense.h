@@ -4,10 +4,10 @@ from nose.tools import *
 
 
 class TestFloyd) {
-    auto setUp( ) {
+    auto setUp() {
         // pass;
 
-    auto test_floyd_warshall_predecessor_and_distance( ) {
+    auto test_floyd_warshall_predecessor_and_distance() {
         XG = xn::DiGraph();
         XG.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
                                     ("u", "v", 1), ("u", "x", 2),
@@ -49,7 +49,7 @@ class TestFloyd) {
         assert_equal(dist["s"]["v"], 2);
 
     /// /// @raises(KeyError);
-    auto test_reconstruct_path( ) {
+    auto test_reconstruct_path() {
         XG = xn::DiGraph();
         XG.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
                                     ("u", "v", 1), ("u", "x", 2),
@@ -67,14 +67,14 @@ class TestFloyd) {
         // this part raises the keyError
         xn::reconstruct_path("1", "2", predecessors);
 
-    auto test_cycle( ) {
+    auto test_cycle() {
         path, dist = xn::floyd_warshall_predecessor_and_distance(
             xn::cycle_graph(7));
         assert_equal(dist[0][3], 3);
         assert_equal(path[0][3], 2);
         assert_equal(dist[0][4], 3);
 
-    auto test_weighted( ) {
+    auto test_weighted() {
         XG3 = xn::Graph();
         XG3.add_weighted_edges_from([[0, 1, 2], [1, 2, 12], [2, 3, 1],
                                      [3, 4, 5], [4, 5, 1], [5, 0, 10]]);
@@ -82,7 +82,7 @@ class TestFloyd) {
         assert_equal(dist[0][3], 15);
         assert_equal(path[0][3], 2);
 
-    auto test_weighted2( ) {
+    auto test_weighted2() {
         XG4 = xn::Graph();
         XG4.add_weighted_edges_from([[0, 1, 2], [1, 2, 2], [2, 3, 1],
                                      [3, 4, 1], [4, 5, 1], [5, 6, 1],
@@ -91,7 +91,7 @@ class TestFloyd) {
         assert_equal(dist[0][2], 4);
         assert_equal(path[0][2], 1);
 
-    auto test_weight_parameter( ) {
+    auto test_weight_parameter() {
         XG4 = xn::Graph();
         XG4.add_edges_from([(0, 1, {"heavy": 2}), (1, 2, {"heavy": 2}),
                             (2, 3, {"heavy": 1}), (3, 4, {"heavy": 1}),
@@ -102,7 +102,7 @@ class TestFloyd) {
         assert_equal(dist[0][2], 4);
         assert_equal(path[0][2], 1);
 
-    auto test_zero_distance( ) {
+    auto test_zero_distance() {
         XG = xn::DiGraph();
         XG.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
                                     ("u", "v", 1), ("u", "x", 2),
@@ -123,7 +123,7 @@ class TestFloyd) {
         for (auto u : GG) {
             dist[u][u] = 0.;
 
-    auto test_zero_weight( ) {
+    auto test_zero_weight() {
         G = xn::DiGraph();
         edges = [(1, 2, -2), (2, 3, -4), (1, 5, 1),
                  (5, 4, 0), (4, 3, -5), (2, 5, -7)];

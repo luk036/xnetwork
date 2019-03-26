@@ -8,7 +8,7 @@ from xnetwork.algorithms.approximation import min_edge_dominating_set
 
 class TestMinWeightDominatingSet) {
 
-    auto test_min_weighted_dominating_set( ) {
+    auto test_min_weighted_dominating_set() {
         graph = xn::Graph();
         graph.add_edge(1, 2);
         graph.add_edge(1, 5);
@@ -25,7 +25,7 @@ class TestMinWeightDominatingSet) {
             neighbors = set(graph.neighbors(vertex));
             ok_(len(neighbors & dom_set) > 0, "Non dominating set found!");
 
-    auto test_star_graph( ) {
+    auto test_star_graph() {
         /** Tests that an approximate dominating set for the star graph,
         even when the center node does not have the smallest integer
         label, gives just the center node.
@@ -39,7 +39,7 @@ class TestMinWeightDominatingSet) {
         G = xn::relabel_nodes(G, {0: 9, 9: 0});
         eq_(min_weighted_dominating_set(G), {9});
 
-    auto test_min_edge_dominating_set( ) {
+    auto test_min_edge_dominating_set() {
         graph = xn::path_graph(5);
         dom_set = min_edge_dominating_set(graph);
 

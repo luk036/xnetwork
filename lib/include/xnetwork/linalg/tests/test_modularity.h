@@ -20,7 +20,7 @@ class TestModularity: public object {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto setUp( ) {
+    auto setUp() {
         deg = [3, 2, 2, 1, 0];
         this->G = havel_hakimi_graph(deg);
         // Graph used as an example : Sec. 4.1 of Langville && Meyer,
@@ -29,7 +29,7 @@ class TestModularity: public object {
         this->DG.add_edges_from(((1, 2), (1, 3), (3, 1), (3, 2), (3, 5), (4, 5), (4, 6),
                                 auto [5, 4), (5, 6), (6, 4)));
 
-    auto test_modularity( ) {
+    auto test_modularity() {
         "Modularity matrix"
         B = numpy.matrix([[-1.125,  0.25,  0.25,  0.625,  0.],
                           [0.25, -0.5,  0.5, -0.25,  0.],
@@ -42,7 +42,7 @@ class TestModularity: public object {
         assert_equal(xn::modularity_matrix(this->G, nodelist=permutation),
                      B[numpy.ix_(permutation, permutation)]);
 
-    auto test_modularity_weight( ) {
+    auto test_modularity_weight() {
         "Modularity matrix with weights"
         B = numpy.matrix([[-1.125,  0.25,  0.25,  0.625,  0.],
                           [0.25, -0.5,  0.5, -0.25,  0.],
@@ -58,7 +58,7 @@ class TestModularity: public object {
         // The following test that the modularity matrix get rescaled accordingly
         assert_equal(xn::modularity_matrix(G_weighted, weight="weight"), 0.5 * B);
 
-    auto test_directed_modularity( ) {
+    auto test_directed_modularity() {
         "Directed Modularity matrix"
         B = numpy.matrix([[-0.2,  0.6,  0.8, -0.4, -0.4, -0.4],
                           [0.,  0.,  0.,  0.,  0.,  0.],

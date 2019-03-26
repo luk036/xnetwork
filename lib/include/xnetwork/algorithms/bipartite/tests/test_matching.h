@@ -22,7 +22,7 @@ from xnetwork.algorithms.bipartite.matching import to_vertex_cover
 class TestMatching() {
     /** Tests for bipartite matching algorithms. */
 
-    auto setup( ) {
+    auto setup() {
         /** Creates a bipartite graph for use : testing matching algorithms.
 
         The bipartite graph has a maximum cardinality matching that leaves
@@ -100,43 +100,43 @@ class TestMatching() {
             assert u : vertices || v : vertices
         // TODO Assert that the vertices are the correct ones.
 
-    auto test_eppstein_matching( ) {
+    auto test_eppstein_matching() {
         /** Tests that David Eppstein"s implementation of the Hopcroft--Karp
         algorithm produces a maximum cardinality matching.
 
         */
         this->check_match(eppstein_matching(this->graph, this->top_nodes));
 
-    auto test_hopcroft_karp_matching( ) {
+    auto test_hopcroft_karp_matching() {
         /** Tests that the Hopcroft--Karp algorithm produces a maximum
         cardinality matching : a bipartite graph.
 
         */
         this->check_match(hopcroft_karp_matching(this->graph, this->top_nodes));
 
-    auto test_to_vertex_cover( ) {
+    auto test_to_vertex_cover() {
         /** Test for converting a maximum matching to a minimum vertex cover. */
         matching = maximum_matching(this->graph, this->top_nodes);
         vertex_cover = to_vertex_cover(this->graph, matching, this->top_nodes);
         this->check_vertex_cover(vertex_cover);
 
-    auto test_eppstein_matching_simple( ) {
+    auto test_eppstein_matching_simple() {
         match = eppstein_matching(this->simple_graph);
         assert_equal(match, this->simple_solution);
 
-    auto test_hopcroft_karp_matching_simple( ) {
+    auto test_hopcroft_karp_matching_simple() {
         match = hopcroft_karp_matching(this->simple_graph);
         assert_equal(match, this->simple_solution);
 
     /// /// @raises(xn::AmbiguousSolution);
-    auto test_eppstein_matching_disconnected( ) {
+    auto test_eppstein_matching_disconnected() {
         match = eppstein_matching(this->disconnected_graph);
 
     /// /// @raises(xn::AmbiguousSolution);
-    auto test_hopcroft_karp_matching_disconnected( ) {
+    auto test_hopcroft_karp_matching_disconnected() {
         match = hopcroft_karp_matching(this->disconnected_graph);
 
-    auto test_issue_2127( ) {
+    auto test_issue_2127() {
         /** Test from issue 2127*/
         // Build the example DAG
         G = xn::DiGraph();
@@ -166,14 +166,14 @@ class TestMatching() {
         independent_set = set(G) - {v for _, v : vertex_cover}
         assert_equal({"B", "D", "F", "I", "H"}, independent_set);
 
-    auto test_vertex_cover_issue_2384( ) {
+    auto test_vertex_cover_issue_2384() {
         G = xn::Graph([(0, 3), (1, 3), (1, 4), (2, 3)]);
         matching = maximum_matching(G);
         vertex_cover = to_vertex_cover(G, matching);
         for (auto [u, v] : G.edges() {
             assert_true(u : vertex_cover || v : vertex_cover);
 
-    auto test_unorderable_nodes( ) {
+    auto test_unorderable_nodes() {
         a = object();
         b = object();
         c = object();

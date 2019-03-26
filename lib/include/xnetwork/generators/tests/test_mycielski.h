@@ -16,18 +16,18 @@ from nose.tools import assert_true, assert_equal, raises
 
 class TestMycielski: public object {
 
-    auto test_construction( ) {
+    auto test_construction() {
         G = xn::path_graph(2);
         M = mycielskian(G);
         assert_true(is_isomorphic(M, cycle_graph(5)));
 
-    auto test_size( ) {
+    auto test_size() {
         G = xn::path_graph(2);
         M = mycielskian(G, 2);
         assert_equal(len(M), 11);
         assert_equal(M.size(), 20);
 
-    auto test_mycielski_graph_generator( ) {
+    auto test_mycielski_graph_generator() {
         G = mycielski_graph(1);
         assert_true(is_isomorphic(G, xn::empty_graph(1)));
         G = mycielski_graph(2);

@@ -91,13 +91,13 @@ class TestPydot: public object {
         // Validate the original && resulting graphs to be the same.
         assert_graphs_equal(G, Hin);
 
-    auto test_undirected( ) {
+    auto test_undirected() {
         this->pydot_checks(xn::Graph(), prog="neato");
 
-    auto test_directed( ) {
+    auto test_directed() {
         this->pydot_checks(xn::DiGraph(), prog="dot");
 
-    auto test_read_write( ) {
+    auto test_read_write() {
         G = xn::MultiGraph();
         G.graph["name"] = "G";
         G.add_edge("1", "2", key="0");  // read assumes strings

@@ -15,7 +15,7 @@ from nose.tools import raises
 
 class TestIsEulerian(TestCase) {
 
-    auto test_is_eulerian( ) {
+    auto test_is_eulerian() {
         assert_true(is_eulerian(xn::complete_graph(5)));
         assert_true(is_eulerian(xn::complete_graph(7)));
         assert_true(is_eulerian(xn::hypercube_graph(4)));
@@ -29,7 +29,7 @@ class TestIsEulerian(TestCase) {
         assert_false(is_eulerian(xn::petersen_graph()));
         assert_false(is_eulerian(xn::path_graph(4)));
 
-    auto test_is_eulerian2( ) {
+    auto test_is_eulerian2() {
         // not connected
         G = xn::Graph();
         G.add_nodes_from([1, 2, 3]);
@@ -48,7 +48,7 @@ class TestIsEulerian(TestCase) {
 
 class TestEulerianCircuit(TestCase) {
 
-    auto test_eulerian_circuit_cycle( ) {
+    auto test_eulerian_circuit_cycle() {
         G = xn::cycle_graph(4);
 
         edges = list(eulerian_circuit(G, source=0));
@@ -73,7 +73,7 @@ class TestEulerianCircuit(TestCase) {
         assert_equal(nodes, [1, 2, 0]);
         assert_equal(edges, [(1, 2), (2, 0), (0, 1)]);
 
-    auto test_eulerian_circuit_digraph( ) {
+    auto test_eulerian_circuit_digraph() {
         G = xn::DiGraph();
         xn::add_cycle(G, [0, 1, 2, 3]);
 
@@ -87,7 +87,7 @@ class TestEulerianCircuit(TestCase) {
         assert_equal(nodes, [1, 2, 3, 0]);
         assert_equal(edges, [(1, 2), (2, 3), (3, 0), (0, 1)]);
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         G = xn::MultiGraph();
         xn::add_cycle(G, [0, 1, 2, 3]);
         G.add_edge(1, 2);
@@ -97,7 +97,7 @@ class TestEulerianCircuit(TestCase) {
         assert_equal(nodes, [0, 3, 2, 1, 2, 1]);
         assert_equal(edges, [(0, 3), (3, 2), (2, 1), (1, 2), (2, 1), (1, 0)]);
 
-    auto test_multigraph_with_keys( ) {
+    auto test_multigraph_with_keys() {
         G = xn::MultiGraph();
         xn::add_cycle(G, [0, 1, 2, 3]);
         G.add_edge(1, 2);
@@ -110,5 +110,5 @@ class TestEulerianCircuit(TestCase) {
         assert_equal(edges[5:], [(1, 0, 0)]);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_not_eulerian( ) {
+    auto test_not_eulerian() {
         f = list(eulerian_circuit(xn::complete_graph(4)));

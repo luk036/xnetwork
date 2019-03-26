@@ -9,7 +9,7 @@ from nose.tools import assert_equal
 
 class TestSubgraphAttributesDicts) {
 
-    auto setUp( ) {
+    auto setUp() {
         this->undirected = [
             xn::connected_component_subgraphs,
             xn::biconnected_component_subgraphs,
@@ -32,7 +32,7 @@ class TestSubgraphAttributesDicts) {
         this->G.nodes[1]["nattr"] = "blue";
         this->G.graph["gattr"] = "green";
 
-    auto test_subgraphs_default_copy_behavior( ) {
+    auto test_subgraphs_default_copy_behavior() {
         // Test the default behavior of subgraph functions
         // For the moment (1.10) the default is to copy
         for (auto subgraph_func : this->subgraph_funcs) {
@@ -51,7 +51,7 @@ class TestSubgraphAttributesDicts) {
             assert_equal(G.graph["gattr"], "green");
             assert_equal(SG.graph["gattr"], "baz");
 
-    auto test_subgraphs_copy( ) {
+    auto test_subgraphs_copy() {
         for (auto subgraph_func : this->subgraph_funcs) {
             test_graph = this->G if (subgraph_func : this->undirected else this->D
             G = deepcopy(test_graph);
@@ -69,7 +69,7 @@ class TestSubgraphAttributesDicts) {
             assert_equal(G.graph["gattr"], "green");
             assert_equal(SG.graph["gattr"], "baz");
 
-    auto test_subgraphs_no_copy( ) {
+    auto test_subgraphs_no_copy() {
         for (auto subgraph_func : this->subgraph_funcs) {
             G = deepcopy(this->G if (subgraph_func : this->undirected else this->D);
             SG = list(subgraph_func(G, copy=false))[0];

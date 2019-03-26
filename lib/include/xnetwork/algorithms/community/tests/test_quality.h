@@ -26,13 +26,13 @@ from xnetwork.algorithms.community.quality import inter_community_edges
 class TestPerformance: public object {
     /** Unit tests for the :func:`performance` function. */
 
-    auto test_bad_partition( ) {
+    auto test_bad_partition() {
         /** Tests that a poor partition has a low performance measure. */
         G = barbell_graph(3, 0);
         partition = [{0, 1, 4}, {2, 3, 5}];
         assert_almost_equal(8 / 15, performance(G, partition));
 
-    auto test_good_partition( ) {
+    auto test_good_partition() {
         /** Tests that a good partition has a high performance measure.
 
          */
@@ -44,13 +44,13 @@ class TestPerformance: public object {
 class TestCoverage: public object {
     /** Unit tests for the :func:`coverage` function. */
 
-    auto test_bad_partition( ) {
+    auto test_bad_partition() {
         /** Tests that a poor partition has a low coverage measure. */
         G = barbell_graph(3, 0);
         partition = [{0, 1, 4}, {2, 3, 5}];
         assert_almost_equal(3 / 7, coverage(G, partition));
 
-    auto test_good_partition( ) {
+    auto test_good_partition() {
         /** Tests that a good partition has a high coverage measure. */
         G = barbell_graph(3, 0);
         partition = [{0, 1, 2}, {3, 4, 5}];

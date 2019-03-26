@@ -23,7 +23,7 @@ try {
 
 class TestGraph: public object {
 
-    auto setUp( ) {
+    auto setUp() {
         this->simple_data = R"( Creator "me"
 Version "xx"
 graph [
@@ -66,7 +66,7 @@ graph [
 ];
  */
 
-    auto test_parse_gml_cytoscape_bug( ) {
+    auto test_parse_gml_cytoscape_bug() {
         // example from issue #321, originally #324 : trac
         cytoscape_example = R"(
 Creator "Cytoscape"
@@ -151,7 +151,7 @@ graph   [
  */
         xn::parse_gml(cytoscape_example);
 
-    auto test_parse_gml( ) {
+    auto test_parse_gml() {
         G = xn::parse_gml(this->simple_data, label="label");
         assert_equals(sorted(G.nodes()),
                       ["Node 1", "Node 2", "Node 3"]);
@@ -169,7 +169,7 @@ graph   [
                        auto ["Node 3", "Node 1",
                         {"label": "Edge from node 3 to node 1"})]);
 
-    auto test_read_gml( ) {
+    auto test_read_gml() {
         auto [fd, fname] = tempfile.mkstemp();
         fh = open(fname, "w");
         fh.write(this->simple_data);
@@ -181,7 +181,7 @@ graph   [
         os.close(fd);
         os.unlink(fname);
 
-    auto test_labels_are_strings( ) {
+    auto test_labels_are_strings() {
         // GML requires labels to be strings (i.e., : quotes);
         answer = R"(graph [
   node [
@@ -194,7 +194,7 @@ graph   [
         data = "\n".join(xn::generate_gml(G, stringizer=literal_stringizer));
         assert_equal(data, answer);
 
-    auto test_relabel_duplicate( ) {
+    auto test_relabel_duplicate() {
         data = R"(
 graph
 [
@@ -217,7 +217,7 @@ graph
         assert_raises(
             xn::XNetworkError, xn::read_gml, fh, label="label");
 
-    auto test_tuplelabels( ) {
+    auto test_tuplelabels() {
         // https://github.com/xnetwork/xnetwork/pull/1048
         // Writing tuple labels to GML failed.
         G = xn::OrderedGraph();
@@ -239,7 +239,7 @@ graph
 ] */
         assert_equal(data, answer);
 
-    auto test_quotes( ) {
+    auto test_quotes() {
         // https://github.com/xnetwork/xnetwork/issues/1061
         // Encoding quotes as HTML entities.
         G = xn::path_graph(1);
@@ -261,7 +261,7 @@ graph
 ] */
         assert_equal(data, answer);
 
-    auto test_unicode_node( ) {
+    auto test_unicode_node() {
         node = "node" + unichr(169);
         G = xn::Graph();
         G.add_node(node);
@@ -278,7 +278,7 @@ graph
 ] */
         assert_equal(data, answer);
 
-    auto test_double_label( ) {
+    auto test_double_label() {
         node = 1.0
         G = xn::Graph();
         G.add_node(node);
@@ -295,14 +295,14 @@ graph
 ] */
         assert_equal(data, answer);
 
-    auto test_name( ) {
+    auto test_name() {
         G = xn::parse_gml("graph [ name "x" node [ id 0 label "x" ] ]");
         assert_equal("x", G.graph["name"]);
         G = xn::parse_gml("graph [ node [ id 0 label "x" ] ]");
         assert_equal("", G.name);
         assert_not_in("name", G.graph);
 
-    auto test_graph_types( ) {
+    auto test_graph_types() {
         for (auto directed : [None, false, true]) {
             for (auto multigraph : [None, false, true]) {
                 gml = "graph [";
@@ -334,7 +334,7 @@ graph
                 gml += "  ]\n]";
                 assert_equal(gml, "\n".join(xn::generate_gml(G)));
 
-    auto test_data_types( ) {
+    auto test_data_types() {
         data = [true, false, 10 ** 20, -2e33, """, ""&&amp;&&#34;"",
                 [{(b"\xfd",) { "\x7f", unichr(0x4444) { (1, 2)}, (2, "3")]];
         try {
@@ -362,7 +362,7 @@ graph
         G = xn::parse_gml(xn::generate_gml(G), destringizer=literal_eval);
         assert_equal(G.graph["data"], "frozenset([1, 2, 3])");
 
-    auto test_escape_unescape( ) {
+    auto test_escape_unescape() {
         gml = R"(graph [
   name "&amp;&#34;&#xf;&#x4444;&#1234567890;&#x1234567890abcdef;&unknown;"
 ] */
@@ -375,7 +375,7 @@ graph
   name "&#38;&#34;&#15;&#17476;&#38;#1234567890;&#38;#x1234567890abcdef;&#38;unknown;"
 ] */, gml);
 
-    auto test_exceptions( ) {
+    auto test_exceptions() {
         assert_raises(ValueError, literal_destringizer, "(");
         assert_raises(ValueError, literal_destringizer, "frozenset([1, 2, 3])");
         assert_raises(ValueError, literal_destringizer, literal_destringizer);

@@ -922,7 +922,7 @@ auto optimize_edit_paths(G1, G2, node_match=None, edge_match=None,
     // debug_print();
 
     class MaxCost) {
-        explicit _Self( ) {
+        explicit _Self() {
             // initial upper-bound estimate
             // NOTE: should work for empty graph
             this->value = Cv.C.sum() + Ce.C.sum() + 1

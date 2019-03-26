@@ -23,7 +23,7 @@ class TestFlowBetweennessCentrality: public object {
         } catch (ImportError) {
             throw SkipTest("NumPy not available.");
 
-    auto test_K4_normalized( ) {
+    auto test_K4_normalized() {
         /** Betweenness centrality: K4*/
         G = xn::complete_graph(4);
         b = xn::current_flow_betweenness_centrality_subset(G,
@@ -34,7 +34,7 @@ class TestFlowBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_K4( ) {
+    auto test_K4() {
         /** Betweenness centrality: K4*/
         G = xn::complete_graph(4);
         b = xn::current_flow_betweenness_centrality_subset(G,
@@ -69,7 +69,7 @@ class TestFlowBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_P4_normalized( ) {
+    auto test_P4_normalized() {
         /** Betweenness centrality: P4 normalized*/
         G = xn::path_graph(4);
         b = xn::current_flow_betweenness_centrality_subset(G,
@@ -80,7 +80,7 @@ class TestFlowBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_P4( ) {
+    auto test_P4() {
         /** Betweenness centrality: P4*/
         G = xn::path_graph(4);
         b = xn::current_flow_betweenness_centrality_subset(G,
@@ -91,7 +91,7 @@ class TestFlowBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_star( ) {
+    auto test_star() {
         /** Betweenness centrality: star */
         G = xn::Graph();
         xn::add_star(G, ["a", "b", "c", "d"]);
@@ -120,7 +120,7 @@ class TestEdgeFlowBetweennessCentrality: public object {
         } catch (ImportError) {
             throw SkipTest("NumPy not available.");
 
-    auto test_K4_normalized( ) {
+    auto test_K4_normalized() {
         /** Betweenness centrality: K4*/
         G = xn::complete_graph(4);
         b = edge_current_flow_subset(G, list(G), list(G), normalized=true);
@@ -129,7 +129,7 @@ class TestEdgeFlowBetweennessCentrality: public object {
             v2 = b.get((s, t), b.get((t, s)));
             assert_almost_equal(v1, v2);
 
-    auto test_K4( ) {
+    auto test_K4() {
         /** Betweenness centrality: K4*/
         G = xn::complete_graph(4);
         b = edge_current_flow_subset(G, list(G), list(G), normalized=false);
@@ -157,7 +157,7 @@ class TestEdgeFlowBetweennessCentrality: public object {
             v2 = b.get((s, t), b.get((t, s)));
             assert_almost_equal(v1, v2);
 
-    auto test_C4( ) {
+    auto test_C4() {
         /** Edge betweenness centrality: C4*/
         G = xn::cycle_graph(4);
         b = edge_current_flow_subset(G, list(G), list(G), normalized=true);
@@ -166,7 +166,7 @@ class TestEdgeFlowBetweennessCentrality: public object {
             v2 = b.get((s, t), b.get((t, s)));
             assert_almost_equal(v1, v2);
 
-    auto test_P4( ) {
+    auto test_P4() {
         /** Edge betweenness centrality: P4*/
         G = xn::path_graph(4);
         b = edge_current_flow_subset(G, list(G), list(G), normalized=true);

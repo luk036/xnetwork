@@ -12,7 +12,7 @@ auto test_categorical_node_match() {
 
 class TestGenericMultiEdgeMatch) {
 
-    auto setup( ) {
+    auto setup() {
         this->G1 = xn::MultiDiGraph();
         this->G2 = xn::MultiDiGraph();
         this->G3 = xn::MultiDiGraph();
@@ -32,7 +32,7 @@ class TestGenericMultiEdgeMatch) {
         for (auto attr_dict : [attr_dict6, attr_dict4]) {
             this->G4.add_edge(4, 5, **attr_dict);
 
-    auto test_generic_multiedge_match( ) {
+    auto test_generic_multiedge_match() {
         full_match = iso.generic_multiedge_match(['id', 'flowMin', 'flowMax'], [None] * 3, [eq] * 3);
         flow_match = iso.generic_multiedge_match(['flowMin', 'flowMax'], [None] * 2, [eq] * 2);
         min_flow_match = iso.generic_multiedge_match('flowMin', None, eq);

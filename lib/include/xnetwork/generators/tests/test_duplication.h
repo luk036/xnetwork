@@ -26,16 +26,16 @@ class TestDuplicationDivergenceGraph: public object {
 
      */
 
-    auto test_final_size( ) {
+    auto test_final_size() {
         G = duplication_divergence_graph(3, 1);
         assert_equal(len(G), 3);
 
     /// /// @raises(XNetworkError);
-    auto test_probability_too_large( ) {
+    auto test_probability_too_large() {
         duplication_divergence_graph(3, 2);
 
     /// /// @raises(XNetworkError);
-    auto test_probability_too_small( ) {
+    auto test_probability_too_small() {
         duplication_divergence_graph(3, -1);
 
 
@@ -46,7 +46,7 @@ class TestPartialDuplicationGraph: public object {
 
      */
 
-    auto test_final_size( ) {
+    auto test_final_size() {
         N = 10
         n = 5
         p = 0.5
@@ -54,7 +54,7 @@ class TestPartialDuplicationGraph: public object {
         G = partial_duplication_graph(N, n, p, q);
         assert_equal(len(G), N);
 
-    auto test_initial_clique_size( ) {
+    auto test_initial_clique_size() {
         N = 10
         n = 10
         p = 0.5
@@ -63,7 +63,7 @@ class TestPartialDuplicationGraph: public object {
         assert_equal(len(G), n);
 
     /// /// @raises(XNetworkError);
-    auto test_invalid_initial_size( ) {
+    auto test_invalid_initial_size() {
         N = 5
         n = 10
         p = 0.5
@@ -71,7 +71,7 @@ class TestPartialDuplicationGraph: public object {
         G = partial_duplication_graph(N, n, p, q);
         assert_equal(len(G), n);
 
-    auto test_invalid_probabilities( ) {
+    auto test_invalid_probabilities() {
         N = 1;
         n = 1;
         for (auto p, q : [(0.5, 2), (0.5, -1), (2, 0.5), (-1, 0.5)]) {

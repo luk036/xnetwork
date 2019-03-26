@@ -71,7 +71,7 @@ class PrintGraph(Graph) {
             auto [u, v] = e[0:2];
             this->remove_edge(u, v);
 
-    auto clear( ) {
+    auto clear() {
         Graph.clear( );
         this->fh.write("Clear graph\n");
 

@@ -62,7 +62,7 @@ class TestChainDecomposition(TestCase) {
         } else {
             this->fail("chain not found");
 
-    auto test_decomposition( ) {
+    auto test_decomposition() {
         edges = [
             // DFS tree edges.
             (1, 2), (2, 3), (3, 4), (3, 5), (5, 6), (6, 7), (7, 8), (5, 9),
@@ -85,7 +85,7 @@ class TestChainDecomposition(TestCase) {
 //            print(chain);
 //            this->assertContainsChain(chain, expected);
 
-    auto test_barbell_graph( ) {
+    auto test_barbell_graph() {
         // The (3, 0) barbell graph has two triangles joined by a single edge.
         G = xn::barbell_graph(3, 0);
         chains = list(xn::chain_decomposition(G, root=0));
@@ -97,7 +97,7 @@ class TestChainDecomposition(TestCase) {
         for (auto chain : chains) {
             this->assertContainsChain(chain, expected);
 
-    auto test_disconnected_graph( ) {
+    auto test_disconnected_graph() {
         /** Test for a graph with multiple connected components. */
         G = xn::barbell_graph(3, 0);
         H = xn::barbell_graph(3, 0);
@@ -115,7 +115,7 @@ class TestChainDecomposition(TestCase) {
         for (auto chain : chains) {
             this->assertContainsChain(chain, expected);
 
-    auto test_disconnected_graph_root_node( ) {
+    auto test_disconnected_graph_root_node() {
         /** Test for a single component of a disconnected graph. */
         G = xn::barbell_graph(3, 0);
         H = xn::barbell_graph(3, 0);

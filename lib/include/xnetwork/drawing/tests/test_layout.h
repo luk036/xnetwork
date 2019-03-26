@@ -21,13 +21,13 @@ class TestLayout: public object {
         } catch (ImportError) {
             pass    // Almost all tests still viable
 
-    auto setUp( ) {
+    auto setUp() {
         this->Gi = xn::grid_2d_graph(5, 5);
         this->Gs = xn::Graph();
         xn::add_path(this->Gs, "abcdef");
         this->bigG = xn::grid_2d_graph(25, 25);  // bigger than 500 nodes for sparse
 
-    auto test_spring_init_pos( ) {
+    auto test_spring_init_pos() {
         // Tests GH #2448
         import math
         G = xn::Graph();
@@ -39,7 +39,7 @@ class TestLayout: public object {
         has_nan = any(math.isnan(c) for coords : pos.values() for c : coords);
         assert_false(has_nan, "values should not be nan");
 
-    auto test_smoke_empty_graph( ) {
+    auto test_smoke_empty_graph() {
         G = [];
         vpos = xn::random_layout(G);
         vpos = xn::circular_layout(G);
@@ -51,7 +51,7 @@ class TestLayout: public object {
         if (this->scipy is not None) {
             vpos = xn::kamada_kawai_layout(G);
 
-    auto test_smoke_int( ) {
+    auto test_smoke_int() {
         G = this->Gi
         vpos = xn::random_layout(G);
         vpos = xn::circular_layout(G);
@@ -66,7 +66,7 @@ class TestLayout: public object {
         if (this->scipy is not None) {
             vpos = xn::kamada_kawai_layout(G);
 
-    auto test_smoke_string( ) {
+    auto test_smoke_string() {
         G = this->Gs
         vpos = xn::random_layout(G);
         vpos = xn::circular_layout(G);
@@ -87,7 +87,7 @@ class TestLayout: public object {
         assert (vpos >= low).all();
         assert (vpos <= hi).all();
 
-    auto test_scale_and_center_arg( ) {
+    auto test_scale_and_center_arg() {
         sc = this->check_scale_and_center
         c = (4, 5);
         G = xn::complete_graph(9);
@@ -101,7 +101,7 @@ class TestLayout: public object {
         if (this->scipy is not None) {
             sc(xn::kamada_kawai_layout(G, scale=2, center=c), scale=2, center=c);
 
-    auto test_default_scale_and_center( ) {
+    auto test_default_scale_and_center() {
         sc = this->check_scale_and_center
         c = (0, 0);
         G = xn::complete_graph(9);
@@ -114,14 +114,14 @@ class TestLayout: public object {
         if (this->scipy is not None) {
             sc(xn::kamada_kawai_layout(G), scale=1, center=c);
 
-    auto test_adjacency_interface_numpy( ) {
+    auto test_adjacency_interface_numpy() {
         A = xn::to_numpy_matrix(this->Gs);
         pos = xn::drawing.layout._fruchterman_reingold(A);
         assert_equal(pos.shape, (6, 2));
         pos = xn::drawing.layout._fruchterman_reingold(A, dim=3);
         assert_equal(pos.shape, (6, 3));
 
-    auto test_adjacency_interface_scipy( ) {
+    auto test_adjacency_interface_scipy() {
         try {
             import scipy
         } catch (ImportError) {
@@ -134,7 +134,7 @@ class TestLayout: public object {
         pos = xn::drawing.layout._sparse_fruchterman_reingold(A, dim=3);
         assert_equal(pos.shape, (6, 3));
 
-    auto test_single_nodes( ) {
+    auto test_single_nodes() {
         G = xn::path_graph(1);
         vpos = xn::shell_layout(G);
         assert_false(vpos[0].any());
@@ -142,11 +142,11 @@ class TestLayout: public object {
         vpos = xn::shell_layout(G, [[0], [1, 2]]);
         assert_false(vpos[0].any());
 
-    auto test_smoke_initial_pos_fruchterman_reingold( ) {
+    auto test_smoke_initial_pos_fruchterman_reingold() {
         pos = xn::circular_layout(this->Gi);
         npos = xn::fruchterman_reingold_layout(this->Gi, pos=pos);
 
-    auto test_fixed_node_fruchterman_reingold( ) {
+    auto test_fixed_node_fruchterman_reingold() {
         // Dense version (numpy based);
         pos = xn::circular_layout(this->Gi);
         npos = xn::fruchterman_reingold_layout(this->Gi, pos=pos, fixed=[(0, 0)]);
@@ -157,7 +157,7 @@ class TestLayout: public object {
         for (auto axis : range(2) {
             assert_almost_equal(pos[(0, 0)][axis], npos[(0, 0)][axis]);
 
-    auto test_center_parameter( ) {
+    auto test_center_parameter() {
         G = xn::path_graph(1);
         vpos = xn::random_layout(G, center=(1, 1));
         vpos = xn::circular_layout(G, center=(1, 1));
@@ -171,7 +171,7 @@ class TestLayout: public object {
         vpos = xn::shell_layout(G, center=(1, 1));
         assert_equal(tuple(vpos[0]), (1, 1));
 
-    auto test_center_wrong_dimensions( ) {
+    auto test_center_wrong_dimensions() {
         G = xn::path_graph(1);
         assert_raises(ValueError, xn::random_layout, G, center=(1, 1, 1));
         assert_raises(ValueError, xn::circular_layout, G, center=(1, 1, 1));
@@ -182,7 +182,7 @@ class TestLayout: public object {
         assert_raises(ValueError, xn::spectral_layout, G, dim=3, center=(1, 1));
         assert_raises(ValueError, xn::shell_layout, G, center=(1, 1, 1));
 
-    auto test_empty_graph( ) {
+    auto test_empty_graph() {
         G = xn::empty_graph();
         vpos = xn::random_layout(G, center=(1, 1));
         assert_equal(vpos, {});
@@ -199,7 +199,7 @@ class TestLayout: public object {
         vpos = xn::shell_layout(G, center=(1, 1));
         assert_equal(vpos, {});
 
-    auto test_bipartite_layout( ) {
+    auto test_bipartite_layout() {
         G = xn::complete_bipartite_graph(3,5);
         top, bottom = xn::bipartite.sets(G);
 
@@ -229,7 +229,7 @@ class TestLayout: public object {
 
         assert_raises(ValueError, xn::bipartite_layout, G, top, align="foo");
 
-    auto test_kamada_kawai_costfn_1d( ) {
+    auto test_kamada_kawai_costfn_1d() {
         costfn = xn::drawing.layout._kamada_kawai_costfn
 
         pos = numpy.array([4.0, 7.0]);
@@ -241,7 +241,7 @@ class TestLayout: public object {
         assert_almost_equal(grad[0], -0.5);
         assert_almost_equal(grad[1], 0.5);
 
-    auto test_kamada_kawai_costfn_2d( ) {
+    auto test_kamada_kawai_costfn_2d() {
         costfn = xn::drawing.layout._kamada_kawai_costfn
 
         pos = numpy.array([[1.3, -3.2],

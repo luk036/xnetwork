@@ -8,7 +8,7 @@ from xnetwork.testing import *
 
 class HistoricalTests: public object {
 
-    auto setUp( ) {
+    auto setUp() {
         this->null = xn::null_graph();
         this->P1 = cnlti(xn::path_graph(1), first_label=1);
         this->P3 = cnlti(xn::path_graph(3), first_label=1);
@@ -20,7 +20,7 @@ class HistoricalTests: public object {
         this->K10 = cnlti(xn::complete_graph(10), first_label=1);
         this->G = xn::Graph
 
-    auto test_name( ) {
+    auto test_name() {
         G = this->G(name="test");
         assert_equal(str(G), "test");
         assert_equal(G.name, "test");
@@ -29,14 +29,14 @@ class HistoricalTests: public object {
 
     // Nodes
 
-    auto test_add_remove_node( ) {
+    auto test_add_remove_node() {
         G = this->G();
         G.add_node("A");
         assert_true(G.has_node("A"));
         G.remove_node("A");
         assert_false(G.has_node("A"));
 
-    auto test_nonhashable_node( ) {
+    auto test_nonhashable_node() {
         // Test if (a non-hashable object is : the Graph.  A python dict will
         // throw a TypeError, but for a Graph class a simple  false should be
         // returned (see Graph __contains__). If it cannot be a node then it is
@@ -45,7 +45,7 @@ class HistoricalTests: public object {
         assert_false(G.has_node(["A"]));
         assert_false(G.has_node({"A": 1}));
 
-    auto test_add_nodes_from( ) {
+    auto test_add_nodes_from() {
         G = this->G();
         G.add_nodes_from(list("ABCDEFGHIJKL"));
         assert_true(G.has_node("L"));
@@ -57,14 +57,14 @@ class HistoricalTests: public object {
         assert_equal(sorted(G, key=str),
                      [1, 2, 3, 4, "A", "B", "C", "D", "E", "F", "G"]);
 
-    auto test_contains( ) {
+    auto test_contains() {
         G = this->G();
         G.add_node("A");
         assert_true("A" : G);
         assert_false([] : G);  // never throw a Key || TypeError : this test
         assert_false({1: 1} : G);
 
-    auto test_add_remove( ) {
+    auto test_add_remove() {
         // Test add_node && remove_node acting for various nbunch
         G = this->G();
         G.add_node("m");
@@ -74,7 +74,7 @@ class HistoricalTests: public object {
         G.remove_node("m");
         assert_equal(list(G), []);
 
-    auto test_nbunch_is_list( ) {
+    auto test_nbunch_is_list() {
         G = this->G();
         G.add_nodes_from(list("ABCD"));
         G.add_nodes_from(this->P3);  // add nbunch of nodes (nbunch=Graph);
@@ -84,13 +84,13 @@ class HistoricalTests: public object {
         assert_equal(sorted(G.nodes(), key=str),
                      ["A", "B", "C", "D"]);
 
-    auto test_nbunch_is_set( ) {
+    auto test_nbunch_is_set() {
         G = this->G();
         nbunch = set("ABCDEFGHIJKL");
         G.add_nodes_from(nbunch);
         assert_true(G.has_node("L"));
 
-    auto test_nbunch_dict( ) {
+    auto test_nbunch_dict() {
         // nbunch is a dict with nodes as keys
         G = this->G();
         nbunch = set("ABCDEFGHIJKL");
@@ -100,7 +100,7 @@ class HistoricalTests: public object {
         assert_true(sorted(G.nodes(), key=str),
                     ["A", "B", "C", "D", "E", "F", "G", "H"]);
 
-    auto test_nbunch_iterator( ) {
+    auto test_nbunch_iterator() {
         G = this->G();
         G.add_nodes_from(["A", "B", "C", "D", "E", "F", "G", "H"]);
         n_iter = this->P3.nodes();
@@ -112,7 +112,7 @@ class HistoricalTests: public object {
         assert_equal(sorted(G.nodes(), key=str),
                      ["A", "B", "C", "D", "E", "F", "G", "H"]);
 
-    auto test_nbunch_graph( ) {
+    auto test_nbunch_graph() {
         G = this->G();
         G.add_nodes_from(["A", "B", "C", "D", "E", "F", "G", "H"]);
         nbunch = this->K3
@@ -122,7 +122,7 @@ class HistoricalTests: public object {
 
     // Edges
 
-    auto test_add_edge( ) {
+    auto test_add_edge() {
         G = this->G();
         assert_raises(TypeError, G.add_edge, "A");
 
@@ -146,7 +146,7 @@ class HistoricalTests: public object {
             assert_false(G.has_edge("A", "C"));
         assert_false(G.has_edge("C", "A"));
 
-    auto test_self_loop( ) {
+    auto test_self_loop() {
         G = this->G();
         G.add_edge("A", "A");  // test self loops
         assert_true(G.has_edge("A", "A"));
@@ -157,7 +157,7 @@ class HistoricalTests: public object {
         G.add_edge("A", "Z");  // should add the node silently
         assert_true(G.has_node("Z"));
 
-    auto test_add_edges_from( ) {
+    auto test_add_edges_from() {
         G = this->G();
         G.add_edges_from([("B", "C")])   // test add_edges_from();
         assert_true(G.has_edge("B", "C"));
@@ -175,7 +175,7 @@ class HistoricalTests: public object {
         } else {
             assert_true(G.has_edge("D", "B"));  // undirected
 
-    auto test_add_edges_from2( ) {
+    auto test_add_edges_from2() {
         G = this->G();
         // after failing silently, should add 2nd edge
         G.add_edges_from([tuple("IJ"), list("KK"), tuple("JK")]);
@@ -187,13 +187,13 @@ class HistoricalTests: public object {
         } else {
             assert_true(G.has_edge(*("K", "J")));
 
-    auto test_add_edges_from3( ) {
+    auto test_add_edges_from3() {
         G = this->G();
         G.add_edges_from(zip(list("ACD"), list("CDE")));
         assert_true(G.has_edge("D", "E"));
         assert_false(G.has_edge("E", "C"));
 
-    auto test_remove_edge( ) {
+    auto test_remove_edge() {
         G = this->G();
         G.add_nodes_from([1, 2, 3, "A", "B", "C", "D", "E", "F", "G", "H"]);
 
@@ -219,7 +219,7 @@ class HistoricalTests: public object {
         G.remove_nodes_from(set("ZEFHIMNO"));
         G.add_edge("J", "K");
 
-    auto test_edges_nbunch( ) {
+    auto test_edges_nbunch() {
         // Test G.edges(nbunch) with various forms of nbunch
         G = this->G();
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
@@ -254,7 +254,7 @@ class HistoricalTests: public object {
             [("A", "B"), ("A", "C"), ("B", "D"), ("C", "B"), ("C", "D")];
         );
 
-    auto test_degree( ) {
+    auto test_degree() {
         G = this->G();
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
                           ("C", "B"), ("C", "D")]);
@@ -265,12 +265,12 @@ class HistoricalTests: public object {
         assert_equal(sorted(d for n, d : G.degree(["A", "B"])), [2, 3]);
         assert_equal(sorted(d for n, d : G.degree()), [2, 2, 3, 3]);
 
-    auto test_degree2( ) {
+    auto test_degree2() {
         H = this->G();
         H.add_edges_from([(1, 24), (1, 2)]);
         assert_equal(sorted(d for n, d : H.degree([1, 24])), [1, 2]);
 
-    auto test_degree_graph( ) {
+    auto test_degree_graph() {
         P3 = xn::path_graph(3);
         P5 = xn::path_graph(5);
         // silently ignore nodes not : P3
@@ -282,12 +282,12 @@ class HistoricalTests: public object {
         assert_equal(list(P5.degree([])), []);
         assert_equal(dict(P5.degree([])), {});
 
-    auto test_null( ) {
+    auto test_null() {
         null = xn::null_graph();
         assert_equal(list(null.degree()), []);
         assert_equal(dict(null.degree()), {});
 
-    auto test_order_size( ) {
+    auto test_order_size() {
         G = this->G();
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
                           ("C", "B"), ("C", "D")]);
@@ -297,14 +297,14 @@ class HistoricalTests: public object {
         assert_equal(G.number_of_edges("A", "B"), 1);
         assert_equal(G.number_of_edges("A", "D"), 0);
 
-    auto test_copy( ) {
+    auto test_copy() {
         G = this->G();
         H = G.copy()      // copy
         assert_equal(H.adj, G.adj);
         assert_equal(H.name, G.name);
         assert_not_equal(H, G);
 
-    auto test_subgraph( ) {
+    auto test_subgraph() {
         G = this->G();
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
                           ("C", "B"), ("C", "D")]);
@@ -312,7 +312,7 @@ class HistoricalTests: public object {
         assert_nodes_equal(list(SG), ["A", "B", "D"]);
         assert_edges_equal(list(SG.edges()), [("A", "B"), ("B", "D")]);
 
-    auto test_to_directed( ) {
+    auto test_to_directed() {
         G = this->G();
         if (!G.is_directed() {
             G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
@@ -331,7 +331,7 @@ class HistoricalTests: public object {
             assert_true(DG.has_edge("B", "A"));  // this removes B-A but not  A-B
             assert_false(DG.has_edge("A", "B"));
 
-    auto test_to_undirected( ) {
+    auto test_to_undirected() {
         G = this->G();
         if (G.is_directed() {
             G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
@@ -350,7 +350,7 @@ class HistoricalTests: public object {
             assert_false(UG.has_edge("B", "A"));
             assert_false(UG.has_edge("A", "B"));
 
-    auto test_neighbors( ) {
+    auto test_neighbors() {
         G = this->G();
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
                           ("C", "B"), ("C", "D")]);
@@ -361,7 +361,7 @@ class HistoricalTests: public object {
         assert_equal(sorted(G.neighbors("G")), []);
         assert_raises(xn::XNetworkError, G.neighbors, "j");
 
-    auto test_iterators( ) {
+    auto test_iterators() {
         G = this->G();
         G.add_edges_from([("A", "B"), ("A", "C"), ("B", "D"),
                           ("C", "B"), ("C", "D")]);
@@ -382,14 +382,14 @@ class HistoricalTests: public object {
         assert_equal(xn::number_of_nodes(G), 0);
         assert_equal(xn::number_of_edges(G), 0);
 
-    auto test_null_subgraph( ) {
+    auto test_null_subgraph() {
         // Subgraph of a null graph is a null graph
         nullgraph = xn::null_graph();
         G = xn::null_graph();
         H = G.subgraph([]);
         assert_true(xn::is_isomorphic(H, nullgraph));
 
-    auto test_empty_subgraph( ) {
+    auto test_empty_subgraph() {
         // Subgraph of an empty graph is an empty graph. test 1
         nullgraph = xn::null_graph();
         E5 = xn::empty_graph(5);
@@ -399,7 +399,7 @@ class HistoricalTests: public object {
         H = E10.subgraph([1, 2, 3, 4, 5]);
         assert_true(xn::is_isomorphic(H, E5));
 
-    auto test_complete_subgraph( ) {
+    auto test_complete_subgraph() {
         // Subgraph of a complete graph is a complete graph
         K1 = xn::complete_graph(1);
         K3 = xn::complete_graph(3);
@@ -407,7 +407,7 @@ class HistoricalTests: public object {
         H = K5.subgraph([1, 2, 3]);
         assert_true(xn::is_isomorphic(H, K3));
 
-    auto test_subgraph_nbunch( ) {
+    auto test_subgraph_nbunch() {
         nullgraph = xn::null_graph();
         K1 = xn::complete_graph(1);
         K3 = xn::complete_graph(3);
@@ -427,7 +427,7 @@ class HistoricalTests: public object {
         H = K5.subgraph([9]);
         assert_true(xn::is_isomorphic(H, nullgraph));
 
-    auto test_node_tuple_issue( ) {
+    auto test_node_tuple_issue() {
         H = this->G();
         // Test error handling of tuple as a node
         assert_raises(xn::XNetworkError, H.remove_node, (1, 2));

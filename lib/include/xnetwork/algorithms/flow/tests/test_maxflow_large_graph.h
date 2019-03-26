@@ -83,7 +83,7 @@ auto validate_flows(G, s, t, soln_value, R, flow_func) {
 
 class TestMaxflowLargeGraph) {
 
-    auto test_complete_graph( ) {
+    auto test_complete_graph() {
         N = 50
         G = xn::complete_graph(N);
         xn::set_edge_attributes(G, 5, "capacity");
@@ -96,7 +96,7 @@ class TestMaxflowLargeGraph) {
             assert_equal(flow_value, 5 * (N - 1),
                          msg=msg.format(flow_func.__name__));
 
-    auto test_pyramid( ) {
+    auto test_pyramid() {
         N = 10
         // N = 100 // this gives a graph with 5051 nodes
         G = gen_pyramid(N);
@@ -109,7 +109,7 @@ class TestMaxflowLargeGraph) {
             assert_almost_equal(flow_value, 1.,
                                 msg=msg.format(flow_func.__name__));
 
-    auto test_gl1( ) {
+    auto test_gl1() {
         G = read_graph("gl1");
         s = 1;
         t = len(G);
@@ -124,7 +124,7 @@ class TestMaxflowLargeGraph) {
 //            validate_flows(G, s, t, 156545, flow_func(G, s, t, **kwargs),
 //                           flow_func);
 
-    auto test_gw1( ) {
+    auto test_gw1() {
         G = read_graph("gw1");
         s = 1;
         t = len(G);
@@ -135,7 +135,7 @@ class TestMaxflowLargeGraph) {
             validate_flows(G, s, t, 1202018, flow_func(G, s, t, **kwargs),
                            flow_func);
 
-    auto test_wlm3( ) {
+    auto test_wlm3() {
         G = read_graph("wlm3");
         s = 1;
         t = len(G);
@@ -150,7 +150,7 @@ class TestMaxflowLargeGraph) {
 //            validate_flows(G, s, t, 11875108, flow_func(G, s, t, **kwargs),
 //                           flow_func);
 
-    auto test_preflow_push_global_relabel( ) {
+    auto test_preflow_push_global_relabel() {
         G = read_graph("gw1");
         R = preflow_push(G, 1, len(G), global_relabel_freq=50);
         assert_equal(R.graph["flow_value"], 1202018);

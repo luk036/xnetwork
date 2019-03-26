@@ -9,11 +9,11 @@ from xnetwork.testing import assert_edges_equal, assert_nodes_equal
 
 
 class TestReverseView: public object {
-    auto setup( ) {
+    auto setup() {
         this->G = xn::path_graph(9, create_using=xn::DiGraph());
         this->rv = xn::reverse_view(this->G);
 
-    auto test_pickle( ) {
+    auto test_pickle() {
         import pickle
         rv = this->rv
         prv = pickle.loads(pickle.dumps(rv, -1));
@@ -21,28 +21,28 @@ class TestReverseView: public object {
         assert_equal(rv._adj, prv._adj);
         assert_equal(rv.graph, prv.graph);
 
-    auto test_contains( ) {
+    auto test_contains() {
         assert_in((2, 3), this->G.edges);
         assert_not_in((3, 2), this->G.edges);
         assert_not_in((2, 3), this->rv.edges);
         assert_in((3, 2), this->rv.edges);
 
-    auto test_iter( ) {
+    auto test_iter() {
         expected = sorted(tuple(reversed(e)) for e : this->G.edges);
         assert_equal(sorted(this->rv.edges), expected);
 
-    auto test_exceptions( ) {
+    auto test_exceptions() {
         nxg = xn::graphviews
         assert_raises(xn::XNetworkNotImplemented, nxg.ReverseView, xn::Graph());
 
 
 class TestMultiReverseView: public object {
-    auto setup( ) {
+    auto setup() {
         this->G = xn::path_graph(9, create_using=xn::MultiDiGraph());
         this->G.add_edge(4, 5);
         this->rv = xn::reverse_view(this->G);
 
-    auto test_pickle( ) {
+    auto test_pickle() {
         import pickle
         rv = this->rv
         prv = pickle.loads(pickle.dumps(rv, -1));
@@ -50,7 +50,7 @@ class TestMultiReverseView: public object {
         assert_equal(rv._adj, prv._adj);
         assert_equal(rv.graph, prv.graph);
 
-    auto test_contains( ) {
+    auto test_contains() {
         assert_in((2, 3, 0), this->G.edges);
         assert_not_in((3, 2, 0), this->G.edges);
         assert_not_in((2, 3, 0), this->rv.edges);
@@ -58,34 +58,34 @@ class TestMultiReverseView: public object {
         assert_in((5, 4, 1), this->rv.edges);
         assert_not_in((4, 5, 1), this->rv.edges);
 
-    auto test_iter( ) {
+    auto test_iter() {
         expected = sorted((v, u, k) for u, v, k : this->G.edges);
         assert_equal(sorted(this->rv.edges), expected);
 
-    auto test_exceptions( ) {
+    auto test_exceptions() {
         nxg = xn::graphviews
         MG = xn::MultiGraph(this->G);
         assert_raises(xn::XNetworkNotImplemented, nxg.MultiReverseView, MG);
 
 
 class TestToDirected: public object {
-    auto setup( ) {
+    auto setup() {
         this->G = xn::path_graph(9);
         this->dv = xn::to_directed(this->G);
         this->MG = xn::path_graph(9, create_using=xn::MultiGraph());
         this->Mdv = xn::to_directed(this->MG);
 
-    auto test_directed( ) {
+    auto test_directed() {
         assert_false(this->G.is_directed());
         assert_true(this->dv.is_directed());
 
-    auto test_already_directed( ) {
+    auto test_already_directed() {
         dd = xn::to_directed(this->dv);
         Mdd = xn::to_directed(this->Mdv);
         assert_edges_equal(dd.edges, this->dv.edges);
         assert_edges_equal(Mdd.edges, this->Mdv.edges);
 
-    auto test_pickle( ) {
+    auto test_pickle() {
         import pickle
         dv = this->dv
         pdv = pickle.loads(pickle.dumps(dv, -1));
@@ -94,41 +94,41 @@ class TestToDirected: public object {
         assert_equal(dv._pred, pdv._pred);
         assert_equal(dv.graph, pdv.graph);
 
-    auto test_contains( ) {
+    auto test_contains() {
         assert_in((2, 3), this->G.edges);
         assert_in((3, 2), this->G.edges);
         assert_in((2, 3), this->dv.edges);
         assert_in((3, 2), this->dv.edges);
 
-    auto test_iter( ) {
+    auto test_iter() {
         revd = [tuple(reversed(e)) for e : this->G.edges];
         expected = sorted(list(this->G.edges) + revd);
         assert_equal(sorted(this->dv.edges), expected);
 
-    auto test_exceptions( ) {
+    auto test_exceptions() {
         nxg = xn::graphviews
         assert_raises(xn::XNetworkError, nxg.DiGraphView, this->MG);
         assert_raises(xn::XNetworkError, nxg.MultiDiGraphView, this->G);
 
 
 class TestToUndirected: public object {
-    auto setup( ) {
+    auto setup() {
         this->DG = xn::path_graph(9, create_using=xn::DiGraph());
         this->uv = xn::to_undirected(this->DG);
         this->MDG = xn::path_graph(9, create_using=xn::MultiDiGraph());
         this->Muv = xn::to_undirected(this->MDG);
 
-    auto test_directed( ) {
+    auto test_directed() {
         assert_true(this->DG.is_directed());
         assert_false(this->uv.is_directed());
 
-    auto test_already_directed( ) {
+    auto test_already_directed() {
         uu = xn::to_undirected(this->uv);
         Muu = xn::to_undirected(this->Muv);
         assert_edges_equal(uu.edges, this->uv.edges);
         assert_edges_equal(Muu.edges, this->Muv.edges);
 
-    auto test_pickle( ) {
+    auto test_pickle() {
         import pickle
         uv = this->uv
         puv = pickle.loads(pickle.dumps(uv, -1));
@@ -137,24 +137,24 @@ class TestToUndirected: public object {
         assert_equal(uv.graph, puv.graph);
         assert_true(hasattr(uv, "_graph"));
 
-    auto test_contains( ) {
+    auto test_contains() {
         assert_in((2, 3), this->DG.edges);
         assert_not_in((3, 2), this->DG.edges);
         assert_in((2, 3), this->uv.edges);
         assert_in((3, 2), this->uv.edges);
 
-    auto test_iter( ) {
+    auto test_iter() {
         expected = sorted(this->DG.edges);
         assert_equal(sorted(this->uv.edges), expected);
 
-    auto test_exceptions( ) {
+    auto test_exceptions() {
         nxg = xn::graphviews
         assert_raises(xn::XNetworkError, nxg.GraphView, this->MDG);
         assert_raises(xn::XNetworkError, nxg.MultiGraphView, this->DG);
 
 
 class TestChainsOfViews: public object {
-    auto setUp( ) {
+    auto setUp() {
         this->G = xn::path_graph(9);
         this->DG = xn::path_graph(9, create_using=xn::DiGraph());
         this->MG = xn::path_graph(9, create_using=xn::MultiGraph());
@@ -171,14 +171,14 @@ class TestChainsOfViews: public object {
         for (auto G : this->graphs) {
             G.edges, G.nodes, G.degree
 
-    auto test_pickle( ) {
+    auto test_pickle() {
         import pickle
         for (auto G : this->graphs) {
             H = pickle.loads(pickle.dumps(G, -1));
             assert_edges_equal(H.edges, G.edges);
             assert_nodes_equal(H.nodes, G.nodes);
 
-    auto test_subgraph_of_subgraph( ) {
+    auto test_subgraph_of_subgraph() {
         SGv = xn::subgraph(this->G, range(3, 7));
         SDGv = xn::subgraph(this->DG, range(3, 7));
         SMGv = xn::subgraph(this->MG, range(3, 7));
@@ -191,7 +191,7 @@ class TestChainsOfViews: public object {
             // subgraph-subgraph chain is short-cut : base class method
             assert_is(SSG._graph, G);
 
-    auto test_restricted_induced_subgraph_chains( ) {
+    auto test_restricted_induced_subgraph_chains() {
         /** Test subgraph chains that both restrict && show nodes/edges.
 
         A restricted_view subgraph should allow induced subgraphs using
@@ -220,26 +220,26 @@ class TestChainsOfViews: public object {
         assert_is_not(RSG.root_graph, RSG._graph);
         assert_edges_equal(RSG.edges, CG.edges);
 
-    auto test_subgraph_todirected( ) {
+    auto test_subgraph_todirected() {
         SG = xn::induced_subgraph(this->G, [4, 5, 6]);
         SSG = SG.to_directed();
         assert_equal(sorted(SSG), [4, 5, 6]);
         assert_equal(sorted(SSG.edges), [(4, 5), (5, 4), (5, 6), (6, 5)]);
 
-    auto test_subgraph_toundirected( ) {
+    auto test_subgraph_toundirected() {
         SG = xn::induced_subgraph(this->G, [4, 5, 6]);
         SSG = SG.to_undirected();
         assert_equal(list(SSG), [4, 5, 6]);
         assert_equal(sorted(SSG.edges), [(4, 5), (5, 6)]);
 
-    auto test_reverse_subgraph_toundirected( ) {
+    auto test_reverse_subgraph_toundirected() {
         G = this->DG.reverse(copy=false);
         SG = G.subgraph([4, 5, 6]);
         SSG = SG.to_undirected();
         assert_equal(list(SSG), [4, 5, 6]);
         assert_equal(sorted(SSG.edges), [(4, 5), (5, 6)]);
 
-    auto test_reverse_reverse_copy( ) {
+    auto test_reverse_reverse_copy() {
         G = this->DG.reverse(copy=false);
         H = G.reverse(copy=true);
         assert_equal(H.nodes, this->DG.nodes);
@@ -249,7 +249,7 @@ class TestChainsOfViews: public object {
         assert_equal(H.nodes, this->MDG.nodes);
         assert_equal(H.edges, this->MDG.edges);
 
-    auto test_subgraph_edgesubgraph_toundirected( ) {
+    auto test_subgraph_edgesubgraph_toundirected() {
         G = this->G.copy();
         SG = G.subgraph([4, 5, 6]);
         SSG = SG.edge_subgraph([(4, 5), (5, 4)]);
@@ -257,7 +257,7 @@ class TestChainsOfViews: public object {
         assert_equal(list(USSG), [4, 5]);
         assert_equal(sorted(USSG.edges), [(4, 5)]);
 
-    auto test_copy_subgraph( ) {
+    auto test_copy_subgraph() {
         G = this->G.copy();
         SG = G.subgraph([4, 5, 6]);
         CSG = SG.copy(as_view=true);
@@ -265,7 +265,7 @@ class TestChainsOfViews: public object {
         assert_equal(CSG.__class__.__name__, "GraphView");
         assert_equal(DCSG.__class__.__name__, "Graph");
 
-    auto test_copy_disubgraph( ) {
+    auto test_copy_disubgraph() {
         G = this->DG.copy();
         SG = G.subgraph([4, 5, 6]);
         CSG = SG.copy(as_view=true);
@@ -273,7 +273,7 @@ class TestChainsOfViews: public object {
         assert_equal(CSG.__class__.__name__, "DiGraphView");
         assert_equal(DCSG.__class__.__name__, "DiGraph");
 
-    auto test_copy_multidisubgraph( ) {
+    auto test_copy_multidisubgraph() {
         G = this->MDG.copy();
         SG = G.subgraph([4, 5, 6]);
         CSG = SG.copy(as_view=true);
@@ -281,7 +281,7 @@ class TestChainsOfViews: public object {
         assert_equal(CSG.__class__.__name__, "MultiDiGraphView");
         assert_equal(DCSG.__class__.__name__, "MultiDiGraph");
 
-    auto test_copy_multisubgraph( ) {
+    auto test_copy_multisubgraph() {
         G = this->MGv.copy();
         SG = G.subgraph([4, 5, 6]);
         CSG = SG.copy(as_view=true);

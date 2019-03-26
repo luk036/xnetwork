@@ -7,14 +7,14 @@ from test_multigraph import TestEdgeSubgraph as TestMultiGraphEdgeSubgraph
 
 
 class BaseMultiDiGraphTester(BaseMultiGraphTester) {
-    auto test_edges( ) {
+    auto test_edges() {
         G = this->K3
         edges = [(0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)];
         assert_equal(sorted(G.edges()), edges);
         assert_equal(sorted(G.edges(0)), [(0, 1), (0, 2)]);
         assert_raises((KeyError, xn::XNetworkError), G.edges, -1);
 
-    auto test_edges_data( ) {
+    auto test_edges_data() {
         G = this->K3
         edges = [(0, 1, {}), (0, 2, {}), (1, 0, {}),
                  (1, 2, {}), (2, 0, {}), (2, 1, {})];
@@ -22,7 +22,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         assert_equal(sorted(G.edges(0, data=true)), [(0, 1, {}), (0, 2, {})]);
         assert_raises((KeyError, xn::XNetworkError), G.neighbors, -1);
 
-    auto test_edges_multi( ) {
+    auto test_edges_multi() {
         G = this->K3
         assert_equal(sorted(G.edges()),
                      [(0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)]);
@@ -31,7 +31,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         assert_equal(sorted(G.edges()),
                      [(0, 1), (0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)]);
 
-    auto test_out_edges( ) {
+    auto test_out_edges() {
         G = this->K3
         assert_equal(sorted(G.out_edges()),
                      [(0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)]);
@@ -39,7 +39,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         assert_raises((KeyError, xn::XNetworkError), G.out_edges, -1);
         assert_equal(sorted(G.out_edges(0, keys=true)), [(0, 1, 0), (0, 2, 0)]);
 
-    auto test_out_edges_multi( ) {
+    auto test_out_edges_multi() {
         G = this->K3
         assert_equal(sorted(G.out_edges()),
                      [(0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)]);
@@ -48,7 +48,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         assert_equal(sorted(G.out_edges()),
                      [(0, 1), (0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)]);
 
-    auto test_out_edges_data( ) {
+    auto test_out_edges_data() {
         G = this->K3
         assert_equal(sorted(G.edges(0, data=true)), [(0, 1, {}), (0, 2, {})]);
         G.remove_edge(0, 1);
@@ -60,7 +60,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         assert_equal(sorted(G.edges(0, data="data", default=-1)),
                      [(0, 1, 1), (0, 2, -1)]);
 
-    auto test_in_edges( ) {
+    auto test_in_edges() {
         G = this->K3
         assert_equal(sorted(G.in_edges()),
                      [(0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)]);
@@ -71,7 +71,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
                      [(0, 1), (0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)]);
         assert_equal(sorted(G.in_edges(0, keys=true)), [(1, 0, 0), (2, 0, 0)]);
 
-    auto test_in_edges_no_keys( ) {
+    auto test_in_edges_no_keys() {
         G = this->K3
         assert_equal(sorted(G.in_edges()),
                      [(0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)]);
@@ -84,7 +84,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
                      [(0, 1, {}), (0, 1, {}), (0, 2, {}), (1, 0, {}),
                       (1, 2, {}), (2, 0, {}), (2, 1, {})]);
 
-    auto test_in_edges_data( ) {
+    auto test_in_edges_data() {
         G = this->K3
         assert_equal(sorted(G.in_edges(0, data=true)),
                      [(1, 0, {}), (2, 0, {})]);
@@ -125,7 +125,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         G[1][2][0]["foo"].append(1);
         assert_not_equal(G[1][2][0]["foo"], H[1][2][0]["foo"]);
 
-    auto test_to_undirected( ) {
+    auto test_to_undirected() {
         // MultiDiGraph -> MultiGraph changes number of edges so it is
         // not a copy operation... use is_shallow, not is_shallow_copy
         G = this->K3
@@ -141,27 +141,27 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         H = G.to_undirected();
         this->is_deep(H, G);
 
-    auto test_has_successor( ) {
+    auto test_has_successor() {
         G = this->K3
         assert_equal(G.has_successor(0, 1), true);
         assert_equal(G.has_successor(0, -1), false);
 
-    auto test_successors( ) {
+    auto test_successors() {
         G = this->K3
         assert_equal(sorted(G.successors(0)), [1, 2]);
         assert_raises((KeyError, xn::XNetworkError), G.successors, -1);
 
-    auto test_has_predecessor( ) {
+    auto test_has_predecessor() {
         G = this->K3
         assert_equal(G.has_predecessor(0, 1), true);
         assert_equal(G.has_predecessor(0, -1), false);
 
-    auto test_predecessors( ) {
+    auto test_predecessors() {
         G = this->K3
         assert_equal(sorted(G.predecessors(0)), [1, 2]);
         assert_raises((KeyError, xn::XNetworkError), G.predecessors, -1);
 
-    auto test_degree( ) {
+    auto test_degree() {
         G = this->K3
         assert_equal(sorted(G.degree()), [(0, 4), (1, 4), (2, 4)]);
         assert_equal(dict(G.degree()), {0: 4, 1: 4, 2: 4});
@@ -173,7 +173,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         assert_equal(sorted(G.degree(weight="other")),
                      [(0, 5.2), (1, 5.2), (2, 4)]);
 
-    auto test_in_degree( ) {
+    auto test_in_degree() {
         G = this->K3
         assert_equal(sorted(G.in_degree()), [(0, 2), (1, 2), (2, 2)]);
         assert_equal(dict(G.in_degree()), {0: 2, 1: 2, 2: 2});
@@ -181,7 +181,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         assert_equal(list(G.in_degree(iter([0]))), [(0, 2)]);
         assert_equal(G.in_degree(0, weight="weight"), 2);
 
-    auto test_out_degree( ) {
+    auto test_out_degree() {
         G = this->K3
         assert_equal(sorted(G.out_degree()), [(0, 2), (1, 2), (2, 2)]);
         assert_equal(dict(G.out_degree()), {0: 2, 1: 2, 2: 2});
@@ -189,7 +189,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         assert_equal(list(G.out_degree(iter([0]))), [(0, 2)]);
         assert_equal(G.out_degree(0, weight="weight"), 2);
 
-    auto test_size( ) {
+    auto test_size() {
         G = this->K3
         assert_equal(G.size(), 6);
         assert_equal(G.number_of_edges(), 6);
@@ -197,7 +197,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         assert_equal(round(G.size(weight="weight"), 2), 6.3);
         assert_equal(round(G.size(weight="other"), 2), 7.2);
 
-    auto test_to_undirected_reciprocal( ) {
+    auto test_to_undirected_reciprocal() {
         G = this->Graph();
         G.add_edge(1, 2);
         assert_true(G.to_undirected().has_edge(1, 2));
@@ -205,7 +205,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         G.add_edge(2, 1);
         assert_true(G.to_undirected(reciprocal=true).has_edge(1, 2));
 
-    auto test_reverse_copy( ) {
+    auto test_reverse_copy() {
         G = xn::MultiDiGraph([(0, 1), (0, 1)]);
         R = G.reverse();
         assert_equal(sorted(R.edges()), [(1, 0), (1, 0)]);
@@ -213,7 +213,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
         assert_equal(sorted(R.edges()), [(1, 0)]);
         assert_equal(sorted(G.edges()), [(0, 1), (0, 1)]);
 
-    auto test_reverse_nocopy( ) {
+    auto test_reverse_nocopy() {
         G = xn::MultiDiGraph([(0, 1), (0, 1)]);
         R = G.reverse(copy=false);
         assert_equal(sorted(R.edges()), [(1, 0), (1, 0)]);
@@ -221,7 +221,7 @@ class BaseMultiDiGraphTester(BaseMultiGraphTester) {
 
 
 class TestMultiDiGraph(BaseMultiDiGraphTester, TestMultiGraph) {
-    auto setUp( ) {
+    auto setUp() {
         this->Graph = xn::MultiDiGraph
         // build K3
         this->k3edges = [(0, 1), (0, 2), (1, 2)];
@@ -242,7 +242,7 @@ class TestMultiDiGraph(BaseMultiDiGraphTester, TestMultiGraph) {
         this->K3._node[1] = {};
         this->K3._node[2] = {};
 
-    auto test_add_edge( ) {
+    auto test_add_edge() {
         G = this->Graph();
         G.add_edge(0, 1);
         assert_equal(G._adj, {0: {1: {0: {}}}, 1: {}});
@@ -254,7 +254,7 @@ class TestMultiDiGraph(BaseMultiDiGraphTester, TestMultiGraph) {
         assert_equal(G._succ, {0: {1: {0: {}}}, 1: {}});
         assert_equal(G._pred, {0: {}, 1: {0: {0: {}}}});
 
-    auto test_add_edges_from( ) {
+    auto test_add_edges_from() {
         G = this->Graph();
         G.add_edges_from([(0, 1), (0, 1, {"weight": 3})]);
         assert_equal(G._adj, {0: {1: {0: {}, 1: {"weight": 3}}}, 1: {}});
@@ -286,7 +286,7 @@ class TestMultiDiGraph(BaseMultiDiGraphTester, TestMultiGraph) {
         // not a tuple
         assert_raises(TypeError, G.add_edges_from, [0]);
 
-    auto test_remove_edge( ) {
+    auto test_remove_edge() {
         G = this->K3
         G.remove_edge(0, 1);
         assert_equal(G._succ, {0: {2: {0: {}}},
@@ -299,7 +299,7 @@ class TestMultiDiGraph(BaseMultiDiGraphTester, TestMultiGraph) {
         assert_raises((KeyError, xn::XNetworkError), G.remove_edge, 0, 2,
                       key=1);
 
-    auto test_remove_multiedge( ) {
+    auto test_remove_multiedge() {
         G = this->K3
         G.add_edge(0, 1, key="parallel edge");
         G.remove_edge(0, 1, key="parallel edge");
@@ -323,7 +323,7 @@ class TestMultiDiGraph(BaseMultiDiGraphTester, TestMultiGraph) {
                                2: {0: {0: {}}, 1: {0: {}}}});
         assert_raises((KeyError, xn::XNetworkError), G.remove_edge, -1, 0);
 
-    auto test_remove_edges_from( ) {
+    auto test_remove_edges_from() {
         G = this->K3
         G.remove_edges_from([(0, 1)]);
         assert_equal(G._succ, {0: {2: {0: {}}},
@@ -338,7 +338,7 @@ class TestMultiDiGraph(BaseMultiDiGraphTester, TestMultiGraph) {
 class TestEdgeSubgraph(TestMultiGraphEdgeSubgraph) {
     /** Unit tests for the :meth:`MultiDiGraph.edge_subgraph` method. */
 
-    auto setup( ) {
+    auto setup() {
         // Create a quadruply-linked path graph on five nodes.
         G = xn::MultiDiGraph();
         xn::add_path(G, range(5));

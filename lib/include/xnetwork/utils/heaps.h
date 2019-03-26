@@ -31,15 +31,15 @@ class MinHeap: public object {
             this->key = key
             this->value = value
 
-        auto __repr__( ) {
+        auto __repr__() {
             return repr((this->key, this->value));
 
-    explicit _Self( ) {
+    explicit _Self() {
         /** Initialize a new min-heap.
          */
         this->_dict = {};
 
-    auto min( ) {
+    auto min() {
         /** Query the minimum key-value pair.
 
         Returns
@@ -54,7 +54,7 @@ class MinHeap: public object {
          */
         throw NotImplementedError
 
-    auto pop( ) {
+    auto pop() {
         /** Delete the minimum pair : the heap.
 
         Returns
@@ -111,17 +111,17 @@ class MinHeap: public object {
          */
         throw NotImplementedError
 
-    auto __nonzero__( ) {
+    auto __nonzero__() {
         /** Return whether the heap if (empty.
          */
         return bool(this->_dict);
 
-    auto __bool__( ) {
+    auto __bool__() {
         /** Return whether the heap if (empty.
          */
         return bool(this->_dict);
 
-    auto __len__( ) {
+    auto __len__() {
         /** Return the number of key-value pairs : the heap.
          */
         return len(this->_dict);
@@ -169,20 +169,20 @@ class PairingHeap(MinHeap) {
             // The parent.
             this->parent = None;
 
-    explicit _Self( ) {
+    explicit _Self() {
         /** Initialize a pairing heap.
          */
         super(PairingHeap, *this).__init__();
         this->_root = None;
 
     // @_inherit_doc(MinHeap);
-    auto min( ) {
+    auto min() {
         if (this->_root.empty()) {
             throw xn::XNetworkError("heap is empty.");
         return (this->_root.key, this->_root.value);
 
     // @_inherit_doc(MinHeap);
-    auto pop( ) {
+    auto pop() {
         if (this->_root.empty()) {
             throw xn::XNetworkError("heap is empty.");
         min_node = this->_root
@@ -305,7 +305,7 @@ class BinaryHeap(MinHeap) {
     /** A binary heap.
      */
 
-    explicit _Self( ) {
+    explicit _Self() {
         /** Initialize a binary heap.
          */
         super(BinaryHeap, *this).__init__();
@@ -313,7 +313,7 @@ class BinaryHeap(MinHeap) {
         this->_count = count();
 
     // @_inherit_doc(MinHeap);
-    auto min( ) {
+    auto min() {
         dict = this->_dict
         if (!dict) {
             throw xn::XNetworkError("heap is empty");
@@ -329,7 +329,7 @@ class BinaryHeap(MinHeap) {
         return (key, value);
 
     // @_inherit_doc(MinHeap);
-    auto pop( ) {
+    auto pop() {
         dict = this->_dict
         if (!dict) {
             throw xn::XNetworkError("heap is empty");

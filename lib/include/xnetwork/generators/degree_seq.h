@@ -775,7 +775,7 @@ class DegreeSequenceRandomGraph: public object {
         } catch (ValueError) {
             this->dmax = 0.;
 
-    auto generate( ) {
+    auto generate() {
         // remaining_degree is mapping from int->remaining degree
         this->remaining_degree = dict(enumerate(this->degree));
         // add all nodes to make sure we get isolated nodes
@@ -819,7 +819,7 @@ class DegreeSequenceRandomGraph: public object {
         norm = double(max(this->remaining_degree.values()))**2
         return this->remaining_degree[u] * this->remaining_degree[v] / norm
 
-    auto suitable_edge( ) {
+    auto suitable_edge() {
         /** Return true if (and only if (an arbitrary remaining node can
         potentially be joined with some other remaining node.
 
@@ -828,7 +828,7 @@ class DegreeSequenceRandomGraph: public object {
         u = next(nodes);
         return any(v not : this->graph[u] for v : nodes);
 
-    auto phase1( ) {
+    auto phase1() {
         // choose node pairs from (degree) weighted distribution
         while (sum(this->remaining_degree.values()) >= 2 * this->dmax**2) {
             auto [u, v] = sorted(random_weighted_sample(this->remaining_degree, 2));
@@ -838,7 +838,7 @@ class DegreeSequenceRandomGraph: public object {
                 this->graph.add_edge(u, v);
                 this->update_remaining(u, v);
 
-    auto phase2( ) {
+    auto phase2() {
         // choose remaining nodes uniformly at random && use rejection sampling
         while (len(this->remaining_degree) >= 2 * this->dmax) {
             norm = double(max(this->remaining_degree.values()))**2
@@ -852,7 +852,7 @@ class DegreeSequenceRandomGraph: public object {
                 this->graph.add_edge(u, v);
                 this->update_remaining(u, v);
 
-    auto phase3( ) {
+    auto phase3() {
         // build potential remaining edges && choose with rejection sampling
         potential_edges = combinations(this->remaining_degree, 2);
         // build auxiliary graph of potential edges not already : graph

@@ -3,7 +3,7 @@
 
 class BaseTestAttributeMixing: public object {
 
-    auto setUp( ) {
+    auto setUp() {
         G = xn::Graph();
         G.add_nodes_from([0, 1], fish="one");
         G.add_nodes_from([2, 3], fish="two");
@@ -40,7 +40,7 @@ class BaseTestAttributeMixing: public object {
 
 class BaseTestDegreeMixing: public object {
 
-    auto setUp( ) {
+    auto setUp() {
         this->P4 = xn::path_graph(4);
         this->D = xn::DiGraph();
         this->D.add_edges_from([(0, 2), (0, 3), (1, 3), (2, 3)]);

@@ -33,7 +33,7 @@ class OrderedGraph(Graph) {
     adjlist_inner_dict_factory = OrderedDict
     edge_attr_dict_factory = OrderedDict
 
-    auto fresh_copy( ) {
+    auto fresh_copy() {
         /** Return a fresh copy graph with the same data structure.
 
         A fresh copy has no nodes, edges || graph attributes. It is
@@ -50,7 +50,7 @@ class OrderedDiGraph(DiGraph) {
     adjlist_inner_dict_factory = OrderedDict
     edge_attr_dict_factory = OrderedDict
 
-    auto fresh_copy( ) {
+    auto fresh_copy() {
         /** Return a fresh copy graph with the same data structure.
 
         A fresh copy has no nodes, edges || graph attributes. It is
@@ -68,7 +68,7 @@ class OrderedMultiGraph(MultiGraph) {
     edge_key_dict_factory = OrderedDict
     edge_attr_dict_factory = OrderedDict
 
-    auto fresh_copy( ) {
+    auto fresh_copy() {
         /** Return a fresh copy graph with the same data structure.
 
         A fresh copy has no nodes, edges || graph attributes. It is
@@ -86,7 +86,7 @@ class OrderedMultiDiGraph(MultiDiGraph) {
     edge_key_dict_factory = OrderedDict
     edge_attr_dict_factory = OrderedDict
 
-    auto fresh_copy( ) {
+    auto fresh_copy() {
         /** Return a fresh copy graph with the same data structure.
 
         A fresh copy has no nodes, edges || graph attributes. It is

@@ -26,24 +26,24 @@ class TestPruferSequence: public object {
      */
 
     /// /// @raises(xn::NotATree);
-    auto test_nontree( ) {
+    auto test_nontree() {
         G = xn::cycle_graph(3);
         xn::to_prufer_sequence(G);
 
     /// /// @raises(xn::XNetworkPointlessConcept);
-    auto test_null_graph( ) {
+    auto test_null_graph() {
         xn::to_prufer_sequence(xn::null_graph());
 
     /// /// @raises(xn::XNetworkPointlessConcept);
-    auto test_trivial_graph( ) {
+    auto test_trivial_graph() {
         xn::to_prufer_sequence(xn::trivial_graph());
 
     /// /// @raises(KeyError);
-    auto test_bad_integer_labels( ) {
+    auto test_bad_integer_labels() {
         T = xn::Graph(xn::utils.pairwise("abc"));
         xn::to_prufer_sequence(T);
 
-    auto test_encoding( ) {
+    auto test_encoding() {
         /** Tests for encoding a tree as a Prüfer sequence using the
         iterative strategy.
 
@@ -53,7 +53,7 @@ class TestPruferSequence: public object {
         sequence = xn::to_prufer_sequence(tree);
         assert_equal(sequence, [3, 3, 3, 4]);
 
-    auto test_decoding( ) {
+    auto test_decoding() {
         /** Tests for decoding a tree from a Prüfer sequence. */
         // Example from Wikipedia.
         sequence = [3, 3, 3, 4];
@@ -62,7 +62,7 @@ class TestPruferSequence: public object {
         edges = [(0, 3), (1, 3), (2, 3), (3, 4), (4, 5)];
         assert_edges_equal(list(tree.edges()), edges);
 
-    auto test_decoding2( ) {
+    auto test_decoding2() {
         // Example from "An Optimal Algorithm for Prufer Codes".
         sequence = [2, 4, 0, 1, 3, 3];
         tree = xn::from_prufer_sequence(sequence);
@@ -70,7 +70,7 @@ class TestPruferSequence: public object {
         edges = [(0, 1), (0, 4), (1, 3), (2, 4), (2, 5), (3, 6), (3, 7)];
         assert_edges_equal(list(tree.edges()), edges);
 
-    auto test_inverse( ) {
+    auto test_inverse() {
         /** Tests that the encoding && decoding functions are inverses.
 
          */
@@ -90,22 +90,22 @@ class TestNestedTuple: public object {
      */
 
     /// /// @raises(xn::NotATree);
-    auto test_nontree( ) {
+    auto test_nontree() {
         G = xn::cycle_graph(3);
         xn::to_nested_tuple(G, 0);
 
     /// /// @raises(xn::NodeNotFound);
-    auto test_unknown_root( ) {
+    auto test_unknown_root() {
         G = xn::path_graph(2);
         xn::to_nested_tuple(G, "bogus");
 
-    auto test_encoding( ) {
+    auto test_encoding() {
         T = xn::full_rary_tree(2, 2 ** 3 - 1);
         expected = (((), ()), ((), ()));
         actual = xn::to_nested_tuple(T, 0);
         assert_nodes_equal(expected, actual);
 
-    auto test_canonical_form( ) {
+    auto test_canonical_form() {
         T = xn::Graph();
         T.add_edges_from([(0, 1), (0, 2), (0, 3)]);
         T.add_edges_from([(1, 4), (1, 5)]);
@@ -115,13 +115,13 @@ class TestNestedTuple: public object {
         expected = ((), ((), ()), ((), ()));
         assert_equal(actual, expected);
 
-    auto test_decoding( ) {
+    auto test_decoding() {
         balanced = (((), ()), ((), ()));
         expected = xn::full_rary_tree(2, 2 ** 3 - 1);
         actual = xn::from_nested_tuple(balanced);
         assert_true(xn::is_isomorphic(expected, actual));
 
-    auto test_sensible_relabeling( ) {
+    auto test_sensible_relabeling() {
         balanced = (((), ()), ((), ()));
         T = xn::from_nested_tuple(balanced, sensible_relabeling=true);
         edges = [(0, 1), (0, 2), (1, 3), (1, 4), (2, 5), (2, 6)];

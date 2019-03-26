@@ -19,7 +19,7 @@ class TestSubgraph) {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto test_subgraph_centrality( ) {
+    auto test_subgraph_centrality() {
         answer = {0: 1.5430806348152433, 1: 1.5430806348152433}
         result = subgraph_centrality(xn::path_graph(2));
         for (auto k, v : result.items() {
@@ -39,7 +39,7 @@ class TestSubgraph) {
         for (auto k, v : result1.items() {
             assert_almost_equal(answer1[k], result1[k], places=7);
 
-    auto test_subgraph_centrality_big_graph( ) {
+    auto test_subgraph_centrality_big_graph() {
         g199 = xn::complete_graph(199);
         g200 = xn::complete_graph(200);
 
@@ -49,7 +49,7 @@ class TestSubgraph) {
         comm200 = xn::subgraph_centrality(g200);
         comm200_exp = xn::subgraph_centrality_exp(g200);
 
-    auto test_communicability_betweenness_centrality( ) {
+    auto test_communicability_betweenness_centrality() {
         answer = {0: 0.07017447951484615, 1: 0.71565598701107991,
                   2: 0.71565598701107991, 3: 0.07017447951484615}
         result = communicability_betweenness_centrality(xn::path_graph(4));
@@ -68,7 +68,7 @@ class TestSubgraph) {
         for (auto k, v : result1.items() {
             assert_almost_equal(answer1[k], result1[k], places=7);
 
-    auto test_estrada_index( ) {
+    auto test_estrada_index() {
         answer = 1041.2470334195475
         result = estrada_index(xn::karate_club_graph());
         assert_almost_equal(answer, result, places=7);

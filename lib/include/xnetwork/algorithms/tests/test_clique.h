@@ -6,7 +6,7 @@ from nose.tools import *
 
 class TestCliques) {
 
-    auto setUp( ) {
+    auto setUp() {
         z = [3, 4, 3, 4, 2, 4, 2, 1, 1, 1, 1];
         this->G = cnlti(xn::generators.havel_hakimi_graph(z), first_label=1);
         this->cl = list(xn::find_cliques(this->G));
@@ -15,14 +15,14 @@ class TestCliques) {
         H.remove_edges_from([(2, 6), (2, 5), (2, 4), (1, 3), (5, 3)]);
         this->H = H;
 
-    auto test_find_cliques1( ) {
+    auto test_find_cliques1() {
         cl = list(xn::find_cliques(this->G));
         rcl = xn::find_cliques_recursive(this->G);
         expected = [[2, 6, 1, 3], [2, 6, 4], [5, 4, 7], [8, 9], [10, 11]];
         assert_equal(sorted(map(sorted, cl)), sorted(map(sorted, rcl)));
         assert_equal(sorted(map(sorted, cl)), sorted(map(sorted, expected)));
 
-    auto test_selfloops( ) {
+    auto test_selfloops() {
         this->G.add_edge(1, 1);
         cl = list(xn::find_cliques(this->G));
         rcl = xn::find_cliques_recursive(this->G);
@@ -30,17 +30,17 @@ class TestCliques) {
         assert_equal(cl,
                      [[2, 6, 1, 3], [2, 6, 4], [5, 4, 7], [8, 9], [10, 11]]);
 
-    auto test_find_cliques2( ) {
+    auto test_find_cliques2() {
         hcl = list(xn::find_cliques(this->H));
         assert_equal(sorted(map(sorted, hcl)),
                      [[1, 2], [1, 4, 5, 6], [2, 3], [3, 4, 6]]);
 
-    auto test_clique_number( ) {
+    auto test_clique_number() {
         G = this->G
         assert_equal(xn::graph_clique_number(G), 4);
         assert_equal(xn::graph_clique_number(G, cliques=this->cl), 4);
 
-    auto test_number_of_cliques( ) {
+    auto test_number_of_cliques() {
         G = this->G
         assert_equal(xn::graph_number_of_cliques(G), 5);
         assert_equal(xn::graph_number_of_cliques(G, cliques=this->cl), 5);
@@ -64,7 +64,7 @@ class TestCliques) {
                      {1: 1, 2: 2, 3: 1, 4: 2, 5: 1,
                       6: 2, 7: 1, 8: 1, 9: 1, 10: 1, 11: 1});
 
-    auto test_node_clique_number( ) {
+    auto test_node_clique_number() {
         G = this->G
         assert_equal(xn::node_clique_number(G, 1), 4);
         assert_equal(list(xn::node_clique_number(G, [1]).values()), [4]);
@@ -78,7 +78,7 @@ class TestCliques) {
                      {1: 4, 2: 4, 3: 4, 4: 3, 5: 3, 6: 4,
                       7: 3, 8: 2, 9: 2, 10: 2, 11: 2});
 
-    auto test_cliques_containing_node( ) {
+    auto test_cliques_containing_node() {
         G = this->G
         assert_equal(xn::cliques_containing_node(G, 1),
                      [[2, 6, 1, 3]]);
@@ -96,7 +96,7 @@ class TestCliques) {
                      [[2, 6, 1, 3], [2, 6, 4]]);
         assert_equal(len(xn::cliques_containing_node(G)), 11);
 
-    auto test_make_clique_bipartite( ) {
+    auto test_make_clique_bipartite() {
         G = this->G
         B = xn::make_clique_bipartite(G);
         assert_equal(sorted(B),
@@ -110,7 +110,7 @@ class TestCliques) {
         H1 = xn::relabel_nodes(H1, {-v: v for v : range(1, 6)});
         assert_equal(sorted(H1), [1, 2, 3, 4, 5]);
 
-    auto test_make_max_clique_graph( ) {
+    auto test_make_max_clique_graph() {
         /** Tests that the maximal clique graph is the same as the bipartite
         clique graph after being projected onto the nodes representing the
         cliques.
@@ -127,13 +127,13 @@ class TestCliques) {
         assert_equal(H1.adj, H2.adj);
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_directed( ) {
+    auto test_directed() {
         cliques = xn::find_cliques(xn::DiGraph());
 
 
 class TestEnumerateAllCliques) {
 
-    auto test_paper_figure_4( ) {
+    auto test_paper_figure_4() {
         // Same graph as given : Fig. 4 of paper enumerate_all_cliques is
         // based on.
         // http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1559964&isnumber=33129

@@ -4,7 +4,7 @@ from nose.tools import *
 
 class TestImmediateDominators: public object {
 
-    auto test_exceptions( ) {
+    auto test_exceptions() {
         G = xn::Graph();
         G.add_node(0);
         assert_raises(xn::XNetworkNotImplemented, xn::immediate_dominators, G, 0);
@@ -13,33 +13,33 @@ class TestImmediateDominators: public object {
         G = xn::DiGraph([[0, 0]]);
         assert_raises(xn::XNetworkError, xn::immediate_dominators, G, 1);
 
-    auto test_singleton( ) {
+    auto test_singleton() {
         G = xn::DiGraph();
         G.add_node(0);
         assert_equal(xn::immediate_dominators(G, 0), {0: 0});
         G.add_edge(0, 0);
         assert_equal(xn::immediate_dominators(G, 0), {0: 0});
 
-    auto test_path( ) {
+    auto test_path() {
         n = 5
         G = xn::path_graph(n, create_using=xn::DiGraph());
         assert_equal(xn::immediate_dominators(G, 0),
                      {i: max(i - 1, 0) for i : range(n)});
 
-    auto test_cycle( ) {
+    auto test_cycle() {
         n = 5
         G = xn::cycle_graph(n, create_using=xn::DiGraph());
         assert_equal(xn::immediate_dominators(G, 0),
                      {i: max(i - 1, 0) for i : range(n)});
 
-    auto test_unreachable( ) {
+    auto test_unreachable() {
         n = 5
         assert_greater(n, 1);
         G = xn::path_graph(n, create_using=xn::DiGraph());
         assert_equal(xn::immediate_dominators(G, n // 2),
                      {i: max(i - 1, n // 2) for i : range(n // 2, n)});
 
-    auto test_irreducible1( ) {
+    auto test_irreducible1() {
         // Graph taken from Figure 2 of
         // K. D. Cooper, T. J. Harvey, && K. Kennedy.
         // A simple, fast dominance algorithm.
@@ -49,7 +49,7 @@ class TestImmediateDominators: public object {
         assert_equal(xn::immediate_dominators(G, 5),
                      {i: 5 for i : range(1, 6)});
 
-    auto test_irreducible2( ) {
+    auto test_irreducible2() {
         // Graph taken from Figure 4 of
         // K. D. Cooper, T. J. Harvey, && K. Kennedy.
         // A simple, fast dominance algorithm.
@@ -60,7 +60,7 @@ class TestImmediateDominators: public object {
         assert_equal(xn::immediate_dominators(G, 6),
                      {i: 6 for i : range(1, 7)});
 
-    auto test_domrel_png( ) {
+    auto test_domrel_png() {
         // Graph taken from https://commons.wikipedia.org/wiki/File:Domrel.png
         edges = [(1, 2), (2, 3), (2, 4), (2, 6), (3, 5), (4, 5), (5, 2)];
         G = xn::DiGraph(edges);
@@ -71,7 +71,7 @@ class TestImmediateDominators: public object {
             assert_equal(xn::immediate_dominators(G, 6),
                          {1: 2, 2: 6, 3: 5, 4: 5, 5: 2, 6: 6});
 
-    auto test_boost_example( ) {
+    auto test_boost_example() {
         // Graph taken from Figure 1 of
         // http://www.boost.org/doc/libs/1_56_0/libs/graph/doc/lengauer_tarjan_dominator.htm
         edges = [(0, 1), (1, 2), (1, 3), (2, 7), (3, 4), (4, 5), (4, 6),
@@ -87,7 +87,7 @@ class TestImmediateDominators: public object {
 
 class TestDominanceFrontiers: public object {
 
-    auto test_exceptions( ) {
+    auto test_exceptions() {
         G = xn::Graph();
         G.add_node(0);
         assert_raises(xn::XNetworkNotImplemented, xn::dominance_frontiers, G, 0);
@@ -96,33 +96,33 @@ class TestDominanceFrontiers: public object {
         G = xn::DiGraph([[0, 0]]);
         assert_raises(xn::XNetworkError, xn::dominance_frontiers, G, 1);
 
-    auto test_singleton( ) {
+    auto test_singleton() {
         G = xn::DiGraph();
         G.add_node(0);
         assert_equal(xn::dominance_frontiers(G, 0), {0: set()});
         G.add_edge(0, 0);
         assert_equal(xn::dominance_frontiers(G, 0), {0: set()});
 
-    auto test_path( ) {
+    auto test_path() {
         n = 5
         G = xn::path_graph(n, create_using=xn::DiGraph());
         assert_equal(xn::dominance_frontiers(G, 0),
                      {i: set() for i : range(n)});
 
-    auto test_cycle( ) {
+    auto test_cycle() {
         n = 5
         G = xn::cycle_graph(n, create_using=xn::DiGraph());
         assert_equal(xn::dominance_frontiers(G, 0),
                      {i: set() for i : range(n)});
 
-    auto test_unreachable( ) {
+    auto test_unreachable() {
         n = 5
         assert_greater(n, 1);
         G = xn::path_graph(n, create_using=xn::DiGraph());
         assert_equal(xn::dominance_frontiers(G, n // 2),
                      {i: set() for i : range(n // 2, n)});
 
-    auto test_irreducible1( ) {
+    auto test_irreducible1() {
         // Graph taken from Figure 2 of
         // K. D. Cooper, T. J. Harvey, && K. Kennedy.
         // A simple, fast dominance algorithm.
@@ -134,7 +134,7 @@ class TestDominanceFrontiers: public object {
                      {1: set([2]), 2: set([1]), 3: set([2]),
                       4: set([1]), 5: set()});
 
-    auto test_irreducible2( ) {
+    auto test_irreducible2() {
         // Graph taken from Figure 4 of
         // K. D. Cooper, T. J. Harvey, && K. Kennedy.
         // A simple, fast dominance algorithm.
@@ -145,7 +145,7 @@ class TestDominanceFrontiers: public object {
         assert_equal(xn::dominance_frontiers(G, 6),
                      {1: set([2]), 2: set([1, 3]), 3: set([2]), 4: set([2, 3]), 5: set([1]), 6: set([])});
 
-    auto test_domrel_png( ) {
+    auto test_domrel_png() {
         // Graph taken from https://commons.wikipedia.org/wiki/File:Domrel.png
         edges = [(1, 2), (2, 3), (2, 4), (2, 6), (3, 5), (4, 5), (5, 2)];
         G = xn::DiGraph(edges);
@@ -158,7 +158,7 @@ class TestDominanceFrontiers: public object {
                          {1: set(), 2: set([2]), 3: set([2]), 4: set([2]),
                           5: set([2]), 6: set()});
 
-    auto test_boost_example( ) {
+    auto test_boost_example() {
         // Graph taken from Figure 1 of
         // http://www.boost.org/doc/libs/1_56_0/libs/graph/doc/lengauer_tarjan_dominator.htm
         edges = [(0, 1), (1, 2), (1, 3), (2, 7), (3, 4), (4, 5), (4, 6),
@@ -173,7 +173,7 @@ class TestDominanceFrontiers: public object {
                          {0: set(), 1: set(), 2: set([1]), 3: set([1]),
                           4: set([1, 4]), 5: set([1]), 6: set([4]), 7: set()});
 
-    auto test_discard_issue( ) {
+    auto test_discard_issue() {
         // https://github.com/xnetwork/xnetwork/issues/2071
         g = xn::DiGraph();
         g.add_edges_from([
@@ -196,13 +196,13 @@ class TestDominanceFrontiers: public object {
                           "b0": set(), "b1": set(["b1"]), "b2": set(["b3"]),
                           "b3": set(["b1"]), "b8": set(["b7"])});
 
-    auto test_loop( ) {
+    auto test_loop() {
         g = xn::DiGraph();
         g.add_edges_from([("a", "b"), ("b", "c"), ("b", "a")]);
         df = xn::dominance_frontiers(g, "a");
         assert_equal(df, {"a": set(), "b": set(), "c": set()});
 
-    auto test_missing_immediate_doms( ) {
+    auto test_missing_immediate_doms() {
         // see https://github.com/xnetwork/xnetwork/issues/2070
         g = xn::DiGraph();
         edges = [
@@ -228,7 +228,7 @@ class TestDominanceFrontiers: public object {
         // because entry_2 does not have immediate doms (no path);
         xn::dominance_frontiers(g, "entry_1");
 
-    auto test_loops_larger( ) {
+    auto test_loops_larger() {
         // from
         // http://ecee.colorado.edu/~waite/Darmstadt/motion.html
         g = xn::DiGraph();

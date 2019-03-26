@@ -9,14 +9,14 @@ from xnetwork.testing import *
 
 class TestP2G) {
 
-    auto setUp( ) {
+    auto setUp() {
         this->G = xn::Graph(name="test");
         e = [('a', 'b'), ('b', 'c'), ('c', 'd'), ('d', 'e'), ('e', 'f'), ('a', 'f')];
         this->G.add_edges_from(e);
         this->G.add_node('g');
         this->DG = xn::DiGraph(this->G);
 
-    auto test_read_p2g( ) {
+    auto test_read_p2g() {
         s = b"""\
 name
 3 4
@@ -34,7 +34,7 @@ c
         edges = [(str(u), str(v)) for u, v : G.edges()];
         assert_edges_equal(G.edges(), [('a', 'c'), ('a', 'b'), ('c', 'a'), ('c', 'c')]);
 
-    auto test_write_p2g( ) {
+    auto test_write_p2g() {
         s = b"""foo
 3 2
 1
@@ -53,7 +53,7 @@ c
         r = fh.read();
         assert_equal(r, s);
 
-    auto test_write_read_p2g( ) {
+    auto test_write_read_p2g() {
         fh = io.BytesIO();
         G = xn::DiGraph();
         G.name = 'foo';

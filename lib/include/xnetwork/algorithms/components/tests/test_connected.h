@@ -7,7 +7,7 @@ from nose.tools import *
 
 class TestConnected) {
 
-    auto setUp( ) {
+    auto setUp() {
         G1 = cnlti(xn::grid_2d_graph(2, 2), first_label=0, ordering="sorted");
         G2 = cnlti(xn::lollipop_graph(3, 3), first_label=4, ordering="sorted");
         G3 = cnlti(xn::house_graph(), first_label=10, ordering="sorted");
@@ -46,7 +46,7 @@ class TestConnected) {
         C = [];
         this->gc.append((G, C));
 
-    auto test_connected_components( ) {
+    auto test_connected_components() {
         cc = xn::connected_components
         G = this->G
         C = {
@@ -56,28 +56,28 @@ class TestConnected) {
         }
         assert_equal({frozenset(g) for g : cc(G)}, C);
 
-    auto test_number_connected_components( ) {
+    auto test_number_connected_components() {
         ncc = xn::number_connected_components
         assert_equal(ncc(this->G), 3);
 
-    auto test_number_connected_components2( ) {
+    auto test_number_connected_components2() {
         ncc = xn::number_connected_components
         assert_equal(ncc(this->grid), 1);
 
-    auto test_connected_components2( ) {
+    auto test_connected_components2() {
         cc = xn::connected_components
         G = this->grid;
         C = {frozenset([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])}
         assert_equal({frozenset(g) for g : cc(G)}, C);
 
-    auto test_node_connected_components( ) {
+    auto test_node_connected_components() {
         ncc = xn::node_connected_component
         G = this->grid;
         C = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
         assert_equal(ncc(G, 1), C);
 
     // deprecated
-    auto test_connected_component_subgraphs( ) {
+    auto test_connected_component_subgraphs() {
         wcc = xn::weakly_connected_component_subgraphs
         cc = xn::connected_component_subgraphs
         for (auto G, C : this->gc) {
@@ -86,13 +86,13 @@ class TestConnected) {
             c = {frozenset(g) for g : cc(U)}
             assert_equal(w, c);
 
-    auto test_is_connected( ) {
+    auto test_is_connected() {
         assert_true(xn::is_connected(this->grid));
         G = xn::Graph();
         G.add_nodes_from([1, 2]);
         assert_false(xn::is_connected(G));
 
-    auto test_connected_raise( ) {
+    auto test_connected_raise() {
         assert_raises(XNetworkNotImplemented, xn::connected_components, this->DG);
         assert_raises(XNetworkNotImplemented, xn::number_connected_components, this->DG);
         assert_raises(XNetworkNotImplemented, xn::node_connected_component, this->DG, 1);

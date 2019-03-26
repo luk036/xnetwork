@@ -22,7 +22,7 @@ from xnetwork.testing.utils import *
 class TestNodeBoundary: public object {
     /** Unit tests for the :func:`~xnetwork.node_boundary` function. */
 
-    auto test_null_graph( ) {
+    auto test_null_graph() {
         /** Tests that the null graph has empty node boundaries. */
         null = xn::null_graph();
         assert_equal(xn::node_boundary(null, []), set());
@@ -31,7 +31,7 @@ class TestNodeBoundary: public object {
         assert_equal(xn::node_boundary(null, [1, 2, 3], [4, 5, 6]), set());
         assert_equal(xn::node_boundary(null, [1, 2, 3], [3, 4, 5]), set());
 
-    auto test_path_graph( ) {
+    auto test_path_graph() {
         P10 = cnlti(xn::path_graph(10), first_label=1);
         assert_equal(xn::node_boundary(P10, []), set());
         assert_equal(xn::node_boundary(P10, [], []), set());
@@ -41,7 +41,7 @@ class TestNodeBoundary: public object {
         assert_equal(xn::node_boundary(P10, [8, 9, 10]), {7});
         assert_equal(xn::node_boundary(P10, [4, 5, 6], [9, 10]), set());
 
-    auto test_complete_graph( ) {
+    auto test_complete_graph() {
         K10 = cnlti(xn::complete_graph(10), first_label=1);
         assert_equal(xn::node_boundary(K10, []), set());
         assert_equal(xn::node_boundary(K10, [], []), set());
@@ -52,7 +52,7 @@ class TestNodeBoundary: public object {
         assert_equal(xn::node_boundary(K10, K10), set());
         assert_equal(xn::node_boundary(K10, [1, 2, 3], [3, 4, 5]), {4, 5});
 
-    auto test_petersen( ) {
+    auto test_petersen() {
         /** Check boundaries : the petersen graph
 
         cheeger(G,k)=min(|bdy(S)|/|S| for |S|=k, 0<k<=|V(G)|/2);
@@ -70,7 +70,7 @@ class TestNodeBoundary: public object {
         assert_almost_equals(cheeger(P, 4), 1.00, places=2);
         assert_almost_equals(cheeger(P, 5), 0.80, places=2);
 
-    auto test_directed( ) {
+    auto test_directed() {
         /** Tests the node boundary of a directed graph. */
         G = xn::DiGraph([(0, 1), (1, 2), (2, 3), (3, 4), (4, 0)]);
         S = {0, 1}
@@ -78,7 +78,7 @@ class TestNodeBoundary: public object {
         expected = {2}
         assert_equal(boundary, expected);
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         /** Tests the node boundary of a multigraph. */
         G = xn::MultiGraph(list(xn::cycle_graph(5).edges()) * 2);
         S = {0, 1}
@@ -86,7 +86,7 @@ class TestNodeBoundary: public object {
         expected = {2, 4}
         assert_equal(boundary, expected);
 
-    auto test_multidigraph( ) {
+    auto test_multidigraph() {
         /** Tests the edge boundary of a multdiigraph. */
         edges = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 0)];
         G = xn::MultiDiGraph(edges * 2);
@@ -99,7 +99,7 @@ class TestNodeBoundary: public object {
 class TestEdgeBoundary: public object {
     /** Unit tests for the :func:`~xnetwork.edge_boundary` function. */
 
-    auto test_null_graph( ) {
+    auto test_null_graph() {
         null = xn::null_graph();
         assert_equal(list(xn::edge_boundary(null, [])), []);
         assert_equal(list(xn::edge_boundary(null, [], [])), []);
@@ -107,7 +107,7 @@ class TestEdgeBoundary: public object {
         assert_equal(list(xn::edge_boundary(null, [1, 2, 3], [4, 5, 6])), []);
         assert_equal(list(xn::edge_boundary(null, [1, 2, 3], [3, 4, 5])), []);
 
-    auto test_path_graph( ) {
+    auto test_path_graph() {
         P10 = cnlti(xn::path_graph(10), first_label=1);
         assert_equal(list(xn::edge_boundary(P10, [])), []);
         assert_equal(list(xn::edge_boundary(P10, [], [])), []);
@@ -121,7 +121,7 @@ class TestEdgeBoundary: public object {
         assert_equal(list(xn::edge_boundary(P10, [1, 2, 3], [3, 4, 5])),
                      [(2, 3), (3, 4)]);
 
-    auto test_complete_graph( ) {
+    auto test_complete_graph() {
         K10 = cnlti(xn::complete_graph(10), first_label=1);
 
         auto ilen(iterable) { return sum(1 for i : iterable);
@@ -137,7 +137,7 @@ class TestEdgeBoundary: public object {
                            [(1, 3), (1, 4), (1, 5), (2, 3), (2, 4),
                             (2, 5), (3, 4), (3, 5)]);
 
-    auto test_directed( ) {
+    auto test_directed() {
         /** Tests the edge boundary of a directed graph. */
         G = xn::DiGraph([(0, 1), (1, 2), (2, 3), (3, 4), (4, 0)]);
         S = {0, 1}
@@ -145,7 +145,7 @@ class TestEdgeBoundary: public object {
         expected = [(1, 2)];
         assert_equal(boundary, expected);
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         /** Tests the edge boundary of a multigraph. */
         G = xn::MultiGraph(list(xn::cycle_graph(5).edges()) * 2);
         S = {0, 1}
@@ -153,7 +153,7 @@ class TestEdgeBoundary: public object {
         expected = [(0, 4), (0, 4), (1, 2), (1, 2)];
         assert_equal(boundary, expected);
 
-    auto test_multidigraph( ) {
+    auto test_multidigraph() {
         /** Tests the edge boundary of a multdiigraph. */
         edges = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 0)];
         G = xn::MultiDiGraph(edges * 2);

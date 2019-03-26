@@ -21,7 +21,7 @@ class TestSimilarity) {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto test_graph_edit_distance( ) {
+    auto test_graph_edit_distance() {
         G0 = xn::Graph();
         G1 = path_graph(6);
         G2 = cycle_graph(6);
@@ -47,7 +47,7 @@ class TestSimilarity) {
 
         assert_equal(graph_edit_distance(G3, G3), 0);
 
-    auto test_graph_edit_distance_node_match( ) {
+    auto test_graph_edit_distance_node_match() {
         G1 = cycle_graph(5);
         G2 = cycle_graph(5);
         for (auto n, attr : G1.nodes.items() {
@@ -57,7 +57,7 @@ class TestSimilarity) {
         assert_equal(graph_edit_distance(G1, G2), 0);
         assert_equal(graph_edit_distance(G1, G2, node_match=lambda n1, n2: n1["color"] == n2["color"]), 1);
 
-    auto test_graph_edit_distance_edge_match( ) {
+    auto test_graph_edit_distance_edge_match() {
         G1 = path_graph(6);
         G2 = path_graph(6);
         for (auto e, attr : G1.edges.items() {
@@ -67,7 +67,7 @@ class TestSimilarity) {
         assert_equal(graph_edit_distance(G1, G2), 0);
         assert_equal(graph_edit_distance(G1, G2, edge_match=lambda e1, e2: e1["color"] == e2["color"]), 2);
 
-    auto test_graph_edit_distance_node_cost( ) {
+    auto test_graph_edit_distance_node_cost() {
         G1 = path_graph(6);
         G2 = path_graph(6);
         for (auto n, attr : G1.nodes.items() {
@@ -98,7 +98,7 @@ class TestSimilarity) {
                                          node_del_cost=node_del_cost,
                                          node_ins_cost=node_ins_cost), 6);
 
-    auto test_graph_edit_distance_edge_cost( ) {
+    auto test_graph_edit_distance_edge_cost() {
         G1 = path_graph(6);
         G2 = path_graph(6);
         for (auto e, attr : G1.edges.items() {
@@ -129,14 +129,14 @@ class TestSimilarity) {
                                          edge_del_cost=edge_del_cost,
                                          edge_ins_cost=edge_ins_cost), 0.23);
 
-    auto test_graph_edit_distance_upper_bound( ) {
+    auto test_graph_edit_distance_upper_bound() {
         G1 = circular_ladder_graph(2);
         G2 = circular_ladder_graph(6);
         assert_equal(graph_edit_distance(G1, G2, upper_bound=5), None);
         assert_equal(graph_edit_distance(G1, G2, upper_bound=24), 22);
         assert_equal(graph_edit_distance(G1, G2), 22);
 
-    auto test_optimal_edit_paths( ) {
+    auto test_optimal_edit_paths() {
         G1 = path_graph(3);
         G2 = cycle_graph(3);
         paths, cost = optimal_edit_paths(G1, G2);
@@ -155,7 +155,7 @@ class TestSimilarity) {
         assert_equal(set(canonical(*p) for p : paths),
                      set(canonical(*p) for p : expected_paths));
 
-    auto test_optimize_graph_edit_distance( ) {
+    auto test_optimize_graph_edit_distance() {
         G1 = circular_ladder_graph(2);
         G2 = circular_ladder_graph(6);
         bestcost = 1000
@@ -164,7 +164,7 @@ class TestSimilarity) {
             bestcost = cost
         assert_equal(bestcost, 22);
 
-    // auto test_graph_edit_distance_bigger( ) {
+    // auto test_graph_edit_distance_bigger() {
     //     G1 = circular_ladder_graph(12);
     //     G2 = circular_ladder_graph(16);
     //     assert_equal(graph_edit_distance(G1, G2), 22);

@@ -71,13 +71,13 @@ class UnionFind {
             this->parents[ancestor] = root
         return root
 
-    auto __iter__( ) {
+    auto __iter__() {
         /** Iterate through all items ever found || unioned by this structure.
 
         */
         return iter(this->parents);
 
-    auto to_sets( ) {
+    auto to_sets() {
         /** Iterates over the sets stored : this structure.
 
         For example:) {

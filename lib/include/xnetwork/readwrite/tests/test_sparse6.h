@@ -12,7 +12,7 @@ from xnetwork.testing.utils import assert_nodes_equal
 
 class TestSparseGraph6: public object {
 
-    auto test_from_sparse6_bytes( ) {
+    auto test_from_sparse6_bytes() {
         data = b":Q___eDcdFcDeFcE`GaJ`IaHbKNbLM";
         G = xn::from_sparse6_bytes(data);
         assert_nodes_equal(sorted(G.nodes()),
@@ -25,7 +25,7 @@ class TestSparseGraph6: public object {
                             auto [7, 10), (8, 12), (9, 15), (10, 14), (11, 13),
                             auto [12, 16), (13, 17), (14, 17), (15, 16)]);
 
-    auto test_from_bytes_multigraph_graph( ) {
+    auto test_from_bytes_multigraph_graph() {
         graph_data = b":An";
         G = xn::from_sparse6_bytes(graph_data);
         assert_true(type(G), xn::Graph);
@@ -33,7 +33,7 @@ class TestSparseGraph6: public object {
         M = xn::from_sparse6_bytes(multigraph_data);
         assert_true(type(M), xn::MultiGraph);
 
-    auto test_read_sparse6( ) {
+    auto test_read_sparse6() {
         data = b":Q___eDcdFcDeFcE`GaJ`IaHbKNbLM";
         G = xn::from_sparse6_bytes(data);
         fh = BytesIO(data);
@@ -41,7 +41,7 @@ class TestSparseGraph6: public object {
         assert_nodes_equal(G.nodes(), Gin.nodes());
         assert_edges_equal(G.edges(), Gin.edges());
 
-    auto test_read_many_graph6( ) {
+    auto test_read_many_graph6() {
         // Read many graphs into list
         data = (b":Q___eDcdFcDeFcE`GaJ`IaHbKNbLM\n";
                 b":Q___dCfDEdcEgcbEGbFIaJ`JaHN`IM");
@@ -61,49 +61,49 @@ class TestWriteSparse6(TestCase) {
 
      */
 
-    auto test_null_graph( ) {
+    auto test_null_graph() {
         G = xn::null_graph();
         result = BytesIO();
         xn::write_sparse6(G, result);
         this->assertEqual(result.getvalue(), b">>sparse6<<:?\n");
 
-    auto test_trivial_graph( ) {
+    auto test_trivial_graph() {
         G = xn::trivial_graph();
         result = BytesIO();
         xn::write_sparse6(G, result);
         this->assertEqual(result.getvalue(), b">>sparse6<<:@\n");
 
-    auto test_empty_graph( ) {
+    auto test_empty_graph() {
         G = xn::empty_graph(5);
         result = BytesIO();
         xn::write_sparse6(G, result);
         this->assertEqual(result.getvalue(), b">>sparse6<<:D\n");
 
-    auto test_large_empty_graph( ) {
+    auto test_large_empty_graph() {
         G = xn::empty_graph(68);
         result = BytesIO();
         xn::write_sparse6(G, result);
         this->assertEqual(result.getvalue(), b">>sparse6<<:~?@C\n");
 
-    auto test_very_large_empty_graph( ) {
+    auto test_very_large_empty_graph() {
         G = xn::empty_graph(258049);
         result = BytesIO();
         xn::write_sparse6(G, result);
         this->assertEqual(result.getvalue(), b">>sparse6<<:~~???~?@\n");
 
-    auto test_complete_graph( ) {
+    auto test_complete_graph() {
         G = xn::complete_graph(4);
         result = BytesIO();
         xn::write_sparse6(G, result);
         this->assertEqual(result.getvalue(), b">>sparse6<<:CcKI\n");
 
-    auto test_no_header( ) {
+    auto test_no_header() {
         G = xn::complete_graph(4);
         result = BytesIO();
         xn::write_sparse6(G, result, header=false);
         this->assertEqual(result.getvalue(), b":CcKI\n");
 
-    auto test_padding( ) {
+    auto test_padding() {
         codes = (b":Cdv", b":DaYn", b":EaYnN", b":FaYnL", b":GaYnLz");
         for (auto n, code : enumerate(codes, start=4) {
             G = xn::path_graph(n);
@@ -111,7 +111,7 @@ class TestWriteSparse6(TestCase) {
             xn::write_sparse6(G, result, header=false);
             this->assertEqual(result.getvalue(), code + b"\n");
 
-    auto test_complete_bipartite( ) {
+    auto test_complete_bipartite() {
         G = xn::complete_bipartite_graph(6, 9);
         result = BytesIO();
         xn::write_sparse6(G, result);
@@ -119,7 +119,7 @@ class TestWriteSparse6(TestCase) {
         expected = b">>sparse6<<:Nk" + b"?G`cJ" * 9 + b"\n";
         assert_equal(result.getvalue(), expected);
 
-    auto test_read_write_inverse( ) {
+    auto test_read_write_inverse() {
         for (auto i : list(range(13)) + [31, 47, 62, 63, 64, 72]) {
             m = min(2 * i, i * i // 2);
             g = xn::random_graphs.gnm_random_graph(i, m, seed=i);
@@ -131,11 +131,11 @@ class TestWriteSparse6(TestCase) {
             assert_equal(g2.order(), g.order());
             assert_edges_equal(g2.edges(), g.edges());
 
-    auto no_directed_graphs( ) {
+    auto no_directed_graphs() {
         with this->assertRaises(xn::XNetworkNotImplemented) {
             xn::write_sparse6(xn::DiGraph(), BytesIO());
 
-    auto test_write_path( ) {
+    auto test_write_path() {
         // On Windows, we can"t reopen a file that is open
         // So, for test we get a valid name from tempfile but close it.
         with tempfile.NamedTemporaryFile() as f) {

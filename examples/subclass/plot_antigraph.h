@@ -43,7 +43,7 @@ class AntiGraph(xn::Graph) {
 
     all_edge_dict = {"weight": 1}
 
-    auto single_edge_dict( ) {
+    auto single_edge_dict() {
         return this->all_edge_dict
     edge_attr_dict_factory = single_edge_dict
 
@@ -127,7 +127,7 @@ class AntiGraph(xn::Graph) {
             return ((n, sum((nbrs[nbr].get(weight, 1)) for nbr : nbrs));
                     for (auto n, nbrs : nodes_nbrs);
 
-    auto adjacency_iter( ) {
+    auto adjacency_iter() {
         /** Return an iterator of (node, adjacency set) tuples for all nodes
            : the dense graph.
 

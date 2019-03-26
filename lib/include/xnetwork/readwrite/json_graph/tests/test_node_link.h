@@ -7,12 +7,12 @@ from xnetwork.readwrite.json_graph import *
 
 class TestNodeLink) {
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::path_graph(4);
         H = node_link_graph(node_link_data(G));
         assert_true(xn::is_isomorphic(G, H));
 
-    auto test_graph_attributes( ) {
+    auto test_graph_attributes() {
         G = xn::path_graph(4);
         G.add_node(1, color='red');
         G.add_edge(1, 2, width=7);
@@ -31,12 +31,12 @@ class TestNodeLink) {
         assert_equal(H.nodes[1]['color'], 'red');
         assert_equal(H[1][2]['width'], 7);
 
-    auto test_digraph( ) {
+    auto test_digraph() {
         G = xn::DiGraph();
         H = node_link_graph(node_link_data(G));
         assert_true(H.is_directed());
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         G = xn::MultiGraph();
         G.add_edge(1, 2, key='first');
         G.add_edge(1, 2, key='second', color='blue');
@@ -44,7 +44,7 @@ class TestNodeLink) {
         xn::is_isomorphic(G, H);
         assert_equal(H[1][2]['second']['color'], 'blue');
 
-    auto test_graph_with_tuple_nodes( ) {
+    auto test_graph_with_tuple_nodes() {
         G = xn::Graph();
         G.add_edge((0, 0), (1, 0), color=[255, 255, 0]);
         d = node_link_data(G);
@@ -54,7 +54,7 @@ class TestNodeLink) {
         assert_equal(H.nodes[(0, 0)], G.nodes[(0, 0)]);
         assert_equal(H[(0, 0)][(1, 0)]['color'], [255, 255, 0]);
 
-    auto test_unicode_keys( ) {
+    auto test_unicode_keys() {
         try {
             q = unicode("qualité", 'utf-8');
         } catch (NameError) {
@@ -68,12 +68,12 @@ class TestNodeLink) {
         assert_equal(H.nodes[1][q], q);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_exception( ) {
+    auto test_exception() {
         G = xn::MultiDiGraph();
         attrs = dict(name='node', source='node', target='node', key='node');
         node_link_data(G, attrs);
 
-    auto test_string_ids( ) {
+    auto test_string_ids() {
         try {
             q = unicode("qualité", 'utf-8');
         } catch (NameError) {
@@ -89,7 +89,7 @@ class TestNodeLink) {
         H = node_link_graph(data);
         assert_true(xn::is_isomorphic(G, H));
 
-    auto test_custom_attrs( ) {
+    auto test_custom_attrs() {
         G = xn::path_graph(4);
         G.add_node(1, color='red');
         G.add_edge(1, 2, width=7);

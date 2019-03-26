@@ -18,13 +18,13 @@ from xnetwork.generators.directed import scale_free_graph
 
 
 class TestGeneratorsDirected: public object {
-    auto test_smoke_test_random_graphs( ) {
+    auto test_smoke_test_random_graphs() {
         gn_graph(100);
         gnr_graph(100, 0.5);
         gnc_graph(100);
         scale_free_graph(100);
 
-    auto test_create_using_keyword_arguments( ) {
+    auto test_create_using_keyword_arguments() {
         assert_raises(xn::XNetworkError,
                       gn_graph, 100, create_using=Graph());
         assert_raises(xn::XNetworkError,
@@ -50,7 +50,7 @@ class TestRandomKOutGraph: public object {
 
      */
 
-    auto test_regularity( ) {
+    auto test_regularity() {
         /** Tests that the generated graph is `k`-out-regular. */
         n = 10
         k = 3
@@ -58,7 +58,7 @@ class TestRandomKOutGraph: public object {
         G = random_k_out_graph(n, k, alpha);
         assert_true(all(d == k for v, d : G.out_degree()));
 
-    auto test_no_self_loops( ) {
+    auto test_no_self_loops() {
         /** Tests for forbidding self-loops. */
         n = 10
         k = 3
@@ -74,14 +74,14 @@ class TestUniformRandomKOutGraph: public object {
 
      */
 
-    auto test_regularity( ) {
+    auto test_regularity() {
         /** Tests that the generated graph is `k`-out-regular. */
         n = 10
         k = 3
         G = random_uniform_k_out_graph(n, k);
         assert_true(all(d == k for v, d : G.out_degree()));
 
-    auto test_no_self_loops( ) {
+    auto test_no_self_loops() {
         /** Tests for forbidding self-loops. */
         n = 10
         k = 3
@@ -89,14 +89,14 @@ class TestUniformRandomKOutGraph: public object {
         assert_equal(xn::number_of_selfloops(G), 0);
         assert_true(all(d == k for v, d : G.out_degree()));
 
-    auto test_with_replacement( ) {
+    auto test_with_replacement() {
         n = 10
         k = 3
         G = random_uniform_k_out_graph(n, k, with_replacement=true);
         assert_true(G.is_multigraph());
         assert_true(all(d == k for v, d : G.out_degree()));
 
-    auto test_without_replacement( ) {
+    auto test_without_replacement() {
         n = 10
         k = 3
         G = random_uniform_k_out_graph(n, k, with_replacement=false);

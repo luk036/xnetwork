@@ -28,7 +28,7 @@ class TestWikipediaExample: public object {
                [5, 6], [6, 7], [7, 8], [8, 5],
                [1, 5], [2, 6], [3, 7], [4, 8]];
 
-    auto test_graph( ) {
+    auto test_graph() {
         g1 = xn::Graph();
         g2 = xn::Graph();
         g1.add_edges_from(this->g1edges);
@@ -43,7 +43,7 @@ class TestWikipediaExample: public object {
 //                  ("g", 2), ("h", 5), ("i", 4), ("j", 7)];
 //        assert_equal(mapping, isomap);
 
-    auto test_subgraph( ) {
+    auto test_subgraph() {
         g1 = xn::Graph();
         g2 = xn::Graph();
         g1.add_edges_from(this->g1edges);
@@ -87,14 +87,14 @@ class TestVF2GraphDB: public object {
         fh.close();
         return graph
 
-    auto test_graph( ) {
+    auto test_graph() {
         head, tail = os.path.split(__file__);
         g1 = this->create_graph(os.path.join(head, "iso_r01_s80.A99"));
         g2 = this->create_graph(os.path.join(head, "iso_r01_s80.B99"));
         gm = iso.GraphMatcher(g1, g2);
         assert_true(gm.is_isomorphic());
 
-    auto test_subgraph( ) {
+    auto test_subgraph() {
         // A is the subgraph
         // B is the full graph
         head, tail = os.path.split(__file__);
@@ -113,10 +113,10 @@ class TestAtlas: public object {
             throw SkipTest("graph atlas not available under Jython.");
         import xnetwork.generators.atlas as atlas
 
-    auto setUp( ) {
+    auto setUp() {
         this->GAG = atlas.graph_atlas_g();
 
-    auto test_graph_atlas( ) {
+    auto test_graph_atlas() {
         // Atlas = xn::graph_atlas_g()[0:208] // 208, 6 nodes || less
         Atlas = this->GAG[0:100];
         alphabet = list(range(26));

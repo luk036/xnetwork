@@ -6,7 +6,7 @@ from xnetwork.testing.utils import assert_edges_equal
 
 
 class TestSteinerTree) {
-    auto setUp( ) {
+    auto setUp() {
         G = xn::Graph();
         G.add_edge(1, 2, weight=10);
         G.add_edge(2, 3, weight=10);
@@ -18,12 +18,12 @@ class TestSteinerTree) {
         this->G = G;
         this->term_nodes = [1, 2, 3, 4, 5];
 
-    auto test_connected_metric_closure( ) {
+    auto test_connected_metric_closure() {
         G = this->G.copy();
         G.add_node(100);
         assert_raises(xn::XNetworkError, metric_closure, G);
 
-    auto test_metric_closure( ) {
+    auto test_metric_closure() {
         M = metric_closure(this->G);
         mc = [(1, 2, {"distance": 10, "path": [1, 2]}),
               (1, 3, {"distance": 20, "path": [1, 2, 3]}),
@@ -48,7 +48,7 @@ class TestSteinerTree) {
               (6, 7, {"distance": 11, "path": [6, 5, 7]})];
         assert_edges_equal(list(M.edges(data=true)), mc);
 
-    auto test_steiner_tree( ) {
+    auto test_steiner_tree() {
         S = steiner_tree(this->G, this->term_nodes);
         expected_steiner_tree = [(1, 2, {"weight": 10}),
                                  (2, 3, {"weight": 10}),

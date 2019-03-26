@@ -15,7 +15,7 @@ class TestGEXF: public object {
         } catch (ImportError) {
             throw SkipTest("xml.etree.ElementTree not available.");
 
-    auto setUp( ) {
+    auto setUp() {
         this->simple_directed_data = R"(<?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
     <graph mode="static" defaultedgetype="directed">
@@ -136,7 +136,7 @@ class TestGEXF: public object {
 
         this->simple_undirected_fh = io.BytesIO(this->simple_undirected_data.encode("UTF-8"));
 
-    auto test_read_simple_directed_graphml( ) {
+    auto test_read_simple_directed_graphml() {
         G = this->simple_directed_graph
         H = xn::read_gexf(this->simple_directed_fh);
         assert_equal(sorted(G.nodes()), sorted(H.nodes()));
@@ -145,7 +145,7 @@ class TestGEXF: public object {
                      sorted(H.edges(data=true)));
         this->simple_directed_fh.seek(0);
 
-    auto test_write_read_simple_directed_graphml( ) {
+    auto test_write_read_simple_directed_graphml() {
         G = this->simple_directed_graph
         fh = io.BytesIO();
         xn::write_gexf(G, fh);
@@ -157,7 +157,7 @@ class TestGEXF: public object {
                      sorted(H.edges(data=true)));
         this->simple_directed_fh.seek(0);
 
-    auto test_read_simple_undirected_graphml( ) {
+    auto test_read_simple_undirected_graphml() {
         G = this->simple_undirected_graph
         H = xn::read_gexf(this->simple_undirected_fh);
         assert_equal(sorted(G.nodes()), sorted(H.nodes()));
@@ -166,7 +166,7 @@ class TestGEXF: public object {
             sorted(sorted(e) for e : H.edges()));
         this->simple_undirected_fh.seek(0);
 
-    auto test_read_attribute_graphml( ) {
+    auto test_read_attribute_graphml() {
         G = this->attribute_graph
         H = xn::read_gexf(this->attribute_fh);
         assert_equal(sorted(G.nodes(true)), sorted(H.nodes(data=true)));
@@ -176,7 +176,7 @@ class TestGEXF: public object {
             assert_equal(a, b);
         this->attribute_fh.seek(0);
 
-    auto test_directed_edge_in_undirected( ) {
+    auto test_directed_edge_in_undirected() {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
     <graph mode="static" defaultedgetype="undirected" name="">
@@ -193,7 +193,7 @@ class TestGEXF: public object {
         fh = io.BytesIO(s.encode("UTF-8"));
         assert_raises(xn::XNetworkError, xn::read_gexf, fh);
 
-    auto test_undirected_edge_in_directed( ) {
+    auto test_undirected_edge_in_directed() {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
     <graph mode="static" defaultedgetype="directed" name="">
@@ -210,7 +210,7 @@ class TestGEXF: public object {
         fh = io.BytesIO(s.encode("UTF-8"));
         assert_raises(xn::XNetworkError, xn::read_gexf, fh);
 
-    auto test_key_raises( ) {
+    auto test_key_raises() {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
     <graph mode="static" defaultedgetype="directed" name="">
@@ -231,7 +231,7 @@ class TestGEXF: public object {
         fh = io.BytesIO(s.encode("UTF-8"));
         assert_raises(xn::XNetworkError, xn::read_gexf, fh);
 
-    auto test_relabel( ) {
+    auto test_relabel() {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
     <graph mode="static" defaultedgetype="directed" name="">
@@ -249,7 +249,7 @@ class TestGEXF: public object {
         G = xn::read_gexf(fh, relabel=true);
         assert_equal(sorted(G.nodes()), ["Hello", "Word"]);
 
-    auto test_default_attribute( ) {
+    auto test_default_attribute() {
         G = xn::Graph();
         G.add_node(1, label="1", color="green");
         xn::add_path(G, [0, 1, 2, 3]);
@@ -270,7 +270,7 @@ class TestGEXF: public object {
         del H.graph["mode"];
         assert_equal(G.graph, H.graph);
 
-    auto test_serialize_ints_to_strings( ) {
+    auto test_serialize_ints_to_strings() {
         G = xn::Graph();
         G.add_node(1, id=7, label=77);
         fh = io.BytesIO();
@@ -280,7 +280,7 @@ class TestGEXF: public object {
         assert_equal(list(H), [7]);
         assert_equal(H.nodes[7]["label"], "77");
 
-    auto test_write_with_node_attributes( ) {
+    auto test_write_with_node_attributes() {
         // Addresses #673.
         G = xn::OrderedGraph();
         G.add_edges_from([(0, 1), (1, 2), (2, 3)]);
@@ -313,7 +313,7 @@ class TestGEXF: public object {
         obtained = "\n".join(xn::generate_gexf(G));
         assert_equal(expected, obtained);
 
-    auto test_bool( ) {
+    auto test_bool() {
         G = xn::Graph();
         G.add_node(1, testattr=true);
         fh = io.BytesIO();

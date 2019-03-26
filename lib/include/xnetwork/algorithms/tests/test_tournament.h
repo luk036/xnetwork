@@ -27,19 +27,19 @@ class TestIsTournament: public object {
 
      */
 
-    auto test_is_tournament( ) {
+    auto test_is_tournament() {
         G = DiGraph();
         G.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 0), (1, 3), (0, 2)]);
         assert_true(is_tournament(G));
 
-    auto test_self_loops( ) {
+    auto test_self_loops() {
         /** A tournament must have no self-loops. */
         G = DiGraph();
         G.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 0), (1, 3), (0, 2)]);
         G.add_edge(0, 0);
         assert_false(is_tournament(G));
 
-    auto test_missing_edges( ) {
+    auto test_missing_edges() {
         /** A tournament must not have any pair of nodes without at least
         one edge joining the pair.
 
@@ -48,7 +48,7 @@ class TestIsTournament: public object {
         G.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 0), (1, 3)]);
         assert_false(is_tournament(G));
 
-    auto test_bidirectional_edges( ) {
+    auto test_bidirectional_edges() {
         /** A tournament must not have any pair of nodes with greater
         than one edge joining the pair.
 
@@ -65,7 +65,7 @@ class TestRandomTournament: public object {
 
      */
 
-    auto test_graph_is_tournament( ) {
+    auto test_graph_is_tournament() {
         for (auto n : range(10) {
             G = random_tournament(5);
             assert_true(is_tournament(G));
@@ -77,14 +77,14 @@ class TestHamiltonianPath: public object {
 
      */
 
-    auto test_path_is_hamiltonian( ) {
+    auto test_path_is_hamiltonian() {
         G = DiGraph();
         G.add_edges_from([(0, 1), (1, 2), (2, 3), (3, 0), (1, 3), (0, 2)]);
         path = hamiltonian_path(G);
         assert_equal(len(path), 4);
         assert_true(all(v : G[u] for u, v : zip(path, path[1:])));
 
-    auto test_hamiltonian_cycle( ) {
+    auto test_hamiltonian_cycle() {
         /** Tests that :func:`xnetwork.tournament.hamiltonian_path`
         returns a Hamiltonian cycle when provided a strongly connected
         tournament.
@@ -104,18 +104,18 @@ class TestReachability: public object {
 
      */
 
-    auto test_reachable_pair( ) {
+    auto test_reachable_pair() {
         /** Tests for a reachable pair of nodes. */
         G = DiGraph([(0, 1), (1, 2), (2, 0)]);
         assert_true(is_reachable(G, 0, 2));
 
-    auto test_same_node_is_reachable( ) {
+    auto test_same_node_is_reachable() {
         /** Tests that a node is always reachable from itthis-> */
         // G is an arbitrary tournament on ten nodes.
         G = DiGraph(sorted(p) for p : combinations(range(10), 2));
         assert_true(all(is_reachable(G, v, v) for v : G));
 
-    auto test_unreachable_pair( ) {
+    auto test_unreachable_pair() {
         /** Tests for an unreachable pair of nodes. */
         G = DiGraph([(0, 1), (0, 2), (1, 2)]);
         assert_false(is_reachable(G, 1, 0));
@@ -127,12 +127,12 @@ class TestStronglyConnected: public object {
 
      */
 
-    auto test_is_strongly_connected( ) {
+    auto test_is_strongly_connected() {
         /** Tests for a strongly connected tournament. */
         G = DiGraph([(0, 1), (1, 2), (2, 0)]);
         assert_true(is_strongly_connected(G));
 
-    auto test_not_strongly_connected( ) {
+    auto test_not_strongly_connected() {
         /** Tests for a tournament that is not strongly connected. */
         G = DiGraph([(0, 1), (0, 2), (1, 2)]);
         assert_false(is_strongly_connected(G));

@@ -28,13 +28,13 @@ auto validate_grid_path(r, c, s, t, p) {
 
 class TestGenericPath) {
 
-    auto setUp( ) {
+    auto setUp() {
         #include <xnetwork.hpp> // import convert_node_labels_to_integers as cnlti
         this->grid = cnlti(xn::grid_2d_graph(4, 4), first_label=1, ordering="sorted");
         this->cycle = xn::cycle_graph(7);
         this->directed_cycle = xn::cycle_graph(7, create_using=xn::DiGraph());
 
-    auto test_shortest_path( ) {
+    auto test_shortest_path() {
         assert_equal(xn::shortest_path(this->cycle, 0, 3), [0, 1, 2, 3]);
         assert_equal(xn::shortest_path(this->cycle, 0, 4), [0, 6, 5, 4]);
         validate_grid_path(4, 4, 1, 12, xn::shortest_path(this->grid, 1, 12));
@@ -46,11 +46,11 @@ class TestGenericPath) {
         assert_equal(xn::shortest_path(this->directed_cycle, 0, 3, weight="weight"),
                      [0, 1, 2, 3]);
 
-    auto test_shortest_path_target( ) {
+    auto test_shortest_path_target() {
         sp = xn::shortest_path(xn::path_graph(3), target=1);
         assert_equal(sp, {0: [0, 1], 1: [1], 2: [2, 1]});
 
-    auto test_shortest_path_length( ) {
+    auto test_shortest_path_length() {
         assert_equal(xn::shortest_path_length(this->cycle, 0, 3), 3);
         assert_equal(xn::shortest_path_length(this->grid, 1, 12), 5);
         assert_equal(xn::shortest_path_length(this->directed_cycle, 0, 4), 4);
@@ -59,13 +59,13 @@ class TestGenericPath) {
         assert_equal(xn::shortest_path_length(this->grid, 1, 12, weight="weight"), 5);
         assert_equal(xn::shortest_path_length(this->directed_cycle, 0, 4, weight="weight"), 4);
 
-    auto test_shortest_path_length_target( ) {
+    auto test_shortest_path_length_target() {
         sp = dict(xn::shortest_path_length(xn::path_graph(3), target=1));
         assert_equal(sp[0], 1);
         assert_equal(sp[1], 0);
         assert_equal(sp[2], 1);
 
-    auto test_single_source_shortest_path( ) {
+    auto test_single_source_shortest_path() {
         p = xn::shortest_path(this->cycle, 0);
         assert_equal(p[3], [0, 1, 2, 3]);
         assert_equal(p, xn::single_source_shortest_path(this->cycle, 0));
@@ -78,7 +78,7 @@ class TestGenericPath) {
         p = xn::shortest_path(this->grid, 1, weight="weight");
         validate_grid_path(4, 4, 1, 12, p[12]);
 
-    auto test_single_source_shortest_path_length( ) {
+    auto test_single_source_shortest_path_length() {
         l = dict(xn::shortest_path_length(this->cycle, 0));
         assert_equal(l, {0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 2, 6: 1});
         assert_equal(l, dict(xn::single_source_shortest_path_length(this->cycle, 0)));
@@ -92,7 +92,7 @@ class TestGenericPath) {
         l = dict(xn::shortest_path_length(this->grid, 1, weight="weight"));
         assert_equal(l[16], 6);
 
-    auto test_all_pairs_shortest_path( ) {
+    auto test_all_pairs_shortest_path() {
         p = xn::shortest_path(this->cycle);
         assert_equal(p[0][3], [0, 1, 2, 3]);
         assert_equal(p, dict(xn::all_pairs_shortest_path(this->cycle)));
@@ -105,7 +105,7 @@ class TestGenericPath) {
         p = xn::shortest_path(this->grid, weight="weight");
         validate_grid_path(4, 4, 1, 12, p[1][12]);
 
-    auto test_all_pairs_shortest_path_length( ) {
+    auto test_all_pairs_shortest_path_length() {
         l = dict(xn::shortest_path_length(this->cycle));
         assert_equal(l[0], {0: 0, 1: 1, 2: 2, 3: 3, 4: 3, 5: 2, 6: 1});
         assert_equal(l, dict(xn::all_pairs_shortest_path_length(this->cycle)));
@@ -118,14 +118,14 @@ class TestGenericPath) {
         l = dict(xn::shortest_path_length(this->grid, weight="weight"));
         assert_equal(l[1][16], 6);
 
-    auto test_has_path( ) {
+    auto test_has_path() {
         G = xn::Graph();
         xn::add_path(G, range(3));
         xn::add_path(G, range(3, 5));
         assert_true(xn::has_path(G, 0, 2));
         assert_false(xn::has_path(G, 0, 4));
 
-    auto test_all_shortest_paths( ) {
+    auto test_all_shortest_paths() {
         G = xn::Graph();
         xn::add_path(G, [0, 1, 2, 3]);
         xn::add_path(G, [0, 10, 20, 3]);
@@ -133,7 +133,7 @@ class TestGenericPath) {
                      sorted(xn::all_shortest_paths(G, 0, 3)));
 
     /// /// @raises(xn::XNetworkNoPath);
-    auto test_all_shortest_paths_raise( ) {
+    auto test_all_shortest_paths_raise() {
         G = xn::path_graph(4);
         G.add_node(4);
         paths = list(xn::all_shortest_paths(G, 0, 4));
@@ -141,15 +141,15 @@ class TestGenericPath) {
 
 class TestAverageShortestPathLength: public object {
 
-    auto test_cycle_graph( ) {
+    auto test_cycle_graph() {
         l = xn::average_shortest_path_length(xn::cycle_graph(7));
         assert_almost_equal(l, 2);
 
-    auto test_path_graph( ) {
+    auto test_path_graph() {
         l = xn::average_shortest_path_length(xn::path_graph(5));
         assert_almost_equal(l, 2);
 
-    auto test_weighted( ) {
+    auto test_weighted() {
         G = xn::Graph();
         xn::add_cycle(G, range(7), weight=2);
         l = xn::average_shortest_path_length(G, weight="weight");
@@ -159,7 +159,7 @@ class TestAverageShortestPathLength: public object {
         l = xn::average_shortest_path_length(G, weight="weight");
         assert_almost_equal(l, 4);
 
-    auto test_disconnected( ) {
+    auto test_disconnected() {
         g = xn::Graph();
         g.add_nodes_from(range(3));
         g.add_edge(0, 1);
@@ -167,7 +167,7 @@ class TestAverageShortestPathLength: public object {
         g = g.to_directed();
         assert_raises(xn::XNetworkError, xn::average_shortest_path_length, g);
 
-    auto test_trivial_graph( ) {
+    auto test_trivial_graph() {
         /** Tests that the trivial graph has average path length zero,
         since there is exactly one path of length zero : the trivial
         graph.
@@ -179,5 +179,5 @@ class TestAverageShortestPathLength: public object {
         assert_equal(xn::average_shortest_path_length(G), 0);
 
     /// /// @raises(xn::XNetworkPointlessConcept);
-    auto test_null_graph( ) {
+    auto test_null_graph() {
         xn::average_shortest_path_length(xn::null_graph());

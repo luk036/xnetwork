@@ -20,7 +20,7 @@ auto weighted_G() {
 
 
 class TestBetweennessCentrality: public object {
-    auto test_K5( ) {
+    auto test_K5() {
         /** Betweenness centrality: K5 */
         G = xn::complete_graph(5);
         b = xn::betweenness_centrality(G,
@@ -30,7 +30,7 @@ class TestBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_K5_endpoints( ) {
+    auto test_K5_endpoints() {
         /** Betweenness centrality: K5 endpoints */
         G = xn::complete_graph(5);
         b = xn::betweenness_centrality(G,
@@ -49,7 +49,7 @@ class TestBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_P3_normalized( ) {
+    auto test_P3_normalized() {
         /** Betweenness centrality: P3 normalized */
         G = xn::path_graph(3);
         b = xn::betweenness_centrality(G,
@@ -59,7 +59,7 @@ class TestBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_P3( ) {
+    auto test_P3() {
         /** Betweenness centrality: P3 */
         G = xn::path_graph(3);
         b_answer = {0: 0.0, 1: 1.0, 2: 0.0}
@@ -69,7 +69,7 @@ class TestBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_P3_endpoints( ) {
+    auto test_P3_endpoints() {
         /** Betweenness centrality: P3 endpoints */
         G = xn::path_graph(3);
         b_answer = {0: 2.0, 1: 3.0, 2: 2.0}
@@ -88,7 +88,7 @@ class TestBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_krackhardt_kite_graph( ) {
+    auto test_krackhardt_kite_graph() {
         /** Betweenness centrality: Krackhardt kite graph */
         G = xn::krackhardt_kite_graph();
         b_answer = {0: 1.667, 1: 1.667, 2: 0.000, 3: 7.333, 4: 0.000,
@@ -101,7 +101,7 @@ class TestBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
 
-    auto test_krackhardt_kite_graph_normalized( ) {
+    auto test_krackhardt_kite_graph_normalized() {
         /** Betweenness centrality: Krackhardt kite graph normalized */
         G = xn::krackhardt_kite_graph();
         b_answer = {0: 0.023, 1: 0.023, 2: 0.000, 3: 0.102, 4: 0.000,
@@ -112,7 +112,7 @@ class TestBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
 
-    auto test_florentine_families_graph( ) {
+    auto test_florentine_families_graph() {
         /** Betweenness centrality: Florentine families graph */
         G = xn::florentine_families_graph();
         b_answer =\
@@ -138,7 +138,7 @@ class TestBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
 
-    auto test_ladder_graph( ) {
+    auto test_ladder_graph() {
         /** Betweenness centrality: Ladder graph */
         G = xn::Graph();  // ladder_graph(3);
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3),
@@ -153,7 +153,7 @@ class TestBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
 
-    auto test_disconnected_path( ) {
+    auto test_disconnected_path() {
         /** Betweenness centrality: disconnected path */
         G = xn::Graph();
         xn::add_path(G, [0, 1, 2]);
@@ -165,7 +165,7 @@ class TestBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_disconnected_path_endpoints( ) {
+    auto test_disconnected_path_endpoints() {
         /** Betweenness centrality: disconnected path endpoints */
         G = xn::Graph();
         xn::add_path(G, [0, 1, 2]);
@@ -185,7 +185,7 @@ class TestBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n] / 21);
 
-    auto test_directed_path( ) {
+    auto test_directed_path() {
         /** Betweenness centrality: directed path */
         G = xn::DiGraph();
         xn::add_path(G, [0, 1, 2]);
@@ -196,7 +196,7 @@ class TestBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_directed_path_normalized( ) {
+    auto test_directed_path_normalized() {
         /** Betweenness centrality: directed path normalized */
         G = xn::DiGraph();
         xn::add_path(G, [0, 1, 2]);
@@ -209,7 +209,7 @@ class TestBetweennessCentrality: public object {
 
 
 class TestWeightedBetweennessCentrality: public object {
-    auto test_K5( ) {
+    auto test_K5() {
         /** Weighted betweenness centrality: K5 */
         G = xn::complete_graph(5);
         b = xn::betweenness_centrality(G,
@@ -219,7 +219,7 @@ class TestWeightedBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_P3_normalized( ) {
+    auto test_P3_normalized() {
         /** Weighted betweenness centrality: P3 normalized */
         G = xn::path_graph(3);
         b = xn::betweenness_centrality(G,
@@ -229,7 +229,7 @@ class TestWeightedBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_P3( ) {
+    auto test_P3() {
         /** Weighted betweenness centrality: P3 */
         G = xn::path_graph(3);
         b_answer = {0: 0.0, 1: 1.0, 2: 0.0}
@@ -239,7 +239,7 @@ class TestWeightedBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_krackhardt_kite_graph( ) {
+    auto test_krackhardt_kite_graph() {
         /** Weighted betweenness centrality: Krackhardt kite graph */
         G = xn::krackhardt_kite_graph();
         b_answer = {0: 1.667, 1: 1.667, 2: 0.000, 3: 7.333, 4: 0.000,
@@ -254,7 +254,7 @@ class TestWeightedBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
 
-    auto test_krackhardt_kite_graph_normalized( ) {
+    auto test_krackhardt_kite_graph_normalized() {
         /** Weighted betweenness centrality) {
         Krackhardt kite graph normalized
          */
@@ -268,7 +268,7 @@ class TestWeightedBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
 
-    auto test_florentine_families_graph( ) {
+    auto test_florentine_families_graph() {
         /** Weighted betweenness centrality) {
         Florentine families graph */
         G = xn::florentine_families_graph();
@@ -295,7 +295,7 @@ class TestWeightedBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
 
-    auto test_ladder_graph( ) {
+    auto test_ladder_graph() {
         /** Weighted betweenness centrality: Ladder graph */
         G = xn::Graph();  // ladder_graph(3);
         G.add_edges_from([(0, 1), (0, 2), (1, 3), (2, 3),
@@ -310,7 +310,7 @@ class TestWeightedBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
 
-    auto test_G( ) {
+    auto test_G() {
         /** Weighted betweenness centrality: G */
         G = weighted_G();
         b_answer = {0: 2.0, 1: 0.0, 2: 4.0, 3: 3.0, 4: 4.0, 5: 0.0}
@@ -320,7 +320,7 @@ class TestWeightedBetweennessCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_G2( ) {
+    auto test_G2() {
         /** Weighted betweenness centrality: G2 */
         G = xn::DiGraph();
         G.add_weighted_edges_from([("s", "u", 10), ("s", "x", 5),
@@ -339,7 +339,7 @@ class TestWeightedBetweennessCentrality: public object {
 
 
 class TestEdgeBetweennessCentrality: public object {
-    auto test_K5( ) {
+    auto test_K5() {
         /** Edge betweenness centrality: K5 */
         G = xn::complete_graph(5);
         b = xn::edge_betweenness_centrality(G, weight=None, normalized=false);
@@ -347,7 +347,7 @@ class TestEdgeBetweennessCentrality: public object {
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_normalized_K5( ) {
+    auto test_normalized_K5() {
         /** Edge betweenness centrality: K5 */
         G = xn::complete_graph(5);
         b = xn::edge_betweenness_centrality(G, weight=None, normalized=true);
@@ -355,7 +355,7 @@ class TestEdgeBetweennessCentrality: public object {
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_C4( ) {
+    auto test_C4() {
         /** Edge betweenness centrality: C4 */
         G = xn::cycle_graph(4);
         b = xn::edge_betweenness_centrality(G, weight=None, normalized=true);
@@ -363,7 +363,7 @@ class TestEdgeBetweennessCentrality: public object {
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n] / 6);
 
-    auto test_P4( ) {
+    auto test_P4() {
         /** Edge betweenness centrality: P4 */
         G = xn::path_graph(4);
         b = xn::edge_betweenness_centrality(G, weight=None, normalized=false);
@@ -371,7 +371,7 @@ class TestEdgeBetweennessCentrality: public object {
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_normalized_P4( ) {
+    auto test_normalized_P4() {
         /** Edge betweenness centrality: P4 */
         G = xn::path_graph(4);
         b = xn::edge_betweenness_centrality(G, weight=None, normalized=true);
@@ -379,7 +379,7 @@ class TestEdgeBetweennessCentrality: public object {
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n] / 6);
 
-    auto test_balanced_tree( ) {
+    auto test_balanced_tree() {
         /** Edge betweenness centrality: balanced tree */
         G = xn::balanced_tree(r=2, h=2);
         b = xn::edge_betweenness_centrality(G, weight=None, normalized=false);
@@ -390,7 +390,7 @@ class TestEdgeBetweennessCentrality: public object {
 
 
 class TestWeightedEdgeBetweennessCentrality: public object {
-    auto test_K5( ) {
+    auto test_K5() {
         /** Edge betweenness centrality: K5 */
         G = xn::complete_graph(5);
         b = xn::edge_betweenness_centrality(G, weight="weight", normalized=false);
@@ -398,7 +398,7 @@ class TestWeightedEdgeBetweennessCentrality: public object {
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_C4( ) {
+    auto test_C4() {
         /** Edge betweenness centrality: C4 */
         G = xn::cycle_graph(4);
         b = xn::edge_betweenness_centrality(G, weight="weight", normalized=false);
@@ -406,7 +406,7 @@ class TestWeightedEdgeBetweennessCentrality: public object {
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_P4( ) {
+    auto test_P4() {
         /** Edge betweenness centrality: P4 */
         G = xn::path_graph(4);
         b = xn::edge_betweenness_centrality(G, weight="weight", normalized=false);
@@ -414,7 +414,7 @@ class TestWeightedEdgeBetweennessCentrality: public object {
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_balanced_tree( ) {
+    auto test_balanced_tree() {
         /** Edge betweenness centrality: balanced tree */
         G = xn::balanced_tree(r=2, h=2);
         b = xn::edge_betweenness_centrality(G, weight="weight", normalized=false);
@@ -423,7 +423,7 @@ class TestWeightedEdgeBetweennessCentrality: public object {
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_weighted_graph( ) {
+    auto test_weighted_graph() {
         eList = [(0, 1, 5), (0, 2, 4), (0, 3, 3),
                  (0, 4, 2), (1, 2, 4), (1, 3, 1),
                  (1, 4, 3), (2, 4, 5), (3, 4, 4)];
@@ -442,7 +442,7 @@ class TestWeightedEdgeBetweennessCentrality: public object {
         for (auto n : sorted(G.edges()) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_normalized_weighted_graph( ) {
+    auto test_normalized_weighted_graph() {
         eList = [(0, 1, 5), (0, 2, 4), (0, 3, 3),
                  (0, 4, 2), (1, 2, 4), (1, 3, 1),
                  (1, 4, 3), (2, 4, 5), (3, 4, 4)];

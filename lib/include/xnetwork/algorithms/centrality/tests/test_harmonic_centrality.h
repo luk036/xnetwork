@@ -7,7 +7,7 @@ from xnetwork.algorithms.centrality import harmonic_centrality
 
 
 class TestClosenessCentrality) {
-    auto setUp( ) {
+    auto setUp() {
         this->P3 = xn::path_graph(3);
         this->P4 = xn::path_graph(4);
         this->K5 = xn::complete_graph(5);
@@ -21,7 +21,7 @@ class TestClosenessCentrality) {
         this->Gb.add_edges_from([(0, 1), (0, 2), (0, 4), (2, 1),
                                 (2, 3), (4, 3)]);
 
-    auto test_p3_harmonic( ) {
+    auto test_p3_harmonic() {
         c = harmonic_centrality(this->P3);
         d = {0: 1.5,
              1: 2,
@@ -29,7 +29,7 @@ class TestClosenessCentrality) {
         for (auto n : sorted(this->P3) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_p4_harmonic( ) {
+    auto test_p4_harmonic() {
         c = harmonic_centrality(this->P4);
         d = {0: 1.8333333,
              1: 2.5,
@@ -38,7 +38,7 @@ class TestClosenessCentrality) {
         for (auto n : sorted(this->P4) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_clique_complete( ) {
+    auto test_clique_complete() {
         c = harmonic_centrality(this->K5);
         d = {0: 4,
              1: 4,
@@ -48,7 +48,7 @@ class TestClosenessCentrality) {
         for (auto n : sorted(this->P3) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_cycle_C4( ) {
+    auto test_cycle_C4() {
         c = harmonic_centrality(this->C4);
         d = {0: 2.5,
              1: 2.5,
@@ -57,7 +57,7 @@ class TestClosenessCentrality) {
         for (auto n : sorted(this->C4) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_cycle_C5( ) {
+    auto test_cycle_C5() {
         c = harmonic_centrality(this->C5);
         d = {0: 3,
              1: 3,
@@ -68,7 +68,7 @@ class TestClosenessCentrality) {
         for (auto n : sorted(this->C5) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_bal_tree( ) {
+    auto test_bal_tree() {
         c = harmonic_centrality(this->T);
         d = {0: 4.0,
              1: 4.1666,
@@ -80,7 +80,7 @@ class TestClosenessCentrality) {
         for (auto n : sorted(this->T) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_exampleGraph( ) {
+    auto test_exampleGraph() {
         c = harmonic_centrality(this->Gb);
         d = {0: 0,
              1: 2,
@@ -90,7 +90,7 @@ class TestClosenessCentrality) {
         for (auto n : sorted(this->Gb) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_weighted_harmonic( ) {
+    auto test_weighted_harmonic() {
         XG = xn::DiGraph();
         XG.add_weighted_edges_from([("a", "b", 10), ("d", "c", 5), ("a", "c", 1),
                                     ("e", "f", 2), ("f", "c", 1), ("a", "f", 3),
@@ -105,13 +105,13 @@ class TestClosenessCentrality) {
         for (auto n : sorted(XG) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_empty( ) {
+    auto test_empty() {
         G = xn::DiGraph();
         c = harmonic_centrality(G, distance="weight");
         d = {};
         assert_equal(c, d);
 
-    auto test_singleton( ) {
+    auto test_singleton() {
         G = xn::DiGraph();
         G.add_node(0);
         c = harmonic_centrality(G, distance="weight");

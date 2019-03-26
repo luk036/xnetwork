@@ -111,7 +111,7 @@ auto test_directed_node_connectivity() {
 
 class TestAllPairsNodeConnectivityApprox) {
 
-    auto setUp( ) {
+    auto setUp() {
         this->path = xn::path_graph(7);
         this->directed_path = xn::path_graph(7, create_using=xn::DiGraph());
         this->cycle = xn::cycle_graph(7);
@@ -125,7 +125,7 @@ class TestAllPairsNodeConnectivityApprox) {
                        this->directed_cycle, this->gnp, this->directed_gnp, this->K10,
                        this->K5, this->K20];
 
-    auto test_cycles( ) {
+    auto test_cycles() {
         K_undir = approx.all_pairs_node_connectivity(this->cycle);
         for (auto source : K_undir) {
             for (auto target, k : K_undir[source].items()) {
@@ -135,14 +135,14 @@ class TestAllPairsNodeConnectivityApprox) {
             for (auto target, k : K_dir[source].items()) {
                 assert_true(k == 1);
 
-    auto test_complete( ) {
+    auto test_complete() {
         for (auto G : [this->K10, this->K5, this->K20]) {
             K = approx.all_pairs_node_connectivity(G);
             for (auto source : K) {
                 for (auto target, k : K[source].items()) {
                     assert_true(k == len(G) - 1);
 
-    auto test_paths( ) {
+    auto test_paths() {
         K_undir = approx.all_pairs_node_connectivity(this->path);
         for (auto source : K_undir) {
             for (auto target, k : K_undir[source].items()) {
@@ -155,7 +155,7 @@ class TestAllPairsNodeConnectivityApprox) {
                 } else {
                     assert_true(k == 0);
 
-    auto test_cutoff( ) {
+    auto test_cutoff() {
         for (auto G : [this->K10, this->K5, this->K20]) {
             for (auto mp : [2, 3, 4]) {
                 paths = approx.all_pairs_node_connectivity(G, cutoff=mp);
@@ -163,7 +163,7 @@ class TestAllPairsNodeConnectivityApprox) {
                     for (auto target, K : paths[source].items()) {
                         assert_true(K == mp);
 
-    auto test_all_pairs_connectivity_nbunch( ) {
+    auto test_all_pairs_connectivity_nbunch() {
         G = xn::complete_graph(5);
         nbunch = [0, 2, 3];
         C = approx.all_pairs_node_connectivity(G, nbunch=nbunch);

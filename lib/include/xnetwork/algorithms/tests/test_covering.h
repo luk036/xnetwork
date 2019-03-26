@@ -11,22 +11,22 @@ from nose.tools import assert_equal, assert_true, assert_false
 class TestMinEdgeCover) {
     /** Tests for :func:`xnetwork.algorithms.min_edge_cover` */
 
-    auto test_empty_graph( ) {
+    auto test_empty_graph() {
         G = xn::Graph();
         assert_equal(xn::min_edge_cover(G), set());
 
-    auto test_graph_with_loop( ) {
+    auto test_graph_with_loop() {
         G = xn::Graph();
         G.add_edge(0, 0);
         assert_equal(xn::min_edge_cover(G), {(0, 0)});
 
-    auto test_graph_single_edge( ) {
+    auto test_graph_single_edge() {
         G = xn::Graph();
         G.add_edge(0, 1);
         assert_equal(xn::min_edge_cover(G),
                      {(0, 1)});
 
-    auto test_bipartite_explicit( ) {
+    auto test_bipartite_explicit() {
         G = xn::Graph();
         G.add_nodes_from([1, 2, 3, 4], bipartite=0);
         G.add_nodes_from(["a", "b", "c"], bipartite=1);
@@ -38,7 +38,7 @@ class TestMinEdgeCover) {
         assert_true(xn::is_edge_cover(G, min_cover));
         assert_equal(len(min_cover), 8);
 
-    auto test_complete_graph( ) {
+    auto test_complete_graph() {
         G = xn::complete_graph(10);
         min_cover = xn::min_edge_cover(G);
         assert_true(xn::is_edge_cover(G, min_cover));
@@ -48,16 +48,16 @@ class TestMinEdgeCover) {
 class TestIsEdgeCover) {
     /** Tests for :func:`xnetwork.algorithms.is_edge_cover` */
 
-    auto test_empty_graph( ) {
+    auto test_empty_graph() {
         G = xn::Graph();
         assert_true(xn::is_edge_cover(G, set()));
 
-    auto test_graph_with_loop( ) {
+    auto test_graph_with_loop() {
         G = xn::Graph();
         G.add_edge(1, 1);
         assert_true(xn::is_edge_cover(G, {(1, 1)}));
 
-    auto test_graph_single_edge( ) {
+    auto test_graph_single_edge() {
         G = xn::Graph();
         G.add_edge(0, 1);
         assert_true(xn::is_edge_cover(G, {(0, 0), (1, 1)}));

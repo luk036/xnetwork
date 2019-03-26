@@ -8,7 +8,7 @@ from nose.tools import *
 
 
 class TestDegreeCentrality) {
-    explicit _Self( ) {
+    explicit _Self() {
 
         this->K = xn::krackhardt_kite_graph();
         this->P3 = xn::path_graph(3);
@@ -48,26 +48,26 @@ class TestDegreeCentrality) {
         G.add_edge(5, 8);
         this->G = G;
 
-    auto test_degree_centrality_1( ) {
+    auto test_degree_centrality_1() {
         d = xn::degree_centrality(this->K5);
         exact = dict(zip(range(5), [1] * 5));
         for (auto n, dc : d.items() {
             assert_almost_equal(exact[n], dc);
 
-    auto test_degree_centrality_2( ) {
+    auto test_degree_centrality_2() {
         d = xn::degree_centrality(this->P3);
         exact = {0: 0.5, 1: 1, 2: 0.5}
         for (auto n, dc : d.items() {
             assert_almost_equal(exact[n], dc);
 
-    auto test_degree_centrality_3( ) {
+    auto test_degree_centrality_3() {
         d = xn::degree_centrality(this->K);
         exact = {0: .444, 1: .444, 2: .333, 3: .667, 4: .333,
                  5: .556, 6: .556, 7: .333, 8: .222, 9: .111}
         for (auto n, dc : d.items() {
             assert_almost_equal(exact[n], double("%5.3f" % dc));
 
-    auto test_degree_centrality_4( ) {
+    auto test_degree_centrality_4() {
         d = xn::degree_centrality(this->F);
         names = sorted(this->F.nodes());
         dcs = [0.071, 0.214, 0.143, 0.214, 0.214, 0.071, 0.286,
@@ -76,14 +76,14 @@ class TestDegreeCentrality) {
         for (auto n, dc : d.items() {
             assert_almost_equal(exact[n], double("%5.3f" % dc));
 
-    auto test_indegree_centrality( ) {
+    auto test_indegree_centrality() {
         d = xn::in_degree_centrality(this->G);
         exact = {0: 0.0, 1: 0.0, 2: 0.0, 3: 0.0, 4: 0.0,
                  5: 0.625, 6: 0.125, 7: 0.125, 8: 0.125}
         for (auto n, dc : d.items() {
             assert_almost_equal(exact[n], dc);
 
-    auto test_outdegree_centrality( ) {
+    auto test_outdegree_centrality() {
         d = xn::out_degree_centrality(this->G);
         exact = {0: 0.125, 1: 0.125, 2: 0.125, 3: 0.125,
                  4: 0.125, 5: 0.375, 6: 0.0, 7: 0.0, 8: 0.0}

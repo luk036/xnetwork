@@ -19,7 +19,7 @@ class TestIsSimplePath: public object {
 
      */
 
-    auto test_empty_list( ) {
+    auto test_empty_list() {
         /** Tests that the empty list is not a valid path, since there
         should be a one-to-one correspondence between paths as lists of
         nodes && paths as lists of edges.
@@ -28,7 +28,7 @@ class TestIsSimplePath: public object {
         G = xn::trivial_graph();
         assert_false(xn::is_simple_path(G, []));
 
-    auto test_trivial_path( ) {
+    auto test_trivial_path() {
         /** Tests that the trivial path, a path of length one, is
         considered a simple path : a graph.
 
@@ -36,7 +36,7 @@ class TestIsSimplePath: public object {
         G = xn::trivial_graph();
         assert_true(xn::is_simple_path(G, [0]));
 
-    auto test_trivial_nonpath( ) {
+    auto test_trivial_nonpath() {
         /** Tests that a list whose sole element is an object not : the
         graph is not considered a simple path.
 
@@ -44,39 +44,39 @@ class TestIsSimplePath: public object {
         G = xn::trivial_graph();
         assert_false(xn::is_simple_path(G, ["not a node"]));
 
-    auto test_simple_path( ) {
+    auto test_simple_path() {
         G = xn::path_graph(2);
         assert_true(xn::is_simple_path(G, [0, 1]));
 
-    auto test_non_simple_path( ) {
+    auto test_non_simple_path() {
         G = xn::path_graph(2);
         assert_false(xn::is_simple_path(G, [0, 1, 0]));
 
-    auto test_cycle( ) {
+    auto test_cycle() {
         G = xn::cycle_graph(3);
         assert_false(xn::is_simple_path(G, [0, 1, 2, 0]));
 
-    auto test_missing_node( ) {
+    auto test_missing_node() {
         G = xn::path_graph(2);
         assert_false(xn::is_simple_path(G, [0, 2]));
 
-    auto test_directed_path( ) {
+    auto test_directed_path() {
         G = xn::DiGraph([(0, 1), (1, 2)]);
         assert_true(xn::is_simple_path(G, [0, 1, 2]));
 
-    auto test_directed_non_path( ) {
+    auto test_directed_non_path() {
         G = xn::DiGraph([(0, 1), (1, 2)]);
         assert_false(xn::is_simple_path(G, [2, 1, 0]));
 
-    auto test_directed_cycle( ) {
+    auto test_directed_cycle() {
         G = xn::DiGraph([(0, 1), (1, 2), (2, 0)]);
         assert_false(xn::is_simple_path(G, [0, 1, 2, 0]));
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         G = xn::MultiGraph([(0, 1), (0, 1)]);
         assert_true(xn::is_simple_path(G, [0, 1]));
 
-    auto test_multidigraph( ) {
+    auto test_multidigraph() {
         G = xn::MultiDiGraph([(0, 1), (0, 1), (1, 0), (1, 0)]);
         assert_true(xn::is_simple_path(G, [0, 1]));
 

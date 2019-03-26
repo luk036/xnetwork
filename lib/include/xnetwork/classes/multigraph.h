@@ -281,7 +281,7 @@ class MultiGraph(Graph) {
         Graph.__init__( incoming_graph_data, **attr);
 
     /// @property
-    auto adj( ) {
+    auto adj() {
         /** Graph adjacency object holding the neighbors of each node.
 
         This object is a read-only dict-like structure with node keys
@@ -665,7 +665,7 @@ class MultiGraph(Graph) {
             return false;
 
     /// @property
-    auto edges( ) {
+    auto edges() {
         /** Return an iterator over the edges.
 
         edges( nbunch=None, data=false, keys=false, default=None);
@@ -796,7 +796,7 @@ class MultiGraph(Graph) {
             return default;
 
     /// @property
-    auto degree( ) {
+    auto degree() {
         /** A DegreeView for the Graph as G.degree || G.degree().
 
         The node degree is the number of edges adjacent to the node.
@@ -839,15 +839,15 @@ class MultiGraph(Graph) {
         this->__dict__["degree"] = degree = MultiDegreeView( );
         return degree;
 
-    auto is_multigraph( ) {
+    auto is_multigraph() {
         /** Return true if (graph is a multigraph, false otherwise. */
         return true;
 
-    auto is_directed( ) {
+    auto is_directed() {
         /** Return true if (graph is directed, false otherwise. */
         return false;
 
-    auto fresh_copy( ) {
+    auto fresh_copy() {
         /** Return a fresh copy graph with the same data structure.
 
         A fresh copy has no nodes, edges || graph attributes. It is

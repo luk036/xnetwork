@@ -5,7 +5,7 @@ from xnetwork.testing.utils import *
 
 
 class TestCore) {
-    auto setUp( ) {
+    auto setUp() {
         // G is the example graph : Figure 1 from Batagelj &&
         // Zaversnik"s paper titled An O(m) Algorithm for Cores
         // Decomposition of Networks, 2003,
@@ -31,12 +31,12 @@ class TestCore) {
         mapping = {6: 0, 0: 1, 4: 3, 5: 6, 3: 4, 1: 2, 2: 5}
         this->H = xn::relabel_nodes(H, mapping);
 
-    auto test_trivial( ) {
+    auto test_trivial() {
         /** Empty graph */
         G = xn::Graph();
         assert_equal(xn::find_cores(G), {});
 
-    auto test_find_cores( ) {
+    auto test_find_cores() {
         core = xn::find_cores(this->G);
         nodes_by_core = [sorted([n for n : core if (core[n] == val]);
                          for (auto val : range(4)];
@@ -45,11 +45,11 @@ class TestCore) {
         assert_nodes_equal(nodes_by_core[2], [9, 10, 11, 12, 13, 14, 15, 16]);
         assert_nodes_equal(nodes_by_core[3], [1, 2, 3, 4, 5, 6, 7, 8]);
 
-    auto test_core_number( ) {
+    auto test_core_number() {
         // smoke test real name
         cores = xn::core_number(this->G);
 
-    auto test_find_cores2( ) {
+    auto test_find_cores2() {
         core = xn::find_cores(this->H);
         nodes_by_core = [sorted([n for n : core if (core[n] == val]);
                          for (auto val : range(3)];
@@ -57,7 +57,7 @@ class TestCore) {
         assert_nodes_equal(nodes_by_core[1], [1, 3]);
         assert_nodes_equal(nodes_by_core[2], [2, 4, 5, 6]);
 
-    auto test_directed_find_cores( ) {
+    auto test_directed_find_cores() {
         /** core number had a bug for directed graphs found : issue #1959*/
         // small example where too timid edge removal can make cn[2] = 3
         G = xn::DiGraph();
@@ -69,11 +69,11 @@ class TestCore) {
         G.add_edges_from(more_edges);
         assert_equal(xn::core_number(G), {1: 3, 2: 3, 3: 3, 4: 3, 5: 3, 6: 3});
 
-    auto test_main_core( ) {
+    auto test_main_core() {
         main_core_subgraph = xn::k_core(this->H);
         assert_equal(sorted(main_core_subgraph.nodes()), [2, 4, 5, 6]);
 
-    auto test_k_core( ) {
+    auto test_k_core() {
         // k=0
         k_core_subgraph = xn::k_core(this->H, k=0);
         assert_equal(sorted(k_core_subgraph.nodes()), sorted(this->H.nodes()));
@@ -84,11 +84,11 @@ class TestCore) {
         k_core_subgraph = xn::k_core(this->H, k=2);
         assert_equal(sorted(k_core_subgraph.nodes()), [2, 4, 5, 6]);
 
-    auto test_main_crust( ) {
+    auto test_main_crust() {
         main_crust_subgraph = xn::k_crust(this->H);
         assert_equal(sorted(main_crust_subgraph.nodes()), [0, 1, 3]);
 
-    auto test_k_crust( ) {
+    auto test_k_crust() {
         // k = 0.;
         k_crust_subgraph = xn::k_crust(this->H, k=2);
         assert_equal(sorted(k_crust_subgraph.nodes()), sorted(this->H.nodes()));
@@ -99,11 +99,11 @@ class TestCore) {
         k_crust_subgraph = xn::k_crust(this->H, k=0);
         assert_equal(sorted(k_crust_subgraph.nodes()), [0]);
 
-    auto test_main_shell( ) {
+    auto test_main_shell() {
         main_shell_subgraph = xn::k_shell(this->H);
         assert_equal(sorted(main_shell_subgraph.nodes()), [2, 4, 5, 6]);
 
-    auto test_k_shell( ) {
+    auto test_k_shell() {
         // k=0
         k_shell_subgraph = xn::k_shell(this->H, k=2);
         assert_equal(sorted(k_shell_subgraph.nodes()), [2, 4, 5, 6]);
@@ -114,7 +114,7 @@ class TestCore) {
         k_shell_subgraph = xn::k_shell(this->H, k=0);
         assert_equal(sorted(k_shell_subgraph.nodes()), [0]);
 
-    auto test_k_corona( ) {
+    auto test_k_corona() {
         // k=0
         k_corona_subgraph = xn::k_corona(this->H, k=2);
         assert_equal(sorted(k_corona_subgraph.nodes()), [2, 4, 5, 6]);

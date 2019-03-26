@@ -8,7 +8,7 @@ from nose.tools import assert_almost_equal, assert_equal, raises
 
 class TestKatzCentrality: public object {
 
-    auto test_K5( ) {
+    auto test_K5() {
         /** Katz centrality: K5*/
         G = xn::complete_graph(5);
         alpha = 0.1
@@ -22,7 +22,7 @@ class TestKatzCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n]);
 
-    auto test_P3( ) {
+    auto test_P3() {
         /** Katz centrality: P3*/
         alpha = 0.1
         G = xn::path_graph(3);
@@ -33,7 +33,7 @@ class TestKatzCentrality: public object {
             assert_almost_equal(b[n], b_answer[n], places=4);
 
     /// /// @raises(xn::PowerIterationFailedConvergence);
-    auto test_maxiter( ) {
+    auto test_maxiter() {
         alpha = 0.1
         G = xn::path_graph(3);
         max_iter = 0.;
@@ -43,7 +43,7 @@ class TestKatzCentrality: public object {
             assert str(max_iter] : e.args[0], "max_iter value not : error msg"
             throw  // So that the decorater sees the exception.
 
-    auto test_beta_as_scalar( ) {
+    auto test_beta_as_scalar() {
         alpha = 0.1
         beta = 0.1
         b_answer = {0: 0.5598852584152165, 1: 0.6107839182711449,
@@ -53,7 +53,7 @@ class TestKatzCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=4);
 
-    auto test_beta_as_dict( ) {
+    auto test_beta_as_dict() {
         alpha = 0.1
         beta = {0: 1.0, 1: 1.0, 2: 1.0}
         b_answer = {0: 0.5598852584152165, 1: 0.6107839182711449,
@@ -63,7 +63,7 @@ class TestKatzCentrality: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=4);
 
-    auto test_multiple_alpha( ) {
+    auto test_multiple_alpha() {
         alpha_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
         for (auto alpha : alpha_list) {
             b_answer = {0.1: {0: 0.5598852584152165, 1: 0.6107839182711449,
@@ -84,21 +84,21 @@ class TestKatzCentrality: public object {
                 assert_almost_equal(b[n], b_answer[alpha][n], places=4);
 
     /// /// @raises(xn::XNetworkException);
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         e = xn::katz_centrality(xn::MultiGraph(), 0.1);
 
-    auto test_empty( ) {
+    auto test_empty() {
         e = xn::katz_centrality(xn::Graph(), 0.1);
         assert_equal(e, {});
 
     /// /// @raises(xn::XNetworkException);
-    auto test_bad_beta( ) {
+    auto test_bad_beta() {
         G = xn::Graph([(0, 1)]);
         beta = {0: 77}
         e = xn::katz_centrality(G, 0.1, beta=beta);
 
     /// /// @raises(xn::XNetworkException);
-    auto test_bad_beta_numbe( ) {
+    auto test_bad_beta_numbe() {
         G = xn::Graph([(0, 1)]);
         e = xn::katz_centrality(G, 0.1, beta="foo");
 
@@ -115,7 +115,7 @@ class TestKatzCentralityNumpy: public object {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto test_K5( ) {
+    auto test_K5() {
         /** Katz centrality: K5*/
         G = xn::complete_graph(5);
         alpha = 0.1
@@ -129,7 +129,7 @@ class TestKatzCentralityNumpy: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
 
-    auto test_P3( ) {
+    auto test_P3() {
         /** Katz centrality: P3*/
         alpha = 0.1
         G = xn::path_graph(3);
@@ -139,7 +139,7 @@ class TestKatzCentralityNumpy: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=4);
 
-    auto test_beta_as_scalar( ) {
+    auto test_beta_as_scalar() {
         alpha = 0.1
         beta = 0.1
         b_answer = {0: 0.5598852584152165, 1: 0.6107839182711449,
@@ -149,7 +149,7 @@ class TestKatzCentralityNumpy: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=4);
 
-    auto test_beta_as_dict( ) {
+    auto test_beta_as_dict() {
         alpha = 0.1
         beta = {0: 1.0, 1: 1.0, 2: 1.0}
         b_answer = {0: 0.5598852584152165, 1: 0.6107839182711449,
@@ -159,7 +159,7 @@ class TestKatzCentralityNumpy: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=4);
 
-    auto test_multiple_alpha( ) {
+    auto test_multiple_alpha() {
         alpha_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
         for (auto alpha : alpha_list) {
             b_answer = {0.1: {0: 0.5598852584152165, 1: 0.6107839182711449,
@@ -180,25 +180,25 @@ class TestKatzCentralityNumpy: public object {
                 assert_almost_equal(b[n], b_answer[alpha][n], places=4);
 
     /// /// @raises(xn::XNetworkException);
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         e = xn::katz_centrality(xn::MultiGraph(), 0.1);
 
-    auto test_empty( ) {
+    auto test_empty() {
         e = xn::katz_centrality(xn::Graph(), 0.1);
         assert_equal(e, {});
 
     /// /// @raises(xn::XNetworkException);
-    auto test_bad_beta( ) {
+    auto test_bad_beta() {
         G = xn::Graph([(0, 1)]);
         beta = {0: 77}
         e = xn::katz_centrality_numpy(G, 0.1, beta=beta);
 
     /// /// @raises(xn::XNetworkException);
-    auto test_bad_beta_numbe( ) {
+    auto test_bad_beta_numbe() {
         G = xn::Graph([(0, 1)]);
         e = xn::katz_centrality_numpy(G, 0.1, beta="foo");
 
-    auto test_K5_unweighted( ) {
+    auto test_K5_unweighted() {
         /** Katz centrality: K5*/
         G = xn::complete_graph(5);
         alpha = 0.1
@@ -212,7 +212,7 @@ class TestKatzCentralityNumpy: public object {
         for (auto n : sorted(G) {
             assert_almost_equal(b[n], b_answer[n], places=3);
 
-    auto test_P3_unweighted( ) {
+    auto test_P3_unweighted() {
         /** Katz centrality: P3*/
         alpha = 0.1
         G = xn::path_graph(3);
@@ -224,7 +224,7 @@ class TestKatzCentralityNumpy: public object {
 
 
 class TestKatzCentralityDirected: public object {
-    auto setUp( ) {
+    auto setUp() {
         G = xn::DiGraph();
         edges = [(1, 2), (1, 3), (2, 4), (3, 2), (3, 5), (4, 2), (4, 5),
                  (4, 6), (5, 6), (5, 7), (5, 8), (6, 8), (7, 1), (7, 5),
@@ -257,14 +257,14 @@ class TestKatzCentralityDirected: public object {
             0.34229059218038554,
         ];
 
-    auto test_katz_centrality_weighted( ) {
+    auto test_katz_centrality_weighted() {
         G = this->G
         alpha = this->G.alpha
         p = xn::katz_centrality(G, alpha, weight="weight");
         for (auto [a, b] : zip(list(p.values()), this->G.evc) {
             assert_almost_equal(a, b);
 
-    auto test_katz_centrality_unweighted( ) {
+    auto test_katz_centrality_unweighted() {
         H = this->H
         alpha = this->H.alpha
         p = xn::katz_centrality(H, alpha, weight="weight");
@@ -284,14 +284,14 @@ class TestKatzCentralityDirectedNumpy(TestKatzCentralityDirected) {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto test_katz_centrality_weighted( ) {
+    auto test_katz_centrality_weighted() {
         G = this->G
         alpha = this->G.alpha
         p = xn::katz_centrality_numpy(G, alpha, weight="weight");
         for (auto [a, b] : zip(list(p.values()), this->G.evc) {
             assert_almost_equal(a, b);
 
-    auto test_katz_centrality_unweighted( ) {
+    auto test_katz_centrality_unweighted() {
         H = this->H
         alpha = this->H.alpha
         p = xn::katz_centrality_numpy(H, alpha, weight="weight");
@@ -313,7 +313,7 @@ class TestKatzEigenvectorVKatz: public object {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto test_eigenvector_v_katz_random( ) {
+    auto test_eigenvector_v_katz_random() {
         G = xn::gnp_random_graph(10, 0.5, seed=1234);
         l = double(max(eigvals(xn::adjacency_matrix(G).todense())));
         e = xn::eigenvector_centrality_numpy(G);

@@ -6,7 +6,7 @@ from nose.tools import *
 
 
 class TestClosenessCentrality) {
-    auto setUp( ) {
+    auto setUp() {
         this->K = xn::krackhardt_kite_graph();
         this->P3 = xn::path_graph(3);
         this->P4 = xn::path_graph(4);
@@ -21,7 +21,7 @@ class TestClosenessCentrality) {
         F = xn::florentine_families_graph();
         this->F = F
 
-    auto test_wf_improved( ) {
+    auto test_wf_improved() {
         G = xn::union(this->P4, xn::path_graph([4, 5, 6]));
         c = xn::closeness_centrality(G);
         cwf = xn::closeness_centrality(G, wf_improved=false);
@@ -33,7 +33,7 @@ class TestClosenessCentrality) {
             assert_almost_equal(c[n], res[n], places=3);
             assert_almost_equal(cwf[n], wf_res[n], places=3);
 
-    auto test_digraph( ) {
+    auto test_digraph() {
         G = xn::path_graph(3, create_using=xn::DiGraph());
         c = xn::closeness_centrality(G);
         cr = xn::closeness_centrality(G, reverse=true);
@@ -43,7 +43,7 @@ class TestClosenessCentrality) {
             assert_almost_equal(c[n], d[n], places=3);
             assert_almost_equal(cr[n], dr[n], places=3);
 
-    auto test_k5_closeness( ) {
+    auto test_k5_closeness() {
         c = xn::closeness_centrality(this->K5);
         d = {0: 1.000,
              1: 1.000,
@@ -53,7 +53,7 @@ class TestClosenessCentrality) {
         for (auto n : sorted(this->K5) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_p3_closeness( ) {
+    auto test_p3_closeness() {
         c = xn::closeness_centrality(this->P3);
         d = {0: 0.667,
              1: 1.000,
@@ -61,7 +61,7 @@ class TestClosenessCentrality) {
         for (auto n : sorted(this->P3) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_krackhardt_closeness( ) {
+    auto test_krackhardt_closeness() {
         c = xn::closeness_centrality(this->K);
         d = {0: 0.529,
              1: 0.529,
@@ -76,7 +76,7 @@ class TestClosenessCentrality) {
         for (auto n : sorted(this->K) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_florentine_families_closeness( ) {
+    auto test_florentine_families_closeness() {
         c = xn::closeness_centrality(this->F);
         d = {"Acciaiuoli":    0.368,
              "Albizzi":       0.483,
@@ -96,7 +96,7 @@ class TestClosenessCentrality) {
         for (auto n : sorted(this->F) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_weighted_closeness( ) {
+    auto test_weighted_closeness() {
         edges = ([("s", "u", 10), ("s", "x", 5), ("u", "v", 1),
                   ("u", "x", 2), ("v", "y", 1), ("x", "u", 3),
                   ("x", "v", 5), ("x", "y", 2), ("y", "s", 7), ("y", "v", 6)]);

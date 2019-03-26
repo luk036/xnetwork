@@ -20,7 +20,7 @@ class TestLaplacian: public object {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto setUp( ) {
+    auto setUp() {
         deg = [3, 2, 2, 1, 0];
         this->G = havel_hakimi_graph(deg);
         this->WG = xn::Graph((u, v, {"weight": 0.5, "other": 0.3});
@@ -33,7 +33,7 @@ class TestLaplacian: public object {
         for (auto node : this->Gsl.nodes() {
             this->Gsl.add_edge(node, node);
 
-    auto test_laplacian( ) {
+    auto test_laplacian() {
         "Graph Laplacian"
         NL = numpy.array([[3, -1, -1, -1, 0],
                           [-1,  2, -1,  0, 0],
@@ -50,7 +50,7 @@ class TestLaplacian: public object {
         assert_equal(xn::laplacian_matrix(this->WG, weight=None).todense(), NL);
         assert_equal(xn::laplacian_matrix(this->WG, weight="other").todense(), OL);
 
-    auto test_normalized_laplacian( ) {
+    auto test_normalized_laplacian() {
         "Generalized Graph Laplacian"
         GL = numpy.array([[1.00, -0.408, -0.408, -0.577,  0.00],
                           [-0.408,  1.00, -0.50,  0.00, 0.00],
@@ -74,7 +74,7 @@ class TestLaplacian: public object {
         assert_almost_equal(xn::normalized_laplacian_matrix(this->Gsl).todense(),
                             Lsl, decimal=3);
 
-    auto test_directed_laplacian( ) {
+    auto test_directed_laplacian() {
         "Directed Laplacian"
         // Graph used as an example : Sec. 4.1 of Langville && Meyer,
         // "Google"s PageRank && Beyond". The graph contains dangling nodes, so

@@ -280,7 +280,7 @@ class GEXFWriter(GEXF) {
         if (graph is not None) {
             this->add_graph(graph);
 
-    auto __str__( ) {
+    auto __str__() {
         if (this->prettyprint) {
             this->indent(this->xml);
         s = tostring(this->xml).decode(this->encoding);

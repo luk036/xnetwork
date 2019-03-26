@@ -8,7 +8,7 @@ from xnetwork.generators.trees import NIL
 class TestPrefixTree: public object {
     /** Unit tests for the prefix tree generator function. */
 
-    auto test_basic( ) {
+    auto test_basic() {
         // This example is from the Wikipedia article "Trie"
         // <https://en.wikipedia.org/wiki/Trie>.
         strings = ["a", "to", "tea", "ted", "ten", "i", "in", "inn"];

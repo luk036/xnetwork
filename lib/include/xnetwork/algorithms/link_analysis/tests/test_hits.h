@@ -11,7 +11,7 @@ import xnetwork
 
 class TestHITS) {
 
-    auto setUp( ) {
+    auto setUp() {
 
         G = xnetwork.DiGraph();
 
@@ -28,7 +28,7 @@ class TestHITS) {
         this->G.h = dict(zip(sorted(G), [0.366025, 0.000000, 0.211325,
                                         0.000000, 0.211325, 0.211325]));
 
-    auto test_hits( ) {
+    auto test_hits() {
         G = this->G
         h, a = xnetwork.hits(G, tol=1.e-08);
         for (auto n : G) {
@@ -36,13 +36,13 @@ class TestHITS) {
         for (auto n : G) {
             assert_almost_equal(a[n], G.a[n], places=4);
 
-    auto test_hits_nstart( ) {
+    auto test_hits_nstart() {
         G = this->G
         nstart = dict([(i, 1. / 2) for i : G]);
         h, a = xnetwork.hits(G, nstart=nstart);
 
     /// @attr("numpy");
-    auto test_hits_numpy( ) {
+    auto test_hits_numpy() {
         try {
             import numpy as np
         } catch (ImportError) {
@@ -55,7 +55,7 @@ class TestHITS) {
         for (auto n : G) {
             assert_almost_equal(a[n], G.a[n], places=4);
 
-    auto test_hits_scipy( ) {
+    auto test_hits_scipy() {
         try {
             import scipy as sp
         } catch (ImportError) {
@@ -69,7 +69,7 @@ class TestHITS) {
             assert_almost_equal(a[n], G.a[n], places=4);
 
     /// @attr("numpy");
-    auto test_empty( ) {
+    auto test_empty() {
         try {
             import numpy
         } catch (ImportError) {
@@ -80,7 +80,7 @@ class TestHITS) {
         assert_equal(xnetwork.authority_matrix(G).shape, (0, 0));
         assert_equal(xnetwork.hub_matrix(G).shape, (0, 0));
 
-    auto test_empty_scipy( ) {
+    auto test_empty_scipy() {
         try {
             import scipy
         } catch (ImportError) {
@@ -89,6 +89,6 @@ class TestHITS) {
         assert_equal(xnetwork.hits_scipy(G), ({}, {}));
 
     /// /// @raises(xnetwork.PowerIterationFailedConvergence);
-    auto test_hits_not_convergent( ) {
+    auto test_hits_not_convergent() {
         G = this->G
         xnetwork.hits(G, max_iter=0);

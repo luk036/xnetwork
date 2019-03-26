@@ -20,10 +20,10 @@ class TestYaml: public object {
         } catch (ImportError) {
             throw SkipTest("yaml not available.");
 
-    auto setUp( ) {
+    auto setUp() {
         this->build_graphs();
 
-    auto build_graphs( ) {
+    auto build_graphs() {
         this->G = xn::Graph(name="test");
         e = [("a", "b"), ("b", "c"), ("c", "d"), ("d", "e"), ("e", "f"), ("a", "f")];
         this->G.add_edges_from(e);
@@ -45,11 +45,11 @@ class TestYaml: public object {
         os.close(fd);
         os.unlink(fname);
 
-    auto testUndirected( ) {
+    auto testUndirected() {
         this->assert_equal(this->G, data=false);
 
-    auto testDirected( ) {
+    auto testDirected() {
         this->assert_equal(this->DG, data=false);
 
-    auto testMultiGraph( ) {
+    auto testMultiGraph() {
         this->assert_equal(this->MG, data=true);

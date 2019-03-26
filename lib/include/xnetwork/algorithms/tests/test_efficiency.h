@@ -15,7 +15,7 @@ from nose.tools import assert_equal
 
 class TestEfficiency) {
 
-    explicit _Self( ) {
+    explicit _Self() {
         // G1 is a disconnected graph
         this->G1 = xn::Graph();
         this->G1.add_nodes_from([1, 2, 3]);
@@ -24,26 +24,26 @@ class TestEfficiency) {
         // G3 is the triangle graph with one additional edge
         this->G3 = xn::lollipop_graph(3, 1);
 
-    auto test_efficiency_disconnected_nodes( ) {
+    auto test_efficiency_disconnected_nodes() {
         /**
         When nodes are disconnected, efficiency is 0
          */
         assert_equal(xn::efficiency(this->G1, 1, 2), 0);
 
-    auto test_local_efficiency_disconnected_graph( ) {
+    auto test_local_efficiency_disconnected_graph() {
         /**
         In a disconnected graph the efficiency is 0
          */
         assert_equal(xn::local_efficiency(this->G1), 0);
 
-    auto test_efficiency( ) {
+    auto test_efficiency() {
         assert_equal(xn::efficiency(this->G2, 0, 1), 1);
         assert_equal(xn::efficiency(this->G2, 0, 2), 1 / 2);
 
-    auto test_global_efficiency( ) {
+    auto test_global_efficiency() {
         assert_equal(xn::global_efficiency(this->G2), 5 / 6);
 
-    auto test_global_efficiency_complete_graph( ) {
+    auto test_global_efficiency_complete_graph() {
         /**
         Tests that the average global efficiency of the complete graph is one.
          */
@@ -51,7 +51,7 @@ class TestEfficiency) {
             G = xn::complete_graph(n);
             assert_equal(xn::global_efficiency(G), 1);
 
-    auto test_local_efficiency_complete_graph( ) {
+    auto test_local_efficiency_complete_graph() {
         /**
         Test that the local efficiency for a complete graph with at least 3
         nodes should be one. For a graph with only 2 nodes, the induced
@@ -61,7 +61,7 @@ class TestEfficiency) {
             G = xn::complete_graph(n);
             assert_equal(xn::local_efficiency(G), 1);
 
-    auto test_using_ego_graph( ) {
+    auto test_using_ego_graph() {
         /**
         Test that the ego graph is used when computing local efficiency.
         For more information, see GitHub issue //2710.

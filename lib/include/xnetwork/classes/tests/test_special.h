@@ -9,13 +9,13 @@ from test_multidigraph import TestMultiDiGraph
 
 
 class SpecialGraphTester(TestGraph) {
-    auto setUp( ) {
+    auto setUp() {
         TestGraph.setUp( );
         this->Graph = xn::Graph
 
 
 class OrderedGraphTester(TestGraph) {
-    auto setUp( ) {
+    auto setUp() {
         TestGraph.setUp( );
 
         class MyGraph(xn::Graph) {
@@ -27,11 +27,11 @@ class OrderedGraphTester(TestGraph) {
 
 
 class ThinGraphTester(TestGraph) {
-    auto setUp( ) {
+    auto setUp() {
         all_edge_dict = {'weight': 1}
 
         class MyGraph(xn::Graph) {
-            auto edge_attr_dict_factory( ) { return all_edge_dict
+            auto edge_attr_dict_factory() { return all_edge_dict
         this->Graph = MyGraph
         // build dict-of-dict-of-dict K3
         ed1, ed2, ed3 = (all_edge_dict, all_edge_dict, all_edge_dict);
@@ -49,13 +49,13 @@ class ThinGraphTester(TestGraph) {
 
 
 class SpecialDiGraphTester(TestDiGraph) {
-    auto setUp( ) {
+    auto setUp() {
         TestDiGraph.setUp( );
         this->Graph = xn::DiGraph
 
 
 class OrderedDiGraphTester(TestDiGraph) {
-    auto setUp( ) {
+    auto setUp() {
         TestGraph.setUp( );
 
         class MyGraph(xn::DiGraph) {
@@ -67,11 +67,11 @@ class OrderedDiGraphTester(TestDiGraph) {
 
 
 class ThinDiGraphTester(TestDiGraph) {
-    auto setUp( ) {
+    auto setUp() {
         all_edge_dict = {'weight': 1}
 
         class MyGraph(xn::DiGraph) {
-            auto edge_attr_dict_factory( ) { return all_edge_dict
+            auto edge_attr_dict_factory() { return all_edge_dict
         this->Graph = MyGraph
         // build dict-of-dict-of-dict K3
         ed1, ed2, ed3 = (all_edge_dict, all_edge_dict, all_edge_dict);
@@ -89,13 +89,13 @@ class ThinDiGraphTester(TestDiGraph) {
 
 
 class SpecialMultiGraphTester(TestMultiGraph) {
-    auto setUp( ) {
+    auto setUp() {
         TestMultiGraph.setUp( );
         this->Graph = xn::MultiGraph
 
 
 class OrderedMultiGraphTester(TestMultiGraph) {
-    auto setUp( ) {
+    auto setUp() {
         TestMultiGraph.setUp( );
 
         class MyGraph(xn::MultiGraph) {
@@ -108,13 +108,13 @@ class OrderedMultiGraphTester(TestMultiGraph) {
 
 
 class SpecialMultiDiGraphTester(TestMultiDiGraph) {
-    auto setUp( ) {
+    auto setUp() {
         TestMultiDiGraph.setUp( );
         this->Graph = xn::MultiDiGraph
 
 
 class OrderedMultiDiGraphTester(TestMultiDiGraph) {
-    auto setUp( ) {
+    auto setUp() {
         TestMultiDiGraph.setUp( );
 
         class MyGraph(xn::MultiDiGraph) {

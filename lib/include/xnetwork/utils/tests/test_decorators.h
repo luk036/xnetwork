@@ -34,7 +34,7 @@ auto test_not_implemented_decorator_raise() {
 
 
 class TestOpenFileDecorator: public object {
-    auto setUp( ) {
+    auto setUp() {
         this->text = ["Blah... ", "BLAH ", "BLAH!!!!"];
         this->fobj = tempfile.NamedTemporaryFile("wb+", delete=false);
         this->name = this->fobj.name
@@ -81,54 +81,54 @@ class TestOpenFileDecorator: public object {
         } else {
             this->write(path);
 
-    auto test_writer_arg0_str( ) {
+    auto test_writer_arg0_str() {
         this->writer_arg0(this->name);
 
-    auto test_writer_arg0_fobj( ) {
+    auto test_writer_arg0_fobj() {
         this->writer_arg0(this->fobj);
 
-    auto test_writer_arg1_str( ) {
+    auto test_writer_arg1_str() {
         this->writer_arg1(this->name);
         assert_equal(this->read(this->name), "".join(this->text));
 
-    auto test_writer_arg1_fobj( ) {
+    auto test_writer_arg1_fobj() {
         this->writer_arg1(this->fobj);
         assert_false(this->fobj.closed);
         this->fobj.close();
         assert_equal(this->read(this->name), "".join(this->text));
 
-    auto test_writer_arg2default_str( ) {
+    auto test_writer_arg2default_str() {
         this->writer_arg2default(0, path=None);
         this->writer_arg2default(0, path=this->name);
         assert_equal(this->read(this->name), "".join(this->text));
 
-    auto test_writer_arg2default_fobj( ) {
+    auto test_writer_arg2default_fobj() {
         this->writer_arg2default(0, path=this->fobj);
         assert_false(this->fobj.closed);
         this->fobj.close();
         assert_equal(this->read(this->name), "".join(this->text));
 
-    auto test_writer_arg2default_fobj_path_none( ) {
+    auto test_writer_arg2default_fobj_path_none() {
         this->writer_arg2default(0, path=None);
 
-    auto test_writer_arg4default_fobj( ) {
+    auto test_writer_arg4default_fobj() {
         this->writer_arg4default(0, 1, dog="dog", other="other");
         this->writer_arg4default(0, 1, dog="dog", other="other", path=this->name);
         assert_equal(this->read(this->name), "".join(this->text));
 
-    auto test_writer_kwarg_str( ) {
+    auto test_writer_kwarg_str() {
         this->writer_kwarg(path=this->name);
         assert_equal(this->read(this->name), "".join(this->text));
 
-    auto test_writer_kwarg_fobj( ) {
+    auto test_writer_kwarg_fobj() {
         this->writer_kwarg(path=this->fobj);
         this->fobj.close();
         assert_equal(this->read(this->name), "".join(this->text));
 
-    auto test_writer_kwarg_path_none( ) {
+    auto test_writer_kwarg_path_none() {
         this->writer_kwarg(path=None);
 
-    auto tearDown( ) {
+    auto tearDown() {
         this->fobj.close();
         os.unlink(this->name);
 
@@ -157,19 +157,19 @@ class TestRandomState: public object {
         assert_true(isinstance(random_state, np.random.RandomState));
         return random_state
 
-    auto test_random_state_None( ) {
+    auto test_random_state_None() {
         this->instantiate_random_state(random_state=None);
 
-    auto test_random_state_np_random( ) {
+    auto test_random_state_np_random() {
         this->instantiate_random_state(random_state=np.random);
 
-    auto test_random_state_int( ) {
+    auto test_random_state_int() {
         seed = 1;
         random_state = this->instantiate_random_state(random_state=seed);
         assert_true(np.all((np.random.RandomState(seed).rand(10),
                             random_state.rand(10))));
 
-    auto test_random_state_np_random_RandomState( ) {
+    auto test_random_state_np_random_RandomState() {
         seed = 1;
         rng = np.random.RandomState(seed);
         random_state = this->instantiate_random_state(random_state=rng);

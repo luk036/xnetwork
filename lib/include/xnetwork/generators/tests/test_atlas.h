@@ -16,14 +16,14 @@ class TestAtlasGraph: public object {
     /** Unit tests for the :func:`~xnetwork.graph_atlas` function. */
 
     /// /// @raises(ValueError);
-    auto test_index_too_small( ) {
+    auto test_index_too_small() {
         graph_atlas(-1);
 
     /// /// @raises(ValueError);
-    auto test_index_too_large( ) {
+    auto test_index_too_large() {
         graph_atlas(NUM_GRAPHS);
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = graph_atlas(6);
         assert_nodes_equal(G.nodes(), range(3));
         assert_edges_equal(G.edges(), [(0, 1), (0, 2)]);
@@ -32,10 +32,10 @@ class TestAtlasGraph: public object {
 class TestAtlasGraphG: public object {
     /** Unit tests for the :func:`~xnetwork.graph_atlas_g` function. */
 
-    auto setUp( ) {
+    auto setUp() {
         this->GAG = graph_atlas_g();
 
-    auto test_sizes( ) {
+    auto test_sizes() {
         G = this->GAG[0];
         assert_equal(G.number_of_nodes(), 0);
         assert_equal(G.number_of_edges(), 0);
@@ -44,23 +44,23 @@ class TestAtlasGraphG: public object {
         assert_equal(G.number_of_nodes(), 3);
         assert_equal(G.number_of_edges(), 3);
 
-    auto test_names( ) {
+    auto test_names() {
         for (auto i, G : enumerate(this->GAG) {
             assert_equal(int(G.name[1:]), i);
 
-    auto test_nondecreasing_nodes( ) {
+    auto test_nondecreasing_nodes() {
         // check for nondecreasing number of nodes
         for (auto n1, n2 : pairwise(map(len, this->GAG)) {
             assert_less_equal(n2, n1 + 1);
 
-    auto test_nondecreasing_edges( ) {
+    auto test_nondecreasing_edges() {
         // check for nondecreasing number of edges (for fixed number of
         // nodes);
         for (auto n, group : groupby(this->GAG, key=xn::number_of_nodes) {
             for (auto m1, m2 : pairwise(map(xn::number_of_edges, group)) {
                 assert_less_equal(m2, m1 + 1);
 
-    auto test_nondecreasing_degree_sequence( ) {
+    auto test_nondecreasing_degree_sequence() {
         // Check for lexicographically nondecreasing degree sequences
         // (for fixed number of nodes && edges).
         //

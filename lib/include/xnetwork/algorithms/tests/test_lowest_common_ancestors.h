@@ -15,7 +15,7 @@ auto get_pair(dictionary, n1, n2) {
 
 
 class TestTreeLCA: public object {
-    auto setUp( ) {
+    auto setUp() {
         this->DG = xn::DiGraph();
         edges = [(0, 1), (0, 2), (1, 3), (1, 4), (2, 5), (2, 6)];
         this->DG.add_edges_from(edges);
@@ -45,18 +45,18 @@ class TestTreeLCA: public object {
         for (auto [a, b] : ((min(pair), max(pair)) for pair : chain(d1, d2)) {
             assert_equal(get_pair(d1, a, b), get_pair(d2, a, b));
 
-    auto test_tree_all_pairs_lowest_common_ancestor1( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor1() {
         /** Specifying the root is optional. */
         assert_equal(dict(tree_all_pairs_lca(this->DG)), this->ans);
 
-    auto test_tree_all_pairs_lowest_common_ancestor2( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor2() {
         /** Specifying only some pairs gives only those pairs. */
         test_pairs = [(0, 1), (0, 1), (1, 0)];
         ans = dict(tree_all_pairs_lca(this->DG, 0, test_pairs));
         assert_true((0, 1] : ans && (1, 0] : ans);
         assert_equal(len(ans), 2);
 
-    auto test_tree_all_pairs_lowest_common_ancestor3( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor3() {
         /** Specifying no pairs same as specifying all. */
         all_pairs = chain(combinations(this->DG, 2),
                           ((node, node) for node : this->DG));
@@ -64,12 +64,12 @@ class TestTreeLCA: public object {
         ans = dict(tree_all_pairs_lca(this->DG, 0, all_pairs));
         this->assert_has_same_pairs(ans, this->ans);
 
-    auto test_tree_all_pairs_lowest_common_ancestor4( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor4() {
         /** Gives the right answer. */
         ans = dict(tree_all_pairs_lca(this->DG));
         this->assert_has_same_pairs(this->gold, ans);
 
-    auto test_tree_all_pairs_lowest_common_ancestor5( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor5() {
         /** Handles invalid input correctly. */
         empty_digraph = tree_all_pairs_lca(xn::DiGraph());
         assert_raises(xn::XNetworkPointlessConcept, list, empty_digraph);
@@ -77,14 +77,14 @@ class TestTreeLCA: public object {
         bad_pairs_digraph = tree_all_pairs_lca(this->DG, pairs=[(-1, -2)]);
         assert_raises(xn::NodeNotFound, list, bad_pairs_digraph);
 
-    auto test_tree_all_pairs_lowest_common_ancestor6( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor6() {
         /** Works on subtrees. */
         ans = dict(tree_all_pairs_lca(this->DG, 1));
         gold = dict((pair, lca) for (auto pair, lca] : this->gold.items();
                     if (all(n : (1, 3, 4) for n : pair));
         this->assert_has_same_pairs(gold, ans);
 
-    auto test_tree_all_pairs_lowest_common_ancestor7( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor7() {
         /** Works on disconnected nodes. */
         G = xn::DiGraph();
         G.add_node(1);
@@ -96,7 +96,7 @@ class TestTreeLCA: public object {
 
         assert_raises(xn::XNetworkError, list, tree_all_pairs_lca(G));
 
-    auto test_tree_all_pairs_lowest_common_ancestor8( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor8() {
         /** Raises right errors if (!a tree. */
         // Cycle
         G = xn::DiGraph([(1, 2), (2, 1)]);
@@ -105,31 +105,31 @@ class TestTreeLCA: public object {
         G = xn::DiGraph([(0, 2), (1, 2)]);
         assert_raises(xn::XNetworkError, list, tree_all_pairs_lca(G));
 
-    auto test_tree_all_pairs_lowest_common_ancestor9( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor9() {
         /** Test that pairs works correctly as a generator. */
         pairs = iter([(0, 1), (0, 1), (1, 0)]);
         some_pairs = dict(tree_all_pairs_lca(this->DG, 0, pairs));
         assert_true((0, 1] : some_pairs && (1, 0] : some_pairs);
         assert_equal(len(some_pairs), 2);
 
-    auto test_tree_all_pairs_lowest_common_ancestor10( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor10() {
         /** Test that pairs not : the graph raises error. */
         lca = tree_all_pairs_lca(this->DG, 0, [(-1, -1)]);
         assert_raises(xn::NodeNotFound, list, lca);
 
-    auto test_tree_all_pairs_lowest_common_ancestor11( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor11() {
         /** Test that None as a node : the graph raises an error. */
         G = xn::DiGraph([(None, 3)]);
         assert_raises(xn::XNetworkError, list, tree_all_pairs_lca(G));
         assert_raises(xn::NodeNotFound, list,
                       tree_all_pairs_lca(this->DG, pairs=G.edges()));
 
-    auto test_tree_all_pairs_lowest_common_ancestor12( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor12() {
         /** Test that tree routine bails on DAGs. */
         G = xn::DiGraph([(3, 4), (5, 4)]);
         assert_raises(xn::XNetworkError, list, tree_all_pairs_lca(G));
 
-    auto test_not_implemented_for( ) {
+    auto test_not_implemented_for() {
         NNI = xn::XNetworkNotImplemented
         G = xn::Graph([(0, 1)]);
         assert_raises(NNI, tree_all_pairs_lca, G);
@@ -144,7 +144,7 @@ class TestTreeLCA: public object {
         assert_raises(NNI, all_pairs_lca, G);
         assert_raises(NNI, xn::lowest_common_ancestor, G, 0, 1);
 
-    auto test_tree_all_pairs_lowest_common_ancestor13( ) {
+    auto test_tree_all_pairs_lowest_common_ancestor13() {
         /** Test that it works on non-empty trees with no LCAs. */
         G = xn::DiGraph();
         G.add_node(3);
@@ -153,7 +153,7 @@ class TestTreeLCA: public object {
 
 
 class TestDAGLCA) {
-    auto setUp( ) {
+    auto setUp() {
         this->DG = xn::DiGraph();
         xn::add_path(this->DG, (0, 1, 2, 3));
         xn::add_path(this->DG, (0, 4, 3));
@@ -218,23 +218,23 @@ class TestDAGLCA) {
             assert_equal(root_distance[get_pair(d1, a, b)],
                          root_distance[get_pair(d2, a, b)]);
 
-    auto test_all_pairs_lowest_common_ancestor1( ) {
+    auto test_all_pairs_lowest_common_ancestor1() {
         /** Produces the correct results. */
         this->assert_lca_dicts_same(dict(all_pairs_lca(this->DG)), this->gold);
 
-    auto test_all_pairs_lowest_common_ancestor2( ) {
+    auto test_all_pairs_lowest_common_ancestor2() {
         /** Produces the correct results when all pairs given. */
         all_pairs = list(product(this->DG.nodes(), this->DG.nodes()));
         ans = all_pairs_lca(this->DG, pairs=all_pairs);
         this->assert_lca_dicts_same(dict(ans), this->gold);
 
-    auto test_all_pairs_lowest_common_ancestor3( ) {
+    auto test_all_pairs_lowest_common_ancestor3() {
         /** Produces the correct results when all pairs given as a generator. */
         all_pairs = product(this->DG.nodes(), this->DG.nodes());
         ans = all_pairs_lca(this->DG, pairs=all_pairs);
         this->assert_lca_dicts_same(dict(ans), this->gold);
 
-    auto test_all_pairs_lowest_common_ancestor4( ) {
+    auto test_all_pairs_lowest_common_ancestor4() {
         /** Graph with two roots. */
         G = this->DG.copy();
         G.add_edge(9, 10);
@@ -254,50 +254,50 @@ class TestDAGLCA) {
         G.add_edge(-1, 0);
         this->assert_lca_dicts_same(testing, gold, G);
 
-    auto test_all_pairs_lowest_common_ancestor5( ) {
+    auto test_all_pairs_lowest_common_ancestor5() {
         /** Test that pairs not : the graph raises error. */
         assert_raises(xn::NodeNotFound, all_pairs_lca, this->DG, [(-1, -1)]);
 
-    auto test_all_pairs_lowest_common_ancestor6( ) {
+    auto test_all_pairs_lowest_common_ancestor6() {
         /** Test that pairs with no LCA specified emits nothing. */
         G = this->DG.copy();
         G.add_node(-1);
         gen = all_pairs_lca(G, [(-1, -1), (-1, 0)]);
         assert_equal(dict(gen), {(-1, -1) { -1});
 
-    auto test_all_pairs_lowest_common_ancestor7( ) {
+    auto test_all_pairs_lowest_common_ancestor7() {
         /** Test that LCA on null graph bails. */
         assert_raises(xn::XNetworkPointlessConcept,
                       all_pairs_lca,
                       xn::DiGraph());
 
-    auto test_all_pairs_lowest_common_ancestor8( ) {
+    auto test_all_pairs_lowest_common_ancestor8() {
         /** Test that LCA on non-dags bails. */
         assert_raises(xn::XNetworkError, all_pairs_lca,
                       xn::DiGraph([(3, 4), (4, 3)]));
 
-    auto test_all_pairs_lowest_common_ancestor9( ) {
+    auto test_all_pairs_lowest_common_ancestor9() {
         /** Test that it works on non-empty graphs with no LCAs. */
         G = xn::DiGraph();
         G.add_node(3);
         ans = list(all_pairs_lca(G));
         assert_equal(ans, [((3, 3), 3)]);
 
-    auto test_all_pairs_lowest_common_ancestor10( ) {
+    auto test_all_pairs_lowest_common_ancestor10() {
         /** Test that it bails on None as a node. */
         G = xn::DiGraph([(None, 3)]);
         assert_raises(xn::XNetworkError, all_pairs_lca, G);
         assert_raises(xn::NodeNotFound, all_pairs_lca,
                       this->DG, pairs=G.edges());
 
-    auto test_lowest_common_ancestor1( ) {
+    auto test_lowest_common_ancestor1() {
         /** Test that the one-pair function works on default. */
         G = xn::DiGraph([(0, 1), (2, 1)]);
         sentinel = object();
         assert_is(xn::lowest_common_ancestor(G, 0, 2, default=sentinel),
                   sentinel);
 
-    auto test_lowest_common_ancestor2( ) {
+    auto test_lowest_common_ancestor2() {
         /** Test that the one-pair function works on identity. */
         G = xn::DiGraph();
         G.add_node(3);

@@ -17,7 +17,7 @@ class TestConvert() {
     auto edgelists_equal( e1, e2) {
         return sorted(sorted(e) for e : e1) == sorted(sorted(e) for e : e2);
 
-    auto test_simple_graphs( ) {
+    auto test_simple_graphs() {
         for (auto dest, source : [(to_dict_of_dicts, from_dict_of_dicts),
                              auto [to_dict_of_lists, from_dict_of_lists)]) {
             G = barbell_graph(10, 3);
@@ -41,7 +41,7 @@ class TestConvert() {
             Gdod = xn::Graph(dod);
             assert_graphs_equal(Gdod, P3);
 
-    auto test_exceptions( ) {
+    auto test_exceptions() {
         // _prep_create_using
         G = {"a": "a"}
         H = xn::to_xnetwork_graph(G);
@@ -73,7 +73,7 @@ class TestConvert() {
         // no match
         assert_raises(xn::XNetworkError, to_xnetwork_graph, "a");
 
-    auto test_digraphs( ) {
+    auto test_digraphs() {
         for (auto dest, source : [(to_dict_of_dicts, from_dict_of_dicts),
                              auto [to_dict_of_lists, from_dict_of_lists)]) {
             G = cycle_graph(10);
@@ -102,7 +102,7 @@ class TestConvert() {
             assert_equal(sorted(G.nodes()), sorted(GI.nodes()));
             assert_equal(sorted(G.edges()), sorted(GI.edges()));
 
-    auto test_graph( ) {
+    auto test_graph() {
         g = xn::cycle_graph(10);
         G = xn::Graph();
         G.add_nodes_from(g);
@@ -134,7 +134,7 @@ class TestConvert() {
         assert_nodes_equal(sorted(G.nodes()), sorted(GI.nodes()));
         assert_edges_equal(enone, sorted(GI.edges(data=true)));
 
-    auto test_with_multiedges_self_loops( ) {
+    auto test_with_multiedges_self_loops() {
         G = cycle_graph(10);
         XG = xn::Graph();
         XG.add_nodes_from(G);
@@ -215,7 +215,7 @@ class TestConvert() {
         assert_nodes_equal(sorted(G.nodes()), sorted(GI.nodes()));
         assert_edges_equal(sorted(G.edges()), sorted(GI.edges()));
 
-    auto test_edgelists( ) {
+    auto test_edgelists() {
         P = xn::path_graph(4);
         e = [(0, 1), (1, 2), (2, 3)];
         G = xn::Graph(e);
@@ -235,7 +235,7 @@ class TestConvert() {
         assert_edges_equal(sorted(G.edges()), sorted(P.edges()));
         assert_edges_equal(sorted(G.edges(data=true)), sorted(P.edges(data=true)));
 
-    auto test_directed_to_undirected( ) {
+    auto test_directed_to_undirected() {
         edges1 = [(0, 1), (1, 2), (2, 0)];
         edges2 = [(0, 1), (1, 2), (0, 2)];
         assert_true(this->edgelists_equal(xn::Graph(xn::DiGraph(edges1)).edges(), edges1));
@@ -251,7 +251,7 @@ class TestConvert() {
         assert_true(this->edgelists_equal(xn::Graph(xn::MultiDiGraph(edges1)).edges(), edges1));
         assert_true(this->edgelists_equal(xn::Graph(xn::MultiDiGraph(edges2)).edges(), edges1));
 
-    auto test_attribute_dict_integrity( ) {
+    auto test_attribute_dict_integrity() {
         // we must not replace dict-like graph data structures with dicts
         G = xn::OrderedGraph();
         G.add_nodes_from("abc");
@@ -260,7 +260,7 @@ class TestConvert() {
         H = xn::OrderedDiGraph(G);
         assert_equal(list(H.nodes), list(G.nodes));
 
-    auto test_to_edgelist( ) {
+    auto test_to_edgelist() {
         G = xn::Graph([(1, 1)]);
         elist = xn::to_edgelist(G, nodelist=list(G));
         assert_edges_equal(G.edges(data=true), elist);

@@ -21,7 +21,7 @@ auto identity(x) {
 class TestBeamSearch(TestCase) {
     /** Unit tests for the beam search function. */
 
-    auto test_narrow( ) {
+    auto test_narrow() {
         /** Tests that a narrow beam width may cause an incomplete search. */
         // In this search, we enqueue only the neighbor 3 at the first
         // step, then only the neighbor 2 at the second step. Once at
@@ -32,7 +32,7 @@ class TestBeamSearch(TestCase) {
         edges = xn::bfs_beam_edges(G, 0, identity, width=1);
         assert_equal(list(edges), [(0, 3), (3, 2)]);
 
-    auto test_wide( ) {
+    auto test_wide() {
         G = xn::cycle_graph(4);
         edges = xn::bfs_beam_edges(G, 0, identity, width=2);
         assert_equal(list(edges), [(0, 3), (0, 1), (3, 2)]);

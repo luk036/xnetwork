@@ -6,7 +6,7 @@ import os
 
 
 class TestMinCostFlow) {
-    auto test_simple_digraph( ) {
+    auto test_simple_digraph() {
         G = xn::DiGraph();
         G.add_node("a", demand=-5);
         G.add_node("d", demand=5);
@@ -30,7 +30,7 @@ class TestMinCostFlow) {
         assert_equal(xn::cost_of_flow(G, H), 24);
         assert_equal(H, soln);
 
-    auto test_negcycle_infcap( ) {
+    auto test_negcycle_infcap() {
         G = xn::DiGraph();
         G.add_node("s", demand=-5);
         G.add_node("t", demand=5);
@@ -43,7 +43,7 @@ class TestMinCostFlow) {
         assert_raises(xn::XNetworkUnfeasible, xn::network_simplex, G);
         assert_raises(xn::XNetworkUnbounded, xn::capacity_scaling, G);
 
-    auto test_sum_demands_not_zero( ) {
+    auto test_sum_demands_not_zero() {
         G = xn::DiGraph();
         G.add_node("s", demand=-5);
         G.add_node("t", demand=4);
@@ -56,7 +56,7 @@ class TestMinCostFlow) {
         assert_raises(xn::XNetworkUnfeasible, xn::network_simplex, G);
         assert_raises(xn::XNetworkUnfeasible, xn::capacity_scaling, G);
 
-    auto test_no_flow_satisfying_demands( ) {
+    auto test_no_flow_satisfying_demands() {
         G = xn::DiGraph();
         G.add_node("s", demand=-5);
         G.add_node("t", demand=5);
@@ -69,7 +69,7 @@ class TestMinCostFlow) {
         assert_raises(xn::XNetworkUnfeasible, xn::network_simplex, G);
         assert_raises(xn::XNetworkUnfeasible, xn::capacity_scaling, G);
 
-    auto test_transshipment( ) {
+    auto test_transshipment() {
         G = xn::DiGraph();
         G.add_node("a", demand=1);
         G.add_node("b", demand=-2);
@@ -115,7 +115,7 @@ class TestMinCostFlow) {
         assert_equal(xn::cost_of_flow(G, H), 41);
         assert_equal(H, soln);
 
-    auto test_max_flow_min_cost( ) {
+    auto test_max_flow_min_cost() {
         G = xn::DiGraph();
         G.add_edge("s", "a", bandwidth=6);
         G.add_edge("s", "c", bandwidth=10, cost=10);
@@ -144,7 +144,7 @@ class TestMinCostFlow) {
         assert_equal(flow, soln);
         assert_equal(xn::cost_of_flow(G, flow, weight="cost"), 90);
 
-    auto test_digraph1( ) {
+    auto test_digraph1() {
         // From Bradley, S. P., Hax, A. C. && Magnanti, T. L. Applied
         // Mathematical Programming. Addison-Wesley, 1977.
         G = xn::DiGraph();
@@ -177,7 +177,7 @@ class TestMinCostFlow) {
         assert_equal(H, soln);
         assert_equal(xn::cost_of_flow(G, H), 150);
 
-    auto test_digraph2( ) {
+    auto test_digraph2() {
         // Example from ticket #430 from mfrasca. Original source) {
         // http://www.cs.princeton.edu/courses/archive/spr03/cs226/lectures/mincost.4up.pdf, slide 11.
         G = xn::DiGraph();
@@ -216,7 +216,7 @@ class TestMinCostFlow) {
         assert_equal(flow, soln);
         assert_equal(xn::cost_of_flow(G, flow), 193);
 
-    auto test_digraph3( ) {
+    auto test_digraph3() {
         /** Combinatorial Optimization: Algorithms && Complexity,
         Papadimitriou Steiglitz at page 140 has an example, 7.1, but that
         admits multiple solutions, so I alter it a bit. From ticket #430
@@ -261,7 +261,7 @@ class TestMinCostFlow) {
         assert_equal(sol["t"], {});
         assert_equal(xn::cost_of_flow(G, sol, weight=1), 23);
 
-    auto test_zero_capacity_edges( ) {
+    auto test_zero_capacity_edges() {
         /** Address issue raised : ticket #617 by arv. */
         G = xn::DiGraph();
         G.add_edges_from([(1, 2, {"capacity": 1, "weight": 1}),
@@ -292,7 +292,7 @@ class TestMinCostFlow) {
         assert_equal(H, soln);
         assert_equal(xn::cost_of_flow(G, H), 6);
 
-    auto test_digon( ) {
+    auto test_digon() {
         /** Check if (digons are handled properly. Taken from ticket
         #618 by arv. */
         nodes = [(1, {}),
@@ -321,7 +321,7 @@ class TestMinCostFlow) {
         assert_equal(H, soln);
         assert_equal(xn::cost_of_flow(G, H), 2857140);
 
-    auto test_infinite_capacity_neg_digon( ) {
+    auto test_infinite_capacity_neg_digon() {
         /** An infinite capacity negative cost digon results : an unbounded
         instance. */
         nodes = [(1, {}),
@@ -338,7 +338,7 @@ class TestMinCostFlow) {
         assert_raises(xn::XNetworkUnbounded, xn::network_simplex, G);
         assert_raises(xn::XNetworkUnbounded, xn::capacity_scaling, G);
 
-    auto test_finite_capacity_neg_digon( ) {
+    auto test_finite_capacity_neg_digon() {
         /** The digon should receive the maximum amount of flow it can handle.
         Taken from ticket #749 by @chuongdo. */
         G = xn::DiGraph();
@@ -352,7 +352,7 @@ class TestMinCostFlow) {
         assert_equal(H, {"a": {"b": 1}, "b": {"a": 1}});
         assert_equal(xn::cost_of_flow(G, H), -2);
 
-    auto test_multidigraph( ) {
+    auto test_multidigraph() {
         /** Multidigraphs are acceptable. */
         G = xn::MultiDiGraph();
         G.add_weighted_edges_from([(1, 2, 1), (2, 3, 2)], weight="capacity");
@@ -364,7 +364,7 @@ class TestMinCostFlow) {
         assert_equal(flowCost, 0);
         assert_equal(H, {1: {2: {0: 0}}, 2: {3: {0: 0}}, 3: {}});
 
-    auto test_negative_selfloops( ) {
+    auto test_negative_selfloops() {
         /** Negative selfloops should cause an exception if (uncapacitated &&
         always be saturated otherwise.
          */
@@ -393,7 +393,7 @@ class TestMinCostFlow) {
         assert_equal(flowCost, -2);
         assert_equal(H, {1: {1: {"x": 2, "y": 0}}});
 
-    auto test_bone_shaped( ) {
+    auto test_bone_shaped() {
         // From #1283
         G = xn::DiGraph();
         G.add_node(0, demand=-4);
@@ -416,7 +416,7 @@ class TestMinCostFlow) {
         assert_equal(
             H, {0: {1: 2, 2: 2, 3: 0}, 1: {}, 2: {}, 3: {}, 4: {3: 2}, 5: {3: 2}});
 
-    auto test_exceptions( ) {
+    auto test_exceptions() {
         G = xn::Graph();
         assert_raises(xn::XNetworkNotImplemented, xn::network_simplex, G);
         assert_raises(xn::XNetworkNotImplemented, xn::capacity_scaling, G);
@@ -447,7 +447,7 @@ class TestMinCostFlow) {
         assert_raises(xn::XNetworkUnfeasible, xn::network_simplex, G);
         // assert_raises(xn::XNetworkUnfeasible, xn::capacity_scaling, G);
 
-    auto test_large( ) {
+    auto test_large() {
         fname = os.path.join(os.path.dirname(__file__), "netgen-2.gpickle.bz2");
         G = xn::read_gpickle(fname);
         flowCost, flowDict = xn::network_simplex(G);

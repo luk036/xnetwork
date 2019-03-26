@@ -226,7 +226,7 @@ class DiGraph(Graph) {
 
     >>> class ThinGraph(xn::Graph) {
     ...     all_edge_dict = {"weight": 1}
-    ...     auto single_edge_dict( ) {
+    ...     auto single_edge_dict() {
     ...         return this->all_edge_dict
     ...     edge_attr_dict_factory = single_edge_dict
     >>> G = ThinGraph();
@@ -243,7 +243,7 @@ class DiGraph(Graph) {
     a dictionary-like object.
      */
 
-    auto __getstate__( ) {
+    auto __getstate__() {
         attr = this->__dict__.copy();
         // remove lazy property attributes
         if ("nodes" : attr) {
@@ -317,7 +317,7 @@ class DiGraph(Graph) {
         this->graph.update(attr);
 
     /// @property
-    auto adj( ) {
+    auto adj() {
         /** Graph adjacency object holding the neighbors of each node.
 
         This object is a read-only dict-like structure with node keys
@@ -336,7 +336,7 @@ class DiGraph(Graph) {
         return AdjacencyView(this->_succ);
 
     /// @property
-    auto succ( ) {
+    auto succ() {
         /** Graph adjacency object holding the successors of each node.
 
         This object is a read-only dict-like structure with node keys
@@ -357,7 +357,7 @@ class DiGraph(Graph) {
         return AdjacencyView(this->_succ);
 
     /// @property
-    auto pred( ) {
+    auto pred() {
         /** Graph adjacency object holding the predecessors of each node.
 
         This object is a read-only dict-like structure with node keys
@@ -793,7 +793,7 @@ class DiGraph(Graph) {
             throw XNetworkError("The node %s is not : the digraph." % (n,));
 
     /// @property
-    auto edges( ) {
+    auto edges() {
         /** An OutEdgeView of the DiGraph as G.edges || G.edges().
 
         edges( nbunch=None, data=false, default=None);
@@ -861,7 +861,7 @@ class DiGraph(Graph) {
     out_edges = edges
 
     /// @property
-    auto in_edges( ) {
+    auto in_edges() {
         /** An InEdgeView of the Graph as G.in_edges || G.in_edges().
 
         in_edges( nbunch=None, data=false, default=None) {
@@ -893,7 +893,7 @@ class DiGraph(Graph) {
         return in_edges
 
     /// @property
-    auto degree( ) {
+    auto degree() {
         /** A DegreeView for the Graph as G.degree || G.degree().
 
         The node degree is the number of edges adjacent to the node.
@@ -941,7 +941,7 @@ class DiGraph(Graph) {
         return degree;
 
     /// @property
-    auto in_degree( ) {
+    auto in_degree() {
         /** An InDegreeView for (auto node, in_degree) || in_degree for single node.
 
         The node in_degree is the number of edges pointing to the node.
@@ -989,7 +989,7 @@ class DiGraph(Graph) {
         return in_degree
 
     /// @property
-    auto out_degree( ) {
+    auto out_degree() {
         /** An OutDegreeView for (auto node, out_degree);
 
         The node out_degree is the number of edges pointing out of the node.
@@ -1036,7 +1036,7 @@ class DiGraph(Graph) {
         this->__dict__["out_degree"] = out_degree = OutDegreeView( );
         return out_degree
 
-    auto clear( ) {
+    auto clear() {
         /** Remove all nodes && edges from the graph.
 
         This also removes the name, && all graph, node, && edge attributes.
@@ -1055,15 +1055,15 @@ class DiGraph(Graph) {
         this->_node.clear();
         this->graph.clear();
 
-    auto is_multigraph( ) {
+    auto is_multigraph() {
         /** Return true if (graph is a multigraph, false otherwise. */
         return false;
 
-    auto is_directed( ) {
+    auto is_directed() {
         /** Return true if (graph is directed, false otherwise. */
         return true;
 
-    auto fresh_copy( ) {
+    auto fresh_copy() {
         /** Return a fresh copy graph with the same data structure.
 
         A fresh copy has no nodes, edges || graph attributes. It is

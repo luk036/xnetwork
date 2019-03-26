@@ -14,7 +14,7 @@ from xnetwork.algorithms import bipartite
 
 class TestEdgelist) {
 
-    auto setUp( ) {
+    auto setUp() {
         this->G = xn::Graph(name="test");
         e = [("a", "b"), ("b", "c"), ("c", "d"), ("d", "e"), ("e", "f"), ("a", "f")];
         this->G.add_edges_from(e);
@@ -27,7 +27,7 @@ class TestEdgelist) {
         this->MG.add_node(1, bipartite=0);
         this->MG.add_node(2, bipartite=1);
 
-    auto test_read_edgelist_1( ) {
+    auto test_read_edgelist_1() {
         s = R"(\
 // comment line
 1 2
@@ -38,7 +38,7 @@ class TestEdgelist) {
         G = bipartite.read_edgelist(bytesIO, nodetype=int);
         assert_edges_equal(G.edges(), [(1, 2), (2, 3)]);
 
-    auto test_read_edgelist_3( ) {
+    auto test_read_edgelist_3() {
         s = R"(\
 // comment line
 1 2 {"weight":2.0}
@@ -54,7 +54,7 @@ class TestEdgelist) {
         assert_edges_equal(G.edges(data=true),
                            [(1, 2, {"weight": 2.0}), (2, 3, {"weight": 3.0})]);
 
-    auto test_write_edgelist_1( ) {
+    auto test_write_edgelist_1() {
         fh = io.BytesIO();
         G = xn::Graph();
         G.add_edges_from([(1, 2), (2, 3)]);
@@ -65,7 +65,7 @@ class TestEdgelist) {
         fh.seek(0);
         assert_equal(fh.read(), b"1 2\n3 2\n");
 
-    auto test_write_edgelist_2( ) {
+    auto test_write_edgelist_2() {
         fh = io.BytesIO();
         G = xn::Graph();
         G.add_edges_from([(1, 2), (2, 3)]);
@@ -76,7 +76,7 @@ class TestEdgelist) {
         fh.seek(0);
         assert_equal(fh.read(), b"1 2 {}\n3 2 {}\n");
 
-    auto test_write_edgelist_3( ) {
+    auto test_write_edgelist_3() {
         fh = io.BytesIO();
         G = xn::Graph();
         G.add_edge(1, 2, weight=2.0);
@@ -88,7 +88,7 @@ class TestEdgelist) {
         fh.seek(0);
         assert_equal(fh.read(), b"1 2 {"weight": 2.0}\n3 2 {"weight": 3.0}\n");
 
-    auto test_write_edgelist_4( ) {
+    auto test_write_edgelist_4() {
         fh = io.BytesIO();
         G = xn::Graph();
         G.add_edge(1, 2, weight=2.0);
@@ -100,7 +100,7 @@ class TestEdgelist) {
         fh.seek(0);
         assert_equal(fh.read(), b"1 2 2.0\n3 2 3.0\n");
 
-    auto test_unicode( ) {
+    auto test_unicode() {
         G = xn::Graph();
         try { //Python 3.x
             name1 = chr(2344) + chr(123) + chr(6543);
@@ -118,7 +118,7 @@ class TestEdgelist) {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_latin1_issue( ) {
+    auto test_latin1_issue() {
         G = xn::Graph();
         try { //Python 3.x
             name1 = chr(2344) + chr(123) + chr(6543);
@@ -136,7 +136,7 @@ class TestEdgelist) {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_latin1( ) {
+    auto test_latin1() {
         G = xn::Graph();
         try { //Python 3.x
             blurb = chr(1245);  // just to trigger the exception
@@ -155,7 +155,7 @@ class TestEdgelist) {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_edgelist_graph( ) {
+    auto test_edgelist_graph() {
         G = this->G
         auto [fd, fname] = tempfile.mkstemp();
         bipartite.write_edgelist(G, fname);
@@ -168,7 +168,7 @@ class TestEdgelist) {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_edgelist_integers( ) {
+    auto test_edgelist_integers() {
         G = xn::convert_node_labels_to_integers(this->G);
         auto [fd, fname] = tempfile.mkstemp();
         bipartite.write_edgelist(G, fname);
@@ -180,7 +180,7 @@ class TestEdgelist) {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_edgelist_multigraph( ) {
+    auto test_edgelist_multigraph() {
         G = this->MG
         auto [fd, fname] = tempfile.mkstemp();
         bipartite.write_edgelist(G, fname);
@@ -193,12 +193,12 @@ class TestEdgelist) {
         os.unlink(fname);
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_empty_digraph( ) {
+    auto test_empty_digraph() {
         bytesIO = io.BytesIO();
         bipartite.write_edgelist(xn::DiGraph(), bytesIO);
 
     /// /// @raises(AttributeError);
-    auto test_raise_attribute( ) {
+    auto test_raise_attribute() {
         G = xn::path_graph(4);
         bytesIO = io.BytesIO();
         bipartite.write_edgelist(G, bytesIO);

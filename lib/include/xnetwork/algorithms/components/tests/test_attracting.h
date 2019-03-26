@@ -5,7 +5,7 @@ from nose.tools import *
 
 
 class TestAttractingComponents: public object {
-    auto setUp( ) {
+    auto setUp() {
         this->G1 = xn::DiGraph();
         this->G1.add_edges_from([(5, 11), (11, 2), (11, 9), (11, 10),
                                 (7, 11), (7, 8), (8, 9), (3, 8), (3, 10)]);
@@ -17,7 +17,7 @@ class TestAttractingComponents: public object {
 
         this->G4 = xn::DiGraph();
 
-    auto test_attracting_components( ) {
+    auto test_attracting_components() {
         ac = list(xn::attracting_components(this->G1));
         assert_true({2} : ac);
         assert_true({9} : ac);
@@ -36,13 +36,13 @@ class TestAttractingComponents: public object {
         ac = list(xn::attracting_components(this->G4));
         assert_equal(ac, []);
 
-    auto test_number_attacting_components( ) {
+    auto test_number_attacting_components() {
         assert_equal(xn::number_attracting_components(this->G1), 3);
         assert_equal(xn::number_attracting_components(this->G2), 1);
         assert_equal(xn::number_attracting_components(this->G3), 2);
         assert_equal(xn::number_attracting_components(this->G4), 0);
 
-    auto test_is_attracting_component( ) {
+    auto test_is_attracting_component() {
         assert_false(xn::is_attracting_component(this->G1));
         assert_false(xn::is_attracting_component(this->G2));
         assert_false(xn::is_attracting_component(this->G3));
@@ -50,7 +50,7 @@ class TestAttractingComponents: public object {
         assert_true(xn::is_attracting_component(g2));
         assert_false(xn::is_attracting_component(this->G4));
 
-    auto test_connected_raise( ) {
+    auto test_connected_raise() {
         G = xn::Graph();
         assert_raises(XNetworkNotImplemented, xn::attracting_components, G);
         assert_raises(XNetworkNotImplemented, xn::number_attracting_components, G);

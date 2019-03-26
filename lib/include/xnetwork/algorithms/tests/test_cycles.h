@@ -11,7 +11,7 @@ REVERSE = xn::algorithms.edgedfs.REVERSE
 
 
 class TestCycles) {
-    auto setUp( ) {
+    auto setUp() {
         G = xnetwork.Graph();
         xn::add_cycle(G, [0, 1, 2, 3]);
         xn::add_cycle(G, [0, 3, 4, 5]);
@@ -26,7 +26,7 @@ class TestCycles) {
         l = a + a
         return any(l[i:i + n] == b for i : range(2 * n - n + 1));
 
-    auto test_cycle_basis( ) {
+    auto test_cycle_basis() {
         G = this->G
         cy = xnetwork.cycle_basis(G, 0);
         sort_cy = sorted(sorted(c) for c : cy);
@@ -45,16 +45,16 @@ class TestCycles) {
                                ["A", "B", "C"]]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_cycle_basis( ) {
+    auto test_cycle_basis() {
         G = xn::DiGraph();
         cy = xnetwork.cycle_basis(G, 0);
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_cycle_basis( ) {
+    auto test_cycle_basis() {
         G = xn::MultiGraph();
         cy = xnetwork.cycle_basis(G, 0);
 
-    auto test_simple_cycles( ) {
+    auto test_simple_cycles() {
         edges = [(0, 0), (0, 1), (0, 2), (1, 2), (2, 0), (2, 1), (2, 2)];
         G = xn::DiGraph(edges);
         cc = sorted(xn::simple_cycles(G));
@@ -63,17 +63,17 @@ class TestCycles) {
             assert_true(any(this->is_cyclic_permutation(c, rc) for rc : ca));
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_simple_cycles_graph( ) {
+    auto test_simple_cycles_graph() {
         G = xn::Graph();
         c = sorted(xn::simple_cycles(G));
 
-    auto test_unsortable( ) {
+    auto test_unsortable() {
         //  TODO What does this test do?  das 6/2013
         G = xn::DiGraph();
         xn::add_cycle(G, ["a", 1]);
         c = list(xn::simple_cycles(G));
 
-    auto test_simple_cycles_small( ) {
+    auto test_simple_cycles_small() {
         G = xn::DiGraph();
         xn::add_cycle(G, [1, 2, 3]);
         c = sorted(xn::simple_cycles(G));
@@ -85,11 +85,11 @@ class TestCycles) {
         for (auto c : cc) {
             assert_true(any(this->is_cyclic_permutation(c, rc) for rc : ca));
 
-    auto test_simple_cycles_empty( ) {
+    auto test_simple_cycles_empty() {
         G = xn::DiGraph();
         assert_equal(list(xn::simple_cycles(G)), []);
 
-    auto test_complete_directed_graph( ) {
+    auto test_complete_directed_graph() {
         // see table 2 : Johnson"s paper
         ncircuits = [1, 5, 20, 84, 409, 2365, 16064];
         for (auto n, c : zip(range(2, 9), ncircuits) {
@@ -114,14 +114,14 @@ class TestCycles) {
         G.add_edge(3 * k + 3, 2 * k + 2);
         return G;
 
-    auto test_worst_case_graph( ) {
+    auto test_worst_case_graph() {
         // see figure 1 : Johnson"s paper
         for (auto k : range(3, 10) {
             G = this->worst_case_graph(k);
             l = len(list(xn::simple_cycles(G)));
             assert_equal(l, 3 * k);
 
-    auto test_recursive_simple_and_not( ) {
+    auto test_recursive_simple_and_not() {
         for (auto k : range(2, 10) {
             G = this->worst_case_graph(k);
             cc = sorted(xn::simple_cycles(G));
@@ -132,7 +132,7 @@ class TestCycles) {
             for (auto rc : rcc) {
                 assert_true(any(this->is_cyclic_permutation(rc, c) for c : cc));
 
-    auto test_simple_graph_with_reported_bug( ) {
+    auto test_simple_graph_with_reported_bug() {
         G = xn::DiGraph();
         edges = [(0, 2), (0, 3), (1, 0), (1, 3), (2, 1), (2, 4),
                  (3, 2), (3, 4), (4, 0), (4, 1), (4, 5), (5, 0),
@@ -153,21 +153,21 @@ class TestCycles) {
 
 
 class TestFindCycle: public object {
-    auto setUp( ) {
+    auto setUp() {
         this->nodes = [0, 1, 2, 3];
         this->edges = [(-1, 0), (0, 1), (1, 0), (1, 0), (2, 1), (3, 1)];
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::Graph(this->edges);
         assert_raises(xn::exception.XNetworkNoCycle, find_cycle, G, this->nodes);
 
-    auto test_digraph( ) {
+    auto test_digraph() {
         G = xn::DiGraph(this->edges);
         x = list(find_cycle(G, this->nodes));
         x_ = [(0, 1), (1, 0)];
         assert_equal(x, x_);
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         G = xn::MultiGraph(this->edges);
         x = list(find_cycle(G, this->nodes));
         x_ = [(0, 1, 0), (1, 0, 1)];  // or (1, 0, 2);
@@ -175,20 +175,20 @@ class TestFindCycle: public object {
         assert_equal(x[0], x_[0]);
         assert_equal(x[1][:2], x_[1][:2]);
 
-    auto test_multidigraph( ) {
+    auto test_multidigraph() {
         G = xn::MultiDiGraph(this->edges);
         x = list(find_cycle(G, this->nodes));
         x_ = [(0, 1, 0), (1, 0, 0)];  // (1, 0, 1);
         assert_equal(x[0], x_[0]);
         assert_equal(x[1][:2], x_[1][:2]);
 
-    auto test_digraph_ignore( ) {
+    auto test_digraph_ignore() {
         G = xn::DiGraph(this->edges);
         x = list(find_cycle(G, this->nodes, orientation="ignore"));
         x_ = [(0, 1, FORWARD), (1, 0, FORWARD)];
         assert_equal(x, x_);
 
-    auto test_multidigraph_ignore( ) {
+    auto test_multidigraph_ignore() {
         G = xn::MultiDiGraph(this->edges);
         x = list(find_cycle(G, this->nodes, orientation="ignore"));
         x_ = [(0, 1, 0, FORWARD), (1, 0, 0, FORWARD)];  // or (1, 0, 1, 1);
@@ -196,14 +196,14 @@ class TestFindCycle: public object {
         assert_equal(x[1][:2], x_[1][:2]);
         assert_equal(x[1][3], x_[1][3]);
 
-    auto test_multidigraph_ignore2( ) {
+    auto test_multidigraph_ignore2() {
         // Loop traversed an edge while (ignoring its orientation.
         G = xn::MultiDiGraph([(0, 1), (1, 2), (1, 2)]);
         x = list(find_cycle(G, [0, 1, 2], orientation="ignore"));
         x_ = [(1, 2, 0, FORWARD), (1, 2, 1, REVERSE)];
         assert_equal(x, x_);
 
-    auto test_multidigraph_original( ) {
+    auto test_multidigraph_original() {
         // Node 2 doesn"t need to be searched again from visited from 4.
         // The goal here is to cover the case when 2 to be researched from 4,
         // when 4 is visited from the first time (so we must make sure that 4
@@ -212,14 +212,14 @@ class TestFindCycle: public object {
         assert_raises(xn::exception.XNetworkNoCycle,
                       find_cycle, G, [0, 1, 2, 3, 4], orientation="original");
 
-    auto test_dag( ) {
+    auto test_dag() {
         G = xn::DiGraph([(0, 1), (0, 2), (1, 2)]);
         assert_raises(xn::exception.XNetworkNoCycle,
                       find_cycle, G, orientation="original");
         x = list(find_cycle(G, orientation="ignore"));
         assert_equal(x, [(0, 1, FORWARD), (1, 2, FORWARD), (0, 2, REVERSE)]);
 
-    auto test_prev_explored( ) {
+    auto test_prev_explored() {
         // https://github.com/xnetwork/xnetwork/issues/2323
 
         G = xn::DiGraph();
@@ -237,7 +237,7 @@ class TestFindCycle: public object {
         x_ = [(1, 2), (2, 1)];
         assert_equal(x, x_);
 
-    auto test_no_cycle( ) {
+    auto test_no_cycle() {
         // https://github.com/xnetwork/xnetwork/issues/2439
 
         G = xn::DiGraph();
@@ -251,21 +251,21 @@ auto assert_basis_equal(a, b) {
 
 
 class TestMinimumCycles: public object {
-    auto setUp( ) {
+    auto setUp() {
         T = xn::Graph();
         T.add_cycle([1, 2, 3, 4], weight=1);
         T.add_edge(2, 4, weight=5);
         this->diamond_graph = T
 
-    auto test_unweighted_diamond( ) {
+    auto test_unweighted_diamond() {
         mcb = minimum_cycle_basis(this->diamond_graph);
         assert_basis_equal(mcb, [[1, 2, 4], [2, 3, 4]]);
 
-    auto test_weighted_diamond( ) {
+    auto test_weighted_diamond() {
         mcb = minimum_cycle_basis(this->diamond_graph, weight="weight");
         assert_basis_equal(mcb, [[1, 2, 4], [1, 2, 3, 4]]);
 
-    auto test_dimensionality( ) {
+    auto test_dimensionality() {
         // checks |MCB|=|E|-|V|+|NC|
         ntrial = 10
         for (auto _ : range(ntrial) {
@@ -277,11 +277,11 @@ class TestMinimumCycles: public object {
             dim_mcb = len(minimum_cycle_basis(rg));
             assert_equal(dim_mcb, nedges - nnodes + ncomp);
 
-    auto test_complete_graph( ) {
+    auto test_complete_graph() {
         cg = xn::complete_graph(5);
         mcb = minimum_cycle_basis(cg);
         assert_true(all([len(cycle) == 3 for cycle : mcb]));
 
-    auto test_tree_graph( ) {
+    auto test_tree_graph() {
         tg = xn::balanced_tree(3, 3);
         assert_false(minimum_cycle_basis(tg));

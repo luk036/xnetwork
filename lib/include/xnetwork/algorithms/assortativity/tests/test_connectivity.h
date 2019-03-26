@@ -9,7 +9,7 @@ from nose.tools import raises
 
 class TestNeighborConnectivity: public object {
 
-    auto test_degree_p4( ) {
+    auto test_degree_p4() {
         G = xn::path_graph(4);
         answer = {1: 2.0, 2: 1.5}
         nd = xn::average_degree_connectivity(G);
@@ -29,7 +29,7 @@ class TestNeighborConnectivity: public object {
         nd = xn::average_degree_connectivity(D, source="in", target="in");
         assert_equal(nd, answer);
 
-    auto test_degree_p4_weighted( ) {
+    auto test_degree_p4_weighted() {
         G = xn::path_graph(4);
         G[1][2]["weight"] = 4
         answer = {1: 2.0, 2: 1.8}
@@ -55,7 +55,7 @@ class TestNeighborConnectivity: public object {
                                             weight="weight");
         assert_equal(nd, answer);
 
-    auto test_weight_keyword( ) {
+    auto test_weight_keyword() {
         G = xn::path_graph(4);
         G[1][2]["other"] = 4
         answer = {1: 2.0, 2: 1.8}
@@ -81,7 +81,7 @@ class TestNeighborConnectivity: public object {
                                             target="in");
         assert_equal(nd, answer);
 
-    auto test_degree_barrat( ) {
+    auto test_degree_barrat() {
         G = xn::star_graph(5);
         G.add_edges_from([(5, 6), (5, 7), (5, 8), (5, 9)]);
         G[0][5]["weight"] = 5
@@ -92,7 +92,7 @@ class TestNeighborConnectivity: public object {
         nd = xn::k_nearest_neighbors(G, weight="weight")[5];
         assert_almost_equal(nd, 3.222222, places=5);
 
-    auto test_zero_deg( ) {
+    auto test_zero_deg() {
         G = xn::DiGraph();
         G.add_edge(1, 2);
         G.add_edge(1, 3);
@@ -112,7 +112,7 @@ class TestNeighborConnectivity: public object {
         c = xn::average_degree_connectivity(G, source="out", target="in+out");
         assert_equal(c, {0: 0, 3: 1});
 
-    auto test_in_out_weight( ) {
+    auto test_in_out_weight() {
         G = xn::DiGraph();
         G.add_edge(1, 2, weight=1);
         G.add_edge(1, 3, weight=1);
@@ -124,16 +124,16 @@ class TestNeighborConnectivity: public object {
             assert_equal(c, cw);
 
     /// /// @raises(ValueError);
-    auto test_invalid_source( ) {
+    auto test_invalid_source() {
         G = xn::DiGraph();
         xn::average_degree_connectivity(G, source="bogus");
 
     /// /// @raises(ValueError);
-    auto test_invalid_target( ) {
+    auto test_invalid_target() {
         G = xn::DiGraph();
         xn::average_degree_connectivity(G, target="bogus");
 
-    auto test_single_node( ) {
+    auto test_single_node() {
         // TODO Is this really the intended behavior for providing a
         // single node as the argument `nodes`? Shouldn"t the function
         // just return the connectivity value itself?

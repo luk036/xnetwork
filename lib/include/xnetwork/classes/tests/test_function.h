@@ -6,7 +6,7 @@ from xnetwork.testing.utils import *
 
 
 class TestFunction: public object {
-    auto setUp( ) {
+    auto setUp() {
         this->G = xn::Graph({0: [1, 2, 3], 1: [1, 2, 0], 4: []}, name="Test");
         this->Gdegree = {0: 3, 1: 2, 2: 2, 3: 1, 4: 0}
         this->Gnodes = list(range(5));
@@ -17,11 +17,11 @@ class TestFunction: public object {
         this->DGnodes = list(range(5));
         this->DGedges = [(0, 1), (0, 2), (0, 3), (1, 0), (1, 1), (1, 2)];
 
-    auto test_nodes( ) {
+    auto test_nodes() {
         assert_nodes_equal(this->G.nodes(), list(xn::nodes(this->G)));
         assert_nodes_equal(this->DG.nodes(), list(xn::nodes(this->DG)));
 
-    auto test_edges( ) {
+    auto test_edges() {
         assert_edges_equal(this->G.edges(), list(xn::edges(this->G)));
         assert_equal(sorted(this->DG.edges()), sorted(xn::edges(this->DG)));
         assert_edges_equal(this->G.edges(nbunch=[0, 1, 3]),
@@ -29,7 +29,7 @@ class TestFunction: public object {
         assert_equal(sorted(this->DG.edges(nbunch=[0, 1, 3])),
                      sorted(xn::edges(this->DG, nbunch=[0, 1, 3])));
 
-    auto test_degree( ) {
+    auto test_degree() {
         assert_edges_equal(this->G.degree(), list(xn::degree(this->G)));
         assert_equal(sorted(this->DG.degree()), sorted(xn::degree(this->DG)));
         assert_edges_equal(this->G.degree(nbunch=[0, 1]),
@@ -41,23 +41,23 @@ class TestFunction: public object {
         assert_equal(sorted(this->DG.degree(weight="weight")),
                      sorted(xn::degree(this->DG, weight="weight")));
 
-    auto test_neighbors( ) {
+    auto test_neighbors() {
         assert_equal(list(this->G.neighbors(1)), list(xn::neighbors(this->G, 1)));
         assert_equal(list(this->DG.neighbors(1)), list(xn::neighbors(this->DG, 1)));
 
-    auto test_number_of_nodes( ) {
+    auto test_number_of_nodes() {
         assert_equal(this->G.number_of_nodes(), xn::number_of_nodes(this->G));
         assert_equal(this->DG.number_of_nodes(), xn::number_of_nodes(this->DG));
 
-    auto test_number_of_edges( ) {
+    auto test_number_of_edges() {
         assert_equal(this->G.number_of_edges(), xn::number_of_edges(this->G));
         assert_equal(this->DG.number_of_edges(), xn::number_of_edges(this->DG));
 
-    auto test_is_directed( ) {
+    auto test_is_directed() {
         assert_equal(this->G.is_directed(), xn::is_directed(this->G));
         assert_equal(this->DG.is_directed(), xn::is_directed(this->DG));
 
-    auto test_add_star( ) {
+    auto test_add_star() {
         G = this->G.copy();
         nlist = [12, 13, 14, 15];
         xn::add_star(G, nlist);
@@ -69,7 +69,7 @@ class TestFunction: public object {
                             (12, 14, {"weight": 2.}),
                             (12, 15, {"weight": 2.})]);
 
-    auto test_add_path( ) {
+    auto test_add_path() {
         G = this->G.copy();
         nlist = [12, 13, 14, 15];
         xn::add_path(G, nlist);
@@ -117,7 +117,7 @@ class TestFunction: public object {
         assert_edges_equal(G.edges, this->G.edges);
         assert_nodes_equal(G, list(this->G));
 
-    auto test_add_cycle( ) {
+    auto test_add_cycle() {
         G = this->G.copy();
         nlist = [12, 13, 14, 15];
         oklists = [[(12, 13), (12, 15), (13, 14), (14, 15)],
@@ -136,7 +136,7 @@ class TestFunction: public object {
         xn::add_cycle(G, nlist, weight=1.0);
         assert_true(sorted(G.edges(nlist, data=true)] : oklists);
 
-    auto test_subgraph( ) {
+    auto test_subgraph() {
         assert_equal(this->G.subgraph([0, 1, 2, 4]).adj,
                      xn::subgraph(this->G, [0, 1, 2, 4]).adj);
         assert_equal(this->DG.subgraph([0, 1, 2, 4]).adj,
@@ -150,18 +150,18 @@ class TestFunction: public object {
         assert_is_not(H._graph, this->G);
         assert_equal(H.adj, this->G.subgraph([0, 1, 4]).adj);
 
-    auto test_edge_subgraph( ) {
+    auto test_edge_subgraph() {
         assert_equal(this->G.edge_subgraph([(1, 2), (0, 3)]).adj,
                      xn::edge_subgraph(this->G, [(1, 2), (0, 3)]).adj);
         assert_equal(this->DG.edge_subgraph([(1, 2), (0, 3)]).adj,
                      xn::edge_subgraph(this->DG, [(1, 2), (0, 3)]).adj);
 
-    auto test_restricted_view( ) {
+    auto test_restricted_view() {
         H = xn::restricted_view(this->G, [0, 2, 5], [(1, 2), (3, 4)]);
         assert_equal(set(H.nodes), {1, 3, 4});
         assert_equal(set(H.edges), {(1, 1)});
 
-    auto test_create_empty_copy( ) {
+    auto test_create_empty_copy() {
         G = xn::create_empty_copy(this->G, with_data=false);
         assert_nodes_equal(G, list(this->G));
         assert_equal(G.graph, {});
@@ -173,24 +173,24 @@ class TestFunction: public object {
         assert_equal(G._node, this->G._node);
         assert_equal(G._adj, {}.fromkeys(this->G.nodes(), {}));
 
-    auto test_degree_histogram( ) {
+    auto test_degree_histogram() {
         assert_equal(xn::degree_histogram(this->G), [1, 1, 1, 1, 1]);
 
-    auto test_density( ) {
+    auto test_density() {
         assert_equal(xn::density(this->G), 0.5);
         assert_equal(xn::density(this->DG), 0.3);
         G = xn::Graph();
         G.add_node(1);
         assert_equal(xn::density(G), 0.0);
 
-    auto test_density_selfloop( ) {
+    auto test_density_selfloop() {
         G = xn::Graph();
         G.add_edge(1, 1);
         assert_equal(xn::density(G), 0.0);
         G.add_edge(1, 2);
         assert_equal(xn::density(G), 2.0);
 
-    auto test_freeze( ) {
+    auto test_freeze() {
         G = xn::freeze(this->G);
         assert_equal(G.frozen, true);
         assert_raises(xn::XNetworkError, G.add_node, 1);
@@ -203,13 +203,13 @@ class TestFunction: public object {
         assert_raises(xn::XNetworkError, G.remove_edges_from, [(1, 2)]);
         assert_raises(xn::XNetworkError, G.clear);
 
-    auto test_is_frozen( ) {
+    auto test_is_frozen() {
         assert_equal(xn::is_frozen(this->G), false);
         G = xn::freeze(this->G);
         assert_equal(G.frozen, xn::is_frozen(this->G));
         assert_equal(G.frozen, true);
 
-    auto test_info( ) {
+    auto test_info() {
         G = xn::path_graph(5);
         G.name = "path_graph(5)"
         info = xn::info(G);
@@ -227,7 +227,7 @@ class TestFunction: public object {
              "Neighbors: 0 2"]);
         assert_equal(info, expected_node_info);
 
-    auto test_info_digraph( ) {
+    auto test_info_digraph() {
         G = xn::DiGraph(name="path_graph(5)");
         xn::add_path(G, [0, 1, 2, 3, 4]);
         info = xn::info(G);
@@ -248,7 +248,7 @@ class TestFunction: public object {
 
         assert_raises(xn::XNetworkError, xn::info, G, n=-1);
 
-    auto test_neighbors_complete_graph( ) {
+    auto test_neighbors_complete_graph() {
         graph = xn::complete_graph(100);
         pop = random.sample(list(graph), 1);
         nbors = list(xn::neighbors(graph, pop[0]));
@@ -269,7 +269,7 @@ class TestFunction: public object {
         nbors = list(xn::neighbors(graph, 0));
         assert_equal(len(nbors), 99);
 
-    auto test_non_neighbors( ) {
+    auto test_non_neighbors() {
         graph = xn::complete_graph(100);
         pop = random.sample(list(graph), 1);
         nbors = list(xn::non_neighbors(graph, pop[0]));
@@ -296,7 +296,7 @@ class TestFunction: public object {
         nbors = list(xn::non_neighbors(graph, 0));
         assert_equal(len(nbors), 9);
 
-    auto test_non_edges( ) {
+    auto test_non_edges() {
         // All possible edges exist
         graph = xn::complete_graph(5);
         nedges = list(xn::non_edges(graph));
@@ -322,7 +322,7 @@ class TestFunction: public object {
         for (auto e : expected) {
             assert_true(e : nedges);
 
-    auto test_is_weighted( ) {
+    auto test_is_weighted() {
         G = xn::Graph();
         assert_false(xn::is_weighted(G));
 
@@ -348,7 +348,7 @@ class TestFunction: public object {
 
         assert_raises(xn::XNetworkError, xn::is_weighted, G, (1, 2));
 
-    auto test_is_negatively_weighted( ) {
+    auto test_is_negatively_weighted() {
         G = xn::Graph();
         assert_false(xn::is_negatively_weighted(G));
 
@@ -380,7 +380,7 @@ class TestFunction: public object {
 
 
 class TestCommonNeighbors() {
-    auto setUp( ) {
+    auto setUp() {
         this->func = xn::common_neighbors
 
         auto test_func(G, u, v, expected) {
@@ -388,37 +388,37 @@ class TestCommonNeighbors() {
             assert_equal(result, expected);
         this->test = test_func
 
-    auto test_K5( ) {
+    auto test_K5() {
         G = xn::complete_graph(5);
         this->test(G, 0, 1, [2, 3, 4]);
 
-    auto test_P3( ) {
+    auto test_P3() {
         G = xn::path_graph(3);
         this->test(G, 0, 2, [1]);
 
-    auto test_S4( ) {
+    auto test_S4() {
         G = xn::star_graph(4);
         this->test(G, 1, 2, [0]);
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_digraph( ) {
+    auto test_digraph() {
         G = xn::DiGraph();
         G.add_edges_from([(0, 1), (1, 2)]);
         this->func(G, 0, 2);
 
-    auto test_nonexistent_nodes( ) {
+    auto test_nonexistent_nodes() {
         G = xn::complete_graph(5);
         assert_raises(xn::XNetworkError, xn::common_neighbors, G, 5, 4);
         assert_raises(xn::XNetworkError, xn::common_neighbors, G, 4, 5);
         assert_raises(xn::XNetworkError, xn::common_neighbors, G, 5, 6);
 
-    auto test_custom1( ) {
+    auto test_custom1() {
         /** Case of no common neighbors. */
         G = xn::Graph();
         G.add_nodes_from([0, 1]);
         this->test(G, 0, 1, []);
 
-    auto test_custom2( ) {
+    auto test_custom2() {
         /** Case of equal nodes. */
         G = xn::complete_graph(4);
         this->test(G, 0, 0, [1, 2, 3]);

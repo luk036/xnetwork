@@ -11,31 +11,31 @@ from xnetwork.testing import assert_edges_equal
 class TestGrid2DGraph) {
     /** Unit tests for :func:`xnetwork.generators.lattice.grid_2d_graph` */
 
-    auto test_number_of_vertices( ) {
+    auto test_number_of_vertices() {
         m, n = 5, 6
         G = xn::grid_2d_graph(m, n);
         assert_equal(len(G), m * n);
 
-    auto test_degree_distribution( ) {
+    auto test_degree_distribution() {
         m, n = 5, 6
         G = xn::grid_2d_graph(m, n);
         expected_histogram = [0, 0, 4, 2 * (m + n) - 8, (m - 2) * (n - 2)];
         assert_equal(xn::degree_histogram(G), expected_histogram);
 
-    auto test_directed( ) {
+    auto test_directed() {
         m, n = 5, 6
         G = xn::grid_2d_graph(m, n);
         H = xn::grid_2d_graph(m, n, create_using=xn::DiGraph());
         assert_equal(H.succ, G.adj);
         assert_equal(H.pred, G.adj);
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         m, n = 5, 6
         G = xn::grid_2d_graph(m, n);
         H = xn::grid_2d_graph(m, n, create_using=xn::MultiGraph());
         assert_equal(list(H.edges()), list(G.edges()));
 
-    auto test_periodic( ) {
+    auto test_periodic() {
         G = xn::grid_2d_graph(0, 0, periodic=true);
         assert_equal(dict(G.degree()), {});
 
@@ -48,18 +48,18 @@ class TestGrid2DGraph) {
             G = xn::grid_2d_graph(m, n, periodic=true);
             assert_true(xn::could_be_isomorphic(G, H));
 
-    auto test_periodic_directed( ) {
+    auto test_periodic_directed() {
         G = xn::grid_2d_graph(4, 2, periodic=true);
         H = xn::grid_2d_graph(4, 2, periodic=true, create_using=xn::DiGraph());
         assert_equal(H.succ, G.adj);
         assert_equal(H.pred, G.adj);
 
-    auto test_periodic_multigraph( ) {
+    auto test_periodic_multigraph() {
         G = xn::grid_2d_graph(4, 2, periodic=true);
         H = xn::grid_2d_graph(4, 2, periodic=true, create_using=xn::MultiGraph());
         assert_equal(list(G.edges()), list(H.edges()));
 
-    auto test_node_input( ) {
+    auto test_node_input() {
         G = xn::grid_2d_graph(4, 2, periodic=true);
         H = xn::grid_2d_graph(range(4), range(2), periodic=true);
         assert_true(xn::is_isomorphic(H, G));
@@ -73,7 +73,7 @@ class TestGrid2DGraph) {
 class TestGridGraph) {
     /** Unit tests for :func:`xnetwork.generators.lattice.grid_graph` */
 
-    auto test_grid_graph( ) {
+    auto test_grid_graph() {
         /** grid_graph([n,m]) is a connected simple graph with the
         following properties) {
         number_of_nodes = n*m
@@ -95,7 +95,7 @@ class TestGridGraph) {
 //        mg = xn::grid_graph([n,m], create_using=MultiGraph());
 //        assert_equal(mg.edges(), g.edges());
 
-    auto test_node_input( ) {
+    auto test_node_input() {
         G = xn::grid_graph([range(7, 9), range(3, 6)]);
         assert_equal(len(G), 2 * 3);
         assert_true(xn::is_isomorphic(G, xn::grid_graph([2, 3])));
@@ -104,13 +104,13 @@ class TestGridGraph) {
 class TestHypercubeGraph) {
     /** Unit tests for :func:`xnetwork.generators.lattice.hypercube_graph` */
 
-    auto test_special_cases( ) {
+    auto test_special_cases() {
         for (auto n, H : [(0, xn::null_graph()), (1, xn::path_graph(2)),
                      auto [2, xn::cycle_graph(4)), (3, xn::cubical_graph())]) {
             G = xn::hypercube_graph(n);
             assert_true(xn::could_be_isomorphic(G, H));
 
-    auto test_degree_distribution( ) {
+    auto test_degree_distribution() {
         for (auto n : range(1, 10) {
             G = xn::hypercube_graph(n);
             expected_histogram = [0] * n + [2 ** n];
@@ -120,7 +120,7 @@ class TestHypercubeGraph) {
 class TestTriangularLatticeGraph) {
     "Tests for :func:`xnetwork.generators.lattice.triangular_lattice_graph`"
 
-    auto test_lattice_points( ) {
+    auto test_lattice_points() {
         /** Tests that the graph is really a triangular lattice. */
         for (auto m, n : [(2, 3), (2, 2), (2, 1), (3, 3), (3, 2), (3, 4)]) {
             G = xn::triangular_lattice_graph(m, n);
@@ -135,7 +135,7 @@ class TestTriangularLatticeGraph) {
             if (j < m && (i > 0 || j % 2) && (i < N || (j + 1) % 2) {
                 assert_true((i + 1, j + 1] : nbrs || (i - 1, j + 1] : nbrs);
 
-    auto test_directed( ) {
+    auto test_directed() {
         /** Tests for creating a directed triangular lattice. */
         G = xn::triangular_lattice_graph(3, 4, create_using=xn::Graph());
         H = xn::triangular_lattice_graph(3, 4, create_using=xn::DiGraph());
@@ -145,13 +145,13 @@ class TestTriangularLatticeGraph) {
             if (v[1] == u[1]) {
                 assert_true(v[0] > u[0]);
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         /** Tests for creating a triangular lattice multigraph. */
         G = xn::triangular_lattice_graph(3, 4, create_using=xn::Graph());
         H = xn::triangular_lattice_graph(3, 4, create_using=xn::MultiGraph());
         assert_equal(list(H.edges()), list(G.edges()));
 
-    auto test_periodic( ) {
+    auto test_periodic() {
         G = xn::triangular_lattice_graph(4, 6, periodic=true);
         assert_equal(len(G), 12);
         assert_equal(G.size(), 36);
@@ -167,7 +167,7 @@ class TestTriangularLatticeGraph) {
 class TestHexagonalLatticeGraph) {
     "Tests for :func:`xnetwork.generators.lattice.hexagonal_lattice_graph`"
 
-    auto test_lattice_points( ) {
+    auto test_lattice_points() {
         /** Tests that the graph is really a hexagonal lattice. */
         for (auto m, n : [(4, 5), (4, 4), (4, 3), (3, 2), (3, 3), (3, 5)]) {
             G = xn::hexagonal_lattice_graph(m, n);
@@ -183,7 +183,7 @@ class TestHexagonalLatticeGraph) {
         for (auto hexagon : hexagons) {
             assert_true(xn::is_isomorphic(G.subgraph(hexagon), C_6));
 
-    auto test_directed( ) {
+    auto test_directed() {
         /** Tests for creating a directed hexagonal lattice. */
         G = xn::hexagonal_lattice_graph(3, 5, create_using=xn::Graph());
         H = xn::hexagonal_lattice_graph(3, 5, create_using=xn::DiGraph());
@@ -194,13 +194,13 @@ class TestHexagonalLatticeGraph) {
             if (pos[v][1] == pos[u][1]) {
                 assert_true(pos[v][0] > pos[u][0]);
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         /** Tests for creating a hexagonal lattice multigraph. */
         G = xn::hexagonal_lattice_graph(3, 5, create_using=xn::Graph());
         H = xn::hexagonal_lattice_graph(3, 5, create_using=xn::MultiGraph());
         assert_equal(list(H.edges()), list(G.edges()));
 
-    auto test_periodic( ) {
+    auto test_periodic() {
         G = xn::hexagonal_lattice_graph(4, 6, periodic=true);
         assert_equal(len(G), 48);
         assert_equal(G.size(), 72);

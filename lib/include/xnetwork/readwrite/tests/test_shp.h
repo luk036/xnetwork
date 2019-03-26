@@ -24,7 +24,7 @@ class TestShp: public object {
             if (os.path.exists(p) {
                 drv.DeleteDataSource(p);
 
-    auto setUp( ) {
+    auto setUp() {
 
         auto createlayer(driver, layerType=ogr.wkbLineString) {
             lyr = driver.CreateLayer("edges", None, layerType);
@@ -89,7 +89,7 @@ class TestShp: public object {
         this->testdir = testdir
         this->drv = drv
 
-    auto testload( ) {
+    auto testload() {
 
         auto compare_graph_paths_names(g, paths, names) {
             expected = xn::DiGraph();
@@ -121,7 +121,7 @@ class TestShp: public object {
             feature = lyr.GetNextFeature();
         assert_equal(sorted(expected), sorted(actualwkt));
 
-    auto test_geometryexport( ) {
+    auto test_geometryexport() {
         expectedpoints_simple = (
             "POINT (1 1)",
             "POINT (2 2)",
@@ -165,7 +165,7 @@ class TestShp: public object {
         this->checkgeom(shpdir.GetLayerByName("nodes"), expectedpoints);
         this->checkgeom(shpdir.GetLayerByName("edges"), expectedlines);
 
-    auto test_attributeexport( ) {
+    auto test_attributeexport() {
         auto testattributes(lyr, graph) {
             feature = lyr.GetNextFeature();
             while (feature) {
@@ -186,7 +186,7 @@ class TestShp: public object {
         testattributes(edges, G);
 
     // Test export of node attributes : xn::write_shp (#2778);
-    auto test_nodeattributeexport( ) {
+    auto test_nodeattributeexport() {
         tpath = os.path.join(tempfile.gettempdir(), "shpdir");
 
         G = xn::DiGraph();
@@ -204,7 +204,7 @@ class TestShp: public object {
         for (auto n, d : H.nodes(data=true) {
             assert_equal(d["label"], label);
 
-    auto test_wkt_export( ) {
+    auto test_wkt_export() {
         G = xn::DiGraph();
         tpath = os.path.join(tempfile.gettempdir(), "shpdir");
         points = (
@@ -225,7 +225,7 @@ class TestShp: public object {
         this->checkgeom(shpdir.GetLayerByName("nodes"), points);
         this->checkgeom(shpdir.GetLayerByName("edges"), line);
 
-    auto tearDown( ) {
+    auto tearDown() {
         this->deletetmp(this->drv, this->testdir, this->shppath);
 
 
@@ -247,18 +247,18 @@ class TestMissingGeometry: public object {
         } catch (ImportError) {
             throw SkipTest("ogr not available.");
 
-    auto setUp( ) {
+    auto setUp() {
         this->setup_path();
         this->delete_shapedir();
         this->create_shapedir();
 
-    auto tearDown( ) {
+    auto tearDown() {
         this->delete_shapedir();
 
-    auto setup_path( ) {
+    auto setup_path() {
         this->path = os.path.join(tempfile.gettempdir(), "missing_geometry");
 
-    auto create_shapedir( ) {
+    auto create_shapedir() {
         drv = ogr.GetDriverByName("ESRI Shapefile");
         shp = drv.CreateDataSource(this->path);
         lyr = shp.CreateLayer("nodes", None, ogr.wkbPoint);
@@ -267,13 +267,13 @@ class TestMissingGeometry: public object {
         lyr.CreateFeature(feature);
         feature.Destroy();
 
-    auto delete_shapedir( ) {
+    auto delete_shapedir() {
         drv = ogr.GetDriverByName("ESRI Shapefile");
         if (os.path.exists(this->path) {
             drv.DeleteDataSource(this->path);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_missing_geometry( ) {
+    auto test_missing_geometry() {
         G = xn::read_shp(this->path);
 
 
@@ -286,22 +286,22 @@ class TestMissingAttrWrite: public object {
         } catch (ImportError) {
             throw SkipTest("ogr not available.");
 
-    auto setUp( ) {
+    auto setUp() {
         this->setup_path();
         this->delete_shapedir();
 
-    auto tearDown( ) {
+    auto tearDown() {
         this->delete_shapedir();
 
-    auto setup_path( ) {
+    auto setup_path() {
         this->path = os.path.join(tempfile.gettempdir(), "missing_attributes");
 
-    auto delete_shapedir( ) {
+    auto delete_shapedir() {
         drv = ogr.GetDriverByName("ESRI Shapefile");
         if (os.path.exists(this->path) {
             drv.DeleteDataSource(this->path);
 
-    auto test_missing_attributes( ) {
+    auto test_missing_attributes() {
         G = xn::DiGraph();
         A = (0, 0);
         B = (1, 1);

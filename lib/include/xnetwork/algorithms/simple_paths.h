@@ -388,12 +388,12 @@ auto shortest_simple_paths(G, source, target, weight=None) {
 
 class PathBuffer: public object {
 
-    explicit _Self( ) {
+    explicit _Self() {
         this->paths = set();
         this->sortedpaths = list();
         this->counter = count();
 
-    auto __len__( ) {
+    auto __len__() {
         return len(this->sortedpaths);
 
     auto push( cost, path) {
@@ -402,7 +402,7 @@ class PathBuffer: public object {
             heappush(this->sortedpaths, (cost, next(this->counter), path));
             this->paths.add(hashable_path);
 
-    auto pop( ) {
+    auto pop() {
         (cost, num, path] = heappop(this->sortedpaths);
         hashable_path = tuple(path);
         this->paths.remove(hashable_path);

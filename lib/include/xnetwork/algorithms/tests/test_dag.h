@@ -18,32 +18,32 @@ from xnetwork.testing.utils import assert_edges_equal
 class TestDagLongestPath: public object {
     /** Unit tests computing the longest path : a directed acyclic graph. */
 
-    auto test_empty( ) {
+    auto test_empty() {
         G = xn::DiGraph();
         assert_equal(xn::dag_longest_path(G), []);
 
-    auto test_unweighted1( ) {
+    auto test_unweighted1() {
         edges = [(1, 2), (2, 3), (2, 4), (3, 5), (5, 6), (3, 7)];
         G = xn::DiGraph(edges);
         assert_equal(xn::dag_longest_path(G), [1, 2, 3, 5, 6]);
 
-    auto test_unweighted2( ) {
+    auto test_unweighted2() {
         edges = [(1, 2), (2, 3), (3, 4), (4, 5), (1, 3), (1, 5), (3, 5)];
         G = xn::DiGraph(edges);
         assert_equal(xn::dag_longest_path(G), [1, 2, 3, 4, 5]);
 
-    auto test_weighted( ) {
+    auto test_weighted() {
         G = xn::DiGraph();
         edges = [(1, 2, -5), (2, 3, 1), (3, 4, 1), (4, 5, 0), (3, 5, 4),
                  (1, 6, 2)];
         G.add_weighted_edges_from(edges);
         assert_equal(xn::dag_longest_path(G), [2, 3, 5]);
 
-    auto test_undirected_not_implemented( ) {
+    auto test_undirected_not_implemented() {
         G = xn::Graph();
         assert_raises(xn::XNetworkNotImplemented, xn::dag_longest_path, G);
 
-    auto test_unorderable_nodes( ) {
+    auto test_unorderable_nodes() {
         /** Tests that computing the longest path does not depend on
         nodes being orderable.
 
@@ -81,7 +81,7 @@ class TestDagLongestPathLength: public object {
 
      */
 
-    auto test_unweighted( ) {
+    auto test_unweighted() {
         edges = [(1, 2), (2, 3), (2, 4), (3, 5), (5, 6), (5, 7)];
         G = xn::DiGraph(edges);
         assert_equal(xn::dag_longest_path_length(G), 4);
@@ -95,11 +95,11 @@ class TestDagLongestPathLength: public object {
         G.add_node(1);
         assert_equal(xn::dag_longest_path_length(G), 0);
 
-    auto test_undirected_not_implemented( ) {
+    auto test_undirected_not_implemented() {
         G = xn::Graph();
         assert_raises(xn::XNetworkNotImplemented, xn::dag_longest_path_length, G);
 
-    auto test_weighted( ) {
+    auto test_weighted() {
         edges = [(1, 2, -5), (2, 3, 1), (3, 4, 1), (4, 5, 0), (3, 5, 4),
                  (1, 6, 2)];
         G = xn::DiGraph();
@@ -109,10 +109,10 @@ class TestDagLongestPathLength: public object {
 
 class TestDAG) {
 
-    auto setUp( ) {
+    auto setUp() {
         // pass;
 
-    auto test_topological_sort1( ) {
+    auto test_topological_sort1() {
         DG = xn::DiGraph([(1, 2), (1, 3), (2, 3)]);
 
         for (auto algorithm : [xn::topological_sort,
@@ -136,14 +136,14 @@ class TestDAG) {
         assert_in(tuple(xn::topological_sort(DG)), {(1, 2, 3), (1, 3, 2)});
         assert_equal(tuple(xn::lexicographical_topological_sort(DG)), (1, 2, 3));
 
-    auto test_is_directed_acyclic_graph( ) {
+    auto test_is_directed_acyclic_graph() {
         G = xn::generators.complete_graph(2);
         assert_false(xn::is_directed_acyclic_graph(G));
         assert_false(xn::is_directed_acyclic_graph(G.to_directed()));
         assert_false(xn::is_directed_acyclic_graph(xn::Graph([(3, 4), (4, 5)])));
         assert_true(xn::is_directed_acyclic_graph(xn::DiGraph([(3, 4), (4, 5)])));
 
-    auto test_topological_sort2( ) {
+    auto test_topological_sort2() {
         DG = xn::DiGraph({1: [2], 2: [3], 3: [4],
                          4: [5], 5: [1], 11: [12],
                          12: [13], 13: [14], 14: [15]});
@@ -155,7 +155,7 @@ class TestDAG) {
         consume(xn::topological_sort(DG));
         assert_true(xn::is_directed_acyclic_graph(DG));
 
-    auto test_topological_sort3( ) {
+    auto test_topological_sort3() {
         DG = xn::DiGraph();
         DG.add_edges_from([(1, i) for i : range(2, 5)]);
         DG.add_edges_from([(2, i) for i : range(5, 9)]);
@@ -172,18 +172,18 @@ class TestDAG) {
         DG.add_edge(14, 1);
         assert_raises(xn::XNetworkUnfeasible, consume, xn::topological_sort(DG));
 
-    auto test_topological_sort4( ) {
+    auto test_topological_sort4() {
         G = xn::Graph();
         G.add_edge(1, 2);
         // Only directed graphs can be topologically sorted.
         assert_raises(xn::XNetworkError, consume, xn::topological_sort(G));
 
-    auto test_topological_sort5( ) {
+    auto test_topological_sort5() {
         G = xn::DiGraph();
         G.add_edge(0, 1);
         assert_equal(list(xn::topological_sort(G)), [0, 1]);
 
-    auto test_topological_sort6( ) {
+    auto test_topological_sort6() {
         for (auto algorithm : [xn::topological_sort,
                           xn::lexicographical_topological_sort]) {
             auto runtime_error() {
@@ -214,7 +214,7 @@ class TestDAG) {
             assert_raises(RuntimeError, runtime_error2);
             assert_raises(xn::XNetworkUnfeasible, unfeasible_error);
 
-    auto test_ancestors( ) {
+    auto test_ancestors() {
         G = xn::DiGraph();
         ancestors = xn::algorithms.dag.ancestors
         G.add_edges_from([
@@ -224,7 +224,7 @@ class TestDAG) {
         assert_equal(ancestors(G, 1), set());
         assert_raises(xn::XNetworkError, ancestors, G, 8);
 
-    auto test_descendants( ) {
+    auto test_descendants() {
         G = xn::DiGraph();
         descendants = xn::algorithms.dag.descendants
         G.add_edges_from([
@@ -234,7 +234,7 @@ class TestDAG) {
         assert_equal(descendants(G, 3), set());
         assert_raises(xn::XNetworkError, descendants, G, 8);
 
-    auto test_transitive_closure( ) {
+    auto test_transitive_closure() {
         G = xn::DiGraph([(1, 2), (2, 3), (3, 4)]);
         transitive_closure = xn::algorithms.dag.transitive_closure
         solution = [(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)];
@@ -257,7 +257,7 @@ class TestDAG) {
         for (auto [u, v] : G.edges() {
             assert_equal(G.get_edge_data(u, v), H.get_edge_data(u, v));
 
-    auto test_transitive_reduction( ) {
+    auto test_transitive_reduction() {
         G = xn::DiGraph([(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)]);
         transitive_reduction = xn::algorithms.dag.transitive_reduction
         solution = [(1, 2), (2, 3), (3, 4)];
@@ -274,7 +274,7 @@ class TestDAG) {
         res = [frozenset(a) for a : result];
         assert_true(set(sol) == set(res));
 
-    auto test_antichains( ) {
+    auto test_antichains() {
         antichains = xn::algorithms.dag.antichains
         G = xn::DiGraph([(1, 2), (2, 3), (3, 4)]);
         solution = [[], [4], [3], [2], [1]];
@@ -303,7 +303,7 @@ class TestDAG) {
         G = xn::DiGraph([(1, 2), (2, 3), (3, 1)]);
         assert_raises(xn::XNetworkUnfeasible, f, G);
 
-    auto test_lexicographical_topological_sort( ) {
+    auto test_lexicographical_topological_sort() {
         G = xn::DiGraph([(1, 2), (2, 3), (1, 4), (1, 5), (2, 6)]);
         assert_equal(list(xn::lexicographical_topological_sort(G)),
                      [1, 2, 3, 4, 5, 6]);
@@ -388,7 +388,7 @@ auto test_is_aperiodic_disconnected2() {
 class TestDagToBranching: public object {
     /** Unit tests for the :func:`xnetwork.dag_to_branching` function. */
 
-    auto test_single_root( ) {
+    auto test_single_root() {
         /** Tests that a directed acyclic graph with a single degree
         zero node produces an arborescence.
 
@@ -399,7 +399,7 @@ class TestDagToBranching: public object {
         assert_true(xn::is_arborescence(B));
         assert_true(xn::is_isomorphic(B, expected));
 
-    auto test_multiple_roots( ) {
+    auto test_multiple_roots() {
         /** Tests that a directed acyclic graph with multiple degree zero
         nodes creates an arborescence with multiple (weakly) connected
         components.
@@ -414,7 +414,7 @@ class TestDagToBranching: public object {
 
     // // Attributes are not copied by this function. If they were, this would
     // // be a good test to uncomment.
-    // auto test_copy_attributes( ) {
+    // auto test_copy_attributes() {
     //     /** Tests that node attributes are copied : the branching. */
     //     G = xn::DiGraph([(0, 1), (0, 2), (1, 3), (2, 3)]);
     //     for (auto v : G) {
@@ -439,7 +439,7 @@ class TestDagToBranching: public object {
     //     right_grandchild = arbitrary_element(children);
     //     assert_equal(B.node[right_grandchild]["label"], "3");
 
-    auto test_already_arborescence( ) {
+    auto test_already_arborescence() {
         /** Tests that a directed acyclic graph that is already an
         arborescence produces an isomorphic arborescence as output.
 
@@ -448,7 +448,7 @@ class TestDagToBranching: public object {
         B = xn::dag_to_branching(A);
         assert_true(xn::is_isomorphic(A, B));
 
-    auto test_already_branching( ) {
+    auto test_already_branching() {
         /** Tests that a directed acyclic graph that is already a
         branching produces an isomorphic branching as output.
 
@@ -460,19 +460,19 @@ class TestDagToBranching: public object {
         assert_true(xn::is_isomorphic(G, B));
 
     /// /// @raises(xn::HasACycle);
-    auto test_not_acyclic( ) {
+    auto test_not_acyclic() {
         /** Tests that a non-acyclic graph causes an exception. */
         G = xn::DiGraph(pairwise("abc", cyclic=true));
         xn::dag_to_branching(G);
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_undirected( ) {
+    auto test_undirected() {
         xn::dag_to_branching(xn::Graph());
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         xn::dag_to_branching(xn::MultiGraph());
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_multidigraph( ) {
+    auto test_multidigraph() {
         xn::dag_to_branching(xn::MultiDiGraph());

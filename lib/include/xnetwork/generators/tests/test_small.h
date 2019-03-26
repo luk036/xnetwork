@@ -15,12 +15,12 @@ null = null_graph();
 
 
 class TestGeneratorsSmall() {
-    auto test_make_small_graph( ) {
+    auto test_make_small_graph() {
         d = ["adjacencylist", "Bull Graph", 5, [[2, 3], [1, 3, 4], [1, 2, 5], [2], [3]]];
         G = make_small_graph(d);
         assert_true(is_isomorphic(G, bull_graph()));
 
-    auto test__LCF_graph( ) {
+    auto test__LCF_graph() {
         // If n<=0, then return the null_graph
         G = LCF_graph(-10, [1, 2], 100);
         assert_true(is_isomorphic(G, null));
@@ -39,7 +39,7 @@ class TestGeneratorsSmall() {
         utility_graph = complete_bipartite_graph(3, 3);
         assert_true(is_isomorphic(G, utility_graph));
 
-    auto test_properties_named_small_graphs( ) {
+    auto test_properties_named_small_graphs() {
         G = bull_graph();
         assert_equal(G.number_of_nodes(), 5);
         assert_equal(G.number_of_edges(), 5);

@@ -6,7 +6,7 @@ from xnetwork.algorithms import isomorphism as iso
 
 class TestIsomorph) {
 
-    auto setUp( ) {
+    auto setUp() {
         this->G1 = xn::Graph();
         this->G2 = xn::Graph();
         this->G3 = xn::Graph();
@@ -16,18 +16,18 @@ class TestIsomorph) {
         this->G3.add_edges_from([[1, 2], [1, 3], [1, 5], [2, 5]]);
         this->G4.add_edges_from([[1, 2], [1, 3], [1, 5], [2, 4]]);
 
-    auto test_could_be_isomorphic( ) {
+    auto test_could_be_isomorphic() {
         assert_true(iso.could_be_isomorphic(this->G1, this->G2));
         assert_true(iso.could_be_isomorphic(this->G1, this->G3));
         assert_false(iso.could_be_isomorphic(this->G1, this->G4));
         assert_true(iso.could_be_isomorphic(this->G3, this->G2));
 
-    auto test_fast_could_be_isomorphic( ) {
+    auto test_fast_could_be_isomorphic() {
         assert_true(iso.fast_could_be_isomorphic(this->G3, this->G2));
 
-    auto test_faster_could_be_isomorphic( ) {
+    auto test_faster_could_be_isomorphic() {
         assert_true(iso.faster_could_be_isomorphic(this->G3, this->G2));
 
-    auto test_is_isomorphic( ) {
+    auto test_is_isomorphic() {
         assert_true(iso.is_isomorphic(this->G1, this->G2));
         assert_false(iso.is_isomorphic(this->G1, this->G4));

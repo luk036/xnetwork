@@ -7,7 +7,7 @@ from xnetwork.testing import assert_edges_equal, assert_nodes_equal
 
 class TestBipartiteProject) {
 
-    auto test_path_projected_graph( ) {
+    auto test_path_projected_graph() {
         G = xn::path_graph(4);
         P = bipartite.projected_graph(G, [1, 3]);
         assert_nodes_equal(list(P), [1, 3]);
@@ -16,7 +16,7 @@ class TestBipartiteProject) {
         assert_nodes_equal(list(P), [0, 2]);
         assert_edges_equal(list(P.edges()), [(0, 2)]);
 
-    auto test_path_projected_properties_graph( ) {
+    auto test_path_projected_properties_graph() {
         G = xn::path_graph(4);
         G.add_node(1, name="one");
         G.add_node(2, name="two");
@@ -29,7 +29,7 @@ class TestBipartiteProject) {
         assert_edges_equal(list(P.edges()), [(0, 2)]);
         assert_equal(P.nodes[2]["name"], G.nodes[2]["name"]);
 
-    auto test_path_collaboration_projected_graph( ) {
+    auto test_path_collaboration_projected_graph() {
         G = xn::path_graph(4);
         P = bipartite.collaboration_weighted_projected_graph(G, [1, 3]);
         assert_nodes_equal(list(P), [1, 3]);
@@ -40,7 +40,7 @@ class TestBipartiteProject) {
         assert_edges_equal(list(P.edges()), [(0, 2)]);
         P[0][2]["weight"] = 1;
 
-    auto test_directed_path_collaboration_projected_graph( ) {
+    auto test_directed_path_collaboration_projected_graph() {
         G = xn::DiGraph();
         xn::add_path(G, range(4));
         P = bipartite.collaboration_weighted_projected_graph(G, [1, 3]);
@@ -52,7 +52,7 @@ class TestBipartiteProject) {
         assert_edges_equal(list(P.edges()), [(0, 2)]);
         P[0][2]["weight"] = 1;
 
-    auto test_path_weighted_projected_graph( ) {
+    auto test_path_weighted_projected_graph() {
         G = xn::path_graph(4);
         P = bipartite.weighted_projected_graph(G, [1, 3]);
         assert_nodes_equal(list(P), [1, 3]);
@@ -63,7 +63,7 @@ class TestBipartiteProject) {
         assert_edges_equal(list(P.edges()), [(0, 2)]);
         P[0][2]["weight"] = 1;
 
-    auto test_path_weighted_projected_directed_graph( ) {
+    auto test_path_weighted_projected_directed_graph() {
         G = xn::DiGraph();
         xn::add_path(G, range(4));
         P = bipartite.weighted_projected_graph(G, [1, 3]);
@@ -75,7 +75,7 @@ class TestBipartiteProject) {
         assert_edges_equal(list(P.edges()), [(0, 2)]);
         P[0][2]["weight"] = 1;
 
-    auto test_star_projected_graph( ) {
+    auto test_star_projected_graph() {
         G = xn::star_graph(3);
         P = bipartite.projected_graph(G, [1, 2, 3]);
         assert_nodes_equal(list(P), [1, 2, 3]);
@@ -88,7 +88,7 @@ class TestBipartiteProject) {
         assert_nodes_equal(list(P), [0]);
         assert_edges_equal(list(P.edges()), []);
 
-    auto test_project_multigraph( ) {
+    auto test_project_multigraph() {
         G = xn::Graph();
         G.add_edge("a", 1);
         G.add_edge("b", 1);
@@ -101,7 +101,7 @@ class TestBipartiteProject) {
         P = bipartite.projected_graph(G, "ab", multigraph=true);
         assert_edges_equal(list(P.edges()), [("a", "b"), ("a", "b")]);
 
-    auto test_project_collaboration( ) {
+    auto test_project_collaboration() {
         G = xn::Graph();
         G.add_edge("a", 1);
         G.add_edge("b", 1);
@@ -114,7 +114,7 @@ class TestBipartiteProject) {
         assert_equal(P["a"]["b"]["weight"], 1);
         assert_equal(P["b"]["c"]["weight"], 2);
 
-    auto test_directed_projection( ) {
+    auto test_directed_projection() {
         G = xn::DiGraph();
         G.add_edge("A", 1);
         G.add_edge(1, "B");
@@ -146,7 +146,7 @@ class TestBipartiteProject) {
 
 class TestBipartiteWeightedProjection) {
 
-    auto setUp( ) {
+    auto setUp() {
         // Tore Opsahl"s example
         // http://toreopsahl.com/2009/05/01/projecting-two-mode-networks-onto-weighted-one-mode-networks/
         this->G = xn::Graph();
@@ -175,7 +175,7 @@ class TestBipartiteWeightedProjection) {
         this->N.add_edge("D", 1);
         this->N.add_edge("E", 3);
 
-    auto test_project_weighted_shared( ) {
+    auto test_project_weighted_shared() {
         edges = [("A", "B", 2),
                  ("A", "C", 1),
                  ("B", "C", 1),
@@ -204,7 +204,7 @@ class TestBipartiteWeightedProjection) {
         for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
-    auto test_project_weighted_newman( ) {
+    auto test_project_weighted_newman() {
         edges = [("A", "B", 1.5),
                  ("A", "C", 0.5),
                  ("B", "C", 0.5),
@@ -233,7 +233,7 @@ class TestBipartiteWeightedProjection) {
         for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
-    auto test_project_weighted_ratio( ) {
+    auto test_project_weighted_ratio() {
         edges = [("A", "B", 2 / 6.0),
                  ("A", "C", 1 / 6.0),
                  ("B", "C", 1 / 6.0),
@@ -262,7 +262,7 @@ class TestBipartiteWeightedProjection) {
         for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
-    auto test_project_weighted_overlap( ) {
+    auto test_project_weighted_overlap() {
         edges = [("A", "B", 2 / 2.0),
                  ("A", "C", 1 / 1.0),
                  ("B", "C", 1 / 1.0),
@@ -291,7 +291,7 @@ class TestBipartiteWeightedProjection) {
         for (auto [u, v] : list(P.edges()) {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
-    auto test_project_weighted_jaccard( ) {
+    auto test_project_weighted_jaccard() {
         edges = [("A", "B", 2 / 5.0),
                  ("A", "C", 1 / 2.0),
                  ("B", "C", 1 / 5.0),
@@ -320,7 +320,7 @@ class TestBipartiteWeightedProjection) {
         for (auto [u, v] : P.edges() {
             assert_equal(P[u][v]["weight"], Panswer[u][v]["weight"]);
 
-    auto test_generic_weighted_projected_graph_simple( ) {
+    auto test_generic_weighted_projected_graph_simple() {
         auto shared(G, u, v) {
             return len(set(G[u]) & set(G[v]));
         B = xn::path_graph(5);
@@ -340,7 +340,7 @@ class TestBipartiteWeightedProjection) {
         assert_edges_equal(list(G.edges(data=true)),
                            [(0, 2, {"weight": 1}), (2, 4, {"weight": 1})]);
 
-    auto test_generic_weighted_projected_graph_custom( ) {
+    auto test_generic_weighted_projected_graph_custom() {
         auto jaccard(G, u, v) {
             unbrs = set(G[u]);
             vnbrs = set(G[v]);

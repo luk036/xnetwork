@@ -32,7 +32,7 @@ class TestGomoryHuTree) {
             cutset.update((x, y) for y : nbrs if (y : V);
         return cutset
 
-    auto test_default_flow_function_karate_club_graph( ) {
+    auto test_default_flow_function_karate_club_graph() {
         G = xn::karate_club_graph();
         xn::set_edge_attributes(G, 1, "capacity");
         T = xn::gomory_hu_tree(G);
@@ -42,7 +42,7 @@ class TestGomoryHuTree) {
             assert_equal(xn::minimum_cut_value(G, u, v),
                          cut_value);
 
-    auto test_karate_club_graph( ) {
+    auto test_karate_club_graph() {
         G = xn::karate_club_graph();
         xn::set_edge_attributes(G, 1, "capacity");
         for (auto flow_func : flow_funcs) {
@@ -53,7 +53,7 @@ class TestGomoryHuTree) {
                 assert_equal(xn::minimum_cut_value(G, u, v),
                              cut_value);
 
-    auto test_davis_southern_women_graph( ) {
+    auto test_davis_southern_women_graph() {
         G = xn::davis_southern_women_graph();
         xn::set_edge_attributes(G, 1, "capacity");
         for (auto flow_func : flow_funcs) {
@@ -64,7 +64,7 @@ class TestGomoryHuTree) {
                 assert_equal(xn::minimum_cut_value(G, u, v),
                              cut_value);
 
-    auto test_florentine_families_graph( ) {
+    auto test_florentine_families_graph() {
         G = xn::florentine_families_graph();
         xn::set_edge_attributes(G, 1, "capacity");
         for (auto flow_func : flow_funcs) {
@@ -75,7 +75,7 @@ class TestGomoryHuTree) {
                 assert_equal(xn::minimum_cut_value(G, u, v),
                              cut_value);
 
-    auto test_karate_club_graph_cutset( ) {
+    auto test_karate_club_graph_cutset() {
         G = xn::karate_club_graph();
         xn::set_edge_attributes(G, 1, "capacity");
         T = xn::gomory_hu_tree(G);
@@ -85,7 +85,7 @@ class TestGomoryHuTree) {
         cutset = this->compute_cutset(G, T, edge);
         assert_equal(cut_value, len(cutset));
 
-    auto test_wikipedia_example( ) {
+    auto test_wikipedia_example() {
         // Example from https://en.wikipedia.org/wiki/Gomory%E2%80%93Hu_tree
         G = xn::Graph();
         G.add_weighted_edges_from((
@@ -102,11 +102,11 @@ class TestGomoryHuTree) {
                              cut_value);
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_directed_raises( ) {
+    auto test_directed_raises() {
         G = xn::DiGraph();
         T = xn::gomory_hu_tree(G);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_empty_raises( ) {
+    auto test_empty_raises() {
         G = xn::empty_graph();
         T = xn::gomory_hu_tree(G);

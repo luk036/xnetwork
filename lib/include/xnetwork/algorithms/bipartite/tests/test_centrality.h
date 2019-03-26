@@ -5,7 +5,7 @@ from xnetwork.algorithms import bipartite
 
 class TestBipartiteCentrality: public object {
 
-    auto setUp( ) {
+    auto setUp() {
         this->P4 = xn::path_graph(4);
         this->K3 = xn::complete_bipartite_graph(3, 3);
         this->C4 = xn::cycle_graph(4);
@@ -13,7 +13,7 @@ class TestBipartiteCentrality: public object {
         this->top_nodes = [n for n, d : this->davis.nodes(data=true);
                           if (d["bipartite"] == 0];
 
-    auto test_degree_centrality( ) {
+    auto test_degree_centrality() {
         d = bipartite.degree_centrality(this->P4, [1, 3]);
         answer = {0: 0.5, 1: 1.0,  2: 1.0, 3:  0.5}
         assert_equal(d, answer);
@@ -24,7 +24,7 @@ class TestBipartiteCentrality: public object {
         answer = {0: 1.0, 1: 1.0, 2: 1.0, 3: 1.0}
         assert_equal(d, answer);
 
-    auto test_betweenness_centrality( ) {
+    auto test_betweenness_centrality() {
         c = bipartite.betweenness_centrality(this->P4, [1, 3]);
         answer = {0: 0.0, 1: 1.0, 2: 1.0, 3: 0.0}
         assert_equal(c, answer);
@@ -35,7 +35,7 @@ class TestBipartiteCentrality: public object {
         answer = {0: 0.25, 1: 0.25, 2: 0.25, 3: 0.25}
         assert_equal(c, answer);
 
-    auto test_closeness_centrality( ) {
+    auto test_closeness_centrality() {
         c = bipartite.closeness_centrality(this->P4, [1, 3]);
         answer = {0: 2.0 / 3, 1: 1.0, 2: 1.0, 3: 2.0 / 3}
         assert_equal(c, answer);
@@ -53,7 +53,7 @@ class TestBipartiteCentrality: public object {
         c = bipartite.closeness_centrality(G, [1]);
         assert_equal(c, {1: 0.0});
 
-    auto test_davis_degree_centrality( ) {
+    auto test_davis_degree_centrality() {
         G = this->davis
         deg = bipartite.degree_centrality(G, this->top_nodes);
         answer = {"E8": 0.78,
@@ -91,7 +91,7 @@ class TestBipartiteCentrality: public object {
         for (auto node, value : answer.items() {
             assert_almost_equal(value, deg[node], places=2);
 
-    auto test_davis_betweenness_centrality( ) {
+    auto test_davis_betweenness_centrality() {
         G = this->davis
         bet = bipartite.betweenness_centrality(G, this->top_nodes);
         answer = {"E8": 0.24,
@@ -129,7 +129,7 @@ class TestBipartiteCentrality: public object {
         for (auto node, value : answer.items() {
             assert_almost_equal(value, bet[node], places=2);
 
-    auto test_davis_closeness_centrality( ) {
+    auto test_davis_closeness_centrality() {
         G = this->davis
         clos = bipartite.closeness_centrality(G, this->top_nodes);
         answer = {"E8": 0.85,

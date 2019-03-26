@@ -8,7 +8,7 @@ import tempfile
 
 class TestLEDA: public object {
 
-    auto test_parse_leda( ) {
+    auto test_parse_leda() {
         data = R"(#header section	  \nLEDA.GRAPH \nstring\nint\n-1\n#nodes section\n5 \n|{v1}| \n|{v2}| \n|{v3}| \n|{v4}| \n|{v5}| \n\n#edges section\n7 \n1 2 0 |{4}| \n1 3 0 |{3}| \n2 3 0 |{2}| \n3 4 0 |{3}| \n3 5 0 |{7}| \n4 5 0 |{6}| \n5 1 0 |{foo}| )";
         G = xn::parse_leda(data);
         G = xn::parse_leda(data.split("\n"));
@@ -23,7 +23,7 @@ class TestLEDA: public object {
                       auto ["v4", "v5", {"label": "6"}),
                       auto ["v5", "v1", {"label": "foo"})]);
 
-    auto test_read_LEDA( ) {
+    auto test_read_LEDA() {
         fh = io.BytesIO();
         data = R"(#header section	  \nLEDA.GRAPH \nstring\nint\n-1\n#nodes section\n5 \n|{v1}| \n|{v2}| \n|{v3}| \n|{v4}| \n|{v5}| \n\n#edges section\n7 \n1 2 0 |{4}| \n1 3 0 |{3}| \n2 3 0 |{2}| \n3 4 0 |{3}| \n3 5 0 |{7}| \n4 5 0 |{6}| \n5 1 0 |{foo}| )";
         G = xn::parse_leda(data);

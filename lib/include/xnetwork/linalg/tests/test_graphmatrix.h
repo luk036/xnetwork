@@ -19,7 +19,7 @@ class TestGraphMatrix: public object {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto setUp( ) {
+    auto setUp() {
         deg = [3, 2, 2, 1, 0];
         this->G = havel_hakimi_graph(deg);
         this->OI = numpy.array([[-1, -1, -1, 0],
@@ -56,7 +56,7 @@ class TestGraphMatrix: public object {
         this->no_edges_G = xn::Graph([(1, 2), (3, 2, {"weight": 8})]);
         this->no_edges_A = numpy.array([[0, 0], [0, 0]]);
 
-    auto test_incidence_matrix( ) {
+    auto test_incidence_matrix() {
         "Conversion to incidence matrix"
         I = xn::incidence_matrix(this->G,
                                 nodelist=sorted(this->G),
@@ -91,7 +91,7 @@ class TestGraphMatrix: public object {
                                 oriented=false).todense().astype(int);
         assert_equal(I, numpy.abs(this->MGOI));
 
-    auto test_weighted_incidence_matrix( ) {
+    auto test_weighted_incidence_matrix() {
         I = xn::incidence_matrix(this->WG,
                                 nodelist=sorted(this->WG),
                                 edgelist=sorted(this->WG.edges()),
@@ -159,7 +159,7 @@ class TestGraphMatrix: public object {
                                 weight="other").todense();
         assert_equal(I, 0.3 * this->MGOI);
 
-    auto test_adjacency_matrix( ) {
+    auto test_adjacency_matrix() {
         "Conversion to adjacency matrix"
         assert_equal(xn::adj_matrix(this->G).todense(), this->A);
         assert_equal(xn::adj_matrix(this->MG).todense(), this->A);

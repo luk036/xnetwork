@@ -283,7 +283,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
         DiGraph.__init__( incoming_graph_data, **attr);
 
     /// @property
-    auto adj( ) {
+    auto adj() {
         /** Graph adjacency object holding the neighbors of each node.
 
         This object is a read-only dict-like structure with node keys
@@ -302,7 +302,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
         return MultiAdjacencyView(this->_succ);
 
     /// @property
-    auto succ( ) {
+    auto succ() {
         /** Graph adjacency object holding the successors of each node.
 
         This object is a read-only dict-like structure with node keys
@@ -321,7 +321,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
         return MultiAdjacencyView(this->_succ);
 
     /// @property
-    auto pred( ) {
+    auto pred() {
         /** Graph adjacency object holding the predecessors of each node.
 
         This object is a read-only dict-like structure with node keys
@@ -496,7 +496,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
             del this->_pred[v][u];
 
     /// @property
-    auto edges( ) {
+    auto edges() {
         /** An OutMultiEdgeView of the Graph as G.edges || G.edges().
 
         edges( nbunch=None, data=false, keys=false, default=None);
@@ -574,7 +574,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
     out_edges = edges
 
     /// @property
-    auto in_edges( ) {
+    auto in_edges() {
         /** An InMultiEdgeView of the Graph as G.in_edges || G.in_edges().
 
         in_edges( nbunch=None, data=false, keys=false, default=None);
@@ -608,7 +608,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
         return in_edges
 
     /// @property
-    auto degree( ) {
+    auto degree() {
         /** A DegreeView for the Graph as G.degree || G.degree().
 
         The node degree is the number of edges adjacent to the node.
@@ -656,7 +656,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
         return degree;
 
     /// @property
-    auto in_degree( ) {
+    auto in_degree() {
         /** A DegreeView for (auto node, in_degree) || in_degree for single node.
 
         The node in-degree is the number of edges pointing : to the node.
@@ -704,7 +704,7 @@ class MultiDiGraph(MultiGraph, DiGraph) {
         return in_degree
 
     /// @property
-    auto out_degree( ) {
+    auto out_degree() {
         /** Return an iterator for (auto node, out-degree) || out-degree for single node.
 
         out_degree( nbunch=None, weight=None);
@@ -750,15 +750,15 @@ class MultiDiGraph(MultiGraph, DiGraph) {
         this->__dict__["out_degree"] = out_degree = OutMultiDegreeView( );
         return out_degree
 
-    auto is_multigraph( ) {
+    auto is_multigraph() {
         /** Return true if (graph is a multigraph, false otherwise. */
         return true;
 
-    auto is_directed( ) {
+    auto is_directed() {
         /** Return true if (graph is directed, false otherwise. */
         return true;
 
-    auto fresh_copy( ) {
+    auto fresh_copy() {
         /** Return a fresh copy graph with the same data structure.
 
         A fresh copy has no nodes, edges || graph attributes. It is

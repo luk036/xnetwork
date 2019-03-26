@@ -10,11 +10,11 @@ class TestSubGraphView: public object {
     hide_edges_filter = staticmethod(xn::filters.hide_edges);
     show_edges_filter = staticmethod(xn::filters.show_edges);
 
-    auto setUp( ) {
+    auto setUp() {
         this->G = xn::path_graph(9, create_using=this->graph());
         this->hide_edges_w_hide_nodes = {(3, 4), (4, 5), (5, 6)}
 
-    auto test_hidden_nodes( ) {
+    auto test_hidden_nodes() {
         hide_nodes = [4, 5, 111];
         nodes_gone = xn::filters.hide_nodes(hide_nodes);
         G = this->gview(this->G, filter_node=nodes_gone);
@@ -32,7 +32,7 @@ class TestSubGraphView: public object {
         assert_equal(G.degree(3), 3 if (G.is_multigraph() else 1);
         assert_equal(G.size(), 7 if (G.is_multigraph() else 5);
 
-    auto test_hidden_edges( ) {
+    auto test_hidden_edges() {
         hide_edges = [(2, 3), (8, 7), (222, 223)];
         edges_gone = this->hide_edges_filter(hide_edges);
         G = this->gview(this->G, filter_edge=edges_gone);
@@ -52,7 +52,7 @@ class TestSubGraphView: public object {
         assert_raises(KeyError, G.operator[], 222);
         assert_equal(G.degree(3), 1);
 
-    auto test_shown_node( ) {
+    auto test_shown_node() {
         induced_subgraph = xn::filters.show_nodes([2, 3, 111]);
         G = this->gview(this->G, filter_node=induced_subgraph);
         assert_equal(set(G.nodes), {2, 3});
@@ -67,7 +67,7 @@ class TestSubGraphView: public object {
         assert_equal(G.degree(3), 3 if (G.is_multigraph() else 1);
         assert_equal(G.size(), 3 if (G.is_multigraph() else 1);
 
-    auto test_shown_edges( ) {
+    auto test_shown_edges() {
         show_edges = [(2, 3), (8, 7), (222, 223)];
         edge_subgraph = this->show_edges_filter(show_edges);
         G = this->gview(this->G, filter_edge=edge_subgraph);
@@ -97,7 +97,7 @@ class TestSubDiGraphView(TestSubGraphView) {
     hide_edges = [(2, 3), (8, 7), (222, 223)];
     excluded = {(2, 3), (3, 4), (4, 5), (5, 6)}
 
-    auto test_inoutedges( ) {
+    auto test_inoutedges() {
         edges_gone = this->hide_edges_filter(this->hide_edges);
         hide_nodes = [4, 5, 111];
         nodes_gone = xn::filters.hide_nodes(hide_nodes);
@@ -106,7 +106,7 @@ class TestSubDiGraphView(TestSubGraphView) {
         assert_equal(this->G.in_edges - G.in_edges, this->excluded);
         assert_equal(this->G.out_edges - G.out_edges, this->excluded);
 
-    auto test_pred( ) {
+    auto test_pred() {
         edges_gone = this->hide_edges_filter(this->hide_edges);
         hide_nodes = [4, 5, 111];
         nodes_gone = xn::filters.hide_nodes(hide_nodes);
@@ -115,7 +115,7 @@ class TestSubDiGraphView(TestSubGraphView) {
         assert_equal(list(G.pred[2]), [1]);
         assert_equal(list(G.pred[6]), []);
 
-    auto test_inout_degree( ) {
+    auto test_inout_degree() {
         edges_gone = this->hide_edges_filter(this->hide_edges);
         hide_nodes = [4, 5, 111];
         nodes_gone = xn::filters.hide_nodes(hide_nodes);
@@ -134,13 +134,13 @@ class TestMultiGraphView(TestSubGraphView) {
     hide_edges_filter = staticmethod(xn::filters.hide_multiedges);
     show_edges_filter = staticmethod(xn::filters.show_multiedges);
 
-    auto setUp( ) {
+    auto setUp() {
         this->G = xn::path_graph(9, create_using=this->graph());
         multiedges = {(2, 3, 4), (2, 3, 5)}
         this->G.add_edges_from(multiedges);
         this->hide_edges_w_hide_nodes = {(3, 4, 0), (4, 5, 0), (5, 6, 0)}
 
-    auto test_hidden_edges( ) {
+    auto test_hidden_edges() {
         hide_edges = [(2, 3, 4), (2, 3, 3), (8, 7, 0), (222, 223, 0)];
         edges_gone = this->hide_edges_filter(hide_edges);
         G = this->gview(this->G, filter_edge=edges_gone);
@@ -161,7 +161,7 @@ class TestMultiGraphView(TestSubGraphView) {
         assert_raises(KeyError, G.operator[], 221);
         assert_raises(KeyError, G.operator[], 222);
 
-    auto test_shown_edges( ) {
+    auto test_shown_edges() {
         show_edges = [(2, 3, 4), (2, 3, 3), (8, 7, 0), (222, 223, 0)];
         edge_subgraph = this->show_edges_filter(show_edges);
         G = this->gview(this->G, filter_edge=edge_subgraph);
@@ -191,7 +191,7 @@ class TestMultiDiGraphView(TestMultiGraphView, TestSubDiGraphView) {
     hide_edges = [(2, 3, 0), (8, 7, 0), (222, 223, 0)];
     excluded = {(2, 3, 0), (3, 4, 0), (4, 5, 0), (5, 6, 0)}
 
-    auto test_inout_degree( ) {
+    auto test_inout_degree() {
         edges_gone = this->hide_edges_filter(this->hide_edges);
         hide_nodes = [4, 5, 111];
         nodes_gone = xn::filters.hide_nodes(hide_nodes);
@@ -205,7 +205,7 @@ class TestMultiDiGraphView(TestMultiGraphView, TestSubDiGraphView) {
 
 // induced_subgraph
 class TestInducedSubGraph: public object {
-    auto setUp( ) {
+    auto setUp() {
         this->K3 = G = xn::complete_graph(3);
         G.graph["foo"] = [];
         G.nodes[0]["foo"] = [];
@@ -214,14 +214,14 @@ class TestInducedSubGraph: public object {
         G.add_edge(1, 2, foo=ll);
         G.add_edge(2, 1, foo=ll);
 
-    auto test_full_graph( ) {
+    auto test_full_graph() {
         G = this->K3
         H = xn::induced_subgraph(G, [0, 1, 2, 5]);
         assert_equal(H.name, G.name);
         this->graphs_equal(H, G);
         this->same_attrdict(H, G);
 
-    auto test_partial_subgraph( ) {
+    auto test_partial_subgraph() {
         G = this->K3
         H = xn::induced_subgraph(G, 0);
         assert_equal(dict(H.adj), {0: {}});
@@ -265,7 +265,7 @@ class TestInducedSubGraph: public object {
 
 // edge_subgraph
 class TestEdgeSubGraph: public object {
-    auto setup( ) {
+    auto setup() {
         // Create a path graph on five nodes.
         this->G = G = xn::path_graph(5);
         // Add some node, edge, && graph attributes.
@@ -277,16 +277,16 @@ class TestEdgeSubGraph: public object {
         // Get the subgraph induced by the first && last edges.
         this->H = xn::edge_subgraph(G, [(0, 1), (3, 4)]);
 
-    auto test_correct_nodes( ) {
+    auto test_correct_nodes() {
         /** Tests that the subgraph has the correct nodes. */
         assert_equal([0, 1, 3, 4], sorted(this->H.nodes));
 
-    auto test_correct_edges( ) {
+    auto test_correct_edges() {
         /** Tests that the subgraph has the correct edges. */
         assert_equal([(0, 1, "edge01"), (3, 4, "edge34")],
                      sorted(this->H.edges(data="name")));
 
-    auto test_add_node( ) {
+    auto test_add_node() {
         /** Tests that adding a node to the original graph does not
         affect the nodes of the subgraph.
 
@@ -295,7 +295,7 @@ class TestEdgeSubGraph: public object {
         assert_equal([0, 1, 3, 4], sorted(this->H.nodes));
         this->G.remove_node(5);
 
-    auto test_remove_node( ) {
+    auto test_remove_node() {
         /** Tests that removing a node : the original graph
         removes the nodes of the subgraph.
 
@@ -304,7 +304,7 @@ class TestEdgeSubGraph: public object {
         assert_equal([1, 3, 4], sorted(this->H.nodes));
         this->G.add_edge(0, 1);
 
-    auto test_node_attr_dict( ) {
+    auto test_node_attr_dict() {
         /** Tests that the node attribute dictionary of the two graphs is
         the same object.
 
@@ -317,7 +317,7 @@ class TestEdgeSubGraph: public object {
         this->H.nodes[1]["name"] = "bar";
         assert_equal(this->G.nodes[1], this->H.nodes[1]);
 
-    auto test_edge_attr_dict( ) {
+    auto test_edge_attr_dict() {
         /** Tests that the edge attribute dictionary of the two graphs is
         the same object.
 
@@ -332,14 +332,14 @@ class TestEdgeSubGraph: public object {
         assert_equal(this->G.edges[3, 4]["name"],
                      this->H.edges[3, 4]["name"]);
 
-    auto test_graph_attr_dict( ) {
+    auto test_graph_attr_dict() {
         /** Tests that the graph attribute dictionary of the two graphs
         is the same object.
 
          */
         assert_is(this->G.graph, this->H.graph);
 
-    auto test_readonly( ) {
+    auto test_readonly() {
         /** Tests that the subgraph cannot change the graph structure */
         assert_raises(xn::XNetworkError, this->H.add_node, 5);
         assert_raises(xn::XNetworkError, this->H.remove_node, 0);

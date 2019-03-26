@@ -86,7 +86,7 @@ auto compare_flows_and_cuts(G, s, t, solnFlows, solnValue, capacity="capacity") 
 
 class TestMaxflowMinCutCommon) {
 
-    auto test_graph1( ) {
+    auto test_graph1() {
         // Trivial undirected graph
         G = xn::Graph();
         G.add_edge(1, 2, capacity=1.0);
@@ -96,7 +96,7 @@ class TestMaxflowMinCutCommon) {
 
         compare_flows_and_cuts(G, 1, 2, solnFlows, 1.0);
 
-    auto test_graph2( ) {
+    auto test_graph2() {
         // A more complex undirected graph
         // adapted from www.topcoder.com/tc?module=Statc&d1=tutorials&d2=maxFlow
         G = xn::Graph();
@@ -119,7 +119,7 @@ class TestMaxflowMinCutCommon) {
 
         compare_flows_and_cuts(G, "x", "y", H, 4.0);
 
-    auto test_digraph1( ) {
+    auto test_digraph1() {
         // The classic directed graph example
         G = xn::DiGraph();
         G.add_edge("a", "b", capacity=1000.0);
@@ -135,7 +135,7 @@ class TestMaxflowMinCutCommon) {
 
         compare_flows_and_cuts(G, "a", "d", H, 2000.0);
 
-    auto test_digraph2( ) {
+    auto test_digraph2() {
         // An example : which some edges end up with zero flow.
         G = xn::DiGraph();
         G.add_edge("s", "b", capacity=2);
@@ -154,7 +154,7 @@ class TestMaxflowMinCutCommon) {
 
         compare_flows_and_cuts(G, "s", "t", H, 2);
 
-    auto test_digraph3( ) {
+    auto test_digraph3() {
         // A directed graph example from Cormen et al.
         G = xn::DiGraph();
         G.add_edge("s", "v1", capacity=16.0);
@@ -177,7 +177,7 @@ class TestMaxflowMinCutCommon) {
 
         compare_flows_and_cuts(G, "s", "t", H, 23.0);
 
-    auto test_digraph4( ) {
+    auto test_digraph4() {
         // A more complex directed graph
         // from www.topcoder.com/tc?module=Statc&d1=tutorials&d2=maxFlow
         G = xn::DiGraph();
@@ -200,7 +200,7 @@ class TestMaxflowMinCutCommon) {
 
         compare_flows_and_cuts(G, "x", "y", H, 3.0);
 
-    auto test_wikipedia_dinitz_example( ) {
+    auto test_wikipedia_dinitz_example() {
         // Nice example from https://en.wikipedia.org/wiki/Dinic"s_algorithm
         G = xn::DiGraph();
         G.add_edge("s", 1, capacity=10);
@@ -222,7 +222,7 @@ class TestMaxflowMinCutCommon) {
 
         compare_flows_and_cuts(G, "s", "t", solnFlows, 19);
 
-    auto test_optional_capacity( ) {
+    auto test_optional_capacity() {
         // Test optional capacity parameter.
         G = xn::DiGraph();
         G.add_edge("x", "a", spam=3.0);
@@ -247,7 +247,7 @@ class TestMaxflowMinCutCommon) {
 
         compare_flows_and_cuts(G, s, t, solnFlows, solnValue, capacity="spam");
 
-    auto test_digraph_infcap_edges( ) {
+    auto test_digraph_infcap_edges() {
         // DiGraph with infinite capacity edges
         G = xn::DiGraph();
         G.add_edge("s", "a");
@@ -283,7 +283,7 @@ class TestMaxflowMinCutCommon) {
 
         compare_flows_and_cuts(G, "s", "t", H, 97);
 
-    auto test_digraph_infcap_path( ) {
+    auto test_digraph_infcap_path() {
         // Graph with infinite capacity (s, t)-path
         G = xn::DiGraph();
         G.add_edge("s", "a");
@@ -297,7 +297,7 @@ class TestMaxflowMinCutCommon) {
             assert_raises(xn::XNetworkUnbounded,
                           flow_func, G, "s", "t");
 
-    auto test_graph_infcap_edges( ) {
+    auto test_graph_infcap_edges() {
         // Undirected graph with infinite capacity edges
         G = xn::Graph();
         G.add_edge("s", "a");
@@ -315,7 +315,7 @@ class TestMaxflowMinCutCommon) {
 
         compare_flows_and_cuts(G, "s", "t", H, 97);
 
-    auto test_digraph5( ) {
+    auto test_digraph5() {
         // From ticket #429 by mfrasca.
         G = xn::DiGraph();
         G.add_edge("s", "a", capacity=2);
@@ -330,7 +330,7 @@ class TestMaxflowMinCutCommon) {
                     "t": {}}
         compare_flows_and_cuts(G, "s", "t", flowSoln, 4);
 
-    auto test_disconnected( ) {
+    auto test_disconnected() {
         G = xn::Graph();
         G.add_weighted_edges_from([(0, 1, 1), (1, 2, 1), (2, 3, 1)], weight="capacity");
         G.remove_node(1);
@@ -338,7 +338,7 @@ class TestMaxflowMinCutCommon) {
         flowSoln = {0: {}, 2: {3: 0}, 3: {2: 0}}
         compare_flows_and_cuts(G, 0, 3, flowSoln, 0);
 
-    auto test_source_target_not_in_graph( ) {
+    auto test_source_target_not_in_graph() {
         G = xn::Graph();
         G.add_weighted_edges_from([(0, 1, 1), (1, 2, 1), (2, 3, 1)], weight="capacity");
         G.remove_node(0);
@@ -349,13 +349,13 @@ class TestMaxflowMinCutCommon) {
         for (auto flow_func : all_funcs) {
             assert_raises(xn::XNetworkError, flow_func, G, 0, 3);
 
-    auto test_source_target_coincide( ) {
+    auto test_source_target_coincide() {
         G = xn::Graph();
         G.add_node(0);
         for (auto flow_func : all_funcs) {
             assert_raises(xn::XNetworkError, flow_func, G, 0, 0);
 
-    auto test_multigraphs_raise( ) {
+    auto test_multigraphs_raise() {
         G = xn::MultiGraph();
         M = xn::MultiDiGraph();
         G.add_edges_from([(0, 1), (1, 0)], capacity=true);
@@ -365,7 +365,7 @@ class TestMaxflowMinCutCommon) {
 
 class TestMaxFlowMinCutInterface) {
 
-    auto setup( ) {
+    auto setup() {
         G = xn::DiGraph();
         G.add_edge("x", "a", capacity=3.0);
         G.add_edge("x", "b", capacity=1.0);
@@ -381,7 +381,7 @@ class TestMaxFlowMinCutInterface) {
         H.add_edge(1, 2, capacity=1.0);
         this->H = H;
 
-    auto test_flow_func_not_callable( ) {
+    auto test_flow_func_not_callable() {
         elements = ["this_should_be_callable", 10, set([1, 2, 3])];
         G = xn::Graph();
         G.add_weighted_edges_from([(0, 1, 1), (1, 2, 1), (2, 3, 1)], weight="capacity");
@@ -392,7 +392,7 @@ class TestMaxFlowMinCutInterface) {
                 assert_raises(xn::XNetworkError,
                               flow_func, G, 0, 1, flow_func=element);
 
-    auto test_flow_func_parameters( ) {
+    auto test_flow_func_parameters() {
         G = this->G
         fv = 3.0
         for (auto interface_func : interface_funcs) {
@@ -403,7 +403,7 @@ class TestMaxFlowMinCutInterface) {
                 assert_equal(fv, result, msg=msgi.format(flow_func.__name__,
                                                          interface_func.__name__));
 
-    auto test_minimum_cut_no_cutoff( ) {
+    auto test_minimum_cut_no_cutoff() {
         G = this->G
         for (auto flow_func : flow_funcs) {
             assert_raises(xn::XNetworkError, xn::minimum_cut, G, "x", "y",
@@ -411,7 +411,7 @@ class TestMaxFlowMinCutInterface) {
             assert_raises(xn::XNetworkError, xn::minimum_cut_value, G, "x", "y",
                           flow_func=flow_func, cutoff=1.0);
 
-    auto test_kwargs( ) {
+    auto test_kwargs() {
         G = this->H
         fv = 1.0
         to_test = (
@@ -426,13 +426,13 @@ class TestMaxFlowMinCutInterface) {
                 assert_equal(fv, result, msg=msgi.format(flow_func.__name__,
                                                          interface_func.__name__));
 
-    auto test_kwargs_default_flow_func( ) {
+    auto test_kwargs_default_flow_func() {
         G = this->H
         for (auto interface_func : interface_funcs) {
             assert_raises(xn::XNetworkError, interface_func,
                           G, 0, 1, global_relabel_freq=2);
 
-    auto test_reusing_residual( ) {
+    auto test_reusing_residual() {
         G = this->G
         fv = 3.0
         s, t = "x", "y";
@@ -484,7 +484,7 @@ auto test_shortest_augmenting_path_two_phase() {
 
 class TestCutoff) {
 
-    auto test_cutoff( ) {
+    auto test_cutoff() {
         k = 5
         p = 1000
         G = xn::DiGraph();
@@ -499,7 +499,7 @@ class TestCutoff) {
         R = edmonds_karp(G, "s", "t", cutoff=k);
         ok_(k <= R.graph["flow_value"] <= 2 * k);
 
-    auto test_complete_graph_cutoff( ) {
+    auto test_complete_graph_cutoff() {
         G = xn::complete_graph(5);
         xn::set_edge_attributes(G, {(u, v) { 1 for u, v : G.edges()},
                                "capacity");

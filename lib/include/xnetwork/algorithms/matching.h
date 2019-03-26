@@ -273,7 +273,7 @@ auto max_weight_matching(G, maxcardinality=false, weight="weight") {
         // This is used for efficient computation of delta3.
 
         // Generate the blossom"s leaf vertices.
-        auto leaves( ) {
+        auto leaves() {
             for (auto t : this->childs) {
                 if (isinstance(t, Blossom) {
                     for (auto v : t.leaves() {

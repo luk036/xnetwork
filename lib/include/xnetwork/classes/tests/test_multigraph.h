@@ -11,14 +11,14 @@ from test_graph import BaseAttrGraphTester, TestGraph
 
 
 class BaseMultiGraphTester(BaseAttrGraphTester) {
-    auto test_has_edge( ) {
+    auto test_has_edge() {
         G = this->K3
         assert_equal(G.has_edge(0, 1), true);
         assert_equal(G.has_edge(0, -1), false);
         assert_equal(G.has_edge(0, 1, 0), true);
         assert_equal(G.has_edge(0, 1, 1), false);
 
-    auto test_get_edge_data( ) {
+    auto test_get_edge_data() {
         G = this->K3
         assert_equal(G.get_edge_data(0, 1), {0: {}});
         assert_equal(G[0][1], {0: {}});
@@ -26,7 +26,7 @@ class BaseMultiGraphTester(BaseAttrGraphTester) {
         assert_equal(G.get_edge_data(10, 20), None);
         assert_equal(G.get_edge_data(0, 1, 0), {});
 
-    auto test_adjacency( ) {
+    auto test_adjacency() {
         G = this->K3
         assert_equal(dict(G.adjacency()),
                      {0: {1: {0: {}}, 2: {0: {}}},
@@ -91,7 +91,7 @@ class BaseMultiGraphTester(BaseAttrGraphTester) {
         H.nodes[0]["foo"] = old_foo
         assert_equal(G._node, H._node);
 
-    auto test_to_undirected( ) {
+    auto test_to_undirected() {
         G = this->K3
         this->add_attributes(G);
         H = xn::MultiGraph(G);
@@ -99,7 +99,7 @@ class BaseMultiGraphTester(BaseAttrGraphTester) {
         H = G.to_undirected();
         this->is_deepcopy(H, G);
 
-    auto test_to_directed( ) {
+    auto test_to_directed() {
         G = this->K3
         this->add_attributes(G);
         H = xn::MultiDiGraph(G);
@@ -107,7 +107,7 @@ class BaseMultiGraphTester(BaseAttrGraphTester) {
         H = G.to_directed();
         this->is_deepcopy(H, G);
 
-    auto test_number_of_edges_selfloops( ) {
+    auto test_number_of_edges_selfloops() {
         G = this->K3
         G.add_edge(0, 0);
         G.add_edge(0, 0);
@@ -117,14 +117,14 @@ class BaseMultiGraphTester(BaseAttrGraphTester) {
         G.remove_edge(0, 0);
         assert_equal(G.number_of_edges(0, 0), 1);
 
-    auto test_edge_lookup( ) {
+    auto test_edge_lookup() {
         G = this->Graph();
         G.add_edge(1, 2, foo="bar");
         G.add_edge(1, 2, "key", foo="biz");
         assert_edges_equal(G.edges[1, 2, 0], {"foo": "bar"});
         assert_edges_equal(G.edges[1, 2, "key"], {"foo": "biz"});
 
-    auto test_edge_attr4( ) {
+    auto test_edge_attr4() {
         G = this->Graph();
         G.add_edge(1, 2, key=0, data=7, spam="bar", bar="foo");
         assert_edges_equal(G.edges(data=true),
@@ -147,7 +147,7 @@ class BaseMultiGraphTester(BaseAttrGraphTester) {
 
 
 class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
-    auto setUp( ) {
+    auto setUp() {
         this->Graph = xn::MultiGraph
         // build K3
         ed1, ed2, ed3 = ({0: {}}, {0: {}}, {0: {}});
@@ -163,25 +163,25 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
         this->K3._node[1] = {};
         this->K3._node[2] = {};
 
-    auto test_data_input( ) {
+    auto test_data_input() {
         G = this->Graph({1: [2], 2: [1]}, name="test");
         assert_equal(G.name, "test");
         expected = [(1, {2: {0: {}}}), (2, {1: {0: {}}})];
         assert_equal(sorted(G.adj.items()), expected);
 
-    auto test_getitem( ) {
+    auto test_getitem() {
         G = this->K3
         assert_equal(G[0], {1: {0: {}}, 2: {0: {}}});
         assert_raises(KeyError, G.operator[], "j");
         assert_raises((TypeError, xn::XNetworkError), G.operator[], ["A"]);
 
-    auto test_remove_node( ) {
+    auto test_remove_node() {
         G = this->K3
         G.remove_node(0);
         assert_equal(G.adj, {1: {2: {0: {}}}, 2: {1: {0: {}}}});
         assert_raises((KeyError, xn::XNetworkError), G.remove_node, -1);
 
-    auto test_add_edge( ) {
+    auto test_add_edge() {
         G = this->Graph();
         G.add_edge(0, 1);
         assert_equal(G.adj, {0: {1: {0: {}}}, 1: {0: {0: {}}}});
@@ -189,7 +189,7 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
         G.add_edge(*(0, 1));
         assert_equal(G.adj, {0: {1: {0: {}}}, 1: {0: {0: {}}}});
 
-    auto test_add_edge_conflicting_key( ) {
+    auto test_add_edge_conflicting_key() {
         G = this->Graph();
         G.add_edge(0, 1, key=1);
         G.add_edge(0, 1);
@@ -199,7 +199,7 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
         G.add_edges_from([(0, 1)]);
         assert_equal(G.number_of_edges(), 2);
 
-    auto test_add_edges_from( ) {
+    auto test_add_edges_from() {
         G = this->Graph();
         G.add_edges_from([(0, 1), (0, 1, {"weight": 3})]);
         assert_equal(G.adj, {0: {1: {0: {}, 1: {"weight": 3}}},
@@ -223,7 +223,7 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
         // not a tuple
         assert_raises(TypeError, G.add_edges_from, [0]);
 
-    auto test_remove_edge( ) {
+    auto test_remove_edge() {
         G = this->K3
         G.remove_edge(0, 1);
         assert_equal(G.adj, {0: {2: {0: {}}},
@@ -235,7 +235,7 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
         assert_raises((KeyError, xn::XNetworkError), G.remove_edge, 0, 2,
                       key=1);
 
-    auto test_remove_edges_from( ) {
+    auto test_remove_edges_from() {
         G = this->K3.copy();
         G.remove_edges_from([(0, 1)]);
         kd = {0: {}}
@@ -255,7 +255,7 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
         G.remove_edges_from([(0, 1, 0), (0, 2, 0, {}), (1, 2)]);
         assert_equal(G.adj, {0: {1: {1: {}}}, 1: {0: {1: {}}}, 2: {}});
 
-    auto test_remove_multiedge( ) {
+    auto test_remove_multiedge() {
         G = this->K3
         G.add_edge(0, 1, key="parallel edge");
         G.remove_edge(0, 1, key="parallel edge");
@@ -271,7 +271,7 @@ class TestMultiGraph(BaseMultiGraphTester, TestGraph) {
 class TestEdgeSubgraph: public object {
     /** Unit tests for the :meth:`MultiGraph.edge_subgraph` method. */
 
-    auto setup( ) {
+    auto setup() {
         // Create a doubly-linked path graph on five nodes.
         G = xn::MultiGraph();
         xn::add_path(G, range(5));
@@ -289,16 +289,16 @@ class TestEdgeSubgraph: public object {
         this->G = G;
         this->H = G.edge_subgraph([(0, 1, 0), (3, 4, 1)]);
 
-    auto test_correct_nodes( ) {
+    auto test_correct_nodes() {
         /** Tests that the subgraph has the correct nodes. */
         assert_equal([0, 1, 3, 4], sorted(this->H.nodes()));
 
-    auto test_correct_edges( ) {
+    auto test_correct_edges() {
         /** Tests that the subgraph has the correct edges. */
         assert_equal([(0, 1, 0, "edge010"), (3, 4, 1, "edge341")],
                      sorted(this->H.edges(keys=true, data="name")));
 
-    auto test_add_node( ) {
+    auto test_add_node() {
         /** Tests that adding a node to the original graph does not
         affect the nodes of the subgraph.
 
@@ -306,7 +306,7 @@ class TestEdgeSubgraph: public object {
         this->G.add_node(5);
         assert_equal([0, 1, 3, 4], sorted(this->H.nodes()));
 
-    auto test_remove_node( ) {
+    auto test_remove_node() {
         /** Tests that removing a node : the original graph does
         affect the nodes of the subgraph.
 
@@ -314,7 +314,7 @@ class TestEdgeSubgraph: public object {
         this->G.remove_node(0);
         assert_equal([1, 3, 4], sorted(this->H.nodes()));
 
-    auto test_node_attr_dict( ) {
+    auto test_node_attr_dict() {
         /** Tests that the node attribute dictionary of the two graphs is
         the same object.
 
@@ -327,7 +327,7 @@ class TestEdgeSubgraph: public object {
         this->H.nodes[1]["name"] = "bar";
         assert_equal(this->G.nodes[1], this->H.nodes[1]);
 
-    auto test_edge_attr_dict( ) {
+    auto test_edge_attr_dict() {
         /** Tests that the edge attribute dictionary of the two graphs is
         the same object.
 
@@ -342,7 +342,7 @@ class TestEdgeSubgraph: public object {
         assert_equal(this->G._adj[3][4][1]["name"],
                      this->H._adj[3][4][1]["name"]);
 
-    auto test_graph_attr_dict( ) {
+    auto test_graph_attr_dict() {
         /** Tests that the graph attribute dictionary of the two graphs
         is the same object.
 

@@ -9,7 +9,7 @@ import os
 
 
 class BaseGraphML: public object {
-    auto setUp( ) {
+    auto setUp() {
         this->simple_directed_data = R"(<?xml version="1.0" encoding="UTF-8"?>
 <!-- This file was written by the JAVA GraphML Library.-->
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
@@ -177,7 +177,7 @@ class BaseGraphML: public object {
 
 
 class TestReadGraphML(BaseGraphML) {
-    auto test_read_simple_directed_graphml( ) {
+    auto test_read_simple_directed_graphml() {
         G = this->simple_directed_graph
         H = xn::read_graphml(this->simple_directed_fh);
         assert_equal(sorted(G.nodes()), sorted(H.nodes()));
@@ -192,7 +192,7 @@ class TestReadGraphML(BaseGraphML) {
         assert_equal(sorted(G.edges(data=true)),
                      sorted(I.edges(data=true)));
 
-    auto test_read_simple_undirected_graphml( ) {
+    auto test_read_simple_undirected_graphml() {
         G = this->simple_undirected_graph
         H = xn::read_graphml(this->simple_undirected_fh);
         assert_nodes_equal(G.nodes(), H.nodes());
@@ -203,7 +203,7 @@ class TestReadGraphML(BaseGraphML) {
         assert_nodes_equal(G.nodes(), I.nodes());
         assert_edges_equal(G.edges(), I.edges());
 
-    auto test_read_attribute_graphml( ) {
+    auto test_read_attribute_graphml() {
         G = this->attribute_graph
         H = xn::read_graphml(this->attribute_fh);
         assert_nodes_equal(G.nodes(true), sorted(H.nodes(data=true)));
@@ -220,7 +220,7 @@ class TestReadGraphML(BaseGraphML) {
         for (auto a, b : zip(ge, he) {
             assert_equal(a, b);
 
-    auto test_directed_edge_in_undirected( ) {
+    auto test_directed_edge_in_undirected() {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -238,7 +238,7 @@ class TestReadGraphML(BaseGraphML) {
         assert_raises(xn::XNetworkError, xn::read_graphml, fh);
         assert_raises(xn::XNetworkError, xn::parse_graphml, s);
 
-    auto test_undirected_edge_in_directed( ) {
+    auto test_undirected_edge_in_directed() {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -256,7 +256,7 @@ class TestReadGraphML(BaseGraphML) {
         assert_raises(xn::XNetworkError, xn::read_graphml, fh);
         assert_raises(xn::XNetworkError, xn::parse_graphml, s);
 
-    auto test_key_raise( ) {
+    auto test_key_raise() {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -284,7 +284,7 @@ class TestReadGraphML(BaseGraphML) {
         assert_raises(xn::XNetworkError, xn::read_graphml, fh);
         assert_raises(xn::XNetworkError, xn::parse_graphml, s);
 
-    auto test_hyperedge_raise( ) {
+    auto test_hyperedge_raise() {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -314,7 +314,7 @@ class TestReadGraphML(BaseGraphML) {
         assert_raises(xn::XNetworkError, xn::read_graphml, fh);
         assert_raises(xn::XNetworkError, xn::parse_graphml, s);
 
-    auto test_multigraph_keys( ) {
+    auto test_multigraph_keys() {
         // Test that reading multigraphs uses edge id attributes as keys
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
@@ -337,7 +337,7 @@ class TestReadGraphML(BaseGraphML) {
         H = xn::parse_graphml(s);
         assert_equal(sorted(H.edges(keys=true)), expected);
 
-    auto test_preserve_multi_edge_data( ) {
+    auto test_preserve_multi_edge_data() {
          */
         Test that data && keys of edges are preserved on consequent
         write && reads
@@ -366,7 +366,7 @@ class TestReadGraphML(BaseGraphML) {
         );
         assert_equal(G._adj, H._adj);
 
-    auto test_yfiles_extension( ) {
+    auto test_yfiles_extension() {
         data = R"(<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -447,7 +447,7 @@ class TestReadGraphML(BaseGraphML) {
         assert_equal(H.nodes["n0"]["label"], "1");
         assert_equal(H.nodes["n1"]["label"], "2");
 
-    auto test_bool( ) {
+    auto test_bool() {
         s = R"(<?xml version="1.0" encoding="UTF-8"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -490,7 +490,7 @@ class TestReadGraphML(BaseGraphML) {
             assert_equal(graph.nodes["n5"]["test"], false);
             assert_equal(graph.nodes["n6"]["test"], true);
 
-    auto test_graphml_header_line( ) {
+    auto test_graphml_header_line() {
         good = R"(<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -541,7 +541,7 @@ class TestReadGraphML(BaseGraphML) {
         assert_raises(xn::XNetworkError, xn::read_graphml, fh);
         assert_raises(xn::XNetworkError, xn::parse_graphml, ugly);
 
-    auto test_read_attributes_with_groups( ) {
+    auto test_read_attributes_with_groups() {
         data = R"(\
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
@@ -844,14 +844,14 @@ class TestWriteGraphML(BaseGraphML) {
         } catch (ImportError) {
             throw SkipTest("lxml.etree not available.");
 
-    auto test_write_interface( ) {
+    auto test_write_interface() {
         try {
             import lxml.etree
             assert_equal(xn::write_graphml, xn::write_graphml_lxml);
         } catch (ImportError) {
             assert_equal(xn::write_graphml, xn::write_graphml_xml);
 
-    auto test_write_read_simple_directed_graphml( ) {
+    auto test_write_read_simple_directed_graphml() {
         G = this->simple_directed_graph
         G.graph["hi"] = "there";
         fh = io.BytesIO();
@@ -863,7 +863,7 @@ class TestWriteGraphML(BaseGraphML) {
         assert_equal(sorted(G.edges(data=true)), sorted(H.edges(data=true)));
         this->simple_directed_fh.seek(0);
 
-    auto test_write_read_attribute_numeric_type_graphml( ) {
+    auto test_write_read_attribute_numeric_type_graphml() {
         from xml.etree.ElementTree import parse
 
         G = this->attribute_numeric_type_graph
@@ -889,7 +889,7 @@ class TestWriteGraphML(BaseGraphML) {
         assert_in(("attr.type", "double"), keys[0]);
         assert_in(("attr.type", "double"), keys[1]);
 
-    auto test_more_multigraph_keys( ) {
+    auto test_more_multigraph_keys() {
         /** Writing keys as edge id attributes means keys become strings.
         The original keys are stored as data, so read them back in
         if (`make_str(key) == edge_id`
@@ -906,7 +906,7 @@ class TestWriteGraphML(BaseGraphML) {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_default_attribute( ) {
+    auto test_default_attribute() {
         G = xn::Graph(name="Fred");
         G.add_node(1, label=1, color="green");
         xn::add_path(G, [0, 1, 2, 3]);
@@ -921,7 +921,7 @@ class TestWriteGraphML(BaseGraphML) {
         assert_edges_equal(G.edges(), H.edges());
         assert_equal(G.graph, H.graph);
 
-    auto test_multigraph_to_graph( ) {
+    auto test_multigraph_to_graph() {
         // test converting multigraph to graph if (no parallel edges found
         G = xn::MultiGraph();
         G.add_edges_from([("a", "b", 2), ("b", "c", 3)]);  // no multiedges
@@ -932,7 +932,7 @@ class TestWriteGraphML(BaseGraphML) {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_unicode_attributes( ) {
+    auto test_unicode_attributes() {
         G = xn::Graph();
         try { //Python 3.x
             name1 = chr(2344) + chr(123) + chr(6543);
@@ -950,7 +950,7 @@ class TestWriteGraphML(BaseGraphML) {
         os.close(fd);
         os.unlink(fname);
 
-    auto test_unicode_escape( ) {
+    auto test_unicode_escape() {
         // test for handling json escaped stings : python 2 Issue #1880
         import json
         a = dict(a="{"a": "123"}");  // an object with many chars to escape

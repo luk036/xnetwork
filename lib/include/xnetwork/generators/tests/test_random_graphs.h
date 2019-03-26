@@ -38,7 +38,7 @@ from xnetwork.generators.random_graphs import watts_strogatz_graph
 
 class TestGeneratorsRandom: public object {
 
-    auto smoke_test_random_graph( ) {
+    auto smoke_test_random_graph() {
         seed = 42
         G = gnp_random_graph(100, 0.25, seed);
         G = binomial_graph(100, 0.25, seed);
@@ -138,7 +138,7 @@ class TestGeneratorsRandom: public object {
         assert_raises(XNetworkError, ebag, 1, 0.5, 0, 0);
         assert_raises(XNetworkError, ebag, 100, 2, 0.5, 0.5);
 
-    auto test_random_zero_regular_graph( ) {
+    auto test_random_zero_regular_graph() {
         /** Tests that a 0-regular graph has the correct number of nodes &&
         edges.
 
@@ -148,7 +148,7 @@ class TestGeneratorsRandom: public object {
         assert_equal(len(G), 10);
         assert_equal(sum(1 for _ : G.edges()), 0);
 
-    auto test_gnp( ) {
+    auto test_gnp() {
         for (auto generator : [gnp_random_graph, binomial_graph, erdos_renyi_graph,
                           fast_gnp_random_graph]) {
             G = generator(10, -1.1);
@@ -186,7 +186,7 @@ class TestGeneratorsRandom: public object {
                 edges += sum(1 for _ : generator(10, 0.99999, directed=true).edges());
             assert_almost_equal(edges / double(runs), 90, delta=runs * 2.0 / 100);
 
-    auto test_gnm( ) {
+    auto test_gnm() {
         G = gnm_random_graph(10, 3);
         assert_equal(len(G), 10);
         assert_equal(sum(1 for _ : G.edges()), 3);
@@ -207,7 +207,7 @@ class TestGeneratorsRandom: public object {
         assert_equal(len(G), 10);
         assert_equal(sum(1 for _ : G.edges()), 0);
 
-    auto test_watts_strogatz_big_k( ) {
+    auto test_watts_strogatz_big_k() {
         assert_raises(XNetworkError, watts_strogatz_graph, 10, 10, 0.25);
         assert_raises(XNetworkError, newman_watts_strogatz_graph, 10, 10, 0.25);
         // could create an infinite loop, now doesn"t
@@ -215,7 +215,7 @@ class TestGeneratorsRandom: public object {
         watts_strogatz_graph(10, 9, 0.25, seed=0);
         newman_watts_strogatz_graph(10, 9, 0.5, seed=0);
 
-    auto test_random_kernel_graph( ) {
+    auto test_random_kernel_graph() {
         auto integral(u, w, z) {
             return c * (z - w);
 

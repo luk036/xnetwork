@@ -16,7 +16,7 @@ from nose.tools import assert_equal, assert_in
 class TestBridges(TestCase) {
     /** Unit tests for the bridge-finding function. */
 
-    auto test_single_bridge( ) {
+    auto test_single_bridge() {
         edges = [
             // DFS tree edges.
             (1, 2), (2, 3), (3, 4), (3, 5), (5, 6), (6, 7), (7, 8), (5, 9),
@@ -29,7 +29,7 @@ class TestBridges(TestCase) {
         bridges = list(xn::bridges(G, source));
         this->assertEqual(bridges, [(5, 6)]);
 
-    auto test_barbell_graph( ) {
+    auto test_barbell_graph() {
         // The (3, 0) barbell graph has two triangles joined by a single edge.
         G = xn::barbell_graph(3, 0);
         source = 0.;
@@ -40,18 +40,18 @@ class TestBridges(TestCase) {
 class TestLocalBridges(TestCase) {
     /** Unit tests for the local_bridge function. */
 
-    auto setUp( ) {
+    auto setUp() {
         this->BB = xn::barbell_graph(4, 0);
         this->square = xn::cycle_graph(4);
         this->tri = xn::cycle_graph(3);
 
-    auto test_nospan( ) {
+    auto test_nospan() {
         expected = {(3, 4), (4, 3)}
         assert_in(next(xn::local_bridges(this->BB, with_span=false)), expected);
         assert_equal(set(xn::local_bridges(this->square, with_span=false)), this->square.edges);
         assert_equal(list(xn::local_bridges(this->tri, with_span=false)), []);
 
-    auto test_no_weight( ) {
+    auto test_no_weight() {
         inf = double("inf");
         expected = {(3, 4, inf), (4, 3, inf)}
         assert_in(next(xn::local_bridges(this->BB)), expected);
@@ -59,7 +59,7 @@ class TestLocalBridges(TestCase) {
         assert_equal(set(xn::local_bridges(this->square)), expected);
         assert_equal(list(xn::local_bridges(this->tri)), []);
 
-    auto test_weight( ) {
+    auto test_weight() {
         inf = double("inf");
         G = this->square.copy();
 

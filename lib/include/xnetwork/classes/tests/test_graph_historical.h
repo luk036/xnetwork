@@ -9,6 +9,6 @@ from historical_tests import HistoricalTests
 
 class TestGraphHistorical(HistoricalTests) {
 
-    auto setUp( ) {
+    auto setUp() {
         HistoricalTests.setUp( );
         this->G = xn::Graph

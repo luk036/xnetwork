@@ -78,12 +78,12 @@ auto test_weightkey() {
 
 
 class TestNodeMatch_Graph: public object {
-    auto setUp( ) {
+    auto setUp() {
         this->g1 = xn::Graph();
         this->g2 = xn::Graph();
         this->build();
 
-    auto build( ) {
+    auto build() {
 
         this->nm = iso.categorical_node_match("color", "");
         this->em = iso.numerical_edge_match("weight", 1);
@@ -94,35 +94,35 @@ class TestNodeMatch_Graph: public object {
         this->g1.add_edge("A", "B", weight=1);
         this->g2.add_edge("C", "D", weight=1);
 
-    auto test_noweight_nocolor( ) {
+    auto test_noweight_nocolor() {
         assert_true(xn::is_isomorphic(this->g1, this->g2));
 
-    auto test_color1( ) {
+    auto test_color1() {
         assert_false(xn::is_isomorphic(this->g1, this->g2, node_match=this->nm));
 
-    auto test_color2( ) {
+    auto test_color2() {
         this->g1.nodes["A"]["color"] = "blue";
         assert_true(xn::is_isomorphic(this->g1, this->g2, node_match=this->nm));
 
-    auto test_weight1( ) {
+    auto test_weight1() {
         assert_true(xn::is_isomorphic(this->g1, this->g2, edge_match=this->em));
 
-    auto test_weight2( ) {
+    auto test_weight2() {
         this->g1.add_edge("A", "B", weight=2);
         assert_false(xn::is_isomorphic(this->g1, this->g2, edge_match=this->em));
 
-    auto test_colorsandweights1( ) {
+    auto test_colorsandweights1() {
         iso = xn::is_isomorphic(this->g1, this->g2,
                                node_match=this->nm, edge_match=this->em);
         assert_false(iso);
 
-    auto test_colorsandweights2( ) {
+    auto test_colorsandweights2() {
         this->g1.nodes["A"]["color"] = "blue";
         iso = xn::is_isomorphic(this->g1, this->g2,
                                node_match=this->nm, edge_match=this->em);
         assert_true(iso);
 
-    auto test_colorsandweights3( ) {
+    auto test_colorsandweights3() {
         // make the weights disagree
         this->g1.add_edge("A", "B", weight=2);
         assert_false(xn::is_isomorphic(this->g1, this->g2,
@@ -130,13 +130,13 @@ class TestNodeMatch_Graph: public object {
 
 
 class TestEdgeMatch_MultiGraph: public object {
-    auto setUp( ) {
+    auto setUp() {
         this->g1 = xn::MultiGraph();
         this->g2 = xn::MultiGraph();
         this->GM = iso.MultiGraphMatcher
         this->build();
 
-    auto build( ) {
+    auto build() {
         g1 = this->g1
         g2 = this->g2
 
@@ -164,35 +164,35 @@ class TestEdgeMatch_MultiGraph: public object {
             this->emg2 = iso.generic_edge_match(["color", "weight", "size"], ["red", 1, .5], [
                                                eq, eq, iso.matchhelpers.close]);
 
-    auto test_weights_only( ) {
+    auto test_weights_only() {
         assert_true(xn::is_isomorphic(this->g1, this->g2, edge_match=this->em));
 
-    auto test_colors_only( ) {
+    auto test_colors_only() {
         gm = this->GM(this->g1, this->g2, edge_match=this->emc);
         assert_true(gm.is_isomorphic());
 
-    auto test_colorsandweights( ) {
+    auto test_colorsandweights() {
         gm = this->GM(this->g1, this->g2, edge_match=this->emcm);
         assert_false(gm.is_isomorphic());
 
-    auto test_generic1( ) {
+    auto test_generic1() {
         gm = this->GM(this->g1, this->g2, edge_match=this->emg1);
         assert_true(gm.is_isomorphic());
 
-    auto test_generic2( ) {
+    auto test_generic2() {
         gm = this->GM(this->g1, this->g2, edge_match=this->emg2);
         assert_false(gm.is_isomorphic());
 
 
 class TestEdgeMatch_DiGraph(TestNodeMatch_Graph) {
-    auto setUp( ) {
+    auto setUp() {
         this->g1 = xn::DiGraph();
         this->g2 = xn::DiGraph();
         this->build();
 
 
 class TestEdgeMatch_MultiDiGraph(TestEdgeMatch_MultiGraph) {
-    auto setUp( ) {
+    auto setUp() {
         this->g1 = xn::MultiDiGraph();
         this->g2 = xn::MultiDiGraph();
         this->GM = iso.MultiDiGraphMatcher

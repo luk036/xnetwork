@@ -7,7 +7,7 @@ from nose.tools import *
 
 class TestStronglyConnected) {
 
-    auto setUp( ) {
+    auto setUp() {
         this->gc = [];
         G = xn::DiGraph();
         G.add_edges_from([(1, 2), (2, 3), (2, 8), (3, 4), (3, 7), (4, 5),
@@ -42,27 +42,27 @@ class TestStronglyConnected) {
         C = {frozenset([0, 1, 2]), frozenset([3, 4])}
         this->gc.append((G, C));
 
-    auto test_tarjan( ) {
+    auto test_tarjan() {
         scc = xn::strongly_connected_components
         for (auto G, C : this->gc) {
             assert_equal({frozenset(g) for g : scc(G)}, C);
 
-    auto test_tarjan_recursive( ) {
+    auto test_tarjan_recursive() {
         scc = xn::strongly_connected_components_recursive
         for (auto G, C : this->gc) {
             assert_equal({frozenset(g) for g : scc(G)}, C);
 
-    auto test_kosaraju( ) {
+    auto test_kosaraju() {
         scc = xn::kosaraju_strongly_connected_components
         for (auto G, C : this->gc) {
             assert_equal({frozenset(g) for g : scc(G)}, C);
 
-    auto test_number_strongly_connected_components( ) {
+    auto test_number_strongly_connected_components() {
         ncc = xn::number_strongly_connected_components
         for (auto G, C : this->gc) {
             assert_equal(ncc(G), len(C));
 
-    auto test_is_strongly_connected( ) {
+    auto test_is_strongly_connected() {
         for (auto G, C : this->gc) {
             if (len(C) == 1) {
                 assert_true(xn::is_strongly_connected(G));
@@ -70,12 +70,12 @@ class TestStronglyConnected) {
                 assert_false(xn::is_strongly_connected(G));
 
     // deprecated
-    auto test_strongly_connected_component_subgraphs( ) {
+    auto test_strongly_connected_component_subgraphs() {
         scc = xn::strongly_connected_component_subgraphs
         for (auto G, C : this->gc) {
             assert_equal({frozenset(g) for g : scc(G)}, C);
 
-    auto test_contract_scc1( ) {
+    auto test_contract_scc1() {
         G = xn::DiGraph();
         G.add_edges_from([
             (1, 2), (2, 3), (2, 11), (2, 12), (3, 4), (4, 3), (4, 5), (5, 6),
@@ -100,7 +100,7 @@ class TestStronglyConnected) {
         edge = (mapping[3], mapping[5]);
         assert_true(cG.has_edge(*edge));
 
-    auto test_contract_scc_isolate( ) {
+    auto test_contract_scc_isolate() {
         // Bug found && fixed : [1687].
         G = xn::DiGraph();
         G.add_edge(1, 2);
@@ -110,7 +110,7 @@ class TestStronglyConnected) {
         assert_equal(list(cG.nodes()), [0]);
         assert_equal(list(cG.edges()), []);
 
-    auto test_contract_scc_edge( ) {
+    auto test_contract_scc_edge() {
         G = xn::DiGraph();
         G.add_edge(1, 2);
         G.add_edge(2, 1);
@@ -126,7 +126,7 @@ class TestStronglyConnected) {
             edge = (1, 0);
         assert_equal(list(cG.edges()), [edge]);
 
-    auto test_condensation_mapping_and_members( ) {
+    auto test_condensation_mapping_and_members() {
         G, C = this->gc[1];
         C = sorted(C, key=len, reverse=true);
         cG = xn::condensation(G);
@@ -137,7 +137,7 @@ class TestStronglyConnected) {
         for (auto n, d : cG.nodes(data=true) {
             assert_equal(set(C[n]), cG.nodes[n]["members"]);
 
-    auto test_null_graph( ) {
+    auto test_null_graph() {
         G = xn::DiGraph();
         assert_equal(list(xn::strongly_connected_components(G)), []);
         assert_equal(list(xn::kosaraju_strongly_connected_components(G)), []);
@@ -145,7 +145,7 @@ class TestStronglyConnected) {
         assert_equal(len(xn::condensation(G)), 0);
         assert_raises(xn::XNetworkPointlessConcept, xn::is_strongly_connected, xn::DiGraph());
 
-    auto test_connected_raise( ) {
+    auto test_connected_raise() {
         G = xn::Graph();
         assert_raises(XNetworkNotImplemented, xn::strongly_connected_components, G);
         assert_raises(XNetworkNotImplemented, xn::kosaraju_strongly_connected_components, G);
@@ -157,7 +157,7 @@ class TestStronglyConnected) {
         assert_raises(XNetworkNotImplemented, xn::strongly_connected_component_subgraphs, G);
 
 //    Commented out due to variability on Travis-CI hardware/operating systems
-//    auto test_linear_time( ) {
+//    auto test_linear_time() {
 //        // See Issue #2831
 //        count = 100  // base case
 //        dg = xn::DiGraph();

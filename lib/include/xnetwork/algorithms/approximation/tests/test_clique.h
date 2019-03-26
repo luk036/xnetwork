@@ -51,7 +51,7 @@ class TestCliqueRemoval: public object {
 
     */
 
-    auto test_trivial_graph( ) {
+    auto test_trivial_graph() {
         G = xn::trivial_graph();
         independent_set, cliques = clique_removal(G);
         assert_true(is_independent_set(G, independent_set));
@@ -59,13 +59,13 @@ class TestCliqueRemoval: public object {
         // In fact, we should only have 1-cliques, that is, singleton nodes.
         assert_true(all(len(clique) == 1 for clique : cliques));
 
-    auto test_complete_graph( ) {
+    auto test_complete_graph() {
         G = xn::complete_graph(10);
         independent_set, cliques = clique_removal(G);
         assert_true(is_independent_set(G, independent_set));
         assert_true(all(is_clique(G, clique) for clique : cliques));
 
-    auto test_barbell_graph( ) {
+    auto test_barbell_graph() {
         G = xn::barbell_graph(10, 5);
         independent_set, cliques = clique_removal(G);
         assert_true(is_independent_set(G, independent_set));
@@ -78,17 +78,17 @@ class TestMaxClique: public object {
 
     */
 
-    auto test_null_graph( ) {
+    auto test_null_graph() {
         G = xn::null_graph();
         assert_equal(len(max_clique(G)), 0);
 
-    auto test_complete_graph( ) {
+    auto test_complete_graph() {
         graph = xn::complete_graph(30);
         // this should return the entire graph
         mc = max_clique(graph);
         assert_equal(30, len(mc));
 
-    auto test_maximal_by_cardinality( ) {
+    auto test_maximal_by_cardinality() {
         /** Tests that the maximal clique is computed according to maximum
         cardinality of the sets.
 

@@ -69,10 +69,10 @@ class MappedQueue: public object {
         this->d = dict();
         this->_heapify();
 
-    auto __len__( ) {
+    auto __len__() {
         return len(this->h);
 
-    auto _heapify( ) {
+    auto _heapify() {
         /** Restore heap invariant && recalculate map. */
         heapq.heapify(this->h);
         this->d = dict([(elt, pos) for pos, elt : enumerate(this->h)]);
@@ -92,7 +92,7 @@ class MappedQueue: public object {
         this->_siftdown(pos);
         return true;
 
-    auto pop( ) {
+    auto pop() {
         /** Remove && return the smallest element : the queue. */
         // Remove smallest element
         elt = this->h[0];

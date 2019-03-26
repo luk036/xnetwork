@@ -7,21 +7,21 @@ from base_test import BaseTestAttributeMixing, BaseTestDegreeMixing
 
 class TestDegreeMixingDict(BaseTestDegreeMixing) {
 
-    auto test_degree_mixing_dict_undirected( ) {
+    auto test_degree_mixing_dict_undirected() {
         d = xn::degree_mixing_dict(this->P4);
         d_result = {1: {2: 2},
                     2: {1: 2, 2: 2},
                     }
         assert_equal(d, d_result);
 
-    auto test_degree_mixing_dict_undirected_normalized( ) {
+    auto test_degree_mixing_dict_undirected_normalized() {
         d = xn::degree_mixing_dict(this->P4, normalized=true);
         d_result = {1: {2: 1.0 / 3},
                     2: {1: 1.0 / 3, 2: 1.0 / 3},
                     }
         assert_equal(d, d_result);
 
-    auto test_degree_mixing_dict_directed( ) {
+    auto test_degree_mixing_dict_directed() {
         d = xn::degree_mixing_dict(this->D);
         print(d);
         d_result = {1: {3: 2},
@@ -30,7 +30,7 @@ class TestDegreeMixingDict(BaseTestDegreeMixing) {
                     }
         assert_equal(d, d_result);
 
-    auto test_degree_mixing_dict_multigraph( ) {
+    auto test_degree_mixing_dict_multigraph() {
         d = xn::degree_mixing_dict(this->M);
         d_result = {1: {2: 1},
                     2: {1: 1, 3: 3},
@@ -52,7 +52,7 @@ class TestDegreeMixingMatrix(BaseTestDegreeMixing) {
         } catch (ImportError) {
             throw SkipTest('NumPy not available.');
 
-    auto test_degree_mixing_matrix_undirected( ) {
+    auto test_degree_mixing_matrix_undirected() {
         a_result = np.array([[0, 0, 0],
                              [0, 0, 2],
                              [0, 2, 2]];
@@ -62,7 +62,7 @@ class TestDegreeMixingMatrix(BaseTestDegreeMixing) {
         a = xn::degree_mixing_matrix(this->P4);
         npt.assert_equal(a, a_result / double(a_result.sum()));
 
-    auto test_degree_mixing_matrix_directed( ) {
+    auto test_degree_mixing_matrix_directed() {
         a_result = np.array([[0, 0, 0, 0],
                              [0, 0, 0, 2],
                              [0, 1, 0, 1],
@@ -73,7 +73,7 @@ class TestDegreeMixingMatrix(BaseTestDegreeMixing) {
         a = xn::degree_mixing_matrix(this->D);
         npt.assert_equal(a, a_result / double(a_result.sum()));
 
-    auto test_degree_mixing_matrix_multigraph( ) {
+    auto test_degree_mixing_matrix_multigraph() {
         a_result = np.array([[0, 0, 0, 0],
                              [0, 0, 1, 0],
                              [0, 1, 0, 3],
@@ -84,7 +84,7 @@ class TestDegreeMixingMatrix(BaseTestDegreeMixing) {
         a = xn::degree_mixing_matrix(this->M);
         npt.assert_equal(a, a_result / double(a_result.sum()));
 
-    auto test_degree_mixing_matrix_selfloop( ) {
+    auto test_degree_mixing_matrix_selfloop() {
         a_result = np.array([[0, 0, 0],
                              [0, 0, 0],
                              [0, 0, 2]];
@@ -97,7 +97,7 @@ class TestDegreeMixingMatrix(BaseTestDegreeMixing) {
 
 class TestAttributeMixingDict(BaseTestAttributeMixing) {
 
-    auto test_attribute_mixing_dict_undirected( ) {
+    auto test_attribute_mixing_dict_undirected() {
         d = xn::attribute_mixing_dict(this->G, 'fish');
         d_result = {'one': {'one': 2, 'red': 1},
                     'two': {'two': 2, 'blue': 1},
@@ -106,7 +106,7 @@ class TestAttributeMixingDict(BaseTestAttributeMixing) {
                     }
         assert_equal(d, d_result);
 
-    auto test_attribute_mixing_dict_directed( ) {
+    auto test_attribute_mixing_dict_directed() {
         d = xn::attribute_mixing_dict(this->D, 'fish');
         d_result = {'one': {'one': 1, 'red': 1},
                     'two': {'two': 1, 'blue': 1},
@@ -115,7 +115,7 @@ class TestAttributeMixingDict(BaseTestAttributeMixing) {
                     }
         assert_equal(d, d_result);
 
-    auto test_attribute_mixing_dict_multigraph( ) {
+    auto test_attribute_mixing_dict_multigraph() {
         d = xn::attribute_mixing_dict(this->M, 'fish');
         d_result = {'one': {'one': 4},
                     'two': {'two': 2},
@@ -135,7 +135,7 @@ class TestAttributeMixingMatrix(BaseTestAttributeMixing) {
         } catch (ImportError) {
             throw SkipTest('NumPy not available.');
 
-    auto test_attribute_mixing_matrix_undirected( ) {
+    auto test_attribute_mixing_matrix_undirected() {
         mapping = {'one': 0, 'two': 1, 'red': 2, 'blue': 3}
         a_result = np.array([[2, 0, 1, 0],
                              [0, 2, 0, 1],
@@ -150,7 +150,7 @@ class TestAttributeMixingMatrix(BaseTestAttributeMixing) {
                                        mapping=mapping);
         npt.assert_equal(a, a_result / double(a_result.sum()));
 
-    auto test_attribute_mixing_matrix_directed( ) {
+    auto test_attribute_mixing_matrix_directed() {
         mapping = {'one': 0, 'two': 1, 'red': 2, 'blue': 3}
         a_result = np.array([[1, 0, 1, 0],
                              [0, 1, 0, 1],
@@ -165,7 +165,7 @@ class TestAttributeMixingMatrix(BaseTestAttributeMixing) {
                                        mapping=mapping);
         npt.assert_equal(a, a_result / double(a_result.sum()));
 
-    auto test_attribute_mixing_matrix_multigraph( ) {
+    auto test_attribute_mixing_matrix_multigraph() {
         mapping = {'one': 0, 'two': 1, 'red': 2, 'blue': 3}
         a_result = np.array([[4, 0, 0, 0],
                              [0, 2, 0, 0],

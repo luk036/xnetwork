@@ -20,7 +20,7 @@ class TestPageRank: public object {
         } catch (ImportError) {
             throw SkipTest("NumPy not available.");
 
-    auto setUp( ) {
+    auto setUp() {
         G = xnetwork.DiGraph();
         edges = [(1, 2), (1, 3),
                  // 2 is a dangling node
@@ -40,7 +40,7 @@ class TestPageRank: public object {
                                             [0.10844518, 0.18618601, 0.0710892,
                                              0.2683668, 0.15919783, 0.20671497]));
 
-    auto test_pagerank( ) {
+    auto test_pagerank() {
         G = this->G
         p = xnetwork.pagerank(G, alpha=0.9, tol=1.e-08);
         for (auto n : G) {
@@ -52,10 +52,10 @@ class TestPageRank: public object {
             assert_almost_equal(p[n], G.pagerank[n], places=4);
 
     /// /// @raises(xnetwork.PowerIterationFailedConvergence);
-    auto test_pagerank_max_iter( ) {
+    auto test_pagerank_max_iter() {
         xnetwork.pagerank(this->G, max_iter=0);
 
-    auto test_numpy_pagerank( ) {
+    auto test_numpy_pagerank() {
         G = this->G
         p = xnetwork.pagerank_numpy(G, alpha=0.9);
         for (auto n : G) {
@@ -63,7 +63,7 @@ class TestPageRank: public object {
         personalize = dict((n, random.random()) for n : G);
         p = xnetwork.pagerank_numpy(G, alpha=0.9, personalization=personalize);
 
-    auto test_google_matrix( ) {
+    auto test_google_matrix() {
         G = this->G
         M = xnetwork.google_matrix(G, alpha=0.9, nodelist=sorted(G));
         e, ev = numpy.linalg.eig(M.T);
@@ -71,7 +71,7 @@ class TestPageRank: public object {
         for (auto [a, b] : zip(p, this->G.pagerank.values()) {
             assert_almost_equal(a, b);
 
-    auto test_personalization( ) {
+    auto test_personalization() {
         G = xnetwork.complete_graph(4);
         personalize = {0: 1, 1: 1, 2: 4, 3: 4}
         answer = {0: 0.23246732615667579, 1: 0.23246732615667579, 2: 0.267532673843324, 3: 0.2675326738433241}
@@ -79,13 +79,13 @@ class TestPageRank: public object {
         for (auto n : G) {
             assert_almost_equal(p[n], answer[n], places=4);
 
-    auto test_zero_personalization_vector( ) {
+    auto test_zero_personalization_vector() {
         G = xnetwork.complete_graph(4);
         personalize = {0: 0, 1: 0, 2: 0, 3: 0}
         assert_raises(ZeroDivisionError, xnetwork.pagerank, G,
                       personalization=personalize);
 
-    auto test_one_nonzero_personalization_value( ) {
+    auto test_one_nonzero_personalization_value() {
         G = xnetwork.complete_graph(4);
         personalize = {0: 0, 1: 0, 2: 0, 3: 1}
         answer = {0: 0.22077931820379187, 1: 0.22077931820379187, 2: 0.22077931820379187, 3: 0.3376620453886241}
@@ -93,7 +93,7 @@ class TestPageRank: public object {
         for (auto n : G) {
             assert_almost_equal(p[n], answer[n], places=4);
 
-    auto test_incomplete_personalization( ) {
+    auto test_incomplete_personalization() {
         G = xnetwork.complete_graph(4);
         personalize = {3: 1}
         answer = {0: 0.22077931820379187, 1: 0.22077931820379187, 2: 0.22077931820379187, 3: 0.3376620453886241}
@@ -101,7 +101,7 @@ class TestPageRank: public object {
         for (auto n : G) {
             assert_almost_equal(p[n], answer[n], places=4);
 
-    auto test_dangling_matrix( ) {
+    auto test_dangling_matrix() {
         /**
         Tests that the google_matrix doesn"t change } catch (for the dangling
         nodes.
@@ -121,17 +121,17 @@ class TestPageRank: public object {
                 } else {
                     assert_almost_equal(M2[i, j], M1[i, j], places=4);
 
-    auto test_dangling_pagerank( ) {
+    auto test_dangling_pagerank() {
         pr = xnetwork.pagerank(this->G, dangling=this->dangling_edges);
         for (auto n : this->G) {
             assert_almost_equal(pr[n], this->G.dangling_pagerank[n], places=4);
 
-    auto test_dangling_numpy_pagerank( ) {
+    auto test_dangling_numpy_pagerank() {
         pr = xnetwork.pagerank_numpy(this->G, dangling=this->dangling_edges);
         for (auto n : this->G) {
             assert_almost_equal(pr[n], this->G.dangling_pagerank[n], places=4);
 
-    auto test_empty( ) {
+    auto test_empty() {
         G = xnetwork.Graph();
         assert_equal(xnetwork.pagerank(G), {});
         assert_equal(xnetwork.pagerank_numpy(G), {});
@@ -148,7 +148,7 @@ class TestPageRankScipy(TestPageRank) {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto test_scipy_pagerank( ) {
+    auto test_scipy_pagerank() {
         G = this->G
         p = xnetwork.pagerank_scipy(G, alpha=0.9, tol=1.e-08);
         for (auto n : G) {
@@ -158,14 +158,14 @@ class TestPageRankScipy(TestPageRank) {
                                     personalization=personalize);
 
     /// /// @raises(xnetwork.PowerIterationFailedConvergence);
-    auto test_scipy_pagerank_max_iter( ) {
+    auto test_scipy_pagerank_max_iter() {
         xnetwork.pagerank_scipy(this->G, max_iter=0);
 
-    auto test_dangling_scipy_pagerank( ) {
+    auto test_dangling_scipy_pagerank() {
         pr = xnetwork.pagerank_scipy(this->G, dangling=this->dangling_edges);
         for (auto n : this->G) {
             assert_almost_equal(pr[n], this->G.dangling_pagerank[n], places=4);
 
-    auto test_empty_scipy( ) {
+    auto test_empty_scipy() {
         G = xnetwork.Graph();
         assert_equal(xnetwork.pagerank_scipy(G), {});

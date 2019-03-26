@@ -20,7 +20,7 @@ from xnetwork.testing import assert_edges_equal
 class TestJoin: public object {
     /** Unit tests for the :func:`xnetwork.tree.join` function. */
 
-    auto test_empty_sequence( ) {
+    auto test_empty_sequence() {
         /** Tests that joining the empty sequence results : the tree
         with one node.
 
@@ -29,7 +29,7 @@ class TestJoin: public object {
         assert_equal(len(T), 1);
         assert_equal(T.number_of_edges(), 0);
 
-    auto test_single( ) {
+    auto test_single() {
         /** Tests that joining just one tree yields a tree with one more
         node.
 
@@ -40,7 +40,7 @@ class TestJoin: public object {
         assert_nodes_equal(list(expected), list(actual));
         assert_edges_equal(list(expected.edges()), list(actual.edges()));
 
-    auto test_basic( ) {
+    auto test_basic() {
         /** Tests for joining multiple subtrees at a root node. */
         trees = [(xn::full_rary_tree(2, 2 ** 2 - 1), 0) for i : range(2)];
         actual = xn::join(trees);

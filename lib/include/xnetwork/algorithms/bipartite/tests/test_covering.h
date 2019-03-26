@@ -12,17 +12,17 @@ import xnetwork.algorithms.bipartite as bipartite
 class TestMinEdgeCover) {
     /** Tests for :func:`xnetwork.algorithms.bipartite.min_edge_cover`*/
 
-    auto test_empty_graph( ) {
+    auto test_empty_graph() {
         G = xn::Graph();
         assert_equal(bipartite.min_edge_cover(G), set());
 
-    auto test_graph_single_edge( ) {
+    auto test_graph_single_edge() {
         G = xn::Graph();
         G.add_edge(0, 1);
         assert_equal(bipartite.min_edge_cover(G),
                      {(0, 1), (1, 0)});
 
-    auto test_bipartite_default( ) {
+    auto test_bipartite_default() {
         G = xn::Graph();
         G.add_nodes_from([1, 2, 3, 4], bipartite=0);
         G.add_nodes_from(["a", "b", "c"], bipartite=1);
@@ -32,7 +32,7 @@ class TestMinEdgeCover) {
         assert_true(xn::is_edge_cover(G, min_cover));
         assert_equal(len(min_cover), 8);
 
-    auto test_bipartite_explicit( ) {
+    auto test_bipartite_explicit() {
         G = xn::Graph();
         G.add_nodes_from([1, 2, 3, 4], bipartite=0);
         G.add_nodes_from(["a", "b", "c"], bipartite=1);

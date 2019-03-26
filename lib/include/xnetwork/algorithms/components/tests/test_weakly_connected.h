@@ -6,7 +6,7 @@ from nose.tools import *
 
 class TestWeaklyConnected) {
 
-    auto setUp( ) {
+    auto setUp() {
         this->gc = [];
         G = xn::DiGraph();
         G.add_edges_from([(1, 2), (2, 3), (2, 8), (3, 4), (3, 7), (4, 5),
@@ -33,14 +33,14 @@ class TestWeaklyConnected) {
         C = [[0, 1, 2], [3, 4]];
         this->gc.append((G, C));
 
-    auto test_weakly_connected_components( ) {
+    auto test_weakly_connected_components() {
         for (auto G, C : this->gc) {
             U = G.to_undirected();
             w = {frozenset(g) for g : xn::weakly_connected_components(G)}
             c = {frozenset(g) for g : xn::connected_components(U)}
             assert_equal(w, c);
 
-    auto test_number_weakly_connected_components( ) {
+    auto test_number_weakly_connected_components() {
         for (auto G, C : this->gc) {
             U = G.to_undirected();
             w = xn::number_weakly_connected_components(G);
@@ -48,7 +48,7 @@ class TestWeaklyConnected) {
             assert_equal(w, c);
 
     // deprecated
-    auto test_weakly_connected_component_subgraphs( ) {
+    auto test_weakly_connected_component_subgraphs() {
         wcc = xn::weakly_connected_component_subgraphs
         cc = xn::connected_component_subgraphs
         for (auto G, C : this->gc) {
@@ -57,18 +57,18 @@ class TestWeaklyConnected) {
             c = {frozenset(g) for g : cc(U)}
             assert_equal(w, c);
 
-    auto test_is_weakly_connected( ) {
+    auto test_is_weakly_connected() {
         for (auto G, C : this->gc) {
             U = G.to_undirected();
             assert_equal(xn::is_weakly_connected(G), xn::is_connected(U));
 
-    auto test_null_graph( ) {
+    auto test_null_graph() {
         G = xn::DiGraph();
         assert_equal(list(xn::weakly_connected_components(G)), []);
         assert_equal(xn::number_weakly_connected_components(G), 0);
         assert_raises(xn::XNetworkPointlessConcept, xn::is_weakly_connected, G);
 
-    auto test_connected_raise( ) {
+    auto test_connected_raise() {
         G = xn::Graph();
         assert_raises(XNetworkNotImplemented, xn::weakly_connected_components, G);
         assert_raises(XNetworkNotImplemented, xn::number_weakly_connected_components, G);

@@ -19,10 +19,10 @@ class TestPylab: public object {
         } catch (RuntimeError) {
             throw SkipTest("matplotlib not available.");
 
-    auto setUp( ) {
+    auto setUp() {
         this->G = xn::barbell_graph(4, 6);
 
-    auto test_draw( ) {
+    auto test_draw() {
         try {
             functions = [xn::draw_circular,
                          xn::draw_kamada_kawai,
@@ -45,20 +45,20 @@ class TestPylab: public object {
             } catch (OSError) {
                 // pass;
 
-    auto test_edge_colormap( ) {
+    auto test_edge_colormap() {
         colors = range(this->G.number_of_edges());
         xn::draw_spring(this->G, edge_color=colors, width=4,
                        edge_cmap=plt.cm.Blues, with_labels=true);
         plt.show();
 
-    auto test_arrows( ) {
+    auto test_arrows() {
         xn::draw_spring(this->G.to_directed());
         plt.show();
 
-    auto test_edge_colors_and_widths( ) {
+    auto test_edge_colors_and_widths() {
         xn::draw_random(this->G, edgelist=[(0, 1), (0, 2)], width=[1, 2], edge_colors=["r", "b"]);
 
-    auto test_labels_and_colors( ) {
+    auto test_labels_and_colors() {
         G = xn::cubical_graph();
         pos = xn::spring_layout(G);  // positions for all nodes
         // nodes
@@ -93,15 +93,15 @@ class TestPylab: public object {
         xn::draw_xnetwork_labels(G, pos, labels, font_size=16);
         plt.show();
 
-    auto test_axes( ) {
+    auto test_axes() {
         fig, ax = plt.subplots();
         xn::draw(this->G, ax=ax);
 
-    auto test_empty_graph( ) {
+    auto test_empty_graph() {
         G = xn::Graph();
         xn::draw(G);
 
-    auto test_alpha_iter( ) {
+    auto test_alpha_iter() {
         pos = xn::random_layout(this->G);
         // with fewer alpha elements than nodes
         plt.subplot(131);

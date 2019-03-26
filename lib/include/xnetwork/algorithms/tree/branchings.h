@@ -195,7 +195,7 @@ class MultiDiGraph_EdgeKey(xn::MultiDiGraph) {
         for (auto n : nbunch) {
             this->remove_node(n);
 
-    auto fresh_copy( ) {
+    auto fresh_copy() {
         // Needed to make .copy() work
         return MultiDiGraph_EdgeKey();
 

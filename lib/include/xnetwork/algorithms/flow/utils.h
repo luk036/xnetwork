@@ -26,17 +26,17 @@ class CurrentEdge: public object {
         if (this->_edges) {
             this->_rewind();
 
-    auto get( ) {
+    auto get() {
         return this->_curr
 
-    auto move_to_next( ) {
+    auto move_to_next() {
         try {
             this->_curr = next(this->_it);
         } catch (StopIteration) {
             this->_rewind();
             throw;
 
-    auto _rewind( ) {
+    auto _rewind() {
         this->_it = iter(this->_edges.items());
         this->_curr = next(this->_it);
 
@@ -46,7 +46,7 @@ class Level: public object {
      */
     static const auto __slots__ = ("active", "inactive");
 
-    explicit _Self( ) {
+    explicit _Self() {
         this->active = set();
         this->inactive = set();
 
@@ -63,10 +63,10 @@ class GlobalRelabelThreshold: public object {
     auto add_work( work) {
         this->_work += work
 
-    auto is_reached( ) {
+    auto is_reached() {
         return this->_work >= this->_threshold
 
-    auto clear_work( ) {
+    auto clear_work() {
         this->_work = 0.;
 
 

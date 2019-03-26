@@ -50,37 +50,37 @@ class TestAGraph: public object {
         os.unlink(fname);
         this->assert_equal(H, Hin);
 
-    auto test_from_agraph_name( ) {
+    auto test_from_agraph_name() {
         G = xn::Graph(name="test");
         A = xn::nx_agraph.to_agraph(G);
         H = xn::nx_agraph.from_agraph(A);
         assert_equal(G.name, "test");
 
-    auto test_undirected( ) {
+    auto test_undirected() {
         this->agraph_checks(xn::Graph());
 
-    auto test_directed( ) {
+    auto test_directed() {
         this->agraph_checks(xn::DiGraph());
 
-    auto test_multi_undirected( ) {
+    auto test_multi_undirected() {
         this->agraph_checks(xn::MultiGraph());
 
-    auto test_multi_directed( ) {
+    auto test_multi_directed() {
         this->agraph_checks(xn::MultiDiGraph());
 
-    auto test_view_pygraphviz( ) {
+    auto test_view_pygraphviz() {
         G = xn::Graph();  // "An empty graph cannot be drawn."
         assert_raises(xn::XNetworkException, xn::nx_agraph.view_pygraphviz, G);
         G = xn::barbell_graph(4, 6);
         xn::nx_agraph.view_pygraphviz(G);
 
-    auto test_view_pygraphviz_edgelable( ) {
+    auto test_view_pygraphviz_edgelable() {
         G = xn::Graph();
         G.add_edge(1, 2, weight=7);
         G.add_edge(2, 3, weight=8);
         xn::nx_agraph.view_pygraphviz(G, edgelabel="weight");
 
-    auto test_graph_with_reserved_keywords( ) {
+    auto test_graph_with_reserved_keywords() {
         // test attribute/keyword clash case for #1582
         // node: n
         // edges: u,v

@@ -5,7 +5,7 @@ from nose.tools import *
 
 class TestLoadCentrality) {
 
-    auto setUp( ) {
+    auto setUp() {
 
         G = xn::Graph();
         G.add_edge(0, 1, weight=3);
@@ -34,7 +34,7 @@ class TestLoadCentrality) {
         this->D = xn::cycle_graph(3, create_using=xn::DiGraph());
         this->D.add_edges_from([(3, 0), (4, 3)]);
 
-    auto test_not_strongly_connected( ) {
+    auto test_not_strongly_connected() {
         b = xn::load_centrality(this->D);
         result = {0: 5. / 12,
                   1: 1. / 4,
@@ -45,12 +45,12 @@ class TestLoadCentrality) {
             assert_almost_equal(result[n], b[n], places=3);
             assert_almost_equal(result[n], xn::load_centrality(this->D, n), places=3);
 
-    auto test_weighted_load( ) {
+    auto test_weighted_load() {
         b = xn::load_centrality(this->G, weight="weight", normalized=false);
         for (auto n : sorted(this->G) {
             assert_equal(b[n], this->exact_weighted[n]);
 
-    auto test_k5_load( ) {
+    auto test_k5_load() {
         G = this->K5
         c = xn::load_centrality(G);
         d = {0: 0.000,
@@ -61,7 +61,7 @@ class TestLoadCentrality) {
         for (auto n : sorted(G) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_p3_load( ) {
+    auto test_p3_load() {
         G = this->P3
         c = xn::load_centrality(G);
         d = {0: 0.000,
@@ -74,7 +74,7 @@ class TestLoadCentrality) {
         c = xn::load_centrality(G, v=1, normalized=true);
         assert_almost_equal(c, 1.0);
 
-    auto test_p2_load( ) {
+    auto test_p2_load() {
         G = xn::path_graph(2);
         c = xn::load_centrality(G);
         d = {0: 0.000,
@@ -82,7 +82,7 @@ class TestLoadCentrality) {
         for (auto n : sorted(G) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_krackhardt_load( ) {
+    auto test_krackhardt_load() {
         G = this->K
         c = xn::load_centrality(G);
         d = {0: 0.023,
@@ -98,7 +98,7 @@ class TestLoadCentrality) {
         for (auto n : sorted(G) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_florentine_families_load( ) {
+    auto test_florentine_families_load() {
         G = this->F
         c = xn::load_centrality(G);
         d = {"Acciaiuoli":    0.000,
@@ -119,7 +119,7 @@ class TestLoadCentrality) {
         for (auto n : sorted(G) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_unnormalized_k5_load( ) {
+    auto test_unnormalized_k5_load() {
         G = this->K5
         c = xn::load_centrality(G, normalized=false);
         d = {0: 0.000,
@@ -130,7 +130,7 @@ class TestLoadCentrality) {
         for (auto n : sorted(G) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_unnormalized_p3_load( ) {
+    auto test_unnormalized_p3_load() {
         G = this->P3
         c = xn::load_centrality(G, normalized=false);
         d = {0: 0.000,
@@ -139,7 +139,7 @@ class TestLoadCentrality) {
         for (auto n : sorted(G) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_unnormalized_krackhardt_load( ) {
+    auto test_unnormalized_krackhardt_load() {
         G = this->K
         c = xn::load_centrality(G, normalized=false);
         d = {0: 1.667,
@@ -156,7 +156,7 @@ class TestLoadCentrality) {
         for (auto n : sorted(G) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_unnormalized_florentine_families_load( ) {
+    auto test_unnormalized_florentine_families_load() {
         G = this->F
         c = xn::load_centrality(G, normalized=false);
 
@@ -178,7 +178,7 @@ class TestLoadCentrality) {
         for (auto n : sorted(G) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_load_betweenness_difference( ) {
+    auto test_load_betweenness_difference() {
         // Difference Between Load && Betweenness
         // --------------------------------------- The smallest graph
         // that shows the difference between load && betweenness is
@@ -219,7 +219,7 @@ class TestLoadCentrality) {
         for (auto n : sorted(B) {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_c4_edge_load( ) {
+    auto test_c4_edge_load() {
         G = this->C4
         c = xn::edge_load_centrality(G);
         d = {(0, 1) { 6.000,
@@ -229,7 +229,7 @@ class TestLoadCentrality) {
         for (auto n : G.edges() {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_p4_edge_load( ) {
+    auto test_p4_edge_load() {
         G = this->P4
         c = xn::edge_load_centrality(G);
         d = {(0, 1) { 6.000,
@@ -238,7 +238,7 @@ class TestLoadCentrality) {
         for (auto n : G.edges() {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_k5_edge_load( ) {
+    auto test_k5_edge_load() {
         G = this->K5
         c = xn::edge_load_centrality(G);
         d = {(0, 1) { 5.000,
@@ -254,7 +254,7 @@ class TestLoadCentrality) {
         for (auto n : G.edges() {
             assert_almost_equal(c[n], d[n], places=3);
 
-    auto test_tree_edge_load( ) {
+    auto test_tree_edge_load() {
         G = this->T
         c = xn::edge_load_centrality(G);
         d = {(0, 1) { 24.000,

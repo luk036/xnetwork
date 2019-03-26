@@ -43,10 +43,10 @@ class TestAtlas: public object {
             throw SkipTest("graph atlas not available under Jython.");
         import xnetwork.generators.atlas as atlas
 
-    auto setUp( ) {
+    auto setUp() {
         this->GAG = atlas.graph_atlas_g();
 
-    auto test_atlas( ) {
+    auto test_atlas() {
         for (auto graph : this->GAG) {
             deg = (d for n, d : graph.degree());
             assert_true(xn::is_graphical(deg, method="eg"));

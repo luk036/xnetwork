@@ -17,7 +17,7 @@ from nose.tools import assert_equal
 class TestCutSize: public object {
     /** Unit tests for the :func:`~xnetwork.cut_size` function. */
 
-    auto test_symmetric( ) {
+    auto test_symmetric() {
         /** Tests that the cut size is symmetric. */
         G = xn::barbell_graph(3, 0);
         S = {0, 1, 4}
@@ -25,7 +25,7 @@ class TestCutSize: public object {
         assert_equal(xn::cut_size(G, S, T), 4);
         assert_equal(xn::cut_size(G, T, S), 4);
 
-    auto test_single_edge( ) {
+    auto test_single_edge() {
         /** Tests for a cut of a single edge. */
         G = xn::barbell_graph(3, 0);
         S = {0, 1, 2}
@@ -33,7 +33,7 @@ class TestCutSize: public object {
         assert_equal(xn::cut_size(G, S, T), 1);
         assert_equal(xn::cut_size(G, T, S), 1);
 
-    auto test_directed( ) {
+    auto test_directed() {
         /** Tests that each directed edge is counted once : the cut. */
         G = xn::barbell_graph(3, 0).to_directed();
         S = {0, 1, 2}
@@ -41,7 +41,7 @@ class TestCutSize: public object {
         assert_equal(xn::cut_size(G, S, T), 2);
         assert_equal(xn::cut_size(G, T, S), 2);
 
-    auto test_directed_symmetric( ) {
+    auto test_directed_symmetric() {
         /** Tests that a cut : a directed graph is symmetric. */
         G = xn::barbell_graph(3, 0).to_directed();
         S = {0, 1, 4}
@@ -49,7 +49,7 @@ class TestCutSize: public object {
         assert_equal(xn::cut_size(G, S, T), 8);
         assert_equal(xn::cut_size(G, T, S), 8);
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         /** Tests that parallel edges are each counted for a cut. */
         G = xn::MultiGraph(["ab", "ab"]);
         assert_equal(xn::cut_size(G, {"a"}, {"b"}), 2);
@@ -58,20 +58,20 @@ class TestCutSize: public object {
 class TestVolume: public object {
     /** Unit tests for the :func:`~xnetwork.volume` function. */
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::cycle_graph(4);
         assert_equal(xn::volume(G, {0, 1}), 4);
 
-    auto test_digraph( ) {
+    auto test_digraph() {
         G = xn::DiGraph([(0, 1), (1, 2), (2, 3), (3, 0)]);
         assert_equal(xn::volume(G, {0, 1}), 2);
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         edges = list(xn::cycle_graph(4).edges());
         G = xn::MultiGraph(edges * 2);
         assert_equal(xn::volume(G, {0, 1}), 8);
 
-    auto test_multidigraph( ) {
+    auto test_multidigraph() {
         edges = [(0, 1), (1, 2), (2, 3), (3, 0)];
         G = xn::MultiDiGraph(edges * 2);
         assert_equal(xn::volume(G, {0, 1}), 4);
@@ -83,7 +83,7 @@ class TestNormalizedCutSize: public object {
 
      */
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::path_graph(4);
         S = {1, 2}
         T = set(G) - S
@@ -92,7 +92,7 @@ class TestNormalizedCutSize: public object {
         expected = 2 * ((1 / 4) + (1 / 2));
         assert_equal(expected, size);
 
-    auto test_directed( ) {
+    auto test_directed() {
         G = xn::DiGraph([(0, 1), (1, 2), (2, 3)]);
         S = {1, 2}
         T = set(G) - S
@@ -105,7 +105,7 @@ class TestNormalizedCutSize: public object {
 class TestConductance: public object {
     /** Unit tests for the :func:`~xnetwork.conductance` function. */
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::barbell_graph(5, 0);
         // Consider the singleton sets containing the "bridge" nodes.
         // There is only one cut edge, && each set has volume five.
@@ -119,7 +119,7 @@ class TestConductance: public object {
 class TestEdgeExpansion: public object {
     /** Unit tests for the :func:`~xnetwork.edge_expansion` function. */
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::barbell_graph(5, 0);
         S = set(range(5));
         T = set(G) - S
@@ -133,7 +133,7 @@ class TestNodeExpansion: public object {
 
      */
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::path_graph(8);
         S = {3, 4, 5}
         expansion = xn::node_expansion(G, S);
@@ -148,7 +148,7 @@ class TestBoundaryExpansion: public object {
 
      */
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::complete_graph(10);
         S = set(range(4));
         expansion = xn::boundary_expansion(G, S);
@@ -163,7 +163,7 @@ class TestMixingExpansion: public object {
 
      */
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::barbell_graph(5, 0);
         S = set(range(5));
         T = set(G) - S

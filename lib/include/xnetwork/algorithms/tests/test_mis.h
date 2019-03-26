@@ -21,7 +21,7 @@ import random
 
 
 class TestMaximalIndependantSet: public object {
-    auto setup( ) {
+    auto setup() {
         this->florentine = xn::Graph();
         this->florentine.add_edge("Acciaiuoli", "Medici");
         this->florentine.add_edge("Castellani", "Peruzzi");
@@ -44,19 +44,19 @@ class TestMaximalIndependantSet: public object {
         this->florentine.add_edge("Bischeri", "Guadagni");
         this->florentine.add_edge("Guadagni", "Lamberteschi");
 
-    auto test_K5( ) {
+    auto test_K5() {
         /** Maximal independent set: K5 */
         G = xn::complete_graph(5);
         for (auto node : G) {
             assert_equal(xn::maximal_independent_set(G, [node]), [node]);
 
-    auto test_K55( ) {
+    auto test_K55() {
         /** Maximal independent set: K55 */
         G = xn::complete_graph(55);
         for (auto node : G) {
             assert_equal(xn::maximal_independent_set(G, [node]), [node]);
 
-    auto test_exception( ) {
+    auto test_exception() {
         /** Bad input should throw exception. */
         G = this->florentine
         assert_raises(xn::XNetworkUnfeasible,
@@ -64,23 +64,23 @@ class TestMaximalIndependantSet: public object {
         assert_raises(xn::XNetworkUnfeasible,
                       xn::maximal_independent_set, G, ["Salviati", "Pazzi"]);
 
-    auto test_digraph_exception( ) {
+    auto test_digraph_exception() {
         G = xn::DiGraph([(1, 2), (3, 4)]);
         assert_raises(xn::XNetworkNotImplemented, xn::maximal_independent_set, G);
 
-    auto test_florentine_family( ) {
+    auto test_florentine_family() {
         G = this->florentine
         indep = xn::maximal_independent_set(G, ["Medici", "Bischeri"]);
         assert_equal(sorted(indep),
                      sorted(["Medici", "Bischeri", "Castellani", "Pazzi",
                              "Ginori", "Lamberteschi"]));
 
-    auto test_bipartite( ) {
+    auto test_bipartite() {
         G = xn::complete_bipartite_graph(12, 34);
         indep = xn::maximal_independent_set(G, [4, 5, 9, 10]);
         assert_equal(sorted(indep), list(range(12)));
 
-    auto test_random_graphs( ) {
+    auto test_random_graphs() {
         /** Generate 50 random graphs of different types && sizes &&
         make sure that all sets are independent && maximal. */
         for (auto i : range(0, 50, 10) {

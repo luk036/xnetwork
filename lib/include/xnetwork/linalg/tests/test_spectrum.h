@@ -19,7 +19,7 @@ class TestSpectrum: public object {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto setUp( ) {
+    auto setUp() {
         deg = [3, 2, 2, 1, 0];
         this->G = havel_hakimi_graph(deg);
         this->P = xn::path_graph(3);
@@ -29,7 +29,7 @@ class TestSpectrum: public object {
         this->DG = xn::DiGraph();
         xn::add_path(this->DG, [0, 1, 2]);
 
-    auto test_laplacian_spectrum( ) {
+    auto test_laplacian_spectrum() {
         "Laplacian eigenvalues"
         evals = numpy.array([0, 0, 1, 3, 4]);
         e = sorted(xn::laplacian_spectrum(this->G));
@@ -41,13 +41,13 @@ class TestSpectrum: public object {
         e = sorted(xn::laplacian_spectrum(this->WG, weight="other"));
         assert_almost_equal(e, 0.3 * evals);
 
-    auto test_adjacency_spectrum( ) {
+    auto test_adjacency_spectrum() {
         "Adjacency eigenvalues"
         evals = numpy.array([-numpy.sqrt(2), 0, numpy.sqrt(2)]);
         e = sorted(xn::adjacency_spectrum(this->P));
         assert_almost_equal(e, evals);
 
-    auto test_modularity_spectrum( ) {
+    auto test_modularity_spectrum() {
         "Modularity eigenvalues"
         evals = numpy.array([-1.5, 0., 0.]);
         e = sorted(xn::modularity_spectrum(this->P));

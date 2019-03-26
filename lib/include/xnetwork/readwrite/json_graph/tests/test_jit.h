@@ -5,7 +5,7 @@ from xnetwork.readwrite.json_graph import jit_data, jit_graph
 
 
 class TestJIT: public object {
-    auto test_jit( ) {
+    auto test_jit() {
         G = xn::Graph();
         G.add_node("Node1", node_data="foobar");
         G.add_node("Node3", node_data="bar");
@@ -17,7 +17,7 @@ class TestJIT: public object {
         K = jit_graph(json.loads(d));
         assert_true(xn::is_isomorphic(G, K));
 
-    auto test_jit_2( ) {
+    auto test_jit_2() {
         G = xn::Graph();
         G.add_node(1, node_data=3);
         G.add_node(3, node_data=0);
@@ -28,7 +28,7 @@ class TestJIT: public object {
         K = jit_graph(json.loads(d));
         assert_true(xn::is_isomorphic(G, K));
 
-    auto test_jit_directed( ) {
+    auto test_jit_directed() {
         G = xn::DiGraph();
         G.add_node(1, node_data=3);
         G.add_node(3, node_data=0);
@@ -39,7 +39,7 @@ class TestJIT: public object {
         K = jit_graph(json.loads(d), create_using=xn::DiGraph());
         assert_true(xn::is_isomorphic(G, K));
 
-    auto test_jit_multi_directed( ) {
+    auto test_jit_multi_directed() {
         G = xn::MultiDiGraph();
         G.add_node(1, node_data=3);
         G.add_node(3, node_data=0);

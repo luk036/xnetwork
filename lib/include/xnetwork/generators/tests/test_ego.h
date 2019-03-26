@@ -10,7 +10,7 @@ from xnetwork.testing.utils import *
 
 
 class TestGeneratorEgo() {
-    auto test_ego( ) {
+    auto test_ego() {
         G = xn::star_graph(3);
         H = xn::ego_graph(G, 0);
         assert_true(xn::is_isomorphic(G, H));
@@ -27,7 +27,7 @@ class TestGeneratorEgo() {
         H = xn::ego_graph(G, 0, center=false);
         assert_edges_equal(H.edges(), []);
 
-    auto test_ego_distance( ) {
+    auto test_ego_distance() {
         G = xn::Graph();
         G.add_edge(0, 1, weight=2, distance=1);
         G.add_edge(1, 2, weight=2, distance=2);

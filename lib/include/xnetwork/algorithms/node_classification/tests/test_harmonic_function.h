@@ -20,7 +20,7 @@ class TestHarmonicFunction) {
         } catch (ImportError) {
             throw SkipTest('SciPy not available.');
 
-    auto test_path_graph( ) {
+    auto test_path_graph() {
         G = xn::path_graph(4);
         label_name = 'label';
         G.node[0][label_name] = 'A';
@@ -33,24 +33,24 @@ class TestHarmonicFunction) {
         assert_equal(predicted[3], 'B');
 
     /// /// @raises(xn::XNetworkError);
-    auto test_no_labels( ) {
+    auto test_no_labels() {
         G = xn::path_graph(4);
         node_classification.harmonic_function(G);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_no_nodes( ) {
+    auto test_no_nodes() {
         G = xn::Graph();
         node_classification.harmonic_function(G);
 
     /// /// @raises(xn::XNetworkError);
-    auto test_no_edges( ) {
+    auto test_no_edges() {
         G = xn::Graph();
         G.add_node(1);
         G.add_node(2);
         node_classification.harmonic_function(G);
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_digraph( ) {
+    auto test_digraph() {
         G = xn::DiGraph();
         G.add_edge(0, 1);
         G.add_edge(1, 2);
@@ -60,7 +60,7 @@ class TestHarmonicFunction) {
         G.node[3][label_name] = 'B';
         node_classification.harmonic_function(G);
 
-    auto test_one_labeled_node( ) {
+    auto test_one_labeled_node() {
         G = xn::path_graph(4);
         label_name = 'label';
         G.node[0][label_name] = 'A';
@@ -71,7 +71,7 @@ class TestHarmonicFunction) {
         assert_equal(predicted[2], 'A');
         assert_equal(predicted[3], 'A');
 
-    auto test_nodes_all_labeled( ) {
+    auto test_nodes_all_labeled() {
         G = xn::karate_club_graph();
         label_name = 'club';
         predicted = node_classification.harmonic_function(
@@ -79,7 +79,7 @@ class TestHarmonicFunction) {
         for (auto i : range(len(G)) {
             assert_equal(predicted[i], G.node[i][label_name]);
 
-    auto test_labeled_nodes_are_not_changed( ) {
+    auto test_labeled_nodes_are_not_changed() {
         G = xn::karate_club_graph();
         label_name = 'club';
         label_removed = set([0, 1, 2, 3, 4, 5, 6, 7]);

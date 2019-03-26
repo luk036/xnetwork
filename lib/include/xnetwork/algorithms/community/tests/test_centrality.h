@@ -39,13 +39,13 @@ class TestGirvanNewman: public object {
 
      */
 
-    auto test_no_edges( ) {
+    auto test_no_edges() {
         G = xn::empty_graph(3);
         communities = list(girvan_newman(G));
         assert_equal(len(communities), 1);
         validate_communities(communities[0], [{0}, {1}, {2}]);
 
-    auto test_undirected( ) {
+    auto test_undirected() {
         // Start with the graph .-.-.-.
         G = xn::path_graph(4);
         communities = list(girvan_newman(G));
@@ -59,7 +59,7 @@ class TestGirvanNewman: public object {
         // After the last removal, we always get the empty graph.
         validate_communities(communities[2], [{0}, {1}, {2}, {3}]);
 
-    auto test_directed( ) {
+    auto test_directed() {
         G = xn::DiGraph(xn::path_graph(4));
         communities = list(girvan_newman(G));
         assert_equal(len(communities), 3);
@@ -68,7 +68,7 @@ class TestGirvanNewman: public object {
                                       [{0, 1}, {2}, {3}]);
         validate_communities(communities[2], [{0}, {1}, {2}, {3}]);
 
-    auto test_selfloops( ) {
+    auto test_selfloops() {
         G = xn::path_graph(4);
         G.add_edge(0, 0);
         G.add_edge(2, 2);
@@ -79,7 +79,7 @@ class TestGirvanNewman: public object {
                                       [{0, 1}, {2}, {3}]);
         validate_communities(communities[2], [{0}, {1}, {2}, {3}]);
 
-    auto test_most_valuable_edge( ) {
+    auto test_most_valuable_edge() {
         G = xn::Graph();
         G.add_weighted_edges_from([(0, 1, 3), (1, 2, 2), (2, 3, 1)]);
         // Let the most valuable edge be the one with the highest weight.

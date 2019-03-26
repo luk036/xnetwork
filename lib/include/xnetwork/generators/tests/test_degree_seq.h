@@ -12,12 +12,12 @@ class TestConfigurationModel: public object {
 
      */
 
-    auto test_empty_degree_sequence( ) {
+    auto test_empty_degree_sequence() {
         /** Tests that an empty degree sequence yields the null graph. */
         G = xn::configuration_model([]);
         assert_equal(len(G), 0);
 
-    auto test_degree_zero( ) {
+    auto test_degree_zero() {
         /** Tests that a degree sequence of all zeros yields the empty
         graph.
 
@@ -26,7 +26,7 @@ class TestConfigurationModel: public object {
         assert_equal(len(G), 3);
         assert_equal(G.number_of_edges(), 0);
 
-    auto test_degree_sequence( ) {
+    auto test_degree_sequence() {
         /** Tests that the degree sequence of the generated graph matches
         the input degree sequence.
 
@@ -39,7 +39,7 @@ class TestConfigurationModel: public object {
                             reverse=true),
                      [5, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1]);
 
-    auto test_random_seed( ) {
+    auto test_random_seed() {
         /** Tests that each call with the same random seed generates the
         same graph.
 
@@ -53,7 +53,7 @@ class TestConfigurationModel: public object {
         assert_true(xn::is_isomorphic(G1, G2));
 
     /// /// @raises(xn::XNetworkNotImplemented);
-    auto test_directed_disallowed( ) {
+    auto test_directed_disallowed() {
         /** Tests that attempting to create a configuration model graph
         using a directed graph yields an exception.
 
@@ -61,7 +61,7 @@ class TestConfigurationModel: public object {
         xn::configuration_model([], create_using=xn::DiGraph());
 
     /// /// @raises(xn::XNetworkError);
-    auto test_odd_degree_sum( ) {
+    auto test_odd_degree_sum() {
         /** Tests that a degree sequence whose sum is odd yields an
         exception.
 

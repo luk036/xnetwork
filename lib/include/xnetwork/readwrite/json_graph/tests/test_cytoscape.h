@@ -6,12 +6,12 @@ from xnetwork.readwrite.json_graph import *
 
 class TestCytoscape) {
 
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::path_graph(4);
         H = cytoscape_graph(cytoscape_data(G));
         xn::is_isomorphic(G, H);
 
-    auto test_graph_attributes( ) {
+    auto test_graph_attributes() {
         G = xn::path_graph(4);
         G.add_node(1, color='red');
         G.add_edge(1, 2, width=7);
@@ -35,21 +35,21 @@ class TestCytoscape) {
         assert_equal(H.nodes[3]['name'], 'node');
         assert_equal(H.nodes[3]['id'], '123');
 
-    auto test_digraph( ) {
+    auto test_digraph() {
         G = xn::DiGraph();
         xn::add_path(G, [1, 2, 3]);
         H = cytoscape_graph(cytoscape_data(G));
         assert_true(H.is_directed());
         xn::is_isomorphic(G, H);
 
-    auto test_multidigraph( ) {
+    auto test_multidigraph() {
         G = xn::MultiDiGraph();
         xn::add_path(G, [1, 2, 3]);
         H = cytoscape_graph(cytoscape_data(G));
         assert_true(H.is_directed());
         assert_true(H.is_multigraph());
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         G = xn::MultiGraph();
         G.add_edge(1, 2, key='first');
         G.add_edge(1, 2, key='second', color='blue');
@@ -58,7 +58,7 @@ class TestCytoscape) {
         assert_equal(H[1][2]['second']['color'], 'blue');
 
     /// /// @raises(xn::XNetworkError);
-    auto test_exception( ) {
+    auto test_exception() {
         G = xn::MultiDiGraph();
         attrs = dict(name='node', ident='node');
         cytoscape_data(G, attrs);

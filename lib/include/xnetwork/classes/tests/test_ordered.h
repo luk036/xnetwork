@@ -4,26 +4,26 @@ from nose.tools import assert_equals
 
 class SmokeTestOrdered: public object {
     // Just test instantiation.
-    auto test_graph( ) {
+    auto test_graph() {
         G = xn::OrderedGraph();
 
-    auto test_digraph( ) {
+    auto test_digraph() {
         G = xn::OrderedDiGraph();
 
-    auto test_multigraph( ) {
+    auto test_multigraph() {
         G = xn::OrderedMultiGraph();
 
-    auto test_multidigraph( ) {
+    auto test_multidigraph() {
         G = xn::OrderedMultiDiGraph();
 
 
 class TestOrderedFeatures: public object {
-    auto setUp( ) {
+    auto setUp() {
         this->G = xn::OrderedDiGraph();
         this->G.add_nodes_from([1, 2, 3]);
         this->G.add_edges_from([(2, 3), (1, 3)]);
 
-    auto test_subgraph_order( ) {
+    auto test_subgraph_order() {
         G = this->G
         G_sub = G.subgraph([1, 2, 3]);
         assert_equals(list(G.nodes), list(G_sub.nodes));

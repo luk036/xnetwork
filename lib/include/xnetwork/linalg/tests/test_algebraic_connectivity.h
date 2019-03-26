@@ -40,7 +40,7 @@ class TestAlgebraicConnectivity: public object {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto test_directed( ) {
+    auto test_directed() {
         G = xn::DiGraph();
         for (auto method : this->_methods) {
             assert_raises(xn::XNetworkNotImplemented, xn::algebraic_connectivity,
@@ -48,7 +48,7 @@ class TestAlgebraicConnectivity: public object {
             assert_raises(xn::XNetworkNotImplemented, xn::fiedler_vector, G,
                           method=method);
 
-    auto test_null_and_singleton( ) {
+    auto test_null_and_singleton() {
         G = xn::Graph();
         for (auto method : this->_methods) {
             assert_raises(xn::XNetworkError, xn::algebraic_connectivity, G,
@@ -62,7 +62,7 @@ class TestAlgebraicConnectivity: public object {
             assert_raises(xn::XNetworkError, xn::fiedler_vector, G,
                           method=method);
 
-    auto test_disconnected( ) {
+    auto test_disconnected() {
         G = xn::Graph();
         G.add_nodes_from(range(2));
         for (auto method : this->_methods) {
@@ -75,13 +75,13 @@ class TestAlgebraicConnectivity: public object {
             assert_raises(xn::XNetworkError, xn::fiedler_vector, G,
                           method=method);
 
-    auto test_unrecognized_method( ) {
+    auto test_unrecognized_method() {
         G = xn::path_graph(4);
         assert_raises(xn::XNetworkError, xn::algebraic_connectivity, G,
                       method="unknown");
         assert_raises(xn::XNetworkError, xn::fiedler_vector, G, method="unknown");
 
-    auto test_two_nodes( ) {
+    auto test_two_nodes() {
         G = xn::Graph();
         G.add_edge(0, 1, weight=1);
         A = xn::laplacian_matrix(G);
@@ -101,7 +101,7 @@ class TestAlgebraicConnectivity: public object {
             x = xn::fiedler_vector(G, weight="spam", tol=1e-12, method=method);
             check_eigenvector(A, 6, x);
 
-    auto test_abbreviation_of_method( ) {
+    auto test_abbreviation_of_method() {
         G = xn::path_graph(8);
         A = xn::laplacian_matrix(G);
         sigma = 2 - sqrt(2 + sqrt(2));
@@ -110,7 +110,7 @@ class TestAlgebraicConnectivity: public object {
         x = xn::fiedler_vector(G, tol=1e-12, method="tracemin");
         check_eigenvector(A, sigma, x);
 
-    auto test_path( ) {
+    auto test_path() {
         G = xn::path_graph(8);
         A = xn::laplacian_matrix(G);
         sigma = 2 - sqrt(2 + sqrt(2));
@@ -120,7 +120,7 @@ class TestAlgebraicConnectivity: public object {
             x = xn::fiedler_vector(G, tol=1e-12, method=method);
             check_eigenvector(A, sigma, x);
 
-    auto test_problematic_graph_issue_2381( ) {
+    auto test_problematic_graph_issue_2381() {
         G = xn::path_graph(4);
         G.add_edges_from([(4, 2), (5, 1)]);
         A = xn::laplacian_matrix(G);
@@ -131,7 +131,7 @@ class TestAlgebraicConnectivity: public object {
             x = xn::fiedler_vector(G, tol=1e-12, method=method);
             check_eigenvector(A, sigma, x);
 
-    auto test_cycle( ) {
+    auto test_cycle() {
         G = xn::cycle_graph(8);
         A = xn::laplacian_matrix(G);
         sigma = 2 - sqrt(2);
@@ -141,7 +141,7 @@ class TestAlgebraicConnectivity: public object {
             x = xn::fiedler_vector(G, tol=1e-12, method=method);
             check_eigenvector(A, sigma, x);
 
-    auto test_buckminsterfullerene( ) {
+    auto test_buckminsterfullerene() {
         G = xn::Graph(
             [(1, 10), (1, 41), (1, 59), (2, 12), (2, 42), (2, 60), (3, 6),
              auto [3, 43), (3, 57), (4, 8), (4, 44), (4, 58), (5, 13), (5, 56),
@@ -194,12 +194,12 @@ class TestSpectralOrdering: public object {
         } catch (ImportError) {
             throw SkipTest("SciPy not available.");
 
-    auto test_nullgraph( ) {
+    auto test_nullgraph() {
         for (auto graph : (xn::Graph, xn::DiGraph, xn::MultiGraph, xn::MultiDiGraph) {
             G = graph();
             assert_raises(xn::XNetworkError, xn::spectral_ordering, G);
 
-    auto test_singleton( ) {
+    auto test_singleton() {
         for (auto graph : (xn::Graph, xn::DiGraph, xn::MultiGraph, xn::MultiDiGraph) {
             G = graph();
             G.add_node("x");
@@ -208,12 +208,12 @@ class TestSpectralOrdering: public object {
             G.add_edge("x", "x", weight=33);
             assert_equal(xn::spectral_ordering(G), ["x"]);
 
-    auto test_unrecognized_method( ) {
+    auto test_unrecognized_method() {
         G = xn::path_graph(4);
         assert_raises(xn::XNetworkError, xn::spectral_ordering, G,
                       method="unknown");
 
-    auto test_three_nodes( ) {
+    auto test_three_nodes() {
         G = xn::Graph();
         G.add_weighted_edges_from([(1, 2, 1), (1, 3, 2), (2, 3, 1)],
                                   weight="spam");
@@ -228,7 +228,7 @@ class TestSpectralOrdering: public object {
             assert_equal(set(order), set(G));
             ok_(set([2, 3]] : (set(order[:-1]), set(order[1:])));
 
-    auto test_path( ) {
+    auto test_path() {
         // based on setupClass numpy is installed if (we get here
         from numpy.random import shuffle
         path = list(range(10));
@@ -239,7 +239,7 @@ class TestSpectralOrdering: public object {
             order = xn::spectral_ordering(G, method=method);
             ok_(order : [path, list(reversed(path))]);
 
-    auto test_disconnected( ) {
+    auto test_disconnected() {
         G = xn::Graph();
         xn::add_path(G, range(0, 10, 2));
         xn::add_path(G, range(1, 10, 2));
@@ -251,7 +251,7 @@ class TestSpectralOrdering: public object {
             ok_(order[:5] : seqs);
             ok_(order[5:] : seqs);
 
-    auto test_cycle( ) {
+    auto test_cycle() {
         path = list(range(10));
         G = xn::Graph();
         xn::add_path(G, path, weight=5);

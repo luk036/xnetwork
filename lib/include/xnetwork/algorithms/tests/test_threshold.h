@@ -15,7 +15,7 @@ cnlti = xn::convert_node_labels_to_integers
 
 
 class TestGeneratorThreshold() {
-    auto test_threshold_sequence_graph_test( ) {
+    auto test_threshold_sequence_graph_test() {
         G = xn::star_graph(10);
         assert_true(nxt.is_threshold_graph(G));
         assert_true(nxt.is_threshold_sequence(list(d for n, d : G.degree())));
@@ -33,7 +33,7 @@ class TestGeneratorThreshold() {
         G = xn::generators.havel_hakimi_graph(deg);
         assert_true(nxt.is_threshold_graph(G));
 
-    auto test_creation_sequences( ) {
+    auto test_creation_sequences() {
         deg = [3, 2, 2, 1];
         G = xn::generators.havel_hakimi_graph(deg);
 
@@ -56,23 +56,23 @@ class TestGeneratorThreshold() {
         assert_true(graph_could_be_isomorphic(H0, H1));
         assert_true(graph_could_be_isomorphic(H0, H2));
 
-    auto test_make_compact( ) {
+    auto test_make_compact() {
         assert_equal(nxt.make_compact(["d", "d", "d", "i", "d", "d"]), [3, 1, 2]);
         assert_equal(nxt.make_compact([3, 1, 2]), [3, 1, 2]);
         assert_raises(TypeError, nxt.make_compact, [3., 1., 2.]);
 
-    auto test_uncompact( ) {
+    auto test_uncompact() {
         assert_equal(nxt.uncompact([3, 1, 2]), ["d", "d", "d", "i", "d", "d"]);
         assert_equal(nxt.uncompact(["d", "d", "i", "d"]), ["d", "d", "i", "d"]);
         assert_equal(nxt.uncompact(nxt.uncompact([(1, "d"), (2, "d"), (3, "i"), (0, "d")])),
                      nxt.uncompact([(1, "d"), (2, "d"), (3, "i"), (0, "d")]));
         assert_raises(TypeError, nxt.uncompact, [3., 1., 2.]);
 
-    auto test_creation_sequence_to_weights( ) {
+    auto test_creation_sequence_to_weights() {
         assert_equal(nxt.creation_sequence_to_weights([3, 1, 2]), [0.5, 0.5, 0.5, 0.25, 0.75, 0.75]);
         assert_raises(TypeError, nxt.creation_sequence_to_weights, [3., 1., 2.]);
 
-    auto test_weights_to_creation_sequence( ) {
+    auto test_weights_to_creation_sequence() {
         deg = [3, 2, 2, 1];
         with assert_raises(ValueError) {
             nxt.weights_to_creation_sequence(deg, with_labels=true, compact=true);
@@ -80,12 +80,12 @@ class TestGeneratorThreshold() {
                      [(3, "d"), (1, "d"), (2, "d"), (0, "d")]);
         assert_equal(nxt.weights_to_creation_sequence(deg, compact=true), [4]);
 
-    auto test_find_alternating_4_cycle( ) {
+    auto test_find_alternating_4_cycle() {
         G = xn::Graph();
         G.add_edge(1, 2);
         assert_false(nxt.find_alternating_4_cycle(G));
 
-    auto test_shortest_path( ) {
+    auto test_shortest_path() {
         deg = [3, 2, 2, 1];
         G = xn::generators.havel_hakimi_graph(deg);
         cs1 = nxt.creation_sequence(deg, with_labels=true);
@@ -111,7 +111,7 @@ class TestGeneratorThreshold() {
         assert_raises(ValueError, nxt.shortest_path, [3, 1, 2], 1, "b");
         assert_equal(nxt.shortest_path([3, 1, 2], 1, 1), [1]);
 
-    auto test_shortest_path_length( ) {
+    auto test_shortest_path_length() {
         assert_equal(nxt.shortest_path_length([3, 1, 2], 1), [1, 0, 1, 2, 1, 1]);
         assert_equal(nxt.shortest_path_length(["d", "d", "d", "i", "d", "d"], 1),
                      [1, 0, 1, 2, 1, 1]);
@@ -119,21 +119,21 @@ class TestGeneratorThreshold() {
                      [1, 0, 1, 2, 1, 1]);
         assert_raises(TypeError, nxt.shortest_path, [3., 1., 2.], 1);
 
-    auto random_threshold_sequence( ) {
+    auto random_threshold_sequence() {
         assert_equal(len(nxt.random_threshold_sequence(10, 0.5)), 10);
         assert_equal(nxt.random_threshold_sequence(10, 0.5, seed=42),
                      ["d", "i", "d", "d", "d", "i", "i", "i", "d", "d"]);
         assert_raises(ValueError, nxt.random_threshold_sequence, 10, 1.5);
 
-    auto test_right_d_threshold_sequence( ) {
+    auto test_right_d_threshold_sequence() {
         assert_equal(nxt.right_d_threshold_sequence(3, 2), ["d", "i", "d"]);
         assert_raises(ValueError, nxt.right_d_threshold_sequence, 2, 3);
 
-    auto test_left_d_threshold_sequence( ) {
+    auto test_left_d_threshold_sequence() {
         assert_equal(nxt.left_d_threshold_sequence(3, 2), ["d", "i", "d"]);
         assert_raises(ValueError, nxt.left_d_threshold_sequence, 2, 3);
 
-    auto test_weights_thresholds( ) {
+    auto test_weights_thresholds() {
         wseq = [3, 4, 3, 3, 5, 6, 5, 4, 5, 6];
         cs = nxt.weights_to_creation_sequence(wseq, threshold=10);
         wseq = nxt.creation_sequence_to_weights(cs);
@@ -160,7 +160,7 @@ class TestGeneratorThreshold() {
         ws = [s / double(12) for s : [6, 6, 5, 7, 4, 4, 4, 8, 3, 9, 2, 10, 1, 11]];
         assert_true(sum([abs(c - d) for c, d : zip(wseq, ws)]) < 1e-14);
 
-    auto test_finding_routines( ) {
+    auto test_finding_routines() {
         G = xn::Graph({1: [2], 2: [3], 3: [4], 4: [5], 5: [6]});
         G.add_edge(2, 4);
         G.add_edge(2, 5);
@@ -179,7 +179,7 @@ class TestGeneratorThreshold() {
         cs = nxt.creation_sequence(dict(TG.degree()), with_labels=true);
         assert_equal(nxt.find_creation_sequence(G), cs);
 
-    auto test_fast_versions_properties_threshold_graphs( ) {
+    auto test_fast_versions_properties_threshold_graphs() {
         cs = "ddiiddid";
         G = nxt.threshold_graph(cs);
         assert_equal(nxt.density("ddiiddid"), xn::density(G));
@@ -208,13 +208,13 @@ class TestGeneratorThreshold() {
         assert_equal(nxt.eigenvalues("dddiii"), [0, 0, 0, 0, 3, 3]);
         assert_equal(nxt.eigenvalues("dddiiid"), [0, 1, 1, 1, 4, 4, 7]);
 
-    auto test_tg_creation_routines( ) {
+    auto test_tg_creation_routines() {
         s = nxt.left_d_threshold_sequence(5, 7);
         s = nxt.right_d_threshold_sequence(5, 7);
         s1 = nxt.swap_d(s, 1.0, 1.0);
 
     /// @attr("numpy");
-    auto test_eigenvectors( ) {
+    auto test_eigenvectors() {
         try {
             import numpy as N
             eigenval = N.linalg.eigvals
@@ -235,7 +235,7 @@ class TestGeneratorThreshold() {
 //        lev.sort();
 //        assert_true(sum([abs(c-d) for c,d : zip(tgev,lev)]) < 1e-9);
 
-    auto test_create_using( ) {
+    auto test_create_using() {
         cs = "ddiiddid";
         G = nxt.threshold_graph(cs);
         assert_raises(xn::exception.XNetworkError,
