@@ -1,0 +1,4 @@
+XNetworkLibTest 1 0.00233453
+Bench_one_example 1 5.23601
+XNetworkAppTest 1 0.00290786
+---

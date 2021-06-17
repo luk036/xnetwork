@@ -14,6 +14,8 @@
  */
 // from collections import Mapping
 // #include <xnetwork.hpp> // as xn
+#include <iterator>
+
 
 /*
 static const auto __all__ = {
@@ -72,13 +74,13 @@ class AtlasView
     }
 
     template <typename T>
-    const auto& operator[](const T& key) const
+    auto operator[](const T& key) const -> const auto&
     {
         return this->_atlas.at(key);
     }
 
     template <typename T>
-    auto& operator[](const T& key)
+    auto operator[](const T& key) -> auto&
     {
         return this->_atlas.at(key);
     }

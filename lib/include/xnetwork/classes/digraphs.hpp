@@ -1,7 +1,8 @@
 #pragma once
 
-#include <boost/any.hpp>
+#include <any>
 #include <boost/coroutine2/all.hpp>
+// #include <cppcoro/generator.hpp>
 #include <cassert>
 #include <py2cpp/py2cpp.hpp>
 #include <type_traits>
@@ -108,7 +109,7 @@ namespace xn
     direct manipulation of the attribute
     dictionaries named graph, node and edge respectively.
 
-    >>> G.graph["day"] = boost::any("Friday");
+    >>> G.graph["day"] = std::any("Friday");
     {'day': 'Friday'}
 
     **Subclasses (Advanced):**
@@ -198,17 +199,19 @@ namespace xn
     a dictionary-like object.
 */
 template <typename nodeview_t,
-    typename adjlist_t = py::dict<Value_type<nodeview_t>, int>>
-class DiGraphS : public Graph<nodeview_t, adjlist_t>
+    typename adjlist_t = py::dict<Value_type<nodeview_t>, int>,
+    typename adjlist_outer_dict_factory =
+        py::dict<Value_type<nodeview_t>, adjlist_t>>
+class DiGraphS : public Graph<nodeview_t, adjlist_t, adjlist_outer_dict_factory>
 {
-    using _Base = Graph<nodeview_t, adjlist_t>;
+    using _Base = Graph<nodeview_t, adjlist_t, adjlist_outer_dict_factory>;
 
   public:
     using Node = typename _Base::Node; // luk
     using edge_t = std::pair<Node, Node>;
     using graph_attr_dict_factory = typename _Base::graph_attr_dict_factory;
-    using adjlist_outer_dict_factory =
-        typename _Base::adjlist_outer_dict_factory;
+    // using adjlist_outer_dict_factory =
+    //     typename _Base::adjlist_outer_dict_factory;
     using key_type = typename _Base::key_type;
     using value_type = typename _Base::value_type;
 
@@ -237,7 +240,7 @@ class DiGraphS : public Graph<nodeview_t, adjlist_t>
     }
 
     explicit DiGraphS(int num_nodes)
-        : _Base {py::range<int>(num_nodes)}
+        : _Base {num_nodes}
         , _succ {_Base::_adj}
     {
     }
@@ -333,13 +336,13 @@ class DiGraphS : public Graph<nodeview_t, adjlist_t>
         >>> G.edges()[1, 2].update({0: 5});
      */
     template <typename U = key_type>
-    typename std::enable_if<std::is_same<U, value_type>::value>::type add_edge(
-        const Node& u, const Node& v)
+    auto add_edge(
+        const Node& u, const Node& v) -> typename std::enable_if<std::is_same<U, value_type>::value>::type
     {
         // auto [u, v] = u_of_edge, v_of_edge;
         // add nodes
-        assert(this->_node.contains(u));
-        assert(this->_node.contains(v));
+        // assert(this->s->_node.contains(u));
+        // assert(this->s->_node.contains(v));
         // add the edge
         // datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
         // datadict.update(attr);
@@ -349,13 +352,13 @@ class DiGraphS : public Graph<nodeview_t, adjlist_t>
     }
 
     template <typename U = key_type>
-    typename std::enable_if<!std::is_same<U, value_type>::value>::type add_edge(
-        const Node& u, const Node& v)
+    auto add_edge(
+        const Node& u, const Node& v) -> typename std::enable_if<!std::is_same<U, value_type>::value>::type
     {
         // auto [u, v] = u_of_edge, v_of_edge;
         // add nodes
-        assert(this->_node.contains(u));
-        assert(this->_node.contains(v));
+        // assert(this->s->_node.contains(u));
+        // assert(this->s->_node.contains(v));
         // add the edge
         // datadict = this->_adj[u].get(v, this->edge_attr_dict_factory());
         // datadict.update(attr);
@@ -369,8 +372,8 @@ class DiGraphS : public Graph<nodeview_t, adjlist_t>
     template <typename T>
     auto add_edge(const Node& u, const Node& v, const T& data)
     {
-        assert(this->_node.contains(u));
-        assert(this->_node.contains(v));
+        // assert(this->s->_node.contains(u));
+        // assert(this->s->_node.contains(v));
         this->_succ[u][v] = data;
         this->_num_of_edges += 1;
     }
@@ -379,7 +382,7 @@ class DiGraphS : public Graph<nodeview_t, adjlist_t>
     auto add_edges_from(const C1& edges, const C2& data)
     {
         auto N = edges.size();
-        for (auto i = 0; i != N; ++i)
+        for (auto i = 0U; i != N; ++i)
         {
             const auto& e = edges[i];
             this->add_edge(e.first, e.second, data[i]);
@@ -418,18 +421,15 @@ class DiGraphS : public Graph<nodeview_t, adjlist_t>
         -----
         neighbors() and successors() are the same.
     */
-    auto& successors(const Node& n)
+    auto successors(const Node& n) -> auto&
     {
         return this->_succ[n];
     }
 
-    const auto& successors(const Node& n) const
+    auto successors(const Node& n) const -> const auto&
     {
         return this->_succ[n];
     }
-
-    using coro_t = boost::coroutines2::coroutine<edge_t>;
-    using pull_t = typename coro_t::pull_type;
 
     /// @property
     /*! An OutEdgeView of the DiGraph as G.edges().
@@ -491,22 +491,51 @@ class DiGraphS : public Graph<nodeview_t, adjlist_t>
         OutEdgeDataView([(0, 1)])
 
     */
+    using coro_t = boost::coroutines2::coroutine<edge_t>;
+    using pull_t = typename coro_t::pull_type;
+
+    /// @TODO: sync with networkx
     auto edges() const -> pull_t
     {
         auto func = [&](typename coro_t::push_type& yield)
         {
-            for (auto&& rslt : this->_nodes_nbrs())
-            {
-                auto&& n = std::get<0>(rslt);
-                auto&& nbrs = std::get<1>(rslt);
-                for (auto&& nbr : nbrs)
+            if constexpr (std::is_same_v<nodeview_t,
+                              decltype(py::range<int>(0))>)
+            { // this->_succ???
+                for (auto&& [n, nbrs] : py::enumerate(this->_adj))
                 {
-                    yield(edge_t {Node(n), Node(nbr)});
+                    for (auto&& nbr : nbrs)
+                    {
+                        yield(edge_t {Node(n), Node(nbr)});
+                    }
+                }
+            }
+            else
+            {
+                for (auto&& [n, nbrs] : this->_adj.items())
+                {
+                    for (auto&& nbr : nbrs)
+                    {
+                        yield(edge_t {n, nbr});
+                    }
                 }
             }
         };
+
+
         return pull_t(func);
     }
+
+    // cppcoro::generator<edge_t> edges() const
+    // {
+    //     for (auto&& [n, nbrs] : this->_nodes_nbrs())
+    //     {
+    //         for (auto&& nbr : nbrs)
+    //         {
+    //             co_yield edge_t{Node(n), Node(nbr)};
+    //         }
+    //     }
+    // }
 
     // auto edges() {
     //     return OutEdgeView(*this);
@@ -556,8 +585,9 @@ class DiGraphS : public Graph<nodeview_t, adjlist_t>
     }
 };
 
-using SimpleDiGraphS =
-    DiGraphS<decltype(py::range<int>(1)), py::dict<int, int>>;
+
+using SimpleDiGraphS = DiGraphS<decltype(py::range<int>(1)), py::dict<int, int>,
+    std::vector<py::dict<int, int>>>;
 
 // template <typename nodeview_t,
 //           typename adjlist_t> DiGraphS(int )
