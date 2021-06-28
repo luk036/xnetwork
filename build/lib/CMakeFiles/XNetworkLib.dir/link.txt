@@ -1,2 +1,0 @@
-/usr/bin/ar qc libXNetworkLib.a  CMakeFiles/XNetworkLib.dir/src/xnetwork.cpp.o
-/usr/bin/ranlib libXNetworkLib.a

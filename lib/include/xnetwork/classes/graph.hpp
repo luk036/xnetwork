@@ -5,7 +5,6 @@
 #include <py2cpp/py2cpp.hpp>
 #include <string_view>
 #include <type_traits>
-#include <utility>
 #include <vector>
 #include <xnetwork/classes/coreviews.hpp> // import AtlasView, AdjacencyView
 #include <xnetwork/classes/reportviews.hpp> // import NodeView, EdgeView, DegreeView
@@ -258,8 +257,8 @@ class Graph : public object
         >>> r = py::range(100);
         >>> G = xn::Graph(r);  // or DiGraph, MultiGraph, MultiDiGraph, etc
     */
-    explicit Graph(nodeview_t  Nodes)
-        : _node {std::move(Nodes)}
+    explicit Graph(const nodeview_t& Nodes)
+        : _node {Nodes}
         , _adj {} // py::dict???
     {
     }
