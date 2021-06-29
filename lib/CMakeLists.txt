@@ -35,8 +35,8 @@ set (LIB_NAME ${LIB_NAME} PARENT_SCOPE)
 # target_link_libraries(${LIB_NAME} PUBLIC doctest)
 
 #test
-enable_testing ()
-add_subdirectory (test)
+# enable_testing ()
+# add_subdirectory (test)
 
 string(TOLOWER "${CMAKE_BUILD_TYPE}" cmake_build_type_tolower)
 if( NOT cmake_build_type_tolower STREQUAL "coverage"

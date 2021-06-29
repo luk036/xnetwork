@@ -1,7 +1,7 @@
-xnetwork
+XNetwork
 ========================================================================================
 
-Welcome to the xnetwork website.
+Welcome to the XNetwork website.
 
 .. _Exhale:          http://exhale.readthedocs.io/en/latest/
 .. _start_to_finish: http://exhale.readthedocs.io/en/latest/usage.html#start-to-finish-for-read-the-docs

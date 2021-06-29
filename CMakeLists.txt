@@ -117,4 +117,11 @@ set (LIBRARY_INCLUDE_PATH  ${LIBRARY_INCLUDE_PATH} ${Boost_INCLUDE_DIRS})
 add_subdirectory (lib)
 add_subdirectory (app)
 
-enable_testing ()
+option(BUILD_TESTS "xnetwork test suite" ON)
+option(XTL_DISABLE_EXCEPTIONS "Disable C++ exceptions" OFF)
+
+if(BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(test)
+endif()
+# enable_testing ()

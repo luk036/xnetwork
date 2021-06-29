@@ -1,4 +1,4 @@
-set(CTEST_PROJECT_NAME "ellcpp")
+set(CTEST_PROJECT_NAME "xnetwork")
 set(CTEST_NIGHTLY_START_TIME "01:00:00 UTC")
 
 set(CTEST_DROP_METHOD "http")
