@@ -84,7 +84,7 @@ endif()
 find_package(Threads)
 
 set(XNETWORK_TESTS
-    test_graphh.cpp
+    test_graph.cpp
     test_xn.cpp
 )
 
