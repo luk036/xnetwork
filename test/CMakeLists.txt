@@ -85,7 +85,7 @@ find_package(Threads)
 
 set(XNETWORK_TESTS
     test_graphh.cpp
-    test_xnetwork.cpp
+    test_xn.cpp
 )
 
 if(nlohmann_json_FOUND)
