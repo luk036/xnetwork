@@ -58,7 +58,7 @@ class AtlasView
     {
     }
 
-    [[nodiscard]] auto size() const
+    [[nodiscard]] auto size() const -> size_t
     {
         return this->_atlas.size();
     }

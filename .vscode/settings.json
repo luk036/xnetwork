@@ -1,2 +1,4 @@
 {
+    "cmake.configureOnOpen": true,
+    "python.pythonPath": "/media/lubuntu/USBDISK/miniconda3/bin/python"
 }

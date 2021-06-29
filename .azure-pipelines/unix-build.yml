@@ -1,0 +1,27 @@
+steps:
+  - script: |
+      conda config --set always_yes yes --set changeps1 no
+      conda update -q conda
+      conda env create --file environment-dev.yml
+    displayName: Install dependencies
+
+  - script: |
+      source activate xnetwork
+      mkdir build
+      cd build
+      cmake -DBUILD_TESTS=ON $(Build.SourcesDirectory)
+    displayName: Configure xnetwork
+    workingDirectory: $(Build.BinariesDirectory)
+      
+  - script: |
+      source activate xnetwork
+      make -j2 test_xnetwork
+    displayName: Build xnetwork
+    workingDirectory: $(Build.BinariesDirectory)/build
+          
+  - script: |
+      source activate xnetwork
+      cd test
+      ./test_xnetwork
+    displayName: Test xnetwork
+    workingDirectory: $(Build.BinariesDirectory)/build/test

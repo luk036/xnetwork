@@ -2,7 +2,7 @@
 #pragma once
 
 #include <exception>
-#include <initializer_list>
+// #include <initializer_list>
 #include <stdexcept>
 
 /*!

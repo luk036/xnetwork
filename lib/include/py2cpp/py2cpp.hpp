@@ -1,7 +1,7 @@
 #pragma once
 
-#include <algorithm> // std::max
 #include <initializer_list>
+#include <range/v3/view/iota.hpp>
 #include <tuple>
 #include <type_traits>
 #include <unordered_map>
@@ -64,34 +64,6 @@ constexpr auto enumerate(T&& iterable)
     return iterable_wrapper {std::forward<T>(iterable)};
 }
 
-// template <typename T>
-// constexpr auto range(T stop) {
-//     struct iterator {
-//         T i;
-//         constexpr bool operator!=(const iterator &other) const { return i !=
-//         other.i; } constexpr bool operator==(const iterator &other) const {
-//         return i == other.i; } constexpr T operator*() const { return i; }
-//         constexpr iterator &operator++() {
-//             ++i;
-//             return *this;
-//         }
-//     };
-
-//     struct iterable_wrapper {
-//         using value_type = T; // luk
-//         T stop;
-//         constexpr auto begin() const { return iterator{0}; }
-//         constexpr auto end() const { return iterator{stop}; }
-//         constexpr auto empty() const -> bool { return stop == 0; }
-//         constexpr auto size() const -> size_t { return stop; }
-//         constexpr auto operator[](size_t n) const -> T { return n; } // no
-//         bounds checking constexpr auto contains(T n) const -> bool { return n
-//         < stop; }
-//     };
-
-//     if (stop < 0) stop = 0;
-//     return iterable_wrapper{stop};
-// }
 
 template <typename T>
 inline constexpr auto range(T start, T stop)
@@ -115,6 +87,12 @@ inline constexpr auto range(T start, T stop)
         {
             ++this->i;
             return *this;
+        }
+        constexpr auto operator++(int) -> _iterator
+        {
+            auto temp = *this;
+            ++*this;
+            return temp;
         }
     };
 
@@ -140,7 +118,7 @@ inline constexpr auto range(T start, T stop)
         }
         [[nodiscard]] constexpr auto size() const -> size_t
         {
-            return this->stop - this->start;
+            return static_cast<size_t>(this->stop - this->start);
         }
         constexpr auto operator[](size_t n) const -> T
         {
@@ -152,15 +130,39 @@ inline constexpr auto range(T start, T stop)
         }
     };
 
-    stop = std::max(stop, start);
-    // if (stop < start) {
-    //     stop = start;
-    // }
+    if (stop < start) {
+        stop = start;
+    }
     return iterable_wrapper {start, stop};
 }
 
+// template <typename T>
+// inline auto range(T start, T stop)
+// {
+//     using iota_return_type = decltype(ranges::views::iota(start, stop));
+
+//     class iterable_wrapper : public iota_return_type
+//     {
+//       public:
+//         using value_type [[maybe_unused]] = T; // luk:
+//         using key_type [[maybe_unused]] = T;   // luk:
+
+//         iterable_wrapper(iota_return_type&& base)
+//             : iota_return_type{std::forward<iota_return_type>(base)}
+//         {
+//         }
+
+//         [[nodiscard]] auto contains(T n) const -> bool
+//         {
+//             return !(n < *this->begin()) && n < *this->end();
+//         }
+//     };
+    
+//     return iterable_wrapper {ranges::views::iota(start, stop)};
+// }
+
 template <typename T>
-inline constexpr auto range(T stop)
+inline auto range(T stop)
 {
     return range(T(0), stop);
 }
@@ -356,7 +358,7 @@ class dict : public std::unordered_map<Key, T>
     // template <class Sequence>
     // explicit dict(const Sequence &S) {
     //     this->reserve(S.size());
-    //     for (auto&& [i_v, v] : py::enumerate(S)) {
+    //     for (const auto& [i_v, v] : py::enumerate(S)) {
     //         (*this)[v] = i_v;
     //     }
     // }

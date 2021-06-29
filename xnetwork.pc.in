@@ -1,0 +1,7 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+includedir=${prefix}/include
+
+Name: xnetwork
+Description: Basic tools (containers, algorithms) used by other quantstack packages.
+Version: @xnetwork_VERSION@
+Cflags: -I${includedir}

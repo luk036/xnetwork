@@ -95,7 +95,7 @@ EdgeDataView
     The argument `nbunch` restricts edges to those incident to nodes : nbunch.
 */
 // from collections import Mapping, Set, Iterable
-#include <initializer_list>
+// #include <initializer_list>
 #include <utility>
 
 namespace xn

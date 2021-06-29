@@ -1,0 +1,21 @@
+############################################################################
+# Copyright (c) 2017, Sylvain Corlay and Johan Mabille                     #
+#                                                                          #
+# Distributed under the terms of the BSD 3-Clause License.                 #
+#                                                                          #
+# The full license is in the file LICENSE, distributed with this software. #
+############################################################################
+
+# xnetwork cmake module
+# This module sets the following variables in your project::
+#
+#   xnetwork_FOUND - true if xnetwork found on the system
+#   xnetwork_INCLUDE_DIRS - the directory containing xnetwork headers
+#   xnetwork_LIBRARY - empty
+
+@PACKAGE_INIT@
+
+if(NOT TARGET @PROJECT_NAME@)
+    include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
+    get_target_property(@PROJECT_NAME@_INCLUDE_DIRS @PROJECT_NAME@ INTERFACE_INCLUDE_DIRECTORIES)
+endif()

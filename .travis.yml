@@ -61,19 +61,16 @@ matrix:
     - os: linux
       addons: *clang11
       env: COMPILER=clang CLANG=11 BUILD_TYPE='Release'
-      #    - os: linux
-      #      addons: *clang10
-      #      env: COMPILER=clang CLANG=10 BUILD_TYPE='Release'
-      #    - os: osx
-      #      osx_image: xcode12
-      #      addons:
-      #        homebrew:
-      #          packages:
-      #            - lcov
-      #            - libboost-all-dev
-      #            - doctest-dev
-      #          update: true
-      #      env: COMPILER=clang CLANG=10 BUILD_TYPE='Release'
+    - os: osx
+      osx_image: xcode12
+      addons:
+        homebrew:
+          packages:
+            - lcov
+            - libboost-all-dev
+            - doctest-dev
+          update: true
+      env: COMPILER=clang CLANG=10 BUILD_TYPE='Release'
 
 env:
   global:
@@ -110,7 +107,7 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda info -a
-  - conda install -c conda-forge benchmark fmt spdlog doctest
+  - conda env create --file environment-dev.yml
 script:
   - |
     if [[ "$BUILD_TYPE" == "Coverage" ]]; then

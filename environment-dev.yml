@@ -1,0 +1,8 @@
+name: xnetwork
+channels:
+  - conda-forge
+dependencies:
+  - cmake
+  - nlohmann_json
+  - boost
+  - doctest
