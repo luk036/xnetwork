@@ -2,7 +2,9 @@ name: xnetwork
 channels:
   - conda-forge
 dependencies:
-  - cmake
+  # - cmake
   - nlohmann_json
   - boost
   - doctest
+  - fmt
+  - benchmark
