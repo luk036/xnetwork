@@ -18,7 +18,7 @@ endif()
 
 project (XNetwork LANGUAGES CXX)
 
-option(ENABLE_COVERAGE "Generates the coverage build" ON)
+option(ENABLE_COVERAGE "Generates the coverage build" OFF)
 option(ENABLE_DOCTESTS "Include tests in the library. Setting this to OFF will remove all doctest related code.
                         Tests in tests/*.cpp will still be enabled." OFF)
 
