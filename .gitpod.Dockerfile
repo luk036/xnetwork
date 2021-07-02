@@ -70,11 +70,6 @@ RUN /opt/conda/bin/conda install -y -c conda-forge \
     pandoc-crossref \
     pandoc
 
-RUN /opt/conda/bin/pip install \
-    cppclean \
-    pyprof2calltree \
-    lolcat
-
 RUN chown -R gitpod:gitpod /opt/conda \
     && chmod -R 777 /opt/conda \
     && chown -R gitpod:gitpod /home/gitpod/.conda \
