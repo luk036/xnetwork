@@ -110,6 +110,7 @@ set (LIBRARY_INCLUDE_PATH  ${LIBRARY_INCLUDE_PATH} ${Boost_INCLUDE_DIRS})
 if(ENABLE_COVERAGE)
     set(CMAKE_BUILD_TYPE "Coverage")
     include(CodeCoverage)
+    setup_target_for_coverage(${PROJECT_NAME}_coverage ${PROJECT_NAME}_test coverage)
     # setup_target_for_coverage(${PROJECT_NAME}_coverage ${PROJECT_NAME}_test coverage)
 endif()
 
