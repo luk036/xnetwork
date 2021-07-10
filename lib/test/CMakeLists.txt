@@ -35,4 +35,4 @@ enable_testing()
 add_test (NAME ${TEST_MAIN} COMMAND ${TEST_MAIN} ${TEST_RUNNER_PARAMS})
 
 # Adds a 'coverage' target.
-include(CodeCoverage)
+# include(CodeCoverage)
